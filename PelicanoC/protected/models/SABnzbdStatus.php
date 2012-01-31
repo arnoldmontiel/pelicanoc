@@ -50,19 +50,18 @@ class SABnzbdStatus extends CModel
 	public function attributeLabels()
 	{
 		return array(
-				'have_warnings' => 'Have Warnings',
-				'timeleft' => 'Time Left',
-				'mb' => 'MB',		
-				'noofslots' => 'Noof Slots',		
-				'paused' => 'Paused',		
-				'pause_int' => 'Pause Int',		
-				'state' => 'State',		
-				'loadavg' => 'Loadavg',		
-				'mbleft' => 'MB Left',
-				'diskspace2' => 'Disk Space',
-				'diskspace1' => 'Disk Space',
-				'kbpersec' => 'KB/s',
-		
+			'have_warnings' => 'Have Warnings',
+			'timeleft' => 'Time Left',
+			'mb' => 'MB',		
+			'noofslots' => 'Noof Slots',		
+			'paused' => 'Paused',		
+			'pause_int' => 'Pause Int',		
+			'state' => 'State',		
+			'loadavg' => 'Loadavg',		
+			'mbleft' => 'MB Left',
+			'diskspace2' => 'Disk Space',
+			'diskspace1' => 'Disk Space',
+			'kbpersec' => 'KB/s',		
 		);
 	}
 	/**
@@ -76,7 +75,6 @@ class SABnzbdStatus extends CModel
 	}
 	/**
 	* PHP getter magic method.
-	* This method is overridden so that AR attributes can be accessed like properties.
 	* @param string $name property name
 	* @return mixed property value
 	* @see getAttribute
@@ -90,7 +88,6 @@ class SABnzbdStatus extends CModel
 	
 	/**
 	 * PHP setter magic method.
-	 * This method is overridden so that AR attributes can be accessed like properties.
 	 * @param string $name property name
 	 * @param mixed $value property value
 	 */
