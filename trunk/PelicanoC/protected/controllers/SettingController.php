@@ -1,6 +1,6 @@
 <?php
 
-class NzbController extends Controller
+class SettingController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -27,6 +27,18 @@ class NzbController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
@@ -49,14 +61,14 @@ class NzbController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Nzb;
+		$model=new Setting;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Nzb']))
+		if(isset($_POST['Setting']))
 		{
-			$model->attributes=$_POST['Nzb'];
+			$model->attributes=$_POST['Setting'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
@@ -78,9 +90,9 @@ class NzbController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Nzb']))
+		if(isset($_POST['Setting']))
 		{
-			$model->attributes=$_POST['Nzb'];
+			$model->attributes=$_POST['Setting'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
@@ -115,55 +127,10 @@ class NzbController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//update from NZB server
-		$this->updateFromServer();
-		//
-		$dataProvider=new CActiveDataProvider('Nzb');
+		$dataProvider=new CActiveDataProvider('Setting');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
-	}
-	public function updateFromServer()
-	{
-		
-		$pelicanoCliente = new Pelicano;
-		$criteria = new CDbCriteria();
-		$criteria->select='max(Id) as Id';
-		$nzbModel = new Nzb;
-		$lastNzb = Nzb::model()->find($criteria);
-		$array = $pelicanoCliente->getNextNZBs($lastNzb->Id==null?0:$lastNzb->Id);
-		foreach ($array as $nzb) {
-			try {
-				$model=new Nzb;
-					
-				$model->Id = $nzb->Id;
-				$model->file_name = $nzb->file_name;
-				$model->url = $nzb->url;
-				$model->description = $nzb->description;
-					
-				$content = file_get_contents($nzb->url);
-				if ($content !== false) {
-					$file = fopen("./nzb/".$nzb->file_name, 'w');
-					fwrite($file,$content);
-					fclose($file);
-				} else {
-					// an error happened
-				}
-				$model->subt_file_name = $nzb->subt_file_name;
-				$content = file_get_contents($nzb->subt_url);
-				if ($content !== false) {
-					$file = fopen("./subtitles/".$nzb->subt_file_name, 'w');
-					fwrite($file,$content);
-					fclose($file);
-				} else {
-					// an error happened
-				}
-				
-				$model->save();
-				
-			} catch (Exception $e) {
-			}
-		}		
 	}
 
 	/**
@@ -171,10 +138,10 @@ class NzbController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Nzb('search');
+		$model=new Setting('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Nzb']))
-			$model->attributes=$_GET['Nzb'];
+		if(isset($_GET['Setting']))
+			$model->attributes=$_GET['Setting'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -188,7 +155,7 @@ class NzbController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Nzb::model()->findByPk($id);
+		$model=Setting::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -200,7 +167,7 @@ class NzbController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='nzb-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='setting-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

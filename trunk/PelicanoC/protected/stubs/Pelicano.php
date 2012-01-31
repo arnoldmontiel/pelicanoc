@@ -13,6 +13,8 @@ public $Id; //integer;
 public $description; //string;
 public $url; //string;
 public $file_name; //string;
+public $subt_url; //string;
+public $subt_file_name; //string;
 }
 
 /**
@@ -27,9 +29,9 @@ class Pelicano
 
 );
 
-function __construct($url='http://192.168.100.102/workspace/PelicanoS/index.php?r=nzb/quote')
+function __construct($url='http://192.168.100.102/workspace/PelicanoS/index.php?r=nzb/wsdl')
 {
-$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
+	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 }
 
 
