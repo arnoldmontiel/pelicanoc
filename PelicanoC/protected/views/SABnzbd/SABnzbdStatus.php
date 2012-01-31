@@ -41,10 +41,7 @@ $this->breadcrumbs=array(
 				array('name' => 'MB Left','type' => 'raw','value' => 'CHtml::encode($data["mbleft"])'),
 				array('name' => 'MB Left',
 					'value' => '$this->widget("zii.widgets.jui.CJuiProgressBar", array(
-								"value"=>($data["mbleft"]/$data["mb"])*100,
-									"htmlOptions"=>array(
-										"style"=>"height:20px;"
-									),
+								"value"=>(20),
 								),
 							)')
 							,		
@@ -52,4 +49,24 @@ $this->breadcrumbs=array(
 	));
 	?>
 
+
+	<?php
+	$this->beginWidget("zii.widgets.jui.CJuiProgressBar", array(
+									"value"=>(20),
+	)
+	);
+	//$this->endWidget();
+	$this->widget('zii.widgets.grid.CGridView', 
+		array(
+			'dataProvider' => $arrayDataProvider,
+			'columns' => array(
+				array('name' => 'File Name','type' => 'raw','value' => 'CHtml::encode($data["filename"])'),
+				array('name' => 'MB','type' => 'raw','value' => 'CHtml::encode($data["mb"])'),
+				array('name' => 'MB Left','type' => 'raw','value' => 'CHtml::encode($data["mbleft"])'),
+				array('name' => 'MB Left',
+					'value' => $this->endWidget())
+							,		
+		)
+	));
+	?>
 	
