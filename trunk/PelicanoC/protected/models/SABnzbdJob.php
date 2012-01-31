@@ -57,7 +57,7 @@ class SABnzbdJob extends CModel
 	public function __get($name)
 	{
 		if(isset($this->_attributes[$name]))
-		return $this->_attributes[$name];
+			return $this->_attributes[$name];
 		return parent::__get($name);
 	}
 	
@@ -85,11 +85,11 @@ class SABnzbdJob extends CModel
 	public function setAttribute($name,$value)
 	{
 		if(property_exists($this,$name))
-		$this->$name=$value;
+			$this->$name=$value;
 		else if(isset($this->_attributes[$name]))
-		$this->_attributes[$name]=$value;
+			$this->_attributes[$name]=$value;
 		else
-		return false;
+			return false;
 		return true;
 	}
 	

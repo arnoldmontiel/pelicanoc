@@ -4,7 +4,7 @@ $this->breadcrumbs=array(
 	'SABnzbdStatus',
 );?>
 <?php 
-	$this->widget('zii.widgets.jui.CJuiProgressBar', array(
+	$this->createWidget('zii.widgets.jui.CJuiProgressBar', array(
 		'value'=>($modelStatus->mbleft/$modelStatus->mb)*100,
 		// additional javascript options for the progress bar plugin
 		'options'=>array(
@@ -31,16 +31,25 @@ $this->breadcrumbs=array(
 
 	
 	<?php
-	foreach($modelStatus->jobs as $job)
-	{
-		 $this->widget('zii.widgets.CDetailView', array(
-			'data'=>$job,
-			'attributes'=>array(
-				'filename',
-				'mb',
-				'mbleft',
-			),
-		)); 
-	}?>
+	
+	$this->widget('zii.widgets.grid.CGridView', 
+		array(
+			'dataProvider' => $arrayDataProvider,
+			'columns' => array(
+				array('name' => 'File Name','type' => 'raw','value' => 'CHtml::encode($data["filename"])'),
+				array('name' => 'MB','type' => 'raw','value' => 'CHtml::encode($data["mb"])'),
+				array('name' => 'MB Left','type' => 'raw','value' => 'CHtml::encode($data["mbleft"])'),
+				array('name' => 'MB Left',
+					'value' => '$this->widget("zii.widgets.jui.CJuiProgressBar", array(
+								"value"=>($data["mbleft"]/$data["mb"])*100,
+									"htmlOptions"=>array(
+										"style"=>"height:20px;"
+									),
+								),
+							)')
+							,		
+		)
+	));
+	?>
 
 	

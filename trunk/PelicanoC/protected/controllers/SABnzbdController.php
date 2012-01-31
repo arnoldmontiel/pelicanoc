@@ -7,7 +7,13 @@ class SABnzbdController extends Controller
 		$sABnzbdStatus= new SABnzbdStatus();
 		$sABnzbdStatus->getStatus();
 		
-		$this->render('SABnzbdStatus',array('modelStatus'=>$sABnzbdStatus));
+		$arrayDataProvider=new CArrayDataProvider($sABnzbdStatus->jobs,
+			array(
+				'pagination'=>array('pageSize'=>10,)
+			)
+		);
+		
+		$this->render('SABnzbdStatus',array('modelStatus'=>$sABnzbdStatus,'arrayDataProvider'=>$arrayDataProvider));
 		
 	}
 	
