@@ -2,7 +2,24 @@
 $this->breadcrumbs=array(
 	'SABnzbd'=>array('/sABnzbd'),
 	'SABnzbdStatus',
-);?>
+);
+
+Yii::app()->clientScript->registerScript('sabnzbdstatus', "
+setInterval(function() {
+    $.fn.yiiGridView.update('jobs-grid', {
+			data: $(this).serialize()
+		});
+	
+// 	$.get('".SABnzbdController::createUrl('RefreshHeader')."'
+// 				).success(
+// 					function(data) 
+// 					{
+// 						$('#headerData').html(data);
+// 					}
+// 				);
+}, 5000)
+");
+?>
 <?php 
 	$this->widget('zii.widgets.jui.CJuiProgressBar', array(
 		'value'=>(($modelStatus->mb-$modelStatus->mbleft)/($modelStatus->mb==0?1:$modelStatus->mb))*100,
@@ -17,6 +34,7 @@ $this->breadcrumbs=array(
 ?>
 	<?php $this->widget('zii.widgets.CDetailView', array(
 		'data'=>$modelStatus,
+		'id'=>'headerData',
 		'attributes'=>array(
 			'have_warnings',
 			'timeleft',
@@ -27,7 +45,9 @@ $this->breadcrumbs=array(
 			'pause_int',
 			'state',
 		),
-	)); ?>
+	)); 
+
+	?>
 
 
 	<?php
@@ -35,6 +55,9 @@ $this->breadcrumbs=array(
 		array(
 			'id'=>'jobs-grid',
 			'dataProvider' => $arrayDataProvider,
+			'afterAjaxUpdate'=>'function(id, data){
+							createProgressBars();
+						}',
 			'columns' => array(
 				array('name' => 'File Name','type' => 'raw','value' => 'CHtml::encode($data["filename"])'),
 				array('name' => 'MB','type' => 'raw','value' => 'CHtml::encode(round($data["mb"],2))','htmlOptions'=>array('style'=>'text-align: right;')),

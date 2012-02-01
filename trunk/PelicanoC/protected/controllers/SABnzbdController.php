@@ -17,6 +17,14 @@ class SABnzbdController extends Controller
 		
 	}
 	
+	public function actionRefreshHeader()
+	{
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();
+	
+		$this->render('SABnzbdStatus',array('modelStatus'=>$sABnzbdStatus));
+	
+	}
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
