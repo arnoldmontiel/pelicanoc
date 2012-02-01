@@ -125,41 +125,56 @@ class NzbController extends Controller
 	}
 	public function updateFromServer()
 	{
-		
+		$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
-		$criteria = new CDbCriteria();
-		$criteria->select='max(Id) as Id';
-		$nzbModel = new Nzb;
-		$lastNzb = Nzb::model()->find($criteria);
-		$array = $pelicanoCliente->getNextNZBs($lastNzb->Id==null?0:$lastNzb->Id);
-		foreach ($array as $nzb) {
+		$MovieResponseArray = $pelicanoCliente->getNewMovies($setting->Id_customer);
+		foreach ($MovieResponseArray as $movie) {
 			try {
-				$model=new Nzb;
-					
-				$model->Id = $nzb->Id;
-				$model->file_name = $nzb->file_name;
-				$model->url = $nzb->url;
-				$model->description = $nzb->description;
-					
-				$content = file_get_contents($nzb->url);
-				if ($content !== false) {
-					$file = fopen("./nzb/".$nzb->file_name, 'w');
-					fwrite($file,$content);
-					fclose($file);
-				} else {
-					// an error happened
-				}
-				$model->subt_file_name = $nzb->subt_file_name;
-				$content = file_get_contents($nzb->subt_url);
-				if ($content !== false) {
-					$file = fopen("./subtitles/".$nzb->subt_file_name, 'w');
-					fwrite($file,$content);
-					fclose($file);
-				} else {
-					// an error happened
-				}
+				$modelNzb = new Nzb;
+				$modelImdbdata=new Imdbdata;
+
 				
-				$model->save();
+				$nzbAttr = $modelNzb->attributes;
+				while(current($nzbAttr)!==False)
+				{
+					$attrName= key($nzbAttr);
+					$modelNzb->setAttribute($attrName, $movie->$attrName);
+					next($nzbAttr);
+				}				
+				
+				$imdbdataAttr = $modelImdbdata->attributes;
+				while(current($imdbdataAttr)!==False)
+				{					
+					$attrName= key($imdbdataAttr);
+					$modelImdbdata->setAttribute($attrName, $movie->$attrName);
+					next($imdbdataAttr);
+				}
+				$validator = new CUrlValidator();
+				
+				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$modelNzb->url))
+				{
+					$content = file_get_contents($setting->host_name.$modelNzb->url);
+					if ($content !== false) {
+						$file = fopen("./nzb/".$modelNzb->file_name, 'w');
+						fwrite($file,$content);
+						fclose($file);
+					} else {
+						// an error happened
+					}
+				}
+				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$modelNzb->subt_url))
+				{
+					$content = file_get_contents($setting->host_name.$modelNzb->subt_url);
+					if ($content !== false) {
+						$file = fopen("./subtitles/".$modelNzb->subt_file_name, 'w');
+						fwrite($file,$content);
+						fclose($file);
+					} else {
+						// an error happened
+					}
+				}
+				$modelImdbdata->save();
+				$modelNzb->save();
 				
 			} catch (Exception $e) {
 			}

@@ -7,14 +7,28 @@
 
 
 
-class SNzb
+class MovieResponse
 {
 public $Id; //integer;
-public $description; //string;
 public $url; //string;
 public $file_name; //string;
 public $subt_url; //string;
 public $subt_file_name; //string;
+public $ID; //string;
+public $Title; //string;
+public $Year; //string;
+public $Rated; //string;
+public $Released; //string;
+public $Genre; //string;
+public $Director; //string;
+public $Writer; //string;
+public $Actors; //string;
+public $Plot; //string;
+public $Poster; //string;
+public $Runtime; //string;
+public $Rating; //string;
+public $Votes; //string;
+public $Response; //string;
 }
 
 /**
@@ -25,20 +39,20 @@ class Pelicano
 	public $soapClient;
 
 	private static $classmap = array(
-		'SNzb'=>'SNzb',
+		'MovieResponse'=>'MovieResponse',
 
 );
 
-function __construct($url='http://192.168.100.102/workspace/PelicanoS/index.php?r=nzb/wsdl')
+function __construct($url='http://192.168.100.105/workspace/PelicanoS/index.php?r=nzb/wsdl')
 {
-	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
+$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 }
 
 
-function getNextNZBs($integer)
+function getNewMovies($integer)
 {
-	$SNzbArray = $this->soapClient->getNextNZBs($integer);
-	return $SNzbArray;
+	$MovieResponseArray = $this->soapClient->getNewMovies($integer);
+	return $MovieResponseArray;
 }
 }
 

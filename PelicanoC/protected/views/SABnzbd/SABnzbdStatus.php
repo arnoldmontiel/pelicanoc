@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 	'SABnzbdStatus',
 );?>
 <?php 
-	$this->createWidget('zii.widgets.jui.CJuiProgressBar', array(
-		'value'=>($modelStatus->mbleft/$modelStatus->mb)*100,
+	$this->widget('zii.widgets.jui.CJuiProgressBar', array(
+		'value'=>(($modelStatus->mb-$modelStatus->mbleft)/($modelStatus->mb==0?1:$modelStatus->mb))*100,
 		// additional javascript options for the progress bar plugin
 		'options'=>array(
 			'change'=>'js:function(event, ui) {}',
@@ -29,44 +29,37 @@ $this->breadcrumbs=array(
 		),
 	)); ?>
 
-	
+
 	<?php
-	
 	$this->widget('zii.widgets.grid.CGridView', 
 		array(
+			'id'=>'jobs-grid',
 			'dataProvider' => $arrayDataProvider,
 			'columns' => array(
 				array('name' => 'File Name','type' => 'raw','value' => 'CHtml::encode($data["filename"])'),
-				array('name' => 'MB','type' => 'raw','value' => 'CHtml::encode($data["mb"])'),
-				array('name' => 'MB Left','type' => 'raw','value' => 'CHtml::encode($data["mbleft"])'),
-				array('name' => 'MB Left',
-					'value' => '$this->widget("zii.widgets.jui.CJuiProgressBar", array(
-								"value"=>(20),
-								),
-							)')
+				array('name' => 'MB','type' => 'raw','value' => 'CHtml::encode(round($data["mb"],2))','htmlOptions'=>array('style'=>'text-align: right;')),
+				array('name' => 'MB Left','type' => 'raw','value' => 'CHtml::encode(round($data["mbleft"],2))','htmlOptions'=>array('style'=>'text-align: right;')),
+				array('name' => 'Status','type' => 'raw',
+					'value' => 'CHtml::openTag("div",array("id"=>"progressbar"))')
 							,		
 		)
 	));
 	?>
-
-
+	
 	<?php
-	$this->beginWidget("zii.widgets.jui.CJuiProgressBar", array(
-									"value"=>(20),
-	)
-	);
-	//$this->endWidget();
-	$this->widget('zii.widgets.grid.CGridView', 
-		array(
-			'dataProvider' => $arrayDataProvider,
-			'columns' => array(
-				array('name' => 'File Name','type' => 'raw','value' => 'CHtml::encode($data["filename"])'),
-				array('name' => 'MB','type' => 'raw','value' => 'CHtml::encode($data["mb"])'),
-				array('name' => 'MB Left','type' => 'raw','value' => 'CHtml::encode($data["mbleft"])'),
-				array('name' => 'MB Left',
-					'value' => $this->endWidget())
-							,		
-		)
-	));
+Yii::app()->clientScript->registerScript(__CLASS__.'#SABnzbdStatus', "
+	//$('#progress_').progressbar({'value': 37});
+	createProgressBars();
+	function createProgressBars()
+	{
+        $('#jobs-grid > table > tbody > tr').each(function(i)
+        {
+        	var mbleft = $($.fn.yiiGridView.getRow('jobs-grid',i.toString())[2]).text();
+        	var mb = $($.fn.yiiGridView.getRow('jobs-grid',i.toString())[1]).text();
+			$.fn.yiiGridView.getRow('jobs-grid',i.toString()).find('#progressbar').progressbar({'value': ((mb-mbleft)/mb)*100});
+        });
+	}	
+
+");
 	?>
 	
