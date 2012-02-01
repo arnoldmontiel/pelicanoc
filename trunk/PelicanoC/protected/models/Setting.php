@@ -9,6 +9,7 @@
  * @property integer $Id_customer
  * @property string $sabnzb_api_key
  * @property string $sabnzb_api_url
+ * @property string $host_name
  */
 class Setting extends CActiveRecord
 {
@@ -52,10 +53,10 @@ class Setting extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer', 'numerical', 'integerOnly'=>true),
-			array('shared_path, sabnzb_api_key, sabnzb_api_url', 'length', 'max'=>255),
+			array('shared_path, sabnzb_api_key, sabnzb_api_url, host_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, shared_path, Id_customer, sabnzb_api_key, sabnzb_api_url', 'safe', 'on'=>'search'),
+			array('Id, shared_path, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class Setting extends CActiveRecord
 			'Id_customer' => 'Id Customer',
 			'sabnzb_api_key' => 'Sabnzb Api Key',
 			'sabnzb_api_url' => 'Sabnzb Api Url',
+			'host_name' => 'Host Name',
 		);
 	}
 
@@ -100,6 +102,7 @@ class Setting extends CActiveRecord
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('sabnzb_api_key',$this->sabnzb_api_key,true);
 		$criteria->compare('sabnzb_api_url',$this->sabnzb_api_url,true);
+		$criteria->compare('host_name',$this->host_name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
