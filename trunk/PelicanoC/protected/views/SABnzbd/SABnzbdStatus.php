@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/detail-view-blue.css" />
 <?php
 $this->breadcrumbs=array(
 	'SABnzbd'=>array('/sABnzbd'),
@@ -10,14 +11,14 @@ setInterval(function() {
 			data: $(this).serialize()
 		});
 	
-// 	$.get('".SABnzbdController::createUrl('RefreshHeader')."'
-// 				).success(
-// 					function(data) 
-// 					{
-// 						$('#headerData').html(data);
-// 					}
-// 				);
-}, 5000)
+	$.get('".SABnzbdController::createUrl('RefreshHeader')."'
+				).success(
+					function(data) 
+					{
+						$('#headerData').html(data);
+					}
+				);
+}, 55000)
 ");
 ?>
 <?php 
@@ -28,27 +29,12 @@ setInterval(function() {
 			'change'=>'js:function(event, ui) {}',
 		),
 		'htmlOptions'=>array(
-			'style'=>'height:20px;'
+			'style'=>'display:none;'
 		),
 	));
 ?>
-	<?php $this->widget('zii.widgets.CDetailView', array(
-		'data'=>$modelStatus,
-		'id'=>'headerData',
-		'attributes'=>array(
-			'have_warnings',
-			'timeleft',
-			'mb',
-			'mbleft',
-			'noofslots',
-			'paused',
-			'pause_int',
-			'state',
-		),
-	)); 
 
-	?>
-
+	<div id="headerData"><?php echo $headerData ?></div>
 
 	<?php
 	$this->widget('zii.widgets.grid.CGridView', 
@@ -71,7 +57,6 @@ setInterval(function() {
 	
 	<?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#SABnzbdStatus', "
-	//$('#progress_').progressbar({'value': 37});
 	createProgressBars();
 	function createProgressBars()
 	{
