@@ -117,4 +117,14 @@ class SABnzbdStatus extends CModel
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @see CModel::getAttributes()
+	 * @return attributes array
+	 */
+	public function getAttributes()
+	{
+		return $this->_attributes;
+	}
+	
 }
