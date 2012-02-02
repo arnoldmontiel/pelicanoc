@@ -38,8 +38,11 @@ class ImdbdataController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = Nzb::model()->findByPk($id); 
+		//$modelImdbdata = $this->loadModel($id);
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
+			'modelImdbdata'=>$model->imdbdata,
 		));
 	}
 
@@ -115,7 +118,7 @@ class ImdbdataController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Imdbdata');
+		$dataProvider=new CActiveDataProvider('Nzb');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -126,11 +129,12 @@ class ImdbdataController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Imdbdata('search');
+		$model=new Nzb('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Imdbdata']))
-			$model->attributes=$_GET['Imdbdata'];
-
+		
+		if(isset($_GET['Nzb']))
+			$model->attributes=$_GET['Nzb'];
+		
 		$this->render('admin',array(
 			'model'=>$model,
 		));
@@ -148,6 +152,29 @@ class ImdbdataController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+
+	public function actionAjaxStartDownload()
+	{
+		if(isset($_POST['id_nzb']))		
+		{
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			if(!$nzb->downloaded)
+			{
+				$setting = Setting::getInstance();
+				try 
+				{
+					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
+					{
+						$nzb->downloaded = true;
+						$nzb->save();						
+					}
+				}
+				 catch (Exception $e) 
+				{
+				}
+			}
+		}
+	}	
 
 	/**
 	 * Performs the AJAX validation.

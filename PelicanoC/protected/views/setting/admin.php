@@ -43,10 +43,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'Id',
-		'shared_path',
+		'path_pending',
 		'Id_customer',
 		'sabnzb_api_key',
 		'sabnzb_api_url',
+		'host_name',
+		/*
+		'path_ready',
+		'path_subtitle',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),
