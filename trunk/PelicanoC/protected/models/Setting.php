@@ -5,11 +5,13 @@
  *
  * The followings are the available columns in table 'setting':
  * @property integer $Id
- * @property string $shared_path
+ * @property string $path_pending
  * @property integer $Id_customer
  * @property string $sabnzb_api_key
  * @property string $sabnzb_api_url
  * @property string $host_name
+ * @property string $path_ready
+ * @property string $path_subtitle
  */
 class Setting extends CActiveRecord
 {
@@ -53,10 +55,10 @@ class Setting extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer', 'numerical', 'integerOnly'=>true),
-			array('shared_path, sabnzb_api_key, sabnzb_api_url, host_name', 'length', 'max'=>255),
+			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name,path_ready,path_subtitle', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, shared_path, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name', 'safe', 'on'=>'search'),
+			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,path_ready,path_subtitle', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,11 +80,13 @@ class Setting extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'shared_path' => 'Shared Path',
+			'path_pending' => 'Path Pending',
 			'Id_customer' => 'Id Customer',
 			'sabnzb_api_key' => 'Sabnzb Api Key',
 			'sabnzb_api_url' => 'Sabnzb Api Url',
 			'host_name' => 'Host Name',
+			'path_ready' => 'Path Ready',
+			'path_subtitle' => 'Path Subtitle',
 		);
 	}
 
@@ -98,12 +102,14 @@ class Setting extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
-		$criteria->compare('shared_path',$this->shared_path,true);
+		$criteria->compare('path_pending',$this->path_pending,true);
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('sabnzb_api_key',$this->sabnzb_api_key,true);
 		$criteria->compare('sabnzb_api_url',$this->sabnzb_api_url,true);
 		$criteria->compare('host_name',$this->host_name,true);
-
+		$criteria->compare('path_ready',$this->path_ready,true);
+		$criteria->compare('path_subtitle',$this->path_subtitle,true);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

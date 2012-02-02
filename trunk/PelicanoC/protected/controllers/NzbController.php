@@ -116,7 +116,7 @@ class NzbController extends Controller
 	public function actionIndex()
 	{
 		//update from NZB server
-		$this->updateFromServer();
+		//$this->updateFromServer();
 		//
 		$dataProvider=new CActiveDataProvider('Nzb');
 		$this->render('index',array(
@@ -155,7 +155,7 @@ class NzbController extends Controller
 				{
 					$content = file_get_contents($setting->host_name.$modelNzb->url);
 					if ($content !== false) {
-						$file = fopen("./nzb/".$modelNzb->file_name, 'w');
+						$file = fopen($setting->path_pending.$modelNzb->file_name, 'w');
 						fwrite($file,$content);
 						fclose($file);
 					} else {
@@ -166,7 +166,7 @@ class NzbController extends Controller
 				{
 					$content = file_get_contents($setting->host_name.$modelNzb->subt_url);
 					if ($content !== false) {
-						$file = fopen("./subtitles/".$modelNzb->subt_file_name, 'w');
+						$file = fopen($setting->path_subtitle.$modelNzb->subt_file_name, 'w');
 						fwrite($file,$content);
 						fclose($file);
 					} else {

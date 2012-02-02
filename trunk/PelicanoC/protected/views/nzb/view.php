@@ -13,7 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Nzb #<?php echo $model->Id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

@@ -63,7 +63,7 @@ class Nzb extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idImdbData' => array(self::BELONGS_TO, 'Imdbdata', 'Id_imdbData'),
+			'imdbdata' => array(self::BELONGS_TO, 'Imdbdata', 'Id_imdbData'),
 		);
 	}
 

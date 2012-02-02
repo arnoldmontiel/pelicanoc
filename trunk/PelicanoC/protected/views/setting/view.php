@@ -19,9 +19,12 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'Id',
-		'shared_path',
+		'path_pending',
 		'Id_customer',
 		'sabnzb_api_key',
 		'sabnzb_api_url',
+		'host_name',
+		'path_ready',
+		'path_subtitle',
 	),
 )); ?>
