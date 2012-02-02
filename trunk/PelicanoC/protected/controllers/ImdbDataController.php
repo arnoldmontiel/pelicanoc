@@ -118,6 +118,8 @@ class ImdbdataController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$this->updateFromServer();
+		
 		$dataProvider=new CActiveDataProvider('Nzb');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -167,6 +169,15 @@ class ImdbdataController extends Controller
 					{
 						$nzb->downloaded = true;
 						$nzb->save();						
+
+						//we send the new state to the server 
+						$pelicanoCliente = new Pelicano;
+						$request= new MovieStateRequest;
+						$request->id_customer = $setting->Id_customer;
+						$request->id_movie =$nzb->Id;
+						$request->id_state =2;
+						$status = $pelicanoCliente->setMovieState($request);
+						
 					}
 				}
 				 catch (Exception $e) 
@@ -175,7 +186,81 @@ class ImdbdataController extends Controller
 			}
 		}
 	}	
-
+	public function updateFromServer()
+	{
+		$setting = Setting::getInstance();
+		$pelicanoCliente = new Pelicano;
+		$MovieResponseArray = $pelicanoCliente->getNewMovies($setting->Id_customer);
+		foreach ($MovieResponseArray as $movie) {
+			try {
+				$modelNzb = Nzb::model()->findByPk($movie->Id);
+				if(!isset($modelNzb))
+				{
+					$modelNzb = new Nzb;					
+				}
+				$modelImdbdata = Imdbdata::model()->findByPk($movie->ID);
+				if(!isset($modelImdbdata))
+				{
+					$modelImdbdata=new Imdbdata;						
+				}			
+	
+				$nzbAttr = $modelNzb->attributes;
+				while(current($nzbAttr)!==False)
+				{
+					$attrName= key($nzbAttr);
+					$modelNzb->setAttribute($attrName, $movie->$attrName);
+					next($nzbAttr);
+				}
+	
+				$imdbdataAttr = $modelImdbdata->attributes;
+				while(current($imdbdataAttr)!==False)
+				{
+					$attrName= key($imdbdataAttr);
+					$modelImdbdata->setAttribute($attrName, $movie->$attrName);
+					next($imdbdataAttr);
+				}
+				$validator = new CUrlValidator();
+	
+				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$modelNzb->url))
+				{
+					$content = file_get_contents($setting->host_name.$modelNzb->url);
+					if ($content !== false) {
+						$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
+						fwrite($file,$content);
+						fclose($file);
+					} else {
+						// an error happened
+					}
+				}
+				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$modelNzb->subt_url))
+				{
+					$content = file_get_contents($setting->host_name.$modelNzb->subt_url);
+					if ($content !== false) {
+						$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
+						fwrite($file,$content);
+						fclose($file);
+					} else {
+						// an error happened
+					}
+				}
+				$modelImdbdata->save();
+				$modelNzb->Id_imdbData = $modelImdbdata->ID;
+				if($modelNzb->save())
+				{
+					//we send the new state to the server
+					$pelicanoCliente = new Pelicano;
+					$request= new MovieStateRequest;
+					$request->id_customer = $setting->Id_customer;
+					$request->id_movie =$modelNzb->Id;
+					$request->id_state =1;
+					$status = $pelicanoCliente->setMovieState($request);						
+				}
+					
+			} catch (Exception $e) {
+			}
+		}
+	}
+	
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
