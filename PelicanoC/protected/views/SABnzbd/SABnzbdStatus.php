@@ -18,7 +18,7 @@ setInterval(function() {
 						$('#headerData').html(data);
 					}
 				);
-}, 55000)
+}, 5000)
 ");
 ?>
 <?php 

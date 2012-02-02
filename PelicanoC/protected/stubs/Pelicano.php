@@ -31,6 +31,13 @@ public $Votes; //string;
 public $Response; //string;
 }
 
+class MovieStateRequest
+{
+public $id_customer; //integer;
+public $id_movie; //integer;
+public $id_state; //integer;
+}
+
 /**
 * The soap client proxy class
 */
@@ -40,10 +47,11 @@ class Pelicano
 
 	private static $classmap = array(
 		'MovieResponse'=>'MovieResponse',
+		'MovieStateRequest'=>'MovieStateRequest',
 
 );
 
-function __construct($url='http://192.168.100.105/workspace/PelicanoS/index.php?r=nzb/wsdl')
+function __construct($url='http://192.168.100.106/workspace/PelicanoS/index.php?r=nzb/wsdl')
 {
 $this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 }
@@ -53,6 +61,13 @@ function getNewMovies($integer)
 {
 	$MovieResponseArray = $this->soapClient->getNewMovies($integer);
 	return $MovieResponseArray;
+}
+
+function setMovieState($MovieStateRequest)
+{
+	//$boolean = $this->soapClient->setMovieState(array($MovieStateRequest->id_customer,$MovieStateRequest->id_movie,$MovieStateRequest->id_state));
+	$boolean = $this->soapClient->__call("setMovieState", array($MovieStateRequest->id_customer,$MovieStateRequest->id_movie,$MovieStateRequest->id_state));
+	return $boolean;
 }
 }
 

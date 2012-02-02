@@ -116,7 +116,7 @@ class NzbController extends Controller
 	public function actionIndex()
 	{
 		//update from NZB server
-		//$this->updateFromServer();
+		$this->updateFromServer();
 		//
 		$dataProvider=new CActiveDataProvider('Nzb');
 		$this->render('index',array(
@@ -174,6 +174,7 @@ class NzbController extends Controller
 					}
 				}
 				$modelImdbdata->save();
+				$modelNzb->Id_imdbData = $modelImdbdata->ID;
 				$modelNzb->save();
 				
 			} catch (Exception $e) {
