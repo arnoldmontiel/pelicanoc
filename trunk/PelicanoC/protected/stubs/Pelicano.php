@@ -51,7 +51,7 @@ class Pelicano
 
 );
 
-function __construct($url='http://192.168.100.106/workspace/PelicanoS/index.php?r=nzb/wsdl')
+function __construct($url='http://192.168.1.104/workspace/PelicanoS/index.php?r=nzb/wsdl')
 {
 $this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 }

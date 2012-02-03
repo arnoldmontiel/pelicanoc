@@ -2,6 +2,19 @@
 
 class SABnzbdController extends Controller
 {
+	public function actions()
+	{
+		// return external action classes, e.g.:
+		return array(
+			'wsdl'=>array(
+				'class'=>'CWebServiceAction',
+				'classMap'=>array(
+					'MovieResponse'=>'MovieResponse',  // or simply 'Post'
+				),
+			),		
+		);
+	}
+	
 	public function actionIndex()
 	{
 		$sABnzbdStatus= new SABnzbdStatus();
@@ -80,16 +93,5 @@ class SABnzbdController extends Controller
 		);
 	}
 
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
 	*/
 }

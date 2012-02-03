@@ -7,7 +7,59 @@ class NzbController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	public function actions()
+	{
+		// return external action classes, e.g.:
+		return array(
+				'wsdl'=>array(
+					'class'=>'CWebServiceAction',
+					'classMap'=>array(
+						'MovieStateResponse'=>'MovieStateResponse',
+				),
+			),
+		);
+	}
+	/**
+	* Returns the state of movies downloaded
+	 * @param integer Id_Customer
+	* @return MovieStateResponse[]
+	* @soap
+	*/
+	public function getMovieState($Id_Customer)
+	{
+		$arrayNbz = Nzb::model()->findAll();
+		$arrayResponse = array();
 
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();
+		
+		foreach ($arrayNbz as $modelNbz)
+		{
+			$movieResponse = new MovieResponse;
+			$movieResponse->setAttributes($modelNbz);
+			$arrayResponse[]=$movieResponse;
+				
+			$nzbCustomerDB = NzbCustomer::model()->findByPk(array('Id_nzb'=>$modelNbz->Id, 'Id_customer'=>$idCustomer));
+			if($nzbCustomerDB != null)
+			{
+				$nzbCustomerDB->need_update = 0;
+				$nzbCustomerDB->save();
+			}
+			else
+			{
+				$modelNzbCustomer = new NzbCustomer;
+	
+				$modelNzbCustomer->attributes = array(
+													'Id_nzb'=>$modelNbz->Id,
+													'Id_customer'=>$idCustomer
+				);
+				$modelNzbCustomer->save();
+			}
+		}
+	
+		return $arrayResponse;
+	}
+	
 	/**
 	 * @return array action filters
 	 */
