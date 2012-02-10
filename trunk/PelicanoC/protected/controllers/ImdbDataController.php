@@ -160,16 +160,22 @@ class ImdbdataController extends Controller
 		if(isset($_POST['id_nzb']))		
 		{
 			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
-			if(!$nzb->downloaded)
+			if(!$nzb->downloading)
 			{
 				$setting = Setting::getInstance();
 				try 
 				{
 					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
 					{
-						$nzb->downloaded = true;
+						$nzb->downloaded = 0;
+						$nzb->downloading = 1;
 						$nzb->save();						
-
+						
+						$nzbMovieState= new NzbMovieState;
+						$nzbMovieState->Id_nzb = $nzb->Id;
+						$nzbMovieState->Id_movie_state = 2;
+						$nzbMovieState->save();
+						
 						//we send the new state to the server 
 						$pelicanoCliente = new Pelicano;
 						$request= new MovieStateRequest;
@@ -208,7 +214,10 @@ class ImdbdataController extends Controller
 				while(current($nzbAttr)!==False)
 				{
 					$attrName= key($nzbAttr);
-					$modelNzb->setAttribute($attrName, $movie->$attrName);
+					if(isset($movie->$attrName))
+					{
+						$modelNzb->setAttribute($attrName, $movie->$attrName);						
+					}
 					next($nzbAttr);
 				}
 	
@@ -216,7 +225,10 @@ class ImdbdataController extends Controller
 				while(current($imdbdataAttr)!==False)
 				{
 					$attrName= key($imdbdataAttr);
-					$modelImdbdata->setAttribute($attrName, $movie->$attrName);
+					if(isset($movie->$attrName))
+					{
+						$modelImdbdata->setAttribute($attrName, $movie->$attrName);						
+					}
 					next($imdbdataAttr);
 				}
 				$validator = new CUrlValidator();
@@ -247,6 +259,11 @@ class ImdbdataController extends Controller
 				$modelNzb->Id_imdbData = $modelImdbdata->ID;
 				if($modelNzb->save())
 				{
+					$nzbMovieState= new NzbMovieState;
+					$nzbMovieState->Id_nzb = $modelNbz->Id;
+					$nzbMovieState->Id_movie_state = 1;
+					$nzbMovieState->save();
+						
 					//we send the new state to the server
 					$pelicanoCliente = new Pelicano;
 					$request= new MovieStateRequest;

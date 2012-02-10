@@ -17,7 +17,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.stubs.*',
-),
+	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
