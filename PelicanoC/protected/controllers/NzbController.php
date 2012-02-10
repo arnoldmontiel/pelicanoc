@@ -21,43 +21,52 @@ class NzbController extends Controller
 	}
 	/**
 	* Returns the state of movies downloaded
-	 * @param integer Id_Customer
+	* @param integer Id_Customer
 	* @return MovieStateResponse[]
 	* @soap
 	*/
 	public function getMovieState($Id_Customer)
 	{
-		$arrayNbz = Nzb::model()->findAll();
-		$arrayResponse = array();
+		$result = array();
+		//return $result;
+		
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('t.downloaded = 0 and t.downloading = 1 ');		
+		$arrayNbz = Nzb::model()->findAll($criteria);
 
 		$sABnzbdStatus= new SABnzbdStatus();
 		$sABnzbdStatus->getStatus();
+		$jobs =  $sABnzbdStatus->jobs;		
 		
 		foreach ($arrayNbz as $modelNbz)
 		{
-			$movieResponse = new MovieResponse;
-			$movieResponse->setAttributes($modelNbz);
-			$arrayResponse[]=$movieResponse;
+			$modelNbz->downloading = 0;
+			$modelNbz->downloaded = 1;
+			//if there is a job with this file then It´s still downloading
+			foreach ($jobs as $job) {
+				if(strpos($modelNbz->file_name,$job->filename)===false)
+				{
+					$modelNbz->downloading = 1;
+					$modelNbz->downloaded = 0;						
+				}
+			}
+			if($modelNbz->downloaded)
+			{
+				$nzbMovieState= NzbMovieState;
+				$nzbMovieState->Id_nzb = $modelNbz->Id;
+				$nzbMovieState->Id_movie_state = 3;
+				$nzbMovieState->save();
 				
-			$nzbCustomerDB = NzbCustomer::model()->findByPk(array('Id_nzb'=>$modelNbz->Id, 'Id_customer'=>$idCustomer));
-			if($nzbCustomerDB != null)
-			{
-				$nzbCustomerDB->need_update = 0;
-				$nzbCustomerDB->save();
+				$msResponse = new MovieStateResponse;
+				$msResponse->Id_customer = $Id_Customer;
+				$msResponse->Id_nzb = $modelNbz->Id;
+				$msResponse->Id_state = 3;//downloaded
+				$result[]=$msResponse;
 			}
-			else
-			{
-				$modelNzbCustomer = new NzbCustomer;
-	
-				$modelNzbCustomer->attributes = array(
-													'Id_nzb'=>$modelNbz->Id,
-													'Id_customer'=>$idCustomer
-				);
-				$modelNzbCustomer->save();
-			}
+			$modelNbz->save();							
 		}
 	
-		return $arrayResponse;
+		return $result;
 	}
 	
 	/**

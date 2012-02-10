@@ -2,18 +2,6 @@
 
 class SABnzbdController extends Controller
 {
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'wsdl'=>array(
-				'class'=>'CWebServiceAction',
-				'classMap'=>array(
-					'MovieResponse'=>'MovieResponse',  // or simply 'Post'
-				),
-			),		
-		);
-	}
 	
 	public function actionIndex()
 	{
@@ -90,6 +78,18 @@ class SABnzbdController extends Controller
 				'class'=>'path.to.FilterClass',
 				'propertyName'=>'propertyValue',
 			),
+		);
+	}
+	public function actions()
+	{
+		// return external action classes, e.g.:
+		return array(
+			'wsdl'=>array(
+				'class'=>'CWebServiceAction',
+				'classMap'=>array(
+					'MovieResponse'=>'MovieResponse',  // or simply 'Post'
+				),
+			),		
 		);
 	}
 

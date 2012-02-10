@@ -70,7 +70,10 @@ $this->menu=array(
 		 );
 	 ?>	
 	 <div id="started-display" style="display: none; ">
-	 	<img alt="Download Started" src="images/download_started.png">
+	 	<img alt="Download Started" src="images/downloading.png">
+	 </div>
+	 <div id="finish-display" style="display: none; ">
+	 	<img alt="Download Started" src="images/downloaded.png">
 	 </div>
 </div>
 	<?php
@@ -78,11 +81,15 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	ShowDownload();
 	function ShowDownload()
 	{
-		if('".$model->downloaded."'=='1')
+		if('".$model->downloading."'=='1')
 		{
 			$('#started-display').show();
 		}
-		else
+		else if('".$model->downloaded."'=='1')
+		{
+			$('#finish-display').show();
+		}
+		else 
 		{
 			$('#downloadButton').show();
 		}
