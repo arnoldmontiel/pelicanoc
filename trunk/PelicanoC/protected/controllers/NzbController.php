@@ -177,72 +177,13 @@ class NzbController extends Controller
 	public function actionIndex()
 	{
 		//update from NZB server
-		$this->updateFromServer();
+		//$this->updateFromServer();
 		//
 		$dataProvider=new CActiveDataProvider('Nzb');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
-	public function updateFromServer()
-	{
-		$setting = Setting::getInstance();
-		$pelicanoCliente = new Pelicano;
-		$MovieResponseArray = $pelicanoCliente->getNewMovies($setting->Id_customer);
-		foreach ($MovieResponseArray as $movie) {
-			try {
-				$modelNzb = new Nzb;
-				$modelImdbdata=new Imdbdata;
-
-				
-				$nzbAttr = $modelNzb->attributes;
-				while(current($nzbAttr)!==False)
-				{
-					$attrName= key($nzbAttr);
-					$modelNzb->setAttribute($attrName, $movie->$attrName);
-					next($nzbAttr);
-				}				
-				
-				$imdbdataAttr = $modelImdbdata->attributes;
-				while(current($imdbdataAttr)!==False)
-				{					
-					$attrName= key($imdbdataAttr);
-					$modelImdbdata->setAttribute($attrName, $movie->$attrName);
-					next($imdbdataAttr);
-				}
-				$validator = new CUrlValidator();
-				
-				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$modelNzb->url))
-				{
-					$content = file_get_contents($setting->host_name.$modelNzb->url);
-					if ($content !== false) {
-						$file = fopen($setting->path_pending.$modelNzb->file_name, 'w');
-						fwrite($file,$content);
-						fclose($file);
-					} else {
-						// an error happened
-					}
-				}
-				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$modelNzb->subt_url))
-				{
-					$content = file_get_contents($setting->host_name.$modelNzb->subt_url);
-					if ($content !== false) {
-						$file = fopen($setting->path_subtitle.$modelNzb->subt_file_name, 'w');
-						fwrite($file,$content);
-						fclose($file);
-					} else {
-						// an error happened
-					}
-				}
-				$modelImdbdata->save();
-				$modelNzb->Id_imdbData = $modelImdbdata->ID;
-				$modelNzb->save();
-				
-			} catch (Exception $e) {
-			}
-		}		
-	}
-
 	/**
 	 * Manages all models.
 	 */

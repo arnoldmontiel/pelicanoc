@@ -6,7 +6,7 @@ class ImdbdataController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -118,7 +118,7 @@ class ImdbdataController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$this->updateFromServer();
+		//$this->updateFromServer();
 		
 		$dataProvider=new CActiveDataProvider('Nzb');
 		$this->render('index',array(
@@ -126,6 +126,16 @@ class ImdbdataController extends Controller
 		));
 	}
 
+	public function actionNews()
+	{
+		$this->updateFromServer();
+		$modelNzb = new Nzb;
+		$dataProvider= $modelNzb->searchNews();
+		$this->render('news',array(
+				'dataProvider'=>$dataProvider,
+		));
+	}
+	
 	/**
 	 * Manages all models.
 	 */
@@ -255,6 +265,19 @@ class ImdbdataController extends Controller
 						// an error happened
 					}
 				}
+				if($modelImdbdata->Poster!='' && $validator->validateValue($modelImdbdata->Poster))
+				{
+					$content = file_get_contents($modelImdbdata->Poster);
+					if ($content !== false) {
+						$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
+						fwrite($file,$content);
+						fclose($file);
+						$modelImdbdata->Poster_original = $modelImdbdata->Poster;
+						$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
+					} else {
+						// an error happened
+					}
+				}				
 				$modelImdbdata->save();
 				$modelNzb->Id_imdbData = $modelImdbdata->ID;
 				if($modelNzb->save())

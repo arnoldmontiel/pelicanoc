@@ -1,9 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/detail-view-blue.css" />
 <?php
-$this->breadcrumbs=array(
-	'SABnzbd'=>array('/sABnzbd'),
-	'SABnzbdStatus',
-);
 
 Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 setInterval(function() {
@@ -18,7 +14,7 @@ setInterval(function() {
 						$('#headerData').html(data);
 					}
 				);
-}, 5000)
+}, 50000)
 ");
 ?>
 <?php 
@@ -40,6 +36,7 @@ setInterval(function() {
 	$this->widget('zii.widgets.grid.CGridView', 
 		array(
 			'id'=>'jobs-grid',
+			'cssFile'=>Yii::app()->baseUrl.'/css/grid-view-custom.css',
 			'dataProvider' => $arrayDataProvider,
 			'afterAjaxUpdate'=>'function(id, data){
 							createProgressBars();
