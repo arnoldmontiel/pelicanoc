@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+	public $showMenu = false;
 	/**
 	 * Declares class-based actions.
 	 */

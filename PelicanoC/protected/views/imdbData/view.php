@@ -1,47 +1,79 @@
 <?php
-$this->breadcrumbs=array(
-	'Imdbdatas'=>array('index'),
-	$modelImdbdata->Title,
-);
-
-$this->menu=array(
-	array('label'=>'List Imdbdata', 'url'=>array('index')),
-	array('label'=>'Create Imdbdata', 'url'=>array('create')),
-	array('label'=>'Update Imdbdata', 'url'=>array('update', 'id'=>$modelImdbdata->ID)),
-	array('label'=>'Delete Imdbdata', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$modelImdbdata->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Imdbdata', 'url'=>array('admin')),
-);
+// $this->breadcrumbs=array(
+// 	'Imdbdatas'=>array('index'),
+// 	$modelImdbdata->Title,
+// );
 ?>
 
-<h1>View Imdbdata <?php echo $modelImdbdata->ID; ?></h1>
-<div id="conteiner" style="display: inline-block;">
+<div id="conteiner" class="movie-view" style="">
 
-	<div class="left" style="display: inline-block;">
+	<div style="width: 205px; float:left;">
+		<?php echo CHtml::image( "images/".$modelImdbdata->Poster, $modelImdbdata->Title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
 
-	<?php $this->widget('zii.widgets.CDetailView', array(
-		'data'=>$modelImdbdata,
-		'cssFile'=>Yii::app()->baseUrl . '/css/detail-view-blue.css',
-		'attributes'=>array(
-			'ID',
-			'Title',
-			'Year',
-			'Rated',
-			'Released',
-			'Genre',
-			'Director',
-			'Writer',
-			'Actors',
-			'Plot',
-			'Runtime',
-			'Rating',
-			'Votes',
-			'Response',
-		),
-	)); ?>
 	</div>
-	<div class="right" style="display: inline-block; vertical-align: top;">
-			<?php echo CHtml::image( $modelImdbdata->Poster, $modelImdbdata->Title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 320px;width: 220px;')); ?>
+	<div style="float: left;padding: 5px 10px; width: 50%">
+	<?php echo CHtml::openTag('div',array('class'=>'movie-title'));?>
+			<?php echo $modelImdbdata->Title; ?>
+		<?php echo CHtml::closeTag('div');?> 
+		
+	<?php echo CHtml::openTag('div');?>
+		<?php echo $modelImdbdata->Year; ?>
+	<?php echo CHtml::closeTag('div');?> 
+
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $modelImdbdata->getAttributeLabel('Genre').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $modelImdbdata->Genre; ?>		
+	<?php echo CHtml::closeTag('div');?> 
+	
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $modelImdbdata->getAttributeLabel('Director').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $modelImdbdata->Director; ?>
+	<?php echo CHtml::closeTag('div');?> 
+
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $modelImdbdata->getAttributeLabel('Plot').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $modelImdbdata->Plot; ?>
+	<?php echo CHtml::closeTag('div');?> 
+	<?php echo CHtml::openTag('div');?>
+			<?php echo CHtml::openTag('b');?>
+				<?php echo $modelImdbdata->getAttributeLabel('Actors').':'; ?>
+			<?php echo CHtml::closeTag('b');?>
+			<?php echo $modelImdbdata->Actors; ?>
+		<?php echo CHtml::closeTag('div');?> 
+		
+	<?php 
+
+	// 	$this->widget('zii.widgets.CDetailView', array(
+// 			'data'=>$modelImdbdata,
+// 			'cssFile'=>Yii::app()->baseUrl . '/css/detail-view-custom.css',
+// 			'attributes'=>array(
+// 				'Year',
+// 				'Rated',
+// 				'Released',
+// 				'Genre',
+// 				'Director',
+// 				'Writer',
+// 				'Actors',
+// 				'Runtime',
+// 				'Rating',
+// 				'Votes',
+// 	),
+// 	)); 
+	?>
+	</div>		
+	<div class="movie-rating-box" >
+	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>
+		<?php echo $modelImdbdata->Rating; ?>
+	<?php echo CHtml::closeTag('div');?> 
 	</div>
+	<div class="movie-download-box" >
+	
 	<?php
 		 $this->widget('zii.widgets.jui.CJuiButton',
 			 array(
@@ -69,12 +101,13 @@ $this->menu=array(
 		 	)
 		 );
 	 ?>	
-	 <div id="started-display" style="display: none; ">
+	 <div id="started-display" style="display: none;float: left;padding: 5px 10px; ">
 	 	<img alt="Download Started" src="images/downloading.png">
 	 </div>
-	 <div id="finish-display" style="display: none; ">
+	 <div id="finish-display" style="display: none; float: left;padding: 5px 10px;">
 	 	<img alt="Download Started" src="images/downloaded.png">
 	 </div>
+	</div>
 </div>
 	<?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "

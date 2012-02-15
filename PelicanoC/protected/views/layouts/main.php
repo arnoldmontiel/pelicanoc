@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html >
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
@@ -22,20 +22,76 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div id="logo">
+			<?php echo CHtml::encode(Yii::app()->name); ?>
+			<?php //echo CHtml::image("images/logo_pelicano.png","Pelicano",array("style"=>"width:100px;height:100px;"));?>
+			 
+		</div>
 	</div><!-- header -->
-
+	<?php if ($this->showMenu):?>
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Movies', 'url'=>array('/imdbdata')),
-				array('label'=>'SABnzbd', 'url'=>array('/SABnzbd')),
-		//		array('label'=>'Resource', 'url'=>array('/resource')),
-				array('label'=>'Settings', 'url'=>array('/setting')),
-		),
-		)); ?>
+		<?php
+		Yii::app()->clientScript->registerScript('main', "
+			$('#movie_button').hover(
+			function () {
+				$(this).attr('src','images/movies-light.png');
+				//$(this).addClass('menu-hover');
+			  },
+			  function () {
+				$(this).attr('src','images/movies.png');
+				//$(this).removeClass('menu-hover');
+				}
+			);
+			$('#news_button').hover(
+			function () {
+				$(this).attr('src','images/news-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/news.png');
+			  }
+			);
+			$('#downloading_button').hover(
+			function () {
+				$(this).attr('src','images/downloading-menu-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/downloading-menu.png');
+			  }
+			);
+			$('#home_button').hover(
+			function () {
+				$(this).attr('src','images/home-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/home.png');
+			  }
+			);
+		
+		");
+		echo CHtml::link( CHtml::image("images/home.png",'movies',array('id'=>'home_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/site/index'));		
+		echo CHtml::link( CHtml::image("images/movies.png",'movies',array('id'=>'movie_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/imdbdata'));
+		echo CHtml::link( CHtml::image("images/news.png",'movies',array('id'=>'news_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/imdbdata/news'));
+		echo CHtml::link( CHtml::image("images/downloading-menu.png",'movies',array('id'=>'downloading_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/SABnzbd'));
+		?>
+			
+		<?php 
+// 		$this->widget('zii.widgets.CMenu',array(
+// 			'items'=>array(
+// 				array('label'=>'Home', 'url'=>array('/site/index')),
+// 				array('label'=>'Movies', 'url'=>array('/imdbdata')),
+// 				array('label'=>'News', 'url'=>array('/imdbdata/news')),
+// 				array('label'=>'SABnzbd', 'url'=>array('/SABnzbd')),
+// 		//		array('label'=>'Resource', 'url'=>array('/resource')),
+// 				array('label'=>'Settings', 'url'=>array('/setting')),
+// 		),
+// 		)); 
+		?>
 	</div><!-- mainmenu -->
+	<?php endif?>
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
@@ -47,9 +103,6 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
 </div><!-- page -->
