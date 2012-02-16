@@ -66,6 +66,14 @@
 				$(this).attr('src','images/home.png');
 			  }
 			);
+			$('#music_button').hover(
+			function () {
+				$(this).attr('src','images/music-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/music.png');
+			  }
+			);
 		
 		");
 		echo CHtml::link( CHtml::image("images/home.png",'movies',array('id'=>'home_button', 'style'=>'height: 128px;width: 128px;')
@@ -74,6 +82,8 @@
 		),array('/imdbdata'));
 		echo CHtml::link( CHtml::image("images/news.png",'movies',array('id'=>'news_button', 'style'=>'height: 128px;width: 128px;')
 		),array('/imdbdata/news'));
+		echo CHtml::link( CHtml::image("images/music.png",'movies',array('id'=>'music_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/site/music'));
 		echo CHtml::link( CHtml::image("images/downloading-menu.png",'movies',array('id'=>'downloading_button', 'style'=>'height: 128px;width: 128px;')
 		),array('/SABnzbd'));
 		?>

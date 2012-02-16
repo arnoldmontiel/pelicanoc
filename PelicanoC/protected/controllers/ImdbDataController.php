@@ -119,8 +119,9 @@ class ImdbdataController extends Controller
 	public function actionIndex()
 	{
 		//$this->updateFromServer();
+		$modelNzb = new Nzb;
+		$dataProvider= $modelNzb->searchOrdered();
 		
-		$dataProvider=new CActiveDataProvider('Nzb');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

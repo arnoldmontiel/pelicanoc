@@ -123,11 +123,29 @@ class Nzb extends CActiveRecord
 		$criteria=new CDbCriteria;
 	
 		$criteria->addCondition('t.date > DATE_SUB(CURDATE(),INTERVAL 7 DAY)');
-	
+		$criteria->order = "t.date DESC";
+		
 		return new CActiveDataProvider($this, array(
 					'criteria'=>$criteria,
 		));
 	}
 	
+	/**
+	* Retrieves a list of models based on the current search/filter conditions.
+	* @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	*/
+	public function searchOrdered()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->order = "t.date DESC";
+	
+		return new CActiveDataProvider($this, array(
+						'criteria'=>$criteria,
+		));
+	}
 	
 }
