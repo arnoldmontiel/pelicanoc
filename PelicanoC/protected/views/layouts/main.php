@@ -13,7 +13,6 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -74,6 +73,23 @@
 				$(this).attr('src','images/music.png');
 			  }
 			);
+
+			$('#site_prev').hover(
+			function () {
+				$(this).attr('src','images/back-black-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/back-black.png');
+			  }
+			);
+			$('#site_next').hover(
+			function () {
+				$(this).attr('src','images/next-black-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/next-black.png');
+			  }
+			);
 		
 		");
 		echo CHtml::link( CHtml::image("images/home.png",'movies',array('id'=>'home_button', 'style'=>'height: 128px;width: 128px;')
@@ -87,7 +103,21 @@
 		echo CHtml::link( CHtml::image("images/downloading-menu.png",'movies',array('id'=>'downloading_button', 'style'=>'height: 128px;width: 128px;')
 		),array('/SABnzbd'));
 		?>
-			
+		<div class="browsingbox">
+			<div class="browsingbox-prev">
+				<?php
+				echo CHtml::link(CHtml::image("images/back-black.png",'details',array('id'=>'site_prev', 'style'=>'height: 60px;width: 60px;')
+				),Yii::app()->request->getUrlReferrer());
+				?>
+			</div>
+			<div class="browsingbox-next">
+				<?php
+				echo CHtml::link(CHtml::image("images/next-black.png",'details',array('id'=>'site_next', 'style'=>'height: 60px;width: 60px;')
+				),Yii::app()->request->getUrlReferrer());
+				?>
+			</div>
+		</div>
+				
 		<?php 
 // 		$this->widget('zii.widgets.CMenu',array(
 // 			'items'=>array(

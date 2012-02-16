@@ -54,13 +54,14 @@ setInterval(function() {
 			'id'=>'jobs-grid',
 			'cssFile'=>Yii::app()->baseUrl.'/css/grid-view-custom.css',
 			'dataProvider' => $arrayDataProvider,
+			'summaryText' =>"",
 			'afterAjaxUpdate'=>'function(id, data){
 							createProgressBars();
 						}',
 			'columns' => array(
 				array('name' => 'File Name','type' => 'raw','value' => 'CHtml::encode($data["filename"])'),
-				array('name' => 'MB','type' => 'raw','value' => 'CHtml::encode(round($data["mb"],2))','htmlOptions'=>array('style'=>'text-align: right;')),
-				array('name' => 'MB Left','type' => 'raw','value' => 'CHtml::encode(round($data["mbleft"],2))','htmlOptions'=>array('style'=>'text-align: right;')),
+				array('name' => 'Down','type' => 'raw','value' => 'CHtml::encode(round($data["mb"]-$data["mbleft"],2))','htmlOptions'=>array('style'=>'text-align: right;')),
+				array('name' => 'Total','type' => 'raw','value' => 'CHtml::encode(round($data["mb"],2))','htmlOptions'=>array('style'=>'text-align: right;')),
 				array('name' => 'Status','type' => 'raw',
 					'value' => 'CHtml::openTag("div",array("id"=>"progressbar"))')
 							,		
@@ -75,9 +76,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#SABnzbdStatus', "
 	{
         $('#jobs-grid > table > tbody > tr').each(function(i)
         {
-        	var mbleft = $($.fn.yiiGridView.getRow('jobs-grid',i.toString())[2]).text();
-        	var mb = $($.fn.yiiGridView.getRow('jobs-grid',i.toString())[1]).text();
-			$.fn.yiiGridView.getRow('jobs-grid',i.toString()).find('#progressbar').progressbar({'value': ((mb-mbleft)/mb)*100});
+        	var mb = $($.fn.yiiGridView.getRow('jobs-grid',i.toString())[2]).text();
+        	var mbleft = $($.fn.yiiGridView.getRow('jobs-grid',i.toString())[1]).text();
+			$.fn.yiiGridView.getRow('jobs-grid',i.toString()).find('#progressbar').progressbar({'value': (mbleft/mb)*100});
         });
 	}	
 

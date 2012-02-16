@@ -1,9 +1,14 @@
 	<div class="row-movie-home" >
 		<div class="movie-index-view" >
-		<?php 
-		echo CHtml::link( CHtml::image("images/building.png",'movies',array('id'=>'building_button', 'style'=>'height: 128px;width: 128px;')
-		),array('site/index'));
-		?>
+			<div class="movie-home-image" >
+				<?php 
+				echo CHtml::link( CHtml::image("images/building.png",'movies',array('id'=>'building_button', 'style'=>'height: 128px;width: 128px;')
+				),array('site/index'));
+				?>
+			</div>
+			<div class="movie-home-text" >
+				Under Construction
+			</div>
 		</div>
 </div>
 		<?php
