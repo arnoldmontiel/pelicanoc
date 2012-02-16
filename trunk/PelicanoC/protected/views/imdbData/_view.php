@@ -34,40 +34,5 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata_view', "
 		<?php echo CHtml::encode($data->imdbdata->Director); ?>
 		<br />
 	
-	
-		<?php /*
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Writer')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Writer); ?>
-		<br />
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Rated')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Rated); ?>
-		<br />
-	
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Released')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Released); ?>
-		<br />
-	
-	
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Poster')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Poster); ?>
-		<br />
-	
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Runtime')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Runtime); ?>
-		<br />
-	
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Rating')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Rating); ?>
-		<br />
-	
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Votes')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Votes); ?>
-		<br />
-	
-		<b><?php echo CHtml::encode($data->imdbdata->getAttributeLabel('Response')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdata->Response); ?>
-		<br />
-	
-		*/ ?>
 	</div>
 </div>

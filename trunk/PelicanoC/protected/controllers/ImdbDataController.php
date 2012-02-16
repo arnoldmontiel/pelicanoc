@@ -279,10 +279,14 @@ class ImdbdataController extends Controller
 						// an error happened
 					}
 				}				
-				$modelImdbdata->save();
-				$modelNzb->Id_imdbData = $modelImdbdata->ID;
-				if($modelNzb->save())
-				{
+				$transaction = $modelNzb->dbConnection->beginTransaction();
+				try {
+					$modelImdbdata->save();
+					$modelNzb->Id_imdbData = $modelImdbdata->ID;
+					$modelNzb->save();
+
+					$transaction->commit();
+					
 					$nzbMovieState= new NzbMovieState;
 					$nzbMovieState->Id_nzb = $modelNbz->Id;
 					$nzbMovieState->Id_movie_state = 1;
@@ -294,14 +298,47 @@ class ImdbdataController extends Controller
 					$request->id_customer = $setting->Id_customer;
 					$request->id_movie =$modelNzb->Id;
 					$request->id_state =1;
-					$status = $pelicanoCliente->setMovieState($request);						
-				}
-					
+					$status = $pelicanoCliente->setMovieState($request);
+						
+				} catch (Exception $e) {
+					$transaction->rollback();
+				}									
 			} catch (Exception $e) {
 			}
 		}
 	}
-	
+	public function actionAjaxSearch()
+	{
+		$modelNzb = new Nzb;
+		$expression = "";
+		if(isset($_POST['imdb_search_field']))
+		{
+			$expression=trim($_POST['imdb_search_field']);			
+		}
+		$dataProvider= $modelNzb->searchOn($expression);
+				
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$dataProvider,
+			'itemView'=>'_view',
+			'summaryText' =>"",
+		)); 
+	}
+	public function actionAjaxNewsSearch()
+	{
+		$modelNzb = new Nzb;
+		$expression = "";
+		if(isset($_POST['imdb_search_field']))
+		{
+			$expression=trim($_POST['imdb_search_field']);			
+		}
+		$dataProvider= $modelNzb->searchNewsOn($expression);
+				
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$dataProvider,
+			'itemView'=>'_view',
+			'summaryText' =>"",
+		)); 
+	}
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated

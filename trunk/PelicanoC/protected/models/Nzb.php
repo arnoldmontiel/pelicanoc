@@ -129,6 +129,30 @@ class Nzb extends CActiveRecord
 					'criteria'=>$criteria,
 		));
 	}
+	public function searchNewsOn($expresion)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->addCondition('t.date > DATE_SUB(CURDATE(),INTERVAL 7 DAY)');
+		$criteria->order = "t.date DESC";
+
+		$criteria->compare('file_name',$expresion,true);
+		$criteria->with[]='imdbdata';		
+		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Director',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Year',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
+		
+		return new CActiveDataProvider($this, array(
+						'criteria'=>$criteria,
+		));
+	}
 	
 	/**
 	* Retrieves a list of models based on the current search/filter conditions.
@@ -147,5 +171,29 @@ class Nzb extends CActiveRecord
 						'criteria'=>$criteria,
 		));
 	}
+	public function searchOn($expresion)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->order = "t.date DESC";
+		
+		$criteria->compare('file_name',$expresion,true,'OR');
+		$criteria->with[]='imdbdata';
+		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Director',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Year',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
+	
+		return new CActiveDataProvider($this, array(
+							'criteria'=>$criteria,
+		));
+	}
+	
 	
 }

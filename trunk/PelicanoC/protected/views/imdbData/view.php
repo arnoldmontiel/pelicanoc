@@ -1,9 +1,3 @@
-<?php
-// $this->breadcrumbs=array(
-// 	'Imdbdatas'=>array('index'),
-// 	$modelImdbdata->Title,
-// );
-?>
 
 <div id="conteiner" class="movie-view" style="">
 
@@ -46,26 +40,6 @@
 			<?php echo CHtml::closeTag('b');?>
 			<?php echo $modelImdbdata->Actors; ?>
 		<?php echo CHtml::closeTag('div');?> 
-		
-	<?php 
-
-	// 	$this->widget('zii.widgets.CDetailView', array(
-// 			'data'=>$modelImdbdata,
-// 			'cssFile'=>Yii::app()->baseUrl . '/css/detail-view-custom.css',
-// 			'attributes'=>array(
-// 				'Year',
-// 				'Rated',
-// 				'Released',
-// 				'Genre',
-// 				'Director',
-// 				'Writer',
-// 				'Actors',
-// 				'Runtime',
-// 				'Rating',
-// 				'Votes',
-// 	),
-// 	)); 
-	?>
 	</div>		
 	<div class="movie-rating-box" >
 	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>
@@ -82,7 +56,7 @@
 			 	'caption'=>'Download',
 			 	'value'=>'Click to download movie',
 			 	'onclick'=>'js:function(){
-			 		if(confirm("Save button clicked"))
+			 		if(confirm("Are you sure start downloading?"))
 			 		{
 						$.post("'.ImdbdataController::createUrl('AjaxStartDownload').'",
 								{id_nzb: "'.$model->Id.'"}

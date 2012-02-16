@@ -54,8 +54,8 @@ class Imdbdata extends CActiveRecord
 			array('ID', 'required'),
 			array('Year', 'numerical', 'integerOnly'=>true),
 			array('Rating', 'numerical'),
-			array('ID, Rated, Released, Genre, Runtime, Votes, Response', 'length', 'max'=>45),
-			array('Title, Director, Writer, Poster', 'length', 'max'=>255),
+			array('ID, Rated, Released, Runtime, Votes, Response', 'length', 'max'=>45),
+			array('Title, Director, Writer, Poster, Genre', 'length', 'max'=>255),
 			array('Actors, Plot', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
