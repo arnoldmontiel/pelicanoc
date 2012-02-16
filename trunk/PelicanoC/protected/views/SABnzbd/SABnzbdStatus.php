@@ -6,15 +6,17 @@ setInterval(function() {
     $.fn.yiiGridView.update('jobs-grid', {
 			data: $(this).serialize()
 		});
-	
-	$.get('".SABnzbdController::createUrl('RefreshHeader')."'
-				).success(
-					function(data) 
-					{
-						$('#headerData').html(data);
-					}
-				);
-}, 50000)
+
+	$.get('".SABnzbdController::createUrl('AjaxRefreshHeader')."').success(
+		function(data) 
+		{
+			var result = JSON.parse(data);
+			$('#sabnzb_timeleft').html(result.timeleft);
+			$('#sabnzb_state').html(result.state);
+			$('#sabnzb_speed').html(result.speed);
+		}
+	);
+}, 5000)
 ");
 ?>
 <?php 
@@ -30,7 +32,21 @@ setInterval(function() {
 	));
 ?>
 
-	<div id="headerData"><?php echo $headerData ?></div>
+	<div id="headerData">
+		<div class="sabnzb-view">
+			<div class="sabnzb-view-row">
+				<div class="sabnzb-view-td">
+					<div class="sabnzb-label">Time Left: </div>	<div id="sabnzb_timeleft" class="sabnzb-data"><?php echo $modelStatus->timeleft ?></div>
+				</div>
+				<div class="sabnzb-view-td">
+					<div class="sabnzb-label">Speed: </div>	<div id="sabnzb_speed"  class="sabnzb-data"><?php echo $modelStatus->speed ?></div>
+				</div>
+				<div class="sabnzb-view-td">
+					<div class="sabnzb-label">Status:</div>	<div id="sabnzb_state" class="sabnzb-data"><?php echo $modelStatus->state ?></div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<?php
 	$this->widget('zii.widgets.grid.CGridView', 

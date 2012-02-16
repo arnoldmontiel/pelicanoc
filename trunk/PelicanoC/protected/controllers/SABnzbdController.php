@@ -15,7 +15,11 @@ class SABnzbdController extends Controller
 			)
 		);
 		
-		$this->render('SABnzbdStatus',array('modelStatus'=>$sABnzbdStatus,'arrayDataProvider'=>$arrayDataProvider,'headerData'=>$this->generateHeader()));
+		$this->render('SABnzbdStatus',
+			array('modelStatus'=>$sABnzbdStatus,
+				'arrayDataProvider'=>$arrayDataProvider,
+			)
+		);
 		
 	}
 	
@@ -63,9 +67,11 @@ class SABnzbdController extends Controller
 		return $header;
 	}
 	
-	public function actionRefreshHeader()
+	public function actionAjaxRefreshHeader()
 	{
-		echo $this->generateHeader();
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();
+		echo CJSON::encode($sABnzbdStatus->attributes);
 	}
 	
 	// Uncomment the following methods and override them if needed
