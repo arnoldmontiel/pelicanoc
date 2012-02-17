@@ -15,6 +15,9 @@
  * @property string $Actors
  * @property string $Plot
  * @property string $Poster
+ * @property string $Poster_original
+ * @property string $Backdrop
+ * @property string $Backdrop_original
  * @property string $Runtime
  * @property double $Rating
  * @property string $Votes
@@ -55,11 +58,11 @@ class Imdbdata extends CActiveRecord
 			array('Year', 'numerical', 'integerOnly'=>true),
 			array('Rating', 'numerical'),
 			array('ID, Rated, Released, Runtime, Votes, Response', 'length', 'max'=>45),
-			array('Title, Director, Writer, Poster, Genre', 'length', 'max'=>255),
+			array('Title, Genre, Director, Writer, Poster, Poster_original, Backdrop, Backdrop_original', 'length', 'max'=>255),
 			array('Actors, Plot', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, Title, Year, Rated, Released, Genre, Director, Writer, Actors, Plot, Poster, Runtime, Rating, Votes, Response', 'safe', 'on'=>'search'),
+			array('ID, Title, Year, Rated, Released, Genre, Director, Writer, Actors, Plot, Poster, Poster_original, Backdrop, Backdrop_original, Runtime, Rating, Votes, Response', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,6 +95,9 @@ class Imdbdata extends CActiveRecord
 			'Actors' => 'Actors',
 			'Plot' => 'Plot',
 			'Poster' => 'Poster',
+			'Poster_original' => 'Poster Original',
+			'Backdrop' => 'Backdrop',
+			'Backdrop_original' => 'Backdrop Original',
 			'Runtime' => 'Runtime',
 			'Rating' => 'Rating',
 			'Votes' => 'Votes',
@@ -121,6 +127,9 @@ class Imdbdata extends CActiveRecord
 		$criteria->compare('Actors',$this->Actors,true);
 		$criteria->compare('Plot',$this->Plot,true);
 		$criteria->compare('Poster',$this->Poster,true);
+		$criteria->compare('Poster_original',$this->Poster_original,true);
+		$criteria->compare('Backdrop',$this->Backdrop,true);
+		$criteria->compare('Backdrop_original',$this->Backdrop_original,true);
 		$criteria->compare('Runtime',$this->Runtime,true);
 		$criteria->compare('Rating',$this->Rating);
 		$criteria->compare('Votes',$this->Votes,true);
