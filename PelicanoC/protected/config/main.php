@@ -50,7 +50,7 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=pelicanoC',
 			'emulatePrepare' => true,
-			'username' => 'root',
+			'username' => 'pma',
 			'password' => '',
 			'charset' => 'utf8',
 		),

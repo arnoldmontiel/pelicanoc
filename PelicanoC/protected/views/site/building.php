@@ -10,7 +10,7 @@
 				Under Construction
 			</div>
 		</div>
-</div>
+	</div>
 		<?php
 		Yii::app()->clientScript->registerScript('main', "
 			$('#building').hover(
