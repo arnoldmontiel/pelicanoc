@@ -533,5 +533,11 @@ div.movie-home-text
 	float: left;
 	margin-top: 20px;
 	margin-left: 10px;
-
+}
+div.movie-view-logo
+{
+	display: inline-block;
+	float: left;
+	vertical-align: bottom;
+	margin-top: 50px;
 }
