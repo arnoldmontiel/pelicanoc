@@ -25,6 +25,7 @@ public $Writer; //string;
 public $Actors; //string;
 public $Plot; //string;
 public $Poster; //string;
+public $Backdrop; //string;
 public $Runtime; //string;
 public $Rating; //string;
 public $Votes; //string;
@@ -36,6 +37,7 @@ class MovieStateRequest
 public $id_customer; //integer;
 public $id_movie; //integer;
 public $id_state; //integer;
+public $date; //integer;
 }
 
 /**
@@ -53,6 +55,7 @@ class Pelicano
 
 function __construct($url='workspace/PelicanoS/index.php?r=nzb/wsdl')
 {
+	ini_set ('soap.wsdl_cache_enabled',0);
 	$url = Setting::getInstance()->host_name.$url;
 	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 }
@@ -67,7 +70,7 @@ function getNewMovies($integer)
 function setMovieState($MovieStateRequest)
 {
 	//$boolean = $this->soapClient->setMovieState(array($MovieStateRequest->id_customer,$MovieStateRequest->id_movie,$MovieStateRequest->id_state));
-	$boolean = $this->soapClient->__call("setMovieState", array($MovieStateRequest->id_customer,$MovieStateRequest->id_movie,$MovieStateRequest->id_state));
+	$boolean = $this->soapClient->__call("setMovieState", array($MovieStateRequest->id_customer,$MovieStateRequest->id_movie,$MovieStateRequest->id_state,$MovieStateRequest->date));
 	return $boolean;
 }
 }

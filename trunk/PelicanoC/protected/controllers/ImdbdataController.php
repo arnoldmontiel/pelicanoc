@@ -193,6 +193,7 @@ class ImdbdataController extends Controller
 						$request->id_customer = $setting->Id_customer;
 						$request->id_movie =$nzb->Id;
 						$request->id_state =2;
+						$request->date = time();
 						$status = $pelicanoCliente->setMovieState($request);
 						
 					}
@@ -275,6 +276,21 @@ class ImdbdataController extends Controller
 						fclose($file);
 						$modelImdbdata->Poster_original = $modelImdbdata->Poster;
 						$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
+						$modelImdbdata->Backdrop_original = $modelImdbdata->Backdrop;
+						$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
+					} else {
+						// an error happened
+					}
+				}				
+				if($modelImdbdata->Backdrop!='' && $validator->validateValue($modelImdbdata->Backdrop))
+				{
+					$content = file_get_contents($modelImdbdata->Backdrop);
+					if ($content !== false) {
+						$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
+						fwrite($file,$content);
+						fclose($file);
+						$modelImdbdata->Backdrop_original = $modelImdbdata->Backdrop;
+						$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
 					} else {
 						// an error happened
 					}
@@ -298,6 +314,9 @@ class ImdbdataController extends Controller
 					$request->id_customer = $setting->Id_customer;
 					$request->id_movie =$modelNzb->Id;
 					$request->id_state =1;
+					$request->date = time();
+					$date=date("Y-m-d h:i:s",$request->date);
+											
 					$status = $pelicanoCliente->setMovieState($request);
 						
 				} catch (Exception $e) {

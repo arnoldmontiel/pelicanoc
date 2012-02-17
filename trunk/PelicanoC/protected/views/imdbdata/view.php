@@ -82,10 +82,17 @@
 	 	<img alt="Download Started" src="images/downloaded.png">
 	 </div>
 	</div>
+	 <div class="movie-view-logo">
+	 	<img class="movie-view-logo" alt="surround" src="images/dolby-surround-logo.png" style="width: 120px; height: 50px;">
+	 	<img class="movie-view-logo" alt="surround" src="images/thx_logo.png" style=" width: 80px; height: 70px;">
+	 </div>
+	
 </div>
 	<?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
+	ChangeBG('images/".$modelImdbdata->Backdrop."');	
 	ShowDownload();
+	//
 	function ShowDownload()
 	{
 		if('".$model->downloading."'=='1')
@@ -101,7 +108,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 			$('#downloadButton').show();
 		}
 		
-	}	
+	}
 
 ");
 ?>
