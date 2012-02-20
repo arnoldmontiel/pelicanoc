@@ -28,9 +28,69 @@
 			<?php //echo CHtml::image("images/logo_pelicano.png","Pelicano",array("style"=>"width:100px;height:100px;"));?>
 			 
 		</div>
+		<div class="browsingbox">
+			<div class="browsingbox-prev">
+				<?php
+				echo CHtml::link(CHtml::image("images/back-black.png",'details',array('id'=>'site_prev', 'style'=>'height: 60px;width: 60px;')
+				),Yii::app()->request->getUrlReferrer());
+				?>
+			</div>
+			<div class="browsingbox-next">
+				<?php
+				echo CHtml::link(CHtml::image("images/next-black.png",'details',array('id'=>'site_next', 'style'=>'height: 60px;width: 60px;')
+				),Yii::app()->request->getUrlReferrer());
+				?>
+			</div>
+		</div>
+		
 	</div><!-- header -->
 	<?php if ($this->showMenu):?>
 	<div id="mainmenu">
+		<?php 				
+		echo CHtml::link( CHtml::image("images/home.png",'movies',array('id'=>'home_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/site/index'));		
+		echo CHtml::link( CHtml::image("images/movies.png",'movies',array('id'=>'movie_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/imdbdata'));
+		echo CHtml::link( CHtml::image("images/news.png",'movies',array('id'=>'news_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/imdbdata/news'));
+		echo CHtml::link( CHtml::image("images/music.png",'movies',array('id'=>'music_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/site/music'));
+		echo CHtml::link( CHtml::image("images/downloading-menu.png",'movies',array('id'=>'downloading_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/SABnzbd'));
+		echo CHtml::link( CHtml::image("images/stored.png",'movies',array('id'=>'stored_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/imdbdata/stored'));
+		?>				
+		<?php 
+// 		$this->widget('zii.widgets.CMenu',array(
+// 			'items'=>array(
+// 				array('label'=>'Home', 'url'=>array('/site/index')),
+// 				array('label'=>'Movies', 'url'=>array('/imdbdata')),
+// 				array('label'=>'News', 'url'=>array('/imdbdata/news')),
+// 				array('label'=>'SABnzbd', 'url'=>array('/SABnzbd')),
+// 		//		array('label'=>'Resource', 'url'=>array('/resource')),
+// 				array('label'=>'Settings', 'url'=>array('/setting')),
+// 		),
+// 		)); 
+		?>
+	</div><!-- mainmenu -->
+	<?php endif?>
+	<?php if(isset($this->breadcrumbs)):?>
+		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+			'links'=>$this->breadcrumbs,
+		)); ?><!-- breadcrumbs -->
+	<?php endif?>
+
+	<?php echo $content; ?>
+
+	<div class="clear"></div>
+
+	<div id="footer">
+	</div><!-- footer -->
+
+</div><!-- page -->
+
+</body>
+</html>
 		<?php
 		Yii::app()->clientScript->registerScript('main', "
 			$('#movie_button').hover(
@@ -75,7 +135,15 @@
 				$(this).attr('src','images/music.png');
 			  }
 			);
-
+			$('#stored_button').hover(
+			function () {
+				$(this).attr('src','images/stored-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/stored.png');
+			  }
+			);
+		
 			$('#site_prev').hover(
 			function () {
 				$(this).attr('src','images/back-black-light.png');
@@ -91,63 +159,6 @@
 			  function () {
 				$(this).attr('src','images/next-black.png');
 			  }
-			);
-		
+			);		
 		");
-		echo CHtml::link( CHtml::image("images/home.png",'movies',array('id'=>'home_button', 'style'=>'height: 128px;width: 128px;')
-		),array('/site/index'));		
-		echo CHtml::link( CHtml::image("images/movies.png",'movies',array('id'=>'movie_button', 'style'=>'height: 128px;width: 128px;')
-		),array('/imdbdata'));
-		echo CHtml::link( CHtml::image("images/news.png",'movies',array('id'=>'news_button', 'style'=>'height: 128px;width: 128px;')
-		),array('/imdbdata/news'));
-		echo CHtml::link( CHtml::image("images/music.png",'movies',array('id'=>'music_button', 'style'=>'height: 128px;width: 128px;')
-		),array('/site/music'));
-		echo CHtml::link( CHtml::image("images/downloading-menu.png",'movies',array('id'=>'downloading_button', 'style'=>'height: 128px;width: 128px;')
-		),array('/SABnzbd'));
 		?>
-		<div class="browsingbox">
-			<div class="browsingbox-prev">
-				<?php
-				echo CHtml::link(CHtml::image("images/back-black.png",'details',array('id'=>'site_prev', 'style'=>'height: 60px;width: 60px;')
-				),Yii::app()->request->getUrlReferrer());
-				?>
-			</div>
-			<div class="browsingbox-next">
-				<?php
-				echo CHtml::link(CHtml::image("images/next-black.png",'details',array('id'=>'site_next', 'style'=>'height: 60px;width: 60px;')
-				),Yii::app()->request->getUrlReferrer());
-				?>
-			</div>
-		</div>
-				
-		<?php 
-// 		$this->widget('zii.widgets.CMenu',array(
-// 			'items'=>array(
-// 				array('label'=>'Home', 'url'=>array('/site/index')),
-// 				array('label'=>'Movies', 'url'=>array('/imdbdata')),
-// 				array('label'=>'News', 'url'=>array('/imdbdata/news')),
-// 				array('label'=>'SABnzbd', 'url'=>array('/SABnzbd')),
-// 		//		array('label'=>'Resource', 'url'=>array('/resource')),
-// 				array('label'=>'Settings', 'url'=>array('/setting')),
-// 		),
-// 		)); 
-		?>
-	</div><!-- mainmenu -->
-	<?php endif?>
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-	</div><!-- footer -->
-
-</div><!-- page -->
-
-</body>
-</html>

@@ -65,6 +65,7 @@ class Nzb extends CActiveRecord
 		return array(
 			'imdbdata' => array(self::BELONGS_TO, 'Imdbdata', 'Id_imdbData'),
 			'movieStates' => array(self::MANY_MANY, 'MovieState', 'nzb_movie_state(Id_nzb, Id_movie_state)'),
+			'nzbMovieStates' => array(self::HAS_MANY, 'NzbMovieState', 'Id_nzb'),
 		);
 	}
 
@@ -192,6 +193,47 @@ class Nzb extends CActiveRecord
 	
 		return new CActiveDataProvider($this, array(
 							'criteria'=>$criteria,
+		));
+	}
+	public function searchStored()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->join = "LEFT OUTER JOIN nzb_movie_state nms ON nms.Id_nzb=t.Id";				
+		$criteria->compare("nms.Id_movie_state", "3");
+		$criteria->order = "nms.date DESC";
+		
+		return new CActiveDataProvider($this, array(
+							'criteria'=>$criteria,
+		));
+	}
+	public function searchStoredOn($expresion)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->join = "LEFT OUTER JOIN nzb_movie_state nms ON nms.Id_nzb=t.Id";
+				
+		$criteria->compare("nms.Id_movie_state", "3");
+		$criteria->order = "nms.date DESC";
+					
+		$criteria->compare('file_name',$expresion,true);
+ 		$criteria->with[]='imdbdata';
+ 		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Director',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Year',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
+	
+		return new CActiveDataProvider($this, array(
+								'criteria'=>$criteria,
 		));
 	}
 	
