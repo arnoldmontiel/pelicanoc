@@ -47,52 +47,24 @@
 			</div>
 		</div>
 	</div>
+	<div class="row-movie-home" >
+		<div class="left-movie-home" >
+			<div class="movie-home-image" >
+				<?php 
+				echo CHtml::link( CHtml::image("images/stored.png",'stored',array('id'=>'stored_button', 'style'=>'height: 128px;width: 128px;')
+				),array('/imdbdata/stored'));
+				?>
+			</div>
+			<div class="movie-home-text" >
+				Stored Movies
+			</div>
+		</div>
+		<div class="right-movie-home" >
+			<div class="movie-home-image" >
+			</div>
+			<div class="movie-home-text" >
+			</div>
+		</div>
+	</div>
+	
 </div>
-
-		<?php
-		Yii::app()->clientScript->registerScript('main', "
-			$('#movie_button').hover(
-			function () {
-				$(this).attr('src','images/movies-light.png');
-				//$(this).addClass('menu-hover');
-			  },
-			  function () {
-				$(this).attr('src','images/movies.png');
-				//$(this).removeClass('menu-hover');
-				}
-			);
-			$('#news_button').hover(
-			function () {
-				$(this).attr('src','images/news-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/news.png');
-			  }
-			);
-			$('#downloading_button').hover(
-			function () {
-				$(this).attr('src','images/downloading-menu-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/downloading-menu.png');
-			  }
-			);
-			$('#home_button').hover(
-			function () {
-				$(this).attr('src','images/home-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/home.png');
-			  }
-			);
-			$('#music_button').hover(
-			function () {
-				$(this).attr('src','images/music-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/music.png');
-			  }
-			);
-		
-		");
-		?>

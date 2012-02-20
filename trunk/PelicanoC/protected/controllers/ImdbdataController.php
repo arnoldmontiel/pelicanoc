@@ -137,6 +137,14 @@ class ImdbdataController extends Controller
 		));
 	}
 	
+	public function actionStored()
+	{
+		$modelNzb = new Nzb;
+		$dataProvider= $modelNzb->searchStored();
+		$this->render('stored',array(
+				'dataProvider'=>$dataProvider,
+		));
+	}
 	/**
 	 * Manages all models.
 	 */
@@ -351,6 +359,22 @@ class ImdbdataController extends Controller
 			$expression=trim($_POST['imdb_search_field']);			
 		}
 		$dataProvider= $modelNzb->searchNewsOn($expression);
+				
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$dataProvider,
+			'itemView'=>'_view',
+			'summaryText' =>"",
+		)); 
+	}
+	public function actionAjaxStoredSearch()
+	{
+		$modelNzb = new Nzb;
+		$expression = "";
+		if(isset($_POST['imdb_search_field']))
+		{
+			$expression=trim($_POST['imdb_search_field']);			
+		}
+		$dataProvider= $modelNzb->searchStoredOn($expression);
 				
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$dataProvider,
