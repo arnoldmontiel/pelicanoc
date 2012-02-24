@@ -33,6 +33,14 @@
 	<?php echo CHtml::encode($data->path_subtitle); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('path_images')); ?>:</b>
+	<?php echo CHtml::encode($data->path_images); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('path_shared')); ?>:</b>
+	<?php echo CHtml::encode($data->path_shared); ?>
+	<br />
+
 	*/ ?>
 
 </div>

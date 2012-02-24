@@ -40,6 +40,26 @@ class ImdbdataController extends Controller
 	{
 		$model = Nzb::model()->findByPk($id); 
 		//$modelImdbdata = $this->loadModel($id);
+		$modelImdbdata = $model->imdbdata;
+		if($modelImdbdata->Backdrop_original=!"")
+		{
+			$validator = new CUrlValidator();				
+			if($modelImdbdata->Backdrop!='' && $validator->validateValue($modelImdbdata->Backdrop))
+			{
+				$content = file_get_contents($modelImdbdata->Backdrop);
+				if ($content !== false) {
+					$setting = Setting::getInstance();
+					$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
+					fwrite($file,$content);
+					fclose($file);
+					$modelImdbdata->Backdrop_original = $modelImdbdata->Backdrop;
+					$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
+					$modelImdbdata->save();
+				} else {
+					// an error happened
+				}
+			}
+		}						
 		$this->render('view',array(
 			'model'=>$model,
 			'modelImdbdata'=>$model->imdbdata,
@@ -126,10 +146,17 @@ class ImdbdataController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
-
-	public function actionNews()
+	/**
+	* Lists all models.
+	*/
+	public function actionAjaxGetNews()
 	{
 		$this->updateFromServer();
+		$this->actionAjaxNewsSearch();		
+	}
+	
+	public function actionNews()
+	{
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchNews();
 		$this->render('news',array(
@@ -275,7 +302,7 @@ class ImdbdataController extends Controller
 						// an error happened
 					}
 				}
-				if($modelImdbdata->Poster!='' && $validator->validateValue($modelImdbdata->Poster))
+				if($movie->Poster!='' && $validator->validateValue($modelImdbdata->Poster))
 				{
 					$content = file_get_contents($modelImdbdata->Poster);
 					if ($content !== false) {
@@ -284,21 +311,6 @@ class ImdbdataController extends Controller
 						fclose($file);
 						$modelImdbdata->Poster_original = $modelImdbdata->Poster;
 						$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
-						$modelImdbdata->Backdrop_original = $modelImdbdata->Backdrop;
-						$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
-					} else {
-						// an error happened
-					}
-				}				
-				if($modelImdbdata->Backdrop!='' && $validator->validateValue($modelImdbdata->Backdrop))
-				{
-					$content = file_get_contents($modelImdbdata->Backdrop);
-					if ($content !== false) {
-						$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
-						fwrite($file,$content);
-						fclose($file);
-						$modelImdbdata->Backdrop_original = $modelImdbdata->Backdrop;
-						$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
 					} else {
 						// an error happened
 					}
@@ -307,15 +319,15 @@ class ImdbdataController extends Controller
 				try {
 					$modelImdbdata->save();
 					$modelNzb->Id_imdbData = $modelImdbdata->ID;
+					$modelNzb->date = date("Y-m-d H:i:s",time());
 					$modelNzb->save();
-
-					$transaction->commit();
 					
 					$nzbMovieState= new NzbMovieState;
-					$nzbMovieState->Id_nzb = $modelNbz->Id;
+					$nzbMovieState->Id_nzb = $modelNzb->Id;
 					$nzbMovieState->Id_movie_state = 1;
 					$nzbMovieState->save();
 						
+					$transaction->commit();
 					//we send the new state to the server
 					$pelicanoCliente = new Pelicano;
 					$request= new MovieStateRequest;
@@ -323,7 +335,6 @@ class ImdbdataController extends Controller
 					$request->id_movie =$modelNzb->Id;
 					$request->id_state =1;
 					$request->date = time();
-					$date=date("Y-m-d h:i:s",$request->date);
 											
 					$status = $pelicanoCliente->setMovieState($request);
 						
@@ -382,6 +393,34 @@ class ImdbdataController extends Controller
 			'summaryText' =>"",
 		)); 
 	}
+	public function actionAjaxStopMedia()
+	{
+			if(isset($_POST['id_nzb']))		
+		{
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			if($nzb->downloaded)
+			{
+				$setting = Setting::getInstance();
+			}
+		}
+	}
+	public function actionAjaxStartMedia()
+	{
+		if(!isset($_POST['id_nzb']))
+		{
+
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			if($nzb->downloaded)
+			{
+				$setting = Setting::getInstance();
+				$content = file_get_contents("http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4");
+				
+				echo $content;
+				
+			}
+		}
+	}
+	
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated

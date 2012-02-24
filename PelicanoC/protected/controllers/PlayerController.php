@@ -1,74 +1,13 @@
 <?php
 
-class NzbController extends Controller
+class PlayerController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-				'wsdl'=>array(
-					'class'=>'CWebServiceAction',
-					'classMap'=>array(
-						'MovieStateResponse'=>'MovieStateResponse',
-				),
-			),
-		);
-	}
-	/**
-	* Returns the state of movies downloaded
-	* @param integer Id_Customer
-	* @return MovieStateResponse[]
-	* @soap
-	*/
-	public function getMovieState($Id_Customer)
-	{
-		$result = array();
-		//return $result;
-		
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('t.downloaded = 0 and t.downloading = 1 ');		
-		$arrayNbz = Nzb::model()->findAll($criteria);
 
-		$sABnzbdStatus= new SABnzbdStatus();
-		$sABnzbdStatus->getStatus();
-		$jobs =  $sABnzbdStatus->jobs;		
-		
-		foreach ($arrayNbz as $modelNzb)
-		{
-			$modelNzb->downloading = 0;
-			$modelNzb->downloaded = 1;
-			//if there is a job with this file then It´s still downloading
-			foreach ($jobs as $job) {
-				if(strpos($modelNzb->file_name,$job->filename)===false)
-				{
-					$modelNzb->downloading = 1;
-					$modelNzb->downloaded = 0;						
-				}
-			}
-			if($modelNzb->downloaded)
-			{
-				$nzbMovieState= NzbMovieState;
-				$nzbMovieState->Id_nzb = $modelNzb->Id;
-				$nzbMovieState->Id_movie_state = 3;
-				$nzbMovieState->save();
-				
-				$msResponse = new MovieStateResponse;
-				$msResponse->Id_customer = $Id_Customer;
-				$msResponse->Id_nzb = $modelNzb->Id;
-				$msResponse->Id_state = 3;//downloaded
-				$result[]=$msResponse;
-			}
-			$modelNzb->save();							
-		}
-	
-		return $result;
-	}
-	
 	/**
 	 * @return array action filters
 	 */
@@ -88,6 +27,18 @@ class NzbController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
@@ -110,14 +61,14 @@ class NzbController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Nzb;
+		$model=new Player;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Nzb']))
+		if(isset($_POST['Player']))
 		{
-			$model->attributes=$_POST['Nzb'];
+			$model->attributes=$_POST['Player'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
@@ -139,9 +90,9 @@ class NzbController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Nzb']))
+		if(isset($_POST['Player']))
 		{
-			$model->attributes=$_POST['Nzb'];
+			$model->attributes=$_POST['Player'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
@@ -176,23 +127,21 @@ class NzbController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//update from NZB server
-		//$this->updateFromServer();
-		//
-		$dataProvider=new CActiveDataProvider('Nzb');
+		$dataProvider=new CActiveDataProvider('Player');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
+
 	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
-		$model=new Nzb('search');
+		$model=new Player('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Nzb']))
-			$model->attributes=$_GET['Nzb'];
+		if(isset($_GET['Player']))
+			$model->attributes=$_GET['Player'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -206,7 +155,7 @@ class NzbController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Nzb::model()->findByPk($id);
+		$model=Player::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -218,7 +167,7 @@ class NzbController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='nzb-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='player-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

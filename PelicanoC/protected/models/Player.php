@@ -1,24 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "nzb_movie_state".
+ * This is the model class for table "player".
  *
- * The followings are the available columns in table 'nzb_movie_state':
- * @property integer $Id_nzb
- * @property integer $Id_movie_state
- * @property string $date
- * @property integer $Id_nzb_movie_state
+ * The followings are the available columns in table 'player':
+ * @property integer $Id
+ * @property string $url
+ * @property string $description
+ * @property string $file_protocol
+ * @property integer $Id_setting
  *
  * The followings are the available model relations:
- * @property MovieState $movieState
- * @property Nzb $nzb
+ * @property Setting $idSetting
  */
-class NzbMovieState extends CActiveRecord
+class Player extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return NzbMovieState the static model class
+	 * @return Player the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +30,7 @@ class NzbMovieState extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'nzb_movie_state';
+		return 'player';
 	}
 
 	/**
@@ -41,12 +41,13 @@ class NzbMovieState extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_nzb, Id_movie_state', 'required'),
-			array('Id_nzb, Id_movie_state', 'numerical', 'integerOnly'=>true),
-			array('date', 'safe'),
+			array('Id_setting', 'required'),
+			array('Id_setting', 'numerical', 'integerOnly'=>true),
+			array('url, description', 'length', 'max'=>255),
+			array('file_protocol', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_nzb, Id_movie_state, date, Id_nzb_movie_state', 'safe', 'on'=>'search'),
+			array('Id, url, description, file_protocol, Id_setting', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,8 +59,7 @@ class NzbMovieState extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'movieState' => array(self::BELONGS_TO, 'MovieState', 'Id_movie_state'),
-			'nzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
+			'idSetting' => array(self::BELONGS_TO, 'Setting', 'Id_setting'),
 		);
 	}
 
@@ -69,10 +69,11 @@ class NzbMovieState extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'Id_nzb' => 'Id Nzb',
-			'Id_movie_state' => 'Id Movie State',
-			'date' => 'Date',
-			'Id_nzb_movie_state' => 'Id Nzb Movie State',
+			'Id' => 'ID',
+			'url' => 'Url',
+			'description' => 'Description',
+			'file_protocol' => 'File Protocol',
+			'Id_setting' => 'Id Setting',
 		);
 	}
 
@@ -87,10 +88,11 @@ class NzbMovieState extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('Id_nzb',$this->Id_nzb);
-		$criteria->compare('Id_movie_state',$this->Id_movie_state);
-		$criteria->compare('date',$this->date,true);
-		$criteria->compare('Id_nzb_movie_state',$this->Id_nzb_movie_state);
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('url',$this->url,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('file_protocol',$this->file_protocol,true);
+		$criteria->compare('Id_setting',$this->Id_setting);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
