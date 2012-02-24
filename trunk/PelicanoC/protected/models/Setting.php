@@ -12,6 +12,11 @@
  * @property string $host_name
  * @property string $path_ready
  * @property string $path_subtitle
+ * @property string $path_images
+ * @property string $path_shared
+ *
+ * The followings are the available model relations:
+ * @property Player[] $players 
  */
 class Setting extends CActiveRecord
 {
@@ -55,10 +60,10 @@ class Setting extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer', 'numerical', 'integerOnly'=>true),
-			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name,path_ready,path_subtitle', 'length', 'max'=>255),
+			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name, path_ready, path_subtitle, path_images, path_shared', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,path_ready,path_subtitle', 'safe', 'on'=>'search'),
+			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,host_name, path_ready, path_subtitle, path_images, path_shared', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +75,7 @@ class Setting extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'players' => array(self::HAS_MANY, 'Player', 'Id_setting'),
 		);
 	}
 
@@ -87,6 +93,8 @@ class Setting extends CActiveRecord
 			'host_name' => 'Host Name',
 			'path_ready' => 'Path Ready',
 			'path_subtitle' => 'Path Subtitle',
+			'path_images' => 'Path Images',
+			'path_shared' => 'Path Shared',
 		);
 	}
 
@@ -109,7 +117,9 @@ class Setting extends CActiveRecord
 		$criteria->compare('host_name',$this->host_name,true);
 		$criteria->compare('path_ready',$this->path_ready,true);
 		$criteria->compare('path_subtitle',$this->path_subtitle,true);
-		
+		$criteria->compare('path_images',$this->path_images,true);
+		$criteria->compare('path_shared',$this->path_shared,true);
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

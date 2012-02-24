@@ -51,6 +51,18 @@
 		<?php echo $form->error($model,'path_subtitle'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'path_images'); ?>
+		<?php echo $form->textField($model,'path_images',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'path_images'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'path_shared'); ?>
+		<?php echo $form->textField($model,'path_shared',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'path_shared'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

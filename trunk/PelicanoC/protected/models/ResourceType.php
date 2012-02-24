@@ -1,24 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "nzb_movie_state".
+ * This is the model class for table "resource_type".
  *
- * The followings are the available columns in table 'nzb_movie_state':
- * @property integer $Id_nzb
- * @property integer $Id_movie_state
- * @property string $date
- * @property integer $Id_nzb_movie_state
+ * The followings are the available columns in table 'resource_type':
+ * @property integer $Id
+ * @property string $description
  *
  * The followings are the available model relations:
- * @property MovieState $movieState
- * @property Nzb $nzb
+ * @property Resource[] $resources
  */
-class NzbMovieState extends CActiveRecord
+class ResourceType extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return NzbMovieState the static model class
+	 * @return ResourceType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +27,7 @@ class NzbMovieState extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'nzb_movie_state';
+		return 'resource_type';
 	}
 
 	/**
@@ -41,12 +38,12 @@ class NzbMovieState extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_nzb, Id_movie_state', 'required'),
-			array('Id_nzb, Id_movie_state', 'numerical', 'integerOnly'=>true),
-			array('date', 'safe'),
+			array('Id', 'required'),
+			array('Id', 'numerical', 'integerOnly'=>true),
+			array('description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_nzb, Id_movie_state, date, Id_nzb_movie_state', 'safe', 'on'=>'search'),
+			array('Id, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,8 +55,7 @@ class NzbMovieState extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'movieState' => array(self::BELONGS_TO, 'MovieState', 'Id_movie_state'),
-			'nzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
+			'resources' => array(self::HAS_MANY, 'Resource', 'Id_resource_type'),
 		);
 	}
 
@@ -69,10 +65,8 @@ class NzbMovieState extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'Id_nzb' => 'Id Nzb',
-			'Id_movie_state' => 'Id Movie State',
-			'date' => 'Date',
-			'Id_nzb_movie_state' => 'Id Nzb Movie State',
+			'Id' => 'ID',
+			'description' => 'Description',
 		);
 	}
 
@@ -87,10 +81,8 @@ class NzbMovieState extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('Id_nzb',$this->Id_nzb);
-		$criteria->compare('Id_movie_state',$this->Id_movie_state);
-		$criteria->compare('date',$this->date,true);
-		$criteria->compare('Id_nzb_movie_state',$this->Id_nzb_movie_state);
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -14,6 +14,7 @@ public $url; //string;
 public $file_name; //string;
 public $subt_url; //string;
 public $subt_file_name; //string;
+public $Id_resource_type; //string;
 public $ID; //string;
 public $Title; //string;
 public $Year; //string;

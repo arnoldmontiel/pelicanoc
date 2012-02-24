@@ -6,16 +6,21 @@
  * The followings are the available columns in table 'nzb':
  * @property integer $Id
  * @property string $url
- * @property integer $downloaded
  * @property string $path
  * @property string $description
  * @property string $file_name
  * @property string $Id_imdbData
  * @property string $subt_file_name
  * @property string $subt_url
+ * @property integer $resource_Id
+ * @property integer $downloading
+ * @property integer $downloaded
+ * @property string $date
  *
  * The followings are the available model relations:
  * @property Imdbdata $idImdbData
+ * @property Resource $resource
+ * @property NzbMovieState[] $nzbMovieStates
  */
 class Nzb extends CActiveRecord
 {
@@ -46,12 +51,13 @@ class Nzb extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id', 'required'),
-			array('Id, downloaded', 'numerical', 'integerOnly'=>true),
+			array('Id, resource_Id, downloading, downloaded', 'numerical', 'integerOnly'=>true),
 			array('url, path, description, file_name, subt_file_name, subt_url', 'length', 'max'=>255),
 			array('Id_imdbData', 'length', 'max'=>45),
+			array('date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, url, downloaded, path, description, file_name, Id_imdbData, subt_file_name, subt_url', 'safe', 'on'=>'search'),
+			array('Id, url, path, description, file_name, Id_imdbData, subt_file_name, subt_url, resource_Id, downloading, downloaded, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +70,7 @@ class Nzb extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'imdbdata' => array(self::BELONGS_TO, 'Imdbdata', 'Id_imdbData'),
-			'movieStates' => array(self::MANY_MANY, 'MovieState', 'nzb_movie_state(Id_nzb, Id_movie_state)'),
+			'resource' => array(self::BELONGS_TO, 'Resource', 'resource_Id'),
 			'nzbMovieStates' => array(self::HAS_MANY, 'NzbMovieState', 'Id_nzb'),
 		);
 	}
@@ -77,13 +83,16 @@ class Nzb extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'url' => 'Url',
-			'downloaded' => 'Downloaded',
 			'path' => 'Path',
 			'description' => 'Description',
 			'file_name' => 'File Name',
 			'Id_imdbData' => 'Id Imdb Data',
 			'subt_file_name' => 'Subt File Name',
 			'subt_url' => 'Subt Url',
+			'resource_Id' => 'Resource',
+			'downloading' => 'Downloading',
+			'downloaded' => 'Downloaded',
+			'date' => 'Date',
 		);
 	}
 

@@ -45,6 +45,16 @@
 		<?php echo $form->textField($model,'path_subtitle',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model,'path_images'); ?>
+		<?php echo $form->textField($model,'path_images',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'path_shared'); ?>
+		<?php echo $form->textField($model,'path_shared',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

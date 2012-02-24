@@ -26,5 +26,7 @@ $this->menu=array(
 		'host_name',
 		'path_ready',
 		'path_subtitle',
+		'path_images',
+		'path_shared',
 	),
 )); ?>
