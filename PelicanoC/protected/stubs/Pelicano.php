@@ -54,7 +54,7 @@ class Pelicano
 
 );
 
-function __construct($url='workspace/PelicanoS/index.php?r=nzb/wsdl')
+function __construct($url='/PelicanoS/index.php?r=nzb/wsdl')
 {
 	ini_set ('soap.wsdl_cache_enabled',0);
 	$url = Setting::getInstance()->host_name.$url;
