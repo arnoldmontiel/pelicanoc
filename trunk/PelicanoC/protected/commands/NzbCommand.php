@@ -16,11 +16,11 @@ class NzbCommand extends CConsoleCommand  {
 		{
 			$modelNzb->downloading = 0;
 			$modelNzb->downloaded = 1;
-				if(strpos($modelNzb->file_name,$file_name)===false)
-				{
-					$modelNzb->downloading = 1;
-					$modelNzb->downloaded = 0;						
-				}
+			if(strpos($modelNzb->file_name,$file_name)===false)
+			{
+				$modelNzb->downloading = 1;
+				$modelNzb->downloaded = 0;						
+			}
 			if($modelNzb->downloaded)
 			{
 				$nzbMovieState= new NzbMovieState;
