@@ -20,17 +20,21 @@
  */
 class Setting extends CActiveRecord
 {
-	private static $setting = null;
+	private static $setting;
 		 
+// 	private function __construct()
+// 	{
+// 	}
+	
 	public static function getInstance()
 	{
-		if(Setting::$setting==null)
+		if(!isset(self::$instancia))
 		{
 			$setings = Setting::model()->findAll();
 			if($setings!=null)
 				Setting::$setting= $setings[0];
 		}
-		return Setting::$setting;		
+		return self::$setting;		
 	}
 	
 	/**
