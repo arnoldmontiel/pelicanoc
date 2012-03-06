@@ -185,9 +185,12 @@ class Nzb extends CActiveRecord
 		$criteria=new CDbCriteria;
 	
 		$criteria->order = "t.date DESC";
-	
+		
 		return new CActiveDataProvider($this, array(
 						'criteria'=>$criteria,
+						'pagination'=>array(
+		                'pageSize'=>12, // whatever your size was
+		)
 		));
 	}
 	public function searchOn($expresion)
