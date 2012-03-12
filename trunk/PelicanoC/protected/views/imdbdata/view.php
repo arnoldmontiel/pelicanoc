@@ -156,7 +156,9 @@
 	
 </div>
 	<?php
-Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
+	$setting = Setting::getInstance();
+	$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$model->Id,'Id_customer'=>$setting->getId_customer()));
+	Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	ChangeBG('images/','".$modelImdbdata->Backdrop."');
 	ShowDownload();
 
@@ -166,7 +168,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	//
 	function ShowDownload()
 	{
-		if('".$model->requested."'=='1')
+		if('".$nzbCustomer->requested."'=='1')
 		{
 			$('#cancelRequestButton').show();
 		}

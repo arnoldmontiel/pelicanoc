@@ -26,6 +26,24 @@
 */
 class Nzb extends CActiveRecord
 {
+	public function afterSave()
+	{
+		$setting = Setting::getInstance();
+		$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$this->Id,'Id_customer'=>$setting->getId_customer()));
+		if(!isset($nzbCustomer))
+		{
+			$nzbCustomer = new NzbCustomer;				
+		}
+		$nzbCustomer->Id_nzb = $this->Id;
+		$nzbCustomer->Id_customer = $setting->getId_customer();
+		$nzbCustomer->downloading = $this->downloading;
+		$nzbCustomer->downloaded = $this->downloaded;
+		$nzbCustomer->date = $this->date;
+		$nzbCustomer->requested = $this->requested;
+		$nzbCustomer->save();
+		
+		return parent::afterSave();	
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
