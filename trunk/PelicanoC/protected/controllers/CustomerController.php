@@ -89,6 +89,7 @@ class CustomerController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+		$ddlUsername = User::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -101,6 +102,7 @@ class CustomerController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+			'ddlUsername'=>$ddlUsername,
 		));
 	}
 
