@@ -274,6 +274,14 @@ div.movie-view-index-title
 	letter-spacing: -1px;
 	color: white;
 }
+div.serie-view-index-title
+{
+	font-size: 28px;
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+	font-weight: 700;
+	letter-spacing: -1px;
+	color: white;
+}
 
 div.movie-view
 {
@@ -287,6 +295,19 @@ div.movie-view
   	box-shadow:         3px 3px 5px 6px black;
 	 
 }
+div.serie-view
+{
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	border: 1px solid black;
+	width: 95%;	 
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+	 
+}
+
 div.movie-title
 {
 	font-size: 18px;
@@ -295,6 +316,15 @@ div.movie-title
 	letter-spacing: -1px;
 	color: white;
 }
+div.serie-title
+{
+	font-size: 18px;
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+	font-weight: 700;
+	letter-spacing: -1px;
+	color: white;
+}
+
 div.movie-title-index
 {
 	font-size: 24px;
@@ -303,8 +333,34 @@ div.movie-title-index
 	letter-spacing: -1px;
 	color: white;
 }
+div.serie-title-index
+{
+	font-size: 24px;
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+	font-weight: 700;
+	letter-spacing: -1px;
+	color: white;
+	display: inline-block;
+	width: 100%;
+}
 
 div.movie-rating
+{
+width: 66px;
+height: 66px;
+line-height: 66px;
+display: inline-block;
+background: url(star-rating-blue.png) no-repeat;
+text-align: center;
+vertical-align: middle;
+font-size: 15px;
+font-weight: bold;
+color: black;
+font-family: tahoma;
+float: left;
+padding-right: 5px;
+}
+div.serie-rating
 {
 width: 66px;
 height: 66px;
@@ -338,6 +394,24 @@ div.movie-rating-box
 	-webkit-box-shadow: 3px 3px 5px 6px black;
   	box-shadow:         3px 3px 5px 6px black;
 }
+div.serie-rating-box
+{
+	float: left;
+	padding: 5px 10px;
+	width: 157px;
+	margin: 5px 5px 0 10px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	vertical-align: middel;
+	text-align: center;
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+}
+
 div.movie-download-box
 {
 	float: left;
@@ -378,7 +452,39 @@ div.left-movie-view
   	padding: 0; 
 	margin: 0 0 10px 0;
 	display: inline-block; 
-	vertical-align: top;  
+	vertical-align: top;
+	  
+}
+div.movie-index
+{
+	padding: 5px;
+}
+div.single-movie-index-view
+{
+	padding: 8px;
+	margin: 8px;
+	border: 1px solid black;
+	height: 300px;
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	background: rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+}
+
+div.single-movie-view
+{
+	width:185px;
+	float:left;
+	bottom:10px;
+  	left:0;
+  	clear: both;
+  	padding: 0; 
+	margin: 0 0 10px 0;
+	display: inline-block; 
+	vertical-align: top;
+	font-weight: bold;  
 }
 
 div.right-movie-view
@@ -389,6 +495,113 @@ div.right-movie-view
   	padding: 0; 
 	margin: 0 0 10px 0;  
 }
+div.serie-download-box
+{
+	float: left;
+	padding: 5px 10px;
+	width: 157px;
+	margin: 5px 5px 0 10px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+
+}
+
+div.serie-index-view
+{
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid black;
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	width: 95%;
+	background: rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+}
+div.left-serie-view
+{
+	width:135px;
+	float:left;
+	bottom:10px;
+  	left:0;
+  	clear: both;
+  	padding: 0; 
+	margin: 0 0 10px 0;
+	display: inline-block; 
+	vertical-align: top;
+	  
+}
+div.serie-index
+{
+	padding: 5px;
+}
+div.single-serie-index-view
+{
+	padding: 8px;
+	margin: 8px;
+	border: 1px solid black;
+	height: 300px;
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	background: rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+}
+p.single-movie-view-title
+{
+	font-weight: bold;
+	width: 185px;
+	line-height: 18px;
+	padding: 0 4px;
+	text-shadow: 0 1px 0 black;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+div.single-serie-view
+{
+	width:185px;
+	float:left;
+	bottom:10px;
+  	left:0;
+  	clear: both;
+  	padding: 0; 
+	margin: 0 0 10px 0;
+	display: inline-block; 
+	vertical-align: top;
+	font-weight: bold;
+	text-shadow: 0 1px 0 black;  
+	color: gray;  
+}
+p.single-serie-view-title
+{
+	font-weight: bold;
+	width: 185px;
+	line-height: 18px;
+	padding: 0 4px;
+	text-shadow: 0 1px 0 black;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+div.right-serie-view
+{
+	width:60%;
+	float:left;
+	bottom:10px;
+  	padding: 0; 
+	margin: 0 0 10px 0;  
+}
+
 
 img.menu-hover
 {
@@ -433,6 +646,58 @@ div.left-movie-home
 	
 }
 div.right-movie-home
+{
+	padding: 10px;
+	margin: 10px 10px 10px 10px;
+	border: 1px solid black;
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	width: 45%;
+	float:left;	
+	background: rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+	
+}
+div.serie-home-view
+{
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid black;
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	width: 95%;
+	background: rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+	 
+}
+
+div.row-serie-home
+{
+	display: inline-block;
+	width: 100%;
+
+}
+div.left-serie-home
+{
+	padding: 10px;
+	margin: 10px 10px 10px 10px;
+	border: 1px solid black;
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	width: 45%;
+	float:left;
+	
+	background: rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+	
+}
+div.right-serie-home
 {
 	padding: 10px;
 	margin: 10px 10px 10px 10px;
@@ -543,3 +808,80 @@ div.movie-view-logo
 	vertical-align: bottom;
 	margin-top: 50px;
 }
+div.leftcurtain
+{
+	width: 0px;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	z-index: 2;
+}
+
+div.rightcurtain
+{
+	width: 0px;
+	height: 100%;
+	right: 0px;
+	top: 0px;
+	position: absolute;
+	z-index: 3;
+}
+.rightcurtain img, .leftcurtain img{
+	width: 100%;
+	height: 100%;
+}
+div.hideClass
+{
+	display:none;
+}
+div.showLeftCurtian
+{
+	width: 50%;	
+}
+
+div.showRightCurtian
+{
+	width: 51%;	
+}
+div.view-serie-season-button
+{
+	width:32px;
+	height:32px;
+	background: url("season-red.png") no-repeat;
+	text-align: center;
+	padding-top: 1px;
+	float: left;
+	font-weight: bold;
+	margin-right: 2px;
+}
+div.view-serie-season-button-hover
+{
+	background: url("season-red-light.png") no-repeat;
+}
+div.view-serie-season-button-selected
+{
+	width:32px;
+	height:32px;
+	background: url("season-red-light.png") no-repeat;
+	text-align: center;
+	padding-top: 1px;
+	float: left;
+	font-weight: bold;
+	margin-right: 2px;
+}
+
+div.view-serie-season-index
+{
+	margin-right: 20px;
+	float:right;
+	display: inline-block;
+}
+div.view-serie-season-index-title
+{
+	margin-right: 10px;
+	display: inline-block;
+	float: right;
+	
+}
+
