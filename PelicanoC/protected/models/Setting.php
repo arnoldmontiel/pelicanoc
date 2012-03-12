@@ -36,6 +36,11 @@ class Setting extends CActiveRecord
 		}
 		return self::$setting;		
 	}
+	public function getId_Customer()
+	{
+		$user = User::model()->findByPk(Yii::app()->user->Id);
+		return $user->customers[0]->Id;		
+	}
 	
 	/**
 	 * Returns the static model of the specified AR class.

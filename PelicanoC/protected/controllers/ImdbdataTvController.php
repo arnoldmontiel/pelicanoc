@@ -218,7 +218,7 @@ class ImdbdataTvController extends Controller
 	{
 		$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
-		$SerieResponseArray = $pelicanoCliente->getNewSeries($setting->Id_customer);
+		$SerieResponseArray = $pelicanoCliente->getNewSeries($setting->getId_Customer());
 		foreach ($SerieResponseArray as $Serie) {
 			try {
 				$modelNzb = Nzb::model()->findByPk($serie->Id);
@@ -297,16 +297,16 @@ class ImdbdataTvController extends Controller
 					$modelNzb->date = date("Y-m-d H:i:s",time());
 					$modelNzb->save();
 						
-					$nzbSerieState= new NzbSerieState;
-					$nzbSerieState->Id_nzb = $modelNzb->Id;
-					$nzbSerieState->Id_serie_state = 1;
-					$nzbSerieState->save();
+					$nzbMovieState= new NzbMovieState;
+					$nzbMovieState->Id_nzb = $modelNzb->Id;
+					$nzbMovieState->Id_serie_state = 1;
+					$nzbMovieState->save();
 	
 					$transaction->commit();
 					//we send the new state to the server
 					$pelicanoCliente = new Pelicano;
 					$request= new SerieStateRequest;
-					$request->id_customer = $setting->Id_customer;
+					$request->id_customer = $setting->getId_Customer();
 					$request->id_serie =$modelNzb->Id;
 					$request->id_state =1;
 					$request->date = time();
