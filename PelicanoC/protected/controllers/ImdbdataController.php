@@ -259,10 +259,11 @@ class ImdbdataController extends Controller
 	{
 		if(isset($_POST['id_nzb']))
 		{
+			$setting = Setting::getInstance();
 			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
-			if(!$nzb->requested)
+			$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$nzb->Id,'Id_customer'=>$setting->getId_customer()));
+			if(!$nzbCustomer->requested)
 			{
-				$setting = Setting::getInstance();
 				try
 				{
 					$nzb->requested = 1;
@@ -295,10 +296,11 @@ class ImdbdataController extends Controller
 	{
 		if(isset($_POST['id_nzb']))
 		{
+			$setting = Setting::getInstance();
 			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
-			if($nzb->requested)
+			$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$nzb->Id,'Id_customer'=>$setting->getId_customer()));
+			if($nzbCustomer->requested)
 			{
-				$setting = Setting::getInstance();
 				try
 				{
 					$nzb->requested = 0;
@@ -343,22 +345,36 @@ class ImdbdataController extends Controller
 				if(!isset($modelImdbdata))
 				{
 					$modelImdbdata=new Imdbdata;						
-				}	
-				if(!$modelNzb->isNewRecord)
+				}
+				if($movie->deleted)
 				{
-					if($movie->deleted&&(!$modelNzb->downloading||!$modelNzb->downloaded))
+					if(!$modelNzb->isNewRecord)
 					{
-						$modelNzb->delete();
-
+						if(!$modelNzb->downloading||!$modelNzb->downloaded)
+						{
+							$modelNzb->delete();
+	
+							$request= new MovieStateRequest;
+							$request->id_customer = $setting->getId_Customer();
+							$request->id_movie =$modelNzb->Id;
+							$request->id_state =6;
+							$request->date = time();
+							$requests[]=$request;
+							continue;						
+						}
+					}
+					else 
+					{
 						$request= new MovieStateRequest;
 						$request->id_customer = $setting->getId_Customer();
-						$request->id_movie =$modelNzb->Id;
+						$request->id_movie =$movie->Id;
 						$request->id_state =6;
 						$request->date = time();
 						$requests[]=$request;
 						continue;						
-					}
-				}						
+					}						
+					
+				}	
 				$nzbAttr = $modelNzb->attributes;
 				while(current($nzbAttr)!==False)
 				{
