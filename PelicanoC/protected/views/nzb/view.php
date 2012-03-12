@@ -23,6 +23,6 @@ $this->menu=array(
 		'path',
 		'description',
 		'file_name',
-		'Id_imdbData',
+		'Id_imdbdata',
 	),
 )); ?>

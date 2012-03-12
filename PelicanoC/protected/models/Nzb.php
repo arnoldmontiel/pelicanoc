@@ -10,7 +10,7 @@
 * @property string $path
 * @property string $description
 * @property string $file_name
-* @property string $Id_imdbData
+* @property string $Id_imdbdata
 * @property string $subt_file_name
 * @property string $subt_url
 * @property integer $resource_Id
@@ -184,13 +184,13 @@ class Nzb extends CActiveRecord
 	
 		$criteria=new CDbCriteria;
 	
-		$criteria->order = "t.date DESC";
+		$criteria->with[]='imdbdata';
+		$criteria->order = "imdbdata.Year DESC";
 		
+		$criteria->addCondition('Id_imdbdata is not NULL');
+				
 		return new CActiveDataProvider($this, array(
 						'criteria'=>$criteria,
-						'pagination'=>array(
-		                'pageSize'=>12, // whatever your size was
-		)
 		));
 	}
 	public function searchOn($expresion)
@@ -202,6 +202,8 @@ class Nzb extends CActiveRecord
 	
 		$criteria->order = "t.date DESC";
 		
+		$criteria->addCondition('Id_imdbdata is not NULL');
+				
 		$criteria->compare('file_name',$expresion,true,'OR');
 		$criteria->with[]='imdbdata';
 		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
@@ -211,11 +213,90 @@ class Nzb extends CActiveRecord
 		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
-	
+		$criteria->order = "imdbdata.Year DESC";
+		
+		
 		return new CActiveDataProvider($this, array(
 							'criteria'=>$criteria,
 		));
 	}
+	/**
+	* Retrieves a list of models based on the current search/filter conditions.
+	* @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	*/
+	public function searchSeriesOrdered()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->order = "t.date DESC";
+		$criteria->addCondition('Id_imdbdata_tv is not NULL');
+				
+		return new CActiveDataProvider($this, array(
+						'criteria'=>$criteria,
+		));
+	}
+	public function searchSeriesOn($expresion)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		
+		$criteria->addCondition('Id_imdbdata_tv is not NULL');
+				
+		$criteria->compare('file_name',$expresion,true,'OR');
+		$criteria->with[]='imdbdata';
+		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Director',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Year',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
+		$criteria->order = "imdbdata.Year DESC";
+				
+		return new CActiveDataProvider($this, array(
+							'criteria'=>$criteria,
+		));
+	}
+	public function searchEpisodes($Id_imdbdata_tv_parent)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->order = "t.date DESC";
+		
+		$criteria->with[]='imdbdataTv';
+		$criteria->compare('imdbdataTv.Id_parent',$Id_imdbdata_tv_parent,false);
+			
+		return new CActiveDataProvider($this, array(
+								'criteria'=>$criteria,
+		));
+	}
+	public function searchEpisodesOfSeason($Id_imdbdata_tv_parent,$season)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+	
+		$criteria->with[]='imdbdataTv';
+		$criteria->compare('imdbdataTv.Id_parent',$Id_imdbdata_tv_parent,false);
+		$criteria->compare('imdbdataTv.season',$season,false);
+		$criteria->order = "imdbdataTv.episode";
+		
+		return new CActiveDataProvider($this, array(
+									'criteria'=>$criteria,
+		));
+	}
+	
 	public function searchStored()
 	{
 		// Warning: Please modify the following code to remove attributes that

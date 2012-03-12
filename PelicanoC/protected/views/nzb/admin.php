@@ -30,7 +30,7 @@ $this->menu=array(
 		'description',
 		'file_name',
 		/*
-		'Id_imdbData',
+		'Id_imdbdata',
 		*/
 		array(
 			'class'=>'CButtonColumn',

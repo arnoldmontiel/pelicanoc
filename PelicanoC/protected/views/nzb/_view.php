@@ -24,8 +24,8 @@
 	<?php echo CHtml::encode($data->file_name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Id_imdbData')); ?>:</b>
-	<?php echo CHtml::encode($data->Id_imdbData); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Id_imdbdata')); ?>:</b>
+	<?php echo CHtml::encode($data->Id_imdbdata); ?>
 	<br />
 
 

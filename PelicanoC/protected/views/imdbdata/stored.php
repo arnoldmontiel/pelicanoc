@@ -6,7 +6,7 @@
 	</div>	
 </div>
 
-<div id="imdb_stored">
+<div id="imdb_stored" class="movie-index">
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',

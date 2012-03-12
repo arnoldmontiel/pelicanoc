@@ -14,7 +14,8 @@ public $url; //string;
 public $file_name; //string;
 public $subt_url; //string;
 public $subt_file_name; //string;
-public $Id_resource_type; //string;
+public $Id_resource_type; //string;//integer;
+public $deleted; //integer;
 public $ID; //string;
 public $Title; //string;
 public $Year; //string;
@@ -26,21 +27,64 @@ public $Writer; //string;
 public $Actors; //string;
 public $Plot; //string;
 public $Poster; //string;
-public $Backdrop; //string;
 public $Runtime; //string;
 public $Rating; //string;
 public $Votes; //string;
 public $Response; //string;
+public $Backdrop; //string;
 }
 
 class MovieStateRequest
 {
-public $id_customer; //integer;
-public $id_movie; //integer;
-public $id_state; //integer;
-public $date; //integer;
+	public $id_customer; //integer;
+	public $id_movie; //integer;
+	public $id_state; //integer;
+	public $date; //integer;
 }
 
+class SerieResponse
+{
+	public $Id; //integer;
+	public $url; //string;
+	public $file_name; //string;
+	public $subt_url; //string;
+	public $subt_file_name; //string;
+	public $Id_resource_type; //integer;
+	public $ID; //string;
+	public $Title; //string;
+	public $Year; //string;
+	public $Rated; //string;
+	public $Released; //string;
+	public $Genre; //string;
+	public $Director; //string;
+	public $Writer; //string;
+	public $Actors; //string;
+	public $Plot; //string;
+	public $Poster; //string;
+	public $Runtime; //string;
+	public $Rating; //string;
+	public $Votes; //string;
+	public $Response; //string;
+	public $Backdrop; //string;
+	public $Season; //integer;
+	public $Episode; //integer;
+	public $Id_parent; //integer;
+	public $arrSeason; //SeasonArray;
+}
+class SerieStateRequest
+{
+	public $idCustomer; //integer;
+	public $idSerieNzb; //integer;
+	public $idState; //integer;
+	public $date; //integer;
+	public $idImdb; //integer;
+}
+class SeasonResponse
+{
+	public $Id_imdbdata_tv; //string;
+	public $season; //integer;
+	public $episodes; //integer;
+}
 /**
 * The soap client proxy class
 */
@@ -50,14 +94,17 @@ class Pelicano
 
 	private static $classmap = array(
 		'MovieResponse'=>'MovieResponse',
-		'MovieStateRequest'=>'MovieStateRequest',
+		'SerieResponse'=>'SerieResponse',
+		'SeasonResponse'=>'SeasonResponse',
+	'MovieStateRequest'=>'MovieStateRequest',
+	'SerieStateRequest'=>'SerieStateRequest',
 
 );
 
-function __construct($url='/PelicanoS/index.php?r=nzb/wsdl')
+function __construct($url='/index.php?r=nzb/wsdl')
 {
 	ini_set ('soap.wsdl_cache_enabled',0);
-	$url = Setting::getInstance()->host_name.$url;
+	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path.$url;
 	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 }
 
@@ -67,12 +114,30 @@ function getNewMovies($integer)
 	$MovieResponseArray = $this->soapClient->getNewMovies($integer);
 	return $MovieResponseArray;
 }
-
-function setMovieState($MovieStateRequest)
+function getNewSeries($integer)
 {
-	//$boolean = $this->soapClient->setMovieState(array($MovieStateRequest->id_customer,$MovieStateRequest->id_movie,$MovieStateRequest->id_state));
-	$boolean = $this->soapClient->__call("setMovieState", array($MovieStateRequest->id_customer,$MovieStateRequest->id_movie,$MovieStateRequest->id_state,$MovieStateRequest->date));
-	return $boolean;
+	$SerieResponseArray = $this->soapClient->getNewSeries($integer);
+	return $SerieResponseArray;
+}
+function setMovieState($MovieStateRequestArray)
+{
+	$r=array();
+	foreach ($MovieStateRequestArray as $item)
+	{
+		$request = array();
+		$request['id_customer'] = $item->id_customer;
+		$request['id_movie'] = $item->id_movie;
+		$request['id_state'] = $item->id_state;
+		$request['date'] = $item->date;		
+		$r[]=$request;
+	}
+	return $this->soapClient->setMovieState($r);
+}
+
+function setSerieState($SerieStateRequestArray)
+{
+$boolean =  $this->soapClient->setSerieState($SerieStateRequestArray);
+return $boolean;
 }
 }
 

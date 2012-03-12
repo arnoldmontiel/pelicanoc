@@ -1,43 +1,64 @@
-<?php
-$this->breadcrumbs=array(
-	'Imdbdata Tvs'=>array('index'),
-	$model->Title,
-);
+<div class="serie-title-index">
+	<?php echo $model->Title;?>	
+	<div id="seasons-index" class="view-serie-season-index">
+		<?php
+		$first = true;
+		foreach ($model->seasons as $season)
+		{
+			if($first)
+			{
+				$first = false;				
+				echo CHtml::openTag('div',array("class"=>"view-serie-season-button view-serie-season-button-selected"));
+			}
+			else
+			{
+				echo CHtml::openTag('div',array("class"=>"view-serie-season-button"));
+					
+			}
+			echo $season->season; 
+			echo CHtml::closeTag('div');
+			
+		}
+		?>
+	</div>
+	<div class="view-serie-season-index-title">
+		Season:
+	</div>
 
-$this->menu=array(
-	array('label'=>'List ImdbdataTv', 'url'=>array('index')),
-	array('label'=>'Create ImdbdataTv', 'url'=>array('create')),
-	array('label'=>'Update ImdbdataTv', 'url'=>array('update', 'id'=>$model->ID)),
-	array('label'=>'Delete ImdbdataTv', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->ID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage ImdbdataTv', 'url'=>array('admin')),
-);
-?>
+</div>
 
-<h1>View ImdbdataTv #<?php echo $model->ID; ?></h1>
+<div id="imdbTv_index" class="serie-index">
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'ID',
-		'Title',
-		'Year',
-		'Rated',
-		'Released',
-		'Genre',
-		'Director',
-		'Writer',
-		'Actors',
-		'Plot',
-		'Poster',
-		'Poster_original',
-		'Backdrop',
-		'Backdrop_original',
-		'Runtime',
-		'Rating',
-		'Votes',
-		'Response',
-		'Id_parent',
-		'season',
-		'episode',
-	),
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_viewEpisode',
+	'summaryText' =>"",
+	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
+
 )); ?>
+</div>
+<?php 
+Yii::app()->clientScript->registerScript(__CLASS__.'#ImdbdataTv_index', "
+$('.view-serie-season-button').mouseover(
+	function(){
+		$(this).addClass('view-serie-season-button-hover');
+	}
+).mouseout(
+	function(){
+		$(this).removeClass('view-serie-season-button-hover');
+  	}
+);
+$('.view-serie-season-button').click(function(){
+					$('#seasons-index').children().removeClass('view-serie-season-button-selected');
+					$(this).addClass('view-serie-season-button-selected');
+					$.post('".ImdbdataTvController::createUrl('AjaxChangeSeason')."',
+							{id_imdbdata_tv_parent:'".$model->ID."' ,season_id: $(this).html()}
+					).success(
+						function(data) 
+						{
+ 							$('#imdbTv_index').html(data);
+						}
+)});
+
+");
+?>

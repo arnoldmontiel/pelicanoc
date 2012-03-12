@@ -40,7 +40,7 @@ class Season extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id, Id_imdbdata_tv', 'required'),
+			array('Id, Id_imdbdata_tv, season', 'required'),
 			array('season, episodes', 'numerical', 'integerOnly'=>true),
 			array('Id, Id_imdbdata_tv', 'length', 'max'=>45),
 			// The following rule is used by search().

@@ -36,8 +36,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'Id_imdbData'); ?>
-		<?php echo $form->textField($model,'Id_imdbData',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->label($model,'Id_imdbdata'); ?>
+		<?php echo $form->textField($model,'Id_imdbdata',array('size'=>45,'maxlength'=>45)); ?>
 	</div>
 
 	<div class="row buttons">

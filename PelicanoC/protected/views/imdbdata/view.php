@@ -75,6 +75,60 @@
 		 	)
 		 );
 	 ?>	
+	<?php
+		 $this->widget('zii.widgets.jui.CJuiButton',
+			 array(
+			 	'id'=>'requestButton',
+			 	'name'=>'request',
+			 	'caption'=>'Solicitar',
+			 	'value'=>'Click para solicitar la pelicula',
+			 	'onclick'=>'js:function(){
+			 		if(confirm("Esta seguro de solicitar esta pelicula?"))
+			 		{
+						$.post("'.ImdbdataController::createUrl('AjaxRequestMovie').'",
+								{id_nzb: "'.$model->Id.'"}
+						).success(
+							function(data) 
+							{
+	 							$("#requestButton").hide();
+	 							$("#cancelRequestButton").animate({opacity: "show"},"slow");
+							}
+						);
+		 
+			 		}
+			 		return false;
+				}',
+				'htmlOptions'=>array('style'=>'display: none;')
+		 	)
+		 );
+	 ?>	
+	<?php
+		 $this->widget('zii.widgets.jui.CJuiButton',
+			 array(
+			 	'id'=>'cancelRequestButton',
+			 	'name'=>'cancelRequest',
+			 	'caption'=>'Cancelar Solicitud',
+			 	'value'=>'Click cancelar la solicitud de la pelicula',
+			 	'onclick'=>'js:function(){
+			 		if(confirm("Esta seguro de que desea cancelar esta solicitud?"))
+			 		{
+						$.post("'.ImdbdataController::createUrl('AjaxCancelRequestedMovie').'",
+								{id_nzb: "'.$model->Id.'"}
+						).success(
+							function(data) 
+							{
+	 							$("#cancelRequestButton").hide();
+	 							$("#requestButton").animate({opacity: "show"},"slow");
+							}
+						);
+		 
+			 		}
+			 		return false;
+				}',
+				'htmlOptions'=>array('style'=>'display: none;')
+		 	)
+		 );
+	 ?>	
 	 <div id="started-display" style="display: none;float: left;padding: 5px 10px; ">
 	 	<img alt="Download Started" src="images/downloading.png">
 	 </div>
@@ -103,11 +157,24 @@
 </div>
 	<?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
-	ChangeBG('images/','".$modelImdbdata->Backdrop."');	
+	ChangeBG('images/','".$modelImdbdata->Backdrop."');
 	ShowDownload();
+
+	$('.leftcurtain').addClass('showLeftCurtian');
+	$('.rightcurtain').addClass('showRightCurtian');
+	OpenCurtains(2000);
 	//
 	function ShowDownload()
 	{
+		if('".$model->requested."'=='1')
+		{
+			$('#cancelRequestButton').show();
+		}
+		else
+		{
+			$('#requestButton').show();
+		}		
+		return false;
 		if('".$model->downloading."'=='1')
 		{
 			$('#started-display').show();
