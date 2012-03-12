@@ -46,9 +46,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Id_imdbData'); ?>
-		<?php echo $form->textField($model,'Id_imdbData',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'Id_imdbData'); ?>
+		<?php echo $form->labelEx($model,'Id_imdbdata'); ?>
+		<?php echo $form->textField($model,'Id_imdbdata',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($model,'Id_imdbdata'); ?>
 	</div>
 
 	<div class="row buttons">

@@ -22,4 +22,5 @@ class Controller extends CController
 	public $breadcrumbs=array();
 
 	public $showMenu=true;
+	public $fromPageNumber = 0;
 }

@@ -38,6 +38,11 @@ class ImdbdataController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$pageNumber=0;
+		if(isset($_GET['currentPage']))
+		{
+			$this->fromPageNumber=$_GET['currentPage'];				
+		}
 		$model = Nzb::model()->findByPk($id); 
 		//$modelImdbdata = $this->loadModel($id);
 		$modelImdbdata = $model->imdbdata;
@@ -62,7 +67,7 @@ class ImdbdataController extends Controller
 		}						
 		$this->render('view',array(
 			'model'=>$model,
-			'modelImdbdata'=>$model->imdbdata,
+			'modelImdbdata'=>$modelImdbdata,
 		));
 	}
 
@@ -138,9 +143,16 @@ class ImdbdataController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//$this->updateFromServer();
+		$this->updateFromServer();
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchOrdered();
+		$dataProvider->pagination->pageSize= 12;
+		
+		$pageNumber=0;
+		if(!isset($_GET['ajax'])&&isset($_GET['pageNumber']))
+		{
+			$dataProvider->pagination->setCurrentPage($_GET['pageNumber']);
+		}
 		
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -159,6 +171,8 @@ class ImdbdataController extends Controller
 	{
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchNews();
+		$dataProvider->pagination->pageSize= 12;
+		
 		$this->render('news',array(
 				'dataProvider'=>$dataProvider,
 		));
@@ -168,6 +182,7 @@ class ImdbdataController extends Controller
 	{
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchStored();
+		$dataProvider->pagination->pageSize= 12;
 		$this->render('stored',array(
 				'dataProvider'=>$dataProvider,
 		));
@@ -229,7 +244,8 @@ class ImdbdataController extends Controller
 						$request->id_movie =$nzb->Id;
 						$request->id_state =2;
 						$request->date = time();
-						$status = $pelicanoCliente->setMovieState($request);
+						$requests[]=$request;
+						$status = $pelicanoCliente->setMovieState($requests);
 						
 					}
 				}
@@ -239,8 +255,80 @@ class ImdbdataController extends Controller
 			}
 		}
 	}	
+	public function actionAjaxRequestMovie()
+	{
+		if(isset($_POST['id_nzb']))
+		{
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			if(!$nzb->requested)
+			{
+				$setting = Setting::getInstance();
+				try
+				{
+					$nzb->requested = 1;
+					$nzb->save();
+	
+					$nzbMovieState= new NzbMovieState;
+					$nzbMovieState->Id_nzb = $nzb->Id;
+					$nzbMovieState->Id_movie_state = 4;
+					$nzbMovieState->save();
+	
+					//we send the new state to the server
+					$pelicanoCliente = new Pelicano;
+					$request= new MovieStateRequest;
+					$request->id_customer = $setting->Id_customer;
+					$request->id_movie =$nzb->Id;
+					$request->id_state =4;
+					$request->date = time();
+					$requests[]=$request;
+					$status = $pelicanoCliente->setMovieState($requests);
+	
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+		}
+		
+	}
+	public function actionAjaxCancelRequestedMovie()
+	{
+		if(isset($_POST['id_nzb']))
+		{
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			if($nzb->requested)
+			{
+				$setting = Setting::getInstance();
+				try
+				{
+					$nzb->requested = 0;
+					$nzb->save();
+	
+					$nzbMovieState= new NzbMovieState;
+					$nzbMovieState->Id_nzb = $nzb->Id;
+					$nzbMovieState->Id_movie_state = 5;
+					$nzbMovieState->save();
+	
+					//we send the new state to the server
+					$pelicanoCliente = new Pelicano;
+					$request= new MovieStateRequest;
+					$request->id_customer = $setting->Id_customer;
+					$request->id_movie =$nzb->Id;
+					$request->id_state =5;
+					$request->date = time();
+					$requests[]=$request;
+					$status = $pelicanoCliente->setMovieState($requests);	
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+		}
+		
+	}
 	public function updateFromServer()
 	{
+		$requests = array();
 		$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
 		$MovieResponseArray = $pelicanoCliente->getNewMovies($setting->Id_customer);
@@ -255,8 +343,22 @@ class ImdbdataController extends Controller
 				if(!isset($modelImdbdata))
 				{
 					$modelImdbdata=new Imdbdata;						
-				}			
-	
+				}	
+				if(!$modelNzb->isNewRecord)
+				{
+					if($movie->deleted&&(!$modelNzb->downloading||!$modelNzb->downloaded))
+					{
+						$modelNzb->delete();
+
+						$request= new MovieStateRequest;
+						$request->id_customer = $setting->Id_customer;
+						$request->id_movie =$modelNzb->Id;
+						$request->id_state =6;
+						$request->date = time();
+						$requests[]=$request;
+						continue;						
+					}
+				}						
 				$nzbAttr = $modelNzb->attributes;
 				while(current($nzbAttr)!==False)
 				{
@@ -318,7 +420,7 @@ class ImdbdataController extends Controller
 				$transaction = $modelNzb->dbConnection->beginTransaction();
 				try {
 					$modelImdbdata->save();
-					$modelNzb->Id_imdbData = $modelImdbdata->ID;
+					$modelNzb->Id_imdbdata = $modelImdbdata->ID;
 					$modelNzb->date = date("Y-m-d H:i:s",time());
 					$modelNzb->save();
 					
@@ -329,22 +431,26 @@ class ImdbdataController extends Controller
 						
 					$transaction->commit();
 					//we send the new state to the server
-					$pelicanoCliente = new Pelicano;
 					$request= new MovieStateRequest;
 					$request->id_customer = $setting->Id_customer;
 					$request->id_movie =$modelNzb->Id;
 					$request->id_state =1;
 					$request->date = time();
-											
-					$status = $pelicanoCliente->setMovieState($request);
-						
+					$requests[]=$request;
+																	
 				} catch (Exception $e) {
 					$transaction->rollback();
 				}									
 			} catch (Exception $e) {
 			}
 		}
+		if(!empty ($MovieResponseArray ))
+		{
+			$pelicanoCliente = new Pelicano;
+			$status = $pelicanoCliente->setMovieState($requests);				
+		}
 	}
+
 	public function actionAjaxSearch()
 	{
 		$modelNzb = new Nzb;
@@ -354,7 +460,8 @@ class ImdbdataController extends Controller
 			$expression=trim($_POST['imdb_search_field']);			
 		}
 		$dataProvider= $modelNzb->searchOn($expression);
-				
+		$dataProvider->pagination->pageSize= 12;
+		
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$dataProvider,
 			'itemView'=>'_view',
@@ -370,7 +477,8 @@ class ImdbdataController extends Controller
 			$expression=trim($_POST['imdb_search_field']);			
 		}
 		$dataProvider= $modelNzb->searchNewsOn($expression);
-				
+		$dataProvider->pagination->pageSize= 12;
+		
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$dataProvider,
 			'itemView'=>'_view',
@@ -386,7 +494,8 @@ class ImdbdataController extends Controller
 			$expression=trim($_POST['imdb_search_field']);			
 		}
 		$dataProvider= $modelNzb->searchStoredOn($expression);
-				
+		$dataProvider->pagination->pageSize= 12;
+		
 		$this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$dataProvider,
 			'itemView'=>'_view',

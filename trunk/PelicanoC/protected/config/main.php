@@ -17,6 +17,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.stubs.*',
+		'application.controllers.*',
 	),
 
 	'modules'=>array(

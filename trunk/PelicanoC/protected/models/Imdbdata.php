@@ -74,7 +74,7 @@ class Imdbdata extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_imdbData'),
+			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_imdbdata'),
 		);
 	}
 

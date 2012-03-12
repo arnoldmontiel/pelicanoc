@@ -60,7 +60,7 @@ class ImdbdataTv extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID, Id_parent', 'required'),
+			array('ID', 'required'),
 			array('Year, season, episode', 'numerical', 'integerOnly'=>true),
 			array('Rating', 'numerical'),
 			array('ID, Rated, Released, Runtime, Votes, Response, Id_parent', 'length', 'max'=>45),
@@ -154,4 +154,40 @@ class ImdbdataTv extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function searchHeader()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('ID',$this->ID,true);
+		$criteria->compare('Title',$this->Title,true);
+		$criteria->compare('Year',$this->Year);
+		$criteria->compare('Rated',$this->Rated,true);
+		$criteria->compare('Released',$this->Released,true);
+		$criteria->compare('Genre',$this->Genre,true);
+		$criteria->compare('Director',$this->Director,true);
+		$criteria->compare('Writer',$this->Writer,true);
+		$criteria->compare('Actors',$this->Actors,true);
+		$criteria->compare('Plot',$this->Plot,true);
+		$criteria->compare('Poster',$this->Poster,true);
+		$criteria->compare('Poster_original',$this->Poster_original,true);
+		$criteria->compare('Backdrop',$this->Backdrop,true);
+		$criteria->compare('Backdrop_original',$this->Backdrop_original,true);
+		$criteria->compare('Runtime',$this->Runtime,true);
+		$criteria->compare('Rating',$this->Rating);
+		$criteria->compare('Votes',$this->Votes,true);
+		$criteria->compare('Response',$this->Response,true);
+		$criteria->compare('Id_parent',$this->Id_parent,true);
+		$criteria->compare('season',$this->season);
+		$criteria->compare('episode',$this->episode);
+
+		$criteria->addCondition('Id_parent is NULL');
+		
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+		));
+	}
+	
 }

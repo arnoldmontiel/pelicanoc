@@ -2,7 +2,6 @@
 
 class SiteController extends Controller
 {
-	public $showMenu = false;
 	/**
 	 * Declares class-based actions.
 	 */
@@ -30,7 +29,17 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$modelNzb = new Nzb;
+		$dataProvider= $modelNzb->searchOrdered();
+		$dataProvider->pagination->pageSize= 4;
+		
+		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
+		$dataProviderSeries->pagination->pageSize= 4;
+		$this->render('index',array(
+					'dataProvider'=>$dataProvider,
+					'dataProviderSeries'=>$dataProviderSeries,
+		));
+		
 	}
 	/**
 	* This is the default 'music' action that is invoked
@@ -40,7 +49,6 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->showMenu= true;
 		$this->render('building');
 	}
 	
