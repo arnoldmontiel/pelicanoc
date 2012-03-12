@@ -1,6 +1,6 @@
 <?php
 
-class MovieStateController extends Controller
+class UserController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -26,7 +26,19 @@ class MovieStateController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', 
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
@@ -49,16 +61,16 @@ class MovieStateController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new MovieState;
+		$model=new User;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['MovieState']))
+		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['MovieState'];
+			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+				$this->redirect(array('view','id'=>$model->username));
 		}
 
 		$this->render('create',array(
@@ -78,11 +90,11 @@ class MovieStateController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['MovieState']))
+		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['MovieState'];
+			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+				$this->redirect(array('view','id'=>$model->username));
 		}
 
 		$this->render('update',array(
@@ -115,7 +127,7 @@ class MovieStateController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('MovieState');
+		$dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -126,10 +138,10 @@ class MovieStateController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new MovieState('search');
+		$model=new User('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['MovieState']))
-			$model->attributes=$_GET['MovieState'];
+		if(isset($_GET['User']))
+			$model->attributes=$_GET['User'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -143,7 +155,7 @@ class MovieStateController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=MovieState::model()->findByPk($id);
+		$model=User::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -155,7 +167,7 @@ class MovieStateController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='movie-state-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='user-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
