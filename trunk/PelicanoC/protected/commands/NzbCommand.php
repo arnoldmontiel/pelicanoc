@@ -30,7 +30,7 @@ class NzbCommand extends CConsoleCommand  {
 				
 				$pelicanoCliente = new Pelicano;
 				$request = new MovieStateRequest;
-				$request->id_customer = $setting->Id_customer;
+				$request->id_customer = $setting->getId_Customer();
 				$request->id_movie = $modelNzb->Id;
 				$request->date = time();				
 				$request->id_state = 3;//downloaded

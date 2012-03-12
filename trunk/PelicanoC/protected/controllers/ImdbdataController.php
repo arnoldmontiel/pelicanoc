@@ -240,7 +240,7 @@ class ImdbdataController extends Controller
 						//we send the new state to the server 
 						$pelicanoCliente = new Pelicano;
 						$request= new MovieStateRequest;
-						$request->id_customer = $setting->Id_customer;
+						$request->id_customer = $setting->getId_Customer();
 						$request->id_movie =$nzb->Id;
 						$request->id_state =2;
 						$request->date = time();
@@ -276,7 +276,7 @@ class ImdbdataController extends Controller
 					//we send the new state to the server
 					$pelicanoCliente = new Pelicano;
 					$request= new MovieStateRequest;
-					$request->id_customer = $setting->Id_customer;
+					$request->id_customer = $setting->getId_Customer();
 					$request->id_movie =$nzb->Id;
 					$request->id_state =4;
 					$request->date = time();
@@ -312,7 +312,7 @@ class ImdbdataController extends Controller
 					//we send the new state to the server
 					$pelicanoCliente = new Pelicano;
 					$request= new MovieStateRequest;
-					$request->id_customer = $setting->Id_customer;
+					$request->id_customer = $setting->getId_Customer();
 					$request->id_movie =$nzb->Id;
 					$request->id_state =5;
 					$request->date = time();
@@ -331,7 +331,7 @@ class ImdbdataController extends Controller
 		$requests = array();
 		$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
-		$MovieResponseArray = $pelicanoCliente->getNewMovies($setting->Id_customer);
+		$MovieResponseArray = $pelicanoCliente->getNewMovies($setting->getId_Customer());
 		foreach ($MovieResponseArray as $movie) {
 			try {
 				$modelNzb = Nzb::model()->findByPk($movie->Id);
@@ -351,7 +351,7 @@ class ImdbdataController extends Controller
 						$modelNzb->delete();
 
 						$request= new MovieStateRequest;
-						$request->id_customer = $setting->Id_customer;
+						$request->id_customer = $setting->getId_Customer();
 						$request->id_movie =$modelNzb->Id;
 						$request->id_state =6;
 						$request->date = time();
@@ -432,7 +432,7 @@ class ImdbdataController extends Controller
 					$transaction->commit();
 					//we send the new state to the server
 					$request= new MovieStateRequest;
-					$request->id_customer = $setting->Id_customer;
+					$request->id_customer = $setting->getId_Customer();
 					$request->id_movie =$modelNzb->Id;
 					$request->id_state =1;
 					$request->date = time();

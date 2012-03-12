@@ -15,6 +15,12 @@
  */
 class NzbMovieState extends CActiveRecord
 {
+	public function beforeSave()
+	{
+		$setting = Setting::getInstance();
+		$this->Id_customer = $setting->getId_Customer();		
+		parent::beforeSave();
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
