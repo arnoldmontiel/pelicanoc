@@ -7,6 +7,9 @@
  * @property string $username
  * @property string $password
  * @property string $email
+ *
+ * The followings are the available model relations:
+ * @property Customer[] $customers
  */
 class User extends CActiveRecord
 {
@@ -52,6 +55,7 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'customers' => array(self::HAS_MANY, 'Customer', 'username'),
 		);
 	}
 
