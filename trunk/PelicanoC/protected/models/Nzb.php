@@ -211,6 +211,22 @@ class Nzb extends CActiveRecord
 						'criteria'=>$criteria,
 		));
 	}
+	public function searchHomeOrdered()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->with[]='imdbdata';
+		$criteria->order = "t.date DESC";
+		
+		$criteria->addCondition('Id_imdbdata is not NULL');
+				
+		return new CActiveDataProvider($this, array(
+						'criteria'=>$criteria,
+		));
+	}
 	public function searchOn($expresion)
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -369,7 +385,7 @@ class Nzb extends CActiveRecord
 		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
 		$criteria->order = "nms.date DESC";
 		$criteria->condition = "nms.Id_movie_state= 4 AND nms.Id_nzb_movie_state =
-			 (select max(Id_nzb_movie_state) from nzb_movie_state where nzb_movie_state.Id_nzb=t.Id)";
+			 (select max(Id_nzb_movie_state) from nzb_movie_state where nzb_movie_state.Id_nzb=t.Id and nzb_movie_state.Id_customer=".$setting->getId_Customer().")";
 		
 		return new CActiveDataProvider($this, array(
 								'criteria'=>$criteria,
