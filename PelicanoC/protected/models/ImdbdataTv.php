@@ -61,8 +61,7 @@ class ImdbdataTv extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID', 'required'),
-			array('Year, Season, Episode', 'numerical', 'integerOnly'=>true),
-			array('Rating', 'numerical'),
+			array('Season, Episode', 'numerical', 'integerOnly'=>true),
 			array('ID, Rated, Released, Runtime, Votes, Response, Id_parent', 'length', 'max'=>45),
 			array('Title, Genre, Director, Writer, Poster, Poster_original, Backdrop, Backdrop_original', 'length', 'max'=>255),
 			array('Actors, Plot', 'safe'),
