@@ -30,7 +30,7 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$modelNzb = new Nzb;
-		$dataProvider= $modelNzb->searchOrdered();
+		$dataProvider= $modelNzb->searchHomeOrdered();
 		$dataProvider->pagination->pageSize= 4;
 		
 		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
