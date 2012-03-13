@@ -132,7 +132,8 @@ class ImdbdataTvController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{		//$this->updateFromServer();
+	{
+		$this->updateFromServer();
 		$model = new ImdbdataTv;
 		$dataProvider= $model->searchHeader();
 		$dataProvider->pagination->pageSize= 12;
@@ -219,19 +220,51 @@ class ImdbdataTvController extends Controller
 		$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
 		$SerieResponseArray = $pelicanoCliente->getNewSeries($setting->getId_Customer());
-		foreach ($SerieResponseArray as $Serie) {
+		foreach ($SerieResponseArray as $serie) {
 			try {
 				$modelNzb = Nzb::model()->findByPk($serie->Id);
 				if(!isset($modelNzb))
 				{
 					$modelNzb = new Nzb;
 				}
-				$modelImdbdata = Imdbdata::model()->findByPk($serie->ID);
-				if(!isset($modelImdbdata))
+				$modelImdbdataTv = ImdbdataTv::model()->findByPk($serie->ID);
+				if(!isset($modelImdbdataTv))
 				{
-					$modelImdbdata=new Imdbdata;
+					$modelImdbdataTv=new ImdbdataTv;
 				}
-	
+				if($movie->deleted)
+				{
+					if(!$modelNzb->isNewRecord)
+					{
+						if(!$modelNzb->downloading||!$modelNzb->downloaded)
+						{
+							$modelImdbdataTv->delete();
+							//$modelNzb->delete();
+				
+							$request= new MovieStateRequest;
+							$request->id_customer = $setting->getId_Customer();
+							$request->id_movie =$modelNzb->Id;
+							$request->id_state =6;
+							$request->date = time();
+							$requests[]=$request;
+							continue;
+						}
+					}
+					else
+					{
+						$request= new SerieStateRequest;
+						$request->id_customer = $setting->getId_Customer();
+						$request->id_serie_nzb =$modelNzb->Id;
+						$request->id_state =6;
+						$request->date = time();
+						$request->id_imdbdata_tv =$modelImdbdataTv->ID;
+						$requests[]=$request;
+						
+						continue;
+					}
+						
+				}
+				
 				$nzbAttr = $modelNzb->attributes;
 				while(current($nzbAttr)!==False)
 				{
@@ -243,16 +276,30 @@ class ImdbdataTvController extends Controller
 					next($nzbAttr);
 				}
 	
-				$imdbdataAttr = $modelImdbdata->attributes;
+				$imdbdataAttr = $modelImdbdataTv->attributes;
 				while(current($imdbdataAttr)!==False)
 				{
 					$attrName= key($imdbdataAttr);
 					if(isset($serie->$attrName))
 					{
-						$modelImdbdata->setAttribute($attrName, $serie->$attrName);
+						$modelImdbdataTv->setAttribute($attrName, $serie->$attrName);
 					}
 					next($imdbdataAttr);
 				}
+				$modelSeasons = array();
+				foreach ($serie->arrSeason as $season)
+				{
+					$modelSeason = Season::model()->findByPk(array('season'=> $season->season,'Id_imdbdata_tv'=> $season->Id_imdbdata_tv));
+					if(!isset($modelSeason))
+					{
+						$modelSeason = new Season;						
+					}
+					$modelSeason->season=$season->season;
+					$modelSeason->Id_imdbdata_tv=$season->Id_imdbdata_tv;
+					$modelSeason->episodes=$season->episodes;
+					$modelSeasons[]=$modelSeason;
+				}
+				
 				$validator = new CUrlValidator();
 	
 				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$modelNzb->url))
@@ -277,42 +324,47 @@ class ImdbdataTvController extends Controller
 						// an error happened
 					}
 				}
-				if($serie->Poster!='' && $validator->validateValue($modelImdbdata->Poster))
+				if($serie->Poster!='' && $validator->validateValue($modelImdbdataTv->Poster))
 				{
-					$content = file_get_contents($modelImdbdata->Poster);
+					$content = file_get_contents($modelImdbdataTv->Poster);
 					if ($content !== false) {
-						$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
+						$file = fopen($setting->path_images."/".$modelImdbdataTv->ID.".jpg", 'w');
 						fwrite($file,$content);
 						fclose($file);
-						$modelImdbdata->Poster_original = $modelImdbdata->Poster;
-						$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
+						$modelImdbdataTv->Poster_original = $modelImdbdataTv->Poster;
+						$modelImdbdataTv->Poster = $modelImdbdataTv->ID.".jpg";
 					} else {
 						// an error happened
 					}
 				}
 				$transaction = $modelNzb->dbConnection->beginTransaction();
 				try {
-					$modelImdbdata->save();
-					$modelNzb->Id_imdbdata = $modelImdbdata->ID;
+					$modelImdbdataTv->save();
+					$modelNzb->Id_imdbdata_tv = $modelImdbdataTv->ID;
 					$modelNzb->date = date("Y-m-d H:i:s",time());
 					$modelNzb->save();
+					foreach($modelSeasons as $season)
+					{
+						$season->save();						
+					}
 						
 					$nzbMovieState= new NzbMovieState;
 					$nzbMovieState->Id_nzb = $modelNzb->Id;
-					$nzbMovieState->Id_serie_state = 1;
+					$nzbMovieState->Id_movie_state = 1;
+					$setting=Setting::getInstance();
+					$nzbMovieState->Id_customer = $setting->getId_customer();
+						
 					$nzbMovieState->save();
 	
 					$transaction->commit();
 					//we send the new state to the server
-					$pelicanoCliente = new Pelicano;
 					$request= new SerieStateRequest;
 					$request->id_customer = $setting->getId_Customer();
-					$request->id_serie =$modelNzb->Id;
+					$request->id_serie_nzb =$modelNzb->Id;
 					$request->id_state =1;
 					$request->date = time();
+					$request->id_imdbdata_tv =$modelImdbdataTv->ID;
 					$requests[]=$request;
-						
-					$status = $pelicanoCliente->setSerieState($requests);
 	
 				} catch (Exception $e) {
 					$transaction->rollback();
@@ -320,6 +372,95 @@ class ImdbdataTvController extends Controller
 			} catch (Exception $e) {
 			}
 		}
+		if(!empty ($requests ))
+		{
+			$pelicanoCliente = new Pelicano;
+			$status = $pelicanoCliente->setSerieState($requests);
+		}
+		
+	}
+	public function actionAjaxRequestSerie()
+	{
+		if(isset($_POST['id_nzb']))
+		{
+			$setting = Setting::getInstance();
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$nzb->Id,'Id_customer'=>$setting->getId_customer()));
+			if(!$nzbCustomer->requested)
+			{
+				try
+				{
+					$nzb->requested = 1;
+					$nzb->save();
+	
+					$nzbMovieState= new NzbMovieState;
+					$nzbMovieState->Id_nzb = $nzb->Id;
+					$nzbMovieState->Id_movie_state = 4;
+					$setting=Setting::getInstance();
+					$nzbMovieState->Id_customer = $setting->getId_customer();
+						
+					$nzbMovieState->save();
+	
+					//we send the new state to the server
+					$pelicanoCliente = new Pelicano;
+					$request= new SerieStateRequest;
+					$request->id_customer = $setting->getId_Customer();
+					$request->id_serie_nzb =$nzb->Id;
+					$request->id_state =4;
+					$request->date = time();
+					$request->id_imdbdata_tv = null;
+					$requests[]=$request;
+						
+					$status = $pelicanoCliente->setSerieState($requests);
+	
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+		}
+	
+	}
+	public function actionAjaxCancelRequestedSerie()
+	{
+		if(isset($_POST['id_nzb']))
+		{
+			$setting = Setting::getInstance();
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$nzb->Id,'Id_customer'=>$setting->getId_customer()));
+			if($nzbCustomer->requested)
+			{
+				try
+				{
+					$nzb->requested = 0;
+					$nzb->save();
+	
+					$nzbMovieState= new NzbMovieState;
+					$nzbMovieState->Id_nzb = $nzb->Id;
+					$nzbMovieState->Id_movie_state = 5;
+					$setting=Setting::getInstance();
+					$nzbMovieState->Id_customer = $setting->getId_customer();
+						
+					$nzbMovieState->save();
+	
+					//we send the new state to the server
+					$pelicanoCliente = new Pelicano;
+					$request= new SerieStateRequest;
+					$request->id_customer = $setting->getId_Customer();
+					$request->id_serie_nzb =$nzb->Id;
+					$request->id_state =5;
+					$request->date = time();
+					$request->id_imdbdata_tv = null;
+					$requests[]=$request;
+						
+					$status = $pelicanoCliente->setSerieState($requests);
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+		}
+	
 	}
 	
 }

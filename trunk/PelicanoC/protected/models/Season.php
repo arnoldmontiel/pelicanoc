@@ -4,7 +4,6 @@
  * This is the model class for table "season".
  *
  * The followings are the available columns in table 'season':
- * @property string $Id
  * @property integer $season
  * @property integer $episodes
  * @property string $Id_imdbdata_tv
@@ -40,12 +39,12 @@ class Season extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id, Id_imdbdata_tv, season', 'required'),
+			array('Id_imdbdata_tv, season', 'required'),
 			array('season, episodes', 'numerical', 'integerOnly'=>true),
-			array('Id, Id_imdbdata_tv', 'length', 'max'=>45),
+			array('Id_imdbdata_tv', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, season, episodes, Id_imdbdata_tv', 'safe', 'on'=>'search'),
+			array('season, episodes, Id_imdbdata_tv', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +66,6 @@ class Season extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'Id' => 'ID',
 			'season' => 'Season',
 			'episodes' => 'Episodes',
 			'Id_imdbdata_tv' => 'Id Imdbdata Tv',
@@ -85,7 +83,6 @@ class Season extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('Id',$this->Id,true);
 		$criteria->compare('season',$this->season);
 		$criteria->compare('episodes',$this->episodes);
 		$criteria->compare('Id_imdbdata_tv',$this->Id_imdbdata_tv,true);

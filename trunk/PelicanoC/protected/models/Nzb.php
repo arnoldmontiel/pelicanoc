@@ -307,8 +307,8 @@ class Nzb extends CActiveRecord
 	
 		$criteria->with[]='imdbdataTv';
 		$criteria->compare('imdbdataTv.Id_parent',$Id_imdbdata_tv_parent,false);
-		$criteria->compare('imdbdataTv.season',$season,false);
-		$criteria->order = "imdbdataTv.episode";
+		$criteria->compare('imdbdataTv.Season',$season,false);
+		$criteria->order = "imdbdataTv.Episode";
 		
 		return new CActiveDataProvider($this, array(
 									'criteria'=>$criteria,
@@ -354,6 +354,62 @@ class Nzb extends CActiveRecord
 	
 		return new CActiveDataProvider($this, array(
 								'criteria'=>$criteria,
+		));
+	}
+	public function searchRequested()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->join = "LEFT OUTER JOIN nzb_movie_state nms ON nms.Id_nzb=t.Id";
+		$criteria->compare("nms.Id_movie_state", "4");
+		$setting= Setting::getInstance();
+		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
+		$criteria->order = "nms.date DESC";
+		$criteria->condition = "nms.Id_movie_state= 4 AND nms.Id_nzb_movie_state =
+			 (select max(Id_nzb_movie_state) from nzb_movie_state where nzb_movie_state.Id_nzb=t.Id)";
+		
+		return new CActiveDataProvider($this, array(
+								'criteria'=>$criteria,
+		));
+	}
+	public function searchRequestedOn($expresion)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->join = "LEFT OUTER JOIN nzb_movie_state nms ON nms.Id_nzb=t.Id";
+	
+		$criteria->compare("nms.Id_movie_state", "4");
+		$setting= Setting::getInstance();
+		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
+		$criteria->order = "nms.date DESC";
+			
+		$criteria->compare('file_name',$expresion,true);
+		$criteria->with[]='imdbdata';
+		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Director',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Year',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
+		
+		$criteria->with[]='imdbdata_tv';
+		$criteria->compare('imdbdataTv.Title',$expresion,true,'OR');
+		$criteria->compare('imdbdataTv.Actors',$expresion,true,'OR');
+		$criteria->compare('imdbdataTv.Director',$expresion,true,'OR');
+		$criteria->compare('imdbdataTv.Year',$expresion,true,'OR');
+		$criteria->compare('imdbdataTv.Writer',$expresion,true,'OR');
+		$criteria->compare('imdbdataTv.Genre',$expresion,true,'OR');
+		$criteria->compare('imdbdataTv.Plot',$expresion,true,'OR');
+		
+		return new CActiveDataProvider($this, array(
+									'criteria'=>$criteria,
 		));
 	}
 	

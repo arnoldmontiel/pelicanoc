@@ -7,7 +7,7 @@
 	</div>
 	<div style="float: left;padding: 5px 10px; width: 50%">
 	<?php echo CHtml::openTag('div',array('class'=>'serie-title'));?>
-			<?php echo $modelImdbdataTv->Title; ?>
+			<?php echo $modelImdbdataTv->parent->Title.': '.$modelImdbdataTv->Title; ?>
 		<?php echo CHtml::closeTag('div');?> 
 		
 	<?php echo CHtml::openTag('div');?>
@@ -97,7 +97,7 @@
 			 	'caption'=>'Solicitar',
 			 	'value'=>'Click para solicitar la pelicula',
 			 	'onclick'=>'js:function(){
-			 		if(confirm("Esta seguro de solicitar este eposidio?"))
+			 		if(confirm("Esta seguro de solicitar esta pelicula?"))
 			 		{
 						$.post("'.ImdbdataTvController::createUrl('AjaxRequestSerie').'",
 								{id_nzb: "'.$model->Id.'"}
@@ -144,30 +144,8 @@
 		 );
 	 ?>	
 	 
-	 <div id="started-display" style="display: none;float: left;padding: 5px 10px; ">
-	 	<img alt="Download Started" src="images/downloading.png">
-	 </div>
-	 <div id="play-display" style="display: none; float: left;padding: 5px 10px;">
-	 	<img alt="Download Finished" src="images/downloaded.png">
-	 	<?php
-//	 		echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
-// 			echo CHtml::link( 
-// 			),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));		
-		?>
-	 </div>
-	 <div id="stop-display" style="display: none ; float: left;padding: 5px 10px;">
-	 	<?php
-//	 	echo CHtml::image("images/stop.png",'Stop',array('id'=>'stop_button', 'style'=>'height: 128px;width: 128px;'));
-// 			echo CHtml::link( 
-// 			),array('http://DUNE/cgi-bin/do?cmd=main_screen'));		
-		?>
-	 </div>
 	 
 	</div>
-	 <div class="serie-view-logo" style="display:none">
-	 	<img class="serie-view-logo" alt="surround" src="images/dolby-surround-logo.png" style="width: 120px; height: 50px;">
-	 	<img class="serie-view-logo" alt="surround" src="images/thx_logo.png" style=" width: 80px; height: 70px;">
-	 </div>
 	
 </div>
 	<?php
@@ -193,19 +171,6 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 			$('#requestButton').show();
 		}		
 		return false;
-
-		if('".$model->downloading."'=='1')
-		{
-			$('#started-display').show();
-		}
-		else if('".$model->downloaded."'=='1')
-		{
-			$('#play-display').show();
-		}
-		else 
-		{
-			$('#downloadButton').show();
-		}
 		
 	}
 	$('#play_button').click(
@@ -217,38 +182,6 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 						$('#play-display').html(data);
 						}
 					);
-
-// 			$.ajax({
-//       			url: 'http://DUNE/cgi-bin/do?cmd=start_file_playback&smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4',
-// 			    dataType: 'xml',
-//       			success: function(data) {
-//       			debugger;      			
-// 					$('#play-display').html(data);
-// 					$('#stop-display').show();
-// 				},
-//       			error: function(data) {
-//       			debugger;
-// 					$('#play-display').html(data);
-// 					$('#stop-display').show();
-// 				}
-// 			}
-//     	);
-// 	 });
-// 	$('#stop_button').click(
-// 		function () {
-// 			$.ajax({
-//       			url: 'http://DUNE/cgi-bin/do?cmd=main_screen',
-// 			    dataType: 'xml',
-//       			success: function(data) {
-// 					debugger;
-// 					$('#play-display').show();
-// 					$('#stop-display').hide();
-// 				},
-//       			error: function(data) {
-// 					debugger;
-// 				}
-// 			}
-// 		);
 
 	 });
 

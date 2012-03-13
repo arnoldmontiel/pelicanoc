@@ -8,18 +8,20 @@
  * @property integer $Id_movie_state
  * @property string $date
  * @property integer $Id_nzb_movie_state
+ * @property integer $Id_customer
  *
  * The followings are the available model relations:
- * @property MovieState $movieState
- * @property Nzb $nzb
+ * @property MovieState $idMovieState
+ * @property Nzb $idNzb
+ * @property Customer $idCustomer
  */
 class NzbMovieState extends CActiveRecord
 {
 	public function beforeSave()
 	{
 		$setting = Setting::getInstance();
-		$this->Id_customer = $setting->getId_Customer();		
-		parent::beforeSave();
+		$this->Id_customer = $setting->getId_Customer();
+		return parent::beforeSave();
 	}
 	/**
 	 * Returns the static model of the specified AR class.
@@ -47,12 +49,12 @@ class NzbMovieState extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_nzb, Id_movie_state', 'required'),
-			array('Id_nzb, Id_movie_state', 'numerical', 'integerOnly'=>true),
+			array('Id_nzb, Id_movie_state, Id_customer', 'required'),
+			array('Id_nzb, Id_movie_state, Id_customer', 'numerical', 'integerOnly'=>true),
 			array('date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_nzb, Id_movie_state, date, Id_nzb_movie_state', 'safe', 'on'=>'search'),
+			array('Id_nzb, Id_movie_state, date, Id_nzb_movie_state, Id_customer', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +68,7 @@ class NzbMovieState extends CActiveRecord
 		return array(
 			'movieState' => array(self::BELONGS_TO, 'MovieState', 'Id_movie_state'),
 			'nzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
+			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 		);
 	}
 
@@ -79,6 +82,7 @@ class NzbMovieState extends CActiveRecord
 			'Id_movie_state' => 'Id Movie State',
 			'date' => 'Date',
 			'Id_nzb_movie_state' => 'Id Nzb Movie State',
+			'Id_customer' => 'Id Customer',
 		);
 	}
 
@@ -97,6 +101,7 @@ class NzbMovieState extends CActiveRecord
 		$criteria->compare('Id_movie_state',$this->Id_movie_state);
 		$criteria->compare('date',$this->date,true);
 		$criteria->compare('Id_nzb_movie_state',$this->Id_nzb_movie_state);
+		$criteria->compare('Id_customer',$this->Id_customer);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
