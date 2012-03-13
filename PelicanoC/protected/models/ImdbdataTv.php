@@ -23,8 +23,8 @@
  * @property string $Votes
  * @property string $Response
  * @property string $Id_parent
- * @property integer $season
- * @property integer $episode
+ * @property integer $Season
+ * @property integer $Episode
  *
  * The followings are the available model relations:
  * @property ImdbdataTv $idParent
@@ -61,14 +61,14 @@ class ImdbdataTv extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID', 'required'),
-			array('Year, season, episode', 'numerical', 'integerOnly'=>true),
+			array('Year, Season, Episode', 'numerical', 'integerOnly'=>true),
 			array('Rating', 'numerical'),
 			array('ID, Rated, Released, Runtime, Votes, Response, Id_parent', 'length', 'max'=>45),
 			array('Title, Genre, Director, Writer, Poster, Poster_original, Backdrop, Backdrop_original', 'length', 'max'=>255),
 			array('Actors, Plot', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, Title, Year, Rated, Released, Genre, Director, Writer, Actors, Plot, Poster, Poster_original, Backdrop, Backdrop_original, Runtime, Rating, Votes, Response, Id_parent, season, episode', 'safe', 'on'=>'search'),
+			array('ID, Title, Year, Rated, Released, Genre, Director, Writer, Actors, Plot, Poster, Poster_original, Backdrop, Backdrop_original, Runtime, Rating, Votes, Response, Id_parent, Season, Episode', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,7 +80,7 @@ class ImdbdataTv extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idParent' => array(self::BELONGS_TO, 'ImdbdataTv', 'Id_parent'),
+			'parent' => array(self::BELONGS_TO, 'ImdbdataTv', 'Id_parent'),
 			'imdbdataTvs' => array(self::HAS_MANY, 'ImdbdataTv', 'Id_parent'),
 			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_imdbdata_tv'),
 			'seasons' => array(self::HAS_MANY, 'Season', 'Id_imdbdata_tv'),
@@ -112,8 +112,8 @@ class ImdbdataTv extends CActiveRecord
 			'Votes' => 'Votes',
 			'Response' => 'Response',
 			'Id_parent' => 'Id Parent',
-			'season' => 'Season',
-			'episode' => 'Episode',
+			'Season' => 'Season',
+			'Episode' => 'Episode',
 		);
 	}
 
@@ -147,8 +147,8 @@ class ImdbdataTv extends CActiveRecord
 		$criteria->compare('Votes',$this->Votes,true);
 		$criteria->compare('Response',$this->Response,true);
 		$criteria->compare('Id_parent',$this->Id_parent,true);
-		$criteria->compare('season',$this->season);
-		$criteria->compare('episode',$this->episode);
+		$criteria->compare('Season',$this->Season);
+		$criteria->compare('Episode',$this->Episode);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -180,8 +180,8 @@ class ImdbdataTv extends CActiveRecord
 		$criteria->compare('Votes',$this->Votes,true);
 		$criteria->compare('Response',$this->Response,true);
 		$criteria->compare('Id_parent',$this->Id_parent,true);
-		$criteria->compare('season',$this->season);
-		$criteria->compare('episode',$this->episode);
+		$criteria->compare('Season',$this->Season);
+		$criteria->compare('Episode',$this->Episode);
 
 		$criteria->addCondition('Id_parent is NULL');
 		

@@ -235,6 +235,8 @@ class ImdbdataController extends Controller
 						$nzbMovieState= new NzbMovieState;
 						$nzbMovieState->Id_nzb = $nzb->Id;
 						$nzbMovieState->Id_movie_state = 2;
+						$setting=Setting::getInstance();
+						$nzbMovieState->Id_customer = $setting->getId_customer();
 						$nzbMovieState->save();
 						
 						//we send the new state to the server 
@@ -272,6 +274,8 @@ class ImdbdataController extends Controller
 					$nzbMovieState= new NzbMovieState;
 					$nzbMovieState->Id_nzb = $nzb->Id;
 					$nzbMovieState->Id_movie_state = 4;
+					$setting=Setting::getInstance();
+					$nzbMovieState->Id_customer = $setting->getId_customer();						
 					$nzbMovieState->save();
 	
 					//we send the new state to the server
@@ -309,6 +313,8 @@ class ImdbdataController extends Controller
 					$nzbMovieState= new NzbMovieState;
 					$nzbMovieState->Id_nzb = $nzb->Id;
 					$nzbMovieState->Id_movie_state = 5;
+					$setting=Setting::getInstance();
+					$nzbMovieState->Id_customer = $setting->getId_customer();						
 					$nzbMovieState->save();
 	
 					//we send the new state to the server
@@ -352,8 +358,9 @@ class ImdbdataController extends Controller
 					{
 						if(!$modelNzb->downloading||!$modelNzb->downloaded)
 						{
-							$modelNzb->delete();
-	
+							$modelImdbdata->delete();
+							//$modelNzb->delete();
+								
 							$request= new MovieStateRequest;
 							$request->id_customer = $setting->getId_Customer();
 							$request->id_movie =$modelNzb->Id;
@@ -443,6 +450,9 @@ class ImdbdataController extends Controller
 					$nzbMovieState= new NzbMovieState;
 					$nzbMovieState->Id_nzb = $modelNzb->Id;
 					$nzbMovieState->Id_movie_state = 1;
+					$setting=Setting::getInstance();
+					$nzbMovieState->Id_customer = $setting->getId_customer();
+						
 					$nzbMovieState->save();
 						
 					$transaction->commit();
@@ -460,7 +470,7 @@ class ImdbdataController extends Controller
 			} catch (Exception $e) {
 			}
 		}
-		if(!empty ($MovieResponseArray ))
+		if(!empty ($requests ))
 		{
 			$pelicanoCliente = new Pelicano;
 			$status = $pelicanoCliente->setMovieState($requests);				

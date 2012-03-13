@@ -29,6 +29,10 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		<p class="single-serie-view-title">
 		<?php echo CHtml::encode($data->imdbdataTv->Title); ?>
 		</p>  
+		<p class="single-serie-view-title">
+		S<?php echo CHtml::encode($data->imdbdataTv->Season);?>
+		/E<?php echo CHtml::encode($data->imdbdataTv->Episode);?>
+		</p>  
 		
 	</div>
 

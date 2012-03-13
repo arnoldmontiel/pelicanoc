@@ -6,7 +6,7 @@ class NzbController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 	public function actions()
 	{
 		// return external action classes, e.g.:
@@ -103,7 +103,33 @@ class NzbController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
+	/**
+	* Displays a particular model.
+	* @param integer $id the ID of the model to be displayed
+	*/
+	public function actionViewRequested($id)
+	{
+		$pageNumber=0;
+		if(isset($_GET['currentPage']))
+		{
+			$this->fromPageNumber=$_GET['currentPage'];				
+		}
+		$model = Nzb::model()->findByPk($id); 
 
+		$modelImdbdata = $model->imdbdata;
+		$view='viewRequested';
+		$modelImdbdataName='modelImdbdata';
+		if(!isset($modelImdbdata)){
+			$view='viewRequestedEpisode';
+			$modelImdbdata = $model->imdbdataTv;				
+			$modelImdbdataName='modelImdbdataTv';
+		}
+		$this->render($view,array(
+			'model'=>$model,
+			$modelImdbdataName=>$modelImdbdata,
+		));
+		}
+	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -183,6 +209,23 @@ class NzbController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+	public function actionRequested()
+	{
+		$modelNzb = new Nzb;
+		$dataProvider= $modelNzb->searchRequested();
+		$dataProvider->pagination->pageSize= 12;
+		
+		$pageNumber=0;
+		if(!isset($_GET['ajax'])&&isset($_GET['pageNumber']))
+		{
+			$dataProvider->pagination->setCurrentPage($_GET['pageNumber']);
+		}
+		
+		$this->render('requested',array(
+					'dataProvider'=>$dataProvider,
+		));
+		
 	}
 	/**
 	 * Manages all models.

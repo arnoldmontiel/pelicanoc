@@ -20,7 +20,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#imdbdataTv_view', "
 		<br />
 	
 		<b><?php echo CHtml::encode($data->imdbdataTv->getAttributeLabel('Episode')); ?>:</b>
-		<?php echo CHtml::encode($data->imdbdataTv->episode); ?>
+		<?php echo CHtml::encode($data->imdbdataTv->Episode); ?>
 		<br />
 
 		<b><?php echo CHtml::encode($data->imdbdataTv->getAttributeLabel('Genre')); ?>:</b>

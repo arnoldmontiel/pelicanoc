@@ -68,16 +68,16 @@ class SerieResponse
 	public $Backdrop; //string;
 	public $Season; //integer;
 	public $Episode; //integer;
-	public $Id_parent; //integer;
+	public $Id_parent; //string;
 	public $arrSeason; //SeasonArray;
 }
 class SerieStateRequest
 {
-	public $idCustomer; //integer;
-	public $idSerieNzb; //integer;
-	public $idState; //integer;
+	public $id_customer; //integer;
+	public $id_serie_nzb; //integer;
+	public $id_state; //integer;
 	public $date; //integer;
-	public $idImdb; //integer;
+	public $id_imdbdata_tv; //string;
 }
 class SeasonResponse
 {
@@ -96,8 +96,8 @@ class Pelicano
 		'MovieResponse'=>'MovieResponse',
 		'SerieResponse'=>'SerieResponse',
 		'SeasonResponse'=>'SeasonResponse',
-	'MovieStateRequest'=>'MovieStateRequest',
-	'SerieStateRequest'=>'SerieStateRequest',
+		'MovieStateRequest'=>'MovieStateRequest',
+		'SerieStateRequest'=>'SerieStateRequest',
 
 );
 
@@ -136,8 +136,19 @@ function setMovieState($MovieStateRequestArray)
 
 function setSerieState($SerieStateRequestArray)
 {
-$boolean =  $this->soapClient->setSerieState($SerieStateRequestArray);
-return $boolean;
+	$r=array();
+	foreach ($SerieStateRequestArray as $item)
+	{
+		$request = array();
+		$request['id_customer'] = $item->id_customer;
+		$request['id_serie_nzb'] = $item->id_serie_nzb;
+		$request['id_state'] = $item->id_state;
+		$request['date'] = $item->date;
+		$request['id_imdbdata_tv'] = $item->id_imdbdata_tv;		
+		$r[]=$request;
+	}
+	return $this->soapClient->setSerieState($r);
+
 }
 }
 
