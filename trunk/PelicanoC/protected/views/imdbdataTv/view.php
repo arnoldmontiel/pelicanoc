@@ -36,11 +36,11 @@
 	'id'=>'listEpisodes-view',
 	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
 	'afterAjaxUpdate'=>'js:function(id, data){
-					$("#" + id).each(
+					$("#" + id).find(".id_nzb").each(
 						function(index, item){
 							//debugger;
 							//$(item).find(".keys").text()
-							$("#Imdbdata_tv_Poster_button_" + $(item).find(".keys").text()).click(function(){
+							$("#Imdbdata_tv_Poster_button_" + $(item).val()).click(function(){
 								//CloseCurtains();
 								
 								//set top scroll position
@@ -56,7 +56,9 @@
 								$(".leftcurtain").stop().animate({width:"50%"}, 2000 );
 								$(".rightcurtain").stop().animate({width:"51%"}, 2000 ,
 									function(){
-										window.location = "'.ImdbdataController::CreateUrl('imdbdataTv/viewEpisode',array('id'=>4)).'";
+										var url = "'.ImdbdataController::CreateUrl('imdbdataTv/viewEpisode') .'";
+										var param = "&id="+$(item).val();
+										window.location = url + param;
 										OpenCurtains(10000);
 										//show scroll			
 										$(document.body).attr("style","overflow:auto");

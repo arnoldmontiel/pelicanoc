@@ -65,4 +65,5 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#imdbdataTv_view'.$data->Id,
 		<br />
 	
 	</div>
+	<?php echo CHtml::hiddenField('id_nzb',$data->Id,array('class'=>'id_nzb','style'=>'display:none')); ?>
 </div>
