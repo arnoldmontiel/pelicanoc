@@ -154,6 +154,13 @@ class ImdbdataController extends Controller
 			$dataProvider->pagination->setCurrentPage($_GET['pageNumber']);
 		}
 		
+		if(isset($_GET['searchFilter']))
+		{
+			$expression=trim($_GET['searchFilter']);
+			$dataProvider= $modelNzb->searchOn($expression);
+		}
+		
+		
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
