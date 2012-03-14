@@ -3,6 +3,10 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	$('#Imdbdata_Poster_button_$data->Id').click(function(){
 		//CloseCurtains();
 		
+		//set top scroll position
+		$('.leftcurtain').css('top',$(document).scrollTop());
+		$('.rightcurtain').css('top',$(document).scrollTop());
+		
 		$('.leftcurtain').removeClass('hideClass');
 		$('.rightcurtain').removeClass('hideClass');
 		

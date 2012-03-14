@@ -33,9 +33,39 @@
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_viewEpisode',
 	'summaryText' =>"",
+	'id'=>'listEpisodes-view',
 	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
+	'afterAjaxUpdate'=>'js:function(id, data){
+					$("#" + id).each(
+						function(index, item){
+							//debugger;
+							//$(item).find(".keys").text()
+							$("#Imdbdata_tv_Poster_button_" + $(item).find(".keys").text()).click(function(){
+								//CloseCurtains();
+								
+								//set top scroll position
+								$(".leftcurtain").css("top",$(document).scrollTop());
+								$(".rightcurtain").css("top",$(document).scrollTop());
+								
+								$(".leftcurtain").removeClass("hideClass");
+								$(".rightcurtain").removeClass("hideClass");
+								
+								$(".leftcurtain").stop().animate({width:"50%"}, 2000 );
+								$(".rightcurtain").stop().animate({width:"51%"}, 2000 ,
+									function(){
+										window.location = "'.ImdbdataController::CreateUrl('imdbdataTv/viewEpisode',array('id'=>4)).'";
+										OpenCurtains(20000);
+										return false;
+									}
+								);
+							}
+							)
+						}
+					)
+				}',
 
-)); ?>
+)); 
+?>
 </div>
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#ImdbdataTv_index', "
@@ -51,14 +81,10 @@ $('.view-serie-season-button').mouseover(
 $('.view-serie-season-button').click(function(){
 					$('#seasons-index').children().removeClass('view-serie-season-button-selected');
 					$(this).addClass('view-serie-season-button-selected');
-					$.post('".ImdbdataTvController::createUrl('AjaxChangeSeason')."',
-							{id_imdbdata_tv_parent:'".$model->ID."' ,season_id: $(this).html()}
-					).success(
-						function(data) 
-						{
- 							$('#imdbTv_index').html(data);
-						}
-)});
+					var season = 'season=' + $(this).html();
+					$.fn.yiiListView.update('listEpisodes-view',{data:season});
+
+});
 
 ");
 ?>

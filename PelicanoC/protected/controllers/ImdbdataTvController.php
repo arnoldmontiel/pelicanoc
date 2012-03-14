@@ -53,7 +53,10 @@ class ImdbdataTvController extends Controller
 	{
 		$modelNzb = new Nzb;
 		$model = ImdbdataTv::model()->findByPk($id);
-		$firstSeason = $model->seasons[0];
+		$season = 0;
+		if(isset($_GET['season']))
+			$season = (int)$_GET['season'] -1;
+		$firstSeason = $model->seasons[$season];
 		$dataProvider= $modelNzb->searchEpisodesOfSeason($id,$firstSeason->season);
 		$this->render('view',array(
 			'model'=>$model,
@@ -187,22 +190,7 @@ class ImdbdataTvController extends Controller
 				'summaryText' =>"",
 		));
 	}
-	public function actionAjaxChangeSeason()
-	{
-		if(isset($_POST['season_id'])&&isset($_POST['id_imdbdata_tv_parent']))
-		{
-			$model = new Nzb;
-			$dataProvider= $model->searchEpisodesOfSeason($_POST['id_imdbdata_tv_parent'],$_POST['season_id']);
-
-			$this->widget('zii.widgets.CListView', array(
-				'dataProvider'=>$dataProvider,
-				'itemView'=>'_viewEpisode',
-				'summaryText' =>"",
-				'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
-			
-			));
-		}		
-	}
+	
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
