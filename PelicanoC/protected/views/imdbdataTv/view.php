@@ -47,6 +47,9 @@
 								$(".leftcurtain").css("top",$(document).scrollTop());
 								$(".rightcurtain").css("top",$(document).scrollTop());
 								
+								//hidde scroll
+								$(document.body).attr("style","overflow:hidden");
+		
 								$(".leftcurtain").removeClass("hideClass");
 								$(".rightcurtain").removeClass("hideClass");
 								
@@ -54,7 +57,9 @@
 								$(".rightcurtain").stop().animate({width:"51%"}, 2000 ,
 									function(){
 										window.location = "'.ImdbdataController::CreateUrl('imdbdataTv/viewEpisode',array('id'=>4)).'";
-										OpenCurtains(20000);
+										OpenCurtains(10000);
+										//show scroll			
+										$(document.body).attr("style","overflow:auto");
 										return false;
 									}
 								);

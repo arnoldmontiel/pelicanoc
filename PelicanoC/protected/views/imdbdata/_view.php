@@ -7,6 +7,9 @@ $('#Imdbdata_Poster_button_$data->Id').click(function(){
 		$('.leftcurtain').css('top',$(document).scrollTop());
 		$('.rightcurtain').css('top',$(document).scrollTop());
 		
+		//hidde scroll
+		$(document.body).attr('style','overflow:hidden');
+		
 		$('.leftcurtain').removeClass('hideClass');
 		$('.rightcurtain').removeClass('hideClass');
 		
@@ -14,7 +17,9 @@ $('#Imdbdata_Poster_button_$data->Id').click(function(){
 		$('.rightcurtain').stop().animate({width:'51%'}, 2000 ,
 			function(){
 			window.location = '".ImdbdataController::CreateUrl('imdbdata/view',array('id'=>$data->Id))."';
-			OpenCurtains(20000);
+			OpenCurtains(10000);
+			//show scroll			
+			$(document.body).attr('style','overflow:auto');
 			return false;
 		}
 		);

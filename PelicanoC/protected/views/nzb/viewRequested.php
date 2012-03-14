@@ -57,7 +57,7 @@
 			 	'onclick'=>'js:function(){
 			 		if(confirm("Esta seguro de solicitar esta pelicula?"))
 			 		{
-						$.post("'.ImdbdataController::createUrl('AjaxRequestMovie').'",
+						$.post("/PelicanoC/index.php?r=imdbdata/AjaxRequestMovie",
 								{id_nzb: "'.$model->Id.'"}
 						).success(
 							function(data) 
@@ -84,7 +84,7 @@
 			 	'onclick'=>'js:function(){
 			 		if(confirm("Esta seguro de que desea cancelar esta solicitud?"))
 			 		{
-						$.post("'.ImdbdataController::createUrl('AjaxCancelRequestedMovie').'",
+						$.post("/PelicanoC/index.php?r=imdbdata/AjaxCancelRequestedMovie",
 								{id_nzb: "'.$model->Id.'"}
 						).success(
 							function(data) 
