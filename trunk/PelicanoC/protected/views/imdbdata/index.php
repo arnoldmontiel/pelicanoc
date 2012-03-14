@@ -13,7 +13,41 @@
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 	'summaryText' =>"",
+	'id'=>'listMovies-view',
 	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
+	'afterAjaxUpdate'=>'js:function(id, data){
+					$("#" + id).find(".id_nzb").each(
+						function(index, item){
+							$("#Imdbdata_Poster_button_" + $(item).val()).click(function(){
+								//CloseCurtains();
+								
+								//set top scroll position
+								$(".leftcurtain").css("top",$(document).scrollTop());
+								$(".rightcurtain").css("top",$(document).scrollTop());
+								
+								//hidde scroll
+								$(document.body).attr("style","overflow:hidden");
+		
+								$(".leftcurtain").removeClass("hideClass");
+								$(".rightcurtain").removeClass("hideClass");
+								
+								$(".leftcurtain").stop().animate({width:"50%"}, 2000 );
+								$(".rightcurtain").stop().animate({width:"51%"}, 2000 ,
+									function(){
+										var url = "'.ImdbdataController::CreateUrl('imdbdata/view') .'";
+										var param = "&id="+$(item).val();
+										window.location = url + param;
+										OpenCurtains(10000);
+										//show scroll			
+										$(document.body).attr("style","overflow:auto");
+										return false;
+									}
+								);
+							}
+							)
+						}
+					)
+				}',
 
 )); ?>
 </div>
@@ -21,14 +55,8 @@
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata_index', "
 $('#index_search').change(
 					function(){
-					$.post('".ImdbdataController::createUrl('AjaxSearch')."',
-							{imdb_search_field: $(this).val()}
-					).success(
-						function(data) 
-						{
- 							$('#imdb_index').html(data);
-						}
-					);
+					var searchFilter = 'searchFilter=' + $(this).val();
+					$.fn.yiiListView.update('listMovies-view',{data:searchFilter});
 				});
 ");
 ?>

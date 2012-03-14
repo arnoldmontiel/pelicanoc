@@ -37,6 +37,7 @@ $('#Imdbdata_Poster_button_$data->Id').click(function(){
 				array('id'=>'Imdbdata_Poster_button_'.$data->Id, 'style'=>'height: 260px;width: 185px;'));
 		?>
 		<?php echo CHtml::encode($data->imdbdata->Title); ?>
+		<?php echo CHtml::hiddenField('id_nzb',$data->Id,array('class'=>'id_nzb','style'=>'display:none')); ?>
 	</div>
 
 </div>
