@@ -242,6 +242,25 @@ class NzbController extends Controller
 		));
 	}
 
+	public function actionAjaxRequestedSearch()
+	{
+		$modelNzb = new Nzb;
+		$expression = "";
+		if(isset($_POST['imdb_search_field']))
+		{
+			$expression=trim($_POST['imdb_search_field']);
+		}
+		$dataProvider= $modelNzb->searchRequestedOn($expression);
+		$dataProvider->pagination->pageSize= 12;
+		
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$dataProvider,
+			'itemView'=>'_viewRequested',
+			'summaryText' =>"",
+			'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
+		
+		)); 
+	}
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

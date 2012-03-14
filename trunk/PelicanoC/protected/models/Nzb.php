@@ -238,7 +238,7 @@ class Nzb extends CActiveRecord
 		
 		$criteria->addCondition('Id_imdbdata is not NULL');
 				
-		$criteria->compare('file_name',$expresion,true,'OR');
+		$criteria->compare('file_name',$expresion,true);
 		$criteria->with[]='imdbdata';
 		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
@@ -282,7 +282,7 @@ class Nzb extends CActiveRecord
 		
 		$criteria->addCondition('Id_imdbdata_tv is not NULL');
 				
-		$criteria->compare('file_name',$expresion,true,'OR');
+		$criteria->compare('file_name',$expresion,true);
 		$criteria->with[]='imdbdata';
 		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
@@ -384,11 +384,11 @@ class Nzb extends CActiveRecord
 		$setting= Setting::getInstance();
 		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
 		$criteria->order = "nms.date DESC";
-		$criteria->condition = "nms.Id_movie_state= 4 AND nms.Id_nzb_movie_state =
+		$criteria->addCondition("nms.Id_nzb_movie_state =
 			 (select max(Id_nzb_movie_state)
 				from nzb_movie_state 
 				where nzb_movie_state.Id_nzb=t.Id
-					 and nzb_movie_state.Id_customer=".$setting->getId_Customer().")";
+					 and nzb_movie_state.Id_customer=".$setting->getId_Customer().")");
 		
 		return new CActiveDataProvider($this, array(
 								'criteria'=>$criteria,
@@ -403,11 +403,9 @@ class Nzb extends CActiveRecord
 	
 		$criteria->join = "LEFT OUTER JOIN nzb_movie_state nms ON nms.Id_nzb=t.Id";
 	
-		$criteria->compare("nms.Id_movie_state", "4");
-		$setting= Setting::getInstance();
-		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
 		$criteria->order = "nms.date DESC";
-			
+		$setting= Setting::getInstance();
+		
 		$criteria->compare('file_name',$expresion,true);
 		$criteria->with[]='imdbdata';
 		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
@@ -418,7 +416,7 @@ class Nzb extends CActiveRecord
 		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
 		
-		$criteria->with[]='imdbdata_tv';
+		$criteria->with[]='imdbdataTv';
 		$criteria->compare('imdbdataTv.Title',$expresion,true,'OR');
 		$criteria->compare('imdbdataTv.Actors',$expresion,true,'OR');
 		$criteria->compare('imdbdataTv.Director',$expresion,true,'OR');
@@ -426,6 +424,14 @@ class Nzb extends CActiveRecord
 		$criteria->compare('imdbdataTv.Writer',$expresion,true,'OR');
 		$criteria->compare('imdbdataTv.Genre',$expresion,true,'OR');
 		$criteria->compare('imdbdataTv.Plot',$expresion,true,'OR');
+
+		$criteria->compare("nms.Id_movie_state", "4");
+		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
+		$criteria->addCondition("nms.Id_nzb_movie_state =
+							 (select max(Id_nzb_movie_state)
+								from nzb_movie_state 
+								where nzb_movie_state.Id_nzb=t.Id
+									 and nzb_movie_state.Id_customer=".$setting->getId_Customer().")");
 		
 		return new CActiveDataProvider($this, array(
 									'criteria'=>$criteria,

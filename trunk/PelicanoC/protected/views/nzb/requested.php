@@ -21,7 +21,7 @@
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata_index', "
 $('#index_search').change(
 					function(){
-					$.post('".ImdbdataController::createUrl('AjaxSearch')."',
+					$.post('".NzbController::createUrl('AjaxRequestedSearch')."',
 							{imdb_search_field: $(this).val()}
 					).success(
 						function(data) 

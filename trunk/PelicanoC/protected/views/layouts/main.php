@@ -65,6 +65,8 @@
 		),array('/imdbdata/stored'));
 		echo CHtml::link( CHtml::image("images/cart.png",'movies',array('id'=>'cart_button', 'style'=>'height: 128px;width: 128px;')
 		),array('/nzb/requested'));
+		echo CHtml::link( CHtml::image("images/logout.png",'movies',array('id'=>'logout_button', 'style'=>'height: 128px;width: 128px;')
+		),array('/site/logout'));
 		?>				
 		<?php 
 // 		$this->widget('zii.widgets.CMenu',array(
@@ -163,6 +165,14 @@
 			  },
 			  function () {
 				$(this).attr('src','images/cart.png');
+			  }
+			);
+			$('#logout_button').hover(
+			function () {
+				$(this).attr('src','images/logout-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/logout.png');
 			  }
 			);
 		
