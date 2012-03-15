@@ -1,4 +1,6 @@
 
+<?php if (Yii::app()->user->checkAccess('ImdbdataIndex')):?>
+
 <div class="movie-title-index">
 	Movies
 	
@@ -15,6 +17,9 @@
 
 )); ?>
 </div>
+<?php endif?>
+<?php if (Yii::app()->user->checkAccess('ImdbdataTvIndex')):?>
+
 <div class="movie-title-index">
 	Series
 	
@@ -31,6 +36,8 @@
 
 )); ?>
 </div>
+<?php endif?>
+
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata_view', "
 ");
