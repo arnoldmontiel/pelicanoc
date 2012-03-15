@@ -34,7 +34,8 @@
 			<div class="browsingbox-prev">
 				<?php
 				echo CHtml::link(CHtml::image("images/back-black.png",'details',array('id'=>'site_prev', 'style'=>'height: 60px;width: 60px;')
-				),Yii::app()->request->getUrlReferrer().'&pageNumber='.$this->fromPageNumber);
+				),Yii::app()->request->getUrlReferrer());
+				//),Yii::app()->request->getUrlReferrer().'&pageNumber='.$this->fromPageNumber);
 				?>
 			</div>
 			<div class="browsingbox-next">
