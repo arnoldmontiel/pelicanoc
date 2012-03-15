@@ -37,7 +37,7 @@ class SabnzbdController extends Controller
 			)
 		);
 		
-		$this->render('SABnzbdStatus',
+		$this->render('index',
 			array('modelStatus'=>$sABnzbdStatus,
 				'arrayDataProvider'=>$arrayDataProvider,
 			)
