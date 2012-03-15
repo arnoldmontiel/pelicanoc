@@ -62,7 +62,7 @@ class ImdbdataTv extends CActiveRecord
 		return array(
 			array('ID', 'required'),
 			array('Season, Episode', 'numerical', 'integerOnly'=>true),
-			array('ID, Rated, Released, Runtime, Votes, Response, Id_parent', 'length', 'max'=>45),
+			array('ID, Rated, Released, Runtime, Votes, Response, Id_parent, Year, Rating', 'length', 'max'=>45),
 			array('Title, Genre, Director, Writer, Poster, Poster_original, Backdrop, Backdrop_original', 'length', 'max'=>255),
 			array('Actors, Plot', 'safe'),
 			// The following rule is used by search().
