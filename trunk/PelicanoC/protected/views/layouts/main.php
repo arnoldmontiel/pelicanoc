@@ -74,10 +74,10 @@
 			echo CHtml::link( CHtml::image("images/music.png",'movies',array('id'=>'music_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/site/music'));
 		}
-		if(Yii::app()->user->checkAccess('SABnzbdIndex'))
+		if(Yii::app()->user->checkAccess('SabnzbdIndex'))
 		{ 
 			echo CHtml::link( CHtml::image("images/downloading-menu.png",'movies',array('id'=>'downloading_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/SABnzbdIndex'));
+			),array('/sabnzbd/index'));
 		}
 		if(Yii::app()->user->checkAccess('ImdbdataStored'))
 		{
