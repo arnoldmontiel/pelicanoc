@@ -93,16 +93,6 @@
 		),array('/site/logout'));
 		?>				
 		<?php 
-// 		$this->widget('zii.widgets.CMenu',array(
-// 			'items'=>array(
-// 				array('label'=>'Home', 'url'=>array('/site/index')),
-// 				array('label'=>'Movies', 'url'=>array('/imdbdata')),
-// 				array('label'=>'News', 'url'=>array('/imdbdata/news')),
-// 				array('label'=>'SABnzbd', 'url'=>array('/SABnzbd')),
-// 		//		array('label'=>'Resource', 'url'=>array('/resource')),
-// 				array('label'=>'Settings', 'url'=>array('/setting')),
-// 		),
-// 		)); 
 		?>
 	</div><!-- mainmenu -->
 	<?php endif?>
