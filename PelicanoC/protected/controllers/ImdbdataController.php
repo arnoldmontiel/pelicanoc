@@ -343,6 +343,7 @@ class ImdbdataController extends Controller
 	}
 	public function updateFromServer()
 	{
+		PelicanoHelper::sendPendingNzbStates();		
 		$requests = array();
 		$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
@@ -367,24 +368,23 @@ class ImdbdataController extends Controller
 						{
 							$modelImdbdata->delete();
 							//$modelNzb->delete();
-								
-							$request= new MovieStateRequest;
-							$request->id_customer = $setting->getId_Customer();
-							$request->id_movie =$modelNzb->Id;
-							$request->id_state =6;
-							$request->date = time();
-							$requests[]=$request;
+							$nzbMovieState= new NzbMovieState;
+							$nzbMovieState->Id_nzb = $modelNzb->Id;
+							$nzbMovieState->Id_movie_state = 6;
+							$nzbMovieState->Id_customer = $setting->getId_customer();
+							
+							$nzbMovieState->save();
 							continue;						
 						}
 					}
 					else 
 					{
-						$request= new MovieStateRequest;
-						$request->id_customer = $setting->getId_Customer();
-						$request->id_movie =$movie->Id;
-						$request->id_state =6;
-						$request->date = time();
-						$requests[]=$request;
+						$nzbMovieState= new NzbMovieState;
+						$nzbMovieState->Id_nzb = $movie->Id;
+						$nzbMovieState->Id_movie_state = 6;
+						$nzbMovieState->Id_customer = $setting->getId_customer();
+							
+						$nzbMovieState->save();
 						continue;						
 					}						
 					
@@ -463,13 +463,6 @@ class ImdbdataController extends Controller
 					$nzbMovieState->save();
 						
 					$transaction->commit();
-					//we send the new state to the server
-					$request= new MovieStateRequest;
-					$request->id_customer = $setting->getId_Customer();
-					$request->id_movie =$modelNzb->Id;
-					$request->id_state =1;
-					$request->date = time();
-					$requests[]=$request;
 																	
 				} catch (Exception $e) {
 					$transaction->rollback();
@@ -477,11 +470,7 @@ class ImdbdataController extends Controller
 			} catch (Exception $e) {
 			}
 		}
-		if(!empty ($requests ))
-		{
-			$pelicanoCliente = new Pelicano;
-			$status = $pelicanoCliente->setMovieState($requests);				
-		}
+		PelicanoHelper::sendPendingNzbStates();
 	}
 
 	public function actionAjaxSearch()

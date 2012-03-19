@@ -384,8 +384,8 @@ class Nzb extends CActiveRecord
 		$setting= Setting::getInstance();
 		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
 		$criteria->order = "nms.date DESC";
-		$criteria->addCondition("nms.Id_nzb_movie_state =
-			 (select max(Id_nzb_movie_state)
+		$criteria->addCondition("nms.Id =
+			 (select max(Id)
 				from nzb_movie_state 
 				where nzb_movie_state.Id_nzb=t.Id
 					 and nzb_movie_state.Id_customer=".$setting->getId_Customer().")");
@@ -427,8 +427,8 @@ class Nzb extends CActiveRecord
 
 		$criteria->compare("nms.Id_movie_state", "4");
 		$criteria->compare("nms.Id_customer", $setting->getId_Customer());
-		$criteria->addCondition("nms.Id_nzb_movie_state =
-							 (select max(Id_nzb_movie_state)
+		$criteria->addCondition("nms.Id =
+							 (select max(Id)
 								from nzb_movie_state 
 								where nzb_movie_state.Id_nzb=t.Id
 									 and nzb_movie_state.Id_customer=".$setting->getId_Customer().")");

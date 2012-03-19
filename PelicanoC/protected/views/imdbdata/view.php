@@ -47,93 +47,109 @@
 	<?php echo CHtml::closeTag('div');?> 
 	</div>
 	<div class="movie-download-box" >
-	
-	<?php
-		 $this->widget('zii.widgets.jui.CJuiButton',
-			 array(
-			 	'id'=>'downloadButton',
-			 	'name'=>'download',
-			 	'caption'=>'Download',
-			 	'value'=>'Click to download movie',
-			 	'onclick'=>'js:function(){
-			 		if(confirm("Are you sure start downloading?"))
-			 		{
-						$.post("'.ImdbdataController::createUrl('AjaxStartDownload').'",
-								{id_nzb: "'.$model->Id.'"}
-						).success(
-							function(data) 
-							{
-	 							$("#downloadButton").hide();
-	 							$("#started-display").animate({opacity: "show"},"slow");
-							}
-						);
-		 
-			 		}
-			 		return false;
-				}',
-				'htmlOptions'=>array('style'=>'display: none;')
-		 	)
-		 );
-	 ?>	
-	<?php
-		 $this->widget('zii.widgets.jui.CJuiButton',
-			 array(
-			 	'id'=>'requestButton',
-			 	'name'=>'request',
-			 	'caption'=>'Solicitar',
-			 	'value'=>'Click para solicitar la pelicula',
-			 	'onclick'=>'js:function(){
-			 		if(confirm("Esta seguro de solicitar esta pelicula?"))
-			 		{
-						$.post("'.ImdbdataController::createUrl('AjaxRequestMovie').'",
-								{id_nzb: "'.$model->Id.'"}
-						).success(
-							function(data) 
-							{
-	 							$("#requestButton").hide();
-	 							$("#cancelRequestButton").animate({opacity: "show"},"slow");
-							}
-						);
-		 
-			 		}
-			 		return false;
-				}',
-				'htmlOptions'=>array('style'=>'display: none;')
-		 	)
-		 );
-	 ?>	
-	<?php
-		 $this->widget('zii.widgets.jui.CJuiButton',
-			 array(
-			 	'id'=>'cancelRequestButton',
-			 	'name'=>'cancelRequest',
-			 	'caption'=>'Cancelar Solicitud',
-			 	'value'=>'Click cancelar la solicitud de la pelicula',
-			 	'onclick'=>'js:function(){
-			 		if(confirm("Esta seguro de que desea cancelar esta solicitud?"))
-			 		{
-						$.post("'.ImdbdataController::createUrl('AjaxCancelRequestedMovie').'",
-								{id_nzb: "'.$model->Id.'"}
-						).success(
-							function(data) 
-							{
-	 							$("#cancelRequestButton").hide();
-	 							$("#requestButton").animate({opacity: "show"},"slow");
-							}
-						);
-		 
-			 		}
-			 		return false;
-				}',
-				'htmlOptions'=>array('style'=>'display: none;')
-		 	)
-		 );
-	 ?>	
-	 <div id="started-display" style="display: none;float: left;padding: 5px 10px; ">
-	 	<img alt="Download Started" src="images/downloading.png">
-	 </div>
+	<?php if (Yii::app()->user->checkAccess('ManageDownload')):?>
+		
+		<?php
+			 $this->widget('zii.widgets.jui.CJuiButton',
+				 array(
+				 	'id'=>'downloadButton',
+				 	'name'=>'download',
+				 	'caption'=>'Download',
+				 	'value'=>'Click to download movie',
+				 	'onclick'=>'js:function(){
+				 		if(confirm("Are you sure start downloading?"))
+				 		{
+							$.post("'.ImdbdataController::createUrl('AjaxStartDownload').'",
+									{id_nzb: "'.$model->Id.'"}
+							).success(
+								function(data) 
+								{
+		 							$("#downloadButton").hide();
+		 							$("#started-display").animate({opacity: "show"},"slow");
+								}
+							);
+			 
+				 		}
+				 		return false;
+					}',
+					'htmlOptions'=>array('style'=>'display: none;')
+			 	)
+			 );
+		 ?>
+		 <div id="started-display" style="display: none;float: left;padding: 5px 10px; ">
+		 <img alt="Download Started" src="images/downloading.png">
+		 </div>
+		 <div id="finish-display" style="display: none; float: left;padding: 5px 10px;">
+		 <img alt="Download Finished" src="images/downloaded.png">
+		 <?php
+		 //	 		echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
+		 // 			echo CHtml::link(
+		 // 			),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));
+		 ?>
+		</div>
+	 	 
+	 <?php endif?>
+	 <?php if (Yii::app()->user->checkAccess('ManageRequest')):?>
+	 	 
+		<?php
+			 $this->widget('zii.widgets.jui.CJuiButton',
+				 array(
+				 	'id'=>'requestButton',
+				 	'name'=>'request',
+				 	'caption'=>'Solicitar',
+				 	'value'=>'Click para solicitar la pelicula',
+				 	'onclick'=>'js:function(){
+				 		if(confirm("Esta seguro de solicitar esta pelicula?"))
+				 		{
+							$.post("'.ImdbdataController::createUrl('AjaxRequestMovie').'",
+									{id_nzb: "'.$model->Id.'"}
+							).success(
+								function(data) 
+								{
+		 							$("#requestButton").hide();
+		 							$("#cancelRequestButton").animate({opacity: "show"},"slow");
+								}
+							);
+			 
+				 		}
+				 		return false;
+					}',
+					'htmlOptions'=>array('style'=>'display: none;')
+			 	)
+			 );
+		 ?>	
+		<?php
+			 $this->widget('zii.widgets.jui.CJuiButton',
+				 array(
+				 	'id'=>'cancelRequestButton',
+				 	'name'=>'cancelRequest',
+				 	'caption'=>'Cancelar Solicitud',
+				 	'value'=>'Click cancelar la solicitud de la pelicula',
+				 	'onclick'=>'js:function(){
+				 		if(confirm("Esta seguro de que desea cancelar esta solicitud?"))
+				 		{
+							$.post("'.ImdbdataController::createUrl('AjaxCancelRequestedMovie').'",
+									{id_nzb: "'.$model->Id.'"}
+							).success(
+								function(data) 
+								{
+		 							$("#cancelRequestButton").hide();
+		 							$("#requestButton").animate({opacity: "show"},"slow");
+								}
+							);
+			 
+				 		}
+				 		return false;
+					}',
+					'htmlOptions'=>array('style'=>'display: none;')
+			 	)
+			 );
+		 ?>	
+	 <?php endif?>
+	<?php if (Yii::app()->user->checkAccess('ManagePlayer')):?>		
+	 
 	 <div id="play-display" style="display: none; float: left;padding: 5px 10px;">
-	 	<img alt="Download Finished" src="images/downloaded.png">
+	 	<img alt="Play" src="images/play.png">
 	 	<?php
 //	 		echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
 // 			echo CHtml::link( 
@@ -141,6 +157,7 @@
 		?>
 	 </div>
 	 <div id="stop-display" style="display: none ; float: left;padding: 5px 10px;">
+	 	<img alt="Play" src="images/stop.png">
 	 	<?php
 //	 	echo CHtml::image("images/stop.png",'Stop',array('id'=>'stop_button', 'style'=>'height: 128px;width: 128px;'));
 // 			echo CHtml::link( 
@@ -153,6 +170,7 @@
 	 	<img class="movie-view-logo" alt="surround" src="images/dolby-surround-logo.png" style="width: 120px; height: 50px;">
 	 	<img class="movie-view-logo" alt="surround" src="images/thx_logo.png" style=" width: 80px; height: 70px;">
 	 </div>
+	<?php endif ?>
 	
 </div>
 	<?php
@@ -161,13 +179,18 @@
 	Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	ChangeBG('images/','".$modelImdbdata->Backdrop."');
 	ShowDownload();
-
+	ShowRequest();
+	
 	$('.leftcurtain').addClass('showLeftCurtian');
 	$('.rightcurtain').addClass('showRightCurtian');
 	OpenCurtains(2000);
-	//
-	function ShowDownload()
+
+	function ShowRequest()
 	{
+		if('".Yii::app()->user->checkAccess('ManageRequest')."'!='1')
+		{
+			return false;
+		}
 		if('".$nzbCustomer->requested."'=='1')
 		{
 			$('#cancelRequestButton').show();
@@ -177,19 +200,32 @@
 			$('#requestButton').show();
 		}		
 		return false;
-		if('".$model->downloading."'=='1')
+	}
+	function ShowDownload()
+	{
+		if('".Yii::app()->user->checkAccess('ManageDownload')."'!='1')
+		{
+			return false;
+		}
+		if('".$nzbCustomer->downloading."'=='1')
 		{
 			$('#started-display').show();
 		}
-		else if('".$model->downloaded."'=='1')
+		else if('".$nzbCustomer->downloaded."'=='1')
 		{
-			$('#play-display').show();
+			if('".Yii::app()->user->checkAccess('ManagePlayer')."'=='1')
+			{
+				$('#play-display').show();
+			}
+			else
+			{
+				$('#finish-display').show();
+			}			
 		}
 		else 
 		{
 			$('#downloadButton').show();
-		}
-		
+		}		
 	}
 	$('#play_button').click(
 		function () {
