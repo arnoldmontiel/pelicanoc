@@ -205,6 +205,9 @@ class ImdbdataTvController extends Controller
 	}
 	public function updateFromServer()
 	{
+		PelicanoHelper::sendPendingNzbStates();
+		PelicanoHelper::sendPendingImdbdataTvStates();
+		
 		$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
 		$SerieResponseArray = $pelicanoCliente->getNewSeries($setting->getId_Customer());
@@ -220,7 +223,7 @@ class ImdbdataTvController extends Controller
 				{
 					$modelImdbdataTv=new ImdbdataTv;
 				}
-				if($movie->deleted)
+				if($serie->deleted)
 				{
 					if(!$modelNzb->isNewRecord)
 					{
@@ -242,7 +245,7 @@ class ImdbdataTvController extends Controller
 					{
 						$request= new SerieStateRequest;
 						$request->id_customer = $setting->getId_Customer();
-						$request->id_serie_nzb =$modelNzb->Id;
+						$request->id_serie_nzb =$serie->Id;
 						$request->id_state =6;
 						$request->date = time();
 						$request->id_imdbdata_tv =$modelImdbdataTv->ID;
@@ -328,31 +331,37 @@ class ImdbdataTvController extends Controller
 				$transaction = $modelNzb->dbConnection->beginTransaction();
 				try {
 					$modelImdbdataTv->save();
-					$modelNzb->Id_imdbdata_tv = $modelImdbdataTv->ID;
-					$modelNzb->date = date("Y-m-d H:i:s",time());
-					$modelNzb->save();
+
+					if(isset($serie->Id))
+					{
+						$modelNzb->Id_imdbdata_tv = $modelImdbdataTv->ID;
+						$modelNzb->date = date("Y-m-d H:i:s",time());
+						$modelNzb->save();
+
+						$nzbMovieState= new NzbMovieState;
+						$nzbMovieState->Id_nzb = $modelNzb->Id;
+						$nzbMovieState->Id_movie_state = 1;
+						$setting=Setting::getInstance();
+						$nzbMovieState->Id_customer = $setting->getId_customer();
+						
+						$nzbMovieState->save();
+						
+					}
+					else 
+					{
+						$state= new ImdbdataTvMovieState;
+						$state->Id_imdbdata_tv = $modelImdbdataTv->ID;
+						$state->Id_movie_state = 1;
+						$state->Id_customer = $setting->getId_customer();
+						
+						$state->save();						
+					}
 					foreach($modelSeasons as $season)
 					{
 						$season->save();						
 					}
-						
-					$nzbMovieState= new NzbMovieState;
-					$nzbMovieState->Id_nzb = $modelNzb->Id;
-					$nzbMovieState->Id_movie_state = 1;
-					$setting=Setting::getInstance();
-					$nzbMovieState->Id_customer = $setting->getId_customer();
-						
-					$nzbMovieState->save();
-	
+							
 					$transaction->commit();
-					//we send the new state to the server
-					$request= new SerieStateRequest;
-					$request->id_customer = $setting->getId_Customer();
-					$request->id_serie_nzb =$modelNzb->Id;
-					$request->id_state =1;
-					$request->date = time();
-					$request->id_imdbdata_tv =$modelImdbdataTv->ID;
-					$requests[]=$request;
 	
 				} catch (Exception $e) {
 					$transaction->rollback();
@@ -360,12 +369,8 @@ class ImdbdataTvController extends Controller
 			} catch (Exception $e) {
 			}
 		}
-		if(!empty ($requests ))
-		{
-			$pelicanoCliente = new Pelicano;
-			$status = $pelicanoCliente->setSerieState($requests);
-		}
-		
+		PelicanoHelper::sendPendingNzbStates();
+		PelicanoHelper::sendPendingImdbdataTvStates();		
 	}
 	public function actionAjaxRequestSerie()
 	{
@@ -384,7 +389,6 @@ class ImdbdataTvController extends Controller
 					$nzbMovieState= new NzbMovieState;
 					$nzbMovieState->Id_nzb = $nzb->Id;
 					$nzbMovieState->Id_movie_state = 4;
-					$setting=Setting::getInstance();
 					$nzbMovieState->Id_customer = $setting->getId_customer();
 						
 					$nzbMovieState->save();
@@ -426,7 +430,6 @@ class ImdbdataTvController extends Controller
 					$nzbMovieState= new NzbMovieState;
 					$nzbMovieState->Id_nzb = $nzb->Id;
 					$nzbMovieState->Id_movie_state = 5;
-					$setting=Setting::getInstance();
 					$nzbMovieState->Id_customer = $setting->getId_customer();
 						
 					$nzbMovieState->save();
@@ -449,6 +452,46 @@ class ImdbdataTvController extends Controller
 			}
 		}
 	
+	}
+	public function actionAjaxStartDownload()
+	{
+		if(isset($_POST['id_nzb']))
+		{
+			$nzb = Nzb::model()->findByPk($_POST['id_nzb']);
+			if(!$nzb->downloading)
+			{
+				$setting = Setting::getInstance();
+				try
+				{
+					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
+					{
+						$nzb->downloaded = 0;
+						$nzb->downloading = 1;
+						$nzb->save();
+	
+						$nzbMovieState= new NzbMovieState;
+						$nzbMovieState->Id_nzb = $nzb->Id;
+						$nzbMovieState->Id_movie_state = 2;
+						$setting=Setting::getInstance();
+						$nzbMovieState->Id_customer = $setting->getId_customer();
+						$nzbMovieState->save();
+	
+						//we send the new state to the server
+						$pelicanoCliente = new Pelicano;
+						$request= new MovieStateRequest;
+						$request->id_customer = $setting->getId_Customer();
+						$request->id_movie =$nzb->Id;
+						$request->id_state =2;
+						$request->date = time();
+						$requests[]=$request;
+						$status = $pelicanoCliente->setMovieState($requests);
+					}
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+		}
 	}
 	
 }

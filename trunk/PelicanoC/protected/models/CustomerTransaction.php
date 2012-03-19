@@ -1,33 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "nzb_movie_state".
+ * This is the model class for table "customer_transaction".
  *
- * The followings are the available columns in table 'nzb_movie_state':
- * @property integer $Id_nzb
- * @property integer $Id_movie_state
- * @property string $date
+ * The followings are the available columns in table 'customer_transaction':
  * @property integer $Id
+ * @property integer $Id_nzb
+ * @property integer $Id_transaction_type
+ * @property string $date
+ * @property integer $points
  * @property integer $Id_customer
- * @property integer $sent
  *
  * The followings are the available model relations:
- * @property MovieState $movieState
- * @property Nzb $nzb
- * @property Customer $customer
+ * @property Nzb $idNzb
+ * @property TransactionType $idTransactionType
+ * @property Customer $idCustomer
  */
-class NzbMovieState extends CActiveRecord
+class CustomerTransaction extends CActiveRecord
 {
-	public function beforeSave()
-	{
-		$setting = Setting::getInstance();
-		$this->Id_customer = $setting->getId_Customer();
-		return parent::beforeSave();
-	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return NzbMovieState the static model class
+	 * @return CustomerTransaction the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -39,7 +33,7 @@ class NzbMovieState extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'nzb_movie_state';
+		return 'customer_transaction';
 	}
 
 	/**
@@ -50,12 +44,13 @@ class NzbMovieState extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_nzb, Id_movie_state, Id_customer', 'required'),
-			array('Id_nzb, Id_movie_state, Id_customer, sent', 'numerical', 'integerOnly'=>true),
-			array('date', 'safe'),
+			array('Id, Id_transaction_type, Id_customer', 'required'),
+			array('Id, Id_nzb, Id_transaction_type, points, Id_customer', 'numerical', 'integerOnly'=>true),
+			array('description', 'length', 'max'=>255),
+			array('date', 'safe'),			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_nzb, Id_movie_state, date, Id, Id_customer, sent', 'safe', 'on'=>'search'),
+			array('Id, Id_nzb, Id_transaction_type, date, points, Id_customer, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,9 +62,9 @@ class NzbMovieState extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'movieState' => array(self::BELONGS_TO, 'MovieState', 'Id_movie_state'),
-			'nzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
-			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
+			'idNzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
+			'idTransactionType' => array(self::BELONGS_TO, 'TransactionType', 'Id_transaction_type'),
+			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 		);
 	}
 
@@ -79,12 +74,12 @@ class NzbMovieState extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'Id' => 'ID',
 			'Id_nzb' => 'Id Nzb',
-			'Id_movie_state' => 'Id Movie State',
+			'Id_transaction_type' => 'Id Transaction Type',
 			'date' => 'Date',
-			'Id' => 'Id',
+			'points' => 'Points',
 			'Id_customer' => 'Id Customer',
-			'sent' => 'Sent',
 		);
 	}
 
@@ -99,13 +94,13 @@ class NzbMovieState extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('Id_nzb',$this->Id_nzb);
-		$criteria->compare('Id_movie_state',$this->Id_movie_state);
-		$criteria->compare('date',$this->date,true);
 		$criteria->compare('Id',$this->Id);
+		$criteria->compare('Id_nzb',$this->Id_nzb);
+		$criteria->compare('Id_transaction_type',$this->Id_transaction_type);
+		$criteria->compare('date',$this->date,true);
+		$criteria->compare('points',$this->points);
 		$criteria->compare('Id_customer',$this->Id_customer);
-		$criteria->compare('sent',$this->sent);
-		
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

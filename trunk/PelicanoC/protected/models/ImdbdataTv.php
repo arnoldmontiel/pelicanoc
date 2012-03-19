@@ -83,6 +83,7 @@ class ImdbdataTv extends CActiveRecord
 			'imdbdataTvs' => array(self::HAS_MANY, 'ImdbdataTv', 'Id_parent'),
 			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_imdbdata_tv'),
 			'seasons' => array(self::HAS_MANY, 'Season', 'Id_imdbdata_tv'),
+			'imdbdataTvMovieState' => array(self::HAS_MANY, 'ImdbdataTvMovieState', 'Id_imdbdata_tv'),
 		);
 	}
 
@@ -148,7 +149,8 @@ class ImdbdataTv extends CActiveRecord
 		$criteria->compare('Id_parent',$this->Id_parent,true);
 		$criteria->compare('Season',$this->Season);
 		$criteria->compare('Episode',$this->Episode);
-
+		$criteria->addCondition('Deleted_serie = 0');
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -183,6 +185,7 @@ class ImdbdataTv extends CActiveRecord
 		$criteria->compare('Episode',$this->Episode);
 
 		$criteria->addCondition('Id_parent is NULL');
+		$criteria->addCondition('Deleted_serie = 0');
 		
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,

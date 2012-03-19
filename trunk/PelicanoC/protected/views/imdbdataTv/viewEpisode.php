@@ -61,8 +61,8 @@
 	<?php echo CHtml::closeTag('div');?> 
 	</div>
 	<div class="serie-download-box" >
-	
-	<?php
+	<?php if (Yii::app()->user->checkAccess('ManageDownload')):?>		
+		<?php
 		 $this->widget('zii.widgets.jui.CJuiButton',
 			 array(
 			 	'id'=>'downloadButton',
@@ -87,11 +87,19 @@
 				}',
 				'htmlOptions'=>array('style'=>'display: none;')
 		 	)
-		 );
-	 ?>	
-	 	<?php
-		 $this->widget('zii.widgets.jui.CJuiButton',
-			 array(
+		);
+		?>
+	 	<div id="started-display" style="display: none;float: left;padding: 5px 10px; ">
+	 		<img alt="Download Started" src="images/downloading.png">
+	 	</div>
+	 	<div id="finish-display" style="display: none;float: left;padding: 5px 10px; ">
+	 		<img alt="Download Finished" src="images/downloaded.png">
+	 	</div>
+	 <?php endif ?>	
+	 <?php if (Yii::app()->user->checkAccess('ManageRequest')):?>
+		<?php
+		$this->widget('zii.widgets.jui.CJuiButton',
+			array(
 			 	'id'=>'requestButton',
 			 	'name'=>'request',
 			 	'caption'=>'Solicitar',
@@ -114,10 +122,10 @@
 				}',
 				'htmlOptions'=>array('style'=>'display: none;')
 		 	)
-		 );
-	 ?>	
-	<?php
-		 $this->widget('zii.widgets.jui.CJuiButton',
+		);
+		?>	
+		<?php
+		$this->widget('zii.widgets.jui.CJuiButton',
 			 array(
 			 	'id'=>'cancelRequestButton',
 			 	'name'=>'cancelRequest',
@@ -142,13 +150,12 @@
 				'htmlOptions'=>array('style'=>'display: none;')
 		 	)
 		 );
-	 ?>	
-	 
-	 <div id="started-display" style="display: none;float: left;padding: 5px 10px; ">
-	 	<img alt="Download Started" src="images/downloading.png">
-	 </div>
+		?>	
+	<?php endif ?>	
+	 	 
+	 <?php if (Yii::app()->user->checkAccess('ManagePlayer')):?>		
 	 <div id="play-display" style="display: none; float: left;padding: 5px 10px;">
-	 	<img alt="Download Finished" src="images/downloaded.png">
+	 	<img alt="Play" src="images/play.png">
 	 	<?php
 //	 		echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
 // 			echo CHtml::link( 
@@ -168,6 +175,7 @@
 	 	<img class="serie-view-logo" alt="surround" src="images/dolby-surround-logo.png" style="width: 120px; height: 50px;">
 	 	<img class="serie-view-logo" alt="surround" src="images/thx_logo.png" style=" width: 80px; height: 70px;">
 	 </div>
+	 <?php endif ?>
 	
 </div>
 	<?php
@@ -176,14 +184,20 @@
 		
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	//ChangeBG('images/','".$modelImdbdataTv->Backdrop."');
+
 	ShowDownload();
+	ShowRequest();
 
 	$('.leftcurtain').addClass('showLeftCurtian');
 	$('.rightcurtain').addClass('showRightCurtian');
 	OpenCurtains(2000);
-	//
-	function ShowDownload()
+
+	function ShowRequest()
 	{
+		if('".Yii::app()->user->checkAccess('ManageRequest')."'!='1')
+		{
+			return false;
+		}
 		if('".$nzbCustomer->requested."'=='1')
 		{
 			$('#cancelRequestButton').show();
@@ -193,20 +207,32 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 			$('#requestButton').show();
 		}		
 		return false;
-
-		if('".$model->downloading."'=='1')
+	}
+	function ShowDownload()
+	{
+		if('".Yii::app()->user->checkAccess('ManageDownload')."'!='1')
+		{
+			return false;
+		}
+		if('".$nzbCustomer->downloading."'=='1')
 		{
 			$('#started-display').show();
 		}
-		else if('".$model->downloaded."'=='1')
+		else if('".$nzbCustomer->downloaded."'=='1')
 		{
-			$('#play-display').show();
+			if('".Yii::app()->user->checkAccess('ManagePlayer')."'=='1')
+			{
+				$('#play-display').show();
+			}
+			else
+			{
+				$('#finish-display').show();
+			}			
 		}
 		else 
 		{
 			$('#downloadButton').show();
-		}
-		
+		}		
 	}
 	$('#play_button').click(
 		function () {
