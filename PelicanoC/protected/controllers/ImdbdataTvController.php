@@ -293,39 +293,51 @@ class ImdbdataTvController extends Controller
 				
 				$validator = new CUrlValidator();
 	
-				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$modelNzb->url))
+				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
 				{
-					$content = file_get_contents($setting->host_name.$modelNzb->url);
-					if ($content !== false) {
-						$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
-						fwrite($file,$content);
-						fclose($file);
-					} else {
-						// an error happened
+					try {
+						$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
+						if ($content !== false) {
+							$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
+							fwrite($file,$content);
+							fclose($file);
+						} else {
+							// an error happened
+						}						
+					} catch (Exception $e) {
 					}
 				}
-				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$modelNzb->subt_url))
+				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
 				{
-					$content = file_get_contents($setting->host_name.$modelNzb->subt_url);
-					if ($content !== false) {
-						$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
-						fwrite($file,$content);
-						fclose($file);
-					} else {
-						// an error happened
+					try {
+						$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
+						if ($content !== false) {
+							$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
+							fwrite($file,$content);
+							fclose($file);
+						} else {
+							// an error happened
+						}
+						
+					} catch (Exception $e) {
+							// an error happened
 					}
 				}
 				if($serie->Poster!='' && $validator->validateValue($modelImdbdataTv->Poster))
 				{
-					$content = file_get_contents($modelImdbdataTv->Poster);
-					if ($content !== false) {
-						$file = fopen($setting->path_images."/".$modelImdbdataTv->ID.".jpg", 'w');
-						fwrite($file,$content);
-						fclose($file);
-						$modelImdbdataTv->Poster_original = $modelImdbdataTv->Poster;
-						$modelImdbdataTv->Poster = $modelImdbdataTv->ID.".jpg";
-					} else {
-						// an error happened
+					try {
+						$content = file_get_contents($modelImdbdataTv->Poster);
+						if ($content !== false) {
+							$file = fopen($setting->path_images."/".$modelImdbdataTv->ID.".jpg", 'w');
+							fwrite($file,$content);
+							fclose($file);
+							$modelImdbdataTv->Poster_original = $modelImdbdataTv->Poster;
+							$modelImdbdataTv->Poster = $modelImdbdataTv->ID.".jpg";
+						} else {
+							// an error happened
+						}						
+					} catch (Exception $e) {
+							// an error happened
 					}
 				}
 				$transaction = $modelNzb->dbConnection->beginTransaction();
@@ -404,7 +416,11 @@ class ImdbdataTvController extends Controller
 					$requests[]=$request;
 						
 					$status = $pelicanoCliente->setSerieState($requests);
-	
+					if($status)
+					{
+						$nzbMovieState->sent = 1;
+						$nzbMovieState->save();
+					}
 				}
 				catch (Exception $e)
 				{
@@ -445,6 +461,12 @@ class ImdbdataTvController extends Controller
 					$requests[]=$request;
 						
 					$status = $pelicanoCliente->setSerieState($requests);
+					if($status)
+					{
+						$nzbMovieState->sent = 1;
+						$nzbMovieState->save();
+					}
+					
 				}
 				catch (Exception $e)
 				{
@@ -485,6 +507,12 @@ class ImdbdataTvController extends Controller
 						$request->date = time();
 						$requests[]=$request;
 						$status = $pelicanoCliente->setMovieState($requests);
+						if($status)
+						{
+							$nzbMovieState->sent = 1;
+							$nzbMovieState->save();
+						}
+						
 					}
 				}
 				catch (Exception $e)

@@ -124,8 +124,16 @@ class Pelicano
 function __construct($url='/index.php?r=nzb/wsdl')
 {
 	ini_set ('soap.wsdl_cache_enabled',0);
+	ini_set ('default_socket_timeout',20);
+	
 	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path.$url;
-	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
+	try {
+		$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true,'connection_timeout' => 5));		
+	} catch (SoapFault $fault) {
+		$var  = $fault;	
+	} catch (Exception $e) {
+		$var  = $e;
+	}
 }
 
 
