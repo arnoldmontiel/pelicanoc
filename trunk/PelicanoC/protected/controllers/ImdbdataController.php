@@ -51,17 +51,23 @@ class ImdbdataController extends Controller
 			$validator = new CUrlValidator();				
 			if($modelImdbdata->Backdrop!='' && $validator->validateValue($modelImdbdata->Backdrop))
 			{
-				$content = file_get_contents($modelImdbdata->Backdrop);
-				if ($content !== false) {
-					$setting = Setting::getInstance();
-					$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
-					fwrite($file,$content);
-					fclose($file);
-					$modelImdbdata->Backdrop_original = $modelImdbdata->Backdrop;
-					$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
-					$modelImdbdata->save();
-				} else {
-					// an error happened
+				try {
+					$content = file_get_contents($modelImdbdata->Backdrop);
+					if ($content !== false) {
+						$setting = Setting::getInstance();
+						$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
+						fwrite($file,$content);
+						fclose($file);
+						$modelImdbdata->Backdrop_original = $modelImdbdata->Backdrop;
+						$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
+						$modelImdbdata->save();
+					} else {
+						// an error happened
+					}
+				}
+				catch (Exception $e)
+				{
+					// an error happened								
 				}
 			}
 		}						
@@ -255,7 +261,11 @@ class ImdbdataController extends Controller
 						$request->date = time();
 						$requests[]=$request;
 						$status = $pelicanoCliente->setMovieState($requests);
-						
+						if($status)
+						{
+							$nzbMovieState->sent = 1;
+							$nzbMovieState->save();
+						}
 					}
 				}
 				 catch (Exception $e) 
@@ -294,7 +304,11 @@ class ImdbdataController extends Controller
 					$request->date = time();
 					$requests[]=$request;
 					$status = $pelicanoCliente->setMovieState($requests);
-	
+					if($status)
+					{
+						$nzbMovieState->sent = 1;
+						$nzbMovieState->save();
+					}
 				}
 				catch (Exception $e)
 				{
@@ -332,7 +346,13 @@ class ImdbdataController extends Controller
 					$request->id_state =5;
 					$request->date = time();
 					$requests[]=$request;
-					$status = $pelicanoCliente->setMovieState($requests);	
+					$status = $pelicanoCliente->setMovieState($requests);
+					if($status)
+					{
+						$nzbMovieState->sent = 1;
+						$nzbMovieState->save();
+					}
+						
 				}
 				catch (Exception $e)
 				{
@@ -412,20 +432,24 @@ class ImdbdataController extends Controller
 				}
 				$validator = new CUrlValidator();
 	
-				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$modelNzb->url))
+				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
 				{
-					$content = file_get_contents($setting->host_name.$modelNzb->url);
-					if ($content !== false) {
-						$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
-						fwrite($file,$content);
-						fclose($file);
-					} else {
+					try {
+						$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
+						if ($content !== false) {
+							$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
+							fwrite($file,$content);
+							fclose($file);
+						} else {
+							// an error happened
+						}						
+					} catch (Exception $e) {
 						// an error happened
 					}
 				}
-				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$modelNzb->subt_url))
+				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
 				{
-					$content = file_get_contents($setting->host_name.$modelNzb->subt_url);
+					$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
 					if ($content !== false) {
 						$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
 						fwrite($file,$content);
@@ -436,14 +460,19 @@ class ImdbdataController extends Controller
 				}
 				if($movie->Poster!='' && $validator->validateValue($modelImdbdata->Poster))
 				{
-					$content = file_get_contents($modelImdbdata->Poster);
-					if ($content !== false) {
-						$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
-						fwrite($file,$content);
-						fclose($file);
-						$modelImdbdata->Poster_original = $modelImdbdata->Poster;
-						$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
-					} else {
+					try {
+						$content = file_get_contents($modelImdbdata->Poster);
+						if ($content !== false) {
+							$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
+							fwrite($file,$content);
+							fclose($file);
+							$modelImdbdata->Poster_original = $modelImdbdata->Poster;
+							$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
+						} else {
+							// an error happened
+						}						
+					} catch (Exception $e) {
+						throw $e;
 						// an error happened
 					}
 				}				
