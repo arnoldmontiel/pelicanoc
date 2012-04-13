@@ -56,7 +56,7 @@ body
 	padding: 10px 20px;
 	font-size: 250%;
 	color: white;
-	width: 750px;
+	width: 170px;
 	float: left;
 }
 
@@ -885,4 +885,12 @@ div.view-serie-season-index-title
 	float: right;
 	
 }
-
+div.customer-name
+{
+	display: inline-block;
+    float: left;
+    width: 150px;
+    margin-right: 400px;
+    margin-top: 20px;
+    font-size: 17px;
+}
