@@ -63,6 +63,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#imdbdataTv_view'.$data->Id,
 		<b><?php echo CHtml::encode($data->imdbdataTv->getAttributeLabel('Director')); ?>:</b>
 		<?php echo CHtml::encode($data->imdbdataTv->Director); ?>
 		<br />
+		<b><?php echo CHtml::encode($data->getAttributeLabel('Points')); ?>:</b>
+		<?php echo CHtml::encode($data->points); ?>
+		<br />
 	
 	</div>
 	<?php echo CHtml::hiddenField('id_nzb',$data->Id,array('class'=>'id_nzb','style'=>'display:none')); ?>

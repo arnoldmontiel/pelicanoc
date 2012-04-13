@@ -52,7 +52,7 @@ class ImdbdataController extends Controller
 			if($modelImdbdata->Backdrop!='' && $validator->validateValue($modelImdbdata->Backdrop))
 			{
 				try {
-					$content = file_get_contents($modelImdbdata->Backdrop);
+					$content = @file_get_contents($modelImdbdata->Backdrop);
 					if ($content !== false) {
 						$setting = Setting::getInstance();
 						$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
@@ -435,7 +435,7 @@ class ImdbdataController extends Controller
 				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
 				{
 					try {
-						$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
+						$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
 						if ($content !== false) {
 							$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
 							fwrite($file,$content);
@@ -449,7 +449,7 @@ class ImdbdataController extends Controller
 				}
 				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
 				{
-					$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
+					$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
 					if ($content !== false) {
 						$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
 						fwrite($file,$content);
@@ -461,7 +461,7 @@ class ImdbdataController extends Controller
 				if($movie->Poster!='' && $validator->validateValue($modelImdbdata->Poster))
 				{
 					try {
-						$content = file_get_contents($modelImdbdata->Poster);
+						$content = @file_get_contents($modelImdbdata->Poster);
 						if ($content !== false) {
 							$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
 							fwrite($file,$content);
