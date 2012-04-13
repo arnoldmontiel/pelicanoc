@@ -100,16 +100,12 @@ class PelicanoHelper
 			array(':Id_customer'=>$setting->getId_customer()));
 			
 			$tot_debit = CustomerTransaction::model()->findBySql(
-								'select *, sum(points) points from customer_transaction where Id_transaction_type = 1 AND Id_customer =:Id_customer',
+								'select *, sum(points) points from customer_transaction where (Id_transaction_type = 1 ) AND Id_customer =:Id_customer',
 			array(':Id_customer'=>$setting->getId_customer()));
-			
-			$tot_nzb = Nzb::model()->findBySql(
-								'select nzb.*, sum(points) points from nzb inner join nzb_customer nc on nzb.Id=nc.Id_nzb where (nc.downloading = 1 OR nc.downloaded = 1) AND nc.Id_customer =:Id_customer',
-			array(':Id_customer'=>$setting->getId_customer()));
-			
+						
 			
 			$customer = $setting->getCustomer();
-			$customer->current_points = $tot_credit->points - $tot_debit->points - $tot_nzb->points;
+			$customer->current_points = $tot_credit->points - $tot_debit->points ;
 			$customer->save();				
 		} catch (Exception $e) {
 			//

@@ -35,11 +35,17 @@
 		<?php echo $modelImdbdata->Plot; ?>
 	<?php echo CHtml::closeTag('div');?> 
 	<?php echo CHtml::openTag('div');?>
-			<?php echo CHtml::openTag('b');?>
-				<?php echo $modelImdbdata->getAttributeLabel('Actors').':'; ?>
-			<?php echo CHtml::closeTag('b');?>
-			<?php echo $modelImdbdata->Actors; ?>
-		<?php echo CHtml::closeTag('div');?> 
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $modelImdbdata->getAttributeLabel('Actors').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $modelImdbdata->Actors; ?>
+	<?php echo CHtml::closeTag('div');?> 
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $modelImdbdata->getAttributeLabel('Points').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $model->points; ?>
+	<?php echo CHtml::closeTag('div');?> 
 	</div>		
 	<div class="movie-rating-box" >
 	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>

@@ -124,11 +124,10 @@ class Pelicano
 function __construct($url='/index.php?r=nzb/wsdl')
 {
 	ini_set ('soap.wsdl_cache_enabled',0);
-	ini_set ('default_socket_timeout',20);
 	
 	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path.$url;
 	try {
-		$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true,'connection_timeout' => 5));		
+		$this->soapClient = @new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));		
 	} catch (SoapFault $fault) {
 		$var  = $fault;	
 	} catch (Exception $e) {
@@ -139,39 +138,62 @@ function __construct($url='/index.php?r=nzb/wsdl')
 
 function getNewMovies($integer)
 {
-	$MovieResponseArray = $this->soapClient->getNewMovies($integer);
-	return $MovieResponseArray;
+	$MovieResponseArray = array();
+	if(isset($this->soapClient))
+	{
+		$MovieResponseArray = $this->soapClient->getNewMovies($integer);
+	}
+	return $MovieResponseArray;		
 }
 function getNewSeries($integer)
 {
-	$SerieResponseArray = $this->soapClient->getNewSeries($integer);
+	$SerieResponseArray = array();
+	if(isset($this->soapClient))
+	{
+		$SerieResponseArray = $this->soapClient->getNewSeries($integer);
+	}
 	return $SerieResponseArray;
 }
 function setMovieState($MovieStateRequestArray)
 {
-	$r = array();
-	foreach ($MovieStateRequestArray as $item)
+	$result = false;
+	if(isset($this->soapClient))
 	{
-		$r[]=$item->toArray();
+		$r = array();
+		foreach ($MovieStateRequestArray as $item)
+		{
+			$r[]=$item->toArray();
+		}
+		$result = $this->soapClient->setMovieState($r);
 	}
-	return $this->soapClient->setMovieState($r);
+	return $result;
 }
 
 function setSerieState($SerieStateRequestArray)
 {
-	$r= array();
-	foreach ($SerieStateRequestArray as $item)
+	$result = false;
+	if(isset($this->soapClient))
 	{
-		$r[]=$item->toArray();
+		$r= array();
+		foreach ($SerieStateRequestArray as $item)
+		{
+			$r[]=$item->toArray();
+		}
+		$result = $this->soapClient->setSerieState($r);
 	}
-	
-	return $this->soapClient->setSerieState($r);
+	return $result;
 	
 }
 
 function getPoints($Id_customer, $Id_transaction)
 {
-	return $this->soapClient->getPoints($Id_customer, $Id_transaction);
+	$result = array();
+	if(isset($this->soapClient))
+	{
+		
+		$result = $this->soapClient->getPoints($Id_customer, $Id_transaction);
+	}
+	return $result;
 }
 }
 

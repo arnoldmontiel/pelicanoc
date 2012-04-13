@@ -30,6 +30,13 @@
 			<?php //echo CHtml::image("images/logo_pelicano.png","Pelicano",array("style"=>"width:100px;height:100px;"));?>
 			 
 		</div>
+		<div class="customer-name">
+			 <?php
+			 	$customer = Setting::getInstance()->getCustomer(); 
+			 	echo $customer->name.' '.$customer->name->last_name;
+			 	echo '('.$customer->current_points.' points)';
+			 	?>
+		</div>
 		<div class="browsingbox">
 			<div class="browsingbox-prev">
 				<?php

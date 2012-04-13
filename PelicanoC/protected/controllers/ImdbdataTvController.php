@@ -296,7 +296,7 @@ class ImdbdataTvController extends Controller
 				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
 				{
 					try {
-						$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
+						$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
 						if ($content !== false) {
 							$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
 							fwrite($file,$content);
@@ -310,7 +310,7 @@ class ImdbdataTvController extends Controller
 				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
 				{
 					try {
-						$content = file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
+						$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
 						if ($content !== false) {
 							$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
 							fwrite($file,$content);
@@ -326,7 +326,7 @@ class ImdbdataTvController extends Controller
 				if($serie->Poster!='' && $validator->validateValue($modelImdbdataTv->Poster))
 				{
 					try {
-						$content = file_get_contents($modelImdbdataTv->Poster);
+						$content = @file_get_contents($modelImdbdataTv->Poster);
 						if ($content !== false) {
 							$file = fopen($setting->path_images."/".$modelImdbdataTv->ID.".jpg", 'w');
 							fwrite($file,$content);
