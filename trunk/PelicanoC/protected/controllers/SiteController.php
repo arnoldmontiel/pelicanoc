@@ -29,7 +29,18 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		PelicanoHelper::UpdatePoints();
+		//PelicanoHelper::UpdatePoints();
+// 		$url='/index.php?r=wsPelicanoC/wsdl';
+// 		$url = "http://localhost/workspace/PelicanoC".$url;
+// 		$wx = new SoapClient($url,array("trace" => true,"exceptions" => true));
+// 		$wx->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d");
+			
+		$ws = new wsPelicanoC();
+		$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","");
+
+// 		$mymo = new MyMovies();
+// 		$mymo->LoadMovieById("af39fbab-1b0c-4519-856e-09c2dff7198d");
+		
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
 		$dataProvider->pagination->pageSize= 4;
