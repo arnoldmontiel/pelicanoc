@@ -97,6 +97,11 @@
 			echo CHtml::link( CHtml::image("images/cart.png",'movies',array('id'=>'cart_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/nzb/requested'));
 		}
+		if(Yii::app()->user->checkAccess('RippedMovieIndex'))
+		{
+			echo CHtml::link( CHtml::image("images/ripped-bluray.png",'movies',array('id'=>'ripped_button', 'style'=>'height: 128px;width: 128px;')
+			),array('/rippedMovie/index'));
+		}
 		echo CHtml::link( CHtml::image("images/logout.png",'movies',array('id'=>'logout_button', 'style'=>'height: 128px;width: 128px;float:right;')
 		),array('/site/logout'));
 		?>				
@@ -187,6 +192,14 @@
 			  },
 			  function () {
 				$(this).attr('src','images/cart.png');
+			  }
+			);
+			$('#ripped_button').hover(
+			function () {
+				$(this).attr('src','images/ripped-bluray-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/ripped-bluray.png');
 			  }
 			);
 			$('#logout_button').hover(
