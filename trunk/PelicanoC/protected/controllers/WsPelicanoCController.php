@@ -34,16 +34,28 @@ class WsPelicanoCController extends Controller
 	 */
 	public function addNewRipMovie($idMyMovie, $path)
 	{
- 		$myMovies = new MyMovies();		
-		$idImdb = $myMovies->LoadMovieById($idMyMovie);
+		$idImdb = "";
+		
+		$model = RippedMovie::model()->findByAttributes(array('Id_myMovie'=>$idMyMovie));
+		if(isset($model)) // check if movie is already ripped
+		{
+			$idImdb = $model->Id_imdbdata;
+			$model->delete();
+			Imdbdata::model()->deleteByPk($idImdb);
+		}
+		else 
+		{
+	 		$myMovies = new MyMovies();		
+			$idImdb = $myMovies->LoadMovieById($idMyMovie);
+		}
 		
 		if(!empty($idImdb))
 		{
-			$this->saveRippedMovie($idImdb,$path);
+			$this->saveRippedMovie($idImdb, $path, $idMyMovie);
 		}
 		return $idImdb;
 	}
-
+	
 	private function getBackDropUrl($idImdb)
 	{
 		$result = $this->readTheMovieDBApi($idImdb);
@@ -61,7 +73,7 @@ class WsPelicanoCController extends Controller
 		return $url;
 	}
 	
-	private function saveRippedMovie($idImdb, $path)
+	private function saveRippedMovie($idImdb, $path, $idMyMovie)
 	{
 		$data = $this->readImdbApi($idImdb);
 		$data = json_decode($data);
@@ -134,7 +146,8 @@ class WsPelicanoCController extends Controller
 				$modelRippedMovie = new RippedMovie();
 				$modelRippedMovie->Id_imdbdata = $modelImdbdata->ID;
 				$modelRippedMovie->path = $path;
-	
+				$modelRippedMovie->Id_myMovie = $idMyMovie;
+				
 				$modelRippedMovie->save();
 	
 				$transaction->commit();
