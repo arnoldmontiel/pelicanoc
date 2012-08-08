@@ -69,7 +69,6 @@
 		?>
 	 </div>
 	</div> 
-	</div>
 	 <div class="movie-view-logo" style="display:none">
 	 	<img class="movie-view-logo" alt="surround" src="images/dolby-surround-logo.png" style="width: 120px; height: 50px;">
 	 	<img class="movie-view-logo" alt="surround" src="images/thx_logo.png" style=" width: 80px; height: 70px;">
@@ -80,6 +79,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	
 	ChangeBG('images/','".$model->imdbdata->Backdrop."');
 
+	$('.leftcurtain').addClass('showLeftCurtian');
+	$('.rightcurtain').addClass('showRightCurtian');
+	OpenCurtains(2000);
 ");
 ?>
 	
