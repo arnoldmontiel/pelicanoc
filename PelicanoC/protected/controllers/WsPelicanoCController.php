@@ -85,66 +85,71 @@ class WsPelicanoCController extends Controller
 				
 			try {
 					
-				$modelImdbdata->ID = $data->imdbID;
-				$modelImdbdata->Year = $data->Year;
-				$modelImdbdata->Title = $data->Title;
-				$modelImdbdata->Rated = $data->Rated;
-				$modelImdbdata->Released = $data->Released;
-				$modelImdbdata->Genre = $data->Genre;
-				$modelImdbdata->Director = $data->Director;
-				$modelImdbdata->Writer = $data->Writer;
-				$modelImdbdata->Actors = $data->Actors;
-				$modelImdbdata->Plot = $data->Plot;
-				$modelImdbdata->Runtime = $data->Runtime;
-				$modelImdbdata->Rating = $data->imdbRating;
-				$modelImdbdata->Votes = $data->imdbVotes;
-				$modelImdbdata->Response = $data->Response;
-				$modelImdbdata->Poster_original = $data->Poster;
-	
-				$validator = new CUrlValidator();
-				$setting = Setting::getInstance();
-	
-				if($data->Poster!='' && $validator->validateValue($data->Poster))
+				$modelImdbdataDB = Imdbdata::model()->findByPk($idImdb);
+				
+				if(!isset($modelImdbdataDB)) // si ya fue bajada por pelicano, no se vuelve a generar el registro
 				{
-					try {
-						$content = @file_get_contents($data->Poster);
-						if ($content !== false) {
-							$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
-							fwrite($file,$content);
-							fclose($file);
-							$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
-						} else {
+					$modelImdbdata->ID = $data->imdbID;
+					$modelImdbdata->Year = $data->Year;
+					$modelImdbdata->Title = $data->Title;
+					$modelImdbdata->Rated = $data->Rated;
+					$modelImdbdata->Released = $data->Released;
+					$modelImdbdata->Genre = $data->Genre;
+					$modelImdbdata->Director = $data->Director;
+					$modelImdbdata->Writer = $data->Writer;
+					$modelImdbdata->Actors = $data->Actors;
+					$modelImdbdata->Plot = $data->Plot;
+					$modelImdbdata->Runtime = $data->Runtime;
+					$modelImdbdata->Rating = $data->imdbRating;
+					$modelImdbdata->Votes = $data->imdbVotes;
+					$modelImdbdata->Response = $data->Response;
+					$modelImdbdata->Poster_original = $data->Poster;
+		
+					$validator = new CUrlValidator();
+					$setting = Setting::getInstance();
+		
+					if($data->Poster!='' && $validator->validateValue($data->Poster))
+					{
+						try {
+							$content = @file_get_contents($data->Poster);
+							if ($content !== false) {
+								$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
+								fwrite($file,$content);
+								fclose($file);
+								$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
+							} else {
+								// an error happened
+							}
+						} catch (Exception $e) {
+							throw $e;
 							// an error happened
 						}
-					} catch (Exception $e) {
-						throw $e;
-						// an error happened
 					}
-				}
-	
-				$modelImdbdata->Backdrop_original = $this->getBackDropUrl($idImdb);
-				if($modelImdbdata->Backdrop_original!='' && $validator->validateValue($modelImdbdata->Backdrop_original))
-				{
-					try {
-						$content = @file_get_contents($modelImdbdata->Backdrop_original);
-						if ($content !== false) {
-							$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
-							fwrite($file,$content);
-							fclose($file);
-							$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
-						} else {
+		
+					$modelImdbdata->Backdrop_original = $this->getBackDropUrl($idImdb);
+					if($modelImdbdata->Backdrop_original!='' && $validator->validateValue($modelImdbdata->Backdrop_original))
+					{
+						try {
+							$content = @file_get_contents($modelImdbdata->Backdrop_original);
+							if ($content !== false) {
+								$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
+								fwrite($file,$content);
+								fclose($file);
+								$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
+							} else {
+								// an error happened
+							}
+						} catch (Exception $e) {
+							throw $e;
 							// an error happened
 						}
-					} catch (Exception $e) {
-						throw $e;
-						// an error happened
 					}
+		
+					$modelImdbdata->save();
 				}
-	
-				$modelImdbdata->save();
-	
+				
 				$modelRippedMovie = new RippedMovie();
-				$modelRippedMovie->Id_imdbdata = $modelImdbdata->ID;
+				$modelRippedMovie->Id_imdbdata = $idImdb;
 				$modelRippedMovie->path = $path;
 				$modelRippedMovie->Id_myMovie = $idMyMovie;
 				
