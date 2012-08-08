@@ -7,6 +7,7 @@
  * @property integer $Id
  * @property string $path
  * @property string $Id_imdbdata
+ * @property string $Id_myMovie
  *
  * The followings are the available model relations:
  * @property Imdbdata $idImdbdata
@@ -40,11 +41,11 @@ class RippedMovie extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_imdbdata', 'required'),
-			array('path', 'length', 'max'=>255),
+			array('path, Id_myMovie', 'length', 'max'=>255),
 			array('Id_imdbdata', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path, Id_imdbdata', 'safe', 'on'=>'search'),
+			array('Id, path, Id_imdbdata, Id_myMovie', 'safe', 'on'=>'search'),
 		);
 	}
 

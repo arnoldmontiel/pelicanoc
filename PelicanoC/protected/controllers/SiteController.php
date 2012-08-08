@@ -35,8 +35,8 @@ class SiteController extends Controller
 // 		$wx = new SoapClient($url,array("trace" => true,"exceptions" => true));
 // 		$wx->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d");
 			
-// 		$ws = new wsPelicanoC();
-// 		$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","");
+		$ws = new wsPelicanoC();
+		$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","");
 
 // 		$mymo = new MyMovies();
 // 		$mymo->LoadMovieById("af39fbab-1b0c-4519-856e-09c2dff7198d");
