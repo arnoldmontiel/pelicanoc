@@ -61,9 +61,9 @@ class MyMovie extends CActiveRecord
 		return array(
 			array('Id', 'required'),
 			array('Id', 'length', 'max'=>200),
-			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb, studio', 'length', 'max'=>45),
+			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb', 'length', 'max'=>45),
 			array('local_title, original_title, sort_title, data_changed, covers_changed', 'length', 'max'=>100),
-			array('parental_rating_desc, genre', 'length', 'max'=>255),
+			array('parental_rating_desc, genre, studio', 'length', 'max'=>255),
 			array('rating', 'length', 'max'=>10),
 			array('description, extra_features', 'safe'),
 			// The following rule is used by search().
