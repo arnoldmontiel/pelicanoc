@@ -42,9 +42,16 @@
 	<?php echo CHtml::closeTag('div');?> 
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->imdbdata->getAttributeLabel('Points').':'; ?>
+			<?php echo $model->imdbdata->getAttributeLabel('Writer').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
+		<?php echo $model->imdbdata->Writer; ?>
 	<?php echo CHtml::closeTag('div');?> 
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $model->imdbdata->getAttributeLabel('Runtime').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $model->imdbdata->Runtime; ?>
+	<?php echo CHtml::closeTag('div');?>
 	</div>		
 	<div class="movie-rating-box" >
 	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>

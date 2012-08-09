@@ -7,69 +7,149 @@
 
 
 
-class LoadMovieById
+class LoadDiscTitleById
 {
-public $Handshake; //string;
-public $UserName; //string;
-public $Password; //string;
-public $Reference; //string;
-public $TitleId; //string;
-public $PrimaryLanguage; //string;
-public $Client; //string;
-public $Version; //string;
-public $MaxTrailerBitrate; //int;
-public $Locale; //int;
-}
-
-class LoadMovieByIdResponse
-{
-public $LoadMovieByIdResult; //LoadMovieByIdResult;
-}
-
-class LoadMovieByIdResult
-{
-public $any; //string;
-}
-
-
-/**
-* The soap client proxy class
-*/
-class MyMovies 
- {
-	public $soapClient;
-
-	private static $classmap = array(
-		'LoadMovieById'=>'LoadMovieById',
-		'LoadMovieByIdResponse'=>'LoadMovieByIdResponse',
-		'LoadMovieByIdResult'=>'LoadMovieByIdResult',
-
-);
-
-function __construct($url='https://api.mymovies.dk/default.asmx?WSDL')
-{
-	ini_set ('soap.wsdl_cache_enabled',0);
-	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => false));
-}
-
-
-function LoadMovieById($LoadMovieById)
-{
-	$model = new LoadMovieById();
-	$model->UserName = "arnoldMontiel";
-	$model->Password = "Arnold";
-	$model->MaxTrailerBitrate = 2000;
-	$model->TitleId = $LoadMovieById;
-	$model->Locale = 0;
+	public $Handshake; //string;
+	public $UserName; //string;
+	public $Password; //string;
+	public $Reference; //string;
+	public $TitleId; //string;
+	public $Client; //string;
+	public $Version; //string;
+	public $Locale; //int;
+	}
 	
-	$LoadMovieByIdResponse = $this->soapClient->LoadMovieById($model);
+	class LoadDiscTitleByIdResponse
+	{
+	public $LoadDiscTitleByIdResult; //LoadDiscTitleByIdResult;
+	}
 	
-	$idImdb = "";
-	if(isset($LoadMovieByIdResponse))
-		$idImdb = (string)simplexml_load_string($LoadMovieByIdResponse->LoadMovieByIdResult->any)->Title->IMDB;
-	 
-	return $idImdb;
-}
+	class LoadDiscTitleByIdResult
+	{
+	public $any; //string;
+	}
+	
+	
+	/**
+	* The soap client proxy class
+	*/
+	class MyMovies 
+	 {
+		public $soapClient;
+	
+		private static $classmap = array(
+			'LoadDiscTitleById'=>'LoadDiscTitleById',
+			'LoadDiscTitleByIdResponse'=>'LoadDiscTitleByIdResponse',
+			'LoadDiscTitleByIdResult'=>'LoadDiscTitleByIdResult',
+	
+	);
+	
+	function __construct($url='https://api.mymovies.dk/default.asmx?WSDL')
+	{
+		ini_set ('soap.wsdl_cache_enabled',0);
+		$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => false));
+	}
+	
+	
+	function LoadDiscTitleById($myMovieId)
+	{
+		$model = new LoadDiscTitleById();
+		$model->UserName = "arnoldMontiel";
+		$model->Password = "Arnold";
+		$model->TitleId = $myMovieId;
+		$model->Locale = 0;
+		
+		$LoadDiscTitleByIdResponse = $this->soapClient->LoadDiscTitleById($model);
+		
+		$idImdb = "";
+		if(isset($LoadDiscTitleByIdResponse))
+		{
+			$idImdb = $this->saveMyMovie(simplexml_load_string($LoadDiscTitleByIdResponse->LoadDiscTitleByIdResult->any));
+		}	
+		 
+		return $idImdb;
+	}
+
+	private function saveMyMovie($data)
+	{
+		$idImdb = "";
+		if(!empty($data))
+		{
+			if(!empty($data->Title))
+				$data = $data->Title;
+			else
+				return $idImdb;
+			
+			$modelMyMovieDB = MyMovie::model()->findByPk((string)$data->ID);
+			
+			if(!isset($modelMyMovieDB))
+			{
+				$modelMyMovie = new MyMovie();
+				
+				$modelMyMovie->Id = (string)$data->ID;
+				$modelMyMovie->type = (string)$data->Type;
+				$modelMyMovie->bar_code = (string)$data->Barcode;
+				$modelMyMovie->country = (string)$data->Country;
+				$modelMyMovie->local_title = (string)$data->LocalTitle;
+				$modelMyMovie->original_title = (string)$data->OriginalTitle;
+				$modelMyMovie->sort_title = (string)$data->SortTitle;
+				$modelMyMovie->aspect_ratio = (string)$data->AspectRatio;
+				$modelMyMovie->video_standard = (string)$data->VideoStandard;
+				$modelMyMovie->production_year = (string)$data->ProductionYear;
+				$modelMyMovie->release_date = (string)$data->ReleaseDate;
+				$modelMyMovie->running_time = (string)$data->RunningTime;
+				$modelMyMovie->description = (string)$data->Description;
+				$modelMyMovie->extra_features = (string)$data->ExtraFeatures;
+				
+				$modelMyMovie->parental_rating_desc = (!empty($data->ParentalRating)?(string)$data->ParentalRating->Description:"");
+				
+				$modelMyMovie->imdb = (string)$data->IMDB;
+				$modelMyMovie->rating = (string)$data->Rating;
+				$modelMyMovie->data_changed = (string)$data->DataChanged;
+				$modelMyMovie->covers_changed = (string)$data->CoversChanged;
+				
+				
+				//Obtengo la lista de los generos
+				$genreArr = array();
+				$index = 0;
+				foreach($data->Genres->children() as $item)
+				{
+					$genreArr[$index] = (string)$item;
+					$index ++;
+				}
+				
+				
+				$modelMyMovie->genre = implode(", ",$genreArr);
+				
+				//Obtengo la lista de los estudios
+				$studioArr = array();
+				$index = 0;
+				foreach($data->Studios->children() as $item)
+				{
+					$studioArr[$index] = (string)$item;
+					$index ++;
+				}
+				
+				$modelMyMovie->studio =  implode(", ",$studioArr);
+				
+				$modelMyMovie->save();
+			}
+			
+			$idImdb = (string)$data->IMDB;
+		}
+		return $idImdb;
+	}
+	
+	private function toArray(SimpleXMLElement $xml) {
+		$array = (array)$xml;
+	
+		foreach ( array_slice($array, 0) as $key => $value ) {
+			if ( $value instanceof SimpleXMLElement ) {
+				$array[$key] = empty($value) ? NULL : toArray($value);
+			}
+		}
+		return $array;
+	}
 
 }
 
