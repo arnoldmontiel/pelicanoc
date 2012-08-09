@@ -6,7 +6,6 @@ class WsPelicanoCController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
 
 	public function actions()
 	{
@@ -29,14 +28,14 @@ class WsPelicanoCController extends Controller
 	 * Returns add new rip movie
 	 * @param string idMyMovie
 	 * @param string path
-	 * @return string
+	 * @return string idMyMovie
 	 * @soap
 	 */
 	public function addNewRipMovie($idMyMovie, $path)
 	{
 		$idImdb = "";
 		
-		$model = RippedMovie::model()->findByAttributes(array('Id_myMovie'=>$idMyMovie));
+		$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$idMyMovie));
 		if(isset($model)) // check if movie is already ripped
 		{
 			$idImdb = $model->Id_imdbdata;
@@ -46,14 +45,15 @@ class WsPelicanoCController extends Controller
 		else 
 		{
 	 		$myMovies = new MyMovies();		
-			$idImdb = $myMovies->LoadMovieById($idMyMovie);
+			$idImdb = $myMovies->LoadDiscTitleById($idMyMovie);
 		}
 		
 		if(!empty($idImdb))
 		{
 			$this->saveRippedMovie($idImdb, $path, $idMyMovie);
 		}
-		return $idImdb;
+		
+		return $idMyMovie;
 	}
 	
 	private function getBackDropUrl($idImdb)
@@ -151,7 +151,7 @@ class WsPelicanoCController extends Controller
 				$modelRippedMovie = new RippedMovie();
 				$modelRippedMovie->Id_imdbdata = $idImdb;
 				$modelRippedMovie->path = $path;
-				$modelRippedMovie->Id_myMovie = $idMyMovie;
+				$modelRippedMovie->Id_my_movie = $idMyMovie;
 				
 				$modelRippedMovie->save();
 	

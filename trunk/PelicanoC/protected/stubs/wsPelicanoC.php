@@ -21,14 +21,14 @@ class wsPelicanoC
 	function __construct($url='/index.php?r=wsPelicanoC/wsdl')
 	{
 		ini_set ('soap.wsdl_cache_enabled',0);
-		$url = "http://localhost/workspace/PelicanoC".$url;
-		$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
+		$url = "http://192.168.1.39/workspace/PelicanoC".$url;
+		$this->soapClient = @new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 	}
 	
 	
 	function addNewRipMovie($string, $path)
 	{
-		return $this->soapClient->addNewRipMovie($string);;
+		return $this->soapClient->addNewRipMovie($string, $path);
 	}
 	
 }

@@ -7,7 +7,7 @@
  * @property integer $Id
  * @property string $path
  * @property string $Id_imdbdata
- * @property string $Id_myMovie
+ * @property string $Id_my_movie
  * @property string $cration_date
  *
  * The followings are the available model relations:
@@ -42,12 +42,12 @@ class RippedMovie extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_imdbdata', 'required'),
-			array('path, Id_myMovie', 'length', 'max'=>255),
+			array('path, Id_my_movie', 'length', 'max'=>255),
 			array('Id_imdbdata', 'length', 'max'=>45),
 			array('cration_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path, Id_imdbdata, Id_myMovie, cration_date', 'safe', 'on'=>'search'),
+			array('Id, path, Id_imdbdata, Id_my_movie, cration_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,7 +72,7 @@ class RippedMovie extends CActiveRecord
 			'Id' => 'ID',
 			'path' => 'Path',
 			'Id_imdbdata' => 'Id Imdbdata',
-			'Id_myMovie' => 'Id My Movie',
+			'Id_my_movie' => 'Id My Movie',
 			'cration_date' => 'Cration Date',
 		);
 	}
@@ -91,7 +91,7 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('path',$this->path,true);
 		$criteria->compare('Id_imdbdata',$this->Id_imdbdata,true);
-		$criteria->compare('Id_myMovie',$this->Id_myMovie,true);
+		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
 		$criteria->compare('cration_date',$this->cration_date,true);
 		
 		return new CActiveDataProvider($this, array(
