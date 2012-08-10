@@ -10,7 +10,7 @@
  * @property string $username
  *
  * The followings are the available model relations:
- * @property User $username0
+ * @property User $user
  * @property Nzb[] $nzbs
  */
 class Customer extends CActiveRecord
