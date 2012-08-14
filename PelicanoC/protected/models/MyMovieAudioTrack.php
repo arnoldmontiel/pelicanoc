@@ -52,6 +52,8 @@ class MyMovieAudioTrack extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'mymovie' => array(self::BELONGS_TO, 'MyMovie', 'Id_my_movie'),
+			'audioTrack' => array(self::BELONGS_TO, 'AudioTrack', 'Id_audio_track'),
 		);
 	}
 

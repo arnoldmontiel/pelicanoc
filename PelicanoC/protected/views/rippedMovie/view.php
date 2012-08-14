@@ -7,13 +7,9 @@
 	</div>
 	<div style="float: left;padding: 5px 10px; width: 50%">
 	<?php echo CHtml::openTag('div',array('class'=>'movie-title'));?>
-			<?php echo $model->imdbdata->Title; ?>
+			<?php echo $model->imdbdata->Title . " (".$model->imdbdata->Year.")"; ?>
 		<?php echo CHtml::closeTag('div');?> 
 		
-	<?php echo CHtml::openTag('div');?>
-		<?php echo $model->imdbdata->Year; ?>
-	<?php echo CHtml::closeTag('div');?> 
-
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
 			<?php echo $model->imdbdata->getAttributeLabel('Genre').':'; ?>
@@ -32,7 +28,7 @@
 		<?php echo CHtml::openTag('b');?>
 			<?php echo $model->imdbdata->getAttributeLabel('Plot').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->imdbdata->Plot; ?>
+		<?php echo $model->myMovie->description; ?>
 	<?php echo CHtml::closeTag('div');?> 
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
@@ -59,27 +55,121 @@
 	<?php echo CHtml::closeTag('div');?> 
 	</div>
 	<div class="movie-download-box" >
-	<div id="play-display" style="display: none; float: left;padding: 5px 10px;">
-	 	<img alt="Play" src="images/play.png">
+	<div id="play-display" style="float: left;padding: 5px 10px;">
+	 	
 	 	<?php
-//	 		echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
-// 			echo CHtml::link( 
-// 			),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));		
-		?>
-	 </div>
-	 <div id="stop-display" style="display: none ; float: left;padding: 5px 10px;">
-	 	<img alt="Play" src="images/stop.png">
-	 	<?php
-//	 	echo CHtml::image("images/stop.png",'Stop',array('id'=>'stop_button', 'style'=>'height: 128px;width: 128px;'));
-// 			echo CHtml::link( 
-// 			),array('http://DUNE/cgi-bin/do?cmd=main_screen'));		
+	 	//	echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
+ 		//	echo CHtml::link( 
+ 		//	),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));
+	 	echo CHtml::link( CHtml::image('images/play.png','Play' ,array(
+	 															 'title'=>'Play',
+	 													         'style'=>'height: 128px;width: 128px;',
+	 													         'id'=>'btnPlay',
+	 	)
+	 	),RippedMovieController::createUrl('AjaxStart', array('id'=>$model->Id)));
+	 	
 		?>
 	 </div>
 	</div> 
-	 <div class="movie-view-logo" style="display:none">
-	 	<img class="movie-view-logo" alt="surround" src="images/dolby-surround-logo.png" style="width: 120px; height: 50px;">
-	 	<img class="movie-view-logo" alt="surround" src="images/thx_logo.png" style=" width: 80px; height: 70px;">
+	
+	<div class="extra-feature-box" >
+		<div class="extra-feature-title" >
+			BONUS FEATURES
+		</div>
+		<?php 
+		$features = explode("\n" ,$model->myMovie->extra_features);
+		
+		foreach($features as $feature)
+		{
+			if(!empty($feature))
+			{
+				$text = (substr($feature, 0, 1) == "-")?substr( $feature,1):$feature;
+				echo "<li>" . $text . "</li><br>";
+			}	
+		}
+		?>
+	</div> 
+	
+	 <div class="specifications" >
+	 	<table class="specifications">
+	 	<tr>
+		 	<th colspan="3" scope="col">
+		 		<div class="extra-feature-title" >
+					SPECIFICATIONS
+				</div>
+		 	</th>
+	 	</tr>
+	 	<?php
+
+		 	echo "<tr>";
+		 	echo "<td>VIDEO</td>";
+		 	echo "<td>".$model->myMovie->video_standard."</td>";
+		 	echo "</tr>";
+	 	
+		 	$criteria = new CDbCriteria();
+		 	$criteria->with[]='audioTrack';
+		 	$criteria->order = "audioTrack.type";
+		 	
+	 		$myMovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$model->Id_my_movie),$criteria);
+	 		$audio = "";
+	 		
+	 		$audioArr = array();
+	 		$index = 0;
+	 		$type = "";
+	 		foreach($myMovieAudioTracks as $item)
+	 		{
+	 			if($type != $item->audioTrack->type)
+	 			{
+	 				if(!empty($type))
+	 					$index ++;
+	 				
+	 				$type = $item->audioTrack->type;
+	 				$audioArr[$index] = $item->audioTrack->type . ": ";
+	 				$audioArr[$index] = $audioArr[$index] . $item->audioTrack->language . " " . $item->audioTrack->chanel;
+	 			}
+	 			else 
+	 			{
+	 				$audioArr[$index] = $audioArr[$index] .", ". $item->audioTrack->language . " " . $item->audioTrack->chanel;
+	 			}
+	 		}
+	 		echo "<tr>";
+	 		echo "<td>AUDIO</td>";
+	 		echo "<td>".implode("; ",$audioArr)."</td>";
+	 		echo "</tr>";
+	 		
+	 		$myMovieSubtitles = MyMovieSubtitle::model()->findAllByAttributes(array('Id_my_movie'=>$model->Id_my_movie));
+	 		
+	 		$subtitleArr = array();
+			$index = 0;
+			foreach($myMovieSubtitles as $item)
+			{
+				$subtitleArr[$index] = $item->subtitle->language;
+				$index ++;
+			}
+	 		echo "<tr>";
+	 		echo "<td>SUBTITLE</td>";
+	 		echo "<td>".implode(", ",$subtitleArr)."</td>";
+	 		echo "</tr>";
+		?>
+		</table>
 	 </div>
+	 <div class="footer-area" >
+	 
+		 <div class="mpaa-box" >
+		 	<div>
+			<img alt="mpaa" src="images/mpaa_logo.gif" style="width:200px">
+			</div>
+			<div>
+			<?php 
+				if(!empty($model->myMovie->parental_rating_desc))
+					echo $model->myMovie->parental_rating_desc;
+				else
+					echo "Unrated";
+			?>
+			</div>
+		</div>
+	</div>
+	
 </div>
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "

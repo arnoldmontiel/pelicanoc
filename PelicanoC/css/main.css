@@ -295,6 +295,31 @@ div.movie-view
   	box-shadow:         3px 3px 5px 6px black;
 	 
 }
+div.start-view
+{
+	display: inline-block;
+	border-radius: 6px 6px 6px 6px;
+	border: 1px solid black;
+	width: 95%;	 
+	padding-top: 5%;
+	padding-bottom: 5%;
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+	 
+}
+
+div.start-title
+{
+	font-size: 20px;
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+	font-weight: 700;
+	text-align: left;
+	letter-spacing: -1px;
+	color: white;
+}
+
 div.serie-view
 {
 	display: inline-block;
@@ -427,6 +452,88 @@ div.movie-download-box
 	-webkit-box-shadow: 3px 3px 5px 6px black;
   	box-shadow:         3px 3px 5px 6px black;
 
+}
+div.extra-feature-box
+{
+	float: right;
+	padding: 5px 15px;
+	width: 157px;
+	margin: 5px 20px 10px 10px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+
+}
+
+div.mpaa-box
+{
+	float: left;
+	padding: 5px 10px;
+	width: 25%;
+	margin: 5px 20px 10px 10px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+
+}
+
+div.footer-area
+{
+	width: 100%;
+	bottom: 10px;
+	float: left;
+}
+
+div.specifications
+{
+	width: 52%;
+	float: left;
+	vertical-align: bottom;
+	margin-top: 50px;
+}
+
+table.specifications
+{
+	padding: 5px 10px;
+	margin: 5px 20px 10px 10px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+}
+
+div.specifications-title
+{
+	font-size: 18px;
+	font-family: 'Bauhaus 93',Helvetica,Arial,sans-serif;
+	font-weight: 100;
+	text-align: left;
+	letter-spacing: 1px;
+	color: white;
+}
+
+div.extra-feature-title
+{
+	font-size: 18px;
+	font-family: 'Bauhaus 93',Helvetica,Arial,sans-serif;
+	font-weight: 100;
+	text-align: left;
+	letter-spacing: 1px;
+	color: white;
 }
 
 div.movie-index-view

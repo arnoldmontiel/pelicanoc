@@ -37,6 +37,7 @@
 			 	echo '('.$customer->current_points.' points)';
 			 	?>
 		</div>
+		<?php if ($this->showBrowsingBox):?>
 		<div class="browsingbox">
 			<div class="browsingbox-prev">
 				<?php
@@ -52,7 +53,7 @@
 				?>
 			</div>
 		</div>
-		
+		<?php endif?>
 	</div><!-- header -->
 	<?php if ($this->showMenu):?>
 	<div id="mainmenu">

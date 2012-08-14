@@ -39,14 +39,14 @@ class WsPelicanoCController extends Controller
 		if(isset($model)) // check if movie is already ripped
 		{
 			$idImdb = $model->Id_imdbdata;
+			
 			$model->delete();
+			MyMovie::model()->deleteByPk($idMyMovie);
 			Imdbdata::model()->deleteByPk($idImdb);
 		}
-		else 
-		{
-	 		$myMovies = new MyMovies();		
-			$idImdb = $myMovies->LoadDiscTitleById($idMyMovie);
-		}
+
+ 		$myMoviesAPI = new MyMoviesAPI();		
+		$idImdb = $myMoviesAPI->LoadDiscTitleById($idMyMovie);
 		
 		if(!empty($idImdb))
 		{

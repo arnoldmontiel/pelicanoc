@@ -4,8 +4,8 @@
  * This is the model class for table "my_movie_subtitle".
  *
  * The followings are the available columns in table 'my_movie_subtitle':
- * @property string $my_movie_Id
- * @property integer $subtitle_Id
+ * @property string $Id_my_movie
+ * @property integer $Id_subtitle
  */
 class MyMovieSubtitle extends CActiveRecord
 {
@@ -35,12 +35,12 @@ class MyMovieSubtitle extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('my_movie_Id, subtitle_Id', 'required'),
-			array('subtitle_Id', 'numerical', 'integerOnly'=>true),
-			array('my_movie_Id', 'length', 'max'=>200),
+			array('Id_my_movie, Id_subtitle', 'required'),
+			array('Id_subtitle', 'numerical', 'integerOnly'=>true),
+			array('Id_my_movie', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('my_movie_Id, subtitle_Id', 'safe', 'on'=>'search'),
+			array('Id_my_movie, Id_subtitle', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +52,8 @@ class MyMovieSubtitle extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'mymovie' => array(self::BELONGS_TO, 'MyMovie', 'Id_my_movie'),
+			'subtitle' => array(self::BELONGS_TO, 'Subtitle', 'Id_subtitle'),
 		);
 	}
 
@@ -61,8 +63,8 @@ class MyMovieSubtitle extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'my_movie_Id' => 'My Movie',
-			'subtitle_Id' => 'Subtitle',
+			'Id_my_movie' => 'Id My Movie',
+			'Id_subtitle' => 'Id Subtitle',
 		);
 	}
 
@@ -77,8 +79,8 @@ class MyMovieSubtitle extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('my_movie_Id',$this->my_movie_Id,true);
-		$criteria->compare('subtitle_Id',$this->subtitle_Id);
+		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
+		$criteria->compare('Id_subtitle',$this->Id_subtitle);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

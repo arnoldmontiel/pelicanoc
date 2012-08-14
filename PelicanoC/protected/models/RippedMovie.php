@@ -60,6 +60,7 @@ class RippedMovie extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'imdbdata' => array(self::BELONGS_TO, 'Imdbdata', 'Id_imdbdata'),
+			'myMovie' => array(self::BELONGS_TO, 'MyMovie', 'Id_my_movie'),
 		);
 	}
 
