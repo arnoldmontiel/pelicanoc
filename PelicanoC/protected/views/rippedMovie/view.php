@@ -78,13 +78,16 @@
 	 </div>
 	</div> 
 	
+	<?php 
+		$features = explode("\n" ,$model->myMovie->extra_features);
+	?>
+
 	<div class="extra-feature-box" >
 		<div class="extra-feature-title" >
 			BONUS FEATURES
 		</div>
+		<div style="display:inline-block;">
 		<?php 
-		$features = explode("\n" ,$model->myMovie->extra_features);
-		
 		foreach($features as $feature)
 		{
 			if(!empty($feature))
@@ -94,7 +97,9 @@
 			}	
 		}
 		?>
-	</div> 
+	</div>
+	</div>
+
 	
 	 <div class="specifications" >
 	 	<table class="specifications">

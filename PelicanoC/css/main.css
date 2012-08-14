@@ -469,6 +469,22 @@ div.extra-feature-box
   	box-shadow:         3px 3px 5px 6px black;
 
 }
+div.extra-feature-double-box
+{
+	float: right;
+	padding: 5px 15px;
+	width: 300px;
+	margin: 5px 20px 10px 10px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: 		rgba(0,0,0,0.6);
+	-moz-box-shadow:    3px 3px 5px 6px black;
+	-webkit-box-shadow: 3px 3px 5px 6px black;
+  	box-shadow:         3px 3px 5px 6px black;
+
+}
 
 div.mpaa-box
 {
