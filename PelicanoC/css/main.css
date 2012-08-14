@@ -474,7 +474,7 @@ div.mpaa-box
 {
 	float: left;
 	padding: 5px 10px;
-	width: 25%;
+	width: 50%;
 	margin: 5px 20px 10px 10px;
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -489,7 +489,7 @@ div.mpaa-box
 
 div.footer-area
 {
-	width: 100%;
+	width: 70%;
 	bottom: 10px;
 	float: left;
 }
