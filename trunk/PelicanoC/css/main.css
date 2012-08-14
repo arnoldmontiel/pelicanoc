@@ -437,7 +437,7 @@ div.serie-rating-box
   	box-shadow:         3px 3px 5px 6px black;
 }
 
-div.movie-download-box
+div.play-box
 {
 	float: left;
 	padding: 5px 10px;
@@ -453,12 +453,35 @@ div.movie-download-box
   	box-shadow:         3px 3px 5px 6px black;
 
 }
+div.rip-layout-left
+{
+	float: left;
+	width: 25%;
+}
+div.rip-layout-centre
+{
+	float: left;
+	width: 50%;
+}
+div.rip-layout-right
+{
+	float: right;
+	width: 25%;
+}
+div.rip-layout-footer
+{
+	width: 100%;
+	bottom: 10px;
+	float: left;
+	clear:both;
+}
+
 div.extra-feature-box
 {
 	float: right;
 	padding: 5px 15px;
 	width: 157px;
-	margin: 5px 20px 10px 10px;
+	margin: 5px 5px 0 10px;
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 	-webkit-border-radius: 3px;
@@ -490,7 +513,7 @@ div.mpaa-box
 {
 	float: left;
 	padding: 5px 10px;
-	width: 50%;
+	width: 35%;
 	margin: 5px 20px 10px 10px;
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -503,19 +526,20 @@ div.mpaa-box
 
 }
 
-div.footer-area
+div.rip-logo
 {
-	width: 70%;
-	bottom: 10px;
 	float: left;
+	padding: 5px 5px;
+	width: 10%;
+	margin: 5px 20px 10px 10px;
 }
 
 div.specifications
 {
-	width: 52%;
+	width: 90%;
 	float: left;
 	vertical-align: bottom;
-	margin-top: 50px;
+	margin-top: 20px;
 }
 
 table.specifications

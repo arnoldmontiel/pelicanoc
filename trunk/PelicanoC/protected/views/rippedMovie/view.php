@@ -1,11 +1,39 @@
 
 <div id="conteiner" class="movie-view" style="">
 
+<div class="rip-layout-left">
 	<div style="width: 205px; float:left;">
 		<?php echo CHtml::image( "images/".$model->imdbdata->Poster, $model->imdbdata->Title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
 
 	</div>
-	<div style="float: left;padding: 5px 10px; width: 50%">
+	
+	<div class="play-box" >
+		<div id="play-display" style="float: left;padding: 5px 10px;">
+	 	
+	 	<?php
+	 	//	echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
+ 		//	echo CHtml::link( 
+ 		//	),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));
+	 	echo CHtml::link( CHtml::image('images/play.png','Play' ,array(
+	 															 'title'=>'Play',
+	 													         'style'=>'height: 128px;width: 128px;',
+	 													         'id'=>'btnPlay',
+	 	)
+	 	),RippedMovieController::createUrl('AjaxStart', array('id'=>$model->Id)));
+	 	
+		?>
+	 </div>
+	</div>
+	 
+	<div class="movie-rating-box" >
+	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>
+		<?php echo $model->imdbdata->Rating; ?>
+	<?php echo CHtml::closeTag('div');?> 
+	</div>
+	
+</div>
+<div class="rip-layout-centre">
+	<div style="float: left;padding: 5px 10px;">
 	<?php echo CHtml::openTag('div',array('class'=>'movie-title'));?>
 			<?php echo $model->imdbdata->Title . " (".$model->imdbdata->Year.")"; ?>
 		<?php echo CHtml::closeTag('div');?> 
@@ -55,53 +83,8 @@
 		<?php echo $model->myMovie->studio; ?>
 	<?php echo CHtml::closeTag('div');?>
 	</div>		
-	<div class="movie-rating-box" >
-	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>
-		<?php echo $model->imdbdata->Rating; ?>
-	<?php echo CHtml::closeTag('div');?> 
-	</div>
-	<div class="movie-download-box" >
-	<div id="play-display" style="float: left;padding: 5px 10px;">
-	 	
-	 	<?php
-	 	//	echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
- 		//	echo CHtml::link( 
- 		//	),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));
-	 	echo CHtml::link( CHtml::image('images/play.png','Play' ,array(
-	 															 'title'=>'Play',
-	 													         'style'=>'height: 128px;width: 128px;',
-	 													         'id'=>'btnPlay',
-	 	)
-	 	),RippedMovieController::createUrl('AjaxStart', array('id'=>$model->Id)));
-	 	
-		?>
-	 </div>
-	</div> 
 	
-	<?php 
-		$features = explode("\n" ,$model->myMovie->extra_features);
-	?>
-
-	<div class="extra-feature-box" >
-		<div class="extra-feature-title" >
-			BONUS FEATURES
-		</div>
-		<div style="display:inline-block;">
-		<?php 
-		foreach($features as $feature)
-		{
-			if(!empty($feature))
-			{
-				$text = (substr($feature, 0, 1) == "-")?substr( $feature,1):$feature;
-				echo "<li>" . $text . "</li><br>";
-			}	
-		}
-		?>
-	</div>
-	</div>
-
-	
-	 <div class="specifications" >
+	<div class="specifications" >
 	 	<table class="specifications">
 	 	<tr>
 		 	<th colspan="3" scope="col">
@@ -164,11 +147,33 @@
 		?>
 		</table>
 	 </div>
-	 <div class="footer-area" >
+</div>
+<div class="rip-layout-right">
+	<div class="extra-feature-box" >
+		<div class="extra-feature-title" >
+			BONUS FEATURES
+		</div>
+		<div style="display:inline-block;">
+		<?php
+		$features = explode("\n" ,$model->myMovie->extra_features);
+		foreach($features as $feature)
+		{
+			if(!empty($feature))
+			{
+				$text = (substr($feature, 0, 1) == "-")?substr( $feature,1):$feature;
+				echo "<li>" . $text . "</li><br>";
+			}	
+		}
+		?>
+		</div>
+	</div>
+</div>
+	
+	 <div class="rip-layout-footer" >
 	 
-		 <div class="mpaa-box" >
+		<div class="mpaa-box" >
 		 	<div>
-			<img alt="mpaa" src="images/mpaa_logo.gif" style="width:200px">
+				<img alt="mpaa" src="images/mpaa_logo.gif" style="width:200px">
 			</div>
 			<div>
 			<?php 
@@ -179,6 +184,55 @@
 			?>
 			</div>
 		</div>
+		<?php 
+			if($model->isBluray()):
+			?>
+		<div class="rip-logo">
+			<img alt="mpaa" src="images/blu-ray.png" style="width:90px;height:50px">
+		</div>
+		<?php
+		endif
+		?>
+		
+		<?php 
+			if($model->isDolbyDigital()):
+			?>
+		<div class="rip-logo">
+			<img alt="mpaa" src="images/dolby-digital.jpg" style="width:90px;height:50px">
+		</div>
+		<?php
+		endif
+		?>
+		
+		<?php 
+			if($model->isDolbyTrueHD()):
+			?>
+		<div class="rip-logo">
+			<img alt="mpaa" src="images/true-hd.jpg" style="width:90px;height:50px">
+		</div>
+		<?php
+		endif
+		?>
+		
+		<?php 
+			if($model->isDts()):
+			?>
+		<div class="rip-logo">
+			<img alt="mpaa" src="images/dts.jpg" style="width:90px;height:50px">
+		</div>
+		<?php
+		endif
+		?>
+		
+		<?php 
+			if($model->isDolbySurround()):
+			?>
+		<div class="rip-logo">
+			<img alt="mpaa" src="images/dolby-surround.gif" style="width:90px;height:50px">
+		</div>
+		<?php
+		endif
+		?>
 	</div>
 	
 </div>
