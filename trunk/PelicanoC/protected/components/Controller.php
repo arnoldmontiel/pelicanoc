@@ -22,5 +22,6 @@ class Controller extends  SBaseController
 	public $breadcrumbs=array();
 
 	public $showMenu=true;
+	public $showBrowsingBox = true;
 	public $fromPageNumber = 0;
 }

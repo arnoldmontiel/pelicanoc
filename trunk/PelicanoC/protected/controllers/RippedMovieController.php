@@ -43,6 +43,15 @@ class RippedMovieController extends Controller
 		));
 	}
 
+	public function actionAjaxStart($id)
+	{
+		$this->showMenu = false;
+		$this->showBrowsingBox = false;
+		$this->render('start',array(
+				'model'=>$this->loadModel($id),
+		));
+	}
+	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
