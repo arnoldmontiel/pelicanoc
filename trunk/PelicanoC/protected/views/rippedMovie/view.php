@@ -9,7 +9,7 @@
 	<?php echo CHtml::openTag('div',array('class'=>'movie-title'));?>
 			<?php echo $model->imdbdata->Title . " (".$model->imdbdata->Year.")"; ?>
 		<?php echo CHtml::closeTag('div');?> 
-		
+	<br>
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
 			<?php echo $model->imdbdata->getAttributeLabel('Genre').':'; ?>
@@ -47,6 +47,12 @@
 			<?php echo $model->imdbdata->getAttributeLabel('Runtime').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
 		<?php echo $model->imdbdata->Runtime; ?>
+	<?php echo CHtml::closeTag('div');?>
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $model->myMovie->getAttributeLabel('Studio').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $model->myMovie->studio; ?>
 	<?php echo CHtml::closeTag('div');?>
 	</div>		
 	<div class="movie-rating-box" >
@@ -103,7 +109,7 @@
 
 		 	echo "<tr>";
 		 	echo "<td>VIDEO</td>";
-		 	echo "<td>".$model->myMovie->video_standard."</td>";
+		 	echo "<td>".$model->myMovie->video_standard ." / ". $model->myMovie->aspect_ratio ."</td>";
 		 	echo "</tr>";
 	 	
 		 	$criteria = new CDbCriteria();
