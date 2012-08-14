@@ -78,6 +78,55 @@ class RippedMovie extends CActiveRecord
 		);
 	}
 
+	public function isBluray()
+	{
+		return $this->myMovie->type == "Blu-ray";
+	}
+	
+	public function isDolbyDigital()
+	{
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		foreach($mymovieAudioTracks as $item)
+		{
+			if($item->audioTrack->type == "Dolby Digital")
+				return true;
+		}
+		return false;
+	}
+	
+	public function isDolbyTrueHD()
+	{
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		foreach($mymovieAudioTracks as $item)
+		{
+			if($item->audioTrack->type == "Dolby TrueHD")
+			return true;
+		}
+		return false;
+	}
+	
+	public function isDts()
+	{
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		foreach($mymovieAudioTracks as $item)
+		{
+			if($item->audioTrack->type == "DTS-HD Master")
+			return true;
+		}
+		return false;
+	}
+	
+	public function isDolbySurround()
+	{
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		foreach($mymovieAudioTracks as $item)
+		{
+			if($item->audioTrack->type == "Dolby Digital Surround EX")
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
