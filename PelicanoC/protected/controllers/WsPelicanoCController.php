@@ -28,10 +28,11 @@ class WsPelicanoCController extends Controller
 	 * Returns add new rip movie
 	 * @param string idMyMovie
 	 * @param string path
+	 * @param integer parental_control
 	 * @return string idMyMovie
 	 * @soap
 	 */
-	public function addNewRipMovie($idMyMovie, $path)
+	public function addNewRipMovie($idMyMovie, $path, $parental_control)
 	{
 		$idImdb = "";
 		
@@ -50,10 +51,26 @@ class WsPelicanoCController extends Controller
 		
 		if(!empty($idImdb))
 		{
-			$this->saveRippedMovie($idImdb, $path, $idMyMovie);
+			$this->saveRippedMovie($idImdb, $path, $idMyMovie, $parental_control);
 		}
 		
 		return $idMyMovie;
+	}
+	
+	/**
+	* Returns true if mymovieId is already ripped
+	* @param string idMyMovie
+	* @return boolean alreadyRipped
+	* @soap
+	*/
+	public function isAlreadyRipped($idMyMovie)
+	{
+		$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$idMyMovie));
+		if(isset($model)) // check if movie is already ripped
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	private function getBackDropUrl($idImdb)
@@ -73,7 +90,7 @@ class WsPelicanoCController extends Controller
 		return $url;
 	}
 	
-	private function saveRippedMovie($idImdb, $path, $idMyMovie)
+	private function saveRippedMovie($idImdb, $path, $idMyMovie, $parental_control)
 	{
 		$data = $this->readImdbApi($idImdb);
 		$data = json_decode($data);
@@ -152,7 +169,7 @@ class WsPelicanoCController extends Controller
 				$modelRippedMovie->Id_imdbdata = $idImdb;
 				$modelRippedMovie->path = $path;
 				$modelRippedMovie->Id_my_movie = $idMyMovie;
-				
+				$modelRippedMovie->parental_control = $parental_control;
 				$modelRippedMovie->save();
 	
 				$transaction->commit();

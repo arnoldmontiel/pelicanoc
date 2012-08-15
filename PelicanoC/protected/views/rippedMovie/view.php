@@ -193,9 +193,17 @@
 		<?php
 		endif
 		?>
-		
+		<?php
+		if($model->isDvd()):
+		?>
+			<div class="rip-logo">
+				<img alt="mpaa" src="images/dvd.jpg" style="width:90px;height:50px">
+			</div>
+			<?php
+			endif
+			?>
 		<?php 
-			if($model->isDolbyDigital()):
+			if($model->hasDolbyDigital()):
 			?>
 		<div class="rip-logo">
 			<img alt="mpaa" src="images/dolby-digital.jpg" style="width:90px;height:50px">
@@ -205,7 +213,7 @@
 		?>
 		
 		<?php 
-			if($model->isDolbyTrueHD()):
+			if($model->hasDolbyTrueHD()):
 			?>
 		<div class="rip-logo">
 			<img alt="mpaa" src="images/true-hd.jpg" style="width:90px;height:50px">
@@ -215,7 +223,7 @@
 		?>
 		
 		<?php 
-			if($model->isDts()):
+			if($model->hasDts()):
 			?>
 		<div class="rip-logo">
 			<img alt="mpaa" src="images/dts.jpg" style="width:90px;height:50px">
@@ -225,7 +233,7 @@
 		?>
 		
 		<?php 
-			if($model->isDolbySurround()):
+			if($model->hasDolbySurround()):
 			?>
 		<div class="rip-logo">
 			<img alt="mpaa" src="images/dolby-surround.gif" style="width:90px;height:50px">

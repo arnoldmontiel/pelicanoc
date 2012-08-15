@@ -7,10 +7,9 @@
  * @property integer $Id
  * @property string $name
  * @property string $last_name
- * @property string $username
+ * @property integer $current_points
  *
  * The followings are the available model relations:
- * @property User $user
  * @property Nzb[] $nzbs
  */
 class Customer extends CActiveRecord
@@ -41,13 +40,12 @@ class Customer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id, username', 'required'),
-			array('Id', 'numerical', 'integerOnly'=>true),
+			array('Id', 'required'),
+			array('Id, current_points', 'numerical', 'integerOnly'=>true),
 			array('name, last_name', 'length', 'max'=>45),
-			array('username', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, name, last_name, username', 'safe', 'on'=>'search'),
+			array('Id, name, last_name, current_points', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +57,6 @@ class Customer extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'username'),
 			'nzbs' => array(self::MANY_MANY, 'Nzb', 'nzb_customer(Id_customer, Id_nzb)'),
 		);
 	}
@@ -74,6 +71,7 @@ class Customer extends CActiveRecord
 			'name' => 'Name',
 			'last_name' => 'Last Name',
 			'username' => 'Username',
+			'current_points' => 'Username','Current Points',
 		);
 	}
 
@@ -91,8 +89,8 @@ class Customer extends CActiveRecord
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('last_name',$this->last_name,true);
-		$criteria->compare('username',$this->username,true);
-
+		$criteria->compare('current_points',$this->current_points);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

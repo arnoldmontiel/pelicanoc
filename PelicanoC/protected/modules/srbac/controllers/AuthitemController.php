@@ -17,6 +17,7 @@
 class AuthitemController extends SBaseController {
 	public $fromPageNumber =0;
 	public $showMenu =true;
+	public $showBrowsingBox = true;
 	
   /**
    * @var string specifies the default action to be 'list'.
