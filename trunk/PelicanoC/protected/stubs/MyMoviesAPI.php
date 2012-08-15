@@ -73,7 +73,7 @@ class LoadDiscTitleById
 	private function saveMyMovie($data)
 	{
 		$idImdb = "";
-		if(!empty($data))
+		if(!empty($data) && (string)$data['status'] == 'ok')
 		{
 			if(!empty($data->Title))
 				$data = $data->Title;

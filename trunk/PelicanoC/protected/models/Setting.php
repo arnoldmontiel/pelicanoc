@@ -29,7 +29,7 @@ class Setting extends CActiveRecord
 	public function __construct()
 	{
 		$user = User::model()->findByPk(Yii::app()->user->Id);
-		$this->_customer = $user->customers[0];		
+		$this->_customer = $user->customer;		
 	}
 	
 	public static function getInstance()

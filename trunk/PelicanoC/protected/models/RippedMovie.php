@@ -8,7 +8,8 @@
  * @property string $path
  * @property string $Id_imdbdata
  * @property string $Id_my_movie
- * @property string $cration_date
+ * @property string $creation_date
+ * @property integer $parental_control
  *
  * The followings are the available model relations:
  * @property Imdbdata $idImdbdata
@@ -43,11 +44,12 @@ class RippedMovie extends CActiveRecord
 		return array(
 			array('Id_imdbdata', 'required'),
 			array('path, Id_my_movie', 'length', 'max'=>255),
+			array('parental_control', 'numerical', 'integerOnly'=>true),
 			array('Id_imdbdata', 'length', 'max'=>45),
-			array('cration_date', 'safe'),
+			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path, Id_imdbdata, Id_my_movie, cration_date', 'safe', 'on'=>'search'),
+			array('Id, path, Id_imdbdata, Id_my_movie, creation_date, parental_control', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +76,8 @@ class RippedMovie extends CActiveRecord
 			'path' => 'Path',
 			'Id_imdbdata' => 'Id Imdbdata',
 			'Id_my_movie' => 'Id My Movie',
-			'cration_date' => 'Cration Date',
+			'creation_date' => 'Creation Date',
+			'parental_control' => 'Parental Control',
 		);
 	}
 
@@ -83,7 +86,12 @@ class RippedMovie extends CActiveRecord
 		return $this->myMovie->type == "Blu-ray";
 	}
 	
-	public function isDolbyDigital()
+	public function isDVD()
+	{
+		return $this->myMovie->type == "DVD";
+	}
+	
+	public function hasDolbyDigital()
 	{
 		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
@@ -94,7 +102,7 @@ class RippedMovie extends CActiveRecord
 		return false;
 	}
 	
-	public function isDolbyTrueHD()
+	public function hasDolbyTrueHD()
 	{
 		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
@@ -105,7 +113,7 @@ class RippedMovie extends CActiveRecord
 		return false;
 	}
 	
-	public function isDts()
+	public function hasDts()
 	{
 		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
@@ -116,7 +124,7 @@ class RippedMovie extends CActiveRecord
 		return false;
 	}
 	
-	public function isDolbySurround()
+	public function hasDolbySurround()
 	{
 		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
@@ -142,7 +150,12 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('path',$this->path,true);
 		$criteria->compare('Id_imdbdata',$this->Id_imdbdata,true);
 		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
-		$criteria->compare('cration_date',$this->cration_date,true);
+		$criteria->compare('creation_date',$this->creation_date,true);
+		
+		if(User::isUnderParentalControl())
+			$criteria->addCondition('parental_control = 0','AND');
+		
+		$criteria->order = "t.creation_date DESC";
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -155,7 +168,7 @@ class RippedMovie extends CActiveRecord
 		// should not be searched.
 	
 		$criteria=new CDbCriteria;
-	
+
 		$criteria->with[]='imdbdata';
 		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
@@ -164,7 +177,12 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
 		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
-		$criteria->order = "imdbdata.Year DESC";
+		
+		
+		if(User::isUnderParentalControl())
+			$criteria->addCondition('parental_control = 0','AND');
+		
+		$criteria->order = "t.creation_date DESC";
 	
 	
 		return new CActiveDataProvider($this, array(

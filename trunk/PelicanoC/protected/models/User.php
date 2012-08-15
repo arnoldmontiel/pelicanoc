@@ -7,9 +7,11 @@
  * @property string $username
  * @property string $password
  * @property string $email
+ * @property integer $Id_customer
+ * @property integer $under_parental_control
  *
  * The followings are the available model relations:
- * @property Customer[] $customers
+ * @property Customer $idCustomer
  */
 class User extends CActiveRecord
 {
@@ -23,6 +25,12 @@ class User extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public static function isUnderParentalControl()
+	{
+		$user = User::model()->findByPk(Yii::app()->user->Id);
+		return $user->under_parental_control;
+	}
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -39,11 +47,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email', 'required'),
+			array('username, password, email, Id_customer', 'required'),
+			array('Id_customer, under_parental_control', 'numerical', 'integerOnly'=>true),
 			array('username, password, email', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('username, password, email', 'safe', 'on'=>'search'),
+			array('username, password, email, Id_customer, under_parental_control', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,7 +64,7 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customers' => array(self::HAS_MANY, 'Customer', 'username'),
+			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 		);
 	}
 
@@ -68,6 +77,8 @@ class User extends CActiveRecord
 			'username' => 'Username',
 			'password' => 'Password',
 			'email' => 'Email',
+			'Id_customer' => 'Id Customer',
+			'under_parental_control' => 'Under Parental Control',
 		);
 	}
 
@@ -85,6 +96,8 @@ class User extends CActiveRecord
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
+		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('under_parental_control',$this->under_parental_control);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
