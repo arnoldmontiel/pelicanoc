@@ -49,6 +49,24 @@ class MovieStateRequest extends SOAP2Arrya
 	public $date; //integer;
 }
 
+class UserResponse
+{
+	public $username; //string;
+	public $password; //string;
+	public $email; //string;
+	public $parental_control; //integer;
+	public $deleted; //integer;
+}
+
+class UserStateRequest extends SOAP2Arrya
+{
+	public $username; //string;
+	public $password; //string;
+	public $email; //string;
+	public $parental_control; //integer;
+	public $deleted; //integer;
+}
+
 class SerieResponse
 {
 	public $Id; //integer;
@@ -118,6 +136,8 @@ class Pelicano
 		'MovieStateRequest'=>'MovieStateRequest',
 		'SerieStateRequest'=>'SerieStateRequest',
 		'TransactionResponse'=>'TransactionResponse',
+		'UserResponse'=>'UserResponse',
+		'UserStateRequest'=>'UserStateRequest',
 
 );
 
@@ -135,7 +155,15 @@ function __construct($url='/index.php?r=nzb/wsdl')
 	}
 }
 
-
+function getNewUser($integer)
+{
+	$UserResponseArray = array();
+	if(isset($this->soapClient))
+	{
+		$UserResponseArray = $this->soapClient->getNewUser($integer);
+	}
+	return $UserResponseArray;
+}
 function getNewMovies($integer)
 {
 	$MovieResponseArray = array();
@@ -153,6 +181,20 @@ function getNewSeries($integer)
 		$SerieResponseArray = $this->soapClient->getNewSeries($integer);
 	}
 	return $SerieResponseArray;
+}
+function setUserState($UserStateRequestArray)
+{
+	$result = false;
+	if(isset($this->soapClient))
+	{
+		$r = array();
+		foreach ($UserStateRequestArray as $item)
+		{
+			$r[]=$item->toArray();
+		}
+		$result = $this->soapClient->setUserState($r);
+	}
+	return $result;
 }
 function setMovieState($MovieStateRequestArray)
 {
