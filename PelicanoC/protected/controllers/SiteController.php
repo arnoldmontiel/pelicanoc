@@ -31,8 +31,8 @@ class SiteController extends Controller
 		// using the default layout 'protected/views/layouts/main.php'
 		//PelicanoHelper::UpdatePoints();
 			
-//      	$ws = new wsPelicanoC();
-//  	  	$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","el cadaver de la novia");
+//       	$ws = new wsPelicanoC();
+//   	  	$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","el cadaver de la novia",true);
 //  		$ws->addNewRipMovie("8377d7ee-1f68-43ea-a740-001eb6cbed72","ice age 3");
 //  	$ws->addNewRipMovie("cb902e53-9b4f-4e2c-8187-910c817ac336","lalaooo");
 //  		$ws->addNewRipMovie("f38c7448-07fe-467d-a1c8-00393cd54b1f","kung fu");
@@ -43,6 +43,10 @@ class SiteController extends Controller
 // 		$hola = $mymo->LoadDiscTitleById("af39fbab-1b0c-4519-856e-09c2dff7198d");
 // 		$hola = $mymo->LoadDiscTitleById("bcf5cb96-73bc-4ed8-b35b-66aac2d8d693");
 // 		$hola = $mymo->LoadDiscTitleById("f38c7448-07fe-467d-a1c8-00393cd54b1f");
+		
+
+// 		$hola = new User();
+// 		$hola->updateUserFromServer();
 		
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
