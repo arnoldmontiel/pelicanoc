@@ -25,10 +25,27 @@ class User extends CActiveRecord
 		return parent::model($className);
 	}
 
+	static private $_user = null;
+	
+	/**
+	* Returns the static model of the specified AR class.
+	* @param string $className active record class name.
+	* @return User the static model class
+	*/
+	
 	public static function isUnderParentalControl()
 	{
 		$user = User::model()->findByPk(Yii::app()->user->Id);
 		return $user->under_parental_control;
+	}
+	
+	public static function getCurrentUser()
+	{
+		if(!isset(self::$_user))
+		{
+			self::$_user = User::model()->findByPk(Yii::app()->user->Id);
+		}
+		return self::$_user;
 	}
 	
 	/**
@@ -82,70 +99,73 @@ class User extends CActiveRecord
 		);
 	}
 
-	public function updateUserFromServer()
+	public function sincronizeFromServer()
 	{
-		//PelicanoHelper::sendPendingNzbStates();
 		$requests = array();
-		//$setting = Setting::getInstance();
 		$pelicanoCliente = new Pelicano;
-		//$UserResponseArray = $pelicanoCliente->getNewUser($setting->getId_Customer());
-		$UserResponseArray = $pelicanoCliente->getNewUser(1);
-		foreach ($UserResponseArray as $user) {
-				
-			try {
-	
-				$modelDB = User::model()->findByPk($user->username);
-				if(isset($modelDB))
-				{
-					if($user->deleted == 0)
+		$idCustomer = null;
+		$modelUser = User::getCurrentUser();
+		$idCustomer = (isset($modelUser))?$modelUser->Id_customer:null; 
+		
+		if(isset($idCustomer))
+		{
+			$UserResponseArray = $pelicanoCliente->getNewUser($idCustomer);
+			foreach ($UserResponseArray as $user) {
+					
+				try {
+		
+					$modelDB = User::model()->findByPk($user->username);
+					if(isset($modelDB))
 					{
-						$modelDB->username = $user->username;
-						$modelDB->password = $user->password;
-						$modelDB->email = $user->email;
-						$modelDB->under_parental_control = $user->parental_control;
-						$modelDB->save();
+						if($user->deleted == 0)
+						{
+							$modelDB->username = $user->username;
+							$modelDB->password = $user->password;
+							$modelDB->email = $user->email;
+							$modelDB->under_parental_control = $user->parental_control;
+							$modelDB->save();
+						}
+						else
+						{
+							$modelDB->delete();
+						}
 					}
 					else
 					{
-						$modelDB->delete();
-					}
-				}
-				else
-				{
-					if($user->deleted == 0)
-					{
-						$model = new User();
-						$model->username = $user->username;
-						$model->password = $user->password;
-						$model->email = $user->email;
-						//$model->Id_customer = $setting->getId_Customer();
-						$model->Id_customer = 1;
-						$model->under_parental_control = $user->parental_control;						
-						$model->save();
-						
-						$assDB = Assignments::model()->findByAttributes(array('userid'=>$user->username));
-						if(!isset($assDB)){
-							$ass = new Assignments();
-							$ass->userid = $user->username;
-							$ass->data = 's:0:"";';
-							$ass->itemname = 'Customer';
-							$ass->save();
+						if($user->deleted == 0)
+						{
+							$model = new User();
+							$model->username = $user->username;
+							$model->password = $user->password;
+							$model->email = $user->email;
+							$model->Id_customer = $idCustomer;
+							$model->under_parental_control = $user->parental_control;						
+							$model->save();
+							
+							$assDB = Assignments::model()->findByAttributes(array('userid'=>$user->username));
+							if(!isset($assDB)){
+								$ass = new Assignments();
+								$ass->userid = $user->username;
+								$ass->data = 's:0:"";';
+								$ass->itemname = 'Customer';
+								$ass->save();
+							}
 						}
 					}
+		
+				} catch (Exception $e) {
 				}
-	
-			} catch (Exception $e) {
+					
+				$request= new UserStateRequest;
+				$request->username = $user->username;
+				$request->password =$user->passowrd;
+				$request->email =$user->email;
+					
+				$requests[]=$request;
 			}
-				
-			$request= new UserStateRequest;
-			$request->username = $user->username;
-			$request->password =$user->passowrd;
-			$request->email =$user->email;
-				
-			$requests[]=$request;
+		
+			$status = $pelicanoCliente->setUserState($requests);
 		}
-	
-		$status = $pelicanoCliente->setUserState($requests);
 	}
 	
 	/**

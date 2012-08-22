@@ -28,6 +28,7 @@ body
 {
 	margin: 0;
 	padding: 0;
+	width: 100%;
 	border-top: 3px solid rgba(41,47,92,0.5);
 	display: inline-block;
 }
@@ -1036,8 +1037,7 @@ div.customer-name
 {
 	display: inline-block;
     float: left;
-    width: 150px;
-    margin-right: 400px;
+    width: 50%;
     margin-top: 20px;
     font-size: 17px;
 }
