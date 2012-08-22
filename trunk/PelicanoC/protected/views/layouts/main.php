@@ -32,9 +32,10 @@
 		</div>
 		<div class="customer-name">
 			 <?php
-			 	$customer = Setting::getInstance()->getCustomer(); 
-			 	echo $customer->name.' '.$customer->name->last_name;
-			 	echo '('.$customer->current_points.' points)';
+			 	$customer = Setting::getInstance()->getCustomer();
+			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
+			 	echo $customer->name.' '.$customer->last_name . ' - ' . $username;
+			 	echo ' ('.$customer->current_points.' points)';
 			 	?>
 		</div>
 		<?php if ($this->showBrowsingBox):?>
