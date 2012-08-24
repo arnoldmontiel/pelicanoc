@@ -119,7 +119,6 @@ class LoadDiscTitleById
 				$this->saveAudioTrack($data);
 				$this->saveSubtitle($data);
 			}
-		
 			$idImdb = (string)$data->IMDB;
 		}
 		return $idImdb;
@@ -171,7 +170,11 @@ class LoadDiscTitleById
 				$modelMyMovieAudioTrack->Id_audio_track = $modelAudioTrack->Id;
 			}
 			
-			$modelMyMovieAudioTrack->save();
+			$model = MyMovieAudioTrack::model()->findByAttributes(array(
+													'Id_my_movie'=>$idMyMovie, 
+													'Id_audio_track'=>$modelMyMovieAudioTrack->Id_audio_track));
+			if(!isset($model))
+				$modelMyMovieAudioTrack->save();
 
 		}
 	}
@@ -205,7 +208,11 @@ class LoadDiscTitleById
 				$modelMyMovieSubtitle->Id_subtitle = $modelSubtitle->Id;
 			}
 				
-			$modelMyMovieSubtitle->save();
+			$model = MyMovieSubtitle::model()->findByAttributes(array(
+														'Id_my_movie'=>$idMyMovie, 
+														'Id_subtitle'=>$modelMyMovieSubtitle->Id_subtitle));
+			if(!isset($model))
+				$modelMyMovieSubtitle->save();
 	
 		}
 	}

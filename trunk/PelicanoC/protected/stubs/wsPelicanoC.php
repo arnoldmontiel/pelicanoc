@@ -28,7 +28,10 @@ class wsPelicanoC
 	
 	function addNewRipMovie($idMyMovie, $path, $parental_control)
 	{
-		return $this->soapClient->addNewRipMovie($idMyMovie, $path, $parental_control);
+		
+		$idImdb = $this->soapClient->addNewRipMovie($idMyMovie, $path, $parental_control);
+		RippedMovie::sincronizeWithServer();
+		return $idImdb;
 	}
 	
 }
