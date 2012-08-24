@@ -170,11 +170,10 @@ class WsPelicanoCController extends Controller
 				$modelRippedMovie->path = $path;
 				$modelRippedMovie->Id_my_movie = $idMyMovie;
 				$modelRippedMovie->parental_control = $parental_control;
-				$modelRippedMovie->save();
-				
-				$modelRippedMovie->sincronizeWithServer();
+				$modelRippedMovie->save();							
 				
 				$transaction->commit();
+				
 			} catch (Exception $e) {
 				$transaction->rollback();
 			}

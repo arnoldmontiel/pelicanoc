@@ -137,7 +137,7 @@ class RippedMovie extends CActiveRecord
 		return false;
 	}
 	
-	public function sincronizeWithServer()
+	public static function sincronizeWithServer()
 	{	
 		$requests = array();
 		$pelicanoCliente = new Pelicano;
@@ -175,13 +175,13 @@ class RippedMovie extends CActiveRecord
 				$request->genre = $item->myMovie->genre;
 				$request->studio =  $item->myMovie->studio;		
 				$requests[]=$request;
-			}
-			if($pelicanoCliente->setRipped($requests))
+			} 
+			if( count($requests) > 0 && $pelicanoCliente->setRipped($requests))
 			{
 				$RippedResponseArray = $pelicanoCliente->getRipped($idCustomer);
 				foreach($RippedResponseArray as $item)
 				{
-					$model = RippedMovie::model()->findByPk($item->Id_my_movie);
+					$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$item->Id_my_movie));
 					if(isset($model))
 					{
 						$model->was_sent = 1;
