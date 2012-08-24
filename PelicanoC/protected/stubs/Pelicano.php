@@ -13,32 +13,64 @@ class SOAP2Arrya
 	}
 }
 
+class RippedResponse
+{
+	public $Id_customer; //integer;
+	public $Id_my_movie; //string;
+}
+
+class RippedRequest extends SOAP2Arrya
+{
+	public $Id_customer; //integer;
+	public $Id_my_movie; //string;
+	public $type; //string;
+	public $bar_code; //string;
+	public $country; //string;
+	public $local_title; //string;
+	public $original_title; //string;
+	public $sort_title; //string;
+	public $aspect_ratio; //string;
+	public $video_standard; //string;
+	public $production_year; //string;
+	public $release_date; //string;
+	public $running_time; //string;
+	public $description; //string;
+	public $extra_features; //string;
+	public $parental_rating_desc; //string;
+	public $imdb; //string;
+	public $rating; //string;
+	public $data_changed; //string;
+	public $covers_changed; //string;
+	public $genre; //string;
+	public $studio; //string;
+}
+
 class MovieResponse
 {
-public $Id; //integer;
-public $url; //string;
-public $file_name; //string;
-public $subt_url; //string;
-public $subt_file_name; //string;
-public $Id_resource_type; //string;//integer;
-public $deleted; //integer;
-public $points; //integer;
-public $ID; //string;
-public $Title; //string;
-public $Year; //string;
-public $Rated; //string;
-public $Released; //string;
-public $Genre; //string;
-public $Director; //string;
-public $Writer; //string;
-public $Actors; //string;
-public $Plot; //string;
-public $Poster; //string;
-public $Runtime; //string;
-public $Rating; //string;
-public $Votes; //string;
-public $Response; //string;
-public $Backdrop; //string;
+	public $Id; //integer;
+	public $url; //string;
+	public $file_name; //string;
+	public $subt_url; //string;
+	public $subt_file_name; //string;
+	public $Id_resource_type; //string;//integer;
+	public $deleted; //integer;
+	public $points; //integer;
+	public $ID; //string;
+	public $Title; //string;
+	public $Year; //string;
+	public $Rated; //string;
+	public $Released; //string;
+	public $Genre; //string;
+	public $Director; //string;
+	public $Writer; //string;
+	public $Actors; //string;
+	public $Plot; //string;
+	public $Poster; //string;
+	public $Runtime; //string;
+	public $Rating; //string;
+	public $Votes; //string;
+	public $Response; //string;
+	public $Backdrop; //string;
 }
 
 class MovieStateRequest extends SOAP2Arrya
@@ -138,6 +170,8 @@ class Pelicano
 		'TransactionResponse'=>'TransactionResponse',
 		'UserResponse'=>'UserResponse',
 		'UserStateRequest'=>'UserStateRequest',
+		'RippedResponse'=>'RippedResponse',
+		'RippedRequest'=>'RippedRequest',
 
 );
 
@@ -153,6 +187,16 @@ function __construct($url='/index.php?r=nzb/wsdl')
 	} catch (Exception $e) {
 		$var  = $e;
 	}
+}
+
+function getRipped($integer)
+{
+	$RippedResponseArray = array();
+	if(isset($this->soapClient))
+	{
+		$RippedResponseArray = $this->soapClient->getRipped($integer);
+	}
+	return $RippedResponseArray;
 }
 
 function getNewUser($integer)
@@ -181,6 +225,20 @@ function getNewSeries($integer)
 		$SerieResponseArray = $this->soapClient->getNewSeries($integer);
 	}
 	return $SerieResponseArray;
+}
+function setRipped($RippedRequestArray)
+{
+	$result = false;
+	if(isset($this->soapClient))
+	{
+		$r = array();
+		foreach ($RippedRequestArray as $item)
+		{
+			$r[]=$item->toArray();
+		}
+		$result = $this->soapClient->setRipped($r);
+	}
+	return $result;
 }
 function setUserState($UserStateRequestArray)
 {

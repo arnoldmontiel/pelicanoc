@@ -10,12 +10,13 @@
  * @property string $Id_my_movie
  * @property string $creation_date
  * @property integer $parental_control
+ * @property integer $was_sent
  *
  * The followings are the available model relations:
  * @property Imdbdata $idImdbdata
  */
 class RippedMovie extends CActiveRecord
-{
+{	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -44,12 +45,12 @@ class RippedMovie extends CActiveRecord
 		return array(
 			array('Id_imdbdata', 'required'),
 			array('path, Id_my_movie', 'length', 'max'=>255),
-			array('parental_control', 'numerical', 'integerOnly'=>true),
+			array('parental_control, was_sent', 'numerical', 'integerOnly'=>true),
 			array('Id_imdbdata', 'length', 'max'=>45),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path, Id_imdbdata, Id_my_movie, creation_date, parental_control', 'safe', 'on'=>'search'),
+			array('Id, path, Id_imdbdata, Id_my_movie, creation_date, parental_control, was_sent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,6 +79,7 @@ class RippedMovie extends CActiveRecord
 			'Id_my_movie' => 'Id My Movie',
 			'creation_date' => 'Creation Date',
 			'parental_control' => 'Parental Control',
+			'was_sent' => 'Was Sent',
 		);
 	}
 
@@ -133,6 +135,62 @@ class RippedMovie extends CActiveRecord
 			return true;
 		}
 		return false;
+	}
+	
+	public function sincronizeWithServer()
+	{	
+		$requests = array();
+		$pelicanoCliente = new Pelicano;
+		$idCustomer = null;
+		$modelUser = User::getCurrentUser();
+		$idCustomer = (isset($modelUser))?$modelUser->Id_customer:null; 
+		
+		if(isset($idCustomer))
+		{
+			$rippedMovies = RippedMovie::model()->findAllByAttributes(array('was_sent'=>0));
+			foreach($rippedMovies as $item)
+			{
+				$request= new RippedRequest;
+				
+				$request->Id_customer = $idCustomer;
+				$request->Id_my_movie = $item->myMovie->Id;
+				$request->type = $item->myMovie->type;
+				$request->bar_code = $item->myMovie->bar_code;
+				$request->country = $item->myMovie->country;
+				$request->local_title = $item->myMovie->local_title;
+				$request->original_title = $item->myMovie->original_title;
+				$request->sort_title = $item->myMovie->sort_title;
+				$request->aspect_ratio = $item->myMovie->aspect_ratio;
+				$request->video_standard = $item->myMovie->video_standard;
+				$request->production_year = $item->myMovie->production_year;
+				$request->release_date = $item->myMovie->release_date;
+				$request->running_time = $item->myMovie->running_time;
+				$request->description = $item->myMovie->description;
+				$request->extra_features = $item->myMovie->extra_features;
+				$request->parental_rating_desc = $item->myMovie->parental_rating_desc;
+				$request->imdb = $item->myMovie->imdb;
+				$request->rating = $item->myMovie->rating;
+				$request->data_changed = $item->myMovie->data_changed;
+				$request->covers_changed = $item->myMovie->covers_changed;
+				$request->genre = $item->myMovie->genre;
+				$request->studio =  $item->myMovie->studio;		
+				$requests[]=$request;
+			}
+			if($pelicanoCliente->setRipped($requests))
+			{
+				$RippedResponseArray = $pelicanoCliente->getRipped($idCustomer);
+				foreach($RippedResponseArray as $item)
+				{
+					$model = RippedMovie::model()->findByPk($item->Id_my_movie);
+					if(isset($model))
+					{
+						$model->was_sent = 1;
+						$model->save();
+					}
+					
+				}
+			}
+		}
 	}
 	
 	/**
