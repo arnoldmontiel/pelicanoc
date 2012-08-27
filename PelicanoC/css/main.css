@@ -487,6 +487,8 @@ div.extra-feature-box
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+	overflow: auto;
+	max-height: 600px;
 	background: 		rgba(0,0,0,0.6);
 	-moz-box-shadow:    3px 3px 5px 6px black;
 	-webkit-box-shadow: 3px 3px 5px 6px black;
