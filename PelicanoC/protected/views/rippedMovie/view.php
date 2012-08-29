@@ -3,7 +3,7 @@
 
 <div class="rip-layout-left">
 	<div style="width: 205px; float:left;">
-		<?php echo CHtml::image( "images/".$model->imdbdata->Poster, $model->imdbdata->Title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
+		<?php echo CHtml::image( "images/".$model->myMovie->poster, $model->imdbdata->Title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
 
 	</div>
 	
@@ -247,7 +247,7 @@
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	
-	ChangeBG('images/','".$model->imdbdata->Backdrop."');
+	ChangeBG('images/','".$model->myMovie->backdrop."');
 
 	$('.leftcurtain').addClass('showLeftCurtian');
 	$('.rightcurtain').addClass('showRightCurtian');

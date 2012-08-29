@@ -20,7 +20,7 @@
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#MyMovieStart', "
 	
-	ChangeBG('images/','".$model->imdbdata->Backdrop."');
+	ChangeBG('images/','".$model->myMovie->backdrop."');
 
 ");
 ?>

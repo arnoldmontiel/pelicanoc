@@ -25,6 +25,10 @@
  * @property string $covers_changed
  * @property string $genre
  * @property string $studio
+ * @property string $poster
+ * @property string $poster_original
+ * @property string $backdrop
+ * @property string $backdrop_original
  *
  * The followings are the available model relations:
  * @property AudioTrack[] $audioTracks
@@ -63,12 +67,12 @@ class MyMovie extends CActiveRecord
 			array('Id', 'length', 'max'=>200),
 			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb', 'length', 'max'=>45),
 			array('local_title, original_title, sort_title, data_changed, covers_changed', 'length', 'max'=>100),
-			array('parental_rating_desc, genre, studio', 'length', 'max'=>255),
+			array('parental_rating_desc, genre, studio, poster, poster_original, backdrop, backdrop_original', 'length', 'max'=>255),
 			array('rating', 'length', 'max'=>10),
 			array('description, extra_features', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio', 'safe', 'on'=>'search'),
+			array('Id, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio, poster, poster_original, backdrop, backdrop_original', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,7 +85,7 @@ class MyMovie extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'audioTracks' => array(self::MANY_MANY, 'AudioTrack', 'my_movie_audio_track(Id_my_movie, Id_audio_track)'),
-			'subtitles' => array(self::MANY_MANY, 'Subtitle', 'my_movie_subtitle(my_movie_Id, subtitle_Id)'),
+			'subtitles' => array(self::MANY_MANY, 'Subtitle', 'my_movie_subtitle(Id_my_movie, Id_subtitle)'),
 			'rippedMovies' => array(self::HAS_MANY, 'RippedMovie', 'Id_my_movie'),
 		);
 	}
@@ -113,6 +117,10 @@ class MyMovie extends CActiveRecord
 			'covers_changed' => 'Covers Changed',
 			'genre' => 'Genre',
 			'studio' => 'Studio',
+			'poster' => 'Poster',
+			'poster_original' => 'Poster Original',
+			'backdrop' => 'Backdrop',
+			'backdrop_original' => 'Backdrop Original',
 		);
 	}
 
@@ -148,6 +156,10 @@ class MyMovie extends CActiveRecord
 		$criteria->compare('covers_changed',$this->covers_changed,true);
 		$criteria->compare('genre',$this->genre,true);
 		$criteria->compare('studio',$this->studio,true);
+		$criteria->compare('poster',$this->poster,true);
+		$criteria->compare('poster_original',$this->poster_original,true);
+		$criteria->compare('backdrop',$this->backdrop,true);
+		$criteria->compare('backdrop_original',$this->backdrop_original,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
