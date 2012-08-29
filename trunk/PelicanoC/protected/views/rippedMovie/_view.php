@@ -32,7 +32,7 @@ $('#Imdbdata_Poster_button_$data->Id').click(function(){
 <div class="single-movie-index-view" >
 	<div class="single-movie-view" >
 		<?php
-		 echo CHtml::image("images/".$data->imdbdata->Poster,'details',
+		 echo CHtml::image("images/".$data->myMovie->poster,'details',
 				array('id'=>'Imdbdata_Poster_button_'.$data->Id, 'style'=>'height: 260px;width: 185px;'));
 		?>
 		<?php echo CHtml::encode($data->imdbdata->Title); ?>

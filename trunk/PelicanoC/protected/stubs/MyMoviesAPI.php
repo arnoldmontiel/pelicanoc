@@ -54,8 +54,8 @@ class LoadDiscTitleById
 	function LoadDiscTitleById($myMovieId)
 	{
 		$model = new LoadDiscTitleById();
-		$model->UserName = "arnoldMontiel";
-		$model->Password = "Arnold";
+		$model->UserName = "pablopedraza";
+		$model->Password = "pablo";
 		$model->TitleId = $myMovieId;
 		$model->Locale = 0;
 		
@@ -113,6 +113,52 @@ class LoadDiscTitleById
 				
 				//Obtengo la lista de los estudios
 				$modelMyMovie->studio =  implode(", ",$this->xmlToArray($data->Studios));
+		
+				
+				//Poster
+				$modelMyMovie->poster_original = $this->getPoster($data->MovieData);
+				
+				$validator = new CUrlValidator();
+				$setting = Setting::getInstance();
+				
+				if($modelMyMovie->poster_original!='' && $validator->validateValue($modelMyMovie->poster_original))
+				{
+					try {
+						$content = @file_get_contents($modelMyMovie->poster_original);
+						if ($content !== false) {
+							$file = fopen($setting->path_images."/".$modelMyMovie->Id.".jpg", 'w');
+							fwrite($file,$content);
+							fclose($file);
+							$modelMyMovie->poster = $modelMyMovie->Id.".jpg";
+						} else {
+							// an error happened
+						}
+					} catch (Exception $e) {
+						throw $e;
+						// an error happened
+					}
+				}
+				
+				//Backdrop
+				$modelMyMovie->backdrop_original = $this->getBackdrop($data->MovieData);
+				if($modelMyMovie->backdrop_original!='' && $validator->validateValue($modelMyMovie->backdrop_original))
+				{
+					try {
+						$content = @file_get_contents($modelMyMovie->backdrop_original);
+						if ($content !== false) {
+							$file = fopen($setting->path_images."/".$modelMyMovie->Id."_bd.jpg", 'w');
+							fwrite($file,$content);
+							fclose($file);
+							$modelMyMovie->backdrop = $modelMyMovie->Id."_bd.jpg";
+						} else {
+							// an error happened
+						}
+					} catch (Exception $e) {
+						throw $e;
+						// an error happened
+					}
+				}
+				
 				
 				$modelMyMovie->save();
 				
@@ -136,6 +182,32 @@ class LoadDiscTitleById
 		return $xmlArr;
 	}
 
+	private function getBackdrop($xml)
+	{
+		if(!empty($xml->Backdrops))
+		{
+			foreach($xml->Backdrops->children() as $item)
+			{
+				return (string)$item['File720P'];
+			}
+		
+		}
+		return "";
+	}
+	
+	private function getPoster($xml)
+	{
+		if(!empty($xml->Posters))
+		{
+			foreach($xml->Posters->children() as $item)
+			{
+				return (string)$item['File'];
+			}
+	
+		}
+		return "";
+	}
+	
 	private function saveAudioTrack($xml)
 	{
 		

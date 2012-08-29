@@ -43,6 +43,8 @@ class RippedRequest extends SOAP2Arrya
 	public $covers_changed; //string;
 	public $genre; //string;
 	public $studio; //string;
+	public $poster; //string;
+	public $backdrop; //string;
 }
 
 class MovieResponse
