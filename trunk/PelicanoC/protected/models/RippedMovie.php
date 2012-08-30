@@ -153,6 +153,7 @@ class RippedMovie extends CActiveRecord
 				$request= new RippedRequest;
 				
 				$request->Id_customer = $idCustomer;
+				$request->ripped_date = $item->creation_date;
 				$request->Id_my_movie = $item->myMovie->Id;
 				$request->type = $item->myMovie->type;
 				$request->bar_code = $item->myMovie->bar_code;
