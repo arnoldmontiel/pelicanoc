@@ -1,25 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "log".
+ * This is the model class for table "log_type".
  *
- * The followings are the available columns in table 'log':
+ * The followings are the available columns in table 'log_type':
  * @property integer $Id
- * @property string $username
- * @property string $log_date
  * @property string $description
- * @property integer $was_sent
- * @property integer $Id_log_type
  *
  * The followings are the available model relations:
- * @property LogType $idLogType
+ * @property Log[] $logs
  */
-class Log extends CActiveRecord
+class LogType extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Log the static model class
+	 * @return LogType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -31,7 +27,7 @@ class Log extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'log';
+		return 'log_type';
 	}
 
 	/**
@@ -42,13 +38,10 @@ class Log extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_log_type', 'required'),
-			array('was_sent, Id_log_type', 'numerical', 'integerOnly'=>true),
-			array('username', 'length', 'max'=>45),
-			array('log_date, description', 'safe'),
+			array('description', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, username, log_date, description, was_sent, Id_log_type', 'safe', 'on'=>'search'),
+			array('Id, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +53,7 @@ class Log extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idLogType' => array(self::BELONGS_TO, 'LogType', 'Id_log_type'),
+			'logs' => array(self::HAS_MANY, 'Log', 'Id_log_type'),
 		);
 	}
 
@@ -71,11 +64,7 @@ class Log extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'username' => 'Username',
-			'log_date' => 'Log Date',
 			'description' => 'Description',
-			'was_sent' => 'Was Sent',
-			'Id_log_type' => 'Id Log Type',
 		);
 	}
 
@@ -91,11 +80,7 @@ class Log extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('log_date',$this->log_date,true);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('was_sent',$this->was_sent);
-		$criteria->compare('Id_log_type',$this->Id_log_type);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
