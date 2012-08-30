@@ -177,6 +177,8 @@ class RippedMovie extends CActiveRecord
 				$request->studio =  $item->myMovie->studio;
 				$request->poster = $item->myMovie->poster_original;
 				$request->backdrop = $item->myMovie->backdrop_original;
+				$request->adult = $item->myMovie->adult;
+				$request->Id_parental_control = $item->myMovie->Id_parental_control;
 				$requests[]=$request;
 			} 
 			if( count($requests) > 0 && $pelicanoCliente->setRipped($requests))
