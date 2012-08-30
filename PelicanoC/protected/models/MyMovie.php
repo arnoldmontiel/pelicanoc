@@ -29,8 +29,11 @@
  * @property string $poster_original
  * @property string $backdrop
  * @property string $backdrop_original
+ * @property integer $Id_parental_control
+ * @property integer $adult
  *
  * The followings are the available model relations:
+ * @property ParentalControl $parentalControl
  * @property AudioTrack[] $audioTracks
  * @property Subtitle[] $subtitles
  * @property RippedMovie[] $rippedMovies
@@ -63,7 +66,8 @@ class MyMovie extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id', 'required'),
+			array('Id, Id_parental_control', 'required'),
+			array('Id_parental_control, adult', 'numerical', 'integerOnly'=>true),
 			array('Id', 'length', 'max'=>200),
 			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb', 'length', 'max'=>45),
 			array('local_title, original_title, sort_title, data_changed, covers_changed', 'length', 'max'=>100),
@@ -84,6 +88,7 @@ class MyMovie extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'parentalControl' => array(self::BELONGS_TO, 'ParentalControl', 'Id_parental_control'),
 			'audioTracks' => array(self::MANY_MANY, 'AudioTrack', 'my_movie_audio_track(Id_my_movie, Id_audio_track)'),
 			'subtitles' => array(self::MANY_MANY, 'Subtitle', 'my_movie_subtitle(Id_my_movie, Id_subtitle)'),
 			'rippedMovies' => array(self::HAS_MANY, 'RippedMovie', 'Id_my_movie'),
@@ -121,6 +126,8 @@ class MyMovie extends CActiveRecord
 			'poster_original' => 'Poster Original',
 			'backdrop' => 'Backdrop',
 			'backdrop_original' => 'Backdrop Original',
+			'Id_parental_control' => 'Parental Control',
+			'adult' => 'Adult',
 		);
 	}
 
