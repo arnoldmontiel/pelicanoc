@@ -26,6 +26,55 @@ class Log extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public static function saveLog($description, $type)
+	{
+		$modelUser = User::getCurrentUser();
+		
+		$model = new Log();
+		$model->description = $description;
+		$model->Id_log_type = $type;
+		$model->username = $modelUser->username;
+		$model->save();
+	}
+	
+	public static function sendLog()
+	{
+		$requests = array();
+		$pelicanoCliente = new Pelicano;
+		$idCustomer = null;
+		$modelUser = User::getCurrentUser();
+		$idCustomer = (isset($modelUser))?$modelUser->Id_customer:null;
+		
+		if(isset($idCustomer))
+		{
+			$logs = Log::model()->findAllByAttributes(array('was_sent'=>0));
+			foreach($logs as $item)
+			{
+				$request= new LogRequest;
+				$request->Id_customer = $idCustomer;
+				$request->username = $item->username;
+				$request->log_date = $item->log_date;
+				$request->description = $item->description;
+				$request->Id_log_type = $item->Id_log_type;
+				$request->Id_log_customer = $item->Id;
+				$requests[]=$request;
+			}
+			
+			$LogResponseArray = $pelicanoCliente->setLog($requests);
+			
+			foreach($LogResponseArray as $item)
+			{
+				$model = Log::model()->findByAttributes(array('Id'=>$item->Id_log_customer));
+				if(isset($model))
+				{
+					$model->was_sent = 1;
+					$model->save();
+				}
+			}
+			
+		}
+	}
+	
 	/**
 	 * @return string the associated database table name
 	 */

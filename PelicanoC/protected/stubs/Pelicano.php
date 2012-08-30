@@ -13,6 +13,21 @@ class SOAP2Arrya
 	}
 }
 
+class LogResponse
+{
+	public $Id_log_customer; //integer;
+}
+
+class LogRequest extends SOAP2Arrya
+{
+	public $Id_customer; //integer;
+	public $log_date; //date;
+	public $username; //string;
+	public $description; //string;
+	public $Id_log_type; //integer;
+	public $Id_log_customer; //integer;
+}
+
 class RippedResponse
 {
 	public $Id_customer; //integer;
@@ -177,6 +192,8 @@ class Pelicano
 		'UserStateRequest'=>'UserStateRequest',
 		'RippedResponse'=>'RippedResponse',
 		'RippedRequest'=>'RippedRequest',
+		'LogRequest'=>'LogRequest',
+		'LogResponse'=>'LogResponse',
 
 );
 
@@ -230,6 +247,20 @@ function getNewSeries($integer)
 		$SerieResponseArray = $this->soapClient->getNewSeries($integer);
 	}
 	return $SerieResponseArray;
+}
+function setLog($LogRequestArray)
+{
+	$result = false;
+	if(isset($this->soapClient))
+	{
+		$r = array();
+		foreach ($LogRequestArray as $item)
+		{
+			$r[]=$item->toArray();
+		}
+		$result = $this->soapClient->setLog($r);
+	}
+	return $result;
 }
 function setRipped($RippedRequestArray)
 {
