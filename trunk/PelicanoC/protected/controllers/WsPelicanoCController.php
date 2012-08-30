@@ -62,16 +62,17 @@ class WsPelicanoCController extends Controller
 	* Log task or error
 	* @param string username
 	* @param string description
+	* @param integer log_type
 	* @return boolean result
 	* @soap
 	*/
-	public function log($username, $description)
+	public function log($username, $description, $log_type)
 	{
 		$model = new Log();
 		
 		$model->username = $username;
 		$model->description = $description;
-		
+		$model->Id_log_type = $log_type;
 	
 		$result = false;
 		if($model->save())
