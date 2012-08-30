@@ -172,15 +172,15 @@
 	 <div class="rip-layout-footer" >
 	 
 		<div class="mpaa-box" >
-		 	<div>
-				<img alt="mpaa" src="images/mpaa_logo.gif" style="width:200px">
+		 	<div>				
+				<?php 
+				echo CHtml::image("images/".$model->myMovie->parentalControl->img_url,"",array('style'=>'width:90%'));
+				?>
 			</div>
-			<div>
+			<div align="center">
 			<?php 
 				if(!empty($model->myMovie->parental_rating_desc))
 					echo $model->myMovie->parental_rating_desc;
-				else
-					echo "Unrated";
 			?>
 			</div>
 		</div>
