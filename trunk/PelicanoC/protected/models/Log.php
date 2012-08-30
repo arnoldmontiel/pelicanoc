@@ -8,6 +8,7 @@
  * @property string $username
  * @property string $log_date
  * @property string $description
+ * @property integer $was_sent
  */
 class Log extends CActiveRecord
 {
@@ -37,11 +38,12 @@ class Log extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('was_sent', 'numerical', 'integerOnly'=>true),
 			array('username', 'length', 'max'=>45),
 			array('log_date, description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, username, log_date, description', 'safe', 'on'=>'search'),
+			array('Id, username, log_date, description, was_sent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +68,7 @@ class Log extends CActiveRecord
 			'username' => 'Username',
 			'log_date' => 'Log Date',
 			'description' => 'Description',
+			'was_sent' => 'Was Sent',
 		);
 	}
 
@@ -84,6 +87,7 @@ class Log extends CActiveRecord
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('log_date',$this->log_date,true);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('was_sent',$this->was_sent);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

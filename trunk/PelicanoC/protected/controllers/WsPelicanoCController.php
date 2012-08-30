@@ -59,6 +59,30 @@ class WsPelicanoCController extends Controller
 	}
 	
 	/**
+	* Log task or error
+	* @param string username
+	* @param string description
+	* @return boolean result
+	* @soap
+	*/
+	public function log($username, $description)
+	{
+		$model = new Log();
+		
+		$model->username = $username;
+		$model->description = $description;
+		
+	
+		$result = false;
+		if($model->save())
+		{
+			$result = true;
+		}
+	
+		return $result;
+	}
+	
+	/**
 	* Returns true if mymovieId is already ripped
 	* @param string idMyMovie
 	* @return boolean alreadyRipped
