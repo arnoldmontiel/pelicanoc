@@ -103,6 +103,10 @@ class LoadDiscTitleById
 				
 				$modelMyMovie->parental_rating_desc = (!empty($data->ParentalRating)?(string)$data->ParentalRating->Description:"");
 				
+				$modelMyMovie->Id_parental_control = $this->getParentalControlId($data);
+				
+				$modelMyMovie->adult = $this->getAdult($data);
+				
 				$modelMyMovie->imdb = (string)$data->IMDB;
 				$modelMyMovie->rating = (string)$data->Rating;
 				$modelMyMovie->data_changed = (string)$data->DataChanged;
@@ -138,6 +142,10 @@ class LoadDiscTitleById
 						// an error happened
 					}
 				}
+				else
+				{
+					$modelMyMovie->poster = 'no_poster.jpg';
+				}
 				
 				//Backdrop
 				$modelMyMovie->backdrop_original = $this->getBackdrop($data->MovieData);
@@ -160,10 +168,11 @@ class LoadDiscTitleById
 				}
 				
 				
-				$modelMyMovie->save();
-				
-				$this->saveAudioTrack($data);
-				$this->saveSubtitle($data);
+				if($modelMyMovie->save())
+				{
+					$this->saveAudioTrack($data);
+					$this->saveSubtitle($data);
+				}
 			}
 			$idImdb = (string)$data->IMDB;
 		}
@@ -193,6 +202,31 @@ class LoadDiscTitleById
 		
 		}
 		return "";
+	}
+	
+	private function getParentalControlId($xml)
+	{
+		if(!empty($xml->ParentalRating))
+		{
+			$model = ParentalControl::model()->findByAttributes(array('value'=>$xml->ParentalRating->Value));
+			
+			if(isset($model))
+			{
+				return $model->Id;
+			}
+	
+		}
+		return 1;
+	}
+	
+	private function getAdult($xml)
+	{
+		if(!empty($xml->ParentalRating))
+		{
+			if($xml->ParentalRating['Adult'] == 'True')
+				return 1;
+		}
+		return 0;
 	}
 	
 	private function getPoster($xml)
