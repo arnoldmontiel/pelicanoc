@@ -22,6 +22,7 @@ class RippedResponse
 class RippedRequest extends SOAP2Arrya
 {
 	public $Id_customer; //integer;
+	public $ripped_date; //date;
 	public $Id_my_movie; //string;
 	public $type; //string;
 	public $bar_code; //string;
