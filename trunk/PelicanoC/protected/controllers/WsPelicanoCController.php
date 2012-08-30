@@ -28,8 +28,8 @@ class WsPelicanoCController extends Controller
 	 * Returns add new rip movie
 	 * @param string idMyMovie
 	 * @param string path
-	 * @param integer parental_control
-	 * @return string idMyMovie
+	 * @param boolean parental_control
+	 * @return boolean result
 	 * @soap
 	 */
 	public function addNewRipMovie($idMyMovie, $path, $parental_control)
@@ -49,12 +49,13 @@ class WsPelicanoCController extends Controller
  		$myMoviesAPI = new MyMoviesAPI();		
 		$idImdb = $myMoviesAPI->LoadDiscTitleById($idMyMovie);
 		
+		$result = false;
 		if(!empty($idImdb))
 		{
-			$this->saveRippedMovie($idImdb, $path, $idMyMovie, $parental_control);
+			$result = $this->saveRippedMovie($idImdb, $path, $idMyMovie, $parental_control);
 		}
 		
-		return $idMyMovie;
+		return $result;
 	}
 	
 	/**
@@ -122,45 +123,45 @@ class WsPelicanoCController extends Controller
 					$modelImdbdata->Response = $data->Response;
 					$modelImdbdata->Poster_original = $data->Poster;
 		
-					$validator = new CUrlValidator();
-					$setting = Setting::getInstance();
+// 					$validator = new CUrlValidator();
+// 					$setting = Setting::getInstance();
 		
-					if($data->Poster!='' && $validator->validateValue($data->Poster))
-					{
-						try {
-							$content = @file_get_contents($data->Poster);
-							if ($content !== false) {
-								$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
-								fwrite($file,$content);
-								fclose($file);
-								$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
-							} else {
-								// an error happened
-							}
-						} catch (Exception $e) {
-							throw $e;
-							// an error happened
-						}
-					}
+// 					if($data->Poster!='' && $validator->validateValue($data->Poster))
+// 					{
+// 						try {
+// 							$content = @file_get_contents($data->Poster);
+// 							if ($content !== false) {
+// 								$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
+// 								fwrite($file,$content);
+// 								fclose($file);
+// 								$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
+// 							} else {
+// 								// an error happened
+// 							}
+// 						} catch (Exception $e) {
+// 							throw $e;
+// 							// an error happened
+// 						}
+// 					}
 		
-					$modelImdbdata->Backdrop_original = $this->getBackDropUrl($idImdb);
-					if($modelImdbdata->Backdrop_original!='' && $validator->validateValue($modelImdbdata->Backdrop_original))
-					{
-						try {
-							$content = @file_get_contents($modelImdbdata->Backdrop_original);
-							if ($content !== false) {
-								$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
-								fwrite($file,$content);
-								fclose($file);
-								$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
-							} else {
-								// an error happened
-							}
-						} catch (Exception $e) {
-							throw $e;
-							// an error happened
-						}
-					}
+// 					$modelImdbdata->Backdrop_original = $this->getBackDropUrl($idImdb);
+// 					if($modelImdbdata->Backdrop_original!='' && $validator->validateValue($modelImdbdata->Backdrop_original))
+// 					{
+// 						try {
+// 							$content = @file_get_contents($modelImdbdata->Backdrop_original);
+// 							if ($content !== false) {
+// 								$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
+// 								fwrite($file,$content);
+// 								fclose($file);
+// 								$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
+// 							} else {
+// 								// an error happened
+// 							}
+// 						} catch (Exception $e) {
+// 							throw $e;
+// 							// an error happened
+// 						}
+// 					}
 		
 					$modelImdbdata->save();
 				}
@@ -169,15 +170,17 @@ class WsPelicanoCController extends Controller
 				$modelRippedMovie->Id_imdbdata = $idImdb;
 				$modelRippedMovie->path = $path;
 				$modelRippedMovie->Id_my_movie = $idMyMovie;
-				$modelRippedMovie->parental_control = $parental_control;
+				$modelRippedMovie->parental_control = (int)$parental_control;
 				$modelRippedMovie->save();							
 				
 				$transaction->commit();
-				
+				return true;
 			} catch (Exception $e) {
 				$transaction->rollback();
+				return false;
 			}
 		}
+		return false;
 	}
 	
 	//for backdrop image
