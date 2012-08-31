@@ -215,8 +215,15 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 		
-		if(User::isUnderParentalControl())
-			$criteria->addCondition('parental_control = 0','AND');
+		//	$criteria->addCondition('parental_control = 0','AND');
+		if(!User::isAdult())
+		{
+			$criteria->with[]="myMovie";
+			$criteria->compare('myMovie.Id_parental_control',9,true,"<>");
+			$criteria->compare('myMovie.Id_parental_control',8,true,"<>");
+			$criteria->compare('myMovie.Id_parental_control',7,true,"<>");
+				
+		}
 		
 		$criteria->order = "t.creation_date DESC";
 		
@@ -242,9 +249,15 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
 		
 		
-		if(User::isUnderParentalControl())
-			$criteria->addCondition('parental_control = 0','AND');
-		
+		if(!User::isAdult())
+		{
+			$criteria->with[]="myMovie";
+			$criteria->compare('myMovie.Id_parental_control',9,true,"<>");
+			$criteria->compare('myMovie.Id_parental_control',8,true,"<>");
+			$criteria->compare('myMovie.Id_parental_control',7,true,"<>");
+				
+		}
+				
 		$criteria->order = "t.creation_date DESC";
 	
 	

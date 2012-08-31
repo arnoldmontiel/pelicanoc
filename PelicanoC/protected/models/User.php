@@ -8,7 +8,7 @@
  * @property string $password
  * @property string $email
  * @property integer $Id_customer
- * @property integer $under_parental_control
+ * @property integer $adult_section
  *
  * The followings are the available model relations:
  * @property Customer $idCustomer
@@ -33,10 +33,10 @@ class User extends CActiveRecord
 	* @return User the static model class
 	*/
 	
-	public static function isUnderParentalControl()
+	public static function isAdult()
 	{
 		$user = User::model()->findByPk(Yii::app()->user->Id);
-		return $user->under_parental_control;
+		return $user->adult_section;
 	}
 	
 	public static function getCurrentUser()
@@ -65,11 +65,11 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, password, email, Id_customer', 'required'),
-			array('Id_customer, under_parental_control', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, adult_section', 'numerical', 'integerOnly'=>true),
 			array('username, password, email', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('username, password, email, Id_customer, under_parental_control', 'safe', 'on'=>'search'),
+			array('username, password, email, Id_customer, adult_section', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,7 +95,7 @@ class User extends CActiveRecord
 			'password' => 'Password',
 			'email' => 'Email',
 			'Id_customer' => 'Id Customer',
-			'under_parental_control' => 'Under Parental Control',
+			'adult_section' => 'Adult Section',
 		);
 	}
 
@@ -122,7 +122,7 @@ class User extends CActiveRecord
 							$modelDB->username = $user->username;
 							$modelDB->password = $user->password;
 							$modelDB->email = $user->email;
-							$modelDB->under_parental_control = $user->parental_control;
+							$modelDB->adult_section = $user->adult_section;
 							$modelDB->save();
 						}
 						else
@@ -139,7 +139,7 @@ class User extends CActiveRecord
 							$model->password = $user->password;
 							$model->email = $user->email;
 							$model->Id_customer = $idCustomer;
-							$model->under_parental_control = $user->parental_control;						
+							$model->adult_section = $user->adult_section;						
 							$model->save();
 							
 							$assDB = Assignments::model()->findByAttributes(array('userid'=>$user->username));
@@ -183,7 +183,7 @@ class User extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('Id_customer',$this->Id_customer);
-		$criteria->compare('under_parental_control',$this->under_parental_control);
+		$criteria->compare('adult_section',$this->adult_section);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
