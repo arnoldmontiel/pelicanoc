@@ -51,6 +51,10 @@ class Customer extends CActiveRecord
 				$model->last_name = $last_name;
 				//$model->address = $address;
 				$model->save();
+				
+				$setting = Setting::getInstance();
+				$setting->Id_customer = $CustomerResponse;
+				$setting->save();
 			}
 			
 		}	
