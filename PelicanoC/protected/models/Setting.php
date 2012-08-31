@@ -44,7 +44,7 @@ class Setting extends CActiveRecord
 	}
 	public function getId_Customer()
 	{
-		return $this->_customer->Id;		
+		return $this->Id_customer;		
 	}
 	public function getCustomer()
 	{

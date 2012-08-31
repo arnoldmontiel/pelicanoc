@@ -104,8 +104,10 @@ class User extends CActiveRecord
 		$requests = array();
 		$pelicanoCliente = new Pelicano;
 		$idCustomer = null;
-		$modelUser = User::getCurrentUser();
-		$idCustomer = (isset($modelUser))?$modelUser->Id_customer:null; 
+		
+		$setting = Setting::getInstance();
+		$idCustomer = $setting->getId_Customer();
+		
 		
 		if(isset($idCustomer))
 		{
@@ -123,6 +125,7 @@ class User extends CActiveRecord
 							$modelDB->password = $user->password;
 							$modelDB->email = $user->email;
 							$modelDB->adult_section = $user->adult_section;
+							$modelDB->birth_date = $user->birth_date;
 							$modelDB->save();
 						}
 						else
@@ -140,6 +143,7 @@ class User extends CActiveRecord
 							$model->email = $user->email;
 							$model->Id_customer = $idCustomer;
 							$model->adult_section = $user->adult_section;						
+							$model->birth_date = $user->birth_date;
 							$model->save();
 							
 							$assDB = Assignments::model()->findByAttributes(array('userid'=>$user->username));
@@ -158,7 +162,8 @@ class User extends CActiveRecord
 					
 				$request= new UserStateRequest;
 				$request->username = $user->username;
-				$request->password =$user->passowrd;
+				$request->password =$user->password;
+				$request->Id_customer =$idCustomer;
 				$request->email =$user->email;
 					
 				$requests[]=$request;

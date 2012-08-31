@@ -113,17 +113,20 @@ class UserResponse
 	public $username; //string;
 	public $password; //string;
 	public $email; //string;
-	public $parental_control; //integer;
+	public $adult_section; //integer;
 	public $deleted; //integer;
+	public $birth_date; //date;
 }
 
 class UserStateRequest extends SOAP2Arrya
 {
 	public $username; //string;
+	public $Id_customer; //integer;
 	public $password; //string;
 	public $email; //string;
-	public $parental_control; //integer;
+	public $adult_section; //integer;
 	public $deleted; //integer;
+	public $birth_date; //date;
 }
 
 class SerieResponse
