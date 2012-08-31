@@ -216,13 +216,10 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('creation_date',$this->creation_date,true);
 		
 		//	$criteria->addCondition('parental_control = 0','AND');
-		if(!User::isAdult())
-		{
-			$criteria->with[]="myMovie";
-			$criteria->addCondition('myMovie.Id_parental_control<>9');
-			$criteria->addCondition('myMovie.Id_parental_control<>8');
-			$criteria->addCondition('myMovie.Id_parental_control<>7');							
-		}
+		$criteria->with[]="myMovie";
+		$criteria->addCondition('myMovie.Id_parental_control<>9');
+		$criteria->addCondition('myMovie.Id_parental_control<>8');
+		$criteria->addCondition('myMovie.Id_parental_control<>7');							
 		
 		$criteria->order = "t.creation_date DESC";
 		
@@ -230,6 +227,32 @@ class RippedMovie extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function searchAdult()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('path',$this->path,true);
+		$criteria->compare('Id_imdbdata',$this->Id_imdbdata,true);
+		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
+		$criteria->compare('creation_date',$this->creation_date,true);
+	
+		$criteria->with[]="myMovie";
+		$criteria->addCondition('myMovie.Id_parental_control=9');
+		$criteria->addCondition('myMovie.Id_parental_control=8');
+		$criteria->addCondition('myMovie.Id_parental_control=7');
+	
+		$criteria->order = "t.creation_date DESC";
+	
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+		));
+	}
+	
 	
 	public function searchOn($expresion)
 	{
@@ -248,20 +271,45 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
 		
 		
-		if(!User::isAdult())
-		{
-			$criteria->with[]="myMovie";
-			$criteria->addCondition('myMovie.Id_parental_control<>9');
-			$criteria->addCondition('myMovie.Id_parental_control<>8');
-			$criteria->addCondition('myMovie.Id_parental_control<>7');
-				
-		}
-				
+		$criteria->with[]="myMovie";
+		$criteria->addCondition('myMovie.Id_parental_control<>9');
+		$criteria->addCondition('myMovie.Id_parental_control<>8');
+		$criteria->addCondition('myMovie.Id_parental_control<>7');
+								
 		$criteria->order = "t.creation_date DESC";
 	
 	
 		return new CActiveDataProvider($this, array(
 								'criteria'=>$criteria,
+		));
+	}
+	public function searchAdultOn($expresion)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->with[]='imdbdata';
+		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Director',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Year',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
+		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
+	
+	
+		$criteria->with[]="myMovie";
+		$criteria->addCondition('myMovie.Id_parental_control=9');
+		$criteria->addCondition('myMovie.Id_parental_control=8');
+		$criteria->addCondition('myMovie.Id_parental_control=7');
+			
+		$criteria->order = "t.creation_date DESC";
+	
+	
+		return new CActiveDataProvider($this, array(
+									'criteria'=>$criteria,
 		));
 	}
 }
