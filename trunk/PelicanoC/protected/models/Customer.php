@@ -32,6 +32,30 @@ class Customer extends CActiveRecord
 		return 'customer';
 	}
 
+	public static function createCustomer($name, $last_name, $address)
+	{
+		if(!Customer::model()->count()>0)
+		{
+			$pelicanoCliente = new Pelicano;	
+			$request= new CustomerRequest;
+			$request->name = $name;
+			$request->last_name = $last_name;
+			$request->address = $address;
+			$CustomerResponse = $pelicanoCliente->setCustomer($request);
+			
+			if($CustomerResponse != 0)
+			{
+				$model = new Customer();
+				$model->Id = $CustomerResponse;
+				$model->name = $name;
+				$model->last_name = $last_name;
+				$model->address = $address;
+				$model->save();
+			}
+			
+		}	
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */

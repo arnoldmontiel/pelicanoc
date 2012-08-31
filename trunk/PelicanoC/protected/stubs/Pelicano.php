@@ -13,6 +13,13 @@ class SOAP2Arrya
 	}
 }
 
+class LogRequest
+{
+	public $name; //string;
+	public $last_name; //string;
+	public $address; //string;
+}
+
 class LogResponse
 {
 	public $Id_log_customer; //integer;
@@ -247,6 +254,15 @@ function getNewSeries($integer)
 		$SerieResponseArray = $this->soapClient->getNewSeries($integer);
 	}
 	return $SerieResponseArray;
+}
+function setCustomer($CustomerRequest)
+{
+	$result = false;
+	if(isset($this->soapClient))
+	{
+		$result = $this->soapClient->setLog($CustomerRequest);
+	}
+	return $result;
 }
 function setLog($LogRequestArray)
 {
