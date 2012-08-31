@@ -140,7 +140,26 @@ class RippedMovieController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
-
+	
+	public function actionIndexAdult()
+	{
+		$dataProvider=new CActiveDataProvider('RippedMovie');
+	
+		$model = new RippedMovie();
+		$dataProvider= $model->searchAdult();
+		$dataProvider->pagination->pageSize= 12;
+	
+		if(isset($_GET['searchFilter']))
+		{
+			$expression=trim($_GET['searchFilter']);
+			$dataProvider= $model->searchAdultOn($expresion);
+		}
+	
+		$this->render('indexAdult',array(
+				'dataProvider'=>$dataProvider,
+		));
+	}
+	
 	/**
 	 * Manages all models.
 	 */
