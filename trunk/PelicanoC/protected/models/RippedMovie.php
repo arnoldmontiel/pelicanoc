@@ -301,10 +301,10 @@ class RippedMovie extends CActiveRecord
 	
 	
 		$criteria->with[]="myMovie";
-		$criteria->addCondition('myMovie.Id_parental_control=9');
-		$criteria->addCondition('myMovie.Id_parental_control=8');
-		$criteria->addCondition('myMovie.Id_parental_control=7');
-			
+		$criteria->addCondition('myMovie.Id_parental_control=9','OR');
+		$criteria->addCondition('myMovie.Id_parental_control=8','OR');
+		$criteria->addCondition('myMovie.Id_parental_control=7','OR');
+					
 		$criteria->order = "t.creation_date DESC";
 	
 	
