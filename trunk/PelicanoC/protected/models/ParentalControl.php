@@ -8,6 +8,7 @@
  * @property integer $value
  * @property string $description
  * @property string $img_url
+ * @property integer $age
  *
  * The followings are the available model relations:
  * @property MyMovie[] $myMovies
@@ -40,12 +41,12 @@ class ParentalControl extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('value', 'numerical', 'integerOnly'=>true),
+			array('value, age', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>45),
 			array('img_url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, value, description, img_url', 'safe', 'on'=>'search'),
+			array('Id, value, description, img_url, age', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +72,7 @@ class ParentalControl extends CActiveRecord
 			'value' => 'Value',
 			'description' => 'Description',
 			'img_url' => 'Img Url',
+			'age' => 'Age',
 		);
 	}
 
@@ -89,6 +91,7 @@ class ParentalControl extends CActiveRecord
 		$criteria->compare('value',$this->value);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('img_url',$this->img_url,true);
+		$criteria->compare('age',$this->age);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
