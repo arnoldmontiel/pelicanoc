@@ -219,10 +219,9 @@ class RippedMovie extends CActiveRecord
 		if(!User::isAdult())
 		{
 			$criteria->with[]="myMovie";
-			$criteria->compare('myMovie.Id_parental_control',9,true,"<>");
-			$criteria->compare('myMovie.Id_parental_control',8,true,"<>");
-			$criteria->compare('myMovie.Id_parental_control',7,true,"<>");
-				
+			$criteria->addCondition('myMovie.Id_parental_control<>9');
+			$criteria->addCondition('myMovie.Id_parental_control<>8');
+			$criteria->addCondition('myMovie.Id_parental_control<>7');							
 		}
 		
 		$criteria->order = "t.creation_date DESC";
