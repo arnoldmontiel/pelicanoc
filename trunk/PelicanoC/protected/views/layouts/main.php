@@ -94,7 +94,7 @@
 			echo CHtml::link( CHtml::image("images/stored.png",'movies',array('id'=>'stored_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/imdbdata/stored'));
 		}
-		if(Yii::app()->user->checkAccess('NzbRequested'))
+		if(false && Yii::app()->user->checkAccess('NzbRequested'))
 		{
 			echo CHtml::link( CHtml::image("images/cart.png",'movies',array('id'=>'cart_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/nzb/requested'));
@@ -103,6 +103,11 @@
 		{
 			echo CHtml::link( CHtml::image("images/ripped-bluray.png",'movies',array('id'=>'ripped_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/rippedMovie/index'));
+		}
+		if(Yii::app()->user->checkAccess('RippedMovieIndexAdult'))
+		{
+			echo CHtml::link( CHtml::image("images/ripped-bluray-adult.png",'movies',array('id'=>'ripped_adult_button', 'style'=>'height: 128px;width: 128px;')
+			),array('/rippedMovie/indexAdult'));
 		}
 		echo CHtml::link( CHtml::image("images/logout.png",'movies',array('id'=>'logout_button', 'style'=>'height: 128px;width: 128px;float:right;')
 		),array('/site/logout'));
@@ -202,6 +207,14 @@
 			  },
 			  function () {
 				$(this).attr('src','images/ripped-bluray.png');
+			  }
+			);
+			$('#ripped_adult_button').hover(
+			function () {
+				$(this).attr('src','images/ripped-bluray-adult-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/ripped-bluray-adult.png');
 			  }
 			);
 			$('#logout_button').hover(
