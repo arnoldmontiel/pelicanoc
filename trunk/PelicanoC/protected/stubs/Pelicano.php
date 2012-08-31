@@ -13,7 +13,7 @@ class SOAP2Arrya
 	}
 }
 
-class LogRequest
+class CustomerRequest
 {
 	public $name; //string;
 	public $last_name; //string;
@@ -260,7 +260,7 @@ function setCustomer($CustomerRequest)
 	$result = false;
 	if(isset($this->soapClient))
 	{
-		$result = $this->soapClient->setLog($CustomerRequest);
+		$result = $this->soapClient->setCustomer($CustomerRequest);
 	}
 	return $result;
 }
