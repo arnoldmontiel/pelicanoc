@@ -49,7 +49,7 @@ class Customer extends CActiveRecord
 				$model->Id = $CustomerResponse;
 				$model->name = $name;
 				$model->last_name = $last_name;
-				$model->address = $address;
+				//$model->address = $address;
 				$model->save();
 			}
 			
