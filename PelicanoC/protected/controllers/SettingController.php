@@ -78,11 +78,15 @@ class SettingController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		if (isset($_POST['cancel'])) {
+			$this->redirect(array('index'));
+		}
+		
 		if(isset($_POST['Setting']))
 		{
 			$model->attributes=$_POST['Setting'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+				$this->redirect(array('index'));
 		}
 
 		$this->render('update',array(
