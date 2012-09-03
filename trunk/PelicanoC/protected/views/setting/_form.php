@@ -16,12 +16,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Id_customer'); ?>
-		<?php echo $form->textField($model,'Id_customer'); ?>
-		<?php echo $form->error($model,'Id_customer'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'sabnzb_api_key'); ?>
 		<?php echo $form->textField($model,'sabnzb_api_key',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'sabnzb_api_key'); ?>
@@ -65,6 +59,7 @@
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Cancel',array('name'=>'cancel')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

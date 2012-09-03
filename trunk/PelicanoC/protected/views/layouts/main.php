@@ -109,6 +109,11 @@
 			echo CHtml::link( CHtml::image("images/ripped-bluray-adult.png",'movies',array('id'=>'ripped_adult_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/rippedMovie/indexAdult'));
 		}
+		if(Yii::app()->user->checkAccess('CustomerIndex'))
+		{
+			echo CHtml::link( CHtml::image("images/install.png",'movies',array('id'=>'install_button', 'style'=>'height: 128px;width: 128px;')
+			),array('/site/index'));
+		}
 		echo CHtml::link( CHtml::image("images/logout.png",'movies',array('id'=>'logout_button', 'style'=>'height: 128px;width: 128px;float:right;')
 		),array('/site/logout'));
 		?>				
@@ -225,7 +230,14 @@
 				$(this).attr('src','images/logout.png');
 			  }
 			);
-		
+			$('#install_button').hover(
+			function () {
+				$(this).attr('src','images/install-light.png');
+			  },
+			  function () {
+				$(this).attr('src','images/install.png');
+			  }
+			);
 			$('#site_prev').hover(
 			function () {
 				$(this).attr('src','images/back-black-light.png');
