@@ -9,6 +9,8 @@
  * @property string $last_name
  * @property integer $current_points
  * @property string $address
+ * @property string $adult_password
+ * @property string $parental_password
  *
  * The followings are the available model relations:
  * @property Nzb[] $nzbs
@@ -97,7 +99,7 @@ class Customer extends CActiveRecord
 		return array(
 			array('name, last_name', 'required'),
 			array('Id, current_points', 'numerical', 'integerOnly'=>true),
-			array('name, last_name', 'length', 'max'=>45),
+			array('name, last_name,adult_password,parental_password', 'length', 'max'=>45),
 			array('address', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -127,7 +129,9 @@ class Customer extends CActiveRecord
 			'name' => 'Name',
 			'last_name' => 'Last Name',
 			'username' => 'Username',
-			'current_points' => 'Username','Current Points',
+			'current_points' =>'Current Points',
+			'adult_password'=> 'Adult Password',
+			'parental_password'=> 'Parental Password',
 			'address' => 'Address',
 		);
 	}
