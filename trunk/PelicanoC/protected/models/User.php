@@ -9,6 +9,7 @@
  * @property string $email
  * @property integer $Id_customer
  * @property integer $adult_section
+ * @property string $birth_date
  *
  * The followings are the available model relations:
  * @property Customer $idCustomer
@@ -64,12 +65,13 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email, Id_customer', 'required'),
+			array('username, password, email ', 'required'),
 			array('Id_customer, adult_section', 'numerical', 'integerOnly'=>true),
 			array('username, password, email', 'length', 'max'=>128),
+			array('birth_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('username, password, email, Id_customer, adult_section', 'safe', 'on'=>'search'),
+			array('username, password, email, Id_customer, adult_section, birth_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,6 +98,7 @@ class User extends CActiveRecord
 			'email' => 'Email',
 			'Id_customer' => 'Id Customer',
 			'adult_section' => 'Adult Section',
+			'birth_date' => 'Birth Date',
 		);
 	}
 

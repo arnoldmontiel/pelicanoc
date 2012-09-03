@@ -8,6 +8,7 @@
  * @property string $name
  * @property string $last_name
  * @property integer $current_points
+ * @property string $address
  *
  * The followings are the available model relations:
  * @property Nzb[] $nzbs
@@ -57,7 +58,7 @@ class Customer extends CActiveRecord
 				$setting->save();
 			}
 			
-		}	
+		}
 	}
 	
 	/**
@@ -71,9 +72,10 @@ class Customer extends CActiveRecord
 			array('Id', 'required'),
 			array('Id, current_points', 'numerical', 'integerOnly'=>true),
 			array('name, last_name', 'length', 'max'=>45),
+			array('address', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, name, last_name, current_points', 'safe', 'on'=>'search'),
+			array('Id, name, last_name, current_points, address', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +102,7 @@ class Customer extends CActiveRecord
 			'last_name' => 'Last Name',
 			'username' => 'Username',
 			'current_points' => 'Username','Current Points',
+			'address' => 'Address',
 		);
 	}
 
@@ -118,6 +121,7 @@ class Customer extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('current_points',$this->current_points);
+		$criteria->compare('address',$this->address,true);
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
