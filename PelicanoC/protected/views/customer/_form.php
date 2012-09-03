@@ -9,20 +9,6 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'Id'); ?>
-		<?php echo $form->textField($model,'Id'); ?>
-		<?php echo $form->error($model,'Id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-
-		<?php $usernames = CHtml::listData($ddlUsername, 'username', 'username');?>
-		<?php echo $form->dropDownList($model, 'username', $usernames); 
-		?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
@@ -36,10 +22,17 @@
 		<?php echo $form->error($model,'last_name'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'address'); ?>
+		<?php echo $form->textField($model,'address',array('size'=>45,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'address'); ?>
+	</div>
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Cancel',array('name'=>'cancel')); ?>
 	</div>
-
+		
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

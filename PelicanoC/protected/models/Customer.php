@@ -33,32 +33,58 @@ class Customer extends CActiveRecord
 		return 'customer';
 	}
 
-	public static function createCustomer($name, $last_name, $address)
+	public static function createCustomer($model)
 	{
 		if(!Customer::model()->count()>0)
 		{
 			$pelicanoCliente = new Pelicano;	
 			$request= new CustomerRequest;
-			$request->name = $name;
-			$request->last_name = $last_name;
-			$request->address = $address;
+			$request->name = $model->name;
+			$request->last_name = $model->last_name;
+			$request->address = $model->address;
 			$CustomerResponse = $pelicanoCliente->setCustomer($request);
 			
 			if($CustomerResponse != 0)
 			{
-				$model = new Customer();
-				$model->Id = $CustomerResponse;
-				$model->name = $name;
-				$model->last_name = $last_name;
-				//$model->address = $address;
-				$model->save();
+				$modelCustomer = new Customer();
+				$modelCustomer->Id = $CustomerResponse;
+				$modelCustomer->name = $model->name;
+				$modelCustomer->last_name = $model->last_name;
+				$modelCustomer->address = $model->address;
+				$modelCustomer->save();
 				
 				$setting = Setting::getInstance();
 				$setting->Id_customer = $CustomerResponse;
 				$setting->save();
+				return true;
 			}
 			
 		}
+		return false;
+	}
+	
+	public static function updateCustomer($model)
+	{
+		$modelCustomer = Customer::model()->findByPk($model->Id);
+		if($modelCustomer)
+		{
+			$pelicanoCliente = new Pelicano;
+			$request= new CustomerRequest;
+			$request->Id = $model->Id;
+			$request->name = $model->name;
+			$request->last_name = $model->last_name;
+			$request->address = $model->address;
+			$CustomerResponse = $pelicanoCliente->updateCustomer($request);
+				
+			if($CustomerResponse != 0)
+			{
+				$modelCustomer->attributes = $model->attributes;
+				$modelCustomer->save();
+				return true;
+			}
+				
+		}
+		return false;
 	}
 	
 	/**
@@ -69,7 +95,7 @@ class Customer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id', 'required'),
+			array('name, last_name', 'required'),
 			array('Id, current_points', 'numerical', 'integerOnly'=>true),
 			array('name, last_name', 'length', 'max'=>45),
 			array('address', 'length', 'max'=>100),

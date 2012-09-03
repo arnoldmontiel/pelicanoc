@@ -15,6 +15,7 @@ class SOAP2Arrya
 
 class CustomerRequest
 {
+	public $Id; //integer;
 	public $name; //string;
 	public $last_name; //string;
 	public $address; //string;
@@ -257,6 +258,15 @@ function getNewSeries($integer)
 		$SerieResponseArray = $this->soapClient->getNewSeries($integer);
 	}
 	return $SerieResponseArray;
+}
+function updateCustomer($CustomerRequest)
+{
+	$result = false;
+	if(isset($this->soapClient))
+	{
+		$result = $this->soapClient->updateCustomer($CustomerRequest);
+	}
+	return $result;
 }
 function setCustomer($CustomerRequest)
 {
