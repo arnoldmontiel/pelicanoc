@@ -30,15 +30,40 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		//PelicanoHelper::UpdatePoints();
-  	//$ws = new wsPelicanoC();
-// 	  	$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","lalaooo");
-//		$ws->addNewRipMovie("8377d7ee-1f68-43ea-a740-001eb6cbed72","lalaooo");
-// 		$ws->addNewRipMovie("cb902e53-9b4f-4e2c-8187-910c817ac336","lalaooo");
-//		$ws->addNewRipMovie("f38c7448-07fe-467d-a1c8-00393cd54b1f","lalaooo");
-// 		$ws->addNewRipMovie("67df0d13-366a-4e65-b6c7-00b0fcb21b8b","lalaooo");
+			
+//      $ws = new wsPelicanoC();
+//   	$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","el cadaver de la novia",true);
+//     	$ws->addNewRipMovie("8377d7ee-1f68-43ea-a740-001eb6cbed72","ice age 3",false);
+//     	$ws->addNewRipMovie("cb902e53-9b4f-4e2c-8187-910c817ac336","advengers",false);
+//  	$ws->addNewRipMovie("f38c7448-07fe-467d-a1c8-00393cd54b1f","kung fu",false);
+//   	$ws->addNewRipMovie("67df0d13-366a-4e65-b6c7-00b0fcb21b8b","linterna",true);
+// 		$ws->addNewRipMovie("bcf5cb96-73bc-4ed8-b35b-66aac2d8d693","invencible",true);
+// 		$ws->addNewRipMovie("96d0a3ca-0f91-403e-be30-68e06f3dce22","el gran truco",false);
+// 		$ws->addNewRipMovie("ddced0ce-2be8-4c30-ac42-13857f5899c5","el regreso del jedi",true);
+// 		$ws->addNewRipMovie("cc2d91ad-0b71-4474-8755-e585a60258ed","kill bill 1",true);
+// 		$ws->addNewRipMovie("edce9e7c-2012-4858-87f5-0ff79dc464bb","The bourn ultimatun",true);
+//      $ws->addNewRipMovie("924b84f3-9e31-49bb-a285-0cb8b19c68c6","Harry Potter",false);
+//      $ws->addNewRipMovie("f1f1a24c-cbb4-49c7-8b56-03260add9cc1","Gran Pez",false);
+//  		$ws->addNewRipMovie("47454617-24ee-4e1b-b2c7-03f909adc1a1","Inception",false);
+//      $ws->addNewRipMovie("a2d49a38-6c90-45ef-bf7e-d6c0b2efe7a6","Batman XXX",true);
+//      $ws->addNewRipMovie("096f0252-90f0-4e5b-b37d-0abdc907084e","Piratas XXX",true);
+
+//   		Customer::createCustomer('Pepe', 'Pompin', 'Almafuerte 2361');
 		
-// 		$mymo = new MyMovies();
+// 		Log::saveLog("segunda prueba", 2);
+// 		Log::sendLog();
+		
+//   		$hola = new MyMoviesAPI();
+//  		$hola->LoadDiscTitleById("96d0a3ca-0f91-403e-be30-68e06f3dce22");
 // 		$hola = $mymo->LoadDiscTitleById("af39fbab-1b0c-4519-856e-09c2dff7198d");
+// 		$hola = $mymo->LoadDiscTitleById("bcf5cb96-73bc-4ed8-b35b-66aac2d8d693");
+// 	$hola->LoadDiscTitleById("a2d49a38-6c90-45ef-bf7e-d6c0b2efe7a6");
+	
+// 		$caca = new RippedMovie();
+// 		$caca->sincronizeWithServer();
+
+//    		$hola = new User();
+//    		$hola->sincronizeFromServer();
 		
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
