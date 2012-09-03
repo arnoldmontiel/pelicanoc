@@ -37,7 +37,12 @@
 )); ?>
 </div>
 <?php endif?>
-
+<?php if (Yii::app()->user->checkAccess('Installer')):
+	echo CHtml::link('Customer',array('/customer/index'));
+	echo '<br>';
+	echo CHtml::link('Settings',array('/setting/index'));
+?>
+<?php endif?>
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata_view', "
 ");

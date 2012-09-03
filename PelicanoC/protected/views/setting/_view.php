@@ -1,15 +1,7 @@
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->Id), array('view', 'id'=>$data->Id)); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('path_pending')); ?>:</b>
 	<?php echo CHtml::encode($data->path_pending); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Id_customer')); ?>:</b>
-	<?php echo CHtml::encode($data->Id_customer); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('sabnzb_api_key')); ?>:</b>
@@ -27,8 +19,7 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('path_ready')); ?>:</b>
 	<?php echo CHtml::encode($data->path_ready); ?>
 	<br />
-
-	<?php /*
+ 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('path_subtitle')); ?>:</b>
 	<?php echo CHtml::encode($data->path_subtitle); ?>
 	<br />
@@ -41,6 +32,8 @@
 	<?php echo CHtml::encode($data->path_shared); ?>
 	<br />
 
-	*/ ?>
-
 </div>
+
+<?php 
+echo CHtml::link('Update Setting Data',array('/setting/update','id'=>$data->Id));
+?>
