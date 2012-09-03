@@ -59,7 +59,7 @@
 	<?php if ($this->showMenu):?>
 	<div id="mainmenu">
 		<?php
-		if(Yii::app()->user->checkAccess('SiteIndex'))
+		if(Yii::app()->user->checkAccess('SiteIndex') && ! Yii::app()->user->checkAccess('Installer'))
 		{ 
 			echo CHtml::link( CHtml::image("images/home.png",'movies',array('id'=>'home_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/site/index'));
@@ -109,7 +109,7 @@
 			echo CHtml::link( CHtml::image("images/ripped-bluray-adult.png",'movies',array('id'=>'ripped_adult_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/rippedMovie/indexAdult'));
 		}
-		if(Yii::app()->user->checkAccess('CustomerIndex'))
+		if(Yii::app()->user->checkAccess('Installer'))
 		{
 			echo CHtml::link( CHtml::image("images/install.png",'movies',array('id'=>'install_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/site/index'));
