@@ -1,17 +1,19 @@
-<?php
-$this->breadcrumbs=array(
-	'Customers',
-);
 
-$this->menu=array(
-	array('label'=>'Create Customer', 'url'=>array('create')),
-	array('label'=>'Manage Customer', 'url'=>array('admin')),
-);
+<h1 style="color:white">Customer</h1>
+
+<?php 
+
+if($dataProvider->itemCount>0)
+{
+
+	$this->widget('zii.widgets.CListView', array(
+		'dataProvider'=>$dataProvider,
+		'itemView'=>'_view',
+		'summaryText'=>'',
+	)); 
+}
+else
+{
+	echo CHtml::link('Create Customer',array('/customer/create'));
+}
 ?>
-
-<h1>Customers</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
