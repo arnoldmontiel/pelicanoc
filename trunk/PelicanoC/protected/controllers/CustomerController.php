@@ -27,18 +27,6 @@ class CustomerController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
@@ -63,20 +51,25 @@ class CustomerController extends Controller
 	{
 		$model=new Customer;
 
-		$ddlUsername = User::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		if (isset($_POST['cancel'])) {
+			$this->redirect(array('index'));
+		}
+		
 		if(isset($_POST['Customer']))
 		{
 			$model->attributes=$_POST['Customer'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+			if($model->validate())
+			{
+				if(Customer::createCustomer($model))
+					$this->redirect(array('index'));
+			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
-			'ddlUsername'=>$ddlUsername,
 		));
 	}
 
@@ -89,20 +82,25 @@ class CustomerController extends Controller
 	{
 		$model=$this->loadModel($id);
 
-		$ddlUsername = User::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		if (isset($_POST['cancel'])) {
+			$this->redirect(array('index'));
+		}
+		
 		if(isset($_POST['Customer']))
 		{
 			$model->attributes=$_POST['Customer'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+			if($model->validate())
+			{
+				if(Customer::updateCustomer($model))
+					$this->redirect(array('index'));
+			}
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
-			'ddlUsername'=>$ddlUsername,
 		));
 	}
 
