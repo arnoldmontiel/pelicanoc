@@ -14,6 +14,8 @@
  * @property string $path_subtitle
  * @property string $path_images
  * @property string $path_shared
+ * @property string $host_path
+ * @property integer $Id_reseller
  *
  * The followings are the available model relations:
  * @property Player[] $players 
@@ -77,11 +79,11 @@ class Setting extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'numerical', 'integerOnly'=>true),
-			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name, path_ready, path_subtitle, path_images, path_shared', 'length', 'max'=>255),
+			array('Id_customer, Id_reseller', 'numerical', 'integerOnly'=>true),
+			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name, path_ready, path_subtitle, path_images, path_shared, host_path', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,host_name, path_ready, path_subtitle, path_images, path_shared', 'safe', 'on'=>'search'),
+			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,host_name, path_ready, path_subtitle, path_images, path_shared, host_path, Id_reseller', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -113,6 +115,8 @@ class Setting extends CActiveRecord
 			'path_subtitle' => 'Path Subtitle',
 			'path_images' => 'Path Images',
 			'path_shared' => 'Path Shared',
+			'host_path' => 'Host Path',
+			'Id_reseller' => 'Id Reseller',
 		);
 	}
 
@@ -137,6 +141,8 @@ class Setting extends CActiveRecord
 		$criteria->compare('path_subtitle',$this->path_subtitle,true);
 		$criteria->compare('path_images',$this->path_images,true);
 		$criteria->compare('path_shared',$this->path_shared,true);
+		$criteria->compare('host_path',$this->host_path,true);
+		$criteria->compare('Id_reseller',$this->Id_reseller);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

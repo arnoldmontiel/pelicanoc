@@ -66,6 +66,40 @@ class SettingController extends Controller
 		));
 	}
 
+	public function actionGetReseller()
+	{
+		$model=new User;
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if (isset($_POST['cancel'])) {
+			$this->redirect(array('/site/index'));
+		}
+		
+		if(isset($_POST['User']))
+		{
+			$model->attributes=$_POST['User'];
+			//if($model->save())
+			if($model->validate())
+			{
+				$pelicanoCliente = new Pelicano;
+				$IdReseller = $pelicanoCliente->getReseller($model->username, $model->password);
+				if($IdReseller>0)
+				{
+					$setting = Setting::getInstance();
+					$setting->Id_reseller = $IdReseller;
+					$setting->save();
+					$this->redirect(array('/site/index'));
+				}
+			}
+		}
+	
+		$this->render('getReseller',array(
+				'model'=>$model,
+		));
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.

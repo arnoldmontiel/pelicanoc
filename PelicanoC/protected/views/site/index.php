@@ -41,6 +41,8 @@
 	echo CHtml::link('Customer',array('/customer/index'));
 	echo '<br>';
 	echo CHtml::link('Settings',array('/setting/index'));
+	echo '<br>';
+	echo CHtml::link('Get Reseller',array('/setting/getReseller'));
 ?>
 <?php endif?>
 <?php 
