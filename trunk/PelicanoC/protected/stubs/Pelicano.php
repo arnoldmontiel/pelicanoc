@@ -221,7 +221,15 @@ function __construct($url='/index.php?r=nzb/wsdl')
 		$var  = $e;
 	}
 }
-
+function getReseller($username, $password)
+{
+	$response = 0;
+	if(isset($this->soapClient))
+	{
+		$response = $this->soapClient->getReseller($username, $password);
+	}
+	return $response;
+}
 function getRipped($integer)
 {
 	$RippedResponseArray = array();
