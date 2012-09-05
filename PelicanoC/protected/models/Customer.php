@@ -39,11 +39,15 @@ class Customer extends CActiveRecord
 	{
 		if(!Customer::model()->count()>0)
 		{
+			$setting = Setting::getInstance();
+			
 			$pelicanoCliente = new Pelicano;	
 			$request= new CustomerRequest;
 			$request->name = $model->name;
 			$request->last_name = $model->last_name;
 			$request->address = $model->address;
+			$request->Id_reseller = $setting->Id_reseller;
+			
 			$CustomerResponse = $pelicanoCliente->setCustomer($request);
 			
 			if($CustomerResponse != 0)
