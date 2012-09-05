@@ -16,6 +16,7 @@ class SOAP2Arrya
 class CustomerRequest
 {
 	public $Id; //integer;
+	public $Id_reseller; //integer;
 	public $name; //string;
 	public $last_name; //string;
 	public $address; //string;

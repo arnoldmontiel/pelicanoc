@@ -14,6 +14,17 @@ if($dataProvider->itemCount>0)
 }
 else
 {
-	echo CHtml::link('Create Customer',array('/customer/create'));
+	$setting = Setting::getInstance();
+	
+	if(isset($setting->Id_reseller))
+	{
+		echo CHtml::link('Create Customer',array('/customer/create'));
+	}
+	else
+	{
+		echo '<p class="note">To create a customer you must first GET RESELLER.</p>';
+		echo '<br>';
+		echo CHtml::link('Get Reseller',array('/setting/getReseller'));
+	}
 }
 ?>
