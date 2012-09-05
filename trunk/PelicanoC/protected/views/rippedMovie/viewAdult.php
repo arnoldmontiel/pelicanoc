@@ -1,3 +1,17 @@
+<?php
+Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
+	
+	ChangeBG('images/','".$model->myMovie->backdrop."');
+
+	$('.leftcurtain').addClass('showLeftCurtian');
+	$('.rightcurtain').addClass('showRightCurtian');
+	OpenCurtains(2000);
+	$('#btnPlay').click(function(){
+		jQuery('#parentalControl').dialog( 'open' );		
+	});
+");
+?>
+	
 
 <div id="conteiner" class="movie-view" style="">
 
@@ -14,12 +28,17 @@
 	 	//	echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
  		//	echo CHtml::link( 
  		//	),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));
-	 	echo CHtml::link( CHtml::image('images/play.png','Play' ,array(
+ 		echo CHtml::image('images/play.png','Play' ,array(
 	 															 'title'=>'Play',
 	 													         'style'=>'height: 128px;width: 128px;',
 	 													         'id'=>'btnPlay',
-	 	)
-	 	),RippedMovieController::createUrl('AjaxStart', array('id'=>$model->Id)));
+	 	)); 
+// 	 	echo CHtml::link( CHtml::image('images/play.png','Play' ,array(
+// 	 															 'title'=>'Play',
+// 	 													         'style'=>'height: 128px;width: 128px;',
+// 	 													         'id'=>'btnPlay',
+// 	 	)
+// 	 	),RippedMovieController::createUrl('AjaxStart', array('id'=>$model->Id)));
 	 	
 		?>
 	 </div>
@@ -244,16 +263,73 @@
 	</div>
 	
 </div>
-<?php
-Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	
-	ChangeBG('images/','".$model->myMovie->backdrop."');
+	<?php 
+	$this->widget('ext.processingDialog.processingDialog', array(
+			'buttons'=>array('ok'),
+			'idDialog'=>'wating',
+	));
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+			'id'=>'parentalControl',
+			// additional javascript options for the dialog plugin
+			'options'=>array(
+					'title'=>'Contrase&ntilde;a',
+					'autoOpen'=>false,
+					'modal'=>true,
+					'width'=> '300',
+					'buttons'=>	array(
+							'Cancelar'=>'js:function(){jQuery("#parentalControl").dialog( "close" );}',
+							'Aceptar'=>'js:function()
+							{
+							jQuery("#wating").dialog("open");
+							//jQuery.post("'.Yii::app()->createUrl("AjaxVerifyParentalControlPassword").'", $("#parental-control-passwd-form").serialize(),
+							jQuery.post("'.Yii::app()->createUrl("rippedMovie/AjaxVerifyAndStart").'", $("#parental-control-passwd-form").serialize(),
+							function(data) {
+								jQuery("#wating").dialog("close");
+								if(data!=null && data!="")
+								{
+									jQuery("#parentalControl").dialog( "close" );
+									$("#page").attr("align","center");
+									$("#page").attr("class","start-view");
+									$("#page").html(data);
+								}
+								else
+								{
+								$("#adult_password_error").show();
+								}
+							}
+					);
 
-	$('.leftcurtain').addClass('showLeftCurtian');
-	$('.rightcurtain').addClass('showRightCurtian');
-	OpenCurtains(2000);
-");
+				}'),
+			),
+	));
+	?>
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'parental-control-passwd-form',
+	'enableAjaxValidation'=>false,
+));
+	$modelCustomer = new Customer;
+	$modelCustomer->unsetAttributes();
+	//$modelCustomer->adult_password ="";
 ?>
+
+
+	<div class="row">
+		<?php echo CHtml::hiddenField('Id_ripped_movie',$model->Id); ?>
+		<?php echo $form->labelEx($modelCustomer,'adult_password'); ?>
+		<?php echo $form->passwordField($modelCustomer,'adult_password',array('size'=>30,'maxlength'=>45)); ?>
+		<?php echo $form->error($modelCustomer,'adult_password'); ?>
+		<div id="adult_password_error" class="errorMessage" style="display:none;">Contrase&ntilde;a equivocada</div>
+	</div>
+
+</div>
 	
+	<?php 
+
+	$this->endWidget();//form
 	
+	$this->endWidget('zii.widgets.jui.CJuiDialog');
+?>
 	

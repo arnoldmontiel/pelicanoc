@@ -42,14 +42,37 @@ class RippedMovieController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
-
-	public function actionAjaxStart($id)
+	
+	public function actionViewAdult($id)
 	{
-		$this->showMenu = false;
-		$this->showBrowsingBox = false;
-		$this->render('start',array(
+		$this->render('viewAdult',array(
 				'model'=>$this->loadModel($id),
 		));
+	}
+	
+	public function actionAjaxVerifyAndStart()
+	{
+		if(isset($_POST['Customer']['adult_password'])&&isset($_POST['Id_ripped_movie']))
+		{
+			$setting = Setting::getInstance();
+			$customer = $setting->getCustomer();
+			if($customer->adult_password==$_POST['Customer']['adult_password'])
+			{
+				$this->showMenu = false;
+				$this->showBrowsingBox = false;
+				$this->renderPartial('startAdult',array(
+											'model'=>$this->loadModel($_POST['Id_ripped_movie']),
+				));				
+			}
+		}
+	}
+	public function actionAjaxStart($id)
+	{
+			$this->showMenu = false;
+			$this->showBrowsingBox = false;
+			$this->render('start',array(
+								'model'=>$this->loadModel($id),
+			));
 	}
 	
 	/**
