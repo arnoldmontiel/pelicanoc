@@ -130,7 +130,7 @@ class SiteController extends Controller
 		$this->layout='//layouts/login';
 		
 		$model=new LoginForm;
-
+		
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 		{
@@ -141,6 +141,9 @@ class SiteController extends Controller
 		// collect user input data
 		if(isset($_POST['LoginForm']))
 		{
+			//get info user from server
+			User::sincronizeFromServer();
+			
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
