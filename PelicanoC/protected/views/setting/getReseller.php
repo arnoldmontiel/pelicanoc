@@ -22,6 +22,10 @@
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 	
+	<?php if($hasError): ?>
+	<p class="note"><span class="required">There was an error getting Reseller</span></p>
+	<?php endif ?>
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Get Reseller'); ?>
 		<?php echo CHtml::submitButton('Cancel',array('name'=>'cancel')); ?>

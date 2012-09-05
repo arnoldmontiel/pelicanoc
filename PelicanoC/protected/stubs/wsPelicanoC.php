@@ -30,7 +30,6 @@ class wsPelicanoC
 	{
 		
 		$result = $this->soapClient->addNewRipMovie($idMyMovie, $path, $parental_control);
-		RippedMovie::sincronizeWithServer();
 		return $result;
 	}
 	
