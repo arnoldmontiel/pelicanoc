@@ -44,7 +44,7 @@ return array(
 //srbac.views.authitem.unauthorized, must be an existing alias
 			'alwaysAllowed'=>array( //default: array()
 			'SiteLogin','SiteLogout',
-			'SiteError'),
+			'SiteError','WsPelicanoCWsdl'),
 			'prefixAlwaysAllowed'=>array( //default: array()
 			'Ajax'),
 			'userActions'=>array('Show','View','List'), //default: array()
@@ -76,26 +76,28 @@ return array(
 		*/
 		// uncomment the following to use a MySQL database
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=pelicanoC',
+			'connectionString' => 'mysql:host=localhost;dbname=pelicanoc',
 			'emulatePrepare' => true,
-			'username' => 'pma',
+			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
 		),
-			'authManager'=>array(
-	// Path to SDbAuthManager in srbac module if you want to use case insensitive
-	//access checking (or CDbAuthManager for case sensitive access checking)
-						'class'=>'application.modules.srbac.components.SDbAuthManager',
-	// The database component used
-						'connectionID'=>'db',
-	// The itemTable name (default:authitem)
-						'itemTable'=>'items',
-	// The assignmentTable name (default:authassignment)
-						'assignmentTable'=>'assignments',
-			// The itemChildTable name (default:authitemchild)
-						'itemChildTable'=>'itemchildren',
-			),
 
+'authManager'=>array(
+// Path to SDbAuthManager in srbac module if you want to use case insensitive
+//access checking (or CDbAuthManager for case sensitive access checking)
+						'class'=>'application.modules.srbac.components.SDbAuthManager',
+// The database component used
+						'connectionID'=>'db',
+// The itemTable name (default:authitem)
+						'itemTable'=>'items',
+// The assignmentTable name (default:authassignment)
+						'assignmentTable'=>'assignments',
+// The itemChildTable name (default:authitemchild)
+						'itemChildTable'=>'itemchildren',
+),
+
+		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
