@@ -12,14 +12,6 @@ class WsPelicanoCController extends Controller
 		return array(
 		            'wsdl'=>array(
 		                'class'=>'CWebServiceAction',
-// 					'classMap'=>array(
-// 			                    'MovieResponse'=>'MovieResponse',  // or simply 'Post'
-// 								'SerieResponse'=>'SerieResponse',  // or simply 'Post'
-// 								'SeasonResponse'=>'SeasonResponse',
-// 								'SerieStateRequest'=>'SerieStateRequest',
-// 								'MovieStateRequest'=>'MovieStateRequest',
-// 								'TransactionResponse'=>'TransactionResponse',
-// 		),
 		),
 		);
 	}
@@ -53,8 +45,8 @@ class WsPelicanoCController extends Controller
 		if(!empty($idImdb))
 		{
 			$result = $this->saveRippedMovie($idImdb, $path, $idMyMovie, $parental_control);
+			RippedMovie::sincronizeWithServer();
 		}
-		
 		return $result;
 	}
 	

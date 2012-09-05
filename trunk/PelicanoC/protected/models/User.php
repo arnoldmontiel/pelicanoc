@@ -102,7 +102,7 @@ class User extends CActiveRecord
 		);
 	}
 
-	public function sincronizeFromServer()
+	public static function sincronizeFromServer()
 	{
 		$requests = array();
 		$pelicanoCliente = new Pelicano;

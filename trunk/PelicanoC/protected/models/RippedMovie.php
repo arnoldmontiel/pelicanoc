@@ -141,9 +141,10 @@ class RippedMovie extends CActiveRecord
 	{	
 		$requests = array();
 		$pelicanoCliente = new Pelicano;
-		$idCustomer = null;
-		$modelUser = User::getCurrentUser();
-		$idCustomer = (isset($modelUser))?$modelUser->Id_customer:null; 
+		
+		$setting = Setting::getInstance();
+		
+		$idCustomer = $setting->getId_Customer(); 
 		
 		if(isset($idCustomer))
 		{

@@ -69,7 +69,8 @@ class SettingController extends Controller
 	public function actionGetReseller()
 	{
 		$model=new User;
-	
+		$hasError = false;
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 	
@@ -80,7 +81,6 @@ class SettingController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
-			//if($model->save())
 			if($model->validate())
 			{
 				$pelicanoCliente = new Pelicano;
@@ -92,11 +92,16 @@ class SettingController extends Controller
 					$setting->save();
 					$this->redirect(array('/site/index'));
 				}
+				else {
+					$hasError = true;
+				}
+				
 			}
 		}
 	
 		$this->render('getReseller',array(
 				'model'=>$model,
+				'hasError'=>$hasError,
 		));
 	}
 	
