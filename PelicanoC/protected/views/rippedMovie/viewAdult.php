@@ -295,7 +295,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 								}
 								else
 								{
-								$("#adult_password_error").show();
+									$("#adult_password_error").show();
 								}
 							}
 					);
