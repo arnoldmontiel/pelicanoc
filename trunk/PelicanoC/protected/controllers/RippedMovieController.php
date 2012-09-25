@@ -66,6 +66,22 @@ class RippedMovieController extends Controller
 			}
 		}
 	}
+	public function actionAjaxVerifyParentalControlAndStart()
+	{
+		if(isset($_POST['Customer']['parental_password'])&&isset($_POST['Id_ripped_movie']))
+		{
+			$setting = Setting::getInstance();
+			$customer = $setting->getCustomer();
+			if($customer->parental_password==$_POST['Customer']['parental_password'])
+			{
+				$this->showMenu = false;
+				$this->showBrowsingBox = false;
+				$this->renderPartial('startAdult',array(
+											'model'=>$this->loadModel($_POST['Id_ripped_movie']),
+				));				
+			}
+		}
+	}
 	public function actionAjaxStart($id)
 	{
 			$this->showMenu = false;
