@@ -17,6 +17,26 @@ class MyMovieBase
 	}
 }
 
+class LoadSeries extends MyMovieBase
+{
+	public $Handshake; //string;
+	public $Reference; //string;
+	public $Id; //string;
+	public $LanguageCode; //string;
+	public $Country; //string;
+	public $Locale; //int;
+}
+
+class LoadSeriesResponse
+{
+	public $LoadSeriesResult; //LoadSeriesResult;
+}
+
+class LoadSeriesResult
+{
+	public $any; //string;
+}
+
 class LoadDiscTitleById extends MyMovieBase
 {
 	public $Handshake; //string;
@@ -25,17 +45,17 @@ class LoadDiscTitleById extends MyMovieBase
 	public $Client; //string;
 	public $Version; //string;
 	public $Locale; //int;
-	}
+}
 	
-	class LoadDiscTitleByIdResponse
-	{
+class LoadDiscTitleByIdResponse
+{
 	public $LoadDiscTitleByIdResult; //LoadDiscTitleByIdResult;
-	}
+}
 	
-	class LoadDiscTitleByIdResult
-	{
+class LoadDiscTitleByIdResult
+{
 	public $any; //string;
-	}
+}
 	
 	
 	/**
@@ -58,6 +78,82 @@ class LoadDiscTitleById extends MyMovieBase
 		$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => false));
 	}
 	
+	function LoadSeries($serieId)
+	{
+		$model = new LoadSeries();
+		$model->Id = $serieId;
+		$model->Locale = 0;
+	
+		$model->LanguageCode = '';
+		$model->Country = '';
+		
+		$LoadSeriesResponse = $this->soapClient->LoadSeries($model);
+	
+		if(isset($LoadSeriesResponse))
+		{
+			return $this->saveSerieHeader(simplexml_load_string($LoadSeriesResponse->LoadSeriesResult->any));
+		}
+			
+		return null;
+	}
+	
+	private function saveSerieHeader($data)
+	{
+		if(!empty($data) && (string)$data['status'] == 'ok')
+		{
+			if(!empty($data->Serie))
+				$data = $data->Serie;
+			else
+				return null;
+			
+			$modelMyMovieSerieHeaderDB = MyMovieSerieHeader::model()->findByPk((string)$data['Id']);
+				
+			if(!isset($modelMyMovieSerieHeaderDB))
+			{
+				$modelMyMovieSerieHeader = new MyMovieSerieHeader();
+				$modelMyMovieSerieHeader->Id = (string)$data['Id'];
+				$modelMyMovieSerieHeader->original_network = (string)$data['OriginalNetwork'];
+				$modelMyMovieSerieHeader->original_status = (string)$data['OriginalStatus'];
+				$modelMyMovieSerieHeader->rating = (string)$data['Rating'];
+				$modelMyMovieSerieHeader->description = (string)$data->EnglishPart['Description'];
+				$modelMyMovieSerieHeader->name = (string)$data->EnglishPart['Name'];
+				$modelMyMovieSerieHeader->sort_name = (string)$data->EnglishPart['SortName'];
+				$modelMyMovieSerieHeader->genre = $this->getSeasonGenre($data);
+				
+				//Poster
+				$modelMyMovieSerieHeader->poster_original = $this->getPoster($data);
+				
+				$validator = new CUrlValidator();
+				$setting = Setting::getInstance();
+				
+				if($modelMyMovieSerieHeader->poster_original!='' && $validator->validateValue($modelMyMovieSerieHeader->poster_original))
+				{
+					try {
+						$content = @file_get_contents($modelMyMovieSerieHeader->poster_original);
+						if ($content !== false) {
+							$file = fopen($setting->path_images."/".$modelMyMovieSerieHeader->Id.".jpg", 'w');
+							fwrite($file,$content);
+							fclose($file);
+							$modelMyMovieSerieHeader->poster = $modelMyMovieSerieHeader->Id.".jpg";
+						} else {
+							// an error happened
+						}
+					} catch (Exception $e) {
+						throw $e;
+						// an error happened
+					}
+				}
+				else
+				{
+					$modelMyMovieSerieHeader->poster = 'no_poster.jpg';
+				}
+				
+				$modelMyMovieSerieHeader->save();
+			}
+			return (string)$data['Id'];
+		}
+		return null;
+	}
 	
 	function LoadDiscTitleById($myMovieId)
 	{
@@ -94,6 +190,7 @@ class LoadDiscTitleById extends MyMovieBase
 				
 				$modelMyMovie->Id = (string)$data->ID;
 				$modelMyMovie->type = (string)$data->Type;
+				$modelMyMovie->media_type = (string)$data->MediaType;
 				$modelMyMovie->bar_code = (string)$data->Barcode;
 				$modelMyMovie->country = (string)$data->Country;
 				$modelMyMovie->local_title = (string)$data->LocalTitle;
@@ -173,6 +270,9 @@ class LoadDiscTitleById extends MyMovieBase
 					}
 				}
 				
+				//check SerieID
+				if(!empty($data->TVSeriesID))
+					$modelMyMovie->Id_my_movie_serie_header = $this->LoadSeries((string)$data->TVSeriesID);
 				
 				if($modelMyMovie->save())
 				{
@@ -197,6 +297,23 @@ class LoadDiscTitleById extends MyMovieBase
 		return $xmlArr;
 	}
 
+	private function getSeasonGenre($xml)
+	{
+		if(!empty($xml->Genres))
+		{
+			$xmlArr = array();
+			$index = 0;
+			foreach($xml->Genres->children() as $item)
+			{
+				$xmlArr[$index] = (string)$item['Name'];
+				$index ++;
+			}
+			if(count($xmlArr) > 0 )
+				return implode(',',$xmlArr);
+		}
+		return "";
+	}
+	
 	private function getBackdrop($xml)
 	{
 		if(!empty($xml->Backdrops))

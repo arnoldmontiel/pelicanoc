@@ -43,6 +43,23 @@ class RippedMovieController extends Controller
 		));
 	}
 	
+	public function actionViewSerie($id)
+	{
+		$model = MyMovieSerieHeader::model()->findByPk($id);
+		$dataProvider=new CActiveDataProvider('RippedMovie');
+		
+		
+		$modelRipped = new RippedMovie();
+		$modelRipped->serieId = $id;
+		$dataProvider= $modelRipped->searchSerie();
+		$dataProvider->pagination->pageSize= 12;
+		
+		$this->render('viewSerie',array(
+				'model'=>$model,
+				'dataProvider'=>$dataProvider,
+		));
+	}
+	
 	public function actionViewAdult($id)
 	{
 		$this->render('viewAdult',array(
@@ -177,6 +194,25 @@ class RippedMovieController extends Controller
 		
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+		));
+	}
+	
+	public function actionIndexSerie()
+	{
+		$dataProvider=new CActiveDataProvider('MyMovieSerieHeader');
+	
+		$model = new MyMovieSerieHeader();
+		$dataProvider= $model->search();
+		$dataProvider->pagination->pageSize= 12;
+	
+		if(isset($_GET['searchFilter']))
+		{
+			$expression=trim($_GET['searchFilter']);
+			$dataProvider= $model->searchOn($expression);
+		}
+	
+		$this->render('indexSerie',array(
+				'dataProvider'=>$dataProvider,
 		));
 	}
 	
