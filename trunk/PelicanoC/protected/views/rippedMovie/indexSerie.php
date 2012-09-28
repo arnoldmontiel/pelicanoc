@@ -9,7 +9,7 @@
 <div id="imdb_index" class="movie-index">
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+	'itemView'=>'_viewSerie',
 	'id'=>'listMovies-view',
 	'summaryText' =>"",
 	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
