@@ -31,9 +31,12 @@
  * @property string $backdrop_original
  * @property integer $Id_parental_control
  * @property integer $adult
+ * @property string $Id_my_movie_serie_header
+ * @property string $media_type
  *
  * The followings are the available model relations:
  * @property ParentalControl $parentalControl
+ * @property MyMovieSerieHeader $myMovieSerieHeader
  * @property AudioTrack[] $audioTracks
  * @property Subtitle[] $subtitles
  * @property RippedMovie[] $rippedMovies
@@ -68,15 +71,15 @@ class MyMovie extends CActiveRecord
 		return array(
 			array('Id, Id_parental_control', 'required'),
 			array('Id_parental_control, adult', 'numerical', 'integerOnly'=>true),
-			array('Id', 'length', 'max'=>200),
-			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb', 'length', 'max'=>45),
+			array('Id, Id_my_movie_serie_header', 'length', 'max'=>200),
+			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb, media_type', 'length', 'max'=>45),
 			array('local_title, original_title, sort_title, data_changed, covers_changed', 'length', 'max'=>100),
 			array('parental_rating_desc, genre, studio, poster, poster_original, backdrop, backdrop_original', 'length', 'max'=>255),
 			array('rating', 'length', 'max'=>10),
 			array('description, extra_features', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio, poster, poster_original, backdrop, backdrop_original', 'safe', 'on'=>'search'),
+			array('Id, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio, poster, poster_original, backdrop, backdrop_original, Id_parental_control, adult, Id_my_movie_serie_header, media_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +92,7 @@ class MyMovie extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'parentalControl' => array(self::BELONGS_TO, 'ParentalControl', 'Id_parental_control'),
+			'myMovieSerieHeader' => array(self::BELONGS_TO, 'MyMovieSerieHeader', 'Id_my_movie_serie_header'),
 			'audioTracks' => array(self::MANY_MANY, 'AudioTrack', 'my_movie_audio_track(Id_my_movie, Id_audio_track)'),
 			'subtitles' => array(self::MANY_MANY, 'Subtitle', 'my_movie_subtitle(Id_my_movie, Id_subtitle)'),
 			'rippedMovies' => array(self::HAS_MANY, 'RippedMovie', 'Id_my_movie'),
@@ -126,8 +130,10 @@ class MyMovie extends CActiveRecord
 			'poster_original' => 'Poster Original',
 			'backdrop' => 'Backdrop',
 			'backdrop_original' => 'Backdrop Original',
-			'Id_parental_control' => 'Parental Control',
+			'Id_parental_control' => 'Id Parental Control',
 			'adult' => 'Adult',
+			'Id_my_movie_serie_header' => 'Id My Movie Serie Header',
+			'media_type' => 'Media Type',
 		);
 	}
 
@@ -167,6 +173,10 @@ class MyMovie extends CActiveRecord
 		$criteria->compare('poster_original',$this->poster_original,true);
 		$criteria->compare('backdrop',$this->backdrop,true);
 		$criteria->compare('backdrop_original',$this->backdrop_original,true);
+		$criteria->compare('Id_parental_control',$this->Id_parental_control);
+		$criteria->compare('adult',$this->adult);
+		$criteria->compare('Id_my_movie_serie_header',$this->Id_my_movie_serie_header,true);
+		$criteria->compare('media_type',$this->media_type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
