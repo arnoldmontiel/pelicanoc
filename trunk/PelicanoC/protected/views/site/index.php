@@ -34,7 +34,8 @@
 	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
 	'pagerCssClass'=>'hideButton',
 
-)); ?>
+));
+?>
 </div>
 <?php endif?>
 <?php if (Yii::app()->user->checkAccess('Installer')):

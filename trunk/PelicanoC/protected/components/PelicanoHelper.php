@@ -2,6 +2,20 @@
 require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 class PelicanoHelper
 {
+	static public function getExternalIPAddress()
+	{
+		$setting = Setting::getInstance();
+		//$ip = $_SERVER['SERVER_ADDR'];
+		$ip = @file_get_contents("http://ip-addr.es/");
+		$setting->ip_v4 = $ip;
+		$setting->save();
+		if ($ip !== false)
+		{
+			return $ip;
+		}
+		return "";
+	}
+	
 	static public function sendPendingNzbStates()
 	{
 		$nzbMovieState = new NzbMovieState;
