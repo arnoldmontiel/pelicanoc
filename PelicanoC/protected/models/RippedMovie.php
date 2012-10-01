@@ -17,6 +17,8 @@
  */
 class RippedMovie extends CActiveRecord
 {	
+	public $serieId;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -254,6 +256,31 @@ class RippedMovie extends CActiveRecord
 		));
 	}
 	
+	public function searchSerie()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('path',$this->path,true);
+		$criteria->compare('Id_imdbdata',$this->Id_imdbdata,true);
+		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
+		$criteria->compare('creation_date',$this->creation_date,true);
+	
+		$criteria->with[]="myMovie";
+		$criteria->addCondition('myMovie.Id_parental_control<>9');
+		$criteria->addCondition('myMovie.Id_parental_control<>8');
+		$criteria->addCondition('myMovie.Id_parental_control<>7');						
+		$criteria->addCondition('myMovie.Id_my_movie_serie_header = "' . $this->serieId. '"');
+	
+		$criteria->order = "t.creation_date DESC";
+	
+		return new CActiveDataProvider($this, array(
+					'criteria'=>$criteria,
+		));
+	}
 	
 	public function searchOn($expresion)
 	{
