@@ -70,7 +70,7 @@ class LoadDiscTitleByIdResult
 			'LoadDiscTitleByIdResponse'=>'LoadDiscTitleByIdResponse',
 			'LoadDiscTitleByIdResult'=>'LoadDiscTitleByIdResult',
 	
-	);
+	); 
 	
 	function __construct($url='https://api.mymovies.dk/default.asmx?WSDL')
 	{
