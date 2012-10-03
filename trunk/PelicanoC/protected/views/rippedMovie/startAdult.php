@@ -1,7 +1,7 @@
 
 <div id="conteiner" class="start-view" align="center" style="">
 	<?php echo CHtml::openTag('div',array('class'=>'start-title'));?>
-			<?php echo " Reproduciendo: ". $model->imdbdata->Title . " (".$model->imdbdata->Year.")";  ?>
+			<?php echo " Reproduciendo: ". $model->myMovie->original_title . " (".$model->myMovie->production_year.")";  ?>
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
 	<div style="float: left; padding: 5px 10px; width: 95%">
