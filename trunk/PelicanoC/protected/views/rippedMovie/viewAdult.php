@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 
 <div class="rip-layout-left">
 	<div style="width: 205px; float:left;">
-		<?php echo CHtml::image( "images/".$model->myMovie->poster, $model->imdbdata->Title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
+		<?php echo CHtml::image( "images/".$model->myMovie->poster, $model->myMovie->original_title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
 
 	</div>
 	
@@ -46,7 +46,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 	 
 	<div class="movie-rating-box" >
 	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>
-		<?php echo $model->imdbdata->Rating; ?>
+		<?php echo $model->myMovie->rating; ?>
 	<?php echo CHtml::closeTag('div');?> 
 	</div>
 	
@@ -54,50 +54,54 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 <div class="rip-layout-centre">
 	<div style="float: left;padding: 5px 10px;">
 	<?php echo CHtml::openTag('div',array('class'=>'movie-title'));?>
-			<?php echo $model->imdbdata->Title . " (".$model->imdbdata->Year.")"; ?>
+			<?php echo $model->myMovie->original_title . " (".$model->myMovie->production_year.")"; ?>
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->imdbdata->getAttributeLabel('Genre').':'; ?>
+			<?php echo $model->myMovie->getAttributeLabel('genre').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->imdbdata->Genre; ?>		
+		<?php echo $model->myMovie->genre; ?>		
 	<?php echo CHtml::closeTag('div');?> 
 	
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->imdbdata->getAttributeLabel('Director').':'; ?>
+			<?php echo $model->myMovie->getAttributeLabel('country').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->imdbdata->Director; ?>
+		<?php echo $model->myMovie->country; ?>
 	<?php echo CHtml::closeTag('div');?> 
 
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->imdbdata->getAttributeLabel('Plot').':'; ?>
+			<?php echo $model->myMovie->getAttributeLabel('description').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
 		<?php echo $model->myMovie->description; ?>
 	<?php echo CHtml::closeTag('div');?> 
+	
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->imdbdata->getAttributeLabel('Actors').':'; ?>
+			<?php echo $model->myMovie->getAttributeLabel('running_time').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->imdbdata->Actors; ?>
-	<?php echo CHtml::closeTag('div');?> 
-	<?php echo CHtml::openTag('div');?>
-		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->imdbdata->getAttributeLabel('Writer').':'; ?>
-		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->imdbdata->Writer; ?>
-	<?php echo CHtml::closeTag('div');?> 
-	<?php echo CHtml::openTag('div');?>
-		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->imdbdata->getAttributeLabel('Runtime').':'; ?>
-		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->imdbdata->Runtime; ?>
+		<?php echo $model->myMovie->running_time; ?>
 	<?php echo CHtml::closeTag('div');?>
+	 
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('Studio').':'; ?>
+			<?php echo $model->myMovie->getAttributeLabel('imdb').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $model->myMovie->imdb; ?>
+	<?php echo CHtml::closeTag('div');?>
+	 
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $model->myMovie->getAttributeLabel('genre').':'; ?>
+		<?php echo CHtml::closeTag('b');?>
+		<?php echo $model->myMovie->genre; ?>
+	<?php echo CHtml::closeTag('div');?>
+	
+	<?php echo CHtml::openTag('div');?>
+		<?php echo CHtml::openTag('b');?>
+			<?php echo $model->myMovie->getAttributeLabel('studio').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
 		<?php echo $model->myMovie->studio; ?>
 	<?php echo CHtml::closeTag('div');?>

@@ -35,7 +35,7 @@ $('#Imdbdata_Poster_button_$data->Id').click(function(){
 		 echo CHtml::image("images/".$data->myMovie->poster,'details',
 				array('id'=>'Imdbdata_Poster_button_'.$data->Id, 'style'=>'height: 260px;width: 185px;'));
 		?>
-		<?php echo CHtml::encode($data->imdbdata->Title); ?>
+		<?php echo CHtml::encode($data->myMovie->original_title); ?>
 		<?php echo CHtml::hiddenField('id_rippedMovie',$data->Id,array('class'=>'id_rippedMovie','style'=>'display:none')); ?>
 	</div>
 
