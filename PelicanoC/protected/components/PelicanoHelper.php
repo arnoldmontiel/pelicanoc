@@ -23,34 +23,18 @@ class PelicanoHelper
 		$dataProvider =$nzbMovieState->search();
 		$data = $dataProvider->data;
 		$requests = array();
-		$tv_requests = array();
 		
 		foreach ($data as $item)
 		{
-			if(isset($item->nzb->Id_imdbdata))
-			{
-				$request= new MovieStateRequest;
-				$request->id_customer = $item->Id_customer;
-				$request->id_movie =$item->Id_nzb;
-				$request->id_state =$item->Id_movie_state;
-				$request->date = strtotime($item->date);
-				$requests[]=$request;
-			}
-			else if(isset($item->nzb->Id_imdbdata_tv))
-			{
-				$request= new SerieStateRequest;
-				$request->id_customer = $item->Id_customer;
-				$request->id_serie_nzb =$item->Id_nzb;
-				$request->id_state =$item->Id_movie_state;
-				$request->date = strtotime($item->date);
-				$request->id_imdbdata_tv=null;
-				$tv_requests[]=$request;
-				
-			}
+			$request= new MovieStateRequest;
+			$request->Id_device = $item->Id_device;
+			$request->Id_nzb =$item->Id_nzb;
+			$request->Id_state =$item->Id_movie_state;
+			$request->date = strtotime($item->date);
+			$requests[]=$request;
 		}
 		$pelicanoCliente = new Pelicano;
 		$status = $pelicanoCliente->setMovieState($requests);
-		$status = $status && $pelicanoCliente->setSerieState($tv_requests);
 		if($status)
 		{
 			foreach ($data as $item)
