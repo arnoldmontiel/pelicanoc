@@ -18,26 +18,7 @@
 )); ?>
 </div>
 <?php endif?>
-<?php if (Yii::app()->user->checkAccess('ImdbdataTvIndex')):?>
 
-<div class="movie-title-index">
-	Series
-	
-</div>
-
-<div id="imdb_index_series" class="movie-index">
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProviderSeries,
-	'itemView'=>'_viewSerie',
-	'summaryText' =>"",
-	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
-	'pagerCssClass'=>'hideButton',
-
-));
-?>
-</div>
-<?php endif?>
 <?php if (Yii::app()->user->checkAccess('Installer')):
 	echo CHtml::link('Customer',array('/customer/index'));
 	echo '<br>';
