@@ -73,32 +73,41 @@ class MovieResponse
 	public $file_name; //string;
 	public $subt_url; //string;
 	public $subt_file_name; //string;
-	public $Id_resource_type; //string;//integer;
-	public $deleted; //integer;
-	public $points; //integer;
-	public $ID; //string;
-	public $Title; //string;
-	public $Year; //string;
-	public $Rated; //string;
-	public $Released; //string;
-	public $Genre; //string;
-	public $Director; //string;
-	public $Writer; //string;
-	public $Actors; //string;
-	public $Plot; //string;
-	public $Poster; //string;
-	public $Runtime; //string;
-	public $Rating; //string;
-	public $Votes; //string;
-	public $Response; //string;
-	public $Backdrop; //string;
+	public $Id_resource_type; //integer
+	public $deleted; //integer
+	public $points; //integer
+	public $Id_my_movie_movie; //string;
+	public $Id_parental_control; //integer
+	public $local_title; //string;
+	public $original_title; //string;
+	public $sort_title; //string;
+	public $production_year; //string;
+	public $running_time; //string;
+	public $description; //string;
+	public $parental_rating_desc; //string;
+	public $imdb; //string;
+	public $rating; //string;
+	public $rating_votes; //string;
+	public $genre; //string;
+	public $studio; //string;
+	public $poster_original; //string;
+	public $backdrop_original; //string;
+	public $adult; //string;
+	public $extra_features; //string;
+	public $country; //string;
+	public $video_standard; //string;
+	public $release_date; //string;
+	public $bar_code; //string;
+	public $type; //string;
+	
+	
 }
 
 class MovieStateRequest extends SOAP2Array
 {
-	public $id_customer; //integer;
-	public $id_movie; //integer;
-	public $id_state; //integer;
+	public $Id_device; //string;
+	public $Id_nzb; //integer;
+	public $Id_state; //integer;
 	public $date; //integer;
 }
 
@@ -242,21 +251,21 @@ function getNewUser($integer)
 	}
 	return $UserResponseArray;
 }
-function getNewMovies($integer)
+function getNewMovies($Id_device)
 {
 	$MovieResponseArray = array();
 	if(isset($this->soapClient))
 	{
-		$MovieResponseArray = $this->soapClient->getNewMovies($integer);
+		$MovieResponseArray = $this->soapClient->getNewMovies($Id_device);
 	}
 	return $MovieResponseArray;		
 }
-function getNewSeries($integer)
+function getNewSeries($Id_device)
 {
 	$SerieResponseArray = array();
 	if(isset($this->soapClient))
 	{
-		$SerieResponseArray = $this->soapClient->getNewSeries($integer);
+		$SerieResponseArray = $this->soapClient->getNewSeries($Id_device);
 	}
 	return $SerieResponseArray;
 }
