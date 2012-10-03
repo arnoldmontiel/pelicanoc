@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'ripped_movie':
  * @property integer $Id
  * @property string $path
- * @property string $Id_imdbdata
  * @property string $Id_my_movie
  * @property string $creation_date
  * @property integer $parental_control
@@ -45,14 +44,12 @@ class RippedMovie extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_imdbdata', 'required'),
 			array('path, Id_my_movie', 'length', 'max'=>255),
 			array('parental_control, was_sent', 'numerical', 'integerOnly'=>true),
-			array('Id_imdbdata', 'length', 'max'=>45),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path, Id_imdbdata, Id_my_movie, creation_date, parental_control, was_sent', 'safe', 'on'=>'search'),
+			array('Id, path, Id_my_movie, creation_date, parental_control, was_sent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +61,6 @@ class RippedMovie extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'imdbdata' => array(self::BELONGS_TO, 'Imdbdata', 'Id_imdbdata'),
 			'myMovie' => array(self::BELONGS_TO, 'MyMovie', 'Id_my_movie'),
 		);
 	}
@@ -77,7 +73,6 @@ class RippedMovie extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'path' => 'Path',
-			'Id_imdbdata' => 'Id Imdbdata',
 			'Id_my_movie' => 'Id My Movie',
 			'creation_date' => 'Creation Date',
 			'parental_control' => 'Parental Control',
@@ -214,7 +209,6 @@ class RippedMovie extends CActiveRecord
 
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('Id_imdbdata',$this->Id_imdbdata,true);
 		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 		
@@ -240,7 +234,6 @@ class RippedMovie extends CActiveRecord
 	
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('Id_imdbdata',$this->Id_imdbdata,true);
 		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 	
@@ -265,7 +258,6 @@ class RippedMovie extends CActiveRecord
 	
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('Id_imdbdata',$this->Id_imdbdata,true);
 		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 	

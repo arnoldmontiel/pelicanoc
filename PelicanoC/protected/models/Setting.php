@@ -48,6 +48,10 @@ class Setting extends CActiveRecord
 	{
 		return $this->Id_customer;		
 	}
+	public function getId_Device()
+	{
+		return $this->Id_device;
+	}
 	public function getCustomer()
 	{
 		return $this->_customer;
