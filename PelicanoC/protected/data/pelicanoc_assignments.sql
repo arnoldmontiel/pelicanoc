@@ -1,8 +1,8 @@
 CREATE DATABASE  IF NOT EXISTS `pelicanoc` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `pelicanoc`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.15, for Win32 (x86)
 --
--- Host: localhost    Database: pelicanoc
+-- Host: 127.0.0.1    Database: pelicanoc
 -- ------------------------------------------------------
 -- Server version	5.1.33-community
 
@@ -39,7 +39,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";'),('Customer','admin','','s:0:\"\";');
+INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";'),('Authority','installer','','s:0:\"\";'),('Customer','hijo','','s:0:\"\";'),('Customer','madre',NULL,'s:0:\"\";'),('Customer','padre',NULL,'s:0:\"\";'),('Customer','root',NULL,'s:0:\"\";'),('Customer','roots',NULL,'s:0:\"\";'),('Installer','installer','','s:0:\"\";');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-15 12:33:31
+-- Dump completed on 2012-10-04 11:34:50

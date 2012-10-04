@@ -1,8 +1,8 @@
 CREATE DATABASE  IF NOT EXISTS `pelicanoc` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `pelicanoc`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.15, for Win32 (x86)
 --
--- Host: localhost    Database: pelicanoc
+-- Host: 127.0.0.1    Database: pelicanoc
 -- ------------------------------------------------------
 -- Server version	5.1.33-community
 
@@ -38,7 +38,7 @@ CREATE TABLE `itemchildren` (
 
 LOCK TABLES `itemchildren` WRITE;
 /*!40000 ALTER TABLE `itemchildren` DISABLE KEYS */;
-INSERT INTO `itemchildren` VALUES ('Administrator','UserManage'),('Customer','ImdbdataManage'),('Customer','ImdbdataTvManage'),('Customer','NzbManage'),('Customer','SabnzbdManage'),('Customer','SiteManage'),('ImdbdataManage','ImdbdataIndex'),('ImdbdataManage','ImdbdataView'),('ImdbdataTvManage','ImdbdataTvIndex'),('ImdbdataTvManage','ImdbdataTvView'),('ImdbdataTvManage','ImdbdataTvViewEpisode'),('NzbManage','NzbRequested'),('NzbManage','NzbViewRequested'),('SabnzbdManage','SabnzbdIndex'),('SiteManage','SiteIndex'),('UserManage','UserAdmin'),('UserManage','UserCreate'),('UserManage','UserDelete'),('UserManage','UserIndex'),('UserManage','UserUpdate'),('UserManage','UserView');
+INSERT INTO `itemchildren` VALUES ('Administrator','ImdbdataManage'),('Administrator','ImdbdataTvManage'),('Administrator','NzbManage'),('Administrator','RippedMovieManage'),('Administrator','SabnzbdManage'),('Administrator','SiteManage'),('Administrator','UserManage'),('Customer','ImdbdataManage'),('Customer','ImdbdataTvManage'),('Customer','NzbManage'),('Customer','RippedMovieManage'),('Customer','SabnzbdManage'),('Customer','SiteManage'),('CustomerManage','CustomerCreate'),('CustomerManage','CustomerIndex'),('CustomerManage','CustomerUpdate'),('ImdbdataManage','ImdbdataIndex'),('ImdbdataManage','ImdbdataView'),('ImdbdataTvManage','ImdbdataTvIndex'),('ImdbdataTvManage','ImdbdataTvView'),('ImdbdataTvManage','ImdbdataTvViewEpisode'),('Installer','CustomerManage'),('Installer','SettingManager'),('Installer','SiteManage'),('NzbManage','NzbRequested'),('NzbManage','NzbViewRequested'),('RippedMovieManage','RippedMovieIndex'),('RippedMovieManage','RippedMovieIndexAdult'),('RippedMovieManage','RippedMovieView'),('SabnzbdManage','SabnzbdIndex'),('SettingManager','SettingGetReseller'),('SettingManager','SettingIndex'),('SettingManager','SettingUpdate'),('SiteManage','SiteIndex'),('UserManage','UserAdmin'),('UserManage','UserCreate'),('UserManage','UserDelete'),('UserManage','UserIndex'),('UserManage','UserUpdate'),('UserManage','UserView');
 /*!40000 ALTER TABLE `itemchildren` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-15 12:33:31
+-- Dump completed on 2012-10-04 11:34:48
