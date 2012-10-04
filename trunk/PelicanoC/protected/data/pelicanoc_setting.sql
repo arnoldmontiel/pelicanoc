@@ -1,8 +1,8 @@
 CREATE DATABASE  IF NOT EXISTS `pelicanoc` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `pelicanoc`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.15, for Win32 (x86)
 --
--- Host: localhost    Database: pelicanoc
+-- Host: 127.0.0.1    Database: pelicanoc
 -- ------------------------------------------------------
 -- Server version	5.1.33-community
 
@@ -36,6 +36,15 @@ CREATE TABLE `setting` (
   `path_images` varchar(255) DEFAULT NULL,
   `path_shared` varchar(255) DEFAULT NULL,
   `host_path` varchar(255) DEFAULT NULL,
+  `Id_reseller` int(11) DEFAULT NULL,
+  `Id_device` varchar(45) DEFAULT NULL,
+  `ip_v4` varchar(128) DEFAULT NULL,
+  `ip_v6` varchar(128) DEFAULT NULL,
+  `port_v4` int(11) DEFAULT NULL,
+  `port_v6` int(11) DEFAULT NULL,
+  `path_anydvd_download` varchar(256) DEFAULT NULL,
+  `anydvd_version_installed` varchar(128) DEFAULT NULL,
+  `anydvd_version_downloaded` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -46,7 +55,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',1,'d38224ae842909c730e71d0e810250b8','http://192.168.100.104:8105/api?','http://192.168.100.102/','./nzbReady','./subtitles','./images','/Cosas/','/pelicanos/');
+INSERT INTO `setting` VALUES (1,'./nzb',14,'','','http://localhost','./nzbReady','./subtitles','./images','','/workspace/PelicanoS',1,'abc','186.182.109.106\n',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +68,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-15 12:33:32
+-- Dump completed on 2012-10-04 11:34:50
