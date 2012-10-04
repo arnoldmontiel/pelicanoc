@@ -70,13 +70,13 @@ class Nzb extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id, Id_my_movie_movie', 'required'),
-			array('Id, Id_resource, downloading, downloaded', 'numerical', 'integerOnly'=>true),
+			array('Id, Id_resource, downloading, downloaded, ready', 'numerical', 'integerOnly'=>true),
 			array('url, path, file_name, subt_file_name, subt_url', 'length', 'max'=>255),
 			array('Id_my_movie_movie', 'length','max'=>200),
 			array('date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_my_movie_movie, url, path, file_name, subt_file_name, subt_url, Id_resource, downloading, downloaded, date', 'safe', 'on'=>'search'),
+			array('Id, Id_my_movie_movie, url, path, file_name, subt_file_name, subt_url, Id_resource, downloading, downloaded, date, ready', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -113,6 +113,7 @@ class Nzb extends CActiveRecord
 			'date' => 'Date',
 			'requested' => 'Requested',
 			'points' => 'Points',
+			'ready' => 'Ready',
 		);
 	}
 
