@@ -64,26 +64,26 @@ class SiteController extends Controller
 
 //    		$hola = new User();
 //    		$hola->sincronizeFromServer();
-		PelicanoHelper::getExternalIPAddress();
-		$settings = Setting::getInstance();
-		$settingsWS = new wsSettings();
-		$clientsettings = new ClientSettingsRequest();
-		$clientsettings->Id_client = $settings->Id_client;
-		$clientsettings->ip_v4 = $settings->ip_v4; 
-		$clientsettings->port_v4 = $settings->port_v4;
-		$clientsettings->ip_v6 = $settings->ip_v6; 
-		$clientsettings->port_v6 = $settings->port_v6;
+// 		PelicanoHelper::getExternalIPAddress();
+// 		$settings = Setting::getInstance();
+// 		$settingsWS = new wsSettings();
+// 		$clientsettings = new ClientSettingsRequest();
+// 		$clientsettings->Id_client = $settings->Id_client;
+// 		$clientsettings->ip_v4 = $settings->ip_v4; 
+// 		$clientsettings->port_v4 = $settings->port_v4;
+// 		$clientsettings->ip_v6 = $settings->ip_v6; 
+// 		$clientsettings->port_v6 = $settings->port_v6;
 		
-		$settingsWS->setClientSettings($clientsettings);
+// 		$settingsWS->setClientSettings($clientsettings);
 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
 		$dataProvider->pagination->pageSize= 4;
 		
-		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
-		$dataProviderSeries->pagination->pageSize= 4;
+//		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
+//		$dataProviderSeries->pagination->pageSize= 4;
 		$this->render('index',array(
 					'dataProvider'=>$dataProvider,
-					'dataProviderSeries'=>$dataProviderSeries,
+//					'dataProviderSeries'=>$dataProviderSeries,
 		));
 		
 	}
@@ -152,7 +152,7 @@ class SiteController extends Controller
 		if(isset($_POST['LoginForm']))
 		{
 			//get info user from server
-			User::sincronizeFromServer();
+			//User::sincronizeFromServer();
 			
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
