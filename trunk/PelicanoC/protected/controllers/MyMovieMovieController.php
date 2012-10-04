@@ -78,70 +78,6 @@ class MyMovieMovieController extends Controller
 					next($myMovieMovieAttr);
 				}
 				$modelMyMovieMovie->Id = $movie->Id_my_movie_movie;
-	
-				$validator = new CUrlValidator();
-	
-				if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
-				{
-					try {
-						$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
-						if ($content !== false) {
-							$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
-							fwrite($file,$content);
-							fclose($file);
-						} else {
-							// an error happened
-						}
-					} catch (Exception $e) {
-						// an error happened
-					}
-				}
-				if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
-				{
-					$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
-					if ($content !== false) {
-						$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
-						fwrite($file,$content);
-						fclose($file);
-					} else {
-						// an error happened
-					}
-				}
-				if($movie->poster_original!='' && $validator->validateValue($movie->poster_original))
-				{
-					try {
-						$content = @file_get_contents($movie->poster_original);
-						if ($content !== false) {
-							$file = fopen($setting->path_images."/".$modelMyMovieMovie->Id.".jpg", 'w');
-							fwrite($file,$content);
-							fclose($file);
-							$modelMyMovieMovie->poster = $modelMyMovieMovie->Id.".jpg";
-						} else {
-							// an error happened
-						}
-					} catch (Exception $e) {
-						throw $e;
-						// an error happened
-					}
-				}
-				
-				if($movie->backdrop_original!='' && $validator->validateValue($movie->backdrop_original))
-				{
-					try {
-						$content = @file_get_contents($movie->backdrop_original);
-						if ($content !== false) {
-							$file = fopen($setting->path_images."/".$modelMyMovieMovie->Id."_bd.jpg", 'w');
-							fwrite($file,$content);
-							fclose($file);
-							$modelMyMovieMovie->backdrop = $modelMyMovieMovie->Id."_bd.jpg";
-						} else {
-							// an error happened
-						}
-					} catch (Exception $e) {
-						throw $e;
-						// an error happened
-					}
-				}
 				
 				$transaction = $modelNzb->dbConnection->beginTransaction();
 				try {
@@ -165,6 +101,10 @@ class MyMovieMovieController extends Controller
 			} catch (Exception $e) {
 			}
 		}
+		
+		$WshShell = new COM('WScript.Shell');
+		$oExec = $WshShell->Run('C:\xampp\htdocs\workspace\PelicanoC\protected\commands\shell\downloadNzbFiles.bat', 0, false);
+		
 		PelicanoHelper::sendPendingNzbStates();
 	}
 
