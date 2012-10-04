@@ -84,6 +84,7 @@ class MyMovieMovieController extends Controller
 					$modelMyMovieMovie->save();
 					$modelNzb->Id_my_movie_movie = $modelMyMovieMovie->Id;
 					$modelNzb->date = date("Y-m-d H:i:s",time());
+					$modelNzb->ready = 0;
 					$modelNzb->save();
 					
 					$nzbMovieState= new NzbMovieState;
