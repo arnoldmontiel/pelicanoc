@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/var/www/workspace/PelicanoC/protected/yiic nzb downloadnzbfiles >>downloadnzbfiles.log
+

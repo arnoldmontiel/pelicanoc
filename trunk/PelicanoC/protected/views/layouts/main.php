@@ -36,7 +36,8 @@
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 			 	//echo $customer->name.' '.$customer->last_name . ' - ' . $username;
 			 	echo $username;
-			 	echo ' ('.$customer->current_points.' points)';
+			 	if(isset($customer))
+			 		echo ' ('.$customer->current_points.' points)';
 			 	?>
 		</div>
 		<?php if ($this->showBrowsingBox):?>

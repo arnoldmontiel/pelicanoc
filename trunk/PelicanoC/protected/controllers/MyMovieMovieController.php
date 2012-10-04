@@ -103,10 +103,19 @@ class MyMovieMovieController extends Controller
 			}
 		}
 		
-		$WshShell = new COM('WScript.Shell');
-		$oExec = $WshShell->Run('C:\xampp\htdocs\workspace\PelicanoC\protected\commands\shell\downloadNzbFiles.bat', 0, false);
-		
 		PelicanoHelper::sendPendingNzbStates();
+		$sys = strtoupper(PHP_OS);
+		if(substr($sys,0,3) == "WIN")
+		{
+			$WshShell = new COM('WScript.Shell');
+			$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/downloadNzbFiles', 0, false);
+		}
+		else
+		{
+			//echo dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&';
+			exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
+		}
+				
 	}
 
 
