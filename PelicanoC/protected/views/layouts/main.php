@@ -68,7 +68,7 @@
 		if(Yii::app()->user->checkAccess('ImdbdataIndex'))
 		{ 
 			echo CHtml::link( CHtml::image("images/movies.png",'movies',array('id'=>'movie_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/imdbdata/index'));
+			),array('/myMovieMovie/index'));
 		}
 		if(Yii::app()->user->checkAccess('ImdbdataNews'))
 		{ 
