@@ -30,8 +30,8 @@ class Setting extends CActiveRecord
 // 	}
 	public function __construct()
 	{
-		$user = User::model()->findByPk(Yii::app()->user->Id);
-		$this->_customer = $user->customer;		
+// 		$user = User::model()->findByPk(Yii::app()->user->Id);
+// 		$this->_customer = $user->customer;		
 	}
 	
 	public static function getInstance()
@@ -54,7 +54,7 @@ class Setting extends CActiveRecord
 	}
 	public function getCustomer()
 	{
-		return $this->_customer;
+		return Customer::model()->findByPk($this->Id_customer);
 	}
 	
 	/**
