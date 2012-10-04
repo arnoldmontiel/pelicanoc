@@ -210,7 +210,7 @@ class Nzb extends CActiveRecord
 		// should not be searched.
 	
 		$criteria=new CDbCriteria;
-	
+		$criteria->compare('ready',1);
 		$criteria->order = "t.date DESC";
 				
 		return new CActiveDataProvider($this, array(
