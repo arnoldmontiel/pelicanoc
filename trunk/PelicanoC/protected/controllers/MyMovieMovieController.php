@@ -123,6 +123,52 @@ class MyMovieMovieController extends Controller
 				
 	}
 
+	public function actionAjaxStartDownload()
+	{
+		if(isset($_POST['Id_nzb']))
+		{
+			$nzb = Nzb::model()->findByPk($_POST['Id_nzb']);
+			if(!$nzb->downloading)
+			{
+				$setting = Setting::getInstance();
+				try
+				{
+// 					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
+// 					{
+// 					}
+						$nzb->downloaded = 0;
+						$nzb->downloading = 1;
+						$nzb->save();
+	
+						$nzbMovieState= new NzbMovieState;
+						$nzbMovieState->Id_nzb = $nzb->Id;
+						$nzbMovieState->Id_movie_state = 2;
+						$setting=Setting::getInstance();
+						$nzbMovieState->Id_device = $setting->getId_Device();
+						$nzbMovieState->save();
+	
+						//we send the new state to the server
+						$pelicanoCliente = new Pelicano;
+						$request= new MovieStateRequest;
+						$request->Id_device= $setting->getId_Device();
+						$request->Id_nzb =$nzb->Id;
+						$request->Id_state =2;
+						$request->date = time();
+						$requests[]=$request;
+						$status = $pelicanoCliente->setMovieState($requests);
+						if($status)
+						{
+							$nzbMovieState->sent = 1;
+							$nzbMovieState->save();
+						}
+					
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+		}
+	}
 
 	/**
 	* Displays a particular model.
