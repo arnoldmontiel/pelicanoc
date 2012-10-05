@@ -84,8 +84,8 @@
 				 	'onclick'=>'js:function(){
 				 		if(confirm("Are you sure start downloading?"))
 				 		{
-							$.post("'.ImdbdataController::createUrl('AjaxStartDownload').'",
-									{id_nzb: "'.$model->Id.'"}
+							$.post("'.MyMovieMovieController::createUrl('AjaxStartDownload').'",
+									{Id_nzb: "'.$model->Id.'"}
 							).success(
 								function(data) 
 								{
@@ -158,26 +158,25 @@
 // 		{
 // 			return false;
 // 		}
-// 		if('".$nzbCustomer->downloading."'=='1')
-// 		{
-// 			$('#started-display').show();
-// 		}
-// 		else if('".$nzbCustomer->downloaded."'=='1')
-// 		{
-// 			if('".Yii::app()->user->checkAccess('ManagePlayer')."'=='1')
-// 			{
-// 				$('#play-display').show();
-// 			}
-// 			else
-// 			{
-// 				$('#finish-display').show();
-// 			}			
-// 		}
-// 		else 
-// 		{
-// 			$('#downloadButton').show();
-// 		}
-		$('#downloadButton').show();		
+		if('".$model->downloading."'=='1')
+		{
+			$('#started-display').show();
+		}
+		else if('".$model->downloaded."'=='1')
+		{
+			if('".Yii::app()->user->checkAccess('ManagePlayer')."'=='1')
+			{
+				$('#play-display').show();
+			}
+			else
+			{
+				$('#finish-display').show();
+			}			
+		}
+		else 
+		{
+			$('#downloadButton').show();
+		}
 	}
 	$('#play_button').click(
 		function () {
