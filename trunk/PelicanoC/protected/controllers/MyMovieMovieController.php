@@ -104,16 +104,21 @@ class MyMovieMovieController extends Controller
 		}
 		
 		PelicanoHelper::sendPendingNzbStates();
+		
+		$countReady = Nzb::model()->countByAttributes(array('ready'=>0));		
 		$sys = strtoupper(PHP_OS);
-		if(substr($sys,0,3) == "WIN")
+		
+		if($countReady>0)
 		{
-			$WshShell = new COM('WScript.Shell');
-			$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/downloadNzbFiles', 0, false);
-		}
-		else
-		{
-			//echo dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&';
-			exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
+			if(substr($sys,0,3) == "WIN")
+			{
+				$WshShell = new COM('WScript.Shell');
+				$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/downloadNzbFiles', 0, false);
+			}
+			else
+			{
+				exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
+			}
 		}
 				
 	}
