@@ -143,7 +143,7 @@
 </div>
 	<?php
 	$setting = Setting::getInstance();
-	$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$model->Id,'Id_customer'=>$setting->getId_customer()));
+	//$nzbCustomer = NzbCustomer::model()->findByPk(array('Id_nzb'=>$model->Id,'Id_customer'=>$setting->getId_customer()));
 	Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata', "
 	ChangeBG('images/','".$model->myMovieMovie->backdrop."');
 	ShowDownload();
