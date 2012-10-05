@@ -1,22 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "nzb_customer".
+ * This is the model class for table "command_status".
  *
- * The followings are the available columns in table 'nzb_customer':
- * @property integer $Id_nzb
- * @property integer $Id_customer
- * @property integer $downloading
- * @property integer $downloaded
- * @property integer $requested
- * @property string $date
+ * The followings are the available columns in table 'command_status':
+ * @property integer $Id
+ * @property string $command_name
+ * @property integer $busy
  */
-class NzbCustomer extends CActiveRecord
+class CommandStatus extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return NzbCustomer the static model class
+	 * @return CommandStatus the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +25,7 @@ class NzbCustomer extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'nzb_customer';
+		return 'command_status';
 	}
 
 	/**
@@ -39,12 +36,12 @@ class NzbCustomer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_nzb, Id_customer', 'required'),
-			array('Id_nzb, Id_customer, downloading, downloaded, requested', 'numerical', 'integerOnly'=>true),
-			array('date', 'safe'),
+			array('Id', 'required'),
+			array('Id, busy', 'numerical', 'integerOnly'=>true),
+			array('command_name', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_nzb, Id_customer, downloading, downloaded, requested, date', 'safe', 'on'=>'search'),
+			array('Id, command_name, busy', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,15 +62,21 @@ class NzbCustomer extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'Id_nzb' => 'Id Nzb',
-			'Id_customer' => 'Id Customer',
-			'downloading' => 'Downloading',
-			'downloaded' => 'Downloaded',
-			'requested' => 'Requested',
-			'date' => 'Date',
+			'Id' => 'ID',
+			'command_name' => 'Command Name',
+			'busy' => 'Busy',
 		);
 	}
 
+	public function setBusy($busy)
+	{
+		if($busy)
+			$this->busy = 1;
+		else
+			$this->busy = 0;
+		
+		$this->save();
+	}
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -85,12 +88,9 @@ class NzbCustomer extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('Id_nzb',$this->Id_nzb);
-		$criteria->compare('Id_customer',$this->Id_customer);
-		$criteria->compare('downloading',$this->downloading);
-		$criteria->compare('downloaded',$this->downloaded);
-		$criteria->compare('requested',$this->requested);
-		$criteria->compare('date',$this->date,true);
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('command_name',$this->command_name,true);
+		$criteria->compare('busy',$this->busy);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
