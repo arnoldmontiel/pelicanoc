@@ -26,12 +26,7 @@ class NzbCommand extends CConsoleCommand  {
 					
 					$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0));
 					
-					$img_path = '/var/www/workspace/PelicanoC/images/';
-					$sys = strtoupper(PHP_OS);
-					if(substr($sys,0,3) == "WIN")
-					{
-						$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
-					}
+					$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
 					
 					foreach ($arrayNbz as $modelNzb)
 					{
