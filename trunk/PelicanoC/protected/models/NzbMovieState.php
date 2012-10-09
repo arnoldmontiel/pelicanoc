@@ -110,4 +110,26 @@ class NzbMovieState extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function searchReady()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('Id_nzb',$this->Id_nzb);
+		$criteria->compare('Id_movie_state',$this->Id_movie_state);
+		$criteria->compare('date',$this->date,true);
+		$criteria->compare('sent',$this->sent);
+		$criteria->compare('Id_device',$this->Id_device,true);
+		
+		$criteria->with[]='nzb';
+		$criteria->compare('nzb.ready',1);
+	
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+		));
+	}
 }
