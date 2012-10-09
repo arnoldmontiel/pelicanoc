@@ -15,6 +15,7 @@ class CustomerRequest
 {
 	public $Id; //integer;
 	public $Id_reseller; //integer;
+	public $Id_device; //string;
 	public $name; //string;
 	public $last_name; //string;
 	public $address; //string;
