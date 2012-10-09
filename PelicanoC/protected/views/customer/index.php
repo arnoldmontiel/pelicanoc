@@ -22,9 +22,9 @@ else
 	}
 	else
 	{
-		echo '<p class="note">To create a customer you must first GET RESELLER.</p>';
+		echo '<p class="note">To create a customer you must first START INSTALLATION.</p>';
 		echo '<br>';
-		echo CHtml::link('Get Reseller',array('/setting/getReseller'));
+		echo CHtml::link('Start Installation',array('/setting/startInstallation'));
 	}
 }
 ?>

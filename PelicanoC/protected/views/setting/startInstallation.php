@@ -1,11 +1,11 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'reseller-form',
+	'id'=>'start-install-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fill the fields to get the reseller</p>
+	<p class="note">Fill the fields to start installation</p>
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
@@ -23,11 +23,11 @@
 	</div>
 	
 	<?php if($hasError): ?>
-	<p class="note"><span class="required">There was an error getting Reseller</span></p>
+	<p class="note"><span class="required">There was an error Starting Installation</span></p>
 	<?php endif ?>
 	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Get Reseller'); ?>
+		<?php echo CHtml::submitButton('Start Installation'); ?>
 		<?php echo CHtml::submitButton('Cancel',array('name'=>'cancel')); ?>
 	</div>
 
