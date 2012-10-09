@@ -47,6 +47,7 @@ class Customer extends CActiveRecord
 			$request->last_name = $model->last_name;
 			$request->address = $model->address;
 			$request->Id_reseller = $setting->Id_reseller;
+			$request->Id_device = $setting->getId_Device();
 			
 			$CustomerResponse = $pelicanoCliente->setCustomer($request);
 			
