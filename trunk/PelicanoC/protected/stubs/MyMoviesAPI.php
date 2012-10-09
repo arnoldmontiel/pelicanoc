@@ -12,8 +12,8 @@ class MyMovieBase
 
 	function __construct()
 	{
-		$this->UserName = "pablopedraza";
-		$this->Password = "pablo";
+		$this->UserName = "rdsmart";
+		$this->Password = "SmartLiving01";
 	}
 }
 

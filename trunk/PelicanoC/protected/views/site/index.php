@@ -24,7 +24,7 @@
 	echo '<br>';
 	echo CHtml::link('Settings',array('/setting/index'));
 	echo '<br>';
-	echo CHtml::link('Get Reseller',array('/setting/getReseller'));
+	echo CHtml::link('Start Installation',array('/setting/startInstallation'));
 ?>
 <?php endif?>
 <?php 
