@@ -11,7 +11,6 @@ class MyMovieMovieController extends Controller
 	public function updateFromServer()
 	{
 		
-		
 		$_COMMAND_NAME = "downloadNzbFiles";
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
@@ -20,7 +19,7 @@ class MyMovieMovieController extends Controller
 		{
 			if(!$modelCommandStatus->busy)
 			{
-				PelicanoHelper::sendPendingNzbStates();
+				//PelicanoHelper::sendPendingNzbStates();
 				try
 				{
 					
