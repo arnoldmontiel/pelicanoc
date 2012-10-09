@@ -66,7 +66,7 @@ class SettingController extends Controller
 		));
 	}
 
-	public function actionGetReseller()
+	public function actionStartInstallation()
 	{
 		$model=new User;
 		$hasError = false;
@@ -84,11 +84,12 @@ class SettingController extends Controller
 			if($model->validate())
 			{
 				$pelicanoCliente = new Pelicano;
-				$IdReseller = $pelicanoCliente->getReseller($model->username, $model->password);
-				if($IdReseller>0)
+				$installData = $pelicanoCliente->getInstallData($model->username, $model->password);
+				if(isset($installData))
 				{
 					$setting = Setting::getInstance();
-					$setting->Id_reseller = $IdReseller;
+					$setting->Id_reseller = $installData->Id_reseller;
+					$setting->Id_device = $installData->Id_device;
 					$setting->save();
 					$this->redirect(array('/site/index'));
 				}
@@ -99,7 +100,7 @@ class SettingController extends Controller
 			}
 		}
 	
-		$this->render('getReseller',array(
+		$this->render('startInstallation',array(
 				'model'=>$model,
 				'hasError'=>$hasError,
 		));
