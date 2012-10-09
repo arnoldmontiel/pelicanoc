@@ -20,7 +20,7 @@ class PelicanoHelper
 	{
 		$nzbMovieState = new NzbMovieState;
 		$nzbMovieState->sent = 0;
-		$dataProvider =$nzbMovieState->search();
+		$dataProvider =$nzbMovieState->searchReady();
 		$data = $dataProvider->data;
 		$requests = array();
 		

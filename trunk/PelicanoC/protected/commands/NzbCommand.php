@@ -14,111 +14,108 @@ class NzbCommand extends CConsoleCommand  {
 
 		if(isset($modelCommandStatus))
 		{
-			if(!$modelCommandStatus->busy)
+			try 
 			{
-				try 
+				
+				$validator = new CUrlValidator();
+				$setting = Setting::getInstance();
+				
+				$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0));
+				
+				$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
+				
+				foreach ($arrayNbz as $modelNzb)
 				{
-					
-					$modelCommandStatus->setBusy(true);
-					
-					$validator = new CUrlValidator();
-					$setting = Setting::getInstance();
-					
-					$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0));
-					
-					$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
-					
-					foreach ($arrayNbz as $modelNzb)
-					{
-							
-						$transaction = $modelNzb->dbConnection->beginTransaction();
-							
-						try {
-					
-							$modelMyMovieMovie = MyMovieMovie::model()->findByPk($modelNzb->Id_my_movie_movie);
-					
-							if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
-							{
-								try {
-									$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
-									if ($content !== false) {
-										//$file = fopen(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 'w');
-										$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
-										fwrite($file,$content);
-										fclose($file);
-									} else {
-										// an error happened
-									}
-								} catch (Exception $e) {
-									// an error happened
-								}
-							}
-							if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
-							{
-								$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
+						
+					$transaction = $modelNzb->dbConnection->beginTransaction();
+						
+					try {
+				
+						$modelMyMovieMovie = MyMovieMovie::model()->findByPk($modelNzb->Id_my_movie_movie);
+				
+						if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
+						{
+							try {
+								$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
 								if ($content !== false) {
-									//$file = fopen(dirname(__FILE__)."/../../".$setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
-									$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
+									//$file = fopen(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 'w');
+									$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
 									fwrite($file,$content);
 									fclose($file);
 								} else {
 									// an error happened
 								}
+							} catch (Exception $e) {
+								// an error happened
 							}
-							if($modelMyMovieMovie->poster_original!='' && $validator->validateValue($modelMyMovieMovie->poster_original))
-							{
-								try {
-									$content = @file_get_contents($modelMyMovieMovie->poster_original);
-									if ($content !== false) {
-										$file = fopen($img_path . $modelMyMovieMovie->Id.".jpg", 'w');
-										fwrite($file,$content);
-										fclose($file);
-										$modelMyMovieMovie->poster = $modelMyMovieMovie->Id.".jpg";
-									} else {
-										// an error happened
-									}
-								} catch (Exception $e) {
-									throw $e;
-									// an error happened
-								}
-							}
-					
-							if($modelMyMovieMovie->backdrop_original!='' && $validator->validateValue($modelMyMovieMovie->backdrop_original))
-							{
-								try {
-									$content = @file_get_contents($modelMyMovieMovie->backdrop_original);
-									if ($content !== false) {
-										$file = fopen($img_path . $modelMyMovieMovie->Id."_bd.jpg", 'w');
-										fwrite($file,$content);
-										fclose($file);
-										$modelMyMovieMovie->backdrop = $modelMyMovieMovie->Id."_bd.jpg";
-									} else {
-										// an error happened
-									}
-								} catch (Exception $e) {
-									throw $e;
-									// an error happened
-								}
-							}
-					
-							$modelMyMovieMovie->save();
-							$modelNzb->ready = 1;
-							$modelNzb->save();
-					
-							$transaction->commit();
-					
-						} catch (Exception $e) {
-							$transaction->rollback();
-							$modelCommandStatus->setBusy(false);
 						}
+						if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
+						{
+							$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
+							if ($content !== false) {
+								//$file = fopen(dirname(__FILE__)."/../../".$setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
+								$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
+								fwrite($file,$content);
+								fclose($file);
+							} else {
+								// an error happened
+							}
+						}
+						if($modelMyMovieMovie->poster_original!='' && $validator->validateValue($modelMyMovieMovie->poster_original))
+						{
+							try {
+								$content = @file_get_contents($modelMyMovieMovie->poster_original);
+								if ($content !== false) {
+									$file = fopen($img_path . $modelMyMovieMovie->Id.".jpg", 'w');
+									fwrite($file,$content);
+									fclose($file);
+									$modelMyMovieMovie->poster = $modelMyMovieMovie->Id.".jpg";
+								} else {
+									// an error happened
+								}
+							} catch (Exception $e) {
+								throw $e;
+								// an error happened
+							}
+						}
+				
+						if($modelMyMovieMovie->backdrop_original!='' && $validator->validateValue($modelMyMovieMovie->backdrop_original))
+						{
+							try {
+								$content = @file_get_contents($modelMyMovieMovie->backdrop_original);
+								if ($content !== false) {
+									$file = fopen($img_path . $modelMyMovieMovie->Id."_bd.jpg", 'w');
+									fwrite($file,$content);
+									fclose($file);
+									$modelMyMovieMovie->backdrop = $modelMyMovieMovie->Id."_bd.jpg";
+								} else {
+									// an error happened
+								}
+							} catch (Exception $e) {
+								throw $e;
+								// an error happened
+							}
+						}
+				
+						$modelMyMovieMovie->save();
+						$modelNzb->ready = 1;
+						$modelNzb->save();
+				
+						$transaction->commit();
+				
+					} catch (Exception $e) {
+						$transaction->rollback();
 					}
-					
-					$modelCommandStatus->setBusy(false);
-				} 
-				catch (Exception $e) {
-					$modelCommandStatus->setBusy(false);
-				}	
+				}
+				
+				$modelCommandStatus->setBusy(false);
+			} 
+			catch (Exception $e) {
+				$modelCommandStatus->setBusy(false);
 			}
+
+			//envio el estado de las peliculas al servidor
+			PelicanoHelper::sendPendingNzbStates();
 		}
 	}
 	
