@@ -73,6 +73,29 @@ class CustomerController extends Controller
 		));
 	}
 
+	public function actionUseCustomer()
+	{
+		
+		$hasError = false;
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if (isset($_POST['cancel'])) {
+			$this->redirect(array('index'));
+		}
+	
+		if(isset($_POST['code']))
+		{
+			if(Customer::useCustomer($_POST['code']))
+				$this->redirect(array('index'));	
+
+			$hasError = true;
+		}
+	
+		$this->render('useCustomer',array(
+						'hasError'=>$hasError,
+		));
+	}
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
