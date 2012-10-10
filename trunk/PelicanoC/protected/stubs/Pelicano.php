@@ -11,6 +11,14 @@ class InstallDataResponse
 	public $Id_device; //string;
 }
 
+class CustomerResponse
+{
+	public $Id; //integer;
+	public $name; //string;
+	public $last_name; //string;
+	public $address; //string;
+}
+
 class CustomerRequest
 {
 	public $Id; //integer;
@@ -282,6 +290,15 @@ function updateCustomer($CustomerRequest)
 	if(isset($this->soapClient))
 	{
 		$result = $this->soapClient->updateCustomer($CustomerRequest);
+	}
+	return $result;
+}
+function useCustomer($code, $Id_device)
+{
+	$result = false;
+	if(isset($this->soapClient))
+	{
+		$result = $this->soapClient->useCustomer($code, $Id_device);
 	}
 	return $result;
 }
