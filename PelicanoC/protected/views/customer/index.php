@@ -19,6 +19,8 @@ else
 	if(isset($setting->Id_reseller))
 	{
 		echo CHtml::link('Create Customer',array('/customer/create'));
+		echo '<br>';
+		echo CHtml::link('Use existing Customer',array('/customer/useCustomer'));
 	}
 	else
 	{

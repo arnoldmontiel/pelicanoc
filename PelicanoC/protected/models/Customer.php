@@ -94,6 +94,34 @@ class Customer extends CActiveRecord
 		return false;
 	}
 	
+	public static function useCustomer($code)
+	{
+		if(!empty($code))
+		{
+			$setting = Setting::getInstance();				
+			$pelicanoCliente = new Pelicano;
+
+			$CustomerResponse = $pelicanoCliente->useCustomer($code, $setting->getId_Device());
+				
+			if($CustomerResponse != null)
+			{
+				$modelCustomer = new Customer();
+				$modelCustomer->Id = $CustomerResponse->Id;
+				$modelCustomer->name = $CustomerResponse->name;
+				$modelCustomer->last_name = $CustomerResponse->last_name;
+				$modelCustomer->address = $CustomerResponse->address;
+				$modelCustomer->save();
+	
+				$setting = Setting::getInstance();
+				$setting->Id_customer = $CustomerResponse->Id;
+				$setting->save();
+				return true;
+			}
+				
+		}
+		return false;
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
