@@ -2,6 +2,15 @@
 require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 class PelicanoHelper
 {
+	static public function sendAnydvdVersionDownloaded($version)
+	{
+		$settingsWS->setAnydvdVersionDownloaded($version);		
+	}
+	static public function sendAnydvdVersionInstalled($anydvdVersion)
+	{
+		$settingsWS->setAnydvdVersionDownloaded($anydvdVersion->version);
+	}
+	
 	static public function sendExternalIPAddressToServer()
 	{
 		PelicanoHelper::getExternalIPAddress();//this olso update the database with the ip
