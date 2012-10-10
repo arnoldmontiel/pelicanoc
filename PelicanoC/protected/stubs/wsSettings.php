@@ -9,7 +9,7 @@
 
 class ClientSettingsRequest extends SOAP2Array
 {
-	public $Id_client; //integer;
+	public $Id_device; //integer;
 	public $ip_v4; //string;
 	public $port_v4; //integer;
 	public $ip_v6; //string;
