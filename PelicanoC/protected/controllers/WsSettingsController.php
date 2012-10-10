@@ -28,7 +28,6 @@ class WsSettingsController extends Controller
 			$anydvdVersion->file_name = $file_name;
 			$anydvdVersion->download_link = $download_link;
 			$settings = Setting::getInstance();
-			$url = $settings->host_name.$settings->host_path; 
 			$anydvdVersion->save();
 			return true; 
 		} catch (Exception $e) {
