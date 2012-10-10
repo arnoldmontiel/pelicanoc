@@ -64,18 +64,10 @@ class SiteController extends Controller
 
 //    		$hola = new User();
 //    		$hola->sincronizeFromServer();
-// 		PelicanoHelper::getExternalIPAddress();
-// 		$settings = Setting::getInstance();
-// 		$settingsWS = new wsSettings();
-// 		$clientsettings = new ClientSettingsRequest();
-// 		$clientsettings->Id_client = $settings->Id_client;
-// 		$clientsettings->ip_v4 = $settings->ip_v4; 
-// 		$clientsettings->port_v4 = $settings->port_v4;
-// 		$clientsettings->ip_v6 = $settings->ip_v6; 
-// 		$clientsettings->port_v6 = $settings->port_v6;
-		
-// 		$settingsWS->setClientSettings($clientsettings);
-		$modelNzb = new Nzb;
+		PelicanoHelper::sendExternalIPAddressToServer();
+
+ 		
+ 		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
 		$dataProvider->pagination->pageSize= 4;
 		
