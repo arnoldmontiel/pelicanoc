@@ -76,10 +76,10 @@
 			echo CHtml::link( CHtml::image("images/news.png",'movies',array('id'=>'news_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/imdbdata/news'));
 		}
-		if(Yii::app()->user->checkAccess('ImdbdataTvIndex'))
+		if(Yii::app()->user->checkAccess('RippedMovieIndex'))
 		{ 
 			echo CHtml::link( CHtml::image("images/series.png",'movies',array('id'=>'series_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/imdbdataTv/index'));
+			),array('/rippedMovie/indexSerie'));
 		}
 		if(Yii::app()->user->checkAccess('SiteMusic'))
 		{ 

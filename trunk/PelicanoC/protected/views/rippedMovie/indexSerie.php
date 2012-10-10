@@ -1,5 +1,5 @@
 <div class="movie-title-index">
-	Ripped
+	Ripped Series
 	
 	<div class="index-searchbox">
 		<input type="text" name="index_search" id="index_search" placeholder="<?php echo CHtml::decode("Search by title, actors, directors, genre...")?>" autocomplete="off">
