@@ -4,7 +4,7 @@ class PelicanoHelper
 {
 	static public function sendExternalIPAddressToServer()
 	{
-		PelicanoHelper::getExternalIPAddress();
+		echo PelicanoHelper::getExternalIPAddress();
 		
 		$settings = Setting::getInstance();
 		$settingsWS = new wsSettings();
