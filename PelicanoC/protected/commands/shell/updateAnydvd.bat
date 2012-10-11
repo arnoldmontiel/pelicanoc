@@ -1,3 +1,3 @@
 @echo off
 
-C:\xampp\htdocs\workspace\PelicanoC\protected\yiic.bat nzb updateanydvdversion
+C:\xampp\htdocs\workspace\PelicanoC\protected\yiic.bat anydvd downloadUpdateFile

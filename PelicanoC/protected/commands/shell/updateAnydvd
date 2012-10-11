@@ -1,3 +1,3 @@
 #!/bin/bash
 
-C:\xampp\htdocs\workspace\PelicanoC\protected\yiic nzb updateanydvdversion
+/var/www/workspace/PelicanoC/protected/yiic anydvd downloadUpdateFile

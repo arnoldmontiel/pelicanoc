@@ -3,7 +3,7 @@ class AnydvdCommand extends CConsoleCommand  {
 	/*
 	 * @return 0: It was an error, 1:It was success
 	 */
-	function actionUpdateStateMovies() 
+	function actionDownloadUpdateFile() 
 	{
 		$_COMMAND_NAME = "downloadAnydvdUpdate";
 		

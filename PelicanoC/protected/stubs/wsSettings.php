@@ -39,6 +39,17 @@ function setClientSettings($ClientSettingsRequest)
 	$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
 	return $boolean;
 }
+function setAnydvdVersionDownloaded($idDevice,$version)
+{
+	return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
+	
+}
+static public function sendAnydvdVersionInstalled($idDevice,$anydvdVersion)
+{
+	return $this->soapClient->sendAnydvdVersionInstalled($idDevice,$version);
+	
+}
+
 }
 
 
