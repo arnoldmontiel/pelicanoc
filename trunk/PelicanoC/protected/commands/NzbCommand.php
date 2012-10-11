@@ -40,8 +40,8 @@ class NzbCommand extends CConsoleCommand  {
 							try {
 								$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
 								if ($content !== false) {
-									//$file = fopen(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 'w');
-									$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
+									$file = fopen(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 'w');
+									//$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
 									fwrite($file,$content);
 									fclose($file);
 								} else {
@@ -55,8 +55,8 @@ class NzbCommand extends CConsoleCommand  {
 						{
 							$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->subt_url);
 							if ($content !== false) {
-								//$file = fopen(dirname(__FILE__)."/../../".$setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
-								$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
+								$file = fopen(dirname(__FILE__)."/../../".$setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
+								//$file = fopen($setting->path_subtitle."/".$modelNzb->subt_file_name, 'w');
 								fwrite($file,$content);
 								fclose($file);
 							} else {
