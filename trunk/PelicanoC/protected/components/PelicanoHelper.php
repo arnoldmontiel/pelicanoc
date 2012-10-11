@@ -4,10 +4,14 @@ class PelicanoHelper
 {
 	static public function sendAnydvdVersionDownloaded($version)
 	{
+		$settingsWS = new wsSettings();
+		
 		$settingsWS->setAnydvdVersionDownloaded($version);		
 	}
 	static public function sendAnydvdVersionInstalled($anydvdVersion)
 	{
+		$settingsWS = new wsSettings();
+		
 		$settingsWS->setAnydvdVersionDownloaded($anydvdVersion->version);
 	}
 	
