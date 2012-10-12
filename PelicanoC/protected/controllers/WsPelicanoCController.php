@@ -26,25 +26,21 @@ class WsPelicanoCController extends Controller
 	 */
 	public function addNewRipMovie($idMyMovie, $path, $parental_control)
 	{
-		$idImdb = "";
 		
 		$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$idMyMovie));
+		
 		if(isset($model)) // check if movie is already ripped
-		{
-			$idImdb = $model->Id_imdbdata;
-			
+		{	
 			$model->delete();
 			MyMovie::model()->deleteByPk($idMyMovie);
-			Imdbdata::model()->deleteByPk($idImdb);
 		}
 
  		$myMoviesAPI = new MyMoviesAPI();		
-		$idImdb = $myMoviesAPI->LoadDiscTitleById($idMyMovie);
 		
-		$result = false;
-		if(!empty($idImdb))
+		$result = $myMoviesAPI->LoadDiscTitleById($idMyMovie);
+		if($result)
 		{
-			$result = $this->saveRippedMovie($idImdb, $path, $idMyMovie, $parental_control);
+			$this->saveRippedMovie($idMyMovie, $path, $parental_control);
 			RippedMovie::sincronizeWithServer();
 		}
 		return $result;
@@ -91,139 +87,19 @@ class WsPelicanoCController extends Controller
 		return false;
 	}
 	
-	private function getBackDropUrl($idImdb)
-	{
-		$result = $this->readTheMovieDBApi($idImdb);
-		$jsonResult = json_decode($result);
-		$url = "";
-		foreach($jsonResult['0']->backdrops as $item )
-		{
-			if($item->image->size == 'original')
-			{
-				$url = $item->image->url;
-				return $url;
-			}
 	
-		}
-		return $url;
-	}
-	
-	private function saveRippedMovie($idImdb, $path, $idMyMovie, $parental_control)
+	private function saveRippedMovie($idMyMovie, $path, $parental_control)
 	{
-		$data = $this->readImdbApi($idImdb);
-		$data = json_decode($data);
-		if(isset($data))
-		{
-			$modelImdbdata = new Imdbdata();
-				
-			$transaction = $modelImdbdata->dbConnection->beginTransaction();
-				
-			try {
-					
-				$modelImdbdataDB = Imdbdata::model()->findByPk($idImdb);
-				
-				if(!isset($modelImdbdataDB)) // si ya fue bajada por pelicano, no se vuelve a generar el registro
-				{
-					$modelImdbdata->ID = $data->imdbID;
-					$modelImdbdata->Year = $data->Year;
-					$modelImdbdata->Title = $data->Title;
-					$modelImdbdata->Rated = $data->Rated;
-					$modelImdbdata->Released = $data->Released;
-					$modelImdbdata->Genre = $data->Genre;
-					$modelImdbdata->Director = $data->Director;
-					$modelImdbdata->Writer = $data->Writer;
-					$modelImdbdata->Actors = $data->Actors;
-					$modelImdbdata->Plot = $data->Plot;
-					$modelImdbdata->Runtime = $data->Runtime;
-					$modelImdbdata->Rating = $data->imdbRating;
-					$modelImdbdata->Votes = $data->imdbVotes;
-					$modelImdbdata->Response = $data->Response;
-					$modelImdbdata->Poster_original = $data->Poster;
 		
-// 					$validator = new CUrlValidator();
-// 					$setting = Setting::getInstance();
+		$modelRippedMovie = new RippedMovie();
+		$modelRippedMovie->path = $path;
+		$modelRippedMovie->Id_my_movie = $idMyMovie;
+		$modelRippedMovie->parental_control = (int)$parental_control;
+		if($modelRippedMovie->save())
+			return true;
 		
-// 					if($data->Poster!='' && $validator->validateValue($data->Poster))
-// 					{
-// 						try {
-// 							$content = @file_get_contents($data->Poster);
-// 							if ($content !== false) {
-// 								$file = fopen($setting->path_images."/".$modelImdbdata->ID.".jpg", 'w');
-// 								fwrite($file,$content);
-// 								fclose($file);
-// 								$modelImdbdata->Poster = $modelImdbdata->ID.".jpg";
-// 							} else {
-// 								// an error happened
-// 							}
-// 						} catch (Exception $e) {
-// 							throw $e;
-// 							// an error happened
-// 						}
-// 					}
-		
-// 					$modelImdbdata->Backdrop_original = $this->getBackDropUrl($idImdb);
-// 					if($modelImdbdata->Backdrop_original!='' && $validator->validateValue($modelImdbdata->Backdrop_original))
-// 					{
-// 						try {
-// 							$content = @file_get_contents($modelImdbdata->Backdrop_original);
-// 							if ($content !== false) {
-// 								$file = fopen($setting->path_images."/".$modelImdbdata->ID."_bd.jpg", 'w');
-// 								fwrite($file,$content);
-// 								fclose($file);
-// 								$modelImdbdata->Backdrop = $modelImdbdata->ID."_bd.jpg";
-// 							} else {
-// 								// an error happened
-// 							}
-// 						} catch (Exception $e) {
-// 							throw $e;
-// 							// an error happened
-// 						}
-// 					}
-		
-					$modelImdbdata->save();
-				}
-				
-				$modelRippedMovie = new RippedMovie();
-				$modelRippedMovie->Id_imdbdata = $idImdb;
-				$modelRippedMovie->path = $path;
-				$modelRippedMovie->Id_my_movie = $idMyMovie;
-				$modelRippedMovie->parental_control = (int)$parental_control;
-				$modelRippedMovie->save();							
-				
-				$transaction->commit();
-				return true;
-			} catch (Exception $e) {
-				$transaction->rollback();
-				return false;
-			}
-		}
 		return false;
-	}
-	
-	//for backdrop image
-	private function readTheMovieDBApi($idImdb)
-	{
-		$url = "http://api.themoviedb.org/2.1/Movie.getImages/en/json/cb1fddfd86177c7df456045bddbbc762/". $idImdb;
-	
-		$fichero_url = fopen($url, "r");
-		$texto = "";
-		while ($trozo = fgets($fichero_url, 1024)){
-			$texto .= $trozo;
-		}
-		return $texto;
-	}
-	
-	//for imdb data
-	private function readImdbApi($idImdb)
-	{
-		$url = "http://www.imdbapi.com/?i=". $idImdb;
-	
-		$fichero_url = fopen($url, "r");
-		$texto = "";
-		while ($trozo = fgets($fichero_url, 1024)){
-			$texto .= $trozo;
-		}
-		return $texto;
+
 	}
 	
 }
