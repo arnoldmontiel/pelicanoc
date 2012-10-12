@@ -61,7 +61,7 @@ class MyMovieSeason extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'myMovieEpisodes' => array(self::HAS_MANY, 'MyMovieEpisode', 'Id_my_movie_season'),
-			'idMyMovieSerieHeader' => array(self::BELONGS_TO, 'MyMovieSerieHeader', 'Id_my_movie_serie_header'),
+			'myMovieSerieHeader' => array(self::BELONGS_TO, 'MyMovieSerieHeader', 'Id_my_movie_serie_header'),
 		);
 	}
 
