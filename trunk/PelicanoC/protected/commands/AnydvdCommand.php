@@ -13,7 +13,6 @@ class AnydvdCommand extends CConsoleCommand  {
 		{
 			try 
 			{
-				$validator = new CUrlValidator();
 				
 				$setting = Setting::getInstance();
 				
@@ -30,12 +29,11 @@ class AnydvdCommand extends CConsoleCommand  {
 				
 						$modelMyMovieMovie = MyMovieMovie::model()->findByPk($modelNzb->Id_my_movie_movie);
 				
-						if($item->download_link!='' && $validator->validateValue($setting->host_name.$setting->host_path.$item->download_link))
+						if($item->download_link!='' )
 						{
 							try {
 								$content = @file_get_contents($setting->host_name.$setting->host_path.$item->download_link);
 								if ($content !== false) {
-									//$file = fopen(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 'w');
 									$file = fopen($donwload_path."/".$item->file_name, 'w');
 									fwrite($file,$content);
 									fclose($file);
@@ -56,14 +54,10 @@ class AnydvdCommand extends CConsoleCommand  {
 						$transaction->rollback();
 					}
 				}
-				
-				$modelCommandStatus->setBusy(false);
 			} 
 			catch (Exception $e) {
-				$modelCommandStatus->setBusy(false);
 			}
-
-			//envio el estado de las peliculas al servidor
 		}
+		$modelCommandStatus->setBusy(false);		
 	}
 }

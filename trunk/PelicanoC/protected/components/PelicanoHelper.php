@@ -4,15 +4,18 @@ class PelicanoHelper
 {
 	static public function sendAnydvdVersionDownloaded($version)
 	{
-		$settingsWS = new wsSettings();
-		
-		$settingsWS->setAnydvdVersionDownloaded($version);		
+		$settings = Setting::getInstance();
+		$settingsWS = new wsSettings();		
+		$settingsWS->setAnydvdVersionDownloaded($settings->Id_device,$version);		
 	}
 	static public function sendAnydvdVersionInstalled($anydvdVersion)
 	{
 		$settingsWS = new wsSettings();
 		
-		$settingsWS->setAnydvdVersionDownloaded($anydvdVersion->version);
+		$settings = Setting::getInstance();
+		$settingsWS = new wsSettings();
+		
+		$settingsWS->setAnydvdVersionDownloaded($settings->Id_device,$anydvdVersion->version);
 	}
 	
 	static public function sendExternalIPAddressToServer()
