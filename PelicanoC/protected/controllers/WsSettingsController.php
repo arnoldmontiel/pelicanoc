@@ -22,7 +22,7 @@ class WsSettingsController extends Controller
 	 */
 	public function updateAnydvd($version,$file_name,$download_link)
 	{
-		$_COMMAND_NAME = "downloadNzbFiles";
+		$_COMMAND_NAME = "downloadAnydvdUpdate";
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
 		
@@ -30,7 +30,8 @@ class WsSettingsController extends Controller
 		{
 			if(!$modelCommandStatus->busy)
 			{
-		
+				$modelCommandStatus->setBusy(true);
+				
 				try {
 					
 					$anydvdVersion = new AnydvdVersion();
@@ -39,10 +40,11 @@ class WsSettingsController extends Controller
 					$anydvdVersion->download_link = $download_link;
 					$settings = Setting::getInstance();
 					$anydvdVersion->save();
+					$sys = strtoupper(PHP_OS);
 					if(substr($sys,0,3) == "WIN")
 					{
 						$WshShell = new COM('WScript.Shell');
-						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/updateAnydvd', 0, false);
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/updateAnydvd.bat', 0, false);
 					}
 					else
 					{
