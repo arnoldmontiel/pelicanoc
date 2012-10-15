@@ -26,10 +26,10 @@ class wsPelicanoC
 	}
 	
 	
-	function addNewRipMovie($idMyMovie, $path, $parental_control)
+	function addNewRipMovie($idMyMovie, $path, $parental_control, $disc_code)
 	{
 		
-		$result = $this->soapClient->addNewRipMovie($idMyMovie, $path, $parental_control);
+		$result = $this->soapClient->addNewRipMovie($idMyMovie, $path, $parental_control, $disc_code);
 		return $result;
 	}
 	
