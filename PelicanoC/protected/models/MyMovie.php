@@ -33,6 +33,8 @@
  * @property integer $adult
  * @property string $Id_my_movie_serie_header
  * @property string $media_type
+ * @property string $disc_code
+ * @property string $disc_name
  *
  * The followings are the available model relations:
  * @property ParentalControl $parentalControl
@@ -73,8 +75,8 @@ class MyMovie extends CActiveRecord
 			array('Id_parental_control, adult', 'numerical', 'integerOnly'=>true),
 			array('Id, Id_my_movie_serie_header', 'length', 'max'=>200),
 			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb, media_type', 'length', 'max'=>45),
-			array('local_title, original_title, sort_title, data_changed, covers_changed', 'length', 'max'=>100),
-			array('parental_rating_desc, genre, studio, poster, poster_original, backdrop, backdrop_original', 'length', 'max'=>255),
+			array('local_title, original_title, sort_title, data_changed, covers_changed, disc_code', 'length', 'max'=>100),
+			array('parental_rating_desc, genre, studio, poster, poster_original, backdrop, backdrop_original, disc_name', 'length', 'max'=>255),
 			array('rating', 'length', 'max'=>10),
 			array('description, extra_features', 'safe'),
 			// The following rule is used by search().
@@ -134,6 +136,8 @@ class MyMovie extends CActiveRecord
 			'adult' => 'Adult',
 			'Id_my_movie_serie_header' => 'Id My Movie Serie Header',
 			'media_type' => 'Media Type',
+			'disc_code' => 'Disc Code',
+			'disc_name' => 'Disc Name',
 		);
 	}
 
@@ -177,7 +181,9 @@ class MyMovie extends CActiveRecord
 		$criteria->compare('adult',$this->adult);
 		$criteria->compare('Id_my_movie_serie_header',$this->Id_my_movie_serie_header,true);
 		$criteria->compare('media_type',$this->media_type,true);
-
+		$criteria->compare('disc_code',$this->disc_code,true);
+		$criteria->compare('disc_name',$this->disc_name,true);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

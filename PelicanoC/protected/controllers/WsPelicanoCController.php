@@ -21,10 +21,11 @@ class WsPelicanoCController extends Controller
 	 * @param string idMyMovie
 	 * @param string path
 	 * @param boolean parental_control
+	 * @param string disc_code
 	 * @return boolean result
 	 * @soap
 	 */
-	public function addNewRipMovie($idMyMovie, $path, $parental_control)
+	public function addNewRipMovie($idMyMovie, $path, $parental_control, $disc_code)
 	{
 		
 		$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$idMyMovie));
@@ -37,7 +38,7 @@ class WsPelicanoCController extends Controller
 
  		$myMoviesAPI = new MyMoviesAPI();		
 		
-		$result = $myMoviesAPI->LoadDiscTitleById($idMyMovie);
+		$result = $myMoviesAPI->LoadDiscTitleById($idMyMovie, $disc_code);
 		if($result)
 		{
 			$this->saveRippedMovie($idMyMovie, $path, $parental_control);
