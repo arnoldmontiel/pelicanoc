@@ -20,30 +20,19 @@ class WsPelicanoCController extends Controller
 	 * Returns add new rip movie
 	 * @param string idMyMovie
 	 * @param string path
-	 * @param boolean parental_control
-	 * @param string disc_code
+	 * @param boolean parentalControl
+	 * @param string idDisc
 	 * @return boolean result
 	 * @soap
 	 */
-	public function addNewRipMovie($idMyMovie, $path, $parental_control, $disc_code)
+	public function addNewRipMovie($idMyMovie, $path, $parentalControl, $idDisc)
 	{
+	
+		$result = RipperHelper::saveRipped($idMyMovie, $path, $parentalControl, $idDisc);
 		
-		$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$idMyMovie));
+		//if($result)
+			//RippedMovie::sincronizeWithServer();
 		
-		if(isset($model)) // check if movie is already ripped
-		{	
-			$model->delete();
-			MyMovie::model()->deleteByPk($idMyMovie);
-		}
-
- 		$myMoviesAPI = new MyMoviesAPI();		
-		
-		$result = $myMoviesAPI->LoadDiscTitleById($idMyMovie, $disc_code);
-		if($result)
-		{
-			$this->saveRippedMovie($idMyMovie, $path, $parental_control);
-			RippedMovie::sincronizeWithServer();
-		}
 		return $result;
 	}
 	
@@ -86,21 +75,6 @@ class WsPelicanoCController extends Controller
 			return true;
 		}
 		return false;
-	}
-	
-	
-	private function saveRippedMovie($idMyMovie, $path, $parental_control)
-	{
-		
-		$modelRippedMovie = new RippedMovie();
-		$modelRippedMovie->path = $path;
-		$modelRippedMovie->Id_my_movie = $idMyMovie;
-		$modelRippedMovie->parental_control = (int)$parental_control;
-		if($modelRippedMovie->save())
-			return true;
-		
-		return false;
-
 	}
 	
 }

@@ -47,14 +47,31 @@ class RippedMovieController extends Controller
 	{
 		$model = MyMovieSerieHeader::model()->findByPk($id);
 		$dataProvider=new CActiveDataProvider('RippedMovie');
+	
+		$modelSeason = new MyMovieSeason();
+		$modelSeason->Id_my_movie_serie_header = $id;
+		
+		$dataProvider= $modelSeason->search();
+		$dataProvider->pagination->pageSize= 12;
+	
+		$this->render('viewSerie',array(
+					'model'=>$model,
+					'dataProvider'=>$dataProvider,
+		));
+	}
+	
+	public function actionViewSeason($id)
+	{
+		$model = MyMovieSeason::model()->findByPk($id);
+		$dataProvider=new CActiveDataProvider('RippedMovie');
 		
 		
 		$modelRipped = new RippedMovie();
-		$modelRipped->serieId = $id;
-		$dataProvider= $modelRipped->searchSerie();
+		$modelRipped->seasonId = $id;
+		$dataProvider= $modelRipped->searchSeason();
 		$dataProvider->pagination->pageSize= 12;
 		
-		$this->render('viewSerie',array(
+		$this->render('viewSeason',array(
 				'model'=>$model,
 				'dataProvider'=>$dataProvider,
 		));
