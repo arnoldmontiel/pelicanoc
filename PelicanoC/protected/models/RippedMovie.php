@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'ripped_movie':
  * @property integer $Id
  * @property string $path
- * @property string $Id_my_movie
+ * @property string $Id_my_movie_disc
  * @property string $creation_date
  * @property integer $parental_control
  * @property integer $was_sent
@@ -17,6 +17,7 @@
 class RippedMovie extends CActiveRecord
 {	
 	public $serieId;
+	public $seasonId;
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -44,12 +45,14 @@ class RippedMovie extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('path, Id_my_movie', 'length', 'max'=>255),
+			array('Id_my_movie_disc', 'required'),
+			array('Id_my_movie_disc', 'length', 'max'=>200),
+			array('path', 'length', 'max'=>255),
 			array('parental_control, was_sent', 'numerical', 'integerOnly'=>true),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path, Id_my_movie, creation_date, parental_control, was_sent', 'safe', 'on'=>'search'),
+			array('Id, path, Id_my_movie_disc, creation_date, parental_control, was_sent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,7 +76,7 @@ class RippedMovie extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'path' => 'Path',
-			'Id_my_movie' => 'Id My Movie',
+			'Id_my_movie_disc' => 'Id My Movie Disc',
 			'creation_date' => 'Creation Date',
 			'parental_control' => 'Parental Control',
 			'was_sent' => 'Was Sent',
@@ -271,6 +274,30 @@ class RippedMovie extends CActiveRecord
 	
 		return new CActiveDataProvider($this, array(
 					'criteria'=>$criteria,
+		));
+	}
+
+	public function searchSeason()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('path',$this->path,true);
+		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
+		$criteria->compare('creation_date',$this->creation_date,true);
+	
+		$criteria->join =	"LEFT OUTER JOIN my_movie my ON my.Id=t.Id_my_movie
+							 LEFT OUTER JOIN my_movie_episode_my_movie r ON r.Id_my_movie=my.Id
+							 LEFT OUTER JOIN my_movie_episode e ON e.Id=r.Id_my_movie_episode";
+		$criteria->addSearchCondition("e.Id_my_movie_season",$this->seasonId);
+	
+		$criteria->order = "t.creation_date DESC";
+	
+		return new CActiveDataProvider($this, array(
+						'criteria'=>$criteria,
 		));
 	}
 	
