@@ -3,53 +3,10 @@
 
 <div class="rip-layout-left">
 	<div style="width: 205px; float:left;">
-		<?php echo CHtml::image( "images/".$model->poster, $model->name,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
+		<?php echo CHtml::image( "images/".$model->banner, '',array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
 	</div>
 </div>
-<div class="rip-layout-centre">
-	<div style="float: left;padding: 5px 10px;">
-	<?php echo CHtml::openTag('div',array('class'=>'movie-title'));?>
-			<?php echo $model->name; ?>
-		<?php echo CHtml::closeTag('div');?> 
-	<br>
-	<?php echo CHtml::openTag('div');?>
-		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->getAttributeLabel('Description').':'; ?>
-		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->description; ?>		
-	<?php echo CHtml::closeTag('div');?> 
-	
-	<?php echo CHtml::openTag('div');?>
-			<?php echo CHtml::openTag('b');?>
-				<?php echo $model->getAttributeLabel('Genre').':'; ?>
-			<?php echo CHtml::closeTag('b');?>
-			<?php echo $model->genre; ?>
-	<?php echo CHtml::closeTag('div');?> 
-		
-	<?php echo CHtml::openTag('div');?>
-		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->getAttributeLabel('Rating').':'; ?>
-		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->rating; ?>
-	<?php echo CHtml::closeTag('div');?> 
 
-	<?php echo CHtml::openTag('div');?>
-		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->getAttributeLabel('Network').':'; ?>
-		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->original_network; ?>
-	<?php echo CHtml::closeTag('div');?> 
-	
-	<?php echo CHtml::openTag('div');?>
-		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->getAttributeLabel('Status').':'; ?>
-		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->original_status; ?>
-	<?php echo CHtml::closeTag('div');?> 
-	
-	</div>		
-	
-</div>
 <div class="rip-layout-right">
 	
 </div>
@@ -57,7 +14,7 @@
 <div class="rip-layout-footer" >
 	 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_viewSeason',
+	'itemView'=>'_view',
 	'id'=>'listMovies-view',
 	'summaryText' =>"",
 	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
