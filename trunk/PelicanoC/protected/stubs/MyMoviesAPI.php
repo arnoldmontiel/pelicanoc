@@ -17,7 +17,7 @@ class MyMovieBase
 	}
 }
 
-class LoadEpisodeBySeriesID extends MyMovieBase
+class LoadEpisodeBySeriesIDRequest extends MyMovieBase
 {
 	public $HandShake; //string;
 	public $Reference; //string;
@@ -39,7 +39,7 @@ class LoadEpisodeBySeriesIDResult
 	public $any; //string;
 }
 
-class LoadSeasonBanners extends MyMovieBase
+class LoadSeasonBannersRequest extends MyMovieBase
 {
 	public $HandShake; //string;
 	public $Reference; //string;
@@ -58,7 +58,7 @@ class LoadSeasonBannersResult
 	public $any; //string;
 }
 
-class LoadSeries extends MyMovieBase
+class LoadSeriesRequest extends MyMovieBase
 {
 	public $Handshake; //string;
 	public $Reference; //string;
@@ -78,7 +78,7 @@ class LoadSeriesResult
 	public $any; //string;
 }
 
-class LoadDiscTitleById extends MyMovieBase
+class LoadDiscTitleByIdRequest extends MyMovieBase
 {
 	public $Handshake; //string;
 	public $Reference; //string;
@@ -107,7 +107,7 @@ class LoadDiscTitleByIdResult
 		public $soapClient;
 	
 		private static $classmap = array(
-			'LoadDiscTitleById'=>'LoadDiscTitleById',
+			'LoadDiscTitleByIdRequest'=>'LoadDiscTitleByIdRequest',
 			'LoadDiscTitleByIdResponse'=>'LoadDiscTitleByIdResponse',
 			'LoadDiscTitleByIdResult'=>'LoadDiscTitleByIdResult',
 	
@@ -119,539 +119,74 @@ class LoadDiscTitleByIdResult
 		$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => false));
 	}
 	
-	function LoadEpisodeBySeriesID($serieId, $seasonNumber, $episodeNumber)
+	function LoadEpisodeBySeriesID($idSerie, $seasonNumber, $episodeNumber)
 	{
-		$model = new LoadEpisodeBySeriesID();
-		$model->SerieGuid = $serieId;
-		$model->Seasonnumber = $seasonNumber;
-		$model->Episodenumber = $episodeNumber;
-		$model->LanguageCode = '';
-		$model->Country = '';
-		$model->Locale = 0;
+		$modelRequest = new LoadEpisodeBySeriesIDRequest();
+		$modelRequest->SerieGuid = $idSerie;
+		$modelRequest->Seasonnumber = $seasonNumber;
+		$modelRequest->Episodenumber = $episodeNumber;
+		$modelRequest->LanguageCode = '';
+		$modelRequest->Country = '';
+		$modelRequest->Locale = 0;
 		
-		$LoadEpisodeBySeriesIDResponse = $this->soapClient->LoadEpisodeBySeriesID($model);
+		$response = $this->soapClient->LoadEpisodeBySeriesID($modelRequest);
 
-		if(isset($LoadEpisodeBySeriesIDResponse))
-		{
-			return $this->saveEpisode($serieId, $seasonNumber, simplexml_load_string($LoadEpisodeBySeriesIDResponse->LoadEpisodeBySeriesIDResult->any));
-		}
+		if(isset($response))
+			return simplexml_load_string($response->LoadEpisodeBySeriesIDResult->any);
 		
 		return null;
 	}
 	
-	private function saveEpisode($serieId, $seasonNumber, $data)
+	function LoadSeasonBanners($idSerie, $seasonNumber)
 	{
-		if(!empty($data) && (string)$data['status'] == 'ok')
-		{
-			if(!empty($data->Episode))
-				$data = $data->Episode;
-			else
-				return null;
-			
-			$modelMyMovieSeason = MyMovieSeason::model()->findByAttributes(array(
-														'Id_my_movie_serie_header'=>$serieId,
-														'season_number'=>$seasonNumber,
-														));
-			if($modelMyMovieSeason)
-			{
-				$description = (string)$data['Description'];
-				$name = (string)$data['EpisodeName'];
-				
-				$modelMyMovieEpisode = new MyMovieEpisode;
-				$modelMyMovieEpisode->description = (!empty($description)) ? $description :(string)$data->EnglishPart['Description'];
-				$modelMyMovieEpisode->name = (!empty($name)) ? $name : (string)$data->EnglishPart['Name'];
-				$modelMyMovieEpisode->episode_number = (string)$data['EpisodeNumber'];
-				$modelMyMovieEpisode->Id_my_movie_season = $modelMyMovieSeason->Id;
-				
-				if($modelMyMovieEpisode->save())
-					return $modelMyMovieEpisode->Id;
-			}
-			
-		}
+		$modelRequest = new LoadSeasonBannersRequest();
+		$modelRequest->Id = $idSerie;
+		$modelRequest->Seasonnumber = $seasonNumber;
+		$modelRequest->Locale = 0;
+		
+		$response = $this->soapClient->LoadSeasonBanners($modelRequest);
+		
+		if(isset($response))
+			return simplexml_load_string($response->LoadSeasonBannersResult->any);
 		
 		return null;
 	}
 	
-	function LoadSeasonBanners($serieId, $seasonNumber)
+	
+	function LoadSeries($idSerie)
 	{
-		$model = new LoadSeasonBanners();
-		$model->Id = $serieId;
-		$model->Seasonnumber = $seasonNumber;
-		$model->Locale = 0;
-		
-		$LoadSeasonBannersResponse = $this->soapClient->LoadSeasonBanners($model);
-		
-		if(isset($LoadSeasonBannersResponse))
-		{
-			return $this->saveSeason($serieId, simplexml_load_string($LoadSeasonBannersResponse->LoadSeasonBannersResult->any));
-		}
-		
-		return null;
-	}
+		$modelRequest = new LoadSeriesRequest();
+		$modelRequest->Id = $idSerie;
+		$modelRequest->Locale = 0;
 	
-	private function saveSeason($serieId, $data)
-	{
-		if(!empty($data) && (string)$data['status'] == 'ok')
-		{
-			foreach($data->Banners->children() as $item)
-			{
-				if((string)$item['Number'] == "1")
-				{
-					$modelSeasonDB = MyMovieSeason::model()->findByAttributes(array(
-															'Id_my_movie_serie_header'=>$serieId,
-															'season_number'=>(string)$item['SeasonNumber'],
-															));
-					
-					if(!$modelSeasonDB)
-					{
-						$modelMyMovieSeason = new MyMovieSeason;
-						$modelMyMovieSeason->Id_my_movie_serie_header =  $serieId;
-						$modelMyMovieSeason->season_number = (string)$item['SeasonNumber'];
-						$modelMyMovieSeason->banner_original = (string)$item['File'];
-						
-						$validator = new CUrlValidator();
-						$setting = Setting::getInstance();
-						
-						if($modelMyMovieSeason->banner_original!='' && $validator->validateValue($modelMyMovieSeason->banner_original))
-						{
-							$fileName = $serieId . '_' . $modelMyMovieSeason->season_number;
-							try {
-								$content = @file_get_contents($modelMyMovieSeason->banner_original);
-								if ($content !== false) {
-									$file = fopen($setting->path_images."/".$fileName.".jpg", 'w');
-									fwrite($file,$content);
-									fclose($file);
-									$modelMyMovieSeason->banner = $fileName.".jpg";
-								} else {
-									// an error happened
-								}
-							} catch (Exception $e) {
-								throw $e;
-								// an error happened
-							}
-						}
-						
-						if($modelMyMovieSeason->save())
-							return $modelMyMovieSeason->Id;
-					}
-					else
-						return $modelSeasonDB->Id;
-				}				
-			}
-		}
-		return null;
-	}
-	
-	function LoadSeries($serieId)
-	{
-		$model = new LoadSeries();
-		$model->Id = $serieId;
-		$model->Locale = 0;
-	
-		$model->LanguageCode = '';
-		$model->Country = '';
+		$modelRequest->LanguageCode = '';
+		$modelRequest->Country = '';
 		
-		$LoadSeriesResponse = $this->soapClient->LoadSeries($model);
+		$response = $this->soapClient->LoadSeries($modelRequest);
 	
-		if(isset($LoadSeriesResponse))
-		{
-			return $this->saveSerieHeader(simplexml_load_string($LoadSeriesResponse->LoadSeriesResult->any));
-		}
+		if(isset($response))
+			return simplexml_load_string($response->LoadSeriesResult->any);
 			
 		return null;
 	}
 	
-	private function saveSerieHeader($data)
+	
+	function LoadDiscTitleById($myMovieId)
 	{
-		if(!empty($data) && (string)$data['status'] == 'ok')
-		{
-			if(!empty($data->Serie))
-				$data = $data->Serie;
-			else
-				return null;
-			
-			$modelMyMovieSerieHeaderDB = MyMovieSerieHeader::model()->findByPk((string)$data['Id']);
-				
-			if(!isset($modelMyMovieSerieHeaderDB))
-			{
-				$modelMyMovieSerieHeader = new MyMovieSerieHeader();
-				$modelMyMovieSerieHeader->Id = (string)$data['Id'];
-				$modelMyMovieSerieHeader->original_network = (string)$data['OriginalNetwork'];
-				$modelMyMovieSerieHeader->original_status = (string)$data['OriginalStatus'];
-				$modelMyMovieSerieHeader->rating = (string)$data['Rating'];
-				$modelMyMovieSerieHeader->description = (string)$data->EnglishPart['Description'];
-				$modelMyMovieSerieHeader->name = (string)$data->EnglishPart['Name'];
-				$modelMyMovieSerieHeader->sort_name = (string)$data->EnglishPart['SortName'];
-				$modelMyMovieSerieHeader->genre = $this->getSeasonGenre($data);
-				
-				//Poster
-				$modelMyMovieSerieHeader->poster_original = $this->getPoster($data);
-				
-				$validator = new CUrlValidator();
-				$setting = Setting::getInstance();
-				
-				if($modelMyMovieSerieHeader->poster_original!='' && $validator->validateValue($modelMyMovieSerieHeader->poster_original))
-				{
-					try {
-						$content = @file_get_contents($modelMyMovieSerieHeader->poster_original);
-						if ($content !== false) {
-							$file = fopen($setting->path_images."/".$modelMyMovieSerieHeader->Id.".jpg", 'w');
-							fwrite($file,$content);
-							fclose($file);
-							$modelMyMovieSerieHeader->poster = $modelMyMovieSerieHeader->Id.".jpg";
-						} else {
-							// an error happened
-						}
-					} catch (Exception $e) {
-						throw $e;
-						// an error happened
-					}
-				}
-				else
-				{
-					$modelMyMovieSerieHeader->poster = 'no_poster.jpg';
-				}
-				
-				$modelMyMovieSerieHeader->save();
-			}
-			return (string)$data['Id'];
-		}
+		$modelRequest = new LoadDiscTitleByIdRequest();
+		$modelRequest->TitleId = $myMovieId;
+		$modelRequest->Locale = 0;
+		
+		
+		$response = $this->soapClient->LoadDiscTitleById($modelRequest);
+		
+		if(isset($response))
+			return simplexml_load_string($response->LoadDiscTitleByIdResult->any);	
+	
 		return null;
 	}
 	
-	function LoadDiscTitleById($myMovieId, $disc_code)
-	{
-		$model = new LoadDiscTitleById();
-		$model->TitleId = $myMovieId;
-		$model->Locale = 0;
-		
-		$LoadDiscTitleByIdResponse = $this->soapClient->LoadDiscTitleById($model);
-		
-		$idImdb = "";
-		if(isset($LoadDiscTitleByIdResponse))
-		{
-			$idImdb = $this->saveMyMovie($disc_code, simplexml_load_string($LoadDiscTitleByIdResponse->LoadDiscTitleByIdResult->any));
-		}	
-		 
-		return $idImdb;
-	}
 
-	private function saveMyMovie($disc_code, $data)
-	{
-		$idImdb = "";
-		if(!empty($data) && (string)$data['status'] == 'ok')
-		{
-			if(!empty($data->Title))
-				$data = $data->Title;
-			else
-				return $idImdb;
-			
-			$modelMyMovieDB = MyMovie::model()->findByPk((string)$data->ID);
-			
-			if(!isset($modelMyMovieDB))
-			{
-				$modelMyMovie = new MyMovie();
-				
-				$modelMyMovie->Id = (string)$data->ID;
-				$modelMyMovie->type = (string)$data->Type;
-				$modelMyMovie->media_type = (string)$data->MediaType;
-				$modelMyMovie->bar_code = (string)$data->Barcode;
-				$modelMyMovie->country = (string)$data->Country;
-				$modelMyMovie->local_title = (string)$data->LocalTitle;
-				$modelMyMovie->original_title = (string)$data->OriginalTitle;
-				$modelMyMovie->sort_title = (string)$data->SortTitle;
-				$modelMyMovie->aspect_ratio = (string)$data->AspectRatio;
-				$modelMyMovie->video_standard = (string)$data->VideoStandard;
-				$modelMyMovie->production_year = (string)$data->ProductionYear;
-				$modelMyMovie->release_date = (string)$data->ReleaseDate;
-				$modelMyMovie->running_time = (string)$data->RunningTime;
-				$modelMyMovie->description = (string)$data->Description;
-				$modelMyMovie->extra_features = (string)$data->ExtraFeatures;
-				$modelMyMovie->disc_code = $disc_code;
-				
-				$modelMyMovie->parental_rating_desc = (!empty($data->ParentalRating)?(string)$data->ParentalRating->Description:"");
-				
-				$modelMyMovie->Id_parental_control = $this->getParentalControlId($data);
-				
-				$modelMyMovie->adult = $this->getAdult($data);
-				
-				$modelMyMovie->imdb = (string)$data->IMDB;
-				$modelMyMovie->rating = (string)$data->Rating;
-				$modelMyMovie->data_changed = (string)$data->DataChanged;
-				$modelMyMovie->covers_changed = (string)$data->CoversChanged;
-				
-				//Obtengo la lista de los generos
-				$modelMyMovie->genre = implode(", ",$this->xmlToArray($data->Genres));
-				
-				//Obtengo la lista de los estudios
-				$modelMyMovie->studio =  implode(", ",$this->xmlToArray($data->Studios));
-		
-				
-				//Poster
-				$modelMyMovie->poster_original = $this->getPoster($data->MovieData);
-				
-				$validator = new CUrlValidator();
-				$setting = Setting::getInstance();
-				
-				if($modelMyMovie->poster_original!='' && $validator->validateValue($modelMyMovie->poster_original))
-				{
-					try {
-						$content = @file_get_contents($modelMyMovie->poster_original);
-						if ($content !== false) {
-							$file = fopen($setting->path_images."/".$modelMyMovie->Id.".jpg", 'w');
-							fwrite($file,$content);
-							fclose($file);
-							$modelMyMovie->poster = $modelMyMovie->Id.".jpg";
-						} else {
-							// an error happened
-						}
-					} catch (Exception $e) {
-						throw $e;
-						// an error happened
-					}
-				}
-				else
-				{
-					$modelMyMovie->poster = 'no_poster.jpg';
-				}
-				
-				//Backdrop
-				$modelMyMovie->backdrop_original = $this->getBackdrop($data->MovieData);
-				if($modelMyMovie->backdrop_original!='' && $validator->validateValue($modelMyMovie->backdrop_original))
-				{
-					try {
-						$content = @file_get_contents($modelMyMovie->backdrop_original);
-						if ($content !== false) {
-							$file = fopen($setting->path_images."/".$modelMyMovie->Id."_bd.jpg", 'w');
-							fwrite($file,$content);
-							fclose($file);
-							$modelMyMovie->backdrop = $modelMyMovie->Id."_bd.jpg";
-						} else {
-							// an error happened
-						}
-					} catch (Exception $e) {
-						throw $e;
-						// an error happened
-					}
-				}
-				
-				//check SerieID
-				if(!empty($data->TVSeriesID))
-				{
-					$modelMyMovie->Id_my_movie_serie_header = (string)$data->TVSeriesID;
-					$modelMyMovie->disc_name = $this->createSerieTree($data, $disc_code);
-				}
-				
-				if($modelMyMovie->save())
-				{
-					$this->saveAudioTrack($data);
-					$this->saveSubtitle($data);
-				}
-			}
-			$idImdb = (string)$data->IMDB;
-		}
-		return $idImdb;
-	}
-	
-	private function createSerieTree($xml, $disc_code)
-	{
-		$disc_name = '';
-		$Id_serie = $this->LoadSeries((string)$xml->TVSeriesID);
-		foreach($xml->Discs->children() as $item)
-		{
-			if((string)$item->DiscIdSideA == $disc_code)
-			{
-				$disc_name = $item->Name;
-				foreach($item->TitlesSideA->children() as $title)
-				{
-					if((string)$title['ContainsEpisode'] == "True")
-					{
-						
-						$modelSeasonDB = MyMovieSeason::model()->findByAttributes(array(
-																'Id_my_movie_serie_header'=>$Id_serie,
-																'season_number'=>(string)$title['TVSeason'],
-																));
-						
-						
-						if(!$modelSeasonDB)
-							$Id_season = $this->LoadSeasonBanners($Id_serie, (string)$title['TVSeason']);
-						else
-							$Id_season = $modelSeasonDB->Id;
-						 
-						$modelEpisodeDB = MyMovieEpisode::model()->findByAttributes(array(
-																	'Id_my_movie_season'=>$Id_season,
-																	'episode_number'=>(string)$title['TVEpisode'],
-																	));
-						
-						if(!$modelEpisodeDB)
-							$this->LoadEpisodeBySeriesID($Id_serie, (string)$title['TVSeason'], (string)$title['TVEpisode']);
-					}
-				}
-			}
-		}
-		return $disc_name;
-	}
-	
-	private function xmlToArray($xml)
-	{
-		$xmlArr = array();
-		$index = 0;
-		foreach($xml->children() as $item)
-		{
-			$xmlArr[$index] = (string)$item;
-			$index ++;
-		}
-		return $xmlArr;
-	}
-
-	private function getSeasonGenre($xml)
-	{
-		if(!empty($xml->Genres))
-		{
-			$xmlArr = array();
-			$index = 0;
-			foreach($xml->Genres->children() as $item)
-			{
-				$xmlArr[$index] = (string)$item['Name'];
-				$index ++;
-			}
-			if(count($xmlArr) > 0 )
-				return implode(',',$xmlArr);
-		}
-		return "";
-	}
-	
-	private function getBackdrop($xml)
-	{
-		if(!empty($xml->Backdrops))
-		{
-			foreach($xml->Backdrops->children() as $item)
-			{
-				return (string)$item['File720P'];
-			}
-		
-		}
-		return "";
-	}
-	
-	private function getParentalControlId($xml)
-	{
-		if(!empty($xml->ParentalRating))
-		{
-			$model = ParentalControl::model()->findByAttributes(array('value'=>$xml->ParentalRating->Value));
-			
-			if(isset($model))
-			{
-				return $model->Id;
-			}
-	
-		}
-		return 1;
-	}
-	
-	private function getAdult($xml)
-	{
-		if(!empty($xml->ParentalRating))
-		{
-			if($xml->ParentalRating['Adult'] == 'True')
-				return 1;
-		}
-		return 0;
-	}
-	
-	private function getPoster($xml)
-	{
-		if(!empty($xml->Posters))
-		{
-			foreach($xml->Posters->children() as $item)
-			{
-				return (string)$item['File'];
-			}
-	
-		}
-		return "";
-	}
-	
-	private function saveAudioTrack($xml)
-	{
-		
-		$idMyMovie = (string)$xml->ID;
-		
-		foreach($xml->AudioTracks->children() as $item)
-		{
-			$language = (string)$item['Language'];
-			$type = (string)$item['Type'];
-			$chanels = (string)$item['Channels'];
-			
-			$modelAudioTrackDB = AudioTrack::model()->findByAttributes(array(
-													'language'=>$language,
-													'type'=>$type,
-													'chanel'=>$chanels,));
-			
-			$modelMyMovieAudioTrack = new MyMovieAudioTrack();
-			$modelMyMovieAudioTrack->Id_my_movie = $idMyMovie;
-			
-			if(isset($modelAudioTrackDB))
-			{
-				$modelMyMovieAudioTrack->Id_audio_track = $modelAudioTrackDB->Id;
-			}
-			else
-			{
-				$modelAudioTrack = new AudioTrack();
-				$modelAudioTrack->language = $language;
-				$modelAudioTrack->type = $type;
-				$modelAudioTrack->chanel = $chanels;
-				$modelAudioTrack->save();
-				
-				$modelMyMovieAudioTrack->Id_audio_track = $modelAudioTrack->Id;
-			}
-			
-			$model = MyMovieAudioTrack::model()->findByAttributes(array(
-													'Id_my_movie'=>$idMyMovie, 
-													'Id_audio_track'=>$modelMyMovieAudioTrack->Id_audio_track));
-			if(!isset($model))
-				$modelMyMovieAudioTrack->save();
-
-		}
-	}
-	
-	private function saveSubtitle($xml)
-	{
-	
-		$idMyMovie = (string)$xml->ID;
-	
-		foreach($xml->Subtitles->children() as $item)
-		{
-			$language = (string)$item['Language'];
-				
-			$modelSubtitleDB = Subtitle::model()->findByAttributes(array(
-														'language'=>$language,
-														));
-				
-			$modelMyMovieSubtitle = new MyMovieSubtitle();
-			$modelMyMovieSubtitle->Id_my_movie = $idMyMovie;
-				
-			if(isset($modelSubtitleDB))
-			{
-				$modelMyMovieSubtitle->Id_subtitle = $modelSubtitleDB->Id;
-			}
-			else
-			{
-				$modelSubtitle = new Subtitle();
-				$modelSubtitle->language = $language;
-				$modelSubtitle->save();
-	
-				$modelMyMovieSubtitle->Id_subtitle = $modelSubtitle->Id;
-			}
-				
-			$model = MyMovieSubtitle::model()->findByAttributes(array(
-														'Id_my_movie'=>$idMyMovie, 
-														'Id_subtitle'=>$modelMyMovieSubtitle->Id_subtitle));
-			if(!isset($model))
-				$modelMyMovieSubtitle->save();
-	
-		}
-	}
 }
 
 

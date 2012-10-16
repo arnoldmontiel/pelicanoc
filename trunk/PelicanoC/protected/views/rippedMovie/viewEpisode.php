@@ -57,7 +57,7 @@
 <div class="rip-layout-footer" >
 	 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_viewSeason',
+	'itemView'=>'_view',
 	'id'=>'listMovies-view',
 	'summaryText' =>"",
 	'pager'=>array('cssFile'=>Yii::app()->baseUrl.'/css/pager-custom.css','header'=>''),
