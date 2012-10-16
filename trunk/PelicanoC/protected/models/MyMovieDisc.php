@@ -1,18 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "my_movie_episode_my_movie".
+ * This is the model class for table "my_movie_disc".
  *
- * The followings are the available columns in table 'my_movie_episode_my_movie':
+ * The followings are the available columns in table 'my_movie_disc':
+ * @property string $Id
+ * @property string $name
  * @property string $Id_my_movie
- * @property integer $Id_my_movie_episode
+ *
+ * The followings are the available model relations:
+ * @property MyMovieEpisode[] $myMovieEpisodes
+ * @property MyMovie $idMyMovie
+ * @property RippedMovie[] $rippedMovies
  */
-class MyMovieEpisodeMyMovie extends CActiveRecord
+class MyMovieDisc extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return MyMovieEpisodeMyMovie the static model class
+	 * @return MyMovieDisc the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -24,7 +30,7 @@ class MyMovieEpisodeMyMovie extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'my_movie_episode_my_movie';
+		return 'my_movie_disc';
 	}
 
 	/**
@@ -35,12 +41,12 @@ class MyMovieEpisodeMyMovie extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_my_movie, Id_my_movie_episode', 'required'),
-			array('Id_my_movie_episode', 'numerical', 'integerOnly'=>true),
-			array('Id_my_movie', 'length', 'max'=>200),
+			array('Id, Id_my_movie', 'required'),
+			array('Id, Id_my_movie', 'length', 'max'=>200),
+			array('name', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_my_movie, Id_my_movie_episode', 'safe', 'on'=>'search'),
+			array('Id, name, Id_my_movie', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +58,9 @@ class MyMovieEpisodeMyMovie extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'myMovieEpisodes' => array(self::MANY_MANY, 'MyMovieEpisode', 'disc_episode(Id_my_movie_disc, Id_my_movie_episode)'),
+			'myMovie' => array(self::BELONGS_TO, 'MyMovie', 'Id_my_movie'),
+			'rippedMovies' => array(self::HAS_MANY, 'RippedMovie', 'Id_my_movie_disc'),
 		);
 	}
 
@@ -61,8 +70,9 @@ class MyMovieEpisodeMyMovie extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'Id' => 'ID',
+			'name' => 'Name',
 			'Id_my_movie' => 'Id My Movie',
-			'Id_my_movie_episode' => 'Id My Movie Episode',
 		);
 	}
 
@@ -77,8 +87,9 @@ class MyMovieEpisodeMyMovie extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('Id',$this->Id,true);
+		$criteria->compare('name',$this->name,true);
 		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
-		$criteria->compare('Id_my_movie_episode',$this->Id_my_movie_episode);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
