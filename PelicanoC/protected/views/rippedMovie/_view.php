@@ -32,10 +32,12 @@ $('#Imdbdata_Poster_button_$data->Id').click(function(){
 <div class="single-movie-index-view" >
 	<div class="single-movie-view" >
 		<?php
-		 echo CHtml::image("images/".$data->myMovie->poster,'details',
+		 echo CHtml::image("images/".$data->myMovieDisc->myMovie->poster,'details',
 				array('id'=>'Imdbdata_Poster_button_'.$data->Id, 'style'=>'height: 260px;width: 185px;'));
 		?>
-		<?php echo CHtml::encode($data->myMovie->original_title); ?>
+		<?php echo CHtml::encode($data->myMovieDisc->myMovie->local_title); ?>
+		<br>
+		<?php echo CHtml::encode($data->myMovieDisc->name); ?>
 		<?php echo CHtml::hiddenField('id_rippedMovie',$data->Id,array('class'=>'id_rippedMovie','style'=>'display:none')); ?>
 	</div>
 

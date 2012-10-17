@@ -1,7 +1,7 @@
 
 <div id="conteiner" class="start-view" align="center" style="">
 	<?php echo CHtml::openTag('div',array('class'=>'start-title'));?>
-			<?php echo "Reproduciendo: ". $model->myMovie->original_title . " (".$model->myMovie->production_year.")";  ?>
+			<?php echo "Reproduciendo: ". $model->myMovieDisc->myMovie->local_title . " - ".$model->myMovieDisc->name;  ?>
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
 	<div style="float: left; padding: 5px 10px; width: 95%">
@@ -20,7 +20,7 @@
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#MyMovieStart', "
 	
-	ChangeBG('images/','".$model->myMovie->backdrop."');
+	ChangeBG('images/','".$model->myMovieDisc->myMovie->backdrop."');
 
 ");
 ?>
