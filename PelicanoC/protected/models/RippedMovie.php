@@ -142,57 +142,36 @@ class RippedMovie extends CActiveRecord
 		return false;
 	}
 	
+	
 	public static function sincronizeWithServer()
 	{	
 		$requests = array();
 		$pelicanoCliente = new Pelicano;
 		
 		$setting = Setting::getInstance();
+		$idDevice = $setting->getId_Device(); 
 		
-		$idCustomer = $setting->getId_Customer(); 
-		
-		if(isset($idCustomer))
+		if(isset($idDevice))
 		{
 			$rippedMovies = RippedMovie::model()->findAllByAttributes(array('was_sent'=>0));
 			foreach($rippedMovies as $item)
 			{
 				$request= new RippedRequest;
 				
-				$request->Id_customer = $idCustomer;
+				$request->Id_device = $idDevice;
 				$request->ripped_date = $item->creation_date;
-				$request->Id_my_movie = $item->myMovie->Id;
-				$request->type = $item->myMovie->type;
-				$request->bar_code = $item->myMovie->bar_code;
-				$request->country = $item->myMovie->country;
-				$request->local_title = $item->myMovie->local_title;
-				$request->original_title = $item->myMovie->original_title;
-				$request->sort_title = $item->myMovie->sort_title;
-				$request->aspect_ratio = $item->myMovie->aspect_ratio;
-				$request->video_standard = $item->myMovie->video_standard;
-				$request->production_year = $item->myMovie->production_year;
-				$request->release_date = $item->myMovie->release_date;
-				$request->running_time = $item->myMovie->running_time;
-				$request->description = $item->myMovie->description;
-				$request->extra_features = $item->myMovie->extra_features;
-				$request->parental_rating_desc = $item->myMovie->parental_rating_desc;
-				$request->imdb = $item->myMovie->imdb;
-				$request->rating = $item->myMovie->rating;
-				$request->data_changed = $item->myMovie->data_changed;
-				$request->covers_changed = $item->myMovie->covers_changed;
-				$request->genre = $item->myMovie->genre;
-				$request->studio =  $item->myMovie->studio;
-				$request->poster = $item->myMovie->poster_original;
-				$request->backdrop = $item->myMovie->backdrop_original;
-				$request->adult = $item->myMovie->adult;
-				$request->Id_parental_control = $item->myMovie->Id_parental_control;
+				$request->myMovie->setAttributes($item->myMovieDisc->myMovie);
+				$request->myMovieDisc->setAttributes($item->myMovieDisc);
+			
 				$requests[]=$request;
 			} 
+			
 			if( count($requests) > 0 && $pelicanoCliente->setRipped($requests))
 			{
-				$RippedResponseArray = $pelicanoCliente->getRipped($idCustomer);
+				$RippedResponseArray = $pelicanoCliente->getRipped($idDevice);
 				foreach($RippedResponseArray as $item)
 				{
-					$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$item->Id_my_movie));
+					$model = RippedMovie::model()->findByAttributes(array('Id_my_movie_disc'=>$item->Id_my_movie_disc));
 					if(isset($model))
 					{
 						$model->was_sent = 1;
