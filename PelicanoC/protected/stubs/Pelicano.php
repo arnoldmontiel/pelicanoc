@@ -46,15 +46,36 @@ class LogRequest extends SOAP2Array
 
 class RippedResponse
 {
-	public $Id_customer; //integer;
-	public $Id_my_movie; //string;
+	public $Id_device; //string;
+	public $Id_my_movie_disc; //string;
 }
 
-class RippedRequest extends SOAP2Array
+class MyMovieSOAP
 {
-	public $Id_customer; //integer;
-	public $ripped_date; //date;
-	public $Id_my_movie; //string;
+	/**
+	* Set model attributes
+	* @param Nab $model
+	*/
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+			$this->$name=$value;
+		else
+			return false;
+		return true;
+	}
+	
+	public $Id; //string;
 	public $type; //string;
 	public $bar_code; //string;
 	public $country; //string;
@@ -75,10 +96,54 @@ class RippedRequest extends SOAP2Array
 	public $covers_changed; //string;
 	public $genre; //string;
 	public $studio; //string;
-	public $poster; //string;
-	public $backdrop; //string;
+	public $poster_original; //string;
+	public $backdrop_original; //string;
 	public $adult; //integer;
 	public $Id_parental_control; //integer;
+}
+
+class MyMovieDiscSOAP
+{
+	/**
+	* Set model attributes
+	* @param Nab $model
+	*/
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+		$this->$name=$value;
+		else
+		return false;
+		return true;
+	}
+	
+	public $Id; //string;
+	public $name; //string;
+	public $Id_my_movie; //string;
+}
+
+class RippedRequest extends SOAP2Array
+{
+	function __construct()
+	{
+		$this->myMovie = new MyMovieSOAP;
+		$this->myMovieDisc = new MyMovieDiscSOAP;
+	}
+	
+	public $myMovie; //MyMovieSOAP;
+	public $myMovieDisc; //MyMovieDiscSOAP;
+	public $ripped_date; //date;
+	public $Id_device; //string;
 }
 
 class MovieResponse
@@ -247,12 +312,12 @@ function getInstallData($username, $password)
 	}
 	return $response;
 }
-function getRipped($integer)
+function getRipped($idDevice)
 {
 	$RippedResponseArray = array();
 	if(isset($this->soapClient))
 	{
-		$RippedResponseArray = $this->soapClient->getRipped($integer);
+		$RippedResponseArray = $this->soapClient->getRipped($idDevice);
 	}
 	return $RippedResponseArray;
 }
