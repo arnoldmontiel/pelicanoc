@@ -64,7 +64,7 @@ class RippedMovie extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'myMovie' => array(self::BELONGS_TO, 'MyMovie', 'Id_my_movie'),
+			'myMovieDisc' => array(self::BELONGS_TO, 'MyMovieDisc', 'Id_my_movie_disc'),
 		);
 	}
 
@@ -83,19 +83,24 @@ class RippedMovie extends CActiveRecord
 		);
 	}
 
+	public function isSerie()
+	{
+		return isset($this->myMovieDisc->myMovie->Id_my_movie_serie_header);
+	}
+	
 	public function isBluray()
 	{
-		return $this->myMovie->type == "Blu-ray";
+		return $this->myMovieDisc->myMovie->type == "Blu-ray";
 	}
 	
 	public function isDVD()
 	{
-		return $this->myMovie->type == "DVD";
+		return $this->myMovieDisc->myMovie->type == "DVD";
 	}
 	
 	public function hasDolbyDigital()
 	{
-		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->myMovieDisc->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
 		{
 			if($item->audioTrack->type == "Dolby Digital")
@@ -106,7 +111,7 @@ class RippedMovie extends CActiveRecord
 	
 	public function hasDolbyTrueHD()
 	{
-		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->myMovieDisc->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
 		{
 			if($item->audioTrack->type == "Dolby TrueHD")
@@ -117,7 +122,7 @@ class RippedMovie extends CActiveRecord
 	
 	public function hasDts()
 	{
-		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->myMovieDisc->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
 		{
 			if($item->audioTrack->type == "DTS-HD Master")
@@ -128,7 +133,7 @@ class RippedMovie extends CActiveRecord
 	
 	public function hasDolbySurround()
 	{
-		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->Id_my_movie));
+		$mymovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$this->myMovieDisc->Id_my_movie));
 		foreach($mymovieAudioTracks as $item)
 		{
 			if($item->audioTrack->type == "Dolby Digital Surround EX")
@@ -212,14 +217,16 @@ class RippedMovie extends CActiveRecord
 
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
+		$criteria->compare('Id_my_movie_disc',$this->Id_my_movie_disc,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 		
-		//	$criteria->addCondition('parental_control = 0','AND');
-		$criteria->with[]="myMovie";
-		$criteria->addCondition('myMovie.Id_parental_control<>9');
-		$criteria->addCondition('myMovie.Id_parental_control<>8');
-		$criteria->addCondition('myMovie.Id_parental_control<>7');							
+		$criteria->join =	"LEFT OUTER JOIN my_movie_disc md ON md.Id=t.Id_my_movie_disc
+							 LEFT OUTER JOIN my_movie m ON md.Id_my_movie=m.Id";
+		
+		//$criteria->addSearchCondition("e.Id_my_movie_season",$this->seasonId);
+		$criteria->addCondition('m.Id_parental_control<>9');
+		$criteria->addCondition('m.Id_parental_control<>8');
+		$criteria->addCondition('m.Id_parental_control<>7');							
 		
 		$criteria->order = "t.creation_date DESC";
 		
