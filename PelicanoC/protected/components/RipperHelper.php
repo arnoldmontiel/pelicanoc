@@ -24,6 +24,7 @@ class RipperHelper
 		else
 		{
 			$modelRippedMovieDB->path = $path;
+			$modelRippedMovieDB->parental_control = (int)$parentalControl;
 			$modelRippedMovieDB->was_sent = 0;
 			if($modelRippedMovieDB->save())
 				return true;
