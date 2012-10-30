@@ -10,7 +10,8 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.stubs.*',
-	),
+		'application.components.*',
+),
 
 	// application components
 	'components'=>array(

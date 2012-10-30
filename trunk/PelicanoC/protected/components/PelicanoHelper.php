@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
+require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
 	static public function sendAnydvdVersionDownloaded($version)
@@ -8,14 +9,11 @@ class PelicanoHelper
 		$settingsWS = new wsSettings();		
 		$settingsWS->setAnydvdVersionDownloaded($settings->Id_device,$version);		
 	}
-	static public function sendAnydvdVersionInstalled($anydvdVersion)
+	static public function sendAnydvdVersionInstalled($version)
 	{
-		$settingsWS = new wsSettings();
-		
 		$settings = Setting::getInstance();
 		$settingsWS = new wsSettings();
-		
-		$settingsWS->setAnydvdVersionDownloaded($settings->Id_device,$anydvdVersion->version);
+		$settingsWS->setAnydvdVersionInstalled($settings->Id_device,$version);
 	}
 	
 	static public function sendExternalIPAddressToServer()

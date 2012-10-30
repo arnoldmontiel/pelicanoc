@@ -9,11 +9,18 @@
 
 class ClientSettingsRequest extends SOAP2Array
 {
-	public $Id_device; //integer;
+	public $Id_device; //string;
 	public $ip_v4; //string;
 	public $port_v4; //integer;
 	public $ip_v6; //string;
 	public $port_v6; //integer;
+}
+
+class ServerAnydvdUpdateResponse
+{
+	public $version; //string;
+	public $file_name; //string;
+	public $download_link; //string;
 }
 
 /**
@@ -25,7 +32,7 @@ class wsSettings
 
 	private static $classmap = array(
 		'ClientSettingsRequest'=>'ClientSettingsRequest',
-
+		'ServerAnydvdUpdateResponse'=>'ServerAnydvdUpdateResponse',
 );
 
 function __construct($url='http://localhost/workspace/PelicanoS/index.php?r=wssettings/wsdl')
@@ -44,10 +51,15 @@ function setAnydvdVersionDownloaded($idDevice,$version)
 	return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
 	
 }
-static public function sendAnydvdVersionInstalled($idDevice,$anydvdVersion)
+public function setAnydvdVersionInstalled($idDevice,$version)
 {
-	return $this->soapClient->sendAnydvdVersionInstalled($idDevice,$version);
+	return $this->soapClient->setAnydvdVersionInstalled($idDevice,$version);
 	
+}
+function checkForUpdate($idDevice)
+{
+	$ServerAnydvdUpdateResponse = $this->soapClient->checkForUpdate($idDevice);
+	return $ServerAnydvdUpdateResponse;
 }
 
 }

@@ -44,7 +44,7 @@ return array(
 //srbac.views.authitem.unauthorized, must be an existing alias
 			'alwaysAllowed'=>array( //default: array()
 			'SiteLogin','SiteLogout',
-			'SiteError','WsPelicanoCWsdl'),
+			'SiteError','WsPelicanoCWsdl','WsSettingsWsdl'),
 			'prefixAlwaysAllowed'=>array( //default: array()
 			'Ajax'),
 			'userActions'=>array('Show','View','List'), //default: array()
