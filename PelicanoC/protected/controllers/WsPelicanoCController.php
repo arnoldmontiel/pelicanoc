@@ -63,13 +63,13 @@ class WsPelicanoCController extends Controller
 	
 	/**
 	* Returns true if mymovieId is already ripped
-	* @param string idMyMovie
+	* @param string idDisc
 	* @return boolean alreadyRipped
 	* @soap
 	*/
-	public function isAlreadyRipped($idMyMovie)
+	public function isAlreadyRipped($idDisc)
 	{
-		$model = RippedMovie::model()->findByAttributes(array('Id_my_movie'=>$idMyMovie));
+		$model = RippedMovie::model()->findByAttributes(array('Id_my_movie_disc'=>$idDisc));
 		if(isset($model)) // check if movie is already ripped
 		{
 			return true;
