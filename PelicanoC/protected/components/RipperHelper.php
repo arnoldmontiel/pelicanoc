@@ -159,7 +159,8 @@ class RipperHelper
 	{
 		foreach($xml->Discs->children() as $item)
 		{
-			if((string)$item->DiscIdSideA == $idDisc)
+			//echo (string)$item->DiscIdSideA;
+			if(strtoupper((string)$item->DiscIdSideA) == strtoupper($idDisc))
 			{
 				$modelMyMovieDisc = new MyMovieDisc;
 				$modelMyMovieDisc->Id = $idDisc;
