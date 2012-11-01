@@ -100,6 +100,67 @@ class MyMovieSOAP
 	public $backdrop_original; //string;
 	public $adult; //integer;
 	public $Id_parental_control; //integer;
+	public $is_serie; //integer;
+	public $Subtitle; //MyMovieSubtitleSOAP[];
+	public $AudioTrack; //MyMovieAudioTrackSOAP[];
+}
+
+class MyMovieSubtitleSOAP
+{
+	/**
+	* Set model attributes
+	* @param Nab $model
+	*/
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+		$this->$name=$value;
+		else
+		return false;
+		return true;
+	}
+	
+	public $language; //string;
+}
+
+class MyMovieAudioTrackSOAP
+{
+	/**
+	* Set model attributes
+	* @param Nab $model
+	*/
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+		$this->$name=$value;
+		else
+		return false;
+		return true;
+	}
+	
+	public $language; //string;
+	public $type; //string;
+	public $chanel; //string;
 }
 
 class MyMovieDiscSOAP
