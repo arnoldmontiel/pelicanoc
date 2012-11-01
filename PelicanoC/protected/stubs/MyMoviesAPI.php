@@ -12,8 +12,9 @@ class MyMovieBase
 
 	function __construct()
 	{
-		$this->UserName = "manueltorres";
-		$this->Password = "ManuelTorres01";
+		$settings = Setting::getInstance();
+		$this->UserName = $settings->mymovies_username;
+		$this->Password =  $settings->mymovies_password;
 	}
 }
 
