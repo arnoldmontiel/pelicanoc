@@ -6,6 +6,7 @@ class RipperHelper
 	{
 		if(self::getMyMovieData($idMyMovie, $idDisc))
 			return self::saveRippedMovie($idDisc, $path, $parentalControl);
+		return false;
 	}
 	
 	private function saveRippedMovie($idDisc, $path, $parentalControl)
