@@ -161,6 +161,25 @@ class RippedMovie extends CActiveRecord
 				$request->Id_device = $idDevice;
 				$request->ripped_date = $item->creation_date;
 				$request->myMovie->setAttributes($item->myMovieDisc->myMovie);
+				
+				//set audio track
+				$relAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$item->myMovieDisc->Id_my_movie));
+				foreach($relAudioTracks as $relAudioTrack)
+				{
+					$audioTrackSOAP = new MyMovieAudioTrackSOAP();
+					$audioTrackSOAP->setAttributes($relAudioTrack->audioTrack);
+					$request->myMovie->AudioTrack[] = $audioTrackSOAP;
+				}
+				
+				//set subtitle
+				$relSubtitles = MyMovieSubtitle::model()->findAllByAttributes(array('Id_my_movie'=>$item->myMovieDisc->Id_my_movie));
+				foreach($relSubtitles as $relSubtitle)
+				{
+					$subtitleSOAP = new MyMovieSubtitleSOAP();
+					$subtitleSOAP->setAttributes($relSubtitle->subtitle);
+					$request->myMovie->Subtitle[] = $subtitleSOAP;
+				}
+				
 				$request->myMovieDisc->setAttributes($item->myMovieDisc);
 			
 				$requests[]=$request;
@@ -272,12 +291,10 @@ class RippedMovie extends CActiveRecord
 	
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 	
-		$criteria->join =	"LEFT OUTER JOIN my_movie my ON my.Id=t.Id_my_movie
-							 LEFT OUTER JOIN my_movie_episode_my_movie r ON r.Id_my_movie=my.Id
-							 LEFT OUTER JOIN my_movie_episode e ON e.Id=r.Id_my_movie_episode";
+		$criteria->join =	"LEFT OUTER JOIN disc_episode de ON de.Id_my_movie_disc=t.Id_my_movie_disc
+							 LEFT OUTER JOIN my_movie_episode e ON e.Id=de.Id_my_movie_episode";
 		$criteria->addSearchCondition("e.Id_my_movie_season",$this->seasonId);
 	
 		$criteria->order = "t.creation_date DESC";
