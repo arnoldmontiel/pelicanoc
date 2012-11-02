@@ -183,10 +183,11 @@ class RippedMovie extends CActiveRecord
 				}
 				
 				$request->myMovieDisc->setAttributes($item->myMovieDisc);
-			
+				
 				$requests[]=$request;
 			} 
 			
+
 			if( count($requests) > 0 && $pelicanoCliente->setRipped($requests))
 			{
 				$RippedResponseArray = $pelicanoCliente->getRipped($idDevice);
@@ -207,7 +208,7 @@ class RippedMovie extends CActiveRecord
 	
 	private function getSerie($modelMyMovieDisc)
 	{
-		if($modelMyMovieDisc->myMovie->is_serie)
+		if(isset($modelMyMovieDisc->myMovie->myMovieSerieHeader))
 		{
 			$modelSerieHeader = new MyMovieSerieHeaderSOAP();
 			$modelSerieHeader->setAttributes($modelMyMovieDisc->myMovie->myMovieSerieHeader);
