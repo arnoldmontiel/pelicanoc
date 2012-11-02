@@ -162,6 +162,8 @@ class RippedMovie extends CActiveRecord
 				$request->ripped_date = $item->creation_date;
 				$request->myMovie->setAttributes($item->myMovieDisc->myMovie);
 				
+				$request->myMovie->myMovieSerieHeader = self::getSerie($item->myMovieDisc);
+				
 				//set audio track
 				$relAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$item->myMovieDisc->Id_my_movie));
 				foreach($relAudioTracks as $relAudioTrack)
@@ -200,6 +202,36 @@ class RippedMovie extends CActiveRecord
 				}
 			}
 		}
+	}
+	
+	
+	private function getSerie($modelMyMovieDisc)
+	{
+		if($modelMyMovieDisc->myMovie->is_serie)
+		{
+			$modelSerieHeader = new MyMovieSerieHeaderSOAP();
+			$modelSerieHeader->setAttributes($modelMyMovieDisc->myMovie->myMovieSerieHeader);
+			
+			$discEpisodes = DiscEpisode::model()->findAllByAttributes(array('Id_my_movie_disc'=>$modelMyMovieDisc->Id));
+			$setSeason = true;
+			foreach($discEpisodes as $item)
+			{
+				if($setSeason)
+				{
+				    $modelSeason = MyMovieSeason::model()->findByPk($item->myMovieEpisode->Id_my_movie_season);
+				    $modelSerieHeader->myMovieSeason->setAttributes($modelSeason);
+					$setSeason = false;
+				}	
+				
+				$episodeSOAP = new MyMovieEpisodeSOAP();
+				$episodeSOAP->setAttributes($item->myMovieEpisode);
+				$modelSerieHeader->myMovieSeason->Episode[] = $episodeSOAP;
+			}
+			
+			return $modelSerieHeader;
+		}
+		
+		return null;
 	}
 	
 	/**
