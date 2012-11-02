@@ -103,7 +103,6 @@ class RipperHelper
 					if(!empty($idSerie))
 					{
 						$modelMyMovie->Id_my_movie_serie_header = self::getSerieHeader($idSerie);
-						$modelMyMovie->is_serie = 1;
 					}
 					
 					if($modelMyMovie->save())
