@@ -52,6 +52,11 @@ class RippedResponse
 
 class MyMovieSOAP
 {
+	function __construct()
+	{
+		$this->myMovieSerieHeader = new MyMovieSerieHeaderSOAP;
+	}
+	
 	/**
 	* Set model attributes
 	* @param Nab $model
@@ -101,6 +106,7 @@ class MyMovieSOAP
 	public $adult; //integer;
 	public $Id_parental_control; //integer;
 	public $is_serie; //integer;
+	public $myMovieSerieHeader; //MyMovieSerieHeaderSOAP;
 	public $Subtitle; //MyMovieSubtitleSOAP[];
 	public $AudioTrack; //MyMovieAudioTrackSOAP[];
 }
@@ -124,9 +130,9 @@ class MyMovieSubtitleSOAP
 	public function setAttribute($name,$value)
 	{
 		if(property_exists($this,$name))
-		$this->$name=$value;
+			$this->$name=$value;
 		else
-		return false;
+			return false;
 		return true;
 	}
 	
@@ -152,15 +158,117 @@ class MyMovieAudioTrackSOAP
 	public function setAttribute($name,$value)
 	{
 		if(property_exists($this,$name))
-		$this->$name=$value;
+			$this->$name=$value;
 		else
-		return false;
+			return false;
 		return true;
 	}
 	
 	public $language; //string;
 	public $type; //string;
 	public $chanel; //string;
+}
+
+class MyMovieSerieHeaderSOAP
+{
+	function __construct()
+	{
+		$this->myMovieSeason = new MyMovieSeasonSOAP;
+	}
+	
+	/**
+	* Set model attributes
+	* @param Nab $model
+	*/
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+			$this->$name=$value;
+		else
+			return false;
+		return true;
+	}
+	
+	public $Id; //string;
+	public $description; //string;
+	public $poster_original;
+	public $genre; //string;
+	public $name; //string;
+	public $sort_name; //string;
+	public $rating; //string;
+	public $original_network; //string;
+	public $original_status; //string;
+	public $myMovieSeason; //MyMovieSeasonSOAP;
+}
+
+class MyMovieSeasonSOAP
+{
+	/**
+	* Set model attributes
+	* @param Nab $model
+	*/
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+			$this->$name=$value;
+		else
+			return false;
+		return true;
+	}
+	
+	public $season_number; //integer;
+	public $banner_original; //string;
+	public $Episode; //MyMovieEpisodeSOAP[];
+}
+
+class MyMovieEpisodeSOAP
+{
+	/**
+	* Set model attributes
+	* @param Nab $model
+	*/
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+			$this->$name=$value;
+		else
+			return false;
+		return true;
+	}
+	
+	public $episode_number; //integer;
+	public $description; //string;
+	public $name; //string;
 }
 
 class MyMovieDiscSOAP
