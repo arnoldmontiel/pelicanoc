@@ -299,6 +299,7 @@ class MyMovieDiscSOAP
 	public $Id; //string;
 	public $name; //string;
 	public $Id_my_movie; //string;
+	public $Id_my_movie_nzb; //string;
 }
 
 class RippedRequest extends SOAP2Array
@@ -315,41 +316,11 @@ class RippedRequest extends SOAP2Array
 	public $Id_device; //string;
 }
 
-class MovieResponse
+class NzbResponse
 {
-	public $Id; //integer;
-	public $url; //string;
-	public $file_name; //string;
-	public $subt_url; //string;
-	public $subt_file_name; //string;
-	public $Id_resource_type; //integer
-	public $deleted; //integer
-	public $points; //integer
-	public $Id_my_movie_movie; //string;
-	public $Id_parental_control; //integer
-	public $local_title; //string;
-	public $original_title; //string;
-	public $sort_title; //string;
-	public $production_year; //string;
-	public $running_time; //string;
-	public $description; //string;
-	public $parental_rating_desc; //string;
-	public $imdb; //string;
-	public $rating; //string;
-	public $rating_votes; //string;
-	public $genre; //string;
-	public $studio; //string;
-	public $poster_original; //string;
-	public $backdrop_original; //string;
-	public $adult; //string;
-	public $extra_features; //string;
-	public $country; //string;
-	public $video_standard; //string;
-	public $release_date; //string;
-	public $bar_code; //string;
-	public $type; //string;
-	
-	
+	public $nzb; //NzbSOAP;
+	public $myMovie; //MyMovieSOAP;
+	public $myMovieDisc; //MyMovieDiscSOAP;
 }
 
 class MovieStateRequest extends SOAP2Array
@@ -500,14 +471,14 @@ function getNewUser($integer)
 	}
 	return $UserResponseArray;
 }
-function getNewMovies($Id_device)
+function getNewNzbs($Id_device)
 {
-	$MovieResponseArray = array();
+	$NzbResponseArray = array();
 	if(isset($this->soapClient))
 	{
-		$MovieResponseArray = $this->soapClient->getNewMovies($Id_device);
+		$NzbResponseArray = $this->soapClient->getNewNzbs($Id_device);
 	}
-	return $MovieResponseArray;		
+	return $NzbResponseArray;		
 }
 function getNewSeries($Id_device)
 {
