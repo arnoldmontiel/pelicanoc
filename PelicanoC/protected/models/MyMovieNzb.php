@@ -1,11 +1,12 @@
 <?php
 
 /**
- * This is the model class for table "my_movie_movie".
+ * This is the model class for table "my_movie_nzb".
  *
- * The followings are the available columns in table 'my_movie_movie':
+ * The followings are the available columns in table 'my_movie_nzb':
  * @property string $Id
  * @property integer $Id_parental_control
+ * @property string $Id_my_movie_serie_header
  * @property string $type
  * @property string $bar_code
  * @property string $country
@@ -34,15 +35,15 @@
  * @property string $media_type
  *
  * The followings are the available model relations:
- * @property ParentalControl $idParentalControl
- * @property Nzb[] $nzbs
+ * @property MyMovieDiscNzb[] $myMovieDiscNzbs
+ * @property MyMovieSerieHeader $idMyMovieSerieHeader
  */
-class MyMovieMovie extends CActiveRecord
+class MyMovieNzb extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return MyMovieMovie the static model class
+	 * @return MyMovieNzb the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -54,7 +55,7 @@ class MyMovieMovie extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'my_movie_movie';
+		return 'my_movie_nzb';
 	}
 
 	/**
@@ -67,7 +68,7 @@ class MyMovieMovie extends CActiveRecord
 		return array(
 			array('Id, Id_parental_control', 'required'),
 			array('Id_parental_control, adult', 'numerical', 'integerOnly'=>true),
-			array('Id', 'length', 'max'=>200),
+			array('Id, Id_my_movie_serie_header', 'length', 'max'=>200),
 			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb, media_type', 'length', 'max'=>45),
 			array('local_title, original_title, sort_title, data_changed, covers_changed', 'length', 'max'=>100),
 			array('parental_rating_desc, genre, studio, poster, poster_original, backdrop, backdrop_original', 'length', 'max'=>255),
@@ -75,7 +76,7 @@ class MyMovieMovie extends CActiveRecord
 			array('description, extra_features', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_parental_control, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio, poster, poster_original, backdrop, backdrop_original, adult, media_type', 'safe', 'on'=>'search'),
+			array('Id, Id_parental_control, Id_my_movie_serie_header, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio, poster, poster_original, backdrop, backdrop_original, adult, media_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,8 +88,8 @@ class MyMovieMovie extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idParentalControl' => array(self::BELONGS_TO, 'ParentalControl', 'Id_parental_control'),
-			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_my_movie_movie'),
+			'myMovieDiscNzbs' => array(self::HAS_MANY, 'MyMovieDiscNzb', 'Id_my_movie_nzb'),
+			'myMovieSerieHeader' => array(self::BELONGS_TO, 'MyMovieSerieHeader', 'Id_my_movie_serie_header'),
 		);
 	}
 
@@ -100,6 +101,7 @@ class MyMovieMovie extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'Id_parental_control' => 'Id Parental Control',
+			'Id_my_movie_serie_header' => 'Id My Movie Serie Header',
 			'type' => 'Type',
 			'bar_code' => 'Bar Code',
 			'country' => 'Country',
@@ -142,6 +144,7 @@ class MyMovieMovie extends CActiveRecord
 
 		$criteria->compare('Id',$this->Id,true);
 		$criteria->compare('Id_parental_control',$this->Id_parental_control);
+		$criteria->compare('Id_my_movie_serie_header',$this->Id_my_movie_serie_header,true);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('bar_code',$this->bar_code,true);
 		$criteria->compare('country',$this->country,true);
