@@ -133,24 +133,27 @@ class RipperHelper
 		{
 			if((string)$item->DiscIdSideA == $idDisc)
 			{
-				foreach($item->TitlesSideA->children() as $title)
+				if(isset($item->TitlesSideA))
 				{
-					if((string)$title['ContainsEpisode'] == "True")
+					foreach($item->TitlesSideA->children() as $title)
 					{
-						
-						$idSeason = self::getSeason($idSerie, (string)$title['TVSeason']);
-						if(isset($idSeason))
-						{						
-							$idEpisode = self::getEpisode($idSerie, $idSeason, (string)$title['TVSeason'], (string)$title['TVEpisode']);
-							if(isset($idEpisode))
-							{
-								$modelDiscEpisode = new DiscEpisode();
-								$modelDiscEpisode->Id_my_movie_disc = $idDisc;
-								$modelDiscEpisode->Id_my_movie_episode = $idEpisode;
-								$modelDiscEpisode->save();
+						if((string)$title['ContainsEpisode'] == "True")
+						{
+							
+							$idSeason = self::getSeason($idSerie, (string)$title['TVSeason']);
+							if(isset($idSeason))
+							{						
+								$idEpisode = self::getEpisode($idSerie, $idSeason, (string)$title['TVSeason'], (string)$title['TVEpisode']);
+								if(isset($idEpisode))
+								{
+									$modelDiscEpisode = new DiscEpisode();
+									$modelDiscEpisode->Id_my_movie_disc = $idDisc;
+									$modelDiscEpisode->Id_my_movie_episode = $idEpisode;
+									$modelDiscEpisode->save();
+								}
 							}
+	
 						}
-
 					}
 				}
 			}
