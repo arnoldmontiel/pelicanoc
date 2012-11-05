@@ -1,6 +1,6 @@
 <?php
 
-class MyMovieMovieController extends Controller
+class MyMovieNzbController extends Controller
 {
 	public function actionIndex()
 	{
