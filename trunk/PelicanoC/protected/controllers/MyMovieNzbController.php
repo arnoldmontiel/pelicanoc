@@ -28,7 +28,8 @@ class MyMovieNzbController extends Controller
 					$setting = Setting::getInstance();
 					$pelicanoCliente = new Pelicano;
 					$NzbResponseArray = $pelicanoCliente->getNewNzbs($setting->getId_Device());
-					foreach ($NzbResponseArray as $item) {
+					foreach ($NzbResponseArray as $item) 
+					{
 						try {
 // 							$modelNzb = Nzb::model()->findByPk($nzbResponse->nzb->Id);
 // 							if(!isset($modelNzb))
@@ -83,7 +84,6 @@ class MyMovieNzbController extends Controller
 								}
 								
 								$modelMyMovieSerieHeader->setAttributesByArray($item->myMovie->myMovieSerieHeader);
-								//$modelMyMovieSerieHeader->poster = MyMovieHelper::getImage($modelMyMovieSerieHeader->poster_original, $modelMyMovieSerieHeader->Id);
 								$modelMyMovieSerieHeader->save();
 								
 									
@@ -100,8 +100,6 @@ class MyMovieNzbController extends Controller
 								
 								$modelMyMovieSeason->setAttributesByArray($item->myMovie->myMovieSerieHeader->myMovieSeason);
 								$modelMyMovieSeason->Id_my_movie_serie_header = $item->myMovie->myMovieSerieHeader->Id;
-								//$newFileName = $modelMyMovieSeason->Id_my_movie_serie_header .'_'.$modelMyMovieSeason->season_number;
-								//$modelMyMovieSeason->banner = MyMovieHelper::getImage($modelMyMovieSeason->banner_original, $newFileName);
 								$modelMyMovieSeason->save();
 								$idSeason = $modelMyMovieSeason->Id;
 									
@@ -224,6 +222,10 @@ class MyMovieNzbController extends Controller
 						{
 							exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
 						}
+					}
+					else
+					{
+						$modelCommandStatus->setBusy(false);
 					}
 				}
 				catch (Exception $e) {
