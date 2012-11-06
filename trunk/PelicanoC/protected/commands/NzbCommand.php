@@ -99,6 +99,60 @@ class NzbCommand extends CConsoleCommand  {
 							}
 						}
 				
+						if(isset($modelNzb->myMovieDiscNzb->myMovieNzb->myMovieSerieHeader))
+						{
+							$modelSerie = MyMovieSerieHeader::model()->findByPk($modelNzb->myMovieDiscNzb->myMovieNzb->Id_my_movie_serie_header);
+							
+							if(isset($modelSerie))
+							{
+								if($modelSerie->poster_original!='' && $validator->validateValue($modelSerie->poster_original))
+								{
+									try {
+										$content = @file_get_contents($modelSerie->poster_original);
+										if ($content !== false) {
+											$file = fopen($img_path . $modelSerie->Id.".jpg", 'w');
+											fwrite($file,$content);
+											fclose($file);
+											$modelSerie->poster = $modelSerie->Id.".jpg";
+											
+											$modelSerie->save();
+										} else {
+											// an error happened
+										}
+									} catch (Exception $e) {
+										throw $e;
+										// an error happened
+									}
+								}
+								
+							 	$seasons = MyMovieSeason::model()->findAllByAttributes(array('Id_my_movie_serie_header'=>$modelSerie->Id, 'banner'=>''));
+								foreach($seasons as $modelSeason)
+								{
+									$newFileName = $modelSeason->Id_my_movie_serie_header .'_'.$modelSeason->season_number;
+									if($modelSeason->banner_original!='' && $validator->validateValue($modelSeason->banner_original))
+									{
+										try {
+											$content = @file_get_contents($modelSeason->banner_original);
+											if ($content !== false) {
+												$file = fopen($img_path . $newFileName .".jpg", 'w');
+												fwrite($file,$content);
+												fclose($file);
+												$modelSeason->banner = $newFileName .".jpg";
+													
+												$modelSeason->save();
+											} else {
+												// an error happened
+											}
+										} catch (Exception $e) {
+											throw $e;
+											// an error happened
+										}
+									}
+								}
+							 
+							}
+						}
+						
 						$modelMyMovieNzb->save();
 						$modelNzb->ready = 1;
 						$modelNzb->save();
