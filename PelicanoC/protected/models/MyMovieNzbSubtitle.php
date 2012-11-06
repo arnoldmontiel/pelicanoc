@@ -52,6 +52,8 @@ class MyMovieNzbSubtitle extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'myMovieNzb' => array(self::BELONGS_TO, 'MyMovieNzb', 'Id_my_movie_nzb'),
+			'subtitle' => array(self::BELONGS_TO, 'Subtitle', 'Id_subtitle'),
 		);
 	}
 
