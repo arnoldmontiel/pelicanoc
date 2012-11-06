@@ -100,7 +100,7 @@ class MyMovieNzbController extends Controller
 								
 								$modelMyMovieSeason->setAttributesByArray($item->myMovie->myMovieSerieHeader->myMovieSeason);
 								$modelMyMovieSeason->Id_my_movie_serie_header = $item->myMovie->myMovieSerieHeader->Id;
-								$newFileName = $modelMyMovieSeason->Id_my_movie_serie_header .'_'.$modelMyMovieSeason->season_number;
+								//$newFileName = $modelMyMovieSeason->Id_my_movie_serie_header .'_'.$modelMyMovieSeason->season_number;
 								//$modelMyMovieSeason->banner = MyMovieHelper::getImage($modelMyMovieSeason->banner_original, $newFileName);
 								$modelMyMovieSeason->save();
 								$idSeason = $modelMyMovieSeason->Id;
@@ -135,7 +135,7 @@ class MyMovieNzbController extends Controller
 							
 								$modelMyMovieNzb = MyMovieNzb::model()->findByPk($item->myMovie->Id);
 								$modelMyMovieNzb->Id_my_movie_serie_header = $item->myMovie->myMovieSerieHeader->Id;
-								//$modelMyMovieNzb->is_serie = 1;
+								$modelMyMovieNzb->is_serie = 1;
 								$modelMyMovieNzb->save();
 									
 								//grabo episodios
