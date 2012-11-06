@@ -37,6 +37,15 @@ class Nzb extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function setAttributesByArray($array)
+	{
+		$attributesArray = get_object_vars($array);
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
 	/**
 	 * @return string the associated database table name
 	 */

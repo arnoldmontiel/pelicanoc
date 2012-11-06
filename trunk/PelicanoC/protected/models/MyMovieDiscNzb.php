@@ -25,6 +25,15 @@ class MyMovieDiscNzb extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function setAttributesByArray($array)
+	{
+		$attributesArray = get_object_vars($array);
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -59,7 +68,7 @@ class MyMovieDiscNzb extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'myMovieEpisodes' => array(self::MANY_MANY, 'MyMovieEpisode', 'disc_episode_nzb(Id_my_movie_disc_nzb, Id_my_movie_episode)'),
-			'idMyMovieNzb' => array(self::BELONGS_TO, 'MyMovieNzb', 'Id_my_movie_nzb'),
+			'myMovieNzb' => array(self::BELONGS_TO, 'MyMovieNzb', 'Id_my_movie_nzb'),
 			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_my_movie_disc_nzb'),
 		);
 	}
