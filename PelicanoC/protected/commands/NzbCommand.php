@@ -33,7 +33,7 @@ class NzbCommand extends CConsoleCommand  {
 						
 					try {
 				
-						$modelMyMovieMovie = MyMovieMovie::model()->findByPk($modelNzb->Id_my_movie_movie);
+						$modelMyMovieNzb = MyMovieNzb::model()->findByPk($modelNzb->myMovieDiscNzb->Id_my_movie_nzb);
 				
 						if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
 						{
@@ -63,15 +63,15 @@ class NzbCommand extends CConsoleCommand  {
 								// an error happened
 							}
 						}
-						if($modelMyMovieMovie->poster_original!='' && $validator->validateValue($modelMyMovieMovie->poster_original))
+						if($modelMyMovieNzb->poster_original!='' && $validator->validateValue($modelMyMovieNzb->poster_original))
 						{
 							try {
-								$content = @file_get_contents($modelMyMovieMovie->poster_original);
+								$content = @file_get_contents($modelMyMovieNzb->poster_original);
 								if ($content !== false) {
-									$file = fopen($img_path . $modelMyMovieMovie->Id.".jpg", 'w');
+									$file = fopen($img_path . $modelMyMovieNzb->Id.".jpg", 'w');
 									fwrite($file,$content);
 									fclose($file);
-									$modelMyMovieMovie->poster = $modelMyMovieMovie->Id.".jpg";
+									$modelMyMovieNzb->poster = $modelMyMovieNzb->Id.".jpg";
 								} else {
 									// an error happened
 								}
@@ -81,15 +81,15 @@ class NzbCommand extends CConsoleCommand  {
 							}
 						}
 				
-						if($modelMyMovieMovie->backdrop_original!='' && $validator->validateValue($modelMyMovieMovie->backdrop_original))
+						if($modelMyMovieNzb->backdrop_original!='' && $validator->validateValue($modelMyMovieNzb->backdrop_original))
 						{
 							try {
-								$content = @file_get_contents($modelMyMovieMovie->backdrop_original);
+								$content = @file_get_contents($modelMyMovieNzb->backdrop_original);
 								if ($content !== false) {
-									$file = fopen($img_path . $modelMyMovieMovie->Id."_bd.jpg", 'w');
+									$file = fopen($img_path . $modelMyMovieNzb->Id."_bd.jpg", 'w');
 									fwrite($file,$content);
 									fclose($file);
-									$modelMyMovieMovie->backdrop = $modelMyMovieMovie->Id."_bd.jpg";
+									$modelMyMovieNzb->backdrop = $modelMyMovieNzb->Id."_bd.jpg";
 								} else {
 									// an error happened
 								}
@@ -99,7 +99,7 @@ class NzbCommand extends CConsoleCommand  {
 							}
 						}
 				
-						$modelMyMovieMovie->save();
+						$modelMyMovieNzb->save();
 						$modelNzb->ready = 1;
 						$modelNzb->save();
 				
