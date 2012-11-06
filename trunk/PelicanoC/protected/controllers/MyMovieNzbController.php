@@ -4,7 +4,7 @@ class MyMovieNzbController extends Controller
 {
 	public function actionIndex()
 	{
-		echo $this->updateFromServer();
+		$this->updateFromServer();
 		$this->render('index');
 	}
 
@@ -27,75 +27,167 @@ class MyMovieNzbController extends Controller
 					$requests = array();
 					$setting = Setting::getInstance();
 					$pelicanoCliente = new Pelicano;
-					$MovieResponseArray = $pelicanoCliente->getNewMovies($setting->getId_Device());
-					foreach ($MovieResponseArray as $movie) {
+					$NzbResponseArray = $pelicanoCliente->getNewNzbs($setting->getId_Device());
+					foreach ($NzbResponseArray as $item) {
 						try {
-							$modelNzb = Nzb::model()->findByPk($movie->Id);
+// 							$modelNzb = Nzb::model()->findByPk($nzbResponse->nzb->Id);
+// 							if(!isset($modelNzb))
+// 							{
+// 								$modelNzb = new Nzb;
+// 							}
+// 							$modelMyMovieNzb = MyMovieNzb::model()->findByPk($nzbResponse->myMovie->Id);
+// 							if(!isset($modelMyMovieNzb))
+// 							{
+// 								$modelMyMovieNzb = new MyMovieNzb;
+// 							}
+// 							if($nzbResponse->nzb->deleted)
+// 							{
+// 								if(!$modelNzb->isNewRecord)
+// 								{
+// 									if(!$modelNzb->downloading||!$modelNzb->downloaded)
+// 									{
+// 										$modelMyMovieMovie->delete();
+// 										//$modelNzb->delete();
+// 										$nzbMovieState= new NzbMovieState;
+// 										$nzbMovieState->Id_nzb = $modelNzb->Id;
+// 										$nzbMovieState->Id_movie_state = 6;
+// 										$nzbMovieState->Id_device = $setting->getId_Device();
+					
+// 										$nzbMovieState->save();
+// 										continue;
+// 									}
+// 								}
+// 								else
+// 								{
+// 									$nzbMovieState= new NzbMovieState;
+// 									$nzbMovieState->Id_nzb = $nzbResponse->nzb->Id;
+// 									$nzbMovieState->Id_movie_state = 6;
+// 									$nzbMovieState->Id_device = $setting->getId_Device();
+										
+// 									$nzbMovieState->save();
+// 									continue;
+// 								}
+					
+// 							}
+							
+							$idSeason = null;
+						
+							//si es serie guardo la serie y la temporada
+							if(isset($item->myMovie->myMovieSerieHeader))
+							{
+								//grabo serie
+								$modelMyMovieSerieHeader = MyMovieSerieHeader::model()->findByPk($item->myMovie->myMovieSerieHeader->Id);
+								if(!isset($modelMyMovieSerieHeader))
+								{
+									$modelMyMovieSerieHeader = new MyMovieSerieHeader();
+								}
+								
+								$modelMyMovieSerieHeader->setAttributesByArray($item->myMovie->myMovieSerieHeader);
+								//$modelMyMovieSerieHeader->poster = MyMovieHelper::getImage($modelMyMovieSerieHeader->poster_original, $modelMyMovieSerieHeader->Id);
+								$modelMyMovieSerieHeader->save();
+								
+									
+								//grabo temporada
+								$modelMyMovieSeason = MyMovieSeason::model()->findByAttributes(array(
+																	'Id_my_movie_serie_header'=>$item->myMovie->myMovieSerieHeader->Id,
+																	'season_number'=>$item->myMovie->myMovieSerieHeader->myMovieSeason->season_number,
+								));
+							
+								if(!isset($modelMyMovieSeason))
+								{
+									$modelMyMovieSeason = new MyMovieSeason();
+								}
+								
+								$modelMyMovieSeason->setAttributesByArray($item->myMovie->myMovieSerieHeader->myMovieSeason);
+								$modelMyMovieSeason->Id_my_movie_serie_header = $item->myMovie->myMovieSerieHeader->Id;
+								$newFileName = $modelMyMovieSeason->Id_my_movie_serie_header .'_'.$modelMyMovieSeason->season_number;
+								//$modelMyMovieSeason->banner = MyMovieHelper::getImage($modelMyMovieSeason->banner_original, $newFileName);
+								$modelMyMovieSeason->save();
+								$idSeason = $modelMyMovieSeason->Id;
+									
+							}
+							
+							//grabo la info de la caja (my movie)
+							$modelMyMovieNzb = MyMovieNzb::model()->findByPk($item->myMovie->Id);
+							if(!isset($modelMyMovieNzb))
+							{
+								$modelMyMovieNzb = new MyMovieNzb();
+							}
+							
+							$modelMyMovieNzb->setAttributesByArray($item->myMovie);
+							$modelMyMovieNzb->save();
+							
+							//grabo el disco
+							$idDisc = null;
+							$modelMyMovieDiscNzb = MyMovieDiscNzb::model()->findByPk($item->myMovieDisc->Id);
+							if(!isset($modelMyMovieDiscNzb))
+							{
+								$modelMyMovieDiscNzb = new MyMovieDiscNzb();
+							}
+							$modelMyMovieDiscNzb->setAttributesByArray($item->myMovieDisc);
+							$modelMyMovieDiscNzb->save();
+							$idDisc = $modelMyMovieDiscNzb->Id;
+							
+							//si es serie genero relacion con los episodios y el disco
+							//y grabo el id de header en la tabla myMovie
+							if(isset($idSeason) && isset($idDisc))
+							{
+							
+								$modelMyMovieNzb = MyMovieNzb::model()->findByPk($item->myMovie->Id);
+								$modelMyMovieNzb->Id_my_movie_serie_header = $item->myMovie->myMovieSerieHeader->Id;
+								//$modelMyMovieNzb->is_serie = 1;
+								$modelMyMovieNzb->save();
+									
+								//grabo episodios
+								$episodes = $item->myMovie->myMovieSerieHeader->myMovieSeason->Episode;
+								foreach($episodes as $episode)
+								{
+									$modelMyMovieEpisode = MyMovieEpisode::model()->findByAttributes(array(
+																									'Id_my_movie_season'=>$idSeason,
+																									'episode_number'=>$episode->episode_number,
+									));
+							
+									$idEpisode = null;
+									if(!isset($modelMyMovieEpisode))
+									{
+										$modelMyMovieEpisode = new MyMovieEpisode();
+									}
+									$modelMyMovieEpisode->setAttributesByArray($episode);
+									$modelMyMovieEpisode->Id_my_movie_season = $idSeason;
+									$modelMyMovieEpisode->save();
+									$idEpisode = $modelMyMovieEpisode->Id;
+							
+									if(isset($idEpisode))
+									{
+										$modelDiscEpisodeNzb = DiscEpisodeNzb::model()->findByAttributes(array(
+																					'Id_my_movie_episode'=>$idEpisode,
+																					'Id_my_movie_disc_nzb'=>$idDisc,
+										));
+											
+										if(!isset($modelDiscEpisodeNzb))
+										{
+											$modelDiscEpisodeNzb = new DiscEpisodeNzb();
+											$modelDiscEpisodeNzb->Id_my_movie_disc_nzb = $idDisc;
+											$modelDiscEpisodeNzb->Id_my_movie_episode = $idEpisode;
+											$modelDiscEpisodeNzb->save();
+										}
+									}
+							
+								}
+							}
+							
+							//grabo el nzb
+							$modelNzb = Nzb::model()->findByPk($item->nzb->Id);
 							if(!isset($modelNzb))
 							{
-								$modelNzb = new Nzb;
+								$modelNzb = new Nzb();
 							}
-							$modelMyMovieMovie = MyMovieMovie::model()->findByPk($movie->Id_my_movie_movie);
-							if(!isset($modelMyMovieMovie))
-							{
-								$modelMyMovieMovie = new MyMovieMovie;
-							}
-							if($movie->deleted)
-							{
-								if(!$modelNzb->isNewRecord)
-								{
-									if(!$modelNzb->downloading||!$modelNzb->downloaded)
-									{
-										$modelMyMovieMovie->delete();
-										//$modelNzb->delete();
-										$nzbMovieState= new NzbMovieState;
-										$nzbMovieState->Id_nzb = $modelNzb->Id;
-										$nzbMovieState->Id_movie_state = 6;
-										$nzbMovieState->Id_device = $setting->getId_Device();
-					
-										$nzbMovieState->save();
-										continue;
-									}
-								}
-								else
-								{
-									$nzbMovieState= new NzbMovieState;
-									$nzbMovieState->Id_nzb = $movie->Id;
-									$nzbMovieState->Id_movie_state = 6;
-									$nzbMovieState->Id_device = $setting->getId_Device();
-										
-									$nzbMovieState->save();
-									continue;
-								}
-					
-							}
-							$nzbAttr = $modelNzb->attributes;
-							while(current($nzbAttr)!==False)
-							{
-								$attrName= key($nzbAttr);
-								if(isset($movie->$attrName))
-								{
-									$modelNzb->setAttribute($attrName, $movie->$attrName);
-								}
-								next($nzbAttr);
-							}
-					
-							$myMovieMovieAttr = $modelMyMovieMovie->attributes;
-							while(current($myMovieMovieAttr)!==False)
-							{
-								$attrName= key($myMovieMovieAttr);
-								if(isset($movie->$attrName))
-								{
-									$modelMyMovieMovie->setAttribute($attrName, $movie->$attrName);
-								}
-								next($myMovieMovieAttr);
-							}
-							$modelMyMovieMovie->Id = $movie->Id_my_movie_movie;
+							$modelNzb->setAttributesByArray($item->nzb);					
+													
 					
 							$transaction = $modelNzb->dbConnection->beginTransaction();
 							try {
-								$modelMyMovieMovie->save();
-								$modelNzb->Id_my_movie_movie = $modelMyMovieMovie->Id;
+								$modelNzb->Id_my_movie_disc_nzb = $idDisc;
 								$modelNzb->date = date("Y-m-d H:i:s",time());
 								$modelNzb->ready = 0;
 								$modelNzb->save();
