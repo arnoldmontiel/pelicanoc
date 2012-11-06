@@ -125,7 +125,7 @@ class NzbCommand extends CConsoleCommand  {
 									}
 								}
 								
-							 	$seasons = MyMovieSeason::model()->findAllByAttributes(array('Id_my_movie_serie_header'=>$modelSerie->Id, 'banner'=>''));
+							 	$seasons = MyMovieSeason::model()->findAllByAttributes(array('Id_my_movie_serie_header'=>$modelSerie->Id, 'banner'=>null));
 								foreach($seasons as $modelSeason)
 								{
 									$newFileName = $modelSeason->Id_my_movie_serie_header .'_'.$modelSeason->season_number;
