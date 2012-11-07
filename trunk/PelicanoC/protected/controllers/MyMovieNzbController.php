@@ -174,6 +174,9 @@ class MyMovieNzbController extends Controller
 								}
 							}
 							
+							//grabo especificaciones (audio y subtitulos)
+							$this->saveSpecification($item);
+							
 							//grabo el nzb
 							$modelNzb = Nzb::model()->findByPk($item->nzb->Id);
 							if(!isset($modelNzb))
@@ -237,6 +240,67 @@ class MyMovieNzbController extends Controller
 				
 	}
 
+	private function saveSpecification($item)
+	{
+		//grabo los audiotrack del disco rippeado
+		foreach($item->myMovie->AudioTrack as $audio)
+		{
+			$modelAudio = AudioTrack::model()->findByAttributes(array(
+																'language'=>$audio->language,
+																'type'=>$audio->type,
+																'chanel'=>$audio->chanel,
+			));
+			if(!isset($modelAudio))
+			{
+				$modelAudio = new AudioTrack();
+				$modelAudio->language = $audio->language;
+				$modelAudio->type = $audio->type;
+				$modelAudio->chanel = $audio->chanel;
+				$modelAudio->save();
+			}
+				
+			$myMovieNzbAudioTrack = MyMovieNzbAudioTrack::model()->findByAttributes(array(
+																			'Id_my_movie_nzb'=>$item->myMovie->Id,
+																			'Id_audio_track'=>$modelAudio->Id,
+			));
+			if(!isset($myMovieNzbAudioTrack))
+			{
+				$myMovieNzbAudioTrack = new MyMovieNzbAudioTrack();
+				$myMovieNzbAudioTrack->Id_audio_track = $modelAudio->Id;
+				$myMovieNzbAudioTrack->Id_my_movie_nzb = $item->myMovie->Id;
+				$myMovieNzbAudioTrack->save();
+			}
+				
+		}
+			
+		//grabo los subtitulos del disco rippeado
+		foreach($item->myMovie->Subtitle as $sub)
+		{
+			$modelSub = Subtitle::model()->findByAttributes(array(
+															'language'=>$sub->language,																		
+			));
+			if(!isset($modelSub))
+			{
+				$modelSub = new Subtitle();
+				$modelSub->language = $sub->language;
+				$modelSub->save();
+			}
+		
+			$myMovieNzbSubtitle = MyMovieNzbSubtitle::model()->findByAttributes(array(
+														'Id_my_movie_nzb'=>$item->myMovie->Id,
+														'Id_subtitle'=>$modelSub->Id,
+			));
+			if(!isset($myMovieNzbSubtitle))
+			{
+				$myMovieNzbSubtitle = new MyMovieNzbSubtitle();
+				$myMovieNzbSubtitle->Id_subtitle = $modelSub->Id;
+				$myMovieNzbSubtitle->Id_my_movie_nzb = $item->myMovie->Id;
+				$myMovieNzbSubtitle->save();
+			}
+		
+		}
+	}
+	
 	public function actionAjaxStartDownload()
 	{
 		if(isset($_POST['Id_nzb']))
