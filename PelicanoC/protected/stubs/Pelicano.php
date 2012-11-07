@@ -351,39 +351,6 @@ class UserStateRequest extends SOAP2Array
 	public $deleted; //integer;
 	public $birth_date; //date;
 }
-
-class SerieResponse
-{
-	public $Id; //integer;
-	public $url; //string;
-	public $file_name; //string;
-	public $subt_url; //string;
-	public $subt_file_name; //string;
-	public $Id_resource_type; //integer;
-	public $deleted; //integer;
-	public $points; //integer;	
-	public $ID; //string;
-	public $Title; //string;
-	public $Year; //string;
-	public $Rated; //string;
-	public $Released; //string;
-	public $Genre; //string;
-	public $Director; //string;
-	public $Writer; //string;
-	public $Actors; //string;
-	public $Plot; //string;
-	public $Poster; //string;
-	public $Runtime; //string;
-	public $Rating; //string;
-	public $Votes; //string;
-	public $Response; //string;
-	public $Backdrop; //string;
-	public $Season; //integer;
-	public $Episode; //integer;
-	public $Id_parent; //string;
-	public $Deleted_serie; //integer;	
-	public $arrSeason; //SeasonArray;
-}
 class SerieStateRequest extends SOAP2Array
 {
 	public $id_customer; //integer;
@@ -479,15 +446,6 @@ function getNewNzbs($Id_device)
 		$NzbResponseArray = $this->soapClient->getNewNzbs($Id_device);
 	}
 	return $NzbResponseArray;		
-}
-function getNewSeries($Id_device)
-{
-	$SerieResponseArray = array();
-	if(isset($this->soapClient))
-	{
-		$SerieResponseArray = $this->soapClient->getNewSeries($Id_device);
-	}
-	return $SerieResponseArray;
 }
 function updateCustomer($CustomerRequest)
 {
