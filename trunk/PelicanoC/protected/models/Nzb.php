@@ -148,7 +148,11 @@ class Nzb extends CActiveRecord
 		// should not be searched.
 	
 		$criteria=new CDbCriteria;
+		
+		$criteria->join = "LEFT OUTER JOIN nzb_movie_state nms ON nms.Id_nzb=t.Id";
+		$criteria->addNotInCondition("nms.Id_movie_state", array(6));
 		$criteria->compare('ready',1);
+		
 		$criteria->order = "t.date DESC";
 	
 		return new CActiveDataProvider($this, array(
