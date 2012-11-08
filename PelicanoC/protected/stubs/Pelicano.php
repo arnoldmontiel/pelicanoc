@@ -19,9 +19,9 @@ class CustomerResponse
 	public $address; //string;
 }
 
-class CustomerRequest
+class SetupResponse
 {
-	public $Id; //integer;
+	public $Id_customer; //integer;
 	public $Id_reseller; //integer;
 	public $Id_device; //string;
 	public $name; //string;
@@ -465,12 +465,12 @@ function useCustomer($code, $Id_device)
 	}
 	return $result;
 }
-function setCustomer($CustomerRequest)
+function setup($idDevice)
 {
 	$result = false;
 	if(isset($this->soapClient))
 	{
-		$result = $this->soapClient->setCustomer($CustomerRequest);
+		$result = $this->soapClient->setup($idDevice);
 	}
 	return $result;
 }
