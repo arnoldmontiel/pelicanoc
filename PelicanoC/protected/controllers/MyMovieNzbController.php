@@ -3,7 +3,7 @@
 class MyMovieNzbController extends Controller
 {
 	public function actionIndex()
-	{
+	{	
 		$this->updateFromServer();
 		$this->render('index');
 	}
@@ -27,49 +27,45 @@ class MyMovieNzbController extends Controller
 					$requests = array();
 					$setting = Setting::getInstance();
 					$pelicanoCliente = new Pelicano;
-					$NzbResponseArray = $pelicanoCliente->getNewNzbs($setting->getId_Device());
+					$NzbResponseArray = $pelicanoCliente->getNewNzbs($setting->getId_Device());					
 					foreach ($NzbResponseArray as $item) 
 					{
-						try {
-// 							$modelNzb = Nzb::model()->findByPk($nzbResponse->nzb->Id);
-// 							if(!isset($modelNzb))
-// 							{
-// 								$modelNzb = new Nzb;
-// 							}
-// 							$modelMyMovieNzb = MyMovieNzb::model()->findByPk($nzbResponse->myMovie->Id);
-// 							if(!isset($modelMyMovieNzb))
-// 							{
-// 								$modelMyMovieNzb = new MyMovieNzb;
-// 							}
-// 							if($nzbResponse->nzb->deleted)
-// 							{
-// 								if(!$modelNzb->isNewRecord)
-// 								{
-// 									if(!$modelNzb->downloading||!$modelNzb->downloaded)
-// 									{
-// 										$modelMyMovieMovie->delete();
-// 										//$modelNzb->delete();
-// 										$nzbMovieState= new NzbMovieState;
-// 										$nzbMovieState->Id_nzb = $modelNzb->Id;
-// 										$nzbMovieState->Id_movie_state = 6;
-// 										$nzbMovieState->Id_device = $setting->getId_Device();
-					
-// 										$nzbMovieState->save();
-// 										continue;
-// 									}
-// 								}
-// 								else
-// 								{
-// 									$nzbMovieState= new NzbMovieState;
-// 									$nzbMovieState->Id_nzb = $nzbResponse->nzb->Id;
-// 									$nzbMovieState->Id_movie_state = 6;
-// 									$nzbMovieState->Id_device = $setting->getId_Device();
-										
-// 									$nzbMovieState->save();
-// 									continue;
-// 								}
-					
-// 							}
+						try {							
+							//grabo el nzb
+							$modelNzb = Nzb::model()->findByPk($item->nzb->Id);
+							if(!isset($modelNzb))
+							{
+								$modelNzb = new Nzb();
+							}
+							$modelNzb->setAttributesByArray($item->nzb);							
+							if($item->nzb->deleted)
+							{
+								if(!$modelNzb->isNewRecord)
+								{
+									if(!$modelNzb->downloading||!$modelNzb->downloaded)
+									{
+										//$modelNzb->delete();
+										$nzbMovieState= new NzbMovieState;
+										$nzbMovieState->Id_nzb = $modelNzb->Id;
+										$nzbMovieState->Id_movie_state = 6;
+										$nzbMovieState->Id_device = $setting->getId_Device();
+	
+										$nzbMovieState->save();
+										continue;
+									}
+								}
+								else
+								{
+									$nzbMovieState= new NzbMovieState;
+									$nzbMovieState->Id_nzb = $nzbResponse->nzb->Id;
+									$nzbMovieState->Id_movie_state = 6;
+									$nzbMovieState->Id_device = $setting->getId_Device();
+
+									$nzbMovieState->save();
+									continue;
+								}
+	
+							}
 							
 							$idSeason = null;
 						
@@ -176,15 +172,6 @@ class MyMovieNzbController extends Controller
 							
 							//grabo especificaciones (audio y subtitulos)
 							$this->saveSpecification($item);
-							
-							//grabo el nzb
-							$modelNzb = Nzb::model()->findByPk($item->nzb->Id);
-							if(!isset($modelNzb))
-							{
-								$modelNzb = new Nzb();
-							}
-							$modelNzb->setAttributesByArray($item->nzb);					
-													
 					
 							$transaction = $modelNzb->dbConnection->beginTransaction();
 							try {
