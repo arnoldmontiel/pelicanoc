@@ -35,37 +35,27 @@ class Customer extends CActiveRecord
 		return 'customer';
 	}
 
-	public static function createCustomer($model)
+	public static function createCustomer()
 	{
-		if(!Customer::model()->count()>0)
+		$setting = Setting::getInstance();
+		
+		$pelicanoCliente = new Pelicano;
+		$response = $pelicanoCliente->setup($setting->getId_Device());
+		
+		if(isset($response))
 		{
-			$setting = Setting::getInstance();
+			$modelCustomer = new Customer();
+			$modelCustomer->Id = $response->Id_customer;
+			$modelCustomer->name = $response->name;
+			$modelCustomer->last_name = $response->last_name;
+			$modelCustomer->address = $response->address;
+			$modelCustomer->save();
 			
-			$pelicanoCliente = new Pelicano;	
-			$request= new CustomerRequest;
-			$request->name = $model->name;
-			$request->last_name = $model->last_name;
-			$request->address = $model->address;
-			$request->Id_reseller = $setting->Id_reseller;
-			$request->Id_device = $setting->getId_Device();
+			$setting->Id_customer = $response->Id_customer;
+			$setting->Id_reseller = $response->Id_reseller;
+			$setting->save();
 			
-			$CustomerResponse = $pelicanoCliente->setCustomer($request);
-			
-			if($CustomerResponse != 0)
-			{
-				$modelCustomer = new Customer();
-				$modelCustomer->Id = $CustomerResponse;
-				$modelCustomer->name = $model->name;
-				$modelCustomer->last_name = $model->last_name;
-				$modelCustomer->address = $model->address;
-				$modelCustomer->save();
-				
-				$setting = Setting::getInstance();
-				$setting->Id_customer = $CustomerResponse;
-				$setting->save();
-				return true;
-			}
-			
+			return true;
 		}
 		return false;
 	}
