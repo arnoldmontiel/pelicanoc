@@ -23,6 +23,18 @@ class ServerAnydvdUpdateResponse
 	public $download_link; //string;
 }
 
+class ServerSettingsRipperResponse
+{
+	public $drive_letter; //string;
+	public $temp_folder_ripping; //string;
+	public $final_folder_ripping; //string;
+	public $time_from_reboot; //time;
+	public $time_to_reboot; //time;
+	public $mymovies_username; //string;
+	public $mymovies_password; //string;
+	
+}
+
 /**
 * The soap client proxy class
 */
@@ -62,6 +74,11 @@ function checkForUpdate($idDevice)
 	return $ServerAnydvdUpdateResponse;
 }
 
+ function getRipperSettings($idDevice)
+{
+	$serverSettingsRipperResponse = $this->soapClient->getRipperSettings($idDevice);
+	return $serverSettingsRipperResponse;
+}
 }
 
 

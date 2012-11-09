@@ -1,7 +1,34 @@
 <?php
 class RipperHelper
 {
-	
+
+	static public function updateRipperSettings()
+	{
+		$wsSettings = new wsSettings;
+		$settings = Setting::getInstance();
+		$response = $wsSettings->getRipperSettings($settings->Id_device);
+		if($response->drive_letter!="")
+		{
+			$settingsRippers = SettingsRipper::model()->findAll();
+			
+			if(empty($settingsRippers))
+			{
+				$settingsRipper = new SettingsRipper;
+			}else {
+				$settingsRipper =$settingsRippers[0];
+			}
+			$settingsRipper->drive_letter = $response->drive_letter;
+			$settingsRipper->temp_folder_ripping = $response->temp_folder_ripping;
+			$settingsRipper->final_folder_ripping = $response->final_folder_ripping;
+			$settingsRipper->time_from_reboot = $response->time_from_reboot;
+			$settingsRipper->time_to_reboot = $response->time_to_reboot;
+			$settingsRipper->mymovies_username = $response->mymovies_username;
+			$settingsRipper->mymovies_password = $response->mymovies_password;
+			$settingsRipper->save();
+				
+		}
+		
+	}
 	static public function saveRipped($idMyMovie, $path, $parentalControl, $idDisc)
 	{
 		if(self::getMyMovieData($idMyMovie, $idDisc))
@@ -505,5 +532,5 @@ class RipperHelper
 			$modelMyMovieSubtitle->save();
 	
 		}
-	}
+	}	
 }
