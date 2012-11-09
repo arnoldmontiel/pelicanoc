@@ -34,55 +34,6 @@ class Customer extends CActiveRecord
 	{
 		return 'customer';
 	}
-
-	public static function createCustomer()
-	{
-		$setting = Setting::getInstance();
-		
-		$pelicanoCliente = new Pelicano;
-		$response = $pelicanoCliente->setup($setting->getId_Device());
-		
-		if(isset($response))
-		{
-			$modelCustomer = new Customer();
-			$modelCustomer->Id = $response->Id_customer;
-			$modelCustomer->name = $response->name;
-			$modelCustomer->last_name = $response->last_name;
-			$modelCustomer->address = $response->address;
-			$modelCustomer->save();
-			
-			$setting->Id_customer = $response->Id_customer;
-			$setting->Id_reseller = $response->Id_reseller;
-			$setting->save();
-			
-			return true;
-		}
-		return false;
-	}
-	
-	public static function updateCustomer($model)
-	{
-		$modelCustomer = Customer::model()->findByPk($model->Id);
-		if($modelCustomer)
-		{
-			$pelicanoCliente = new Pelicano;
-			$request= new CustomerRequest;
-			$request->Id = $model->Id;
-			$request->name = $model->name;
-			$request->last_name = $model->last_name;
-			$request->address = $model->address;
-			$CustomerResponse = $pelicanoCliente->updateCustomer($request);
-				
-			if($CustomerResponse != 0)
-			{
-				$modelCustomer->attributes = $model->attributes;
-				$modelCustomer->save();
-				return true;
-			}
-				
-		}
-		return false;
-	}
 	
 	public static function useCustomer($code)
 	{
