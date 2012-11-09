@@ -148,4 +148,38 @@ class WsSettingsController extends Controller
 		return $response;
 	}
 	
+	/**
+	* returns customer and settings table configuration
+	* @return boolean response
+	* @soap
+	*/
+	
+	public function getCustomerSettings()
+	{
+		$settings = Setting::getInstance();
+		$wsSettings = new wsSettings();
+		$response = $wsSettings->getCustomerSettings($settings->Id_device);
+		
+		if(isset($response))
+		{
+			$modelCustomer = Customer::model()->findByPk($response->Id_customer);
+			
+			if(isset($modelCustomer))
+				$modelCustomer = new Customer();
+			
+			$modelCustomer->Id = $response->Id_customer;
+			$modelCustomer->name = $response->name;
+			$modelCustomer->last_name = $response->last_name;
+			$modelCustomer->address = $response->address;
+			$modelCustomer->save();
+				
+			$setting->Id_customer = $response->Id_customer;
+			$setting->Id_reseller = $response->Id_reseller;
+			$setting->save();
+				
+			return $wsSettings->ackCustomerSettings($settings->Id_device);;
+		}
+		
+		return false;
+	}
 }
