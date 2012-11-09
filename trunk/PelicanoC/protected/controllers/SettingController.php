@@ -66,45 +66,6 @@ class SettingController extends Controller
 		));
 	}
 
-	public function actionStartInstallation()
-	{
-		$model=new User;
-		$hasError = false;
-		
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-	
-		if (isset($_POST['cancel'])) {
-			$this->redirect(array('/site/index'));
-		}
-		
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			if($model->validate())
-			{
-				$pelicanoCliente = new Pelicano;
-				$installData = $pelicanoCliente->getInstallData($model->username, $model->password);
-				if(isset($installData))
-				{
-					$setting = Setting::getInstance();
-					$setting->Id_reseller = $installData->Id_reseller;
-					$setting->Id_device = $installData->Id_device;
-					$setting->save();
-					$this->redirect(array('/site/index'));
-				}
-				else {
-					$hasError = true;
-				}
-				
-			}
-		}
-	
-		$this->render('startInstallation',array(
-				'model'=>$model,
-				'hasError'=>$hasError,
-		));
-	}
 	
 	/**
 	 * Updates a particular model.
