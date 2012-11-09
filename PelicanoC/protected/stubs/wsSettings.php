@@ -6,6 +6,15 @@
 */
 
 
+class CustomerSettingsResponse
+{
+	public $Id_customer; //integer;
+	public $Id_reseller; //integer;
+	public $Id_device; //string;
+	public $name; //string;
+	public $last_name; //string;
+	public $address; //string;
+}
 
 class ClientSettingsRequest extends SOAP2Array
 {
@@ -45,40 +54,59 @@ class wsSettings
 	private static $classmap = array(
 		'ClientSettingsRequest'=>'ClientSettingsRequest',
 		'ServerAnydvdUpdateResponse'=>'ServerAnydvdUpdateResponse',
-);
+		'CustomerSettingsResponse'=>'CustomerSettingsResponse',
+	);
 
-function __construct($url='http://localhost/workspace/PelicanoS/index.php?r=wssettings/wsdl')
-{
-$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
-}
-
-
-function setClientSettings($ClientSettingsRequest)
-{
-	$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
-	return $boolean;
-}
-function setAnydvdVersionDownloaded($idDevice,$version)
-{
-	return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
+	function __construct($url='http://localhost/workspace/PelicanoS/index.php?r=wssettings/wsdl')
+	{
+	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
+	}
 	
-}
-public function setAnydvdVersionInstalled($idDevice,$version)
-{
-	return $this->soapClient->setAnydvdVersionInstalled($idDevice,$version);
 	
-}
-function checkForUpdate($idDevice)
-{
-	$ServerAnydvdUpdateResponse = $this->soapClient->checkForUpdate($idDevice);
-	return $ServerAnydvdUpdateResponse;
-}
-
- function getRipperSettings($idDevice)
-{
-	$serverSettingsRipperResponse = $this->soapClient->getRipperSettings($idDevice);
-	return $serverSettingsRipperResponse;
-}
+	function setClientSettings($ClientSettingsRequest)
+	{
+		$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
+		return $boolean;
+	}
+	function setAnydvdVersionDownloaded($idDevice,$version)
+	{
+		return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
+		
+	}
+	public function setAnydvdVersionInstalled($idDevice,$version)
+	{
+		return $this->soapClient->setAnydvdVersionInstalled($idDevice,$version);
+		
+	}
+	function checkForUpdate($idDevice)
+	{
+		$ServerAnydvdUpdateResponse = $this->soapClient->checkForUpdate($idDevice);
+		return $ServerAnydvdUpdateResponse;
+	}
+	
+	 function getRipperSettings($idDevice)
+	{
+		$serverSettingsRipperResponse = $this->soapClient->getRipperSettings($idDevice);
+		return $serverSettingsRipperResponse;
+	}
+	function getCustomerSettings($idDevice)
+	{
+		$result = false;
+		if(isset($this->soapClient))
+		{
+			$result = $this->soapClient->getCustomerSettings($idDevice);
+		}
+		return $result;
+	}
+	function ackCustomerSettings($idDevice)
+	{
+		$result = false;
+		if(isset($this->soapClient))
+		{
+			$result = $this->soapClient->ackCustomerSettings($idDevice);
+		}
+		return $result;
+	}
 }
 
 
