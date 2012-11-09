@@ -115,6 +115,7 @@ class SettingsRipperController extends Controller
 	 */
 	public function actionIndex()
 	{
+		//RipperHelper::saveRipped("87f03565-015f-4b44-9075-a445257906c0", "F:/Ripped/peli/", false, "722EBF8A-B3C1700B");
 		$dataProvider=new CActiveDataProvider('SettingsRipper');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
