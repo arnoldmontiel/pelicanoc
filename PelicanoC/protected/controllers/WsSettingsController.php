@@ -131,6 +131,8 @@ class WsSettingsController extends Controller
 	
 	public function getSettings()
 	{
+		RipperHelper::updateRipperSettings();
+		
 		$response = new SettingsRipperResponse(); 
 		$settingsRipper = SettingsRipper::model()->findAll();
 		if(isset($settingsRipper[0]))
