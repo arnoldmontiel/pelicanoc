@@ -57,11 +57,23 @@ class wsSettings
 		'CustomerSettingsResponse'=>'CustomerSettingsResponse',
 	);
 
-	function __construct($url='http://localhost/workspace/PelicanoS/index.php?r=wssettings/wsdl')
-	{
-	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
-	}
+function __construct($url='http://localhost/workspace/PelicanoS')
+{
+	ini_set ('soap.wsdl_cache_enabled',0);
 	
+	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path."/index.php?r=wssettings/wsdl";
+	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
+}
+
+
+function setClientSettings($ClientSettingsRequest)
+{
+	$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
+	return $boolean;
+}
+function setAnydvdVersionDownloaded($idDevice,$version)
+{
+	return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
 	
 	function setClientSettings($ClientSettingsRequest)
 	{

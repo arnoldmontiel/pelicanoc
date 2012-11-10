@@ -386,7 +386,7 @@ function __construct($url='/index.php?r=nzb/wsdl')
 {
 	ini_set ('soap.wsdl_cache_enabled',0);
 	
-	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path.$url;
+	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path.'/index.php?r=nzb/wsdl';
 	try {
 		$this->soapClient = @new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));		
 	} catch (SoapFault $fault) {
