@@ -66,15 +66,6 @@ function __construct($url='http://localhost/workspace/PelicanoS')
 }
 
 
-function setClientSettings($ClientSettingsRequest)
-{
-	$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
-	return $boolean;
-}
-	function setAnydvdVersionDownloaded($idDevice,$version)
-	{
-		return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
-	}
 	function setClientSettings($ClientSettingsRequest)
 	{
 		$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
@@ -83,7 +74,6 @@ function setClientSettings($ClientSettingsRequest)
 	function setAnydvdVersionDownloaded($idDevice,$version)
 	{
 		return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
-		
 	}
 	public function setAnydvdVersionInstalled($idDevice,$version)
 	{
