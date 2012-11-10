@@ -21,6 +21,8 @@ class wsPelicanoC
 	function __construct($url='/index.php?r=wsPelicanoC/wsdl')
 	{
 		ini_set ('soap.wsdl_cache_enabled',0);
+		$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path."/index.php?r=wsPelicanoC/wsdl";
+		
 		$url = "http://localhost/workspace/PelicanoC".$url;
 		$this->soapClient = @new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 	}
