@@ -71,10 +71,10 @@ function setClientSettings($ClientSettingsRequest)
 	$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
 	return $boolean;
 }
-function setAnydvdVersionDownloaded($idDevice,$version)
-{
-	return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
-	
+	function setAnydvdVersionDownloaded($idDevice,$version)
+	{
+		return $this->soapClient->setAnydvdVersionDownloaded($idDevice,$version);
+	}
 	function setClientSettings($ClientSettingsRequest)
 	{
 		$boolean = $this->soapClient->setClientSettings($ClientSettingsRequest);
