@@ -140,5 +140,83 @@ class PelicanoHelper
 			//
 		}
 	}
+	
+	static public function getCustomerSettings()
+	{
+		$settings = Setting::getInstance();
+		$wsSettings = new wsSettings();
+		$response = $wsSettings->getCustomerSettings($settings->Id_device);
+	
+		if(isset($response))
+		{
+			$modelCustomer = Customer::model()->findByPk($response->Id_customer);
+				
+			if(!isset($modelCustomer))
+				$modelCustomer = new Customer();
+				
+			$modelCustomer->Id = $response->Id_customer;
+			$modelCustomer->name = $response->name;
+			$modelCustomer->last_name = $response->last_name;
+			$modelCustomer->address = $response->address;
+			$modelCustomer->save();
+	
+			$settings->Id_customer = $response->Id_customer;
+			$settings->Id_reseller = $response->Id_reseller;
+			$settings->save();
+	
+			foreach($response->Users as $user)
+			{
+				try {
+	
+					$modelDB = User::model()->findByPk($user->username);
+					if(isset($modelDB))
+					{
+						if($user->deleted == 0)
+						{
+							$modelDB->username = $user->username;
+							$modelDB->password = $user->password;
+							$modelDB->email = $user->email;
+							$modelDB->adult_section = $user->adult_section;
+							$modelDB->birth_date = $user->birth_date;
+							$modelDB->save();
+						}
+						else
+						{
+							$modelDB->delete();
+						}
+					}
+					else
+					{
+						if($user->deleted == 0)
+						{
+							$model = new User();
+							$model->username = $user->username;
+							$model->password = $user->password;
+							$model->email = $user->email;
+							$model->Id_customer = $response->Id_customer;
+							$model->adult_section = $user->adult_section;
+							$model->birth_date = $user->birth_date;
+							$model->save();
+	
+							$assDB = Assignments::model()->findByAttributes(array('userid'=>$user->username));
+							if(!isset($assDB)){
+								$ass = new Assignments();
+								$ass->userid = $user->username;
+								$ass->data = 's:0:"";';
+								$ass->itemname = 'Customer';
+								$ass->save();
+							}
+						}
+					}
+	
+				} catch (Exception $e) {
+				}
+			}
+				
+			return $wsSettings->ackCustomerSettings($settings->Id_device);
+		}
+	
+		return false;
+	}
 		
 }
