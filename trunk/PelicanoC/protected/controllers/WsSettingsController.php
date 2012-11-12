@@ -156,6 +156,7 @@ class WsSettingsController extends Controller
 	
 	public function HeartBeat()
 	{
+		PelicanoHelper::getCustomerSettings();
 		return true;
 	}
 }
