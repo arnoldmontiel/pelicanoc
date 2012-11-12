@@ -177,7 +177,7 @@ class WsSettingsController extends Controller
 			$setting->Id_reseller = $response->Id_reseller;
 			$setting->save();
 				
-			return $wsSettings->ackCustomerSettings($settings->Id_device);;
+			return $wsSettings->ackCustomerSettings($settings->Id_device);
 		}
 		
 		return false;
