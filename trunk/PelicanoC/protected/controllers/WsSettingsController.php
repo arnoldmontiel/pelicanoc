@@ -182,4 +182,14 @@ class WsSettingsController extends Controller
 		
 		return false;
 	}
+	/**
+	* It gives a heartbeat to the Pelicano, just to get it alive.
+	* @return boolean response
+	* @soap
+	*/
+	
+	public function HeartBeat()
+	{
+		return true;
+	}
 }
