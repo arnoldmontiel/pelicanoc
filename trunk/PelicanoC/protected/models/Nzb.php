@@ -62,14 +62,14 @@ class Nzb extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id, Id_my_movie_disc_nzb', 'required'),
-			array('Id, Id_resource, downloading, downloaded, requested, points, ready', 'numerical', 'integerOnly'=>true),
+			array('Id, Id_my_movie_disc_nzb, Id_nzb_state', 'required'),
+			array('Id, Id_resource, Id_nzb_state, downloading, downloaded, requested, points, ready, sent', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc_nzb', 'length', 'max'=>200),
 			array('url, path, file_name, subt_file_name, subt_url', 'length', 'max'=>255),
-			array('date', 'safe'),
+			array('date, change_state_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_my_movie_disc_nzb, Id_resource, url, path, file_name, subt_file_name, subt_url, downloading, downloaded, date, requested, points, ready', 'safe', 'on'=>'search'),
+			array('Id, Id_my_movie_disc_nzb, Id_resource, Id_nzb_state, url, path, file_name, subt_file_name, subt_url, downloading, downloaded, date, requested, points, ready, change_state_date, sent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,7 +84,7 @@ class Nzb extends CActiveRecord
 			'customerTransactions' => array(self::HAS_MANY, 'CustomerTransaction', 'Id_nzb'),
 			'myMovieDiscNzb' => array(self::BELONGS_TO, 'MyMovieDiscNzb', 'Id_my_movie_disc_nzb'),
 			'idResource' => array(self::BELONGS_TO, 'Resource', 'Id_resource'),
-			'nzbMovieStates' => array(self::HAS_MANY, 'NzbMovieState', 'Id_nzb'),
+			'nzbState' => array(self::BELONGS_TO, 'NzbState', 'Id_nzb_state'),
 		);
 	}
 
@@ -97,6 +97,7 @@ class Nzb extends CActiveRecord
 			'Id' => 'ID',
 			'Id_my_movie_disc_nzb' => 'Id My Movie Disc Nzb',
 			'Id_resource' => 'Id Resource',
+			'Id_nzb_state' => 'Id Nzb State',
 			'url' => 'Url',
 			'path' => 'Path',
 			'file_name' => 'File Name',
@@ -108,6 +109,8 @@ class Nzb extends CActiveRecord
 			'requested' => 'Requested',
 			'points' => 'Points',
 			'ready' => 'Ready',
+			'change_state_date' => 'Change State Date',
+			'sent' => 'Sent',
 		);
 	}
 
@@ -125,6 +128,7 @@ class Nzb extends CActiveRecord
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('Id_my_movie_disc_nzb',$this->Id_my_movie_disc_nzb,true);
 		$criteria->compare('Id_resource',$this->Id_resource);
+		$criteria->compare('Id_nzb_state',$this->Id_nzb_state);
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('path',$this->path,true);
 		$criteria->compare('file_name',$this->file_name,true);
@@ -136,6 +140,8 @@ class Nzb extends CActiveRecord
 		$criteria->compare('requested',$this->requested);
 		$criteria->compare('points',$this->points);
 		$criteria->compare('ready',$this->ready);
+		$criteria->compare('change_state_date',$this->change_state_date,true);
+		$criteria->compare('sent',$this->sent);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -149,14 +155,29 @@ class Nzb extends CActiveRecord
 	
 		$criteria=new CDbCriteria;
 		
-		$criteria->join = "LEFT OUTER JOIN nzb_movie_state nms ON nms.Id_nzb=t.Id";
-		$criteria->addNotInCondition("nms.Id_movie_state", array(6));
+		$criteria->addNotInCondition("Id_nzb_state", array(6));
 		$criteria->compare('ready',1);
 		
 		$criteria->order = "t.date DESC";
 	
 		return new CActiveDataProvider($this, array(
 							'criteria'=>$criteria,
+		));
+	}
+	
+	public function searchNoSent()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('sent',0);
+		$criteria->compare('ready',1);
+	
+	
+		return new CActiveDataProvider($this, array(
+								'criteria'=>$criteria,
 		));
 	}
 }
