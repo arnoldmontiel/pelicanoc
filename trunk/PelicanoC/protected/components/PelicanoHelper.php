@@ -49,23 +49,23 @@ class PelicanoHelper
 	
 	static public function sendPendingNzbStates()
 	{
-		$nzbMovieState = new NzbMovieState;
-		$nzbMovieState->sent = 0;
-		$dataProvider =$nzbMovieState->searchReady();
+		$setting= Setting::getInstance();
+		$model = new Nzb;
+		$dataProvider =$model->searchNoSent();
 		$data = $dataProvider->data;
 		$requests = array();
 		
 		foreach ($data as $item)
 		{
-			$request= new MovieStateRequest;
-			$request->Id_device = $item->Id_device;
-			$request->Id_nzb =$item->Id_nzb;
-			$request->Id_state =$item->Id_movie_state;
-			$request->date = strtotime($item->date);
+			$request= new NzbStateRequest;
+			$request->Id_device = $setting->Id_device;
+			$request->Id_nzb =$item->Id;
+			$request->Id_state =$item->Id_nzb_state;
+			$request->change_state_date = strtotime($item->change_state_date);
 			$requests[]=$request;
 		}
 		$pelicanoCliente = new Pelicano;
-		$status = $pelicanoCliente->setMovieState($requests);
+		$status = $pelicanoCliente->setNzbState($requests);
 		if($status)
 		{
 			foreach ($data as $item)
