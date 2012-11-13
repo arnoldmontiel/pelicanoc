@@ -75,35 +75,6 @@ class PelicanoHelper
 			}				
 		}		
 	}
-	static public function sendPendingImdbdataTvStates()
-	{
-		$state = new ImdbdataTvMovieState;
-		$state->sent = 0;
-		$dataProvider =$state->search();
-		$data = $dataProvider->data;
-		$requests = array();
-		foreach ($data as $item)
-		{
-			//we send the new state to the server
-			$request= new SerieStateRequest;
-			$request->id_customer = $item->Id_customer;
-			$request->id_serie_nzb =null;
-			$request->id_state =$item->Id_movie_state;
-			$request->date = strtotime($item->date);
-			$request->id_imdbdata_tv =$item->Id_imdbdata_tv;
-			$requests[]=$request;
-		}
-		$pelicanoCliente = new Pelicano;
-		$status = $pelicanoCliente->setSerieState($requests);
-		if($status)
-		{
-			foreach ($data as $item)
-			{
-				$item->sent = 1;
-				$item->save();
-			}
-		}
-	}
 	static public function UpdatePoints()
 	{
 		$setting= Setting::getInstance();
