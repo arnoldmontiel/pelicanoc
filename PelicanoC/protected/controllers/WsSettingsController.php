@@ -133,7 +133,7 @@ class WsSettingsController extends Controller
 	{
 		RipperHelper::updateRipperSettings();
 		
-		$response = new SettingsRipperResponse(); 
+		$response = new SettingsRipperResponse();
 		$settingsRipper = SettingsRipper::model()->findAll();
 		if(isset($settingsRipper[0]))
 		{
