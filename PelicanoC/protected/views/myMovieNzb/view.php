@@ -180,7 +180,7 @@
 	}
 	$('#play_button').click(
 		function () {
-							$.post('".ImdbdataController::createUrl('AjaxStartMedia')."'
+							$.post('".MyMovieNzbController::createUrl('AjaxStartMedia')."'
 					).success(
 						function(data) 
 						{
