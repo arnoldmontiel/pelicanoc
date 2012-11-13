@@ -170,7 +170,7 @@ class NzbCommand extends CConsoleCommand  {
 				$modelCommandStatus->setBusy(false);
 			}
 
-			//envio el estado de las peliculas al servidor
+			//envio el estado de los nzb al servidor
 			PelicanoHelper::sendPendingNzbStates();
 		}
 	}
