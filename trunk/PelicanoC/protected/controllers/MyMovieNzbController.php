@@ -44,24 +44,21 @@ class MyMovieNzbController extends Controller
 								{
 									if(!$modelNzb->downloading||!$modelNzb->downloaded)
 									{
-										//$modelNzb->delete();
-										$nzbMovieState= new NzbMovieState;
-										$nzbMovieState->Id_nzb = $modelNzb->Id;
-										$nzbMovieState->Id_movie_state = 6;
-										$nzbMovieState->Id_device = $setting->getId_Device();
-	
-										$nzbMovieState->save();
+										$modelNzb->Id_nzb_state = 6;
+										$modelNzb->sent = 0;
+										$modelNzb->change_state_date = new CDbExpression('NOW()');
+										$modelNzb->save();
+										
 										continue;
 									}
 								}
 								else
 								{
-									$nzbMovieState= new NzbMovieState;
-									$nzbMovieState->Id_nzb = $nzbResponse->nzb->Id;
-									$nzbMovieState->Id_movie_state = 6;
-									$nzbMovieState->Id_device = $setting->getId_Device();
-
-									$nzbMovieState->save();
+									$modelNzb->Id_nzb_state = 6;
+									$modelNzb->sent = 0;
+									$modelNzb->change_state_date = new CDbExpression('NOW()');
+									$modelNzb->save();
+									
 									continue;
 								}
 	
@@ -178,15 +175,13 @@ class MyMovieNzbController extends Controller
 								$modelNzb->Id_my_movie_disc_nzb = $idDisc;
 								$modelNzb->date = date("Y-m-d H:i:s",time());
 								$modelNzb->ready = 0;
+
+								$modelNzb->change_state_date = new CDbExpression('NOW()');
+								$modelNzb->Id_nzb_state = 1;
+								$modelNzb->sent = 0;
+					
 								$modelNzb->save();
-									
-								$nzbMovieState= new NzbMovieState;
-								$nzbMovieState->Id_nzb = $modelNzb->Id;
-								$nzbMovieState->Id_movie_state = 1;
-								$nzbMovieState->Id_device = $setting->getId_Device();
-					
-								$nzbMovieState->save();
-					
+								
 								$transaction->commit();
 					
 							} catch (Exception $e) {
@@ -230,61 +225,67 @@ class MyMovieNzbController extends Controller
 	private function saveSpecification($item)
 	{
 		//grabo los audiotrack del disco rippeado
-		foreach($item->myMovie->AudioTrack as $audio)
+		if(isset($item->myMovie->AudioTrack))
 		{
-			$modelAudio = AudioTrack::model()->findByAttributes(array(
-																'language'=>$audio->language,
-																'type'=>$audio->type,
-																'chanel'=>$audio->chanel,
-			));
-			if(!isset($modelAudio))
+			foreach($item->myMovie->AudioTrack as $audio)
 			{
-				$modelAudio = new AudioTrack();
-				$modelAudio->language = $audio->language;
-				$modelAudio->type = $audio->type;
-				$modelAudio->chanel = $audio->chanel;
-				$modelAudio->save();
+				$modelAudio = AudioTrack::model()->findByAttributes(array(
+																	'language'=>$audio->language,
+																	'type'=>$audio->type,
+																	'chanel'=>$audio->chanel,
+				));
+				if(!isset($modelAudio))
+				{
+					$modelAudio = new AudioTrack();
+					$modelAudio->language = $audio->language;
+					$modelAudio->type = $audio->type;
+					$modelAudio->chanel = $audio->chanel;
+					$modelAudio->save();
+				}
+					
+				$myMovieNzbAudioTrack = MyMovieNzbAudioTrack::model()->findByAttributes(array(
+																				'Id_my_movie_nzb'=>$item->myMovie->Id,
+																				'Id_audio_track'=>$modelAudio->Id,
+				));
+				if(!isset($myMovieNzbAudioTrack))
+				{
+					$myMovieNzbAudioTrack = new MyMovieNzbAudioTrack();
+					$myMovieNzbAudioTrack->Id_audio_track = $modelAudio->Id;
+					$myMovieNzbAudioTrack->Id_my_movie_nzb = $item->myMovie->Id;
+					$myMovieNzbAudioTrack->save();
+				}
+					
 			}
-				
-			$myMovieNzbAudioTrack = MyMovieNzbAudioTrack::model()->findByAttributes(array(
-																			'Id_my_movie_nzb'=>$item->myMovie->Id,
-																			'Id_audio_track'=>$modelAudio->Id,
-			));
-			if(!isset($myMovieNzbAudioTrack))
-			{
-				$myMovieNzbAudioTrack = new MyMovieNzbAudioTrack();
-				$myMovieNzbAudioTrack->Id_audio_track = $modelAudio->Id;
-				$myMovieNzbAudioTrack->Id_my_movie_nzb = $item->myMovie->Id;
-				$myMovieNzbAudioTrack->save();
-			}
-				
 		}
 			
 		//grabo los subtitulos del disco rippeado
-		foreach($item->myMovie->Subtitle as $sub)
+		if(isset($item->myMovie->Subtitle))
 		{
-			$modelSub = Subtitle::model()->findByAttributes(array(
-															'language'=>$sub->language,																		
-			));
-			if(!isset($modelSub))
+			foreach($item->myMovie->Subtitle as $sub)
 			{
-				$modelSub = new Subtitle();
-				$modelSub->language = $sub->language;
-				$modelSub->save();
+				$modelSub = Subtitle::model()->findByAttributes(array(
+																'language'=>$sub->language,																		
+				));
+				if(!isset($modelSub))
+				{
+					$modelSub = new Subtitle();
+					$modelSub->language = $sub->language;
+					$modelSub->save();
+				}
+			
+				$myMovieNzbSubtitle = MyMovieNzbSubtitle::model()->findByAttributes(array(
+															'Id_my_movie_nzb'=>$item->myMovie->Id,
+															'Id_subtitle'=>$modelSub->Id,
+				));
+				if(!isset($myMovieNzbSubtitle))
+				{
+					$myMovieNzbSubtitle = new MyMovieNzbSubtitle();
+					$myMovieNzbSubtitle->Id_subtitle = $modelSub->Id;
+					$myMovieNzbSubtitle->Id_my_movie_nzb = $item->myMovie->Id;
+					$myMovieNzbSubtitle->save();
+				}
+			
 			}
-		
-			$myMovieNzbSubtitle = MyMovieNzbSubtitle::model()->findByAttributes(array(
-														'Id_my_movie_nzb'=>$item->myMovie->Id,
-														'Id_subtitle'=>$modelSub->Id,
-			));
-			if(!isset($myMovieNzbSubtitle))
-			{
-				$myMovieNzbSubtitle = new MyMovieNzbSubtitle();
-				$myMovieNzbSubtitle->Id_subtitle = $modelSub->Id;
-				$myMovieNzbSubtitle->Id_my_movie_nzb = $item->myMovie->Id;
-				$myMovieNzbSubtitle->save();
-			}
-		
 		}
 	}
 	
@@ -303,29 +304,12 @@ class MyMovieNzbController extends Controller
 // 					}
 						$nzb->downloaded = 0;
 						$nzb->downloading = 1;
+						$nzb->Id_nzb_state = 2;
+						$nzb->change_state_date = new CDbExpression('NOW()');
+						$nzb->sent = 0;
 						$nzb->save();
 	
-						$nzbMovieState= new NzbMovieState;
-						$nzbMovieState->Id_nzb = $nzb->Id;
-						$nzbMovieState->Id_movie_state = 2;
-						$setting=Setting::getInstance();
-						$nzbMovieState->Id_device = $setting->getId_Device();
-						$nzbMovieState->save();
-	
-						//we send the new state to the server
-						$pelicanoCliente = new Pelicano;
-						$request= new MovieStateRequest;
-						$request->Id_device= $setting->getId_Device();
-						$request->Id_nzb =$nzb->Id;
-						$request->Id_state =2;
-						$request->date = time();
-						$requests[]=$request;
-						$status = $pelicanoCliente->setMovieState($requests);
-						if($status)
-						{
-							$nzbMovieState->sent = 1;
-							$nzbMovieState->save();
-						}
+						PelicanoHelper::sendPendingNzbStates();
 					
 				}
 				catch (Exception $e)
