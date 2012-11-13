@@ -64,12 +64,9 @@ class SiteController extends Controller
 
 //    		$hola = new User();
 //    		$hola->sincronizeFromServer();
-		PelicanoHelper::sendExternalIPAddressToServer();
-
- 		
  		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
-		$dataProvider->pagination->pageSize= 4;
+		$dataProvider->pagination->pageSize= 8;
 		
 //		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
 //		$dataProviderSeries->pagination->pageSize= 4;
