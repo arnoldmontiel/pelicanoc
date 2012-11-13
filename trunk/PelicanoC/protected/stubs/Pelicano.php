@@ -6,14 +6,6 @@
 */
 
 
-class CustomerResponse
-{
-	public $Id; //integer;
-	public $name; //string;
-	public $last_name; //string;
-	public $address; //string;
-}
-
 class LogResponse
 {
 	public $Id_log_customer; //integer;
@@ -308,48 +300,14 @@ class NzbResponse
 	public $myMovieDisc; //MyMovieDiscSOAP;
 }
 
-class MovieStateRequest extends SOAP2Array
+class NzbStateRequest extends SOAP2Array
 {
 	public $Id_device; //string;
 	public $Id_nzb; //integer;
 	public $Id_state; //integer;
-	public $date; //integer;
+	public $change_state_date; //integer;
 }
 
-class UserResponse
-{
-	public $username; //string;
-	public $password; //string;
-	public $email; //string;
-	public $adult_section; //integer;
-	public $deleted; //integer;
-	public $birth_date; //date;
-}
-
-class UserStateRequest extends SOAP2Array
-{
-	public $username; //string;
-	public $Id_customer; //integer;
-	public $password; //string;
-	public $email; //string;
-	public $adult_section; //integer;
-	public $deleted; //integer;
-	public $birth_date; //date;
-}
-class SerieStateRequest extends SOAP2Array
-{
-	public $id_customer; //integer;
-	public $id_serie_nzb; //integer;
-	public $id_state; //integer;
-	public $date; //integer;
-	public $id_imdbdata_tv; //string;
-}
-class SeasonResponse extends SOAP2Array
-{
-	public $Id_imdbdata_tv; //string;
-	public $season; //integer;
-	public $episodes; //integer;
-}
 class TransactionResponse extends SOAP2Array
 {
 	public $Id; //integer;
@@ -367,14 +325,9 @@ class Pelicano
 	public $soapClient;
 
 	private static $classmap = array(
-		'MovieResponse'=>'MovieResponse',
-		'SerieResponse'=>'SerieResponse',
-		'SeasonResponse'=>'SeasonResponse',
-		'MovieStateRequest'=>'MovieStateRequest',
-		'SerieStateRequest'=>'SerieStateRequest',
+		'NzbResponse'=>'NzbResponse',
+		'NzbStateRequest'=>'NzbStateRequest',
 		'TransactionResponse'=>'TransactionResponse',
-		'UserResponse'=>'UserResponse',
-		'UserStateRequest'=>'UserStateRequest',
 		'RippedResponse'=>'RippedResponse',
 		'RippedRequest'=>'RippedRequest',
 		'LogRequest'=>'LogRequest',
@@ -405,15 +358,6 @@ function getRipped($idDevice)
 	return $RippedResponseArray;
 }
 
-function getNewUser($integer)
-{
-	$UserResponseArray = array();
-	if(isset($this->soapClient))
-	{
-		$UserResponseArray = $this->soapClient->getNewUser($integer);
-	}
-	return $UserResponseArray;
-}
 function getNewNzbs($Id_device)
 {
 	$NzbResponseArray = array();
@@ -429,15 +373,6 @@ function updateCustomer($CustomerRequest)
 	if(isset($this->soapClient))
 	{
 		$result = $this->soapClient->updateCustomer($CustomerRequest);
-	}
-	return $result;
-}
-function useCustomer($code, $Id_device)
-{
-	$result = false;
-	if(isset($this->soapClient))
-	{
-		$result = $this->soapClient->useCustomer($code, $Id_device);
 	}
 	return $result;
 }
@@ -469,49 +404,19 @@ function setRipped($RippedRequestArray)
 	}
 	return $result;
 }
-function setUserState($UserStateRequestArray)
+function setNzbState($NzbStateRequestArray)
 {
 	$result = false;
 	if(isset($this->soapClient))
 	{
 		$r = array();
-		foreach ($UserStateRequestArray as $item)
+		foreach ($NzbStateRequestArray as $item)
 		{
 			$r[]=$item->toArray();
 		}
-		$result = $this->soapClient->setUserState($r);
+		$result = $this->soapClient->setNzbState($r);
 	}
 	return $result;
-}
-function setMovieState($MovieStateRequestArray)
-{
-	$result = false;
-	if(isset($this->soapClient))
-	{
-		$r = array();
-		foreach ($MovieStateRequestArray as $item)
-		{
-			$r[]=$item->toArray();
-		}
-		$result = $this->soapClient->setMovieState($r);
-	}
-	return $result;
-}
-
-function setSerieState($SerieStateRequestArray)
-{
-	$result = false;
-	if(isset($this->soapClient))
-	{
-		$r= array();
-		foreach ($SerieStateRequestArray as $item)
-		{
-			$r[]=$item->toArray();
-		}
-		$result = $this->soapClient->setSerieState($r);
-	}
-	return $result;
-	
 }
 
 function getPoints($Id_customer, $Id_transaction)
