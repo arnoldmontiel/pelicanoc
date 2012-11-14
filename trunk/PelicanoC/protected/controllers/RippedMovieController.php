@@ -116,15 +116,32 @@ class RippedMovieController extends Controller
 			}
 		}
 	}
-	public function actionAjaxStart($id)
+	
+	public function actionAjaxPlay()
 	{
-			$this->showMenu = false;
-			$this->showBrowsingBox = false;
-			$this->render('start',array(
-								'model'=>$this->loadModel($id),
-			));
+		$id = $_GET['idRippedMovie'];
+		$model = $this->loadModel($id);
+		$setting = Setting::getInstance();
+		
+		if($model->isBluray())
+			$cmd = 'start_bluray_playback';
+		else 
+			$cmd = 'start_dvd_playback';
+		
+		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
+		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path . $model->path;
+		echo $url;	
+		file_get_contents($url);
 	}
 	
+	public function actionAjaxStart($id)
+	{
+		$this->showMenu = false;
+		$this->showBrowsingBox = false;
+		$this->render('start',array(
+									'model'=>$this->loadModel($id),
+		));
+	}
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -250,6 +267,21 @@ class RippedMovieController extends Controller
 		$this->render('indexAdult',array(
 				'dataProvider'=>$dataProvider,
 		));
+	}
+	
+	public function actionDuneRemoteControl()
+	{
+// 		file_get_contents('http://192.168.100.101/cgi-bin/do?cmd=ir_code&ir_code=B748BF00');
+		$this->showMenu = false;
+		$this->showBrowsingBox = false;
+		$this->render('duneRemoteControl');
+	}
+	
+	public function actionAjaxUseRemote()
+	{
+		$irCode = $_GET['ir_code'];
+		$setting = Setting::getInstance();		
+		file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
 	}
 	
 	/**
