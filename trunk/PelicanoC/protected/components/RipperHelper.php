@@ -190,9 +190,13 @@ class RipperHelper
 	
 	private function saveDisc($xml, $idDisc, $idMyMovie)
 	{
+		echo "PEPE ";
 		foreach($xml->Discs->children() as $item)
 		{
 			//echo (string)$item->DiscIdSideA;
+			echo strtoupper((string)$item->DiscIdSideA);
+			echo "    ----   ";
+			echo strtoupper($idDisc);
 			if(strtoupper((string)$item->DiscIdSideA) == strtoupper($idDisc))
 			{
 				$modelMyMovieDisc = new MyMovieDisc;
