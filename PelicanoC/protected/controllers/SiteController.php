@@ -29,7 +29,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		//PelicanoHelper::UpdatePoints();
+//		RipperHelper::saveRipped("bcf5cb96-73bc-4ed8-b35b-66aac2d8d693", "eco", false, "A15054953715937293C776B62CF67944164D48AC");
 			
 //      $ws = new wsPelicanoC();
 //   	$ws->addNewRipMovie("af39fbab-1b0c-4519-856e-09c2dff7198d","el cadaver de la novia",true);
