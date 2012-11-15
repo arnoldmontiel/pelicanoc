@@ -26,9 +26,7 @@ class AnydvdCommand extends CConsoleCommand  {
 					$transaction = $item->dbConnection->beginTransaction();
 						
 					try {
-				
-						$modelMyMovieMovie = MyMovieMovie::model()->findByPk($modelNzb->Id_my_movie_movie);
-				
+								
 						if($item->download_link!='' )
 						{
 							try {
