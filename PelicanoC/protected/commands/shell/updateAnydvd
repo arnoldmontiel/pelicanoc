@@ -1,3 +1,0 @@
-#!/bin/bash
-
-/var/www/PelicanoC/protected/yiic anydvd downloadUpdateFile

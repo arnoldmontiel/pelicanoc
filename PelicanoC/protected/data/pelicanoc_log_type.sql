@@ -1,6 +1,0 @@
-
-LOCK TABLES `log_type` WRITE;
-/*!40000 ALTER TABLE `log_type` DISABLE KEYS */;
-INSERT INTO `log_type` VALUES (1,'LOG'),(2,'WARNING'),(3,'ERROR'),(4,'DEBUG');
-/*!40000 ALTER TABLE `log_type` ENABLE KEYS */;
-UNLOCK TABLES;
