@@ -1,4 +1,0 @@
-#!/bin/bash
-
-/var/www/PelicanoC/protected/yiic nzb downloadnzbfiles
-
