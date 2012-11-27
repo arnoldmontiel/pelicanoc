@@ -136,6 +136,7 @@ class RipperHelper
 					{
 						self::saveAudioTrack($data);
 						self::saveSubtitle($data);
+						self::savePerson($data);
 					}
 				}
 				
@@ -531,5 +532,50 @@ class RipperHelper
 			$modelMyMovieSubtitle->save();
 	
 		}
-	}	
+	}
+
+	private function savePerson($xml)
+	{
+	
+		$idMyMovie = (string)$xml->ID;
+	
+		foreach($xml->Persons->children() as $item)
+		{
+			$name = (string)$item->Name;
+			$type = (string)$item->Type;
+			$role = (string)$item->Role;
+			$photo_original = (string)$item->Photo;
+	
+			$modelPersonDB = Person::model()->findByAttributes(array(
+															'name'=>$name,
+															'type'=>$type,
+															'role'=>$role,));
+	
+			$modelMyMoviePerson = new MyMoviePerson();
+			$modelMyMoviePerson->Id_my_movie = $idMyMovie;
+	
+			if(isset($modelPersonDB))
+			{
+				$modelMyMoviePerson->Id_person = $modelPersonDB->Id;
+			}
+			else
+			{
+				$modelPerson = new Person();
+				$modelPerson->name = $name;
+				$modelPerson->type = $type;
+				$modelPerson->role = $role;
+				$modelPerson->photo_original = $photo_original;
+				$modelPerson->save();
+	
+				$modelMyMoviePerson->Id_person = $modelPerson->Id;
+			}
+	
+			$model = MyMoviePerson::model()->findByAttributes(array(
+															'Id_my_movie'=>$idMyMovie, 
+															'Id_person'=>$modelMyMoviePerson->Id_person));
+			if(!isset($model))
+				$modelMyMoviePerson->save();
+	
+		}
+	}
 }
