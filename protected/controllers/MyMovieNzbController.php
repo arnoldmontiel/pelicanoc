@@ -224,7 +224,7 @@ class MyMovieNzbController extends Controller
 
 	private function saveSpecification($item)
 	{
-		//grabo los audiotrack del disco rippeado
+		//grabo los audiotrack del nzb
 		if(isset($item->myMovie->AudioTrack))
 		{
 			foreach($item->myMovie->AudioTrack as $audio)
@@ -258,7 +258,7 @@ class MyMovieNzbController extends Controller
 			}
 		}
 			
-		//grabo los subtitulos del disco rippeado
+		//grabo los subtitulos del nzb
 		if(isset($item->myMovie->Subtitle))
 		{
 			foreach($item->myMovie->Subtitle as $sub)
@@ -285,6 +285,41 @@ class MyMovieNzbController extends Controller
 					$myMovieNzbSubtitle->save();
 				}
 			
+			}
+		}
+		
+		//grabo las personas del nzb
+		if(isset($item->myMovie->Person))
+		{
+			foreach($item->myMovie->Person as $person)
+			{
+				$modelPerson = Person::model()->findByAttributes(array(
+													'name'=>$person->name,
+													'type'=>$person->type,
+													'role'=>$person->role,
+													));
+				if(!isset($modelPerson))
+				{
+					$modelPerson = new Person();
+					$modelPerson->name = $person->name;
+					$modelPerson->type = $person->type;
+					$modelPerson->role = $person->role;
+					$modelPerson->photo_original = $person->photo_original;
+					$modelPerson->save();
+				}
+					
+				$myMovieNzbPerson = MyMovieNzbPerson::model()->findByAttributes(array(
+																	'Id_my_movie_nzb'=>$item->myMovie->Id,
+																	'Id_person'=>$modelPerson->Id,
+				));
+				if(!isset($myMovieNzbPerson))
+				{
+					$myMovieNzbPerson = new MyMovieNzbPerson();
+					$myMovieNzbPerson->Id_person = $modelPerson->Id;
+					$myMovieNzbPerson->Id_my_movie_nzb = $item->myMovie->Id;
+					$myMovieNzbPerson->save();
+				}
+					
 			}
 		}
 	}
