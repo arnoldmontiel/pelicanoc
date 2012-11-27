@@ -86,6 +86,7 @@ class MyMovieSOAP
 	public $myMovieSerieHeader; //MyMovieSerieHeaderSOAP;
 	public $Subtitle; //MyMovieSubtitleSOAP[];
 	public $AudioTrack; //MyMovieAudioTrackSOAP[];
+	public $Person; //MyMoviePersonSOAP[];
 }
 
 class MyMovieSubtitleSOAP
@@ -144,6 +145,37 @@ class MyMovieAudioTrackSOAP
 	public $language; //string;
 	public $type; //string;
 	public $chanel; //string;
+}
+
+class MyMoviePersonSOAP
+{
+	/**
+	 * Set model attributes
+	 * @param Nab $model
+	 */
+	public function setAttributes($model)
+	{
+		//set attributes
+		$attributesArray = $model->attributes;
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+
+	public function setAttribute($name,$value)
+	{
+		if(property_exists($this,$name))
+			$this->$name=$value;
+		else
+			return false;
+		return true;
+	}
+
+	public $name; //string;
+	public $type; //string;
+	public $role; //string;
+	public $photo_original; //string;
 }
 
 class MyMovieSerieHeaderSOAP

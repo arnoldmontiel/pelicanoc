@@ -182,6 +182,15 @@ class RippedMovie extends CActiveRecord
 					$request->myMovie->Subtitle[] = $subtitleSOAP;
 				}
 				
+				//set person
+				$relPersons = MyMoviePerson::model()->findAllByAttributes(array('Id_my_movie'=>$item->myMovieDisc->Id_my_movie));
+				foreach($relPersons as $relPerson)
+				{
+					$personSOAP = new MyMoviePersonSOAP();
+					$personSOAP->setAttributes($relPerson->person);
+					$request->myMovie->Person[] = $personSOAP;
+				}
+				
 				$request->myMovieDisc->setAttributes($item->myMovieDisc);
 				
 				$requests[]=$request;
