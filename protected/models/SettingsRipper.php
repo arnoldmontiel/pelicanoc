@@ -41,7 +41,6 @@ class SettingsRipper extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id', 'required'),
 			array('Id', 'numerical', 'integerOnly'=>true),
 			array('drive_letter', 'length', 'max'=>8),
 			array('temp_folder_ripping, final_folder_ripping, mymovies_username, mymovies_password', 'length', 'max'=>256),
