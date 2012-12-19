@@ -189,5 +189,19 @@ class PelicanoHelper
 	
 		return false;
 	}
+	
+	
+	static public function setHeartBeat($Id_device_state, $description = "")
+	{
+		$settings = Setting::getInstance();
 		
+		$heartBeat = new HeartBeat();
+		$heartBeat->Id_device = $settings->Id_device;
+		$heartBeat->Id_device_state = $Id_device_state;
+		$heartBeat->description = $description;
+		$heartBeat->Id_device_type = 1;
+		
+		$wsMonitor = new WsMonitor();
+		return $wsMonitor->setHeartBeat($heartBeat);
+	}
 }
