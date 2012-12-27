@@ -1,6 +1,21 @@
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#dune-reomte-control', "
 
+
+setInterval(function() {
+	getProgressBar();
+}, 5000)
+
+function getProgressBar()
+{
+ 	
+ 	$.post('".RippedMovieController::createUrl('AjaxGetProgressBar')."'	
+		).success(
+		function(data){	
+			$('#progress-bar-area').find('#progress-bar').progressbar({'value': parseInt(data)});
+		});		
+}
+
 $('#powerButton').click(function(){
 	$.ajax({
    		type: 'GET',
@@ -168,8 +183,17 @@ $('#aButton').click(function(){
 	
 	</div>
 	
-	<div class="rip-layout-footer" >
-		 
+	<div id="progress-bar-area" class="rip-layout-footer" >
+		 <?php
+		 $this->widget('zii.widgets.jui.CJuiProgressBar', array(
+		    'value'=>0,
+		    'id'=>'progress-bar',
+		    // additional javascript options for the progress bar plugin
+		    'htmlOptions'=>array(
+		        'style'=>'height:20px;'
+		    ),
+		));
+		 ?>
 	</div>
 	
 </div>
