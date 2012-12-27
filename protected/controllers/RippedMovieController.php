@@ -271,9 +271,10 @@ class RippedMovieController extends Controller
 	
 	public function actionDuneRemoteControl()
 	{
-// 		file_get_contents('http://192.168.100.101/cgi-bin/do?cmd=ir_code&ir_code=B748BF00');
+
 		$this->showMenu = false;
 		$this->showBrowsingBox = false;
+		
 		$this->render('duneRemoteControl');
 	}
 	
@@ -282,6 +283,11 @@ class RippedMovieController extends Controller
 		$irCode = $_GET['ir_code'];
 		$setting = Setting::getInstance();		
 		file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
+	}
+	
+	public function actionAjaxGetProgressBar()
+	{
+		echo DuneHelper::getProgressBar();
 	}
 	
 	/**
