@@ -33,22 +33,29 @@ class DuneHelper
 			$modelDune = new Dune();
 			
 			$param = $xml->xpath("//param[@name = 'playback_state']");
-			$modelDune->playback_state = (string)$param[0]->attributes()->value;
+			if(!empty($param))
+				$modelDune->playback_state = (string)$param[0]->attributes()->value;
 			
 			$param = $xml->xpath("//param[@name = 'playback_position']");
-			$modelDune->playback_position = (string)$param[0]->attributes()->value;
+			
+			if(!empty($param))
+				$modelDune->playback_position = (string)$param[0]->attributes()->value;
 				
 			$param = $xml->xpath("//param[@name = 'playback_duration']");
-			$modelDune->playback_duration = (string)$param[0]->attributes()->value;
+			if(!empty($param))
+				$modelDune->playback_duration = (string)$param[0]->attributes()->value;
 			
 			$param = $xml->xpath("//param[@name = 'playback_url']");
-			$modelDune->playback_url = (string)$param[0]->attributes()->value;
+			if(!empty($param))
+				$modelDune->playback_url = (string)$param[0]->attributes()->value;
 			
 			$param = $xml->xpath("//param[@name = 'playback_speed']");
-			$modelDune->playback_speed = (string)$param[0]->attributes()->value;
+			if(!empty($param))
+				$modelDune->playback_speed = (string)$param[0]->attributes()->value;
 			
 			$param = $xml->xpath("//param[@name = 'playback_volume']");
-			$modelDune->playback_volume = (string)$param[0]->attributes()->value;
+			if(!empty($param))
+				$modelDune->playback_volume = (string)$param[0]->attributes()->value;
 		}	
 		
 		return $modelDune;
