@@ -231,6 +231,25 @@ class RippedMovieController extends Controller
 		));
 	}
 	
+	public function actionViabilidad()
+	{
+		$dataProvider=new CActiveDataProvider('RippedMovie');
+	
+		$model = new RippedMovie();
+		$dataProvider= $model->search();
+		$dataProvider->pagination->pageSize= 2;
+	
+		if(isset($_GET['searchFilter']))
+		{
+			$expression=trim($_GET['searchFilter']);
+			$dataProvider= $model->searchOn($expression);
+		}
+	
+		$this->render('viabilidad',array(
+				'dataProvider'=>$dataProvider,
+		));
+	}
+	
 	public function actionIndexSerie()
 	{
 		$dataProvider=new CActiveDataProvider('MyMovieSerieHeader');
