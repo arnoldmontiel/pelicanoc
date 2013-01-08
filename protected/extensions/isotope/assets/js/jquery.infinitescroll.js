@@ -23,7 +23,7 @@
     $.infinitescroll.defaults = {
         loading: {
             finished: undefined,
-            finishedMsg: "<em>Congratulations, you've reached the end of the internet.</em>",
+            finishedMsg: "<em>This is the end.</em>",
             img: "http://www.infinite-scroll.com/loading.gif",
             msg: null,
             msgText: "<em>Loading the next set of posts...</em>",
@@ -265,6 +265,7 @@
                 return;
             }
             
+            this.element.find('.post').show();
             var isoFilter = document.getElementById("isotope-filter").value;
             var resultSize = 0;
             switch (result) {
@@ -293,10 +294,15 @@
                     
                     // if it didn't return anything
                     if (children.length == 0) {
+                    	if(isoFilter != '*')
+            			{
+            				this.element.find('.post').hide();
+            				this.element.find(isoFilter).show();
+            			}	
                         return this._error('end');
                     }
 
-                    
+
                     // use a documentFragment because it works when content is going into a table or UL
                     frag = document.createDocumentFragment();
                     
@@ -311,9 +317,9 @@
                     // however we're now using a documentfragment, which doesnt havent parents or children,
                     // so the context is the contentContainer guy, and we pass in an array
                     //   of the elements collected as the first argument.
-
+                    
                     data = children.get();
-
+                    
                     break;
 
             }
@@ -332,7 +338,13 @@
 
             callback(this,data);
             
-            
+			//hide all items, then show by filter
+			if(isoFilter != '*')
+			{
+				this.element.find('.post').hide();
+				this.element.find(isoFilter).show();
+			}			
+          
             this.element.isotope({ filter: isoFilter });
             
             if(resultSize == 0)
