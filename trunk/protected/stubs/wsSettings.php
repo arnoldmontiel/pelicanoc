@@ -71,7 +71,7 @@ function __construct($url='http://localhost/workspace/PelicanoS')
 {
 	ini_set ('soap.wsdl_cache_enabled',0);
 	
-	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path."/index.php?r=wssettings/wsdl";
+	$url = Setting::getInstance()->host_name.Setting::getInstance()->host_path."/index.php?r=WSSettings/wsdl";
 	$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
 }
 
