@@ -36,7 +36,7 @@ class SiteController extends Controller
 
 //          	$ws = new wsPelicanoC(); 
 //  		$ws->addNewRipMovie("668d6579-918c-4fd5-8db7-5e02d826dbcf","Ted",true,'BABEE29B52937ED4E71053FEDAD8BDF16F2DDBDE');
-		RipperHelper::saveRipped("523911b2-3c80-450f-b15b-fbc99b0b7bce","Futurama s6",true,'A0609FA5ECFFA01C5ADA1B445665DB85FB2D0CA3');
+		RipperHelper::saveRipped("382c2341-a914-4930-aad8-605fad583793","anillos",true,'99B17222-92409575');
 // 		$ws->addNewRipMovie("2a896712-f2ce-4a9c-945e-3aeee118d828","scary movie 4",true,'3FAF030E0DB6E6FDE7047B2AF443A425BBD76A0E');
 // 		$ws->addNewRipMovie("92e81461-123a-4e43-bdef-33c7687d5bf9","batman rises",true,'37617E6C0AFC6F4371714EAC977D186D2A2F1A50');
 //         $ws->addNewRipMovie("1e758317-8feb-42d2-8492-212e14b9a25c","project x",true,'889AF08E0099DC5EF056FF55B79752B284B5F60B');
