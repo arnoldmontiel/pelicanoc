@@ -37,9 +37,13 @@ class PelicanoHelper
 	{
 		$setting = Setting::getInstance();
 		//$ip = $_SERVER['SERVER_ADDR'];
-		$ip = @file_get_contents("http://ip-addr.es/");
-		$setting->ip_v4 = $ip;
-		$setting->save();
+		$ip = @file_get_contents("http://checkip.dyndns.org/");
+		$dyndns = explode(':', $ip);
+		if($dyndns)
+		{
+			$setting->ip_v4 = $dyndns[1];
+			$setting->save();
+		}
 		if ($ip !== false)
 		{
 			return $ip;
