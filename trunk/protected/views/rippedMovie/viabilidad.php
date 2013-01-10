@@ -8,13 +8,14 @@
 
 <ul id="filters">
   <li><a href="#" data-filter="*">show all</a></li>
-  <li><a href="#" data-filter=".Movie">Movie</a></li>
-  <li><a href="#" data-filter=".Serie">Serie</a></li>
+  <li><a href="#" data-filter=".movie">Movie</a></li>
+  <li><a href="#" data-filter=".tv-serie">Serie</a></li>
 </ul>
 
 <?php 
-echo CHtml::submitButton('Shuffle', array('id'=>'btnShuffle'));
-echo CHtml::hiddenField("isotope-filter","*",array('Id'=>'isotope-filter'));
+echo CHtml::hiddenField("media-type-filter","*",array('Id'=>'media-type-filter'));
+echo CHtml::hiddenField("current-filter","*",array('Id'=>'current-filter'));
+echo CHtml::hiddenField("search-filter","",array('Id'=>'search-filter'));
 
 $this->widget('ext.isotope.Isotope',array(
     'dataProvider'=>$dataProvider,
@@ -32,24 +33,24 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#RippedMovie_index', "
 
 $('#filters a').click(function(){
   var selector = $(this).attr('data-filter');  
+  $('#media-type-filter').val(selector);
+  $('#current-filter').val(selector);
   
-  $('#wall .items').infinitescroll('retrieve');
+  //clean search filter
+  $('#search-filter').val(null);
+  $('#index_search').val(null);
+  
+  $('#wall .items').infinitescroll('retrieve');  
   $('#wall .items').isotope({ filter: selector });
   $('#wall .items').isotope('shuffle');
-  $('#isotope-filter').val(selector);
-  return false;
-});
-
-$('#btnShuffle').click(function(){
-  $('#wall .items').isotope('shuffle');
   return false;
 });
 
 
-$('#index_search').change(
-					function(){
-					var searchFilter = 'searchFilter=' + $(this).val();
-					$.fn.yiiListView.update('listMovies-view',{data:searchFilter});
-				});
+$('#index_search').change(function(){	
+ 	var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
+ 	$('#search-filter').val(searchFilter); 	 	
+	$('#wall .items').infinitescroll('filterText');  
+});
 ");
 ?>

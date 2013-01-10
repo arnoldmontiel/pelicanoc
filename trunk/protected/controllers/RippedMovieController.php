@@ -235,16 +235,11 @@ class RippedMovieController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('RippedMovie');
 	
-		$model = new RippedMovie();
+		$model = new RippedMovie();		
 		$dataProvider= $model->search();
-		$dataProvider->pagination->pageSize= 2;
 	
-		if(isset($_GET['searchFilter']))
-		{
-			$expression=trim($_GET['searchFilter']);
-			$dataProvider= $model->searchOn($expression);
-		}
-	
+		$dataProvider->pagination->pageSize= 5;
+		
 		$this->render('viabilidad',array(
 				'dataProvider'=>$dataProvider,
 		));

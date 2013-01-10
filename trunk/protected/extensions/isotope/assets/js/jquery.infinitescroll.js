@@ -254,7 +254,7 @@
         
         // Load Callback
         _loadcallback: function infscr_loadcallback(box, data) {
-            var opts = this.options,
+			var opts = this.options,
                 callback = this.options.callback, // GLOBAL OBJECT FOR CALLBACK
                 result = (opts.state.isDone) ? 'done' : (!opts.appendCallback) ? 'no-append' : 'append',
                 frag;
@@ -266,8 +266,12 @@
             }
             
             this.element.find('.post').show();
-            var isoFilter = document.getElementById("isotope-filter").value;
+            
+            var searchFilter = document.getElementById("search-filter").value;
+            var mediaTypeFilter = document.getElementById("media-type-filter").value;
+            var currentFilter = document.getElementById("current-filter").value;
             var resultSize = 0;
+            
             switch (result) {
 
                 case 'done':
@@ -289,15 +293,62 @@
                 case 'append':
                 	
                     var children = box.children();
-              
-                    resultSize = children.filter(isoFilter).size();
+                    
+                    if(searchFilter != '')
+		         	{	 	
+		        	 	var partialFilter = 'div[class*='+ searchFilter +']';
+		        		        		
+		        		var isFirst = true;
+		        		box.find(partialFilter).each(function(index){
+		        			
+		        			if(mediaTypeFilter == '*')
+		        			{
+		        				if(isFirst)
+		        				{
+		        					if(currentFilter.indexOf(', .') > 0)
+		        						currentFilter = currentFilter + ', .' + $(this).attr('title');
+		        					else
+		        						currentFilter = currentFilter + ' .' + $(this).attr('title');
+		        					
+		        					isFirst = false;
+		        				}
+		        				else
+		        				{
+		        					currentFilter = currentFilter + ', .' + $(this).attr('title');
+		        				}
+		        				
+		        			}
+		        			else
+		        			{
+		        				if(isFirst)
+		    					{
+		        					if(currentFilter.indexOf(', .') > 0)
+		        						currentFilter = currentFilter + ', ' + mediaTypeFilter + '.' + $(this).attr('title');
+		        					else
+		        						currentFilter = currentFilter + '.' + $(this).attr('title');
+		        					
+		        					isFirst = false;
+		    					}
+		        				else
+		    					{
+		        					currentFilter = ' , ' + mediaTypeFilter + '.' + $(this).attr('title');
+		    					}
+		        			}        			
+		        			
+		        	
+		        		});
+		        		
+		        		document.getElementById("current-filter").value = currentFilter;
+		        	}
+                                      
+                    resultSize = children.filter(currentFilter).size();
                     
                     // if it didn't return anything
                     if (children.length == 0) {
-                    	if(isoFilter != '*')
-            			{
+                    	if(currentFilter != '*')
+            			{                    		
             				this.element.find('.post').hide();
-            				this.element.find(isoFilter).show();
+            				this.element.find(currentFilter).show();
             			}	
                         return this._error('end');
                     }
@@ -339,13 +390,13 @@
             callback(this,data);
             
 			//hide all items, then show by filter
-			if(isoFilter != '*')
+			if(currentFilter != '*')
 			{
 				this.element.find('.post').hide();
-				this.element.find(isoFilter).show();
+				this.element.find(currentFilter).show();
 			}			
           
-            this.element.isotope({ filter: isoFilter });
+            this.element.isotope({ filter: currentFilter });
             
             if(resultSize == 0)
             	this.retrieve();
@@ -492,6 +543,68 @@
             this._pausing('resume');
         },
 
+
+        // Filter data
+        filterText: function infscr_search() {
+        	
+        	var searchFilter = document.getElementById("search-filter").value;
+        	var mediaTypeFilter = document.getElementById("media-type-filter").value;
+        	
+        	var currentFilter = mediaTypeFilter;        	
+        	
+        	if(searchFilter != '')
+         	{	 	
+        	 	var partialFilter = 'div[class*='+ searchFilter +']';  		
+        		 
+        	 	if(this.element.find(partialFilter).size() == 0)
+        	 		this.retrieve();
+        	 		
+        		if(currentFilter == '*')
+        			currentFilter = '';
+        		        		
+        		var isFirst = true;
+        		this.element.find(partialFilter).each(function(index){
+        			
+        			if(mediaTypeFilter == '*')
+        			{
+        				if(isFirst)
+        				{
+        					currentFilter = ' .' + $(this).attr('title');
+        					isFirst = false;
+        				}
+        				else
+        				{
+        					currentFilter = currentFilter + ', .' + $(this).attr('title');
+        				}
+        				
+        			}
+        			else
+        			{
+        				if(isFirst)
+    					{
+        					currentFilter = mediaTypeFilter + '.' + $(this).attr('title');
+        					isFirst = false;
+    					}
+        				else
+    					{
+        					currentFilter = currentFilter + ' , ' + mediaTypeFilter + '.' + $(this).attr('title');
+    					}
+        			}        			
+        	
+        		});
+        	}
+        	else
+        	{        		
+        		document.getElementById("current-filter").value = mediaTypeFilter;
+        		this.retrieve();
+        	}
+        	
+        	
+        	document.getElementById("current-filter").value = currentFilter;
+        	this.element.isotope({ filter: currentFilter });        	
+        	    
+        },
+        
         // Retrieve next set of content items
         retrieve: function infscr_retrieve(pageNum) {
 
