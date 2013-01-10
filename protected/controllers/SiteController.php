@@ -34,7 +34,7 @@ class SiteController extends Controller
 //  		RippedMovie::sincronizeWithServer();
 		
 
-         	$ws = new wsPelicanoC();
+//          	$ws = new wsPelicanoC(); 
 //  		$ws->addNewRipMovie("668d6579-918c-4fd5-8db7-5e02d826dbcf","Ted",true,'BABEE29B52937ED4E71053FEDAD8BDF16F2DDBDE');
  		RipperHelper::saveRipped("668d6579-918c-4fd5-8db7-5e02d826dbcf","Ted",true,'BABEE29B52937ED4E71053FEDAD8BDF16F2DDBDE');
 // 		$ws->addNewRipMovie("2a896712-f2ce-4a9c-945e-3aeee118d828","scary movie 4",true,'3FAF030E0DB6E6FDE7047B2AF443A425BBD76A0E');
