@@ -353,20 +353,18 @@ class RippedMovie extends CActiveRecord
 	
 		$criteria=new CDbCriteria;
 
-		$criteria->with[]='imdbdata';
-		$criteria->compare('imdbdata.Title',$expresion,true,'OR');
-		$criteria->compare('imdbdata.Actors',$expresion,true,'OR');
-		$criteria->compare('imdbdata.Director',$expresion,true,'OR');
-		$criteria->compare('imdbdata.Year',$expresion,true,'OR');
-		$criteria->compare('imdbdata.Writer',$expresion,true,'OR');
-		$criteria->compare('imdbdata.Genre',$expresion,true,'OR');
-		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
 		
+		$criteria->join =	"LEFT OUTER JOIN my_movie_disc md ON md.Id=t.Id_my_movie_disc
+									 LEFT OUTER JOIN my_movie m ON md.Id_my_movie=m.Id";
 		
-		$criteria->with[]="myMovie";
-		$criteria->addCondition('myMovie.Id_parental_control<>9');
-		$criteria->addCondition('myMovie.Id_parental_control<>8');
-		$criteria->addCondition('myMovie.Id_parental_control<>7');
+		$criteria->compare('m.original_title',$expresion,true,'OR');
+		$criteria->compare('m.production_year',$expresion,true,'OR');
+		$criteria->compare('m.imdb',$expresion,true,'OR');
+				
+		$criteria->addCondition('m.Id_parental_control<>9');
+		$criteria->addCondition('m.Id_parental_control<>8');
+		$criteria->addCondition('m.Id_parental_control<>7');
+		
 								
 		$criteria->order = "t.creation_date DESC";
 	
