@@ -551,7 +551,7 @@
         	var mediaTypeFilter = document.getElementById("media-type-filter").value;
         	
         	var currentFilter = mediaTypeFilter;        	
-        	
+        	 
         	if(searchFilter != '')
          	{	 	
         	 	var partialFilter = 'div[class*='+ searchFilter +']';  		

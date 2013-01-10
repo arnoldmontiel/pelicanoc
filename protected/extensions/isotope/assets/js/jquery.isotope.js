@@ -801,7 +801,7 @@
     reloadItems : function() {
       this.$allAtoms = this._getAtoms( this.element.children() );
     },
-
+ 
     // removes elements from Isotope widget
     remove: function( $content, callback ) {
       // remove elements immediately from Isotope instance
