@@ -39,7 +39,7 @@ $('#filters a').click(function(){
   //clean search filter
   $('#search-filter').val(null);
   $('#index_search').val(null);
-  
+  debugger;
   $('#wall .items').infinitescroll('retrieve');  
   $('#wall .items').isotope({ filter: selector });
   $('#wall .items').isotope('shuffle');
