@@ -38,9 +38,9 @@ class Setting extends CActiveRecord
 	{
 		if(!isset(self::$instancia))
 		{
-			$setings = Setting::model()->findAll();
-			if($setings!=null)
-				Setting::$setting= $setings[0];
+			$settings = Setting::model()->findAll();
+			if($settings!=null)
+				Setting::$setting= $settings[0];
 		}
 		return self::$setting;		
 	}
