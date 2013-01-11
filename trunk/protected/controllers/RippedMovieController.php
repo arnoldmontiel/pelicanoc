@@ -238,7 +238,7 @@ class RippedMovieController extends Controller
 		$model = new RippedMovie();		
 		$dataProvider= $model->search();
 	
-		$dataProvider->pagination->pageSize= 5;
+		$dataProvider->pagination->pageSize= 9;
 		
 		$this->render('viabilidad',array(
 				'dataProvider'=>$dataProvider,
