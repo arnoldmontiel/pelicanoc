@@ -210,7 +210,7 @@ class PelicanoHelper
 		$wsMonitor = new WsMonitor();
 		return $wsMonitor->setHeartBeat($heartBeat);
 	}
-	public function updateNzbDataFromServer()
+	static public function updateNzbDataFromServer()
 	{
 	
 		$_COMMAND_NAME = "downloadNzbFiles";
@@ -370,7 +370,7 @@ class PelicanoHelper
 							}
 								
 							//grabo especificaciones (audio y subtitulos)
-							$this->saveSpecification($item);
+							PelicanoHelper::saveSpecification($item);
 								
 							$transaction = $modelNzb->dbConnection->beginTransaction();
 							try {
@@ -423,5 +423,107 @@ class PelicanoHelper
 		}
 	
 	}
+	public static function saveSpecification($item)
+	{
+		//grabo los audiotrack del nzb
+		if(isset($item->myMovie->AudioTrack))
+		{
+			foreach($item->myMovie->AudioTrack as $audio)
+			{
+				$modelAudio = AudioTrack::model()->findByAttributes(array(
+																		'language'=>$audio->language,
+																		'type'=>$audio->type,
+																		'chanel'=>$audio->chanel,
+				));
+				if(!isset($modelAudio))
+				{
+					$modelAudio = new AudioTrack();
+					$modelAudio->language = $audio->language;
+					$modelAudio->type = $audio->type;
+					$modelAudio->chanel = $audio->chanel;
+					$modelAudio->save();
+				}
+					
+				$myMovieNzbAudioTrack = MyMovieNzbAudioTrack::model()->findByAttributes(array(
+																					'Id_my_movie_nzb'=>$item->myMovie->Id,
+																					'Id_audio_track'=>$modelAudio->Id,
+				));
+				if(!isset($myMovieNzbAudioTrack))
+				{
+					$myMovieNzbAudioTrack = new MyMovieNzbAudioTrack();
+					$myMovieNzbAudioTrack->Id_audio_track = $modelAudio->Id;
+					$myMovieNzbAudioTrack->Id_my_movie_nzb = $item->myMovie->Id;
+					$myMovieNzbAudioTrack->save();
+				}
+					
+			}
+		}
+			
+		//grabo los subtitulos del nzb
+		if(isset($item->myMovie->Subtitle))
+		{
+			foreach($item->myMovie->Subtitle as $sub)
+			{
+				$modelSub = Subtitle::model()->findByAttributes(array(
+																	'language'=>$sub->language,																		
+				));
+				if(!isset($modelSub))
+				{
+					$modelSub = new Subtitle();
+					$modelSub->language = $sub->language;
+					$modelSub->save();
+				}
+					
+				$myMovieNzbSubtitle = MyMovieNzbSubtitle::model()->findByAttributes(array(
+																'Id_my_movie_nzb'=>$item->myMovie->Id,
+																'Id_subtitle'=>$modelSub->Id,
+				));
+				if(!isset($myMovieNzbSubtitle))
+				{
+					$myMovieNzbSubtitle = new MyMovieNzbSubtitle();
+					$myMovieNzbSubtitle->Id_subtitle = $modelSub->Id;
+					$myMovieNzbSubtitle->Id_my_movie_nzb = $item->myMovie->Id;
+					$myMovieNzbSubtitle->save();
+				}
+					
+			}
+		}
+	
+		//grabo las personas del nzb
+		if(isset($item->myMovie->Person))
+		{
+			foreach($item->myMovie->Person as $person)
+			{
+				$modelPerson = Person::model()->findByAttributes(array(
+														'name'=>$person->name,
+														'type'=>$person->type,
+														'role'=>$person->role,
+				));
+				if(!isset($modelPerson))
+				{
+					$modelPerson = new Person();
+					$modelPerson->name = $person->name;
+					$modelPerson->type = $person->type;
+					$modelPerson->role = $person->role;
+					$modelPerson->photo_original = $person->photo_original;
+					$modelPerson->save();
+				}
+					
+				$myMovieNzbPerson = MyMovieNzbPerson::model()->findByAttributes(array(
+																		'Id_my_movie_nzb'=>$item->myMovie->Id,
+																		'Id_person'=>$modelPerson->Id,
+				));
+				if(!isset($myMovieNzbPerson))
+				{
+					$myMovieNzbPerson = new MyMovieNzbPerson();
+					$myMovieNzbPerson->Id_person = $modelPerson->Id;
+					$myMovieNzbPerson->Id_my_movie_nzb = $item->myMovie->Id;
+					$myMovieNzbPerson->save();
+				}
+					
+			}
+		}
+	}
+	
 	
 }
