@@ -158,6 +158,7 @@ class WsSettingsController extends Controller
 	{
 		PelicanoHelper::sendExternalIPAddressToServer();		
 		PelicanoHelper::getCustomerSettings();
+		PelicanoHelper::updateNzbDataFromServer();
 		return true;
 	}
 }
