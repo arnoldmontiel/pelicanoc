@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/var/www/PelicanoC/protected/yiic nzb downloadnzbfiles
+/var/www/pelicano/protected/yiic nzb downloadnzbfiles
 
