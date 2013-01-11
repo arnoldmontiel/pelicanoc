@@ -4,7 +4,7 @@ class MyMovieNzbController extends Controller
 {
 	public function actionIndex()
 	{	
-		$this->updateFromServer();
+		//$this->updateFromServer(); en PelicanoHelper
 		$this->render('index');
 	}
 
@@ -334,9 +334,8 @@ class MyMovieNzbController extends Controller
 				$setting = Setting::getInstance();
 				try
 				{
-// 					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
-// 					{
-// 					}
+					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
+					{
 						$nzb->downloaded = 0;
 						$nzb->downloading = 1;
 						$nzb->Id_nzb_state = 2;
@@ -345,7 +344,7 @@ class MyMovieNzbController extends Controller
 						$nzb->save();
 	
 						PelicanoHelper::sendPendingNzbStates();
-					
+					}					
 				}
 				catch (Exception $e)
 				{
