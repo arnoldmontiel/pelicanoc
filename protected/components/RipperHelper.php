@@ -25,6 +25,9 @@ class RipperHelper
 			$settingsRipper->mymovies_username = $response->mymovies_username;
 			$settingsRipper->mymovies_password = $response->mymovies_password;
 			$settingsRipper->save();
+			$settings->mymovies_username = $response->mymovies_username;
+			$settings->mymovies_password = $response->mymovies_password;
+			$settings->save();
 				
 		}
 		
