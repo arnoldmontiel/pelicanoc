@@ -221,7 +221,7 @@ class PelicanoHelper
 		{
 			if(!$modelCommandStatus->busy)
 			{
-				//PelicanoHelper::sendPendingNzbStates();
+				PelicanoHelper::sendPendingNzbStates();
 				try
 				{
 						
