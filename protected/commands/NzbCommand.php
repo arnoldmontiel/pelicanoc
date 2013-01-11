@@ -187,17 +187,19 @@ class NzbCommand extends CConsoleCommand  {
 		{
 			$modelNzb->downloading = 0;
 			$modelNzb->downloaded = 1;
+			$modelNzb->Id_nzb_state = 3;
 			if(strpos($modelNzb->file_name,$file_name)===false)
 			{
+				$modelNzb->Id_nzb_state = 2;
 				$modelNzb->downloading = 1;
 				$modelNzb->downloaded = 0;						
 			}
 			if($modelNzb->downloaded)
 			{
-				$nzbMovieState= new NzbMovieState;
-				$nzbMovieState->Id_nzb = $modelNzb->Id;
-				$nzbMovieState->Id_movie_state = 3;				
-				$nzbMovieState->save();
+// 				$nzbMovieState= new NzbMovieState;
+// 				$nzbMovieState->Id_nzb = $modelNzb->Id;
+// 				$nzbMovieState->Id_movie_state = 3;				
+// 				$nzbMovieState->save();
 				
 				$pelicanoCliente = new Pelicano;
 				$request = new MovieStateRequest;
