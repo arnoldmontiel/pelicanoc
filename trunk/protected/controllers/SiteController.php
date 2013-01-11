@@ -40,7 +40,7 @@ class SiteController extends Controller
 // 		RipperHelper::saveRipped("26f629b2-f529-4a87-83d4-c4399e057a77","big fish",true,'2745F7455949CF34D7F69A3E1ABAFA6807E463FB');
 // 		RipperHelper::saveRipped("67df0d13-366a-4e65-b6c7-00b0fcb21b8b","linterna",true,'A7978420E2804D3AAF0592313912956E82489334');
 // 		RipperHelper::saveRipped("cc2d91ad-0b71-4474-8755-e585a60258ed","kill bill 1",true,'199E02CA16354FCAA3420D98BCD5AE19068B706F');
-		RipperHelper::saveRipped("fa5840a0-002f-409a-8d36-62edfef678d3","Tintin",true,'5602938E66374F33C07DF5AF264C032251FF8F37');
+// 		RipperHelper::saveRipped("fa5840a0-002f-409a-8d36-62edfef678d3","Tintin",true,'5602938E66374F33C07DF5AF264C032251FF8F37');
 // 		$ws->addNewRipMovie("2a896712-f2ce-4a9c-945e-3aeee118d828","scary movie 4",true,'3FAF030E0DB6E6FDE7047B2AF443A425BBD76A0E');
 // 		$ws->addNewRipMovie("92e81461-123a-4e43-bdef-33c7687d5bf9","batman rises",true,'37617E6C0AFC6F4371714EAC977D186D2A2F1A50');
 //         $ws->addNewRipMovie("1e758317-8feb-42d2-8492-212e14b9a25c","project x",true,'889AF08E0099DC5EF056FF55B79752B284B5F60B');
