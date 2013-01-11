@@ -202,11 +202,12 @@ class NzbCommand extends CConsoleCommand  {
 // 				$nzbMovieState->save();
 				
 				$pelicanoCliente = new Pelicano;
-				$request = new MovieStateRequest;
-				$request->id_customer = $setting->getId_Customer();
-				$request->id_movie = $modelNzb->Id;
-				$request->date = time();				
-				$request->id_state = 3;//downloaded
+				$request = new NzbStateRequest;
+				$request->Id_device = $setting->Id_device;
+				$request->Id_nzb = $modelNzb->Id;
+				$request->change_state_date = time();				
+				$request->Id_state = 3;//downloaded
+								
 				$requests[]=$request;
 				$status = $pelicanoCliente->setMovieState($requests);				
 			}
