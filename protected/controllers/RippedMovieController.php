@@ -292,6 +292,33 @@ class RippedMovieController extends Controller
 		$this->render('duneRemoteControl');
 	}
 	
+	
+	public function actionAjaxBRChangeRegion()
+	{
+		$zoneCode = $_GET['zone_code'];		
+		$setting = Setting::getInstance();
+		if($zoneCode=='A'||$zoneCode=='B'||$zoneCode=='C')
+		{
+			file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.'B946BF00');
+			file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.'B946BF00');
+			file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.'B946BF00');
+			file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.'B946BF00');				
+		}
+		switch ($zoneCode)
+		{
+			case 'A':
+				file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.'F40BBF00');				
+				break;
+			case 'B':
+				file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.'F30CBF00');				
+				break;
+			case 'C':
+				file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.'F20DBF00');				
+				break;
+			default:
+				break;
+		}		
+	}
 	public function actionAjaxUseRemote()
 	{
 		$irCode = $_GET['ir_code'];
