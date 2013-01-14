@@ -143,6 +143,32 @@ $('#aButton').click(function(){
    		data: 'ir_code=BF40BF00',
  	});
 });
+
+$('#regionA').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". RippedMovieController::createUrl('AjaxBRChangeRegion') . "',
+   		data: 'zone_code=A',
+ 	});
+});
+
+$('#regionB').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". RippedMovieController::createUrl('AjaxBRChangeRegion') . "',
+   		data: 'zone_code=B',
+ 	});
+});
+
+$('#regionC').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". RippedMovieController::createUrl('AjaxBRChangeRegion') . "',
+   		data: 'zone_code=C',
+ 	});
+});
+
+
 ");
 ?>
 	
@@ -175,6 +201,11 @@ $('#aButton').click(function(){
 		<?php echo CHtml::submitButton('DOWN', array('id'=>'downButton'));?>
 		<?php echo CHtml::submitButton('LEFT', array('id'=>'leftButton'));?>
 		<?php echo CHtml::submitButton('RIGHT', array('id'=>'rightButton'));?>
+		<br>
+		<br>
+		<?php echo CHtml::submitButton('BR Region A', array('id'=>'regionA'));?>
+		<?php echo CHtml::submitButton('BR Region B', array('id'=>'regionB'));?>
+		<?php echo CHtml::submitButton('BR Region C', array('id'=>'regionC'));?>
 		<br>
 		<?php echo CHtml::submitButton('A', array('id'=>'aButton'));?>
 	</div>
