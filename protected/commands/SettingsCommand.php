@@ -1,5 +1,5 @@
 <?php
-class NzbCommand extends CConsoleCommand  {
+class SettingsCommand extends CConsoleCommand  {
 	/*
 	 * send heart beat to PelicanoM
 	 */
