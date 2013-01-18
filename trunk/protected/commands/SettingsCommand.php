@@ -1,10 +1,8 @@
 <?php
 class NzbCommand extends CConsoleCommand  {
 	/*
-	 * @param file_name 
-	 * @return 0: It was an error, 1:It was success
+	 * send heart beat to PelicanoM
 	 */
-	
 	
 	function actionHeartBeat() 
 	{
