@@ -3,6 +3,7 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	
 	static public function sendAnydvdVersionDownloaded($version)
 	{
 		$settings = Setting::getInstance();

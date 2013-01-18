@@ -7,8 +7,11 @@ class SettingsCommand extends CConsoleCommand  {
 	function actionHeartBeat() 
 	{
 		$settings = Setting::getInstance();
+
+		RipperHelper::updateRipperSettings();		
+		RipperHelper::checkForAnyDvdUpdate();
 		
-		PelicanoHelper::setHeartBeat(2);
+		PelicanoHelper::setHeartBeat(2);//to PelicanoM
 		PelicanoHelper::sendExternalIPAddressToServer();
 		PelicanoHelper::getCustomerSettings();
 		PelicanoHelper::updateNzbDataFromServer();

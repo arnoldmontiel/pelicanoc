@@ -1,7 +1,16 @@
 <?php
 class RipperHelper
 {
-
+	static public function checkForAnyDvdUpdate()
+	{
+		$settings = Setting::getInstance();
+	
+		$response = new ServerAnydvdUpdateResponse();
+		$wsSettings = new wsSettings();
+		$response = $wsSettings->checkForUpdate($settings->Id_device);
+		$this->updateAnydvd($response->version, $response->file_name, $response->download_link);
+	}
+	
 	static public function updateRipperSettings()
 	{
 		$wsSettings = new wsSettings;
