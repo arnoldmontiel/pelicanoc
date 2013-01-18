@@ -63,7 +63,7 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-		'session'=>array('timeout'=>3600),
+		'session'=>array('timeout'=>3600*24*30),
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
