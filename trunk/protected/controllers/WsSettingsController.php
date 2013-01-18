@@ -81,12 +81,7 @@ class WsSettingsController extends Controller
 	public function checkForAnydvdUpdates()
 	{
 		$settings = Setting::getInstance();
-		
-		$response = new ServerAnydvdUpdateResponse();
-		$wsSettings = new wsSettings();
-		$response = $wsSettings->checkForUpdate($settings->Id_device);		
- 		$this->updateAnydvd($response->version, $response->file_name, $response->download_link);
-		
+				
 		$result = new AnydvdUpdateResponse() ;
 		$result->version = '0';
 		$result->action = 0; 
@@ -131,7 +126,6 @@ class WsSettingsController extends Controller
 	
 	public function getSettings()
 	{
-		RipperHelper::updateRipperSettings();
 		
 		$response = new SettingsRipperResponse();
 		$settingsRipper = SettingsRipper::model()->findAll();
@@ -150,15 +144,17 @@ class WsSettingsController extends Controller
 	
 	/**
 	* It gives a heartbeat to the Pelicano, just to get it alive.
+	* This function should call PelicanoM to inform that ripper is alive and not PelicanoC. 
 	* @return boolean response
 	* @soap
 	*/
 	
 	public function HeartBeat()
 	{
-		PelicanoHelper::sendExternalIPAddressToServer();		
-		PelicanoHelper::getCustomerSettings();
-		PelicanoHelper::updateNzbDataFromServer();
+// 		PelicanoHelper::sendExternalIPAddressToServer();		
+// 		PelicanoHelper::getCustomerSettings();
+// 		PelicanoHelper::updateNzbDataFromServer();
+// 
 		return true;
 	}
 }
