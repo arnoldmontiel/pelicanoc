@@ -8,7 +8,59 @@ class RipperHelper
 		$response = new ServerAnydvdUpdateResponse();
 		$wsSettings = new wsSettings();
 		$response = $wsSettings->checkForUpdate($settings->Id_device);
-		$this->updateAnydvd($response->version, $response->file_name, $response->download_link);
+		RipperHelper::updateAnydvd($response->version, $response->file_name, $response->download_link);
+	}
+	
+	static public function updateAnydvd($version,$file_name,$download_link)
+	{
+		$_COMMAND_NAME = "downloadAnydvdUpdate";
+	
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+	
+		$settings = Setting::getInstance();
+		if($version=="" || $settings->anydvd_version_installed == $version)
+		{
+			return false;
+		}
+	
+		$anydvdVersion = AnydvdVersion::model()->findByAttributes(array('version'=>$version));
+		if(!isset($anydvdVersion))
+		{
+			$anydvdVersion = new AnydvdVersion();
+			$anydvdVersion->downloaded = false;
+		}
+	
+		if(!$anydvdVersion->downloaded && isset($modelCommandStatus))
+		{
+			if(!$modelCommandStatus->busy)
+			{
+				$modelCommandStatus->setBusy(true);
+				try {
+					if($anydvdVersion->getIsNewRecord())
+					{
+						$anydvdVersion->version = $version;
+						$anydvdVersion->file_name = $file_name;
+						$anydvdVersion->download_link = $download_link;
+						$anydvdVersion->save();
+					}
+					$sys = strtoupper(PHP_OS);
+					if(substr($sys,0,3) == "WIN")
+					{
+						$WshShell = new COM('WScript.Shell');
+						$oExec = $WshShell->Run('/var/www/pelicano/protected/commands/shell/updateAnydvd.bat', 0, false);
+					}
+					else
+					{
+						exec('/var/www/pelicano/protected/commands/shell/updateAnydvd >/dev/null&');
+					}
+	
+				} catch (Exception $e) {
+					$modelCommandStatus->setBusy(false);
+				}
+			}
+		}
+	
+		return true;
 	}
 	
 	static public function updateRipperSettings()
