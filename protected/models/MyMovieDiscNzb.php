@@ -51,8 +51,7 @@ class MyMovieDiscNzb extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id, Id_my_movie_nzb', 'required'),
-			array('Id, Id_my_movie_nzb', 'length', 'max'=>200),
-			array('name', 'length', 'max'=>45),
+			array('Id, Id_my_movie_nzb, name', 'length', 'max'=>200),			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('Id, name, Id_my_movie_nzb', 'safe', 'on'=>'search'),
