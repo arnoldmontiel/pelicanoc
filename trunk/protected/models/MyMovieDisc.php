@@ -42,8 +42,7 @@ class MyMovieDisc extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id, Id_my_movie', 'required'),
-			array('Id, Id_my_movie', 'length', 'max'=>200),
-			array('name', 'length', 'max'=>45),
+			array('Id, Id_my_movie, name', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('Id, name, Id_my_movie', 'safe', 'on'=>'search'),
