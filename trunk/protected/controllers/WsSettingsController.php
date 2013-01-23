@@ -91,6 +91,7 @@ class WsSettingsController extends Controller
 			$response->time_to_reboot = $settingsRipper[0]->time_to_reboot; 
 			$response->mymovies_password = $settingsRipper[0]->mymovies_password; 
 			$response->mymovies_username = $settingsRipper[0]->mymovies_username; 
+			$response->id_device = Setting::getInstance()->id_device; 
 		}
 		return $response;
 	}
