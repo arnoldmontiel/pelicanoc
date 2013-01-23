@@ -45,4 +45,10 @@ class SettingsRipperResponse
 	* @soap
 	*/
 	public $mymovies_password;
+	
+	/**
+	* @var string id_device
+	* @soap
+	*/
+	public $id_device;
 }
