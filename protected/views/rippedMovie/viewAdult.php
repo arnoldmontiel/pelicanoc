@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 	
-	ChangeBG('images/','".$model->myMovie->backdrop."');
+	ChangeBG('images/','".$model->myMovieDisc->myMovie->backdrop."');
 
 	$('.leftcurtain').addClass('showLeftCurtian');
 	$('.rightcurtain').addClass('showRightCurtian');
@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 
 <div class="rip-layout-left">
 	<div style="width: 205px; float:left;">
-		<?php echo CHtml::image( "images/".$model->myMovie->poster, $model->myMovie->original_title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
+		<?php echo CHtml::image( "images/".$model->myMovieDisc->myMovie->poster, $model->myMovieDisc->myMovie->original_title,array('id'=>'Imdbdata_Poster_img', 'style'=>'height: 290px;width: 190px;margin: 5px 5px 5px 7px;')); ?>
 
 	</div>
 	
@@ -46,7 +46,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 	 
 	<div class="movie-rating-box" >
 	<?php echo CHtml::openTag('div',array('class'=>'movie-rating'));?>
-		<?php echo $model->myMovie->rating; ?>
+		<?php echo $model->myMovieDisc->myMovie->rating; ?>
 	<?php echo CHtml::closeTag('div');?> 
 	</div>
 	
@@ -54,56 +54,56 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 <div class="rip-layout-centre">
 	<div style="float: left;padding: 5px 10px;">
 	<?php echo CHtml::openTag('div',array('class'=>'movie-title'));?>
-			<?php echo $model->myMovie->original_title . " (".$model->myMovie->production_year.")"; ?>
+			<?php echo $model->myMovieDisc->myMovie->original_title . " (".$model->myMovieDisc->myMovie->production_year.")"; ?>
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('genre').':'; ?>
+			<?php echo $model->myMovieDisc->myMovie->getAttributeLabel('genre').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->myMovie->genre; ?>		
+		<?php echo $model->myMovieDisc->myMovie->genre; ?>		
 	<?php echo CHtml::closeTag('div');?> 
 	
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('country').':'; ?>
+			<?php echo $model->myMovieDisc->myMovie->getAttributeLabel('country').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->myMovie->country; ?>
+		<?php echo $model->myMovieDisc->myMovie->country; ?>
 	<?php echo CHtml::closeTag('div');?> 
 
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('description').':'; ?>
+			<?php echo $model->myMovieDisc->myMovie->getAttributeLabel('description').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->myMovie->description; ?>
+		<?php echo $model->myMovieDisc->myMovie->description; ?>
 	<?php echo CHtml::closeTag('div');?> 
 	
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('running_time').':'; ?>
+			<?php echo $model->myMovieDisc->myMovie->getAttributeLabel('running_time').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->myMovie->running_time; ?>
+		<?php echo $model->myMovieDisc->myMovie->running_time; ?>
 	<?php echo CHtml::closeTag('div');?>
 	 
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('imdb').':'; ?>
+			<?php echo $model->myMovieDisc->myMovie->getAttributeLabel('imdb').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->myMovie->imdb; ?>
+		<?php echo $model->myMovieDisc->myMovie->imdb; ?>
 	<?php echo CHtml::closeTag('div');?>
 	 
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('genre').':'; ?>
+			<?php echo $model->myMovieDisc->myMovie->getAttributeLabel('genre').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->myMovie->genre; ?>
+		<?php echo $model->myMovieDisc->myMovie->genre; ?>
 	<?php echo CHtml::closeTag('div');?>
 	
 	<?php echo CHtml::openTag('div');?>
 		<?php echo CHtml::openTag('b');?>
-			<?php echo $model->myMovie->getAttributeLabel('studio').':'; ?>
+			<?php echo $model->myMovieDisc->myMovie->getAttributeLabel('studio').':'; ?>
 		<?php echo CHtml::closeTag('b');?>
-		<?php echo $model->myMovie->studio; ?>
+		<?php echo $model->myMovieDisc->myMovie->studio; ?>
 	<?php echo CHtml::closeTag('div');?>
 	</div>		
 	
@@ -120,7 +120,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 
 		 	echo "<tr>";
 		 	echo "<td>VIDEO</td>";
-		 	echo "<td>".$model->myMovie->video_standard ." / ". $model->myMovie->aspect_ratio ."</td>";
+		 	echo "<td>".$model->myMovieDisc->myMovie->video_standard ." / ". $model->myMovieDisc->myMovie->aspect_ratio ."</td>";
 		 	echo "</tr>";
 	 	
 		 	$criteria = new CDbCriteria();
@@ -178,7 +178,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 		</div>
 		<div style="display:inline-block;">
 		<?php
-		$features = explode("\n" ,$model->myMovie->extra_features);
+		$features = explode("\n" ,$model->myMovieDisc->myMovie->extra_features);
 		foreach($features as $feature)
 		{
 			if(!empty($feature))
@@ -197,13 +197,13 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 		<div class="mpaa-box" >
 		 	<div>				
 				<?php 
-				echo CHtml::image("images/".$model->myMovie->parentalControl->img_url,"",array('style'=>'width:90%'));
+				echo CHtml::image("images/".$model->myMovieDisc->myMovie->parentalControl->img_url,"",array('style'=>'width:90%'));
 				?>
 			</div>
 			<div align="center">
 			<?php 
-				if(!empty($model->myMovie->parental_rating_desc))
-					echo $model->myMovie->parental_rating_desc;
+				if(!empty($model->myMovieDisc->myMovie->parental_rating_desc))
+					echo $model->myMovieDisc->myMovie->parental_rating_desc;
 			?>
 			</div>
 		</div>
