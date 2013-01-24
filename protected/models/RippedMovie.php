@@ -284,7 +284,7 @@ class RippedMovie extends CActiveRecord
 	
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('path',$this->path,true);
-		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
+		$criteria->compare('Id_my_movie_disc',$this->Id_my_movie_disc,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 	
 		$criteria->with[]="myMovie";
