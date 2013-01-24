@@ -127,7 +127,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 		 	$criteria->with[]='audioTrack';
 		 	$criteria->order = "audioTrack.type";
 		 	
-	 		$myMovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie_disc'=>$model->Id_my_movie_disc),$criteria);
+	 		$myMovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$model->myMovieDisc->Id_my_movie_disc),$criteria);
 	 		$audio = "";
 	 		
 	 		$audioArr = array();
@@ -154,7 +154,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 	 		echo "<td>".implode("; ",$audioArr)."</td>";
 	 		echo "</tr>";
 	 		
-	 		$myMovieSubtitles = MyMovieSubtitle::model()->findAllByAttributes(array('Id_my_movie_disc'=>$model->Id_my_movie_disc));
+	 		$myMovieSubtitles = MyMovieSubtitle::model()->findAllByAttributes(array('Id_my_movie'=>$model->myMovieDisc->Id_my_movie));
 	 		
 	 		$subtitleArr = array();
 			$index = 0;
