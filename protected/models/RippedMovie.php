@@ -286,11 +286,13 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('path',$this->path,true);
 		$criteria->compare('Id_my_movie_disc',$this->Id_my_movie_disc,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
-	
-		$criteria->with[]="myMovie";
-		$criteria->addCondition('myMovie.Id_parental_control=9','OR');
-		$criteria->addCondition('myMovie.Id_parental_control=8','OR');
-		$criteria->addCondition('myMovie.Id_parental_control=7','OR');
+
+		$criteria->join =	"LEFT OUTER JOIN my_movie_disc md ON md.Id=t.Id_my_movie_disc
+									 LEFT OUTER JOIN my_movie m ON md.Id_my_movie=m.Id";
+		
+		$criteria->addCondition('m.Id_parental_control=9','OR');
+		$criteria->addCondition('m.Id_parental_control=8','OR');
+		$criteria->addCondition('m.Id_parental_control=7','OR');
 	
 		$criteria->order = "t.creation_date DESC";
 	
@@ -311,11 +313,13 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('Id_my_movie',$this->Id_my_movie,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 	
-		$criteria->with[]="myMovie";
-		$criteria->addCondition('myMovie.Id_parental_control<>9');
-		$criteria->addCondition('myMovie.Id_parental_control<>8');
-		$criteria->addCondition('myMovie.Id_parental_control<>7');						
-		$criteria->addCondition('myMovie.Id_my_movie_serie_header = "' . $this->serieId. '"');
+		$criteria->join =	"LEFT OUTER JOIN my_movie_disc md ON md.Id=t.Id_my_movie_disc
+									 LEFT OUTER JOIN my_movie m ON md.Id_my_movie=m.Id";
+		
+		$criteria->addCondition('m.Id_parental_control<>9');
+		$criteria->addCondition('m.Id_parental_control<>8');
+		$criteria->addCondition('m.Id_parental_control<>7');						
+		$criteria->addCondition('m.Id_my_movie_serie_header = "' . $this->serieId. '"');
 	
 		$criteria->order = "t.creation_date DESC";
 	
@@ -390,10 +394,12 @@ class RippedMovie extends CActiveRecord
 		$criteria->compare('imdbdata.Plot',$expresion,true,'OR');
 	
 	
-		$criteria->with[]="myMovie";
-		$criteria->addCondition('myMovie.Id_parental_control=9','OR');
-		$criteria->addCondition('myMovie.Id_parental_control=8','OR');
-		$criteria->addCondition('myMovie.Id_parental_control=7','OR');
+		$criteria->join =	"LEFT OUTER JOIN my_movie_disc md ON md.Id=t.Id_my_movie_disc
+									 LEFT OUTER JOIN my_movie m ON md.Id_my_movie=m.Id";
+		
+		$criteria->addCondition('m.Id_parental_control=9','OR');
+		$criteria->addCondition('m.Id_parental_control=8','OR');
+		$criteria->addCondition('m.Id_parental_control=7','OR');
 					
 		$criteria->order = "t.creation_date DESC";
 	
