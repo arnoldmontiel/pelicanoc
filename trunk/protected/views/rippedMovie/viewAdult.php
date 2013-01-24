@@ -127,7 +127,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 		 	$criteria->with[]='audioTrack';
 		 	$criteria->order = "audioTrack.type";
 		 	
-	 		$myMovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$model->myMovieDisc->Id_my_movie_disc),$criteria);
+	 		$myMovieAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$model->myMovieDisc->Id_my_movie),$criteria);
 	 		$audio = "";
 	 		
 	 		$audioArr = array();
