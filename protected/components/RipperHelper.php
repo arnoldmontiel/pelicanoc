@@ -118,6 +118,7 @@ class RipperHelper
 			$modelRippedMovieDB->path = $path;
 			$modelRippedMovieDB->parental_control = (int)$parentalControl;
 			$modelRippedMovieDB->was_sent = 0;
+			$modelRippedMovieDB->creation_date = new CDbExpression('NOW()');
 			if($modelRippedMovieDB->save())
 				return true;
 		}
