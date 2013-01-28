@@ -19,7 +19,7 @@
 	 	),RippedMovieController::createUrl('View', array('id'=>$model->Id)));
 		?>
 		<img alt="Pause" src="images/pause.png">
-		<img alt="FWD" src="images/player_fowrard.png">
+		<img alt="FWD" src="images/player_forward.png">
 		<img alt="NEXT" src="images/player_next.png">
 	</div>				 
 	<div style="float: left; padding: 5px 10px; width: 95%">
