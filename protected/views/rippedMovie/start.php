@@ -18,7 +18,6 @@
 	 	)
 	 	),RippedMovieController::createUrl('View', array('id'=>$model->Id)));
 		?>
-		<img alt="Pause" src="images/pause.png">
 		<img alt="FWD" src="images/player_forward.png">
 		<img alt="NEXT" src="images/player_next.png">
 	</div>				 
