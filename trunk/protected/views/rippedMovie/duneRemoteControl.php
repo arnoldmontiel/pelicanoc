@@ -173,11 +173,8 @@ $('#regionC').click(function(){
 ?>
 	
 
-<div id="conteiner" class="movie-view" style="">
+<div id="conteiner" class="start-view" align="center" style="">
 
-	<div class="rip-layout-left">
-		
-	</div>
 	
 	<div style="float: left; padding: 5px 10px; width: 95%">
 		<?php
@@ -215,9 +212,6 @@ $('#regionC').click(function(){
 	?>
 	</div>				 
 	
-	<div class="rip-layout-right">
-	
-	</div>
 	
 	<div id="progress-bar-area" class="rip-layout-footer" >
 		 <?php
