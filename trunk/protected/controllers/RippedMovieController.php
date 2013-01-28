@@ -92,11 +92,14 @@ class RippedMovieController extends Controller
 			$customer = $setting->getCustomer();
 			if($customer->adult_password==$_POST['Customer']['adult_password'])
 			{
-				$this->showMenu = false;
-				$this->showBrowsingBox = false;
-				$this->renderPartial('startAdult',array(
-											'model'=>$this->loadModel($_POST['Id_ripped_movie']),
-				));				
+				if($this->playDune($_POST['Id_ripped_movie']))
+				{
+					$this->showMenu = false;
+					$this->showBrowsingBox = false;
+					$this->renderPartial('startAdult',array(
+						'model'=>$this->loadModel($_POST['Id_ripped_movie']),
+					));						
+				}
 			}
 		}
 	}
@@ -116,22 +119,31 @@ class RippedMovieController extends Controller
 			}
 		}
 	}
-	
-	public function actionAjaxPlay()
+	private function playDune($id)
 	{
-		$id = $_GET['idRippedMovie'];
 		$model = $this->loadModel($id);
 		$setting = Setting::getInstance();
 		
 		if($model->isBluray())
-			$cmd = 'start_bluray_playback';
-		else 
-			$cmd = 'start_dvd_playback';
+		{
+			$cmd = 'start_bluray_playback';				
+		}		
+		else
+		{
+			$cmd = 'start_dvd_playback';				
+		}
 		
 		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
 		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path . $model->path;
-		echo $url;	
-		file_get_contents($url);
+		//TODO: analizar el resultado e indicar si la reproducción se a concretado.
+		file_get_contents($url);		
+		return true;
+	}
+	
+	public function actionAjaxPlay()
+	{
+		$id = $_GET['idRippedMovie'];
+		$this->playDune($id);
 	}
 	
 	public function actionAjaxStart($id)

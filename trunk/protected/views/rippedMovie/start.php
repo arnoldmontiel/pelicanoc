@@ -5,6 +5,11 @@
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
 	<div style="float: left; padding: 5px 10px; width: 95%">
+		<img alt="POWER" src="images/player_power.png">
+		<img alt="POP UP MENU" src="images/player_popupmenu.png">
+	</div>				 
+	
+	<div style="float: left; padding: 5px 10px; width: 95%">
 		<img alt="PREV" src="images/player_prev.png">
 		<img alt="REW" src="images/player_rewind.png">		
 		<?php
@@ -23,9 +28,13 @@
 	</div>				 
 	<div style="float: left; padding: 5px 10px; width: 95%">
 			<img alt="UP" src="images/player_up.png">			
+	</div>				 
+	<div style="float: left; padding: 5px 10px; width: 95%">
 			<img alt="RIGHT" src="images/player_right.png">			
-			<img alt="DOWN" src="images/player_down.png">			
 			<img alt="LEFT" src="images/player_left.png">			
+	</div>				 
+	<div style="float: left; padding: 5px 10px; width: 95%">
+			<img alt="DOWN" src="images/player_down.png">			
 	</div>				 
 </div>
 <?php
