@@ -296,6 +296,13 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 									$("#page").attr("align","center");
 									$("#page").attr("class","start-view");
 									$("#page").html(data);
+										$("#playButton").click(function(){
+										$.ajax({
+									   		type: "GET",
+									   		url: "'. RippedMovieController::createUrl('AjaxPlay') . '",
+									   		data: "idRippedMovie='.$model->Id.'",
+									 	});
+									})
 								}
 								else
 								{
