@@ -20,7 +20,17 @@
 </div>				 
 	<?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#MyMovieStart', "
-	
+		
+	ChangeBG('images/','".$model->myMovieDisc->myMovie->backdrop."');
+
+	$('#playButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". RippedMovieController::createUrl('AjaxPlay') . "',
+   		data: 'idRippedMovie=".$model->Id."',
+ 	});
+});
+
 
 ");
 ?>
