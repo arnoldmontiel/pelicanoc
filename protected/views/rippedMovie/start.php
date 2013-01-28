@@ -15,7 +15,7 @@
 		<?php
 		echo CHtml::imageButton('images/player_prev.png', array('id'=>'prevButton'));
 		echo CHtml::imageButton('images/player_rewind.png', array('id'=>'rewButton'));
-		echo CHtml::imageButton('images/play.png', array('id'=>'playButton'));
+		echo CHtml::imageButton('images/pause.png', array('id'=>'playButton'));
 		?>
 		<?php
 		echo CHtml::imageButton('images/stop.png', array('id'=>'stopButton'));
