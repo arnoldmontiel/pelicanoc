@@ -5,7 +5,6 @@
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
 	<div style="float: left; padding: 5px 10px; width: 95%">
-		<img alt="POWER" src="images/player_power.png">
 		<img alt="POP UP MENU" src="images/player_popupmenu.png">
 	</div>				 
 	
