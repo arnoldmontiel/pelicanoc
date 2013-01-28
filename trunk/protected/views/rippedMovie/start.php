@@ -69,7 +69,7 @@ $('#stopButton').click(function(){
  	$.ajax({
    		type: 'GET',
    		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=BC00BF43',
+   		data: 'ir_code=BC43BF00',
  	}).success(
  			function()
  			{
