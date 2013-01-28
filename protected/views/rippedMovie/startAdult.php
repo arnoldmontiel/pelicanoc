@@ -19,12 +19,6 @@
 		?>
 		<?php
 		echo CHtml::imageButton('images/stop.png', array('id'=>'stopButton'));
-		CHtml::link( CHtml::image('images/stop.png','Stop' ,array(
-	 															 'title'=>'Stop',
-	 													         'style'=>'height: 128px;width: 128px;',
-	 													         'id'=>'btnStop',
-	 	)
-	 	),RippedMovieController::createUrl('View', array('id'=>$model->Id)));
 		echo CHtml::imageButton('images/player_forward.png', array('id'=>'fwButton'));
 		echo CHtml::imageButton('images/player_next.png', array('id'=>'nextButton'));
 		?>
