@@ -30,8 +30,9 @@ class WsPelicanoCController extends Controller
 	
 		$result = RipperHelper::saveRipped($idMyMovie, $path, $parentalControl, $idDisc);
 		
-		if($result)
-			RippedMovie::sincronizeWithServer();
+		//Esto se hace en el heartbeat para mejorar performance
+		// 		if($result)
+		// 			RippedMovie::sincronizeWithServer();
 		
 		return $result;
 	}

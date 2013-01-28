@@ -525,6 +525,104 @@ class PelicanoHelper
 			}
 		}
 	}
+	static public function getSerie($modelMyMovieDisc)
+	{
+		if(isset($modelMyMovieDisc->myMovie->myMovieSerieHeader))
+		{
+			$modelSerieHeader = new MyMovieSerieHeaderSOAP();
+			$modelSerieHeader->setAttributes($modelMyMovieDisc->myMovie->myMovieSerieHeader);
+				
+			$discEpisodes = DiscEpisode::model()->findAllByAttributes(array('Id_my_movie_disc'=>$modelMyMovieDisc->Id));
+			$setSeason = true;
+			foreach($discEpisodes as $item)
+			{
+				if($setSeason)
+				{
+					$modelSeason = MyMovieSeason::model()->findByPk($item->myMovieEpisode->Id_my_movie_season);
+					$modelSerieHeader->myMovieSeason->setAttributes($modelSeason);
+					$setSeason = false;
+				}
 	
+				$episodeSOAP = new MyMovieEpisodeSOAP();
+				$episodeSOAP->setAttributes($item->myMovieEpisode);
+				$modelSerieHeader->myMovieSeason->Episode[] = $episodeSOAP;
+			}
+				
+			return $modelSerieHeader;
+		}
+	
+		return null;
+	}
+	
+	public static function sincronizeWithServer()
+	{
+		$requests = array();
+		$pelicanoCliente = new Pelicano;
+	
+		$setting = Setting::getInstance();
+		$idDevice = $setting->getId_Device();
+	
+		if(isset($idDevice))
+		{
+			$rippedMovies = RippedMovie::model()->findAllByAttributes(array('was_sent'=>0));
+			foreach($rippedMovies as $item)
+			{
+				$request= new RippedRequest;
+	
+				$request->Id_device = $idDevice;
+				$request->ripped_date = $item->creation_date;
+				$request->myMovie->setAttributes($item->myMovieDisc->myMovie);
+	
+				$request->myMovie->myMovieSerieHeader = PelicanoHelper::getSerie($item->myMovieDisc);
+	
+				//set audio track
+				$relAudioTracks = MyMovieAudioTrack::model()->findAllByAttributes(array('Id_my_movie'=>$item->myMovieDisc->Id_my_movie));
+				foreach($relAudioTracks as $relAudioTrack)
+				{
+					$audioTrackSOAP = new MyMovieAudioTrackSOAP();
+					$audioTrackSOAP->setAttributes($relAudioTrack->audioTrack);
+					$request->myMovie->AudioTrack[] = $audioTrackSOAP;
+				}
+	
+				//set subtitle
+				$relSubtitles = MyMovieSubtitle::model()->findAllByAttributes(array('Id_my_movie'=>$item->myMovieDisc->Id_my_movie));
+				foreach($relSubtitles as $relSubtitle)
+				{
+					$subtitleSOAP = new MyMovieSubtitleSOAP();
+					$subtitleSOAP->setAttributes($relSubtitle->subtitle);
+					$request->myMovie->Subtitle[] = $subtitleSOAP;
+				}
+	
+				//set person
+				$relPersons = MyMoviePerson::model()->findAllByAttributes(array('Id_my_movie'=>$item->myMovieDisc->Id_my_movie));
+				foreach($relPersons as $relPerson)
+				{
+					$personSOAP = new MyMoviePersonSOAP();
+					$personSOAP->setAttributes($relPerson->person);
+					$request->myMovie->Person[] = $personSOAP;
+				}
+	
+				$request->myMovieDisc->setAttributes($item->myMovieDisc);
+	
+				$requests[]=$request;
+			}
+				
+	
+			if( count($requests) > 0 && $pelicanoCliente->setRipped($requests))
+			{
+				$RippedResponseArray = $pelicanoCliente->getRipped($idDevice);
+				foreach($RippedResponseArray as $item)
+				{
+					$model = RippedMovie::model()->findByAttributes(array('Id_my_movie_disc'=>$item->Id_my_movie_disc));
+					if(isset($model))
+					{
+						$model->was_sent = 1;
+						$model->save();
+					}
+						
+				}
+			}
+		}
+	}
 	
 }
