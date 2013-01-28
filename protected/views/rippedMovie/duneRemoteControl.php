@@ -179,36 +179,40 @@ $('#regionC').click(function(){
 		
 	</div>
 	
-	<div class="rip-layout-centre">
-		<br>
-		<?php echo CHtml::submitButton('POWER', array('id'=>'powerButton'));?>
-		<br>
-		<?php echo CHtml::submitButton('PLAY', array('id'=>'playButton'));?>
-		<?php echo CHtml::submitButton('STOP', array('id'=>'stopButton'));?>
-		<?php echo CHtml::submitButton('PAUSE', array('id'=>'pauseButton'));?>
-		<br>
-		<?php echo CHtml::submitButton('PREV', array('id'=>'prevButton'));?>
-		<?php echo CHtml::submitButton('NEXT', array('id'=>'nextButton'));?>
-		<?php echo CHtml::submitButton('REW', array('id'=>'rewButton'));?>
-		<?php echo CHtml::submitButton('FW', array('id'=>'fwButton'));?>		
-		<br>
-		<?php echo CHtml::submitButton('ENTER', array('id'=>'enterButton'));?>
-		<?php echo CHtml::submitButton('RETURN', array('id'=>'returnButton'));?>
-		<?php echo CHtml::submitButton('POP UP MENU', array('id'=>'popUpMenuButton'));?>
-		<?php echo CHtml::submitButton('TOP MENU', array('id'=>'topMenuButton'));?>
-		<br>
-		<?php echo CHtml::submitButton('UP', array('id'=>'upButton'));?>
-		<?php echo CHtml::submitButton('DOWN', array('id'=>'downButton'));?>
-		<?php echo CHtml::submitButton('LEFT', array('id'=>'leftButton'));?>
-		<?php echo CHtml::submitButton('RIGHT', array('id'=>'rightButton'));?>
-		<br>
-		<br>
-		<?php echo CHtml::submitButton('BR Region A', array('id'=>'regionA'));?>
-		<?php echo CHtml::submitButton('BR Region B', array('id'=>'regionB'));?>
-		<?php echo CHtml::submitButton('BR Region C', array('id'=>'regionC'));?>
-		<br>
-		<?php echo CHtml::submitButton('A', array('id'=>'aButton'));?>
-	</div>
+	<div style="float: left; padding: 5px 10px; width: 95%">
+		<?php
+		echo CHtml::imageButton('images/player_popupmenu.png', array('id'=>'popUpMenuButton'));
+		echo CHtml::imageButton('images/player_return.png', array('id'=>'returnButton'));
+		?>
+	</div>				 
+	
+	<div style="float: left; padding: 5px 10px; width: 95%">
+		<?php
+		echo CHtml::imageButton('images/player_prev.png', array('id'=>'prevButton'));
+		echo CHtml::imageButton('images/player_rewind.png', array('id'=>'rewButton'));
+		echo CHtml::imageButton('images/pause.png', array('id'=>'playButton'));
+		?>
+		<?php
+		echo CHtml::imageButton('images/stop.png', array('id'=>'stopButton'));
+		echo CHtml::imageButton('images/player_forward.png', array('id'=>'fwButton'));
+		echo CHtml::imageButton('images/player_next.png', array('id'=>'nextButton'));
+		?>
+	</div>				 
+	<div style="float: left; padding: 5px 10px; width: 95%">
+		<?php echo CHtml::imageButton('images/player_up.png', array('id'=>'upButton'));?>
+	</div>				 
+	<div style="float: left; padding: 5px 10px; width: 95%">
+	<?php 
+			echo CHtml::imageButton('images/player_left.png', array('id'=>'leftButton'));
+			echo CHtml::imageButton('images/player_enter.png', array('id'=>'enterButton'));
+			echo CHtml::imageButton('images/player_right.png', array('id'=>'rightButton'));
+	?>
+	</div>				 
+	<div style="float: left; padding: 5px 10px; width: 95%">
+	<?php 
+		echo CHtml::imageButton('images/player_down.png', array('id'=>'downButton'));
+	?>
+	</div>				 
 	
 	<div class="rip-layout-right">
 	
