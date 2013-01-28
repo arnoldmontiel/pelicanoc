@@ -274,15 +274,19 @@
             
             switch (result) {
 
-                case 'done':
-
+                case 'done':                	
+                	if(currentFilter != '*')
+        			{                    		
+        				this.element.find('.post').hide();
+        				this.element.find(currentFilter).show();
+        			}
+                	this.element.isotope({ filter: currentFilter });
                     this._showdonemsg();
                     return false;
 
                     break;
 
-                case 'no-append':
-
+                case 'no-append':                	
                     if (opts.dataType == 'html') {
                         data = '<div>' + data + '</div>';
                         data = $(data).find(opts.itemSelector);
@@ -340,7 +344,7 @@
 		        		
 		        		document.getElementById("current-filter").value = currentFilter;
 		        	}
-                                      
+                                    
                     resultSize = children.filter(currentFilter).size();
                     
                     // if it didn't return anything
@@ -557,14 +561,24 @@
         	 	var partialFilter = 'div[class*='+ searchFilter +']';  		
         		 
         	 	if(this.element.find(partialFilter).size() == 0)
+        	 	{
+        	 		if(mediaTypeFilter == '*')
+        			{
+        	 			currentFilter = ' .' + searchFilter;
+        			}
+        	 		else
+        	 		{
+        	 			currentFilter = mediaTypeFilter + '.' + searchFilter;
+        	 		}
         	 		this.retrieve();
+        	 	}
         	 		
         		if(currentFilter == '*')
         			currentFilter = '';
         		        		
         		var isFirst = true;
         		this.element.find(partialFilter).each(function(index){
-        			
+        			$(this).show();
         			if(mediaTypeFilter == '*')
         			{
         				if(isFirst)
@@ -598,8 +612,7 @@
         		document.getElementById("current-filter").value = mediaTypeFilter;
         		this.retrieve();
         	}
-        	
-        	
+        	        	
         	document.getElementById("current-filter").value = currentFilter;
         	this.element.isotope({ filter: currentFilter });        	
         	    
