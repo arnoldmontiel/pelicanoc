@@ -3,9 +3,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#view-adult', "
 	
 	ChangeBG('images/','".$model->myMovieDisc->myMovie->backdrop."');
 
-	$('.leftcurtain').addClass('showLeftCurtian');
-	$('.rightcurtain').addClass('showRightCurtian');
-	OpenCurtains(2000);
+// 	$('.leftcurtain').addClass('showLeftCurtian');
+// 	$('.rightcurtain').addClass('showRightCurtian');
+// 	OpenCurtains(2000);
 	$('#btnPlay').click(function(){
 		jQuery('#parentalControl').dialog( 'open' );		
 	});
