@@ -150,9 +150,12 @@ class RippedMovieController extends Controller
 	{
 		$this->showMenu = false;
 		$this->showBrowsingBox = false;
-		$this->render('start',array(
-									'model'=>$this->loadModel($id),
-		));
+		if($this->playDune($id))
+		{
+			$this->render('start',array(
+												'model'=>$this->loadModel($id),
+			));				
+		}
 	}
 	/**
 	 * Creates a new model.
