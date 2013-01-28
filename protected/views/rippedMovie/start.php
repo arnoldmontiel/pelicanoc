@@ -65,7 +65,12 @@ $('#stopButton').click(function(){
    		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
    		data: 'ir_code=E619BF00',
  	});
- 	window.location = '".RippedMovieController::createUrl('View', array('id'=>$model->Id))."'
+	$.ajax({
+   		type: 'GET',
+   		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=BC00BF43',
+ 	});
+	window.location = '".RippedMovieController::createUrl('View', array('id'=>$model->Id))."'
 });
 
 $('#prevButton').click(function(){
