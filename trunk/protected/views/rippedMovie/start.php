@@ -30,8 +30,8 @@
 			<img alt="UP" src="images/player_up.png">			
 	</div>				 
 	<div style="float: left; padding: 5px 10px; width: 95%">
-			<img alt="RIGHT" src="images/player_right.png">			
 			<img alt="LEFT" src="images/player_left.png">			
+			<img alt="RIGHT" src="images/player_right.png">			
 	</div>				 
 	<div style="float: left; padding: 5px 10px; width: 95%">
 			<img alt="DOWN" src="images/player_down.png">			
