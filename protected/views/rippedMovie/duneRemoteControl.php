@@ -181,6 +181,7 @@ $('#regionC').click(function(){
 	
 	<div style="float: left; padding: 5px 10px; width: 95%">
 		<?php
+		echo CHtml::imageButton('images/player_power.png', array('id'=>'powerButton'));
 		echo CHtml::imageButton('images/player_popupmenu.png', array('id'=>'popUpMenuButton'));
 		echo CHtml::imageButton('images/player_return.png', array('id'=>'returnButton'));
 		?>
