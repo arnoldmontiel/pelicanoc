@@ -24,14 +24,21 @@ $('#stopButton').click(function(){
    		type: 'GET',
    		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
    		data: 'ir_code=E619BF00',
- 	});
-	$.ajax({
+ 	}).success(function()
+ 	{
+ 	$.ajax({
    		type: 'GET',
    		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=BC00BF43',
- 	});
-
- 	window.location = '".RippedMovieController::createUrl('ViewAdult', array('id'=>$model->Id))."'
+   		data: 'ir_code=BC43BF00',
+ 	}).success(
+ 			function()
+ 			{
+				window.location = '".RippedMovieController::createUrl('ViewAdult', array('id'=>$model->Id))."'
+			}
+ 		);
+	}
+ 	);
+	
 });
 
 $('#prevButton').click(function(){
