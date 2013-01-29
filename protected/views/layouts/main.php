@@ -116,7 +116,7 @@
 			echo CHtml::link( CHtml::image("images/install.png",'movies',array('id'=>'install_button', 'style'=>'height: 128px;width: 128px;')
 			),array('/site/index'));
 		}
-		echo CHtml::link( CHtml::image("images/logout.png",'movies',array('id'=>'logout_button', 'style'=>'height: 128px;width: 128px;float:right;')
+		echo CHtml::link( CHtml::image("images/remote_control.png",'movies',array('id'=>'remote_control', 'style'=>'height: 128px;width: 128px;float:right;')
 		),array('/site/logout'));
 		?>				
 		<?php 

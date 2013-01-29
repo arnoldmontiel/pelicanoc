@@ -63,21 +63,9 @@ $('#stopButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E619BF00',
- 	}).success(function()
- 	{
- 	$.ajax({
-   		type: 'GET',
-   		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
    		data: 'ir_code=BC43BF00',
- 	}).success(
- 			function()
- 			{
-				window.location = '".RippedMovieController::createUrl('View', array('id'=>$model->Id))."'
-			}
- 		);
-	}
- 	);
+ 	});
+	window.location = '".RippedMovieController::createUrl('View', array('id'=>$model->Id))."'
 	
 });
 
