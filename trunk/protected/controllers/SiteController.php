@@ -41,7 +41,7 @@ class SiteController extends Controller
 // 		RipperHelper::saveRipped("67df0d13-366a-4e65-b6c7-00b0fcb21b8b","linterna",true,'A7978420E2804D3AAF0592313912956E82489334');
 // 		RipperHelper::saveRipped("cc2d91ad-0b71-4474-8755-e585a60258ed","kill bill 1",true,'199E02CA16354FCAA3420D98BCD5AE19068B706F');
 // 		RipperHelper::saveRipped("fa5840a0-002f-409a-8d36-62edfef678d3","Tintin",true,'5602938E66374F33C07DF5AF264C032251FF8F37');
-// 		RipperHelper::saveRipped("3039bfb9-2c81-40ee-a018-3c199f90004c","Breaking bad",true,'98D67873-3A35C6B6');
+ 		RipperHelper::saveRipped("3039bfb9-2c81-40ee-a018-3c199f90004c","Breaking bad",true,'98D67873-3A35C6B6');
 // 		RipperHelper::saveRipped("a84ae2a9-8b79-4738-acbf-26d3a1750290","Fringe s01",true,'F6B8AB2B897D73D6C2DD94D1D966F22A6E7D3100');
 // 		RipperHelper::saveRipped("a807d4d6-9692-4360-95b0-1a31a5d7f33c","Dexter",true,'F5E4051B-A62BF35B');
 // 		RipperHelper::saveRipped("a89f3f1e-a7fa-47f6-8406-7f30596a8d9a","Friends",true,'2CF2E61B-704F085E');
