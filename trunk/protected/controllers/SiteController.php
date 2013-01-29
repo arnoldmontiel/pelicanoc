@@ -44,8 +44,9 @@ class SiteController extends Controller
 // 		RipperHelper::saveRipped("3039bfb9-2c81-40ee-a018-3c199f90004c","Breaking bad",true,'98D67873-3A35C6B6');
 // 		RipperHelper::saveRipped("a84ae2a9-8b79-4738-acbf-26d3a1750290","Fringe s01",true,'F6B8AB2B897D73D6C2DD94D1D966F22A6E7D3100');
 // 		RipperHelper::saveRipped("a807d4d6-9692-4360-95b0-1a31a5d7f33c","Dexter",true,'F5E4051B-A62BF35B');
- 		RipperHelper::saveRipped("a89f3f1e-a7fa-47f6-8406-7f30596a8d9a","Friends",true,'2CF2E61B-704F085E');
-		 
+// 		RipperHelper::saveRipped("a89f3f1e-a7fa-47f6-8406-7f30596a8d9a","Friends",true,'2CF2E61B-704F085E');
+		RipperHelper::saveRipped("a5824f98-a0c2-45b1-842e-c9dc30b066d9","Terminator 3",true,'739808EDDEF910C5EF9E6B999C3D75272698CB30');
+		
 		
 // 		$ws->addNewRipMovie("2a896712-f2ce-4a9c-945e-3aeee118d828","scary movie 4",true,'3FAF030E0DB6E6FDE7047B2AF443A425BBD76A0E');
 // 		$ws->addNewRipMovie("92e81461-123a-4e43-bdef-33c7687d5bf9","batman rises",true,'37617E6C0AFC6F4371714EAC977D186D2A2F1A50');
