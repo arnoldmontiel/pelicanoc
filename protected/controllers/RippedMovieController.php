@@ -119,6 +119,7 @@ class RippedMovieController extends Controller
 			}
 		}
 	}
+	//move to DuneHelper	
 	private function playDune($id)
 	{
 		$model = $this->loadModel($id);
