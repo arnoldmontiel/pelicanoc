@@ -10,8 +10,8 @@ class SettingsCommand extends CConsoleCommand  {
 
 		RipperHelper::updateRipperSettings();		
 		RipperHelper::checkForAnyDvdUpdate();
-		RipperHelper::sincronizeWithServer();
-		
+
+		PelicanoHelper::sincronizeWithServer();		
 		PelicanoHelper::setHeartBeat(2);//to PelicanoM
 		PelicanoHelper::sendExternalIPAddressToServer();
 		PelicanoHelper::getCustomerSettings();
