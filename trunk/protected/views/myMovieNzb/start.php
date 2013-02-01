@@ -64,7 +64,7 @@ $('#stopButton').click(function(){
    		type: 'GET',
    		url: '". MyMovieNzbController::createUrl('AjaxUseRemote') . "',
    		data: 'ir_code=BC43BF00',
- 	}).succes(function()
+ 	}).success(function()
  	{
 		window.location = '".MyMovieNzbController::createUrl('View', array('id'=>$model->Id))."'
 	}
