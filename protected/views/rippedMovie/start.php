@@ -64,8 +64,11 @@ $('#stopButton').click(function(){
    		type: 'GET',
    		url: '". RippedMovieController::createUrl('AjaxUseRemote') . "',
    		data: 'ir_code=BC43BF00',
- 	});
-	window.location = '".RippedMovieController::createUrl('View', array('id'=>$model->Id))."'
+ 	}).success(function()
+ 	{
+		window.location = '".RippedMovieController::createUrl('View', array('id'=>$model->Id))."'
+	}
+ 	);	
 	
 });
 
