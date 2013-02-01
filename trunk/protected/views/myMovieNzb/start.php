@@ -42,7 +42,7 @@
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#MyMovieStart', "
 	
-	ChangeBG('images/','".$model->myMovieDiscNzb->myMovieNzb->back_drop."');
+	ChangeBG('images/','".$model->myMovieDiscNzb->myMovieNzb->backdrop."');
 
 	$('#playButtonold').click(function(){
 		$.ajax({
