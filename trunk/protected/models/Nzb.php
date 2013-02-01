@@ -65,6 +65,7 @@ class Nzb extends CActiveRecord
 			array('Id, Id_my_movie_disc_nzb, Id_nzb_state', 'required'),
 			array('Id, Id_resource, Id_nzb_state, downloading, downloaded, requested, points, ready, sent', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc_nzb', 'length', 'max'=>200),
+			array('final_content_path', 'length', 'max'=>256),
 			array('url, path, file_name, subt_file_name, subt_url', 'length', 'max'=>255),
 			array('date, change_state_date', 'safe'),
 			// The following rule is used by search().
@@ -111,6 +112,8 @@ class Nzb extends CActiveRecord
 			'ready' => 'Ready',
 			'change_state_date' => 'Change State Date',
 			'sent' => 'Sent',
+			'final_content_path'=>'Path content',
+		
 		);
 	}
 
@@ -142,7 +145,8 @@ class Nzb extends CActiveRecord
 		$criteria->compare('ready',$this->ready);
 		$criteria->compare('change_state_date',$this->change_state_date,true);
 		$criteria->compare('sent',$this->sent);
-
+		$criteria->compare('final_content_path',$this->final_content_path,true);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
