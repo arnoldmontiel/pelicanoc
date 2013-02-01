@@ -84,7 +84,7 @@ class MyMovieNzbController extends Controller
 		{
 			$cmd = 'start_dvd_playback';
 		}
-		else if($model->Id_resource_type == 3)
+		else if($model->Id_resource_type == 1)
 		{
 			$cmd = 'start_file_playback';
 		}
