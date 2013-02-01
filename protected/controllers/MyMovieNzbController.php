@@ -101,7 +101,7 @@ class MyMovieNzbController extends Controller
 	{
 		$irCode = $_GET['ir_code'];
 		$setting = Setting::getInstance();
-		file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
+		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
 	}
 	
 	public function actionAjaxStart($id)
