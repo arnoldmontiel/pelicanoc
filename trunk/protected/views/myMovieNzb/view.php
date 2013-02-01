@@ -105,8 +105,14 @@
 		 <img alt="Download Started" src="images/downloading.png">
 		 </div>
 		 <div id="finish-display" style="display: none; float: left;padding: 5px 10px;">
-		 <img alt="Download Finished" src="images/downloaded.png">
 		 <?php
+		 echo CHtml::link( CHtml::image('images/play.png','Play' ,array(
+		 	 															 'title'=>'Play',
+		 	 													         'style'=>'height: 128px;width: 128px;',
+		 	 													         'id'=>'btnPlay',
+		 )
+		 ),RippedMovieController::createUrl('AjaxStart', array('id'=>$model->Id)));
+		 	
 		 //	 		echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
 		 // 			echo CHtml::link(
 		 // 			),array('http://DUNE/cgi-bin/do?cmd=start_file_playback&media_url=smb://ARNOLD-PC/COSAS/Back.to.the.Future.720.HDrip.H264.AAC.ITS-ALI.mp4'));
