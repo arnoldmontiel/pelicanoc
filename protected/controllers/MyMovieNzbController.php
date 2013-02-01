@@ -425,7 +425,7 @@ class MyMovieNzbController extends Controller
 	
 	public function loadModel($id)
 	{
-		$model=MyMovieNzbMovie::model()->findByPk($id);
+		$model=MyMovieNzb::model()->findByPk($id);
 		if($model===null)
 		throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
