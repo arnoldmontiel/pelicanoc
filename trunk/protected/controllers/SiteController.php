@@ -115,7 +115,7 @@ class SiteController extends Controller
 	
  		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
-		$dataProvider->pagination->pageSize= 8;
+		$dataProvider->pagination->pageSize= 32;
 		
 //		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
 //		$dataProviderSeries->pagination->pageSize= 4;
