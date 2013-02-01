@@ -111,7 +111,7 @@
 		 	 													         'style'=>'height: 128px;width: 128px;',
 		 	 													         'id'=>'btnPlay',
 		 )
-		 ),RippedMovieController::createUrl('AjaxStart', array('id'=>$model->Id)));
+		 ),MyMovieNzbController::createUrl('AjaxStart', array('id'=>$model->Id)));
 		 	
 		 //	 		echo CHtml::image("images/play.png",'Play',array('id'=>'play_button', 'style'=>'height: 128px;width: 128px;'));
 		 // 			echo CHtml::link(
