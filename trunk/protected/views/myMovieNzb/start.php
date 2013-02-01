@@ -64,9 +64,11 @@ $('#stopButton').click(function(){
    		type: 'GET',
    		url: '". MyMovieNzbController::createUrl('AjaxUseRemote') . "',
    		data: 'ir_code=BC43BF00',
- 	});
-	window.location = '".MyMovieNzbController::createUrl('View', array('id'=>$model->Id))."'
-	
+ 	}).succes(function()
+ 	{
+		window.location = '".MyMovieNzbController::createUrl('View', array('id'=>$model->Id))."'
+	}
+ 	);	
 });
 
 $('#prevButton').click(function(){
