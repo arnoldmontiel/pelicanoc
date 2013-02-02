@@ -27,7 +27,7 @@
 								window.location = url + param;
 	 								)
 								}
-								(
+								)
 								}',
 	 
 								//CloseCurtains();
