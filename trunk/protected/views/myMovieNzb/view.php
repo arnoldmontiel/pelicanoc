@@ -154,9 +154,9 @@
 	ChangeBG('images/','".$model->myMovieDiscNzb->myMovieNzb->backdrop."');
 	ShowDownload();
 	
-	$('.leftcurtain').addClass('showLeftCurtian');
-	$('.rightcurtain').addClass('showRightCurtian');
-	OpenCurtains(2000);
+// 	$('.leftcurtain').addClass('showLeftCurtian');
+// 	$('.rightcurtain').addClass('showRightCurtian');
+// 	OpenCurtains(2000);
 
 	function ShowDownload()
 	{
