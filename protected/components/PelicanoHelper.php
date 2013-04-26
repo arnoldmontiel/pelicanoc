@@ -421,6 +421,11 @@ class PelicanoHelper
 				}
 	
 			}
+			else
+			{
+				return;
+			}
+			$modelCommandStatus->setBusy(false);
 		}
 	
 	}
