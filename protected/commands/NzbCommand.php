@@ -75,8 +75,7 @@ class NzbCommand extends CConsoleCommand  {
 								} else {
 									// an error happened
 								}
-							} catch (Exception $e) {
-								throw $e;
+							} catch (Exception $e) {								
 								// an error happened
 							}
 						}
@@ -94,7 +93,6 @@ class NzbCommand extends CConsoleCommand  {
 									// an error happened
 								}
 							} catch (Exception $e) {
-								throw $e;
 								// an error happened
 							}
 						}
@@ -119,8 +117,7 @@ class NzbCommand extends CConsoleCommand  {
 										} else {
 											// an error happened
 										}
-									} catch (Exception $e) {
-										throw $e;
+									} catch (Exception $e) {										
 										// an error happened
 									}
 								}
@@ -144,7 +141,6 @@ class NzbCommand extends CConsoleCommand  {
 												// an error happened
 											}
 										} catch (Exception $e) {
-											throw $e;
 											// an error happened
 										}
 									}
@@ -160,7 +156,7 @@ class NzbCommand extends CConsoleCommand  {
 						$transaction->commit();
 				
 					} catch (Exception $e) {
-						$transaction->rollback();
+						$transaction->rollback();						
 					}
 				}
 				
