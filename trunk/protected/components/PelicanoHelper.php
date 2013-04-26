@@ -420,12 +420,7 @@ class PelicanoHelper
 					$modelCommandStatus->setBusy(false);
 				}
 	
-			}
-			else
-			{
-				return;
-			}
-			$modelCommandStatus->setBusy(false);
+			}			
 		}
 	
 	}
