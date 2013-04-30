@@ -1,9 +1,10 @@
-
 <div class="movie-title-index">
+	News
 	
-	
+	<div class="index-searchbox">
+		<input type="text" name="index_search" id="index_search" placeholder="<?php echo CHtml::decode("Search by title, actors, directors, genre...")?>" autocomplete="off">
+	</div>	
 </div>
-
 <div id="imdb_index" class="movie-index">
 
 <?php 
@@ -27,6 +28,11 @@ $this->widget('ext.isotope.Isotope',array(
 
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#Imdbdata_view', "
+$('#index_search').change(function(){	
+ 	var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
+ 	$('#search-filter').val(searchFilter); 	 	
+	$('#wall .items').infinitescroll('filterText');  
+});
 ");
 ?>
 
