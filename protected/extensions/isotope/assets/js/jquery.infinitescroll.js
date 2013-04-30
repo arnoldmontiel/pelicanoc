@@ -610,7 +610,7 @@
         		});
         	}
         	else
-        	{        		
+        	{        		        		
         		document.getElementById("current-filter").value = mediaTypeFilter;
         		this.retrieve();
         	}
@@ -622,7 +622,10 @@
         
         // Retrieve next set of content items
         retrieve: function infscr_retrieve(pageNum) {
-
+        	
+        	if(this.options == undefined) 
+        		return;
+        	
             var instance = this,
                 opts = instance.options,
                 path = opts.path,
