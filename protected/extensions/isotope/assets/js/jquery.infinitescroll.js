@@ -404,6 +404,23 @@
           
             this.element.isotope({ filter: currentFilter });
             
+            var locationUrl = null;
+            if(this.options != undefined)
+            	locationUrl = this.options.onClickLocation;
+            
+	        this.element.find('.post').each(function(i){
+	        	
+	        	$(this).find('img').click(function(){
+	        		if(locationUrl != null)
+	        		{	        			
+		        		var id = $(this).attr('imgId');
+		        		var url = locationUrl + '&id=' + id;
+		        		window.location = url;
+		        		return false;
+	        		}
+	        	});
+	        });
+	        
             if(resultSize == 0)
             	this.retrieve();
             
