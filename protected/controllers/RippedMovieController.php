@@ -313,7 +313,7 @@ class RippedMovieController extends Controller
 			$modelNzbCurrent = Nzb::model()->findByAttributes(array('file_name'=>$playbackUrlPart[3] . '.nzb'));
 			
 			if(isset($modelNzbCurrent))
-				$this->redirect(array('myMovieNzb/AjaxStart','id'=>$modelNzbCurrent->Id));
+				$this->redirect(array('myMovieNzb/current','id'=>$modelNzbCurrent->Id));
 		}
 
 		$this->render('duneRemoteControl');
