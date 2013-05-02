@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
     <div class="well" title="<?php echo $data->myMovieDiscNzb->myMovieNzb->original_title?>">
         <?php
 		 echo CHtml::image("images/".$data->myMovieDiscNzb->myMovieNzb->poster,'details',
-				array('id'=>'MyMovieNzb_Poster_button_'.$data->Id, 'style'=>'height: 260px;width: 185px;'));
+				array('id'=>'MyMovieNzb_Poster_button_'.$data->Id, 'imgId'=>$data->Id, 'style'=>'height: 260px;width: 185px;'));
 		?>
     </div>
 </div>
