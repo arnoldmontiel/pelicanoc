@@ -311,7 +311,7 @@ class RippedMovieController extends Controller
 			$playbackUrl = str_replace('//','/',$playbackUrl);
 			$playbackUrlPart = explode('/',$playbackUrl);
 			$modelNzbCurrent = Nzb::model()->findByAttributes(array('Id_my_movie_disc_nzb'=>$playbackUrlPart[3]));
-	
+			echo $modelNzbCurrent->Id;
 			if(isset($modelNzbCurrent))
 				$this->redirect(array('myMovieNzb/AjaxStart','id'=>$modelNzbCurrent->Id));
 		}
