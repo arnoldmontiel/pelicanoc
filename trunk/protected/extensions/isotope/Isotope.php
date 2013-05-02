@@ -28,6 +28,8 @@ class Isotope extends CListView
      */
     public $options=array();
 
+    public $onClickLocation=null;
+    
     /**
      * switch  infinite scroll
      * @var bool
@@ -108,7 +110,7 @@ class Isotope extends CListView
 
         $this->infiniteOptions['navSelector']="#{$this->itemContainerId} .{$this->pagerCssClass}";
         $this->infiniteOptions['nextSelector']="#{$this->itemContainerId} .{$this->pagerCssClass} .next a";
-
+        $this->infiniteOptions['onClickLocation']=$this->onClickLocation;
         $this->infiniteOptions['itemSelector']='.'.$this->itemSelectorClass;
         $this->infiniteOptions['debug']=$debug;
         return CJavaScript::encode($this->infiniteOptions);
