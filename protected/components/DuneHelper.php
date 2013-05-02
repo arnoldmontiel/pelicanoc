@@ -20,6 +20,21 @@ class DuneHelper
 		return $current_progress_bar;
 	}
 	
+	static public function getPlaybackUrl()
+	{
+		$modelDune = self::getState();
+		
+		$playbackUrl = null;
+		if(isset($modelDune))
+		{
+			if($modelDune->playback_state == "playing")
+			{
+				$playbackUrl = $modelDune->playback_url;
+			}
+		}
+		return $playbackUrl;
+	}
+	
 	private function getState()
 	{
 		$modelDune = null;
