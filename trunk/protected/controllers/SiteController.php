@@ -113,6 +113,17 @@ class SiteController extends Controller
 	
 // 		PelicanoHelper::sendPendingNzbStates();
 	
+		$playbackUrl = DuneHelper::getPlaybackUrl();				
+		if(isset($playbackUrl))
+		{
+			$playbackUrl = str_replace('//','/',$playbackUrl);
+			$playbackUrlPart = explode('/',$playbackUrl);
+			$modelNzbCurrent = Nzb::model()->findByAttributes(array('Id_my_movie_disc_nzb'=>$playbackUrlPart[3]));
+			
+			if(isset($modelNzbCurrent))
+				$this->redirect(array('myMovieNzb/AjaxStart','id'=>$modelNzbCurrent->Id));			
+		}
+		
  		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
 		$dataProvider->pagination->pageSize= 32;
