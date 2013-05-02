@@ -8,6 +8,8 @@
 		<?php
 		echo CHtml::imageButton('images/player_popupmenu.png', array('id'=>'popUpMenuButton'));
 		echo CHtml::imageButton('images/player_return.png', array('id'=>'returnButton'));
+		echo CHtml::imageButton('images/player_subt.png', array('id'=>'subtButton'));
+		echo CHtml::imageButton('images/player_audio.png', array('id'=>'audioButton'));
 		?>
 	</div>				 
 	
@@ -156,6 +158,22 @@ $('#rightButton').click(function(){
    		type: 'GET',
    		url: '". MyMovieNzbController::createUrl('AjaxUseRemote') . "',
    		data: 'ir_code=E718BF00',
+ 	});
+});
+
+$('#subtButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". MyMovieNzbController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=AB54BF00',
+ 	});
+});
+
+$('#audioButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". MyMovieNzbController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=BB44BF00',
  	});
 });
 
