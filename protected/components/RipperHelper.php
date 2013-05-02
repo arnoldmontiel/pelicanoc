@@ -185,6 +185,11 @@ class RipperHelper
 					
 					//Poster
 					$modelMyMovie->poster_original = self::getPoster($data->MovieData);
+					if($modelMyMovie->poster_original=="")
+					{
+						$modelMyMovie->poster_original = self::getCovers($data);
+					
+					}
 					$modelMyMovie->poster = self::getImage($modelMyMovie->poster_original, $idMyMovie);
 					
 					//Backdrop
@@ -450,6 +455,15 @@ class RipperHelper
 				return 1;
 		}
 		return 0;
+	}
+	
+	private function getCovers($xml)
+	{
+		if(!empty($xml->Covers))
+		{
+			return (string)$xml->Covers->Front['Medium'];
+		}
+		return "";
 	}
 	
 	private function getPoster($xml)
