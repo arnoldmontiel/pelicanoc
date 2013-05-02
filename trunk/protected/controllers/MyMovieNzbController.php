@@ -116,4 +116,11 @@ class MyMovieNzbController extends Controller
 		}
 	}
 	
+	public function actionCurrent($id)
+	{
+		$this->render('start',array(
+						'model'=>$this->loadModel($id),
+		));
+	}
+	
 }
