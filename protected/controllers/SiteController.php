@@ -116,6 +116,7 @@ class SiteController extends Controller
 		$playbackUrl = DuneHelper::getPlaybackUrl();				
 		if(isset($playbackUrl))
 		{
+			echo "dentrooooooooooooo";
 			$playbackUrl = str_replace('//','/',$playbackUrl);
 			$playbackUrlPart = explode('/',$playbackUrl);
 			$modelNzbCurrent = Nzb::model()->findByAttributes(array('Id_my_movie_disc_nzb'=>$playbackUrlPart[3]));
@@ -123,7 +124,7 @@ class SiteController extends Controller
 			if(isset($modelNzbCurrent))
 				$this->redirect(array('myMovieNzb/AjaxStart','id'=>$modelNzbCurrent->Id));			
 		}
-		
+		echo "No entreeeeeeee";
  		$modelNzb = new Nzb;
 		$dataProvider= $modelNzb->searchHomeOrdered();
 		$dataProvider->pagination->pageSize= 32;
