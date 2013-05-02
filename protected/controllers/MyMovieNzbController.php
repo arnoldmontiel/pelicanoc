@@ -118,6 +118,8 @@ class MyMovieNzbController extends Controller
 	
 	public function actionCurrent($id)
 	{
+		$this->showMenu = false;
+		$this->showBrowsingBox = false;
 		$this->render('start',array(
 						'model'=>$this->loadModel($id),
 		));
