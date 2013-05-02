@@ -26,7 +26,7 @@
 
 	<div id="header">
 		<div id="logo">
-			<?php echo CHtml::encode(Yii::app()->name); ?>
+			<?php echo CHtml::link(CHtml::encode(Yii::app()->name),array('site/index')); ?>
 			<?php //echo CHtml::image("images/logo_pelicano.png","Pelicano",array("style"=>"width:100px;height:100px;"));?>
 			 
 		</div>
@@ -117,7 +117,7 @@
 			),array('/site/index'));
 		}
 		echo CHtml::link( CHtml::image("images/remote_control.png",'movies',array('id'=>'remote_control', 'style'=>'height: 128px;width: 128px;float:right;')
-		),array('/site/logout'));
+		),array('/rippedMovie/duneRemoteControl'));
 		?>				
 		<?php 
 		?>

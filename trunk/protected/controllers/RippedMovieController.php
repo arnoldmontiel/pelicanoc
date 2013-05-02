@@ -305,6 +305,17 @@ class RippedMovieController extends Controller
 		$this->showMenu = false;
 		$this->showBrowsingBox = false;
 		
+		$playbackUrl = DuneHelper::getPlaybackUrl();		
+		if(isset($playbackUrl))
+		{
+			$playbackUrl = str_replace('//','/',$playbackUrl);
+			$playbackUrlPart = explode('/',$playbackUrl);
+			$modelNzbCurrent = Nzb::model()->findByAttributes(array('Id_my_movie_disc_nzb'=>$playbackUrlPart[3]));
+	
+			if(isset($modelNzbCurrent))
+				$this->redirect(array('myMovieNzb/AjaxStart','id'=>$modelNzbCurrent->Id));
+		}
+
 		$this->render('duneRemoteControl');
 	}
 	
