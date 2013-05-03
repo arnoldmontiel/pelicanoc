@@ -65,14 +65,15 @@
 					$("#" + id).find(".id_rippedMovie").each(
 						function(index, item){
 							$("#Imdbdata_Poster_button_" + $(item).val()).click(function(){
-										var url = "'.RippedMovieController::CreateUrl('rippedMovie/view') .'";
+
+							var url = "'.RippedMovieController::CreateUrl('rippedMovie/view') .'";
 										var param = "&id="+$(item).val();
 										window.location = url + param;
 										return false;
-	 )
-								}
-								)
-								}',
+								}			
+	 						);						
+						})
+						}',
 	 
 								//CloseCurtains();
 								

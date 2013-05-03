@@ -25,7 +25,9 @@
 								var url = "'.RippedMovieController::CreateUrl('rippedMovie/view') .'";
 								var param = "&id="+$(item).val();
 								window.location = url + param;
-	 								)
+	 								
+								}
+								);
 								}
 								)
 								}',
