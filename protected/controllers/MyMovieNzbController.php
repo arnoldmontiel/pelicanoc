@@ -64,11 +64,34 @@ class MyMovieNzbController extends Controller
 			$this->fromPageNumber=$_GET['currentPage'];
 		}
 		$model = Nzb::model()->findByPk($id);
-
+				
 		
-		$this->render('view',array(
-				'model'=>$model,
-		));
+		if(isset($model) && $model->myMovieDiscNzb->myMovieNzb->is_serie == 1)
+		{
+			$page = "viewSerie";
+			$criteria=new CDbCriteria;
+			$criteria->select = "mms.season_number, t.episode_number, t.description";
+			$criteria->join = "INNER JOIN disc_episode_nzb den on (den.Id_my_movie_episode = t.Id)
+								INNER JOIN my_movie_season mms on (t.Id_my_movie_season = mms.Id)";
+			$criteria->addCondition('den.Id_my_movie_disc_nzb = "'. $model->Id_my_movie_disc_nzb.'"');
+			
+			$dataProvider=new CActiveDataProvider('MyMovieEpisode', array(
+					    'criteria'=>$criteria,
+					    'pagination'=>array(
+					        'pageSize'=>20,
+			),
+			));
+			$this->render('viewSerie',array(
+										'model'=>$model,
+										'dataProvider'=>$dataProvider,
+			));
+		}
+		else 
+		{
+			$this->render('view',array(
+							'model'=>$model,
+			));
+		}		
 	}
 	//move to DuneHelper
 	private function playDune($id)
