@@ -1044,3 +1044,20 @@ div.customer-name
     margin-top: 20px;
     font-size: 17px;
 }
+div.image-over-poster
+{
+	position: absolute;
+	background-color: #333;
+	opacity: .5;
+	filter: alpha(opacity=50);
+	text-align: center;
+	bottom: 3px;
+	left: 0;
+	width: 100%;
+	color: #fff;
+	padding: 2px 0;
+	height: 20px;
+	line-height: 1.65em;
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 13px;
+}

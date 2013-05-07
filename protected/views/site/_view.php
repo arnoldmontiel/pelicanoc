@@ -20,5 +20,10 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		 echo CHtml::image("images/".$data->myMovieDiscNzb->myMovieNzb->poster,'details',
 				array('id'=>'MyMovieNzb_Poster_button_'.$data->Id, 'imgId'=>$data->Id, 'style'=>'height: 260px;width: 185px;'));
 		?>
+		<?php if ($data->myMovieDiscNzb->myMovieNzb->is_serie):?>
+			<div class="image-over-poster">
+  				<?php echo $data->myMovieDiscNzb->name;?>
+			</div>
+		<?php endif;?>
     </div>
 </div>
