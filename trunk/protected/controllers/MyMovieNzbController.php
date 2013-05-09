@@ -99,15 +99,15 @@ class MyMovieNzbController extends Controller
 		$model = $this->loadModel($id);
 		$setting = Setting::getInstance();
 	
-		if($model->Id_resource_type == 2)
+		if($model->Id_resource_type == 1)
 		{
 			$cmd = 'start_bluray_playback';
 		}
-		else if($model->Id_resource_type == 3)
+		else if($model->Id_resource_type == 2)
 		{
 			$cmd = 'start_dvd_playback';
 		}
-		else if($model->Id_resource_type == 1)
+		else if($model->Id_resource_type > 2)
 		{
 			$cmd = 'start_file_playback';
 		}
