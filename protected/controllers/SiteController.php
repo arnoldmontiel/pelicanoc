@@ -113,10 +113,9 @@ class SiteController extends Controller
 	
 // 		PelicanoHelper::sendPendingNzbStates();
 
-		
- 		$modelNzb = new Nzb;
-		$dataProvider= $modelNzb->searchHomeOrdered();
-		$dataProvider->pagination->pageSize= 32;
+		$modelMovies = new Movies();
+		$dataProvider= $modelMovies->search();
+		$dataProvider->pagination->pageSize= 12;
 		
 //		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
 //		$dataProviderSeries->pagination->pageSize= 4;
@@ -125,6 +124,19 @@ class SiteController extends Controller
 //					'dataProviderSeries'=>$dataProviderSeries,
 		));
 		
+	}
+	
+	public function actionIndexSerie()
+	{
+	
+		$modelSeries = new Series();
+		$dataProvider= $modelSeries->search();
+		$dataProvider->pagination->pageSize= 12;
+	
+		$this->render('indexSerie',array(
+						'dataProvider'=>$dataProvider,
+		));
+	
 	}
 	/**
 	* This is the default 'music' action that is invoked
