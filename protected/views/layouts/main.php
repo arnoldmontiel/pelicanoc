@@ -4,257 +4,173 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" media="screen" />	
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.icon-large.min.css" media="stylesheet" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	
+	
+	<!-- isotope -->
+	<link href="css/isotope.css" rel="stylesheet" media="screen">
+	<!--<link href="css/pelicano.css" rel="stylesheet" media="screen">
+	-->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+
+	<?php include('estilos.php');?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/tools.js");?>
 	
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
+<script type="text/javascript">	
+$(document).ready(function(){
+	
+	$('#nav li').removeClass('active');
+	if(document.URL.indexOf('Serie') > 0)
+		$('#li-serie').addClass('active');
+	else if(document.URL.indexOf('marketplace') > 0)
+		$('#li-marketplace').addClass('active');
+	else if(document.URL.indexOf('download') > 0)
+		$('#li-download').addClass('active');
+	else 
+		$('#li-movie').addClass('active');
+
+	$('#main-search').change(function(){
+		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
+	 	$('#search-filter').val(searchFilter); 	 	
+		$('#wall .items').infinitescroll('filterText');  
+	});
+
+	$('#nav a').click(function(){		
+		window.location = $(this).attr('href');
+		return false;
+	});
+	
+	$('#filtroGenero button').click(function(){
+		  var selector = $(this).attr('data-filter');  
+		  $('#media-type-filter').val(selector);
+		  $('#current-filter').val(selector);
+		  
+		  //clean search filter
+		  $('#search-filter').val(null);
+		  $('#index_search').val(null);
+
+		  $('#wall .items').infinitescroll('retrieve');  
+		  $('#wall .items').isotope({ filter: selector });
+		  $('#wall .items').isotope('shuffle');
+		  return false;
+		});
+	
+    $('#MenuLogo').click(function(){    	
+	  window.location = <?php echo '"'. SiteController::createUrl('site/index') . '"'; ?>;    	
+	  return false;
+	});
+
+});
+   
+    
+</script>
 </head>
 
-<body>
-	<div class="leftcurtain hideClass"><img src="images/frontcurtain.jpg"/></div>
-	<div class="rightcurtain hideClass"><img src="images/frontcurtain.jpg"/></div>
-
-<div class="container" id="page">
-
-	<div id="header">
-		<div id="logo">
-			<?php echo CHtml::link(CHtml::encode(Yii::app()->name),array('site/index')); ?>
-			<?php //echo CHtml::image("images/logo_pelicano.png","Pelicano",array("style"=>"width:100px;height:100px;"));?>
-			 
-		</div>
-		<div class="customer-name">
-			 <?php
+<input id="media-type-filter" type="hidden" name="media-type-filter" value="*">
+<input id="current-filter" type="hidden" name="current-filter" value="*">
+<input id="search-filter" type="hidden" name="search-filter" value="">
+<body id="screenHome">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner" id="Menu">
+    <div class="container"> 
+    	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+    		<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> 
+    	</a> 
+    	<a class="brand" id="MenuLogo" href="#">Pelicano</a>
+      <div class="nav-collapse collapse">
+        <ul id="nav" class="nav">
+          <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
+          <li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexSerie') ?>">Mis Series</a></li>        
+		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('rippedMovie/index') ?>">Marketplace</a></li>
+          <li id="li-download"><a href="#">Descargas</a></li>
+        </ul>
+        <?php 
 			 	$customer = Setting::getInstance()->getCustomer();
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
-			 	//echo $customer->name.' '.$customer->last_name . ' - ' . $username;
-			 	echo $username;
-			 	if(isset($customer))
-			 		echo ' ('.$customer->current_points.' points)';
-			 	?>
-		</div>
-		<?php if ($this->showBrowsingBox):?>
-		<div class="browsingbox">
-			<div class="browsingbox-prev">
-				<?php
-				echo CHtml::link(CHtml::image("images/back-black.png",'details',array('id'=>'site_prev', 'style'=>'height: 60px;width: 60px;')
-				),Yii::app()->request->getUrlReferrer());
-				//),Yii::app()->request->getUrlReferrer().'&pageNumber='.$this->fromPageNumber);
-				?>
-			</div>
-			<div class="browsingbox-next">
-				<?php
-				echo CHtml::link(CHtml::image("images/next-black.png",'details',array('id'=>'site_next', 'style'=>'height: 60px;width: 60px;')
-				),Yii::app()->request->getUrlReferrer());
-				?>
-			</div>
-		</div>
-		<?php endif?>
-	</div><!-- header -->
-	<?php if ($this->showMenu):?>
-	<div id="mainmenu">
-		<?php
-		if(Yii::app()->user->checkAccess('SiteIndex') && ! Yii::app()->user->checkAccess('Installer'))
-		{ 
-			echo CHtml::link( CHtml::image("images/home.png",'movies',array('id'=>'home_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/site/index'));
-		}		
-		if(Yii::app()->user->checkAccess('ImdbdataIndex'))
-		{ 
-			echo CHtml::link( CHtml::image("images/movies.png",'movies',array('id'=>'movie_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/myMovieNzb/index'));
-		}
-		if(Yii::app()->user->checkAccess('ImdbdataNews'))
-		{ 
-			echo CHtml::link( CHtml::image("images/news.png",'movies',array('id'=>'news_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/imdbdata/news'));
-		}
-		if(Yii::app()->user->checkAccess('RippedMovieIndex'))
-		{ 
-			echo CHtml::link( CHtml::image("images/series.png",'movies',array('id'=>'series_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/rippedMovie/indexSerie'));
-		}
-		if(Yii::app()->user->checkAccess('SiteMusic'))
-		{ 
-			echo CHtml::link( CHtml::image("images/music.png",'movies',array('id'=>'music_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/site/music'));
-		}
-		if(Yii::app()->user->checkAccess('SabnzbdIndex'))
-		{ 
-			echo CHtml::link( CHtml::image("images/downloading-menu.png",'movies',array('id'=>'downloading_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/sabnzbd/index'));
-		}
-		if(Yii::app()->user->checkAccess('ImdbdataStored'))
-		{
-			echo CHtml::link( CHtml::image("images/stored.png",'movies',array('id'=>'stored_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/imdbdata/stored'));
-		}
-		if(false && Yii::app()->user->checkAccess('NzbRequested'))
-		{
-			echo CHtml::link( CHtml::image("images/cart.png",'movies',array('id'=>'cart_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/nzb/requested'));
-		}
-		if(Yii::app()->user->checkAccess('RippedMovieIndex'))
-		{
-			echo CHtml::link( CHtml::image("images/ripped-bluray.png",'movies',array('id'=>'ripped_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/rippedMovie/index'));
-		}
-		if(Yii::app()->user->checkAccess('RippedMovieIndexAdult'))
-		{
-			echo CHtml::link( CHtml::image("images/ripped-bluray-adult.png",'movies',array('id'=>'ripped_adult_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/rippedMovie/indexAdult'));
-		}
-		if(Yii::app()->user->checkAccess('Installer'))
-		{
-			echo CHtml::link( CHtml::image("images/install.png",'movies',array('id'=>'install_button', 'style'=>'height: 128px;width: 128px;')
-			),array('/site/index'));
-		}
-		echo CHtml::link( CHtml::image("images/remote_control.png",'movies',array('id'=>'remote_control', 'style'=>'height: 128px;width: 128px;float:right;')
-		),array('/rippedMovie/duneRemoteControl'));
-		?>				
-		<?php 
 		?>
-	</div><!-- mainmenu -->
-	<?php endif?>
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+        <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>
 
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-	</div><!-- footer -->
-
-</div><!-- page -->
+        <form class="navbar-search pull-right">
+          <input type="text" id="main-search" class="search-query" placeholder="Buscar...">
+        </form>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+<div class="navbar navbar-fixed-top  navbarSecond">
+              <div class="navbar-inner">
+                <div class=" row-fluid visible-desktop visible-tablet btn-toolbar">
+    <div class="span6">
+      <div id="filtroGenero" class="btn-group">
+        <button class="btn" data-filter="*">Todas</button>
+        <button class="btn" data-filter=".comedy">Comedia</button>
+        <button class="btn" data-filter=".drama">Drama</button>
+        <button class="btn" data-filter=".romance">Romance</button>
+        <button class="btn" data-filter=".fantasy">Fantasia</button>
+      </div>
+      <!-- /btn group -->
+    </div>
+    <!-- /span6 -->
+    <div class="span6 pagination-right">
+      <div id="filtroEdad" class="btn-group">
+        <button class="btn">ATP</button>
+        <button class="btn">Mayores 13</button>
+        <button class="btn">Mayores 16</button>
+      </div>
+      <!-- /btn group -->
+    </div>
+    <!-- /span6 -->
+  </div>
+  <!-- /row -->     
+              </div>
+            </div>
+<div class="container" >
+  <div class=" row-fluid visible-phone btn-toolbar">
+    <div class="span12">
+      <button class="btn dropdown-toggle" data-toggle="dropdown">G&eacute;nero <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Todos</a></li>
+        <li><a href="#">Comedia</a></li>
+        <li><a href="#">Drama</a></li>
+        <li><a href="#">Romance</a></li>
+        <li><a href="#">Adultos</a></li>
+      </ul>
+      <button class="btn dropdown-toggle" data-toggle="dropdown">P&uacute;blico <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">ATP</a></li>
+        <li><a href="#">Mayores 13</a></li>
+        <li><a href="#">Mayores 16</a></li>
+      </ul>
+    </div>
+    <!-- /span12 -->
+  </div>
+  <!-- /row -->
+ 
+ 
+ <?php
+ //$descargar='no'; 
+ //include('movieDetails.php'); 
+ //include('serieDetails.php'); ?>
+ 
+  <div class="row-fluid">
+    <div class="span12">
+    
+      	<?php echo $content; ?>        
+    
+      <!-- /content -->
+    </div>
+    <!-- /span12 -->
+  </div>
+  <!-- /row -->
+</div>
+<!-- /container -->
 
 </body>
 </html>
-		<?php
-		Yii::app()->clientScript->registerScript('main', "
-			$('#movie_button').hover(
-			function () {
-				$(this).attr('src','images/movies-light.png');
-				//$(this).addClass('menu-hover');
-			  },
-			  function () {
-				$(this).attr('src','images/movies.png');
-				//$(this).removeClass('menu-hover');
-				}
-			);
-			$('#news_button').hover(
-			function () {
-				$(this).attr('src','images/news-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/news.png');
-			  }
-			);
-			$('#downloading_button').hover(
-			function () {
-				$(this).attr('src','images/downloading-menu-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/downloading-menu.png');
-			  }
-			);
-			$('#home_button').hover(
-			function () {
-				$(this).attr('src','images/home-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/home.png');
-			  }
-			);
-			$('#music_button').hover(
-			function () {
-				$(this).attr('src','images/music-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/music.png');
-			  }
-			);
-			$('#stored_button').hover(
-			function () {
-				$(this).attr('src','images/stored-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/stored.png');
-			  }
-			);
-			$('#series_button').hover(
-			function () {
-				$(this).attr('src','images/series-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/series.png');
-			  }
-			);
-			$('#cart_button').hover(
-			function () {
-				$(this).attr('src','images/cart-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/cart.png');
-			  }
-			);
-			$('#ripped_button').hover(
-			function () {
-				$(this).attr('src','images/ripped-bluray-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/ripped-bluray.png');
-			  }
-			);
-			$('#ripped_adult_button').hover(
-			function () {
-				$(this).attr('src','images/ripped-bluray-adult-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/ripped-bluray-adult.png');
-			  }
-			);
-			$('#logout_button').hover(
-			function () {
-				$(this).attr('src','images/logout-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/logout.png');
-			  }
-			);
-			$('#install_button').hover(
-			function () {
-				$(this).attr('src','images/install-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/install.png');
-			  }
-			);
-			$('#site_prev').hover(
-			function () {
-				$(this).attr('src','images/back-black-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/back-black.png');
-			  }
-			);
-			$('#site_next').hover(
-			function () {
-				$(this).attr('src','images/next-black-light.png');
-			  },
-			  function () {
-				$(this).attr('src','images/next-black.png');
-			  }
-			);		
-		");
-		?>
