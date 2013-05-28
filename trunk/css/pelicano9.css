@@ -1,0 +1,169 @@
+/*!
+ * Pelicano v1.1.1
+ *
+ * Copyright 2013 
+ */
+
+body {
+  padding-top: 40px;
+  background-color:#333;
+}
+.modal{ color:#333;}
+#content{ margin-left:0px;}
+.element{
+	width:157px;
+	height:260px;
+	background-color:none !important;
+	background:none !important;
+	}
+	.element *{
+position:relative !important;
+	}
+	.peliIcon{ 
+position:absolute !important;
+}
+.peliTitulo {  
+    visibility: hidden;  
+  }
+.peliPlay{
+top:165px !important;
+left:50px !important;
+	font-size: 105px;
+}
+.peliDetail{
+top:5px !important;
+left:130px !important;
+	font-size: 50px;
+}
+
+	.peliTitulo{ color:#ccc; margin-top:-5px;}
+	.pagination{ margin:5px 0px;}
+
+	.navbar-inner{ border:1px solid magenta !important; padding-left:10px !important;}
+	.navbar a{ font-size:1.15em;}
+
+  @media only screen and (max-width: 767px) {  
+   .mobile-two .span2 { width: 50% !important; float: left; padding: 0 15px; }
+
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+	.element{
+	width:157px;
+	height:240px;
+	background-color:none !important;
+	background:none !important;
+	}
+	.navbar-inner{  border:1px solid orange !important;}
+
+	.peliAfiche{
+	width:157px;
+	height:220px;
+	}
+	}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 980px) and (max-width: 1199px) { 
+
+.navbar-inner{  border:1px solid magenta !important;}
+
+	}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+
+.navbar-inner{  border:1px solid red !important;}
+
+
+.element{
+	width:157px;
+	height:240px;
+	background-color:none !important;
+	background:none !important;
+	}
+	.peliAfiche{
+	width:157px;
+	height:220px;
+	}
+	}
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) { 
+.navbar-inner{  border:1px solid blue!important;}
+input.search-query{ width:190px;}
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+.navbar-inner{  border:1px solid yellow !important;}
+
+.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container{ width:100% !important;}
+
+
+.element{
+	width:168px; 
+	height:260px;
+	background-color:none !important;
+	background:none !important;
+	}
+	.peliAfiche{
+	width:168px;
+	height:240px;
+	}
+	}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+.element{
+	width:120px; 
+	height:230px;
+	background-color:none !important;
+	background:none !important;
+	}
+	.peliAfiche{
+	width:120px;
+	height:210px;
+	}
+	}
+	
+	@font-face {
+font-family: 'EntypoRegular';
+src: url('entypo-webfont.eot');
+src: url('entypo-webfont.eot?#iefix') format('embedded-opentype'),
+     url('entypo-webfont.woff') format('woff'),
+     url('entypo-webfont.ttf') format('truetype'),
+     url('entypo-webfont.svg#EntypoRegular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+.iconFontButton{
+		font-family: 'EntypoRegular';
+		margin:0;
+		border:0;
+		padding:0;
+}
+.iconClose{
+		font-size:50px;
+		0 -1px 0 rgba(0, 0, 0, 0.25)
+}
+.iconPlay{
+		font-size:60px;
+		line-height:5px;
+		vertical-align:top;
+}
+
+.modalDetail{ width:85%;
+margin-left:0px; left:7%;}
+.modal-backdrop{ background-image:url(../images/01back.jpg);}
+/*.aficheDetail{ height:380px !important; width:282px !important;}*/
+.aficheDetail{ height:100% !important; width:100% !important;}
+.detailMainGroup{
+	border-bottom:1px solid #ccc; color:#666;}
+.detailMain { font-size:120%;  border-left:1px solid #ccc;#ccc; padding-top:3px;}
+.detailMainFirst{ border-left:none;}
+
+.detailSecondGroup{
+	border-bottom:1px solid #ccc; color:#666;}
+.detailSecond { font-size:100%; border-left:1px solid #ccc;#ccc; padding-top:4px; padding-left:5px;}
+.detailSecondFirst{ border-left:none;}
+
+.container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
