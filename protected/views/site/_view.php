@@ -1,7 +1,20 @@
 <?php 
 
-$mediaType = preg_replace('/\W/', '-',strtolower($data->myMovieDiscNzb->myMovieNzb->media_type));
-$title = preg_replace('/\W/', '-',strtolower($data->myMovieDiscNzb->myMovieNzb->original_title));
+if($data->source_type == 1)
+{
+	$model = MyMovieDiscNzb::model()->findByPk($data->Id_my_movie_disc_nzb);
+	$model = $model->myMovieNzb;
+} 
+else 
+{
+	$model = MyMovieDisc::model()->findByPk($data->Id_my_movie_disc);
+	$model = $model->myMovie;
+}
+
+$genre = preg_replace('/\W/', ' ',strtolower($model->genre));
+$title = preg_replace('/\W/', '-',strtolower($model->original_title));
+$moviePoster = $model->poster;
+
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	$('#MyMovieNzb_Poster_button_$data->Id').click(function(){
@@ -14,16 +27,13 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
 ?>
 
-<div class="post item <?php echo $mediaType;?> <?php echo $title;?>" style="220px" title="<?php echo $title;?>">
-    <div class="well" title="<?php echo $data->myMovieDiscNzb->myMovieNzb->original_title?>">
+        
+<div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
+	<a style="position:relative;" data-toggle="modal" href="#myModal" class="">    
         <?php
-		 echo CHtml::image("images/".$data->myMovieDiscNzb->myMovieNzb->poster,'details',
-				array('id'=>'MyMovieNzb_Poster_button_'.$data->Id, 'imgId'=>$data->Id, 'style'=>'height: 260px;width: 185px;'));
-		?>
-		<?php if ($data->myMovieDiscNzb->myMovieNzb->is_serie):?>
-			<div class="image-over-poster">
-  				<?php echo $data->myMovieDiscNzb->name;?>
-			</div>
-		<?php endif;?>
-    </div>
+		 echo CHtml::image("images/".$moviePoster,'details',
+				array('id'=>'MyMovieNzb_Poster_button_'.$data->Id, 'imgId'=>$data->Id, 'class'=>'peliAfiche'));
+		?>    
+    </a>
+    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $title;?></div>
 </div>
