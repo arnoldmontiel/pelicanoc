@@ -115,7 +115,7 @@ class SiteController extends Controller
 
 		$modelMovies = new Movies();
 		$dataProvider= $modelMovies->search();
-		$dataProvider->pagination->pageSize= 12;
+		$dataProvider->pagination->pageSize= 11;
 		
 //		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
 //		$dataProviderSeries->pagination->pageSize= 4;
@@ -138,6 +138,89 @@ class SiteController extends Controller
 		));
 	
 	}
+	
+	public function actionAjaxMovieShowDetail()
+	{
+		$id = $_POST['id'];
+		$sourceType = $_POST['sourceType'];
+		
+		$criteria=new CDbCriteria;
+		
+		if($sourceType == 1)
+		{
+			$model = MyMovieNzb::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');			
+			$criteria->order = 't.Id ASC';			
+		}
+		else
+		{
+			$model = MyMovie::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+		}
+		
+		$casting = $this->getCasting($criteria);
+		
+		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting));
+	}
+	
+	public function actionAjaxSerieShowDetail()
+	{
+		$id = $_POST['id'];
+		$sourceType = $_POST['sourceType'];
+	
+		$criteria=new CDbCriteria;
+	
+		if($sourceType == 1)
+		{
+			$model = MyMovieNzb::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+		}
+		else
+		{
+			$model = MyMovie::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+		}
+	
+		$casting = $this->getCasting($criteria);
+		
+		$this->renderPartial('_serieDetails',array('model'=>$model, 'casting'=>$casting));
+	}
+	
+	private function getCasting($criteria)
+	{
+		$casting = array();
+		$persons = Person::model()->findAll($criteria);
+		
+		$actors = "";
+		$director = "";
+		$actorCount = 0;
+		foreach($persons as $person)
+		{
+			if($person->type == 'Actor' && $actorCount < 6)
+			{
+				$actors = $actors . $person->name . ' / ';
+				$actorCount++;
+			}
+		
+			if($person->type == 'Director')
+			$director = $person->name;
+		}
+		
+		$actors = rtrim($actors, " / ");
+		
+		$casting['actors'] = $actors;
+		$casting['director'] = $director;
+		
+		return $casting;
+	}
+	
 	/**
 	* This is the default 'music' action that is invoked
 	* when an action is not explicitly requested by users.
