@@ -78,11 +78,6 @@
     
     </div>
     <div class="modal-footer">
-    <?php
-	if ($descargar=='no'){ ?>
-      <button class="btn btn-primary btn-large"><span class="iconFontButton iconPlay">{</span> Ver Pel&iacute;cula</button>
-	  <?php } else if ($descargar == 'si'){?>
-		    <button class="btn btn-primary btn-large"><span class="iconFontButton iconPlay">w</span>Descargar</button>
-		  <?php }?>
+      <button class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>	  
     </div>
   </div>
