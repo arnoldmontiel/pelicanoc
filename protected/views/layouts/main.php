@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html >
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 dramaal//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
-
-	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" media="screen" />	
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.icon-large.min.css" media="stylesheet" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	
-	
-	<!-- isotope -->
-	<link href="css/isotope.css" rel="stylesheet" media="screen">
-	<!--<link href="css/pelicano.css" rel="stylesheet" media="screen">
-	-->
+<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- isotope -->
+<link href="css/isotope.css" rel="stylesheet" media="screen">
+<!--<link href="css/pelicano.css" rel="stylesheet" media="screen">
+-->
 
 
 	<?php include('estilos.php');?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/tools.js");?>
-	
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
 
 <script type="text/javascript">	
 $(document).ready(function(){
@@ -158,7 +153,7 @@ $(document).ready(function(){
  //$descargar='no'; 
  //include('movieDetails.php'); 
  //include('serieDetails.php'); ?>
- 
+
   <div class="row-fluid">
     <div class="span12">
     
