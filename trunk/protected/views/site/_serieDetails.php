@@ -1,13 +1,13 @@
- <!--  <div id="myModalSerie" class="modal modalDetail">-->
-   <div id="myModalSerie" class="modal hide fade modalDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+ <!--  <div id="myModal" class="modal modalDetail">-->
+   <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
-      <h3 id="myModalLabel">Modern Family</h3>
+      <h3 id="myModalLabel"><?php echo $model->original_title;?></h3>
     </div>
     <div class="modal-body"> 
     <div class="row-fluid">
     <div class="span3 pagination-centered">
-    <img class="aficheDetail" src="images/s01.jpg" width="100%" height="100%" border="0">
+    <img class="aficheDetail" src="images/<?php echo $model->poster;?>" width="100%" height="100%" border="0">
     </div><!--/.span3PRINCIPAL -->
     
     <div class="span9">
@@ -80,13 +80,16 @@
                 
                   <div class="row-fluid detailMainGroup">
     <div class="span4 pagination-centered detailMain detailMainFirst">
-    ROMANCE
+    <?php echo $model->genre;?>
     </div><!--/.span4 -->
     <div class="span4 pagination-centered detailMain">
-    ATP
+    <?php echo $model->parentalControl->description;?>
     </div><!--/.span4 -->
     <div class="span4 pagination-centered detailMain">
-    <img src="images/rate01.png" width="100" height="20" border="0">
+     <?php    	
+    	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';    	
+	?>
+    <img src="images/<?php echo $image;?>" width="100" height="20" border="0">    
     </div><!--/.span4 -->
     </div><!--/.row -->
     
@@ -95,7 +98,7 @@
     A&Ntilde;O
     </div><!--/.span3 -->
     <div class="span9 pagination-left detailSecond">
-    2012
+    <?php echo $model->production_year;?>
     </div><!--/.span9 -->
     </div><!--/.row -->
     
@@ -122,7 +125,7 @@
     DURACI&Oacute;N
     </div><!--/.span3 -->
     <div class="span9 pagination-left detailSecond">
-    150mm
+    <?php echo $model->running_time;?>mm
     </div><!--/.span9 -->
     </div><!--/.row -->
     
@@ -131,11 +134,7 @@
     SIN&Oacute;PSIS
     </div><!--/.span3 -->
     <div class="span9 pagination-left detailSecond">
-    <p>We set a fixed. Watch it overflow with all this extra lorem ipsum text we've included.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+   	<?php echo $model->description;?>
     </div><!--/.span9 -->
     </div><!--/.row -->       
                 </div><!--/.tab-pane --> 
