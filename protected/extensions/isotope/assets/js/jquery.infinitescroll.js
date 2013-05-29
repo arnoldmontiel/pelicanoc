@@ -414,9 +414,19 @@
 	        		if(locationUrl != null)
 	        		{	        			
 		        		var id = $(this).attr('imgId');
-		        		var url = locationUrl + '&id=' + id;
-		        		window.location = url;
-		        		return false;
+		        		var sourceType = $(this).attr('sourceType');
+		        		var param = 'id='+id+'&sourceType='+sourceType; 
+		        		var url = locationUrl;
+		        		$.ajax({
+		        	   		type: 'POST',
+		        	   		url: url,
+		        	   		data: param,
+		        	 	}).success(function(data)
+		        	 	{
+		        			$('#view-details').html(data);
+		        			
+		        		}
+		        	 	);			        		
 	        		}
 	        	});
 	        });
