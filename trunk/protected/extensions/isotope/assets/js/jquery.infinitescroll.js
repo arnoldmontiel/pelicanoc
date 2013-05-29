@@ -23,10 +23,10 @@
     $.infinitescroll.defaults = {
         loading: {
             finished: undefined,
-            finishedMsg: "<em>This is the end.</em>",
+            finishedMsg: "<em>Fin</em>",
             img: "http://www.infinite-scroll.com/loading.gif",
             msg: null,
-            msgText: "<em>Loading the next set of posts...</em>",
+            msgText: "<em>Cargando...</em>",
             selector: null,
             speed: 'fast',
             start: undefined
