@@ -1,3 +1,4 @@
+
 <?php 
 
 $this->widget('ext.isotope.Isotope',array(
@@ -5,7 +6,7 @@ $this->widget('ext.isotope.Isotope',array(
     'itemView'=>'_view',
     'itemSelectorClass'=>'item',
 	'summaryText' =>"",
-	'onClickLocation'=>MyMovieNzbController::CreateUrl('myMovieNzb/view'),
+	'onClickLocation'=>SiteController::createUrl('AjaxMovieShowDetail'),
     'options'=>array(), // options for the isotope jquery
     'infiniteScroll'=>true, // default to true
     'infiniteOptions'=>array(), // javascript options for infinite scroller
@@ -13,3 +14,11 @@ $this->widget('ext.isotope.Isotope',array(
 ));
 ?>
 
+<?php 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
+
+echo CHtml::openTag('div',array('id'=>'view-details'));
+//place holder
+echo CHtml::closeTag('div'); 
+
+$this->endWidget(); ?>

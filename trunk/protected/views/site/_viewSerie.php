@@ -1,49 +1,53 @@
 <?php 
-Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
-	$('#Imdbdata_tv_Poster_button_$data->Id').click(function(){
-// 		//CloseCurtains();
-		
-// 		//set top scroll position
-// 		$('.leftcurtain').css('top',$(document).scrollTop());
-// 		$('.rightcurtain').css('top',$(document).scrollTop());
-		
-// 		//hidde scroll
-// 		$(document.body).attr('style','overflow:hidden');
-		
-// 		$('.leftcurtain').removeClass('hideClass');
-// 		$('.rightcurtain').removeClass('hideClass');
-		
-// 		$('.leftcurtain').stop().animate({width:'50%'}, 2000 );
-// 		$('.rightcurtain').stop().animate({width:'51%'}, 2000 ,
-// 			function(){
-			window.location = '".ImdbdataController::CreateUrl('imdbdataTv/viewEpisode',array('id'=>$data->Id))."';
-// 			OpenCurtains(10000);
-			//show scroll			
-// 			$(document.body).attr('style','overflow:auto');
-			return false;
-// 		}
-// 		);
 
+if($data->source_type == 1)
+{
+	$model = MyMovieDiscNzb::model()->findByPk($data->Id_my_movie_disc_nzb);
+	$model = $model->myMovieNzb;
+} 
+else 
+{
+	$model = MyMovieDisc::model()->findByPk($data->Id_my_movie_disc);
+	$model = $model->myMovie;
+}
+
+$genre = preg_replace('/\W/', ' ',strtolower($model->genre));
+$title = preg_replace('/\W/', '-',strtolower($model->original_title));
+$moviePoster = $model->poster;
+
+
+Yii::app()->clientScript->registerScript(__CLASS__.'#site_view_serie'.$data->Id, "
+	$('#link-serie-$model->Id').click(function(){
+		var target = $(this).attr('href');
+		var sourceType = '$data->source_type';
+		var id = '$model->Id';
+		var param = 'id='+id+'&sourceType='+sourceType; 
+		$.ajax({
+	   		type: 'POST',
+	   		url: '". SiteController::createUrl('AjaxSerieShowDetail') . "',
+	   		data: param,
+	 	}).success(function(data)
+	 	{
+	 	
+			$('#view-details').html(data);
+
+			//$('#view-details').html('putooooooooooooooooo');
+		}
+	 	);	
 		
 });
 
 ");
+
 ?>
-<div class="single-serie-index-view" >
-	<div class="single-serie-view" >
-		<?php
-		 echo CHtml::image("images/".$data->imdbdataTv->Poster,'details',
-				array('id'=>'Imdbdata_tv_Poster_button_'.$data->Id, 'style'=>'height: 260px;width: 185px;'));
-		?>	
-		<p class="single-serie-view-title">
-		<?php echo CHtml::encode($data->imdbdataTv->Title); ?>
-		</p>  
-		<p class="single-serie-view-title">
-		S<?php echo CHtml::encode($data->imdbdataTv->Season);?>
-		/E<?php echo CHtml::encode($data->imdbdataTv->Episode);?>
-		</p>  
-		
-	</div>
 
+        
+<div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
+	<a id="link-serie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModalSerie" data-toggle="modal" href="#myModalSerie" class="">    
+        <?php
+		 echo CHtml::image("images/".$moviePoster,'details',
+				array('imgId'=>$model->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
+		?>    
+    </a>
+    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $title;?></div>
 </div>
-

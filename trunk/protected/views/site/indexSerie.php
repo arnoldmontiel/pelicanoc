@@ -2,10 +2,10 @@
 
 $this->widget('ext.isotope.Isotope',array(
     'dataProvider'=>$dataProvider,
-    'itemView'=>'_view',
+    'itemView'=>'_viewSerie',
     'itemSelectorClass'=>'item',
 	'summaryText' =>"",
-	'onClickLocation'=>MyMovieNzbController::CreateUrl('myMovieNzb/view'),
+	'onClickLocation'=>SiteController::createUrl('AjaxSerieShowDetail'),
     'options'=>array(), // options for the isotope jquery
     'infiniteScroll'=>true, // default to true
     'infiniteOptions'=>array(), // javascript options for infinite scroller
@@ -13,3 +13,11 @@ $this->widget('ext.isotope.Isotope',array(
 ));
 ?>
 
+<?php 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalSerie')); 
+
+echo CHtml::openTag('div',array('id'=>'view-details'));
+//place holder
+echo CHtml::closeTag('div'); 
+
+$this->endWidget(); ?>

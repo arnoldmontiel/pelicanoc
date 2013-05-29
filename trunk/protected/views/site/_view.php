@@ -17,9 +17,22 @@ $moviePoster = $model->poster;
 
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
-	$('#MyMovieNzb_Poster_button_$data->Id').click(function(){
-			window.location = '".MyMovieNzbController::CreateUrl('myMovieNzb/view',array('id'=>$data->Id))."';
-			return false;
+	$('#link-movie-$model->Id').click(function(){
+		var target = $(this).attr('href');
+		var sourceType = '$data->source_type';
+		var id = '$model->Id';
+		var param = 'id='+id+'&sourceType='+sourceType; 
+		$.ajax({
+	   		type: 'POST',
+	   		url: '". SiteController::createUrl('AjaxMovieShowDetail') . "',
+	   		data: param,
+	 	}).success(function(data)
+	 	{
+	 	
+			$('#view-details').html(data);
+			
+		}
+	 	);	
 		
 });
 
@@ -29,10 +42,10 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
         
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
-	<a style="position:relative;" data-toggle="modal" href="#myModal" class="">    
+	<a id="link-movie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
-				array('id'=>'MyMovieNzb_Poster_button_'.$data->Id, 'imgId'=>$data->Id, 'class'=>'peliAfiche'));
+				array('imgId'=>$model->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
 		?>    
     </a>
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $title;?></div>
