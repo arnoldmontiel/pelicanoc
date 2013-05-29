@@ -40,7 +40,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view_serie'.$data->Id,
 
         
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
-	<a id="link-serie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModalSerie" data-toggle="modal" href="#myModalSerie" class="">    
+	<a id="link-serie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
 				array('imgId'=>$model->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
