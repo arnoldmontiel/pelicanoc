@@ -27,11 +27,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view_serie'.$data->Id,
 	   		url: '". SiteController::createUrl('AjaxSerieShowDetail') . "',
 	   		data: param,
 	 	}).success(function(data)
-	 	{
-	 	
+	 	{	 	
 			$('#view-details').html(data);
-
-			//$('#view-details').html('putooooooooooooooooo');
 		}
 	 	);	
 		
