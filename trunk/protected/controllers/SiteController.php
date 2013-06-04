@@ -163,7 +163,7 @@ class SiteController extends Controller
 		
 		$casting = $this->getCasting($criteria);
 		
-		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting));
+		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType));
 	}
 	
 	public function actionAjaxSerieShowDetail()
@@ -219,6 +219,24 @@ class SiteController extends Controller
 		$casting['director'] = $director;
 		
 		return $casting;
+	}
+	
+	public function actionStart($id, $sourceType)
+	{
+		$this->showRemoteControl = true;
+		if($sourceType == 1)
+			$model = MyMovieNzb::model()->findByPk($id);
+		else
+			$model = MyMovie::model()->findByPk($id);
+		
+		$this->render('start',array(
+						'model'=>$model,
+		));
+	}
+	
+	public function actionAjaxUseRemote()
+	{
+		DuneHelper::useRemote($_GET['ir_code']);		
 	}
 	
 	/**
