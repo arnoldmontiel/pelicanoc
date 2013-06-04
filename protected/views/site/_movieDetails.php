@@ -78,6 +78,12 @@
     
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>	  
+      <button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>	  
     </div>
   </div>
+  <script>
+	$('#btn-play').click(function(){
+		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    
+		return false;
+	});
+  </script>
