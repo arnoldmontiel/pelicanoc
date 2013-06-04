@@ -24,4 +24,5 @@ class Controller extends  SBaseController
 	public $showMenu=true;
 	public $showBrowsingBox = true;
 	public $fromPageNumber = 0;
+	public $showRemoteControl = false;
 }
