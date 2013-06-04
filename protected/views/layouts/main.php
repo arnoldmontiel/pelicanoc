@@ -90,15 +90,17 @@ $(document).ready(function(){
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
         <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>
-
+		<?php if (!$this->showRemoteControl): ?>
         <form class="navbar-search pull-right">
           <input type="text" id="main-search" class="search-query" placeholder="Buscar...">
         </form>
+        <?php endif; ?>
       </div>
       <!--/.nav-collapse -->
     </div>
   </div>
 </div>
+<?php if (!$this->showRemoteControl): ?>
 <div class="navbar navbar-fixed-top  navbarSecond">
               <div class="navbar-inner">
                 <div class=" row-fluid visible-desktop visible-tablet btn-toolbar">
@@ -125,7 +127,8 @@ $(document).ready(function(){
   </div>
   <!-- /row -->     
               </div>
-            </div>
+</div>
+<?php endif; ?>
 <div class="container" >
   <div class=" row-fluid visible-phone btn-toolbar">
     <div class="span12">
