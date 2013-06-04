@@ -223,7 +223,7 @@ class SiteController extends Controller
 	
 	public function actionStart($id, $sourceType)
 	{
-		$this->showRemoteControl = true;
+		$this->showFilter = false;
 		if($sourceType == 1)
 			$model = MyMovieNzb::model()->findByPk($id);
 		else
