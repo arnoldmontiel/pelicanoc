@@ -17,6 +17,61 @@ class WsPelicanoCController extends Controller
 	}
 
 	/**
+	 * 
+	 * Set current disc IN
+	 * @param string $idDisc
+	 * @return integer idCurrent
+	 * @soap
+	 */
+	public function setCurrentDiscIn($idDisc)
+	{
+		$idCurrent = 0;
+		
+		//Por las dudas paso todos los registros de la tabla a estado 1 = Out Disc (Sin disco)
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';		
+		
+		CurrentDisc::model()->updateAll(array('Id_current_disc_state'=>1, 
+												'out_date'=>new CDbExpression('NOW()')), 
+												$criteria);
+		//---------
+		
+		$modelCurrentDisc = new CurrentDisc();
+		$modelCurrentDisc->Id_current_disc_state = 2; // Pending Data
+		$modelCurrentDisc->Id_my_movie_disc = $idDisc;
+		
+		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$idDisc));
+		if(isset($modelMyMovieDisc))
+			$modelCurrentDisc->Id_current_disc_state = 3; // Width Data	
+		
+		if($modelCurrentDisc->save())
+			$idCurrent = $modelCurrentDisc->Id;
+		
+		return $idCurrent;	
+	}
+	
+	/**
+	*
+	* Set current disc OUT
+	* @param string $id
+	* @return bool success
+	* @soap
+	*/
+	public function setCurrentDiscOut($id)
+	{
+		$modelCurrentDisc = CurrentDisc::model()->findByPk($id);
+		
+		if(isset($modelCurrentDisc))
+		{
+			$modelCurrentDisc->Id_current_disc_state = 1; // Disc Out
+			$modelCurrentDisc->out_date = new CDbExpression('NOW()');
+			if($modelCurrentDisc->save())
+				return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Returns add new rip movie
 	 * @param string idMyMovie
 	 * @param string path
