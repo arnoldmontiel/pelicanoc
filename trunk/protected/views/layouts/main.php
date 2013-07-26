@@ -18,7 +18,33 @@
 
 
 <script type="text/javascript">	
+function getCurrentDisc()
+{
+	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentDisc'); ?>"
+		).success(
+		function(data){
+			var image = $('#loginInfo').css('background-image');			
+			if(data == 0)
+				$('#loginInfo').css('background-image','url("img/userIcon.png")');
+			else{
+				if(image.indexOf('userIcon.png')>0)
+				{
+					$('#loginInfo').css('background-image','url("img/userIconIN.png")');
+					$.post("<?php echo SiteController::createUrl('AjaxDiscIn'); ?>"
+					).success(
+						function(data){		
+							$('#view-disc-in').html(data);			
+						});
+				}
+			}
+		});
+}
+
 $(document).ready(function(){
+
+	setInterval(function() {
+		getCurrentDisc();
+	}, 5000);
 	
 	$('#nav li').removeClass('active');
 	if(document.URL.indexOf('Serie') > 0)
@@ -40,7 +66,12 @@ $(document).ready(function(){
 		window.location = $(this).attr('href');
 		return false;
 	});
-	
+
+	$('#loginInfo').click(function(){
+		window.location = "<?php echo SiteController::createUrl('currentDisc'); ?>";
+		return false;
+	});
+		
 	$('#filtroGenero button').click(function(){
 		  var selector = $(this).attr('data-filter');  
 		  $('#media-type-filter').val(selector);
@@ -82,7 +113,7 @@ $(document).ready(function(){
         <ul id="nav" class="nav">
           <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
           <li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexSerie') ?>">Mis Series</a></li>        
-		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('rippedMovie/index') ?>">Marketplace</a></li>
+		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('site/marketplace') ?>">Marketplace</a></li>
           <li id="li-download"><a href="#">Descargas</a></li>
         </ul>
         <?php 
