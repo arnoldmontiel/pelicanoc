@@ -139,6 +139,20 @@ class SiteController extends Controller
 	
 	}
 	
+	public function actionMarketplace()
+	{
+	
+// 		$this->render('marketplace',array(
+// 							'dataProvider'=>$dataProvider,
+// 		));
+		$this->render('marketplace');
+	}
+	
+	public function actionAjaxDiscIn()
+	{
+		$this->renderPartial('_discIn');
+	}
+	
 	public function actionAjaxMovieShowDetail()
 	{
 		$id = $_POST['id'];
@@ -284,6 +298,57 @@ class SiteController extends Controller
 		$this->render('contact',array('model'=>$model));
 	}
 
+	public function actionAjaxGetCurrentDisc()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		
+		$isDiscIN = 0;
+		if(isset($modelCurrentDisc))
+			$isDiscIN = 1;
+		
+		echo $isDiscIN;
+	}
+	
+	public function actionCurrentDisc()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		
+		if(isset($modelCurrentDisc))
+		{
+			if($modelCurrentDisc->Id_current_disc_state == 3) //Widh data
+			{
+				$this->showFilter = false;
+				$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc)); 
+				$model = MyMovie::model()->findByPk($modelMyMovieDisc->Id_my_movie);
+				
+				$this->render('start',array(
+										'model'=>$model,
+				));
+			}
+			else 
+			{
+				$rawData = array();
+				$rawData = RipperHelper::searchTitlesByDiscId($modelCurrentDisc->Id_my_movie_disc,'');
+				$arrayDataProvider=new CArrayDataProvider($rawData, array(
+										    'id'=>'id',
+										 	'sort'=>array(
+												'attributes'=>array('year', 'type', 'country'),
+				),
+				
+										          'pagination'=>array('pageSize'=>10),
+				
+				));
+				$this->render('currentDisc',array('arrayDataProvider'=>$arrayDataProvider,));
+			}
+		}
+		else
+			$this->redirect('index');
+	}
+	
 	/**
 	 * Displays the login page
 	 */
