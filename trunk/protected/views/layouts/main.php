@@ -67,11 +67,6 @@ $(document).ready(function(){
 		window.location = $(this).attr('href');
 		return false;
 	});
-
-	$('#loginInfo').click(function(){
-		window.location = "<?php echo SiteController::createUrl('currentDisc'); ?>";
-		return false;
-	});
 		
 	$('#filtroGenero button').click(function(){
 		  var selector = $(this).attr('data-filter');  
@@ -202,5 +197,13 @@ $(document).ready(function(){
 </div>
 <!-- /container -->
 
+<?php 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
+
+echo CHtml::openTag('div',array('id'=>'view-disc-in'));
+//place holder
+echo CHtml::closeTag('div'); 
+
+$this->endWidget(); ?>
 </body>
 </html>
