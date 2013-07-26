@@ -33,7 +33,8 @@ function getCurrentDisc()
 					$.post("<?php echo SiteController::createUrl('AjaxDiscIn'); ?>"
 					).success(
 						function(data){		
-							$('#view-disc-in').html(data);			
+							$('#view-disc-in').html(data);
+							$('#myModalDiscIn').modal('show'); 
 						});
 				}
 			}
