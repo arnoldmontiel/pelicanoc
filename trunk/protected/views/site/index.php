@@ -22,11 +22,3 @@ echo CHtml::openTag('div',array('id'=>'view-details'));
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
-<?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
-
-echo CHtml::openTag('div',array('id'=>'view-disc-in'));
-//place holder
-echo CHtml::closeTag('div'); 
-
-$this->endWidget(); ?>
