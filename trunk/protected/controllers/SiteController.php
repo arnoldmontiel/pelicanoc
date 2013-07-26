@@ -150,7 +150,11 @@ class SiteController extends Controller
 	
 	public function actionAjaxDiscIn()
 	{
-		$this->renderPartial('_discIn');
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		
+		$this->renderPartial('_discIn',array('model'=>$modelCurrentDisc));
 	}
 	
 	public function actionAjaxMovieShowDetail()
@@ -311,7 +315,7 @@ class SiteController extends Controller
 		echo $isDiscIN;
 	}
 	
-	public function actionCurrentDisc()
+	public function actionUseDisc($action)
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
@@ -321,13 +325,20 @@ class SiteController extends Controller
 		{
 			if($modelCurrentDisc->Id_current_disc_state == 3) //Widh data
 			{
-				$this->showFilter = false;
-				$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc)); 
-				$model = MyMovie::model()->findByPk($modelMyMovieDisc->Id_my_movie);
-				
-				$this->render('start',array(
-										'model'=>$model,
-				));
+				if($action == 'play')
+				{
+					$this->showFilter = false;
+					$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc)); 
+					$model = MyMovie::model()->findByPk($modelMyMovieDisc->Id_my_movie);
+					
+					$this->render('start',array(
+											'model'=>$model,
+					));
+				}
+				else
+				{
+					
+				}
 			}
 			else 
 			{
