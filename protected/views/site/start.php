@@ -57,8 +57,7 @@ $('#playButton').click(function(){
 $('#stopButton').click(function(){
 	$.ajax({
    		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=BC43BF00',
+   		url: '". SiteController::createUrl('AjaxStop') . "'
  	}).success(function()
  	{
 		window.location = '".SiteController::createUrl('index')."'
