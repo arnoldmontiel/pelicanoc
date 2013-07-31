@@ -4,7 +4,9 @@ class DuneHelper
 
 	static public function playDune($id)
 	{
-		$model = Nzb::model()->findByPk($id);
+		$modelMyMovieDiscNzb = MyMovieDiscNzb::model()->findByAttributes(array('Id_my_movie_nzb'=>$id));
+		
+		$model = Nzb::model()->findByAttributes(array('Id_my_movie_disc_nzb'=>$modelMyMovieDiscNzb->Id));
 		
 		$setting = Setting::getInstance();
 	
