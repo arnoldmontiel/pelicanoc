@@ -2,6 +2,31 @@
 class DuneHelper
 {
 
+	static public function playDune($id)
+	{
+		$model = Nzb::model()->findByPk($id);
+		
+		$setting = Setting::getInstance();
+	
+// 		if($model->isBluray())
+// 		{
+// 			$cmd = 'start_bluray_playback';
+// 		}
+// 		else
+// 		{
+// 			$cmd = 'start_dvd_playback';
+// 		}
+
+		$cmd = 'start_bluray_playback';
+		$path = str_replace(' ', '%20', $model->path);
+		
+		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
+		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path . $path;
+		//TODO: analizar el resultado e indicar si la reproducción se a concretado.
+		@file_get_contents($url);
+		return true;
+	}
+	
 	static public function getProgressBar()
 	{
 		$current_progress_bar = 0;
