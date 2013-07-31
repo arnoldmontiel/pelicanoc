@@ -258,6 +258,11 @@ class SiteController extends Controller
 		DuneHelper::useRemote($_GET['ir_code']);		
 	}
 	
+	public function actionAjaxStop()
+	{
+		DuneHelper::setBlackScreen();
+	}
+	
 	/**
 	* This is the default 'music' action that is invoked
 	* when an action is not explicitly requested by users.
