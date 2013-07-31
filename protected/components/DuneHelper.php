@@ -63,7 +63,7 @@ class DuneHelper
 		return $playbackUrl;
 	}
 	
-	static public function useRemote($idCode)
+	static public function useRemote($irCode)
 	{
 		$setting = Setting::getInstance();
 		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
