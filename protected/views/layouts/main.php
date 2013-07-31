@@ -127,7 +127,7 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-<?php if ($this->showFilter): ?>
+<?php if (isset($this->showFilter) && $this->showFilter): ?>
 <div class="navbar navbar-fixed-top  navbarSecond">
               <div class="navbar-inner">
                 <div class=" row-fluid visible-desktop visible-tablet btn-toolbar">
