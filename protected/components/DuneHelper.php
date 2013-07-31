@@ -19,7 +19,7 @@ class DuneHelper
 // 			$cmd = 'start_dvd_playback';
 // 		}
 
-		$cmd = 'start_bluray_playback';
+		$cmd = 'launch_media_url';
 		$path = str_replace(' ', '%20', $model->path);
 		
 		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
