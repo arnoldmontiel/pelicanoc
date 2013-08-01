@@ -7,6 +7,8 @@
 
 body#screenHome {
   padding-top: 125px;
+  background-repeat:no-repeat;
+  background-size:cover;
 }
 body#screenSeries {
   padding-top: 105px;
@@ -210,4 +212,6 @@ margin-left:0px; left:7%;}
 .detailSecondFirst{ border-left:none;}
 
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
+
+.control{width: 90px;}
 </style>
