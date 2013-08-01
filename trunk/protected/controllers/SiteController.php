@@ -253,6 +253,17 @@ class SiteController extends Controller
 		));
 	}
 	
+	public function actionOpenDuneControl($id)
+	{
+		$this->showFilter = false;
+		
+		$model = MyMovieNzb::model()->findByPk($id);
+	
+		$this->render('start',array(
+							'model'=>$model,
+		));
+	}
+	
 	public function actionAjaxUseRemote()
 	{
 		DuneHelper::useRemote($_GET['ir_code']);		
@@ -262,6 +273,29 @@ class SiteController extends Controller
 	{
 		DuneHelper::setBlackScreen();
 	}
+	
+	public function actionAjaxGetPlayback()
+	{
+		$playbackUrl = DuneHelper::getPlaybackUrl();
+		if(isset($playbackUrl))
+		{			
+			
+			$modelNzbs = Nzb::model()->findAll();
+
+			foreach($modelNzbs as $nzb)
+			{
+				if(strpos($playbackUrl,$nzb->path)>0)
+					$modelNzbCurrent = $nzb;
+			}
+			
+			if(isset($modelNzbCurrent))
+				echo  $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;				
+		}
+		else
+			echo '0';
+		//$this->renderPartial('_noPlaying',array('model'=>$modelCurrentDisc));		
+	}
+	
 	
 	/**
 	* This is the default 'music' action that is invoked
