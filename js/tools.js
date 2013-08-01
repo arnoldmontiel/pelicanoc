@@ -4,6 +4,8 @@ function ChangeBG(path,image)
 	{
 		if (document.body) {
 			$("body").css("background-image",'url('+path+image+')');
+			$('body').css('padding-top','0px');
+
 	    	//document.body.style.backgroundImage = 'url('+image+')';
 		}
 	}
