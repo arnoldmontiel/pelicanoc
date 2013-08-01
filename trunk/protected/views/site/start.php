@@ -4,6 +4,7 @@
 			<?php echo "Reproduciendo: ". $model->original_title;  ?>
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
+	<div style="float: left; width: 50%">
 	<div style="float: left; padding: 5px 10px; width: 95%">
 		<?php
 		echo CHtml::imageButton('images/player_popupmenu.png', array('id'=>'popUpMenuButton','style'=>'width: 90px;'));
@@ -24,8 +25,10 @@
 		echo CHtml::imageButton('images/player_forward.png', array('id'=>'fwButton','style'=>'width: 90px;'));
 		echo CHtml::imageButton('images/player_next.png', array('id'=>'nextButton','style'=>'width: 90px;'));
 		?>
-	</div>				 
-	<div style="float: left; padding: 5px 10px; width: 95%">
+	</div>
+	</div>
+	<div style="float: left; width: 50%">
+		<div style="float: left; padding: 5px 10px; width: 95%">
 		<?php echo CHtml::imageButton('images/player_up.png', array('id'=>'upButton','style'=>'width: 90px;'));?>
 	</div>				 
 	<div style="float: left; padding: 5px 10px; width: 95%">
@@ -39,6 +42,7 @@
 	<?php 
 		echo CHtml::imageButton('images/player_down.png', array('id'=>'downButton','style'=>'width: 90px;'));
 	?>
+	</div>
 	</div>				 
 </div>
 <?php
