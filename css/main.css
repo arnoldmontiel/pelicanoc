@@ -1047,3 +1047,9 @@ div.image-over-poster
 	font-family: Verdana,Arial,sans-serif;
 	font-size: 13px;
 }
+.noPlaying
+{ 
+	width:30%;
+	margin-left:0px; 
+	left:7%;
+}
