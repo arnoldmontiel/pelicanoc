@@ -4,7 +4,7 @@
 			<?php echo "Reproduciendo: ". $model->original_title;  ?>
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
-	<div style="float: left; width: 50%">
+	<div style="float: left; width: 60%">
 	<div style="float: left; padding: 5px 10px; width: 95%">
 		<?php
 		echo CHtml::imageButton('images/player_popupmenu.png', array('id'=>'popUpMenuButton','style'=>'width: 90px;'));
@@ -27,7 +27,7 @@
 		?>
 	</div>
 	</div>
-	<div style="float: left; width: 50%">
+	<div style="float: left; width: 40%">
 		<div style="float: left; padding: 5px 10px; width: 95%">
 		<?php echo CHtml::imageButton('images/player_up.png', array('id'=>'upButton','style'=>'width: 90px;'));?>
 	</div>				 
