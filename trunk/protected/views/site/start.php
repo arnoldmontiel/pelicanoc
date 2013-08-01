@@ -1,5 +1,5 @@
 
-<div id="conteiner" class="start-view" align="center" style="">
+<div id="conteiner" class="start-view" align="center" style="padding-top: 150px ">
 	<?php echo CHtml::openTag('div',array('class'=>'start-title'));?>
 			<?php echo "Reproduciendo: ". $model->original_title;  ?>
 		<?php echo CHtml::closeTag('div');?> 
