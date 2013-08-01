@@ -43,9 +43,11 @@ function getCurrentDisc()
 
 $(document).ready(function(){
 
+	/*
 	setInterval(function() {
 		getCurrentDisc();
 	}, 5000);
+	*/
 	
 	$('#nav li').removeClass('active');
 	if(document.URL.indexOf('Serie') > 0)
@@ -105,6 +107,26 @@ $(document).ready(function(){
 	  return false;
 	});
 
+
+    $('#btn-dune-control').click(function(){    	
+    	$.post("<?php echo SiteController::createUrl('AjaxGetPlayback'); ?>"
+    	).success(
+    		function(data){
+        		if(data != '0')
+        		{
+        			var param = '&id=' + data;
+        			window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
+        			return false;
+        		}
+        		else
+        		{		        		    				
+    				$('#myModalNoPlaying').modal('show');
+        		} 
+    		});
+  	});
+  	
+    
+
 });
    
     
@@ -160,10 +182,8 @@ $(document).ready(function(){
     </div>
     <!-- /span6 -->
     <div class="span6 pagination-right">
-      <div id="filtroEdad" class="btn-group">
-        <button class="btn">ATP</button>
-        <button class="btn">Mayores 13</button>
-        <button class="btn">Mayores 16</button>
+      <div id="filtroEdad" class="btn-group">       
+        <button id="btn-dune-control" class="btn">Control</button>
       </div>
       <!-- /btn group -->
     </div>
@@ -213,12 +233,18 @@ $(document).ready(function(){
   <!-- /row -->
 </div>
 <!-- /container -->
+<?php 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalNoPlaying')); 
 
+echo CHtml::openTag('div',array('id'=>'view-no-playing'));
+echo $this->renderPartial('_noPlaying');
+echo CHtml::closeTag('div'); 
+
+$this->endWidget(); ?>
 <?php 
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
 
 echo CHtml::openTag('div',array('id'=>'view-disc-in'));
-//place holder
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
