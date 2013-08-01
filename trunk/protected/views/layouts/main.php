@@ -56,7 +56,24 @@ $(document).ready(function(){
 		$('#li-download').addClass('active');
 	else 
 		$('#li-movie').addClass('active');
-
+	$("#main-search").keyup(function(e){
+		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
+	 	$('#search-filter').val(searchFilter); 	 	
+		$('#wall .items').infinitescroll('filterText');
+		});
+	
+	$(document).keypress(function(e) {
+	    if(e.keyCode == 13) 
+	    {
+	    	if($('*:focus').attr('id') == 'main-search')
+	    	{
+	    		$('#main-search').change();
+	    		return false;
+	    	}    	
+			return false; 
+	    }
+	});
+	
 	$('#main-search').change(function(){
 		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
 	 	$('#search-filter').val(searchFilter); 	 	
