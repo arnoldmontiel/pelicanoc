@@ -65,8 +65,8 @@ class DuneHelper
 	
 	static public function setBlackScreen()
 	{
-		$setting = Setting::getInstance();
-		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=set_playback_state&speed=0&position=0&black_screen=1');
+		$setting = Setting::getInstance();		
+		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=black_screen');
 	}
 	
 	
