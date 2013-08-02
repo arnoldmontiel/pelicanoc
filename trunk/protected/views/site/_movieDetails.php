@@ -83,6 +83,7 @@
   </div>
   <script>
 	$('#btn-play').click(function(){
+		$('#btn-play').attr("disabled", "disabled");	    
 		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    
 		return false;
 	});
