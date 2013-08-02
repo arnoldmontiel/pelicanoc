@@ -26,6 +26,21 @@
 		echo CHtml::imageButton('images/player_next.png', array('id'=>'nextButton','style'=>'width: 90px;'));
 		?>
 	</div>
+	<div style="float: left; padding: 5px 10px; width: 95%">
+		<?php
+		echo CHtml::imageButton('images/Numbers-0-icon.png', array('id'=>'button0','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-1-icon.png', array('id'=>'button1','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-2-icon.png', array('id'=>'button2','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-3-icon.png', array('id'=>'button3','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-4-icon.png', array('id'=>'button4','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-5-icon.png', array('id'=>'button5','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-6-icon.png', array('id'=>'button6','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-7-icon.png', array('id'=>'button7','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-8-icon.png', array('id'=>'button8','style'=>'width: 48px;margin-right:5px;'));
+		echo CHtml::imageButton('images/Numbers-0-icon.png', array('id'=>'button9','style'=>'width: 48px;'));
+		?>
+	</div>
+	
 	</div>
 	<div style="float: left; width: 40%">
 		<div style="float: left; padding: 5px 10px; width: 95%">
@@ -180,7 +195,77 @@ $('#aButton').click(function(){
    		data: 'ir_code=BF40BF00',
  	});
 });
-
+$('#button0').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F50ABF00',
+ 	});
+});
+$('#button1').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F40BBF00',
+ 	});
+});
+$('#button2').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F30CBF00',
+ 	});
+});
+$('#button3').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F20DBF00',
+ 	});
+});
+$('#button4').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F10EBF00',
+ 	});
+});
+$('#button5').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F00FBF00',
+ 	});
+});
+$('#button6').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=FE01BF00',
+ 	});
+});
+$('#button7').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=EE11BF00',
+ 	});
+});
+$('#button8').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=ED12BF00',
+ 	});
+});
+$('#button9').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=EC13BF00',
+ 	});
+});
+		
 ");
 ?>
 	
