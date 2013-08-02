@@ -37,7 +37,7 @@
 		echo CHtml::imageButton('images/Numbers-6-icon.png', array('id'=>'button6','style'=>'width: 48px;margin-right:5px;'));
 		echo CHtml::imageButton('images/Numbers-7-icon.png', array('id'=>'button7','style'=>'width: 48px;margin-right:5px;'));
 		echo CHtml::imageButton('images/Numbers-8-icon.png', array('id'=>'button8','style'=>'width: 48px;margin-right:5px;'));
-		echo CHtml::imageButton('images/Numbers-0-icon.png', array('id'=>'button9','style'=>'width: 48px;'));
+		echo CHtml::imageButton('images/Numbers-9-icon.png', array('id'=>'button9','style'=>'width: 48px;'));
 		?>
 	</div>
 	
