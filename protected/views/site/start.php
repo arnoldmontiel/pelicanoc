@@ -1,7 +1,7 @@
 
-<div id="conteiner" class="start-view" align="center" style="padding-top: 150px ">
+<div id="conteiner" class="start-view" align="center" style="padding-top: 150px;font-size: large; ">
 	<?php echo CHtml::openTag('div',array('class'=>'start-title'));?>
-			<?php echo "Reproduciendo: ". $model->original_title;  ?>
+			<?php echo $model->original_title;  ?>
 		<?php echo CHtml::closeTag('div');?> 
 	<br>
 	<div style="float: left; width: 60%">
