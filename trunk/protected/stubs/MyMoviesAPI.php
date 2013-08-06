@@ -79,6 +79,29 @@ class LoadSeriesResult
 	public $any; //string;
 }
 
+
+class SearchDiscTitleByIMDBIdRequest extends MyMovieBase
+{
+	public $Handshake; //string;
+	public $Reference; //string;
+	public $IMDBId; //string;
+	public $Country; //string;
+	public $Type; //string;
+	public $IncludeEnglish; //boolean;
+	public $IncludeAdult; //boolean;
+	public $Locale; //int;
+}
+
+class SearchDiscTitleByIMDBIdResponse
+{
+	public $SearchDiscTitleByIMDBIdResult; //SearchDiscTitleByIMDBIdResult;
+}
+
+class SearchDiscTitleByIMDBIdResult
+{
+	public $any; //string;
+}
+
 class SearchDiscTitleByDiscIdsRequest extends MyMovieBase
 {
 	public $Handshake; //string;
@@ -222,12 +245,28 @@ class LoadDiscTitleByIdResult
 		$response = $this->soapClient->SearchDiscTitleByDiscIds($modelRequest);
 	
 		if(isset($response))
-		return simplexml_load_string($response->SearchDiscTitleByDiscIdsResult->any);
+			return simplexml_load_string($response->SearchDiscTitleByDiscIdsResult->any);
 	
 		return null;
 	
 	}
 
+	function SearchDiscTitleByIMDBId($idImdb = '', $country = '')
+	{
+		$modelRequest = new SearchDiscTitleByIMDBIdRequest();
+		$modelRequest->IMDBId = $idImdb;
+		$modelRequest->IncludeEnglish = true;
+		$modelRequest->IncludeAdult = true;
+		$modelRequest->Country = $country;
+		$modelRequest->Locale = 0;
+		
+		$response = $this->soapClient->SearchDiscTitleByIMDBId($modelRequest);
+		
+		if(isset($response))
+			return simplexml_load_string($response->SearchDiscTitleByIMDBIdResult->any);
+		
+		return null;
+	}
 }
 
 
