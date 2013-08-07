@@ -6,6 +6,7 @@ $this->widget('ext.isotope.Isotope',array(
     'itemSelectorClass'=>'item',
 	'summaryText' =>"",
 	'onClickLocation'=>SiteController::createUrl('AjaxDownloadShowDetail'),
+	'onClickLocationParam'=>array('imgId','idNzb'),
     'options'=>array(), // options for the isotope jquery
     'infiniteScroll'=>true, // default to true
     'infiniteOptions'=>array(), // javascript options for infinite scroller
