@@ -141,11 +141,24 @@ class SiteController extends Controller
 	
 	public function actionMarketplace()
 	{
+		$modelNzb = new Nzb();
+		$dataProvider = $modelNzb->searchMarketplace();
+		
+		
+		$this->render('marketplace',array(
+								'dataProvider'=>$dataProvider,
+		));
+	}
 	
-// 		$this->render('marketplace',array(
-// 							'dataProvider'=>$dataProvider,
-// 		));
-		$this->render('marketplace');
+	public function actionDownloads()
+	{
+		$modelNzb = new Nzb();
+		$dataProvider = $modelNzb->searchDownloads();
+	
+	
+		$this->render('downloads',array(
+									'dataProvider'=>$dataProvider,
+		));
 	}
 	
 	public function actionAjaxDiscIn()
@@ -155,6 +168,83 @@ class SiteController extends Controller
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		
 		$this->renderPartial('_discIn',array('model'=>$modelCurrentDisc));
+	}
+		
+	public function actionAjaxDownloadShowDetail()
+	{
+		$id = $_POST['id'];
+		$idNzb = $_POST['idNzb'];
+	
+		$modelNzb = Nzb::model()->findByPk($idNzb);
+	
+		$criteria=new CDbCriteria;
+	
+		$model = MyMovieNzb::model()->findByPk($id);
+		$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
+		$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
+		$criteria->order = 't.Id ASC';
+	
+		$casting = $this->getCasting($criteria);
+	
+		$this->renderPartial('_downloadDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
+	}
+	
+	public function actionAjaxMarketShowDetail()
+	{
+		$id = $_POST['id'];
+		$idNzb = $_POST['idNzb'];
+	
+		$modelNzb = Nzb::model()->findByPk($idNzb);
+		
+		$criteria=new CDbCriteria;
+	
+		$model = MyMovieNzb::model()->findByPk($id);
+		$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
+		$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
+		$criteria->order = 't.Id ASC';
+	
+		$casting = $this->getCasting($criteria);
+	
+		$this->renderPartial('_marketDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
+	}
+	
+	public function actionAjaxStartDownload()
+	{
+		if(isset($_POST['Id_nzb']))
+		{
+			$nzb = Nzb::model()->findByPk($_POST['Id_nzb']);
+			if(!$nzb->downloading)
+			{
+				$setting = Setting::getInstance();
+				try
+				{
+// 					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
+// 					{
+// 						$nzb->downloaded = 0;
+// 						$nzb->downloading = 1;
+// 						$nzb->Id_nzb_state = 2;
+// 						$nzb->change_state_date = new CDbExpression('NOW()');
+// 						$nzb->sent = 0;
+// 						$nzb->save();
+	
+// 						PelicanoHelper::sendPendingNzbStates();
+// 					}
+				
+					$nzb->downloaded = 0;
+					$nzb->downloading = 1;
+					$nzb->Id_nzb_state = 2;
+					$nzb->change_state_date = new CDbExpression('NOW()');
+					$nzb->sent = 0;
+					$nzb->save();
+
+				
+				
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+		}
 	}
 	
 	public function actionAjaxMovieShowDetail()
