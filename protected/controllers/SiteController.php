@@ -159,13 +159,17 @@ class SiteController extends Controller
 	
 	public function actionAjaxMovieShowDetail()
 	{
+		$id_resource = $_POST['idResource'];
 		$id = $_POST['id'];
 		$sourceType = $_POST['sourceType'];
 		
 		$criteria=new CDbCriteria;
 		
+		$modelNzb = null;
+		$modelRippedMovie = null;
 		if($sourceType == 1)
 		{
+			$modelNzb = Nzb::model()->findByPk($id_resource);
 			$model = MyMovieNzb::model()->findByPk($id);
 			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');			
@@ -173,6 +177,7 @@ class SiteController extends Controller
 		}
 		else
 		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($id_resource);
 			$model = MyMovie::model()->findByPk($id);
 			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
@@ -180,8 +185,7 @@ class SiteController extends Controller
 		}
 		
 		$casting = $this->getCasting($criteria);
-		
-		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType));
+		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie));
 	}
 	
 	public function actionAjaxSerieShowDetail()
@@ -239,14 +243,23 @@ class SiteController extends Controller
 		return $casting;
 	}
 	
-	public function actionStart($id, $sourceType)
+	public function actionStart($id, $sourceType, $idResource)
 	{
 		$this->showFilter = false;
-		DuneHelper::playDune($id);
 		if($sourceType == 1)
+		{
+			$nzbModel = Nzb::model()->findByPk($idResource);
+			$folderPath = explode('.',$nzbModel->file_name);			
+			DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
+				
 			$model = MyMovieNzb::model()->findByPk($id);
+			
+		}
 		else
+		{
+			$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
 			$model = MyMovie::model()->findByPk($id);
+		}
 		
 		$this->render('start',array(
 						'model'=>$model,

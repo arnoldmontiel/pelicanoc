@@ -2,12 +2,10 @@
 class DuneHelper
 {
 
-	static public function playDune($id)
+	static public function playDune($id,$path)
 	{
-		$modelMyMovieDiscNzb = MyMovieDiscNzb::model()->findByAttributes(array('Id_my_movie_nzb'=>$id));
-		
-		$model = Nzb::model()->findByAttributes(array('Id_my_movie_disc_nzb'=>$modelMyMovieDiscNzb->Id));
-		
+//		$modelMyMovieDiscNzb = MyMovieDiscNzb::model()->findByAttributes(array('Id_my_movie_nzb'=>$id));
+				
 		$setting = Setting::getInstance();
 	
 // 		if($model->isBluray())
@@ -20,10 +18,10 @@ class DuneHelper
 // 		}
 
 		$cmd = 'launch_media_url';
-		$path = str_replace(' ', '%20', $model->path);
-		$folderPath = explode('.',$model->file_name);
+		//$path = str_replace(' ', '%20', $model->path);
+		$path = str_replace(' ', '%20', $path);
 		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
-		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path .'/'.$folderPath[0].'/' .$path;
+		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path .$path;
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
 		@file_get_contents($url);
 		return true;
