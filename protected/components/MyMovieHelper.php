@@ -91,6 +91,28 @@ class MyMovieHelper
 		return true;
 	}
 	
+	static public function createSerieTreeByFolder($idSerie, $season, $episodes, $idDisc)
+	{
+		$arrEpisodes = explode(',',$episodes);
+		$idSeason = self::getSeason($idSerie, $season);
+		
+		if(isset($idSeason))
+		{
+			foreach($arrEpisodes as $episode)
+			{
+				$idEpisode = self::getEpisode($idSerie, $idSeason, $season, $episode);
+				if(isset($idEpisode))
+				{
+					$modelDiscEpisode = new DiscEpisode();
+					$modelDiscEpisode->Id_my_movie_disc = $idDisc;
+					$modelDiscEpisode->Id_my_movie_episode = $idEpisode;
+					$modelDiscEpisode->save();
+				}
+			}
+		}
+	}
+	
+	
 	//PRIVATE FUNCTIONS-------------------------------------------------------------------------------
 	
 	private function createSerieTree($xml, $idDisc, $idSerie, $idMyMovie)
@@ -179,11 +201,11 @@ class MyMovieHelper
 				$modelMyMovieEpisode->Id_my_movie_season = $idSeason;
 	
 				if($modelMyMovieEpisode->save())
-				return $modelMyMovieEpisode->Id;
+					return $modelMyMovieEpisode->Id;
 			}
 		}
 		else
-		$modelEpisodeDB->Id;
+			return $modelEpisodeDB->Id;
 	
 		return null;
 	}
@@ -222,13 +244,13 @@ class MyMovieHelper
 						$modelMyMovieSeason->banner = self::getImage($modelMyMovieSeason->banner_original, $newFileName);
 	
 						if($modelMyMovieSeason->save())
-						return $modelMyMovieSeason->Id;
+							return $modelMyMovieSeason->Id;
 					}
 				}
 			}
 		}
 		else
-		return $modelSeasonDB->Id;
+			return $modelSeasonDB->Id;
 	
 		return null;
 	}
@@ -250,9 +272,9 @@ class MyMovieHelper
 			if(!empty($response) && (string)$response['status'] == 'ok')
 			{
 				if(!empty($response->Serie))
-				$data = $response->Serie;
+					$data = $response->Serie;
 				else
-				return null;
+					return null;
 	
 				$description = (string)$data['Description'];
 				$name = (string)$data['EpisodeName'];
@@ -272,7 +294,7 @@ class MyMovieHelper
 				$modelMyMovieSerieHeader->poster = self::getImage($modelMyMovieSerieHeader->poster_original, $modelMyMovieSerieHeader->Id);
 	
 				if(!$modelMyMovieSerieHeader->save())
-				return null;
+					return null;
 			}
 		}
 	
