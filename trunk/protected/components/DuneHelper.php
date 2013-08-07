@@ -21,11 +21,10 @@ class DuneHelper
 
 		$cmd = 'launch_media_url';
 		$path = str_replace(' ', '%20', $model->path);
-		
+		$folderPath = explode($model->file_name,'.');
 		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
-		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path . $path;
-		
-		//TODO: analizar el resultado e indicar si la reproducción se a concretado.
+		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path .'/'.$folderPath[1].'/' .$path;
+		//TODO: analizar el resultado e indicar si la reproducciï¿½n se a concretado.
 		@file_get_contents($url);
 		return true;
 	}
