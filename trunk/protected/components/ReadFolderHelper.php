@@ -64,7 +64,7 @@ class ReadFolderHelper
 									$episodes = $value;
 								
 								if(strtoupper($key) == 'SOURCE')
-									$source = $value;
+									$source = strtoupper($value);
 							}
 						}
 	
