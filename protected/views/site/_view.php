@@ -21,7 +21,6 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		var target = $(this).attr('href');
 		var sourceType = '$data->source_type';
 		var id = '$model->Id';
-		var idNzb = '$data->Id';
 		var idResource = '$data->Id';		
 		var param = 'id='+id+'&sourceType='+sourceType+'&idResource='+idResource; 
 		$.ajax({
@@ -47,7 +46,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<a id="link-movie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
-				array('imgId'=>$model->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
+				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
 		?>    
     </a>
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $title;?></div>

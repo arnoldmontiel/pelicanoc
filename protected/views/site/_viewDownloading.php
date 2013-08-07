@@ -38,7 +38,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<a id="link-movie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
-				array('imgId'=>$model->Id, 'idNzb'=>$data->Id, 'class'=>'peliAfiche'));
+				array('id'=>$model->Id, 'idNzb'=>$data->Id, 'class'=>'peliAfiche'));
 		?>    
     </a>
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $title;?></div>
