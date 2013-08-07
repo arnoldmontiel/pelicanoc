@@ -3,14 +3,14 @@ class ReadFolderHelper
 {
 	static public function scanDirectory()
 	{
-		$setting = Setting::getInstance();		
-		$filesFolder = $setting->host_file_server . $setting->host_file_server_path; 
+// 		$setting = Setting::getInstance();		
+// 		$filesFolder = $setting->host_file_server . $setting->host_file_server_path; 
 		
-		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($filesFolder),
-		RecursiveIteratorIterator::SELF_FIRST);
-		
-// 		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('C:/Users/Wensel/Desktop/PelicanoStorage'),
+// 		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($filesFolder),
 // 		RecursiveIteratorIterator::SELF_FIRST);
+		
+		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('C:/Users/Wensel/Desktop/PelicanoStorage'),
+		RecursiveIteratorIterator::SELF_FIRST);
 			
 		$chunksize = 1*(1024*1024); // how many bytes per chunk
 	
@@ -24,8 +24,6 @@ class ReadFolderHelper
 						return false;
 					}
 						
-						
-						
 					while (!feof($handle)) {
 						$buffer = fread($handle, $chunksize);
 						$arrayData = explode(';',$buffer);
@@ -35,6 +33,8 @@ class ReadFolderHelper
 						$type = 'FOLDER';
 						$idDisc = '';
 						$name = '';
+						$season = '';
+						$episodes = '';
 						foreach($arrayData as $data)
 						{
 							$currentData = explode('=',$data);
@@ -55,6 +55,12 @@ class ReadFolderHelper
 	
 								if(strtoupper($key) == 'NAME')
 									$name = $value;
+								
+								if(strtoupper($key) == 'SEASON')
+									$season = (int)$value;
+								
+								if(strtoupper($key) == 'EPISODE')
+									$episodes = $value;
 							}
 						}
 	
@@ -72,11 +78,13 @@ class ReadFolderHelper
 	
 						if(empty($idDisc))
 							$idDisc = uniqid();
-	
-						if(!empty($imdb))
+											
+						$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$path));
+						
+						if(!empty($imdb) && !isset($modelLocalFolderDB))
 						{
-							if(self::saveByImdb($imdb, $country, $type, $idDisc, $name))
-							{
+							if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
+							{								
 								$modelLocalFolder = new LocalFolder();
 								$modelLocalFolder->Id_my_movie_disc = $idDisc;
 								$modelLocalFolder->Id_folder_type = ($type=='FOLDER')?1:2;
@@ -94,7 +102,7 @@ class ReadFolderHelper
 		}
 	}
 	
-	private function saveByImdb($imdb, $country, $type, $idDisc, $name)
+	private function saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes)
 	{
 		$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$imdb, 'type'=>'Blu-ray'));
 		
@@ -114,7 +122,8 @@ class ReadFolderHelper
 				}
 			    		
 				if(MyMovieHelper::saveMyMovieData($idMyMovie))
-				{
+				{					
+					
 					$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($idDisc);
 					
 					if(!isset($modelMyMovieDiscDB))
@@ -124,7 +133,14 @@ class ReadFolderHelper
 						$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
 						$modelMyMovieDiscDB->name = $name;
 						if($modelMyMovieDiscDB->save())
+						{
+							$modelMyMovieDB = MyMovie::model()->findByPk($idMyMovie);
+								
+							if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($season) && !empty($episodes))
+								MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $season, $episodes, $modelMyMovieDiscDB->Id);
+							
 							return true;
+						}
 					}
 						
 				}		    
@@ -141,7 +157,12 @@ class ReadFolderHelper
 				$modelMyMovieDiscDB->Id_my_movie = $modelMyMovieDB->Id;
 				$modelMyMovieDiscDB->name = $name;
 				if($modelMyMovieDiscDB->save())
+				{
+					if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($season) && !empty($episodes))
+						MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $season, $episodes, $modelMyMovieDiscDB->Id);
+					
 					return true;
+				}
 			}
 		}
 		
