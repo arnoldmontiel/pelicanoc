@@ -169,6 +169,36 @@ class Nzb extends CActiveRecord
 		));
 	}
 	
+	public function searchMarketplace()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('downloaded',0);		
+		$criteria->compare('downloading',0);
+	
+		return new CActiveDataProvider($this, array(
+									'criteria'=>$criteria,
+		));
+	}
+	
+	public function searchDownloads()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('downloaded',0);
+		$criteria->compare('downloading',1);
+	
+		return new CActiveDataProvider($this, array(
+										'criteria'=>$criteria,
+		));
+	}	
+	
 	public function searchNoSent()
 	{
 		// Warning: Please modify the following code to remove attributes that
