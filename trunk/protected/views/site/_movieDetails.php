@@ -79,12 +79,18 @@
     </div>
     <div class="modal-footer">
       <button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>	  
+      <button id="btn-download" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargar Pel&iacute;cula</button>	  
     </div>
   </div>
   <script>
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");	    
-		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    
+		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>isset($modelNzb)?$modelNzb->Id:$modelRippedMovie->Id)) . '"'; ?>;    
 		return false;
 	});
-  </script>
+	$('#btn-download').click(function(){
+		$('#btn-download').attr("disabled", "disabled");	    
+		window.location = <?php echo '"'. SiteController::createUrl('site/startDownload',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    
+		return false;
+	});
+	</script>

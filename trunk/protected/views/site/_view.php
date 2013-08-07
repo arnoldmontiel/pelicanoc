@@ -21,7 +21,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		var target = $(this).attr('href');
 		var sourceType = '$data->source_type';
 		var id = '$model->Id';
-		var param = 'id='+id+'&sourceType='+sourceType; 
+		var idNzb = '$data->Id';
+		var idResource = '$data->Id';		
+		var param = 'id='+id+'&sourceType='+sourceType+'&idResource='+idResource; 
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('AjaxMovieShowDetail') . "',
