@@ -150,7 +150,7 @@ $(document).ready(function(){
           <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
           <li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexSerie') ?>">Mis Series</a></li>        
 		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('site/marketplace') ?>">Marketplace</a></li>
-          <li id="li-download"><a href="#">Descargas</a></li>
+		  <li id="li-download"><a href="<?php echo RippedMovieController::createUrl('site/downloads') ?>">Descargas</a></li>          
         </ul>
         <?php 
 			 	$customer = Setting::getInstance()->getCustomer();
