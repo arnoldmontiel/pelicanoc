@@ -405,17 +405,26 @@
             this.element.isotope({ filter: currentFilter });
             
             var locationUrl = null;
+            var params = null;
             if(this.options != undefined)
+            {
             	locationUrl = this.options.onClickLocation;
+            	params = this.options.onClickLocationParam;
+            }
             
 	        this.element.find('.post').each(function(i){
 	        	
 	        	$(this).find('img').click(function(){
-	        		if(locationUrl != null)
-	        		{	        			
-		        		var id = $(this).attr('imgId');
-		        		var sourceType = $(this).attr('sourceType');
-		        		var param = 'id='+id+'&sourceType='+sourceType; 
+	        		if(locationUrl != null && params != null)
+	        		{	        
+	        			var param = '';
+	        			for(var i=0; i<params.length; i++)
+	        			{
+	        				if(i==0)
+	        					param = params[i] + '=' + $(this).attr(params[i]);  
+	        				else
+	        					param = param + '&' + params[i] + '=' + $(this).attr(params[i]);
+	        			}
 		        		var url = locationUrl;
 		        		$.ajax({
 		        	   		type: 'POST',
