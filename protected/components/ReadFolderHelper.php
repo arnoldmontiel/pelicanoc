@@ -35,6 +35,7 @@ class ReadFolderHelper
 						$name = '';
 						$season = '';
 						$episodes = '';
+						$source = '';
 						foreach($arrayData as $data)
 						{
 							$currentData = explode('=',$data);
@@ -61,6 +62,9 @@ class ReadFolderHelper
 								
 								if(strtoupper($key) == 'EPISODE')
 									$episodes = $value;
+								
+								if(strtoupper($key) == 'SOURCE')
+									$source = $value;
 							}
 						}
 	
@@ -87,7 +91,30 @@ class ReadFolderHelper
 							{								
 								$modelLocalFolder = new LocalFolder();
 								$modelLocalFolder->Id_my_movie_disc = $idDisc;
-								$modelLocalFolder->Id_folder_type = ($type=='FOLDER')?1:2;
+								switch ($type) {
+									case "FOLDER":
+										$modelLocalFolder->Id_file_type = 1;
+										break;
+									case "ISO":
+										$modelLocalFolder->Id_file_type = 2;
+										break;
+									case "MKV":
+										$modelLocalFolder->Id_file_type = 3;
+										break;
+								}
+								
+								switch ($source) {
+									case "BLU-RAY":
+										$modelLocalFolder->Id_source_type = 1;
+										break;
+									case "DVD":
+										$modelLocalFolder->Id_source_type = 2;
+										break;
+									default:
+										$modelLocalFolder->Id_source_type = null;
+										break;
+								}
+																
 								$modelLocalFolder->path = $path;
 								$modelLocalFolder->save();
 							}
