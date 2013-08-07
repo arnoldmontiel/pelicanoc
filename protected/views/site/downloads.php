@@ -2,10 +2,10 @@
 <?php
 $this->widget('ext.isotope.Isotope',array(
     'dataProvider'=>$dataProvider,
-    'itemView'=>'_viewMarketplace',
+    'itemView'=>'_viewDownloading',
     'itemSelectorClass'=>'item',
 	'summaryText' =>"",
-	'onClickLocation'=>SiteController::createUrl('AjaxMarketShowDetail'),
+	'onClickLocation'=>SiteController::createUrl('AjaxDownloadShowDetail'),
     'options'=>array(), // options for the isotope jquery
     'infiniteScroll'=>true, // default to true
     'infiniteOptions'=>array(), // javascript options for infinite scroller
