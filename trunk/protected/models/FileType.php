@@ -1,23 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "folder_type".
+ * This is the model class for table "file_type".
  *
- * The followings are the available columns in table 'folder_type':
+ * The followings are the available columns in table 'file_type':
  * @property integer $Id
  * @property string $description
  *
  * The followings are the available model relations:
  * @property LocalFolder[] $localFolders
  */
-class FolderType extends CActiveRecord
+class FileType extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'folder_type';
+		return 'file_type';
 	}
 
 	/**
@@ -43,7 +43,7 @@ class FolderType extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'localFolders' => array(self::HAS_MANY, 'LocalFolder', 'Id_folder_type'),
+			'localFolders' => array(self::HAS_MANY, 'LocalFolder', 'Id_file_type'),
 		);
 	}
 
@@ -88,7 +88,7 @@ class FolderType extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return FolderType the static model class
+	 * @return FileType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
