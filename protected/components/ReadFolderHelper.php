@@ -91,30 +91,8 @@ class ReadFolderHelper
 							{								
 								$modelLocalFolder = new LocalFolder();
 								$modelLocalFolder->Id_my_movie_disc = $idDisc;
-								switch ($type) {
-									case "FOLDER":
-										$modelLocalFolder->Id_file_type = 1;
-										break;
-									case "ISO":
-										$modelLocalFolder->Id_file_type = 2;
-										break;
-									case "MKV":
-										$modelLocalFolder->Id_file_type = 3;
-										break;
-								}
-								
-								switch ($source) {
-									case "BLU-RAY":
-										$modelLocalFolder->Id_source_type = 1;
-										break;
-									case "DVD":
-										$modelLocalFolder->Id_source_type = 2;
-										break;
-									default:
-										$modelLocalFolder->Id_source_type = null;
-										break;
-								}
-																
+								$modelLocalFolder->Id_file_type = self::getFileType($type);
+								$modelLocalFolder->Id_source_type = self::getSoruceType($source);
 								$modelLocalFolder->path = $path;
 								$modelLocalFolder->save();
 							}
@@ -127,6 +105,42 @@ class ReadFolderHelper
 				}
 			}			
 		}
+	}
+	
+	private function getFileType($type)
+	{
+		$idFileType = 1;
+		
+		switch ($type) {
+			case "FOLDER":
+				$idFileType = 1;
+				break;
+			case "ISO":
+				$idFileType = 2;
+				break;
+			case "MKV":
+				$idFileType = 3;
+				break;
+		}
+		return $idFileType;		
+	}
+	
+	private function getSoruceType($source)
+	{
+		$idSourceType = null;
+		switch ($source) {
+			case "BLU-RAY":
+				$idSourceType = 1;
+				break;
+			case "DVD":
+				$idSourceType = 2;
+				break;
+			default:
+				$idSourceType = null;
+			break;
+		}
+		
+		return $idSourceType;
 	}
 	
 	private function saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes)
