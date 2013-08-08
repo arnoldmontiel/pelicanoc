@@ -1,8 +1,6 @@
 
 <?php
 
-//ReadFolderHelper::scanDirectory();
-
 $this->widget('ext.isotope.Isotope',array(
     'dataProvider'=>$dataProvider,
     'itemView'=>'_view',
