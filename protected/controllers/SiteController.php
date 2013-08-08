@@ -302,6 +302,28 @@ class SiteController extends Controller
 		return $casting;
 	}
 	
+	public function actionAjaxGetFilesFromPath()
+	{
+		if(isset($_POST['path']))
+		{
+			ReadFolderHelper::scanDirectory($_POST['path']);
+		}
+		
+	}
+	
+	public function actionLocalFolderAdmin()
+	{
+		$model = new LocalFolder('search');
+		$model->unsetAttributes();  // clear any default values
+		
+		if(isset($_GET['LocalFolder']))
+			$model->attributes=$_GET['LocalFolder'];
+		
+		$this->render('adminLocalFolder',array(
+					'model'=>$model,
+		));
+	}
+	
 	public function actionStart($id, $sourceType, $idResource)
 	{
 		$this->showFilter = false;
