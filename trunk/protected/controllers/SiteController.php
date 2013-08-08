@@ -212,38 +212,7 @@ class SiteController extends Controller
 	{
 		if(isset($_POST['Id_nzb']))
 		{
-			$nzb = Nzb::model()->findByPk($_POST['Id_nzb']);
-			if(!$nzb->downloading)
-			{
-				$setting = Setting::getInstance();
-				try
-				{
-// 					if(copy($setting->path_pending.'/'.$nzb->file_name, $setting->path_ready.'/'.$nzb->file_name))
-// 					{
-// 						$nzb->downloaded = 0;
-// 						$nzb->downloading = 1;
-// 						$nzb->Id_nzb_state = 2;
-// 						$nzb->change_state_date = new CDbExpression('NOW()');
-// 						$nzb->sent = 0;
-// 						$nzb->save();
-	
-// 						PelicanoHelper::sendPendingNzbStates();
-// 					}
-				
-					$nzb->downloaded = 0;
-					$nzb->downloading = 1;
-					$nzb->Id_nzb_state = 2;
-					$nzb->change_state_date = new CDbExpression('NOW()');
-					$nzb->sent = 0;
-					$nzb->save();
-
-				
-				
-				}
-				catch (Exception $e)
-				{
-				}
-			}
+			PelicanoHelper::startDownload($_POST['Id_nzb']);
 		}
 	}
 	
