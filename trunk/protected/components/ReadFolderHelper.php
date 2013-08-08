@@ -72,7 +72,8 @@ class ReadFolderHelper
 						if($type == 'ISO')
 						{
 							foreach (new DirectoryIterator($file->getPath()) as $fileInfo) {
-								if(!$fileInfo->isDir() && pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso')
+								if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
+									pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv'))
 								{
 									$path .= '/'. $fileInfo->getFilename();
 									break;
