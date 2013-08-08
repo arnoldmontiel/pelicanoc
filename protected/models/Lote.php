@@ -1,31 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "local_folder".
+ * This is the model class for table "lote".
  *
- * The followings are the available columns in table 'local_folder':
+ * The followings are the available columns in table 'lote':
  * @property integer $Id
- * @property integer $Id_file_type
- * @property string $Id_my_movie_disc
- * @property integer $Id_source_type
- * @property string $read_date
- * @property string $path
- * @property integer $Id_lote
+ * @property string $creation_date
  *
  * The followings are the available model relations:
- * @property Lote $idLote
- * @property FileType $idFileType
- * @property MyMovieDisc $idMyMovieDisc
- * @property SourceType $idSourceType
+ * @property LocalFolder[] $localFolders
  */
-class LocalFolder extends CActiveRecord
+class Lote extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'local_folder';
+		return 'lote';
 	}
 
 	/**
@@ -36,14 +28,10 @@ class LocalFolder extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_file_type, Id_my_movie_disc, Id_lote', 'required'),
-			array('Id_file_type, Id_source_type, Id_lote', 'numerical', 'integerOnly'=>true),
-			array('Id_my_movie_disc', 'length', 'max'=>200),
-			array('path', 'length', 'max'=>255),
-			array('read_date', 'safe'),
+			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Id_file_type, Id_my_movie_disc, Id_source_type, read_date, path, Id_lote', 'safe', 'on'=>'search'),
+			array('Id, creation_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,10 +43,7 @@ class LocalFolder extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'lote' => array(self::BELONGS_TO, 'Lote', 'Id_lote'),
-			'fileType' => array(self::BELONGS_TO, 'FileType', 'Id_file_type'),
-			'myMovieDisc' => array(self::BELONGS_TO, 'MyMovieDisc', 'Id_my_movie_disc'),
-			'sourceType' => array(self::BELONGS_TO, 'SourceType', 'Id_source_type'),
+			'localFolders' => array(self::HAS_MANY, 'LocalFolder', 'Id_lote'),
 		);
 	}
 
@@ -69,12 +54,7 @@ class LocalFolder extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'Id_file_type' => 'Id File Type',
-			'Id_my_movie_disc' => 'Id My Movie Disc',
-			'Id_source_type' => 'Id Source Type',
-			'read_date' => 'Read Date',
-			'path' => 'Path',
-			'Id_lote' => 'Id Lote',
+			'creation_date' => 'Creation Date',
 		);
 	}
 
@@ -97,15 +77,8 @@ class LocalFolder extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
-		$criteria->compare('Id_file_type',$this->Id_file_type);
-		$criteria->compare('Id_my_movie_disc',$this->Id_my_movie_disc,true);
-		$criteria->compare('Id_source_type',$this->Id_source_type);
-		$criteria->compare('read_date',$this->read_date,true);
-		$criteria->compare('path',$this->path,true);
-		$criteria->compare('Id_lote',$this->Id_lote);
-		
-		$criteria->order = "t.Id_lote DESC";
-		
+		$criteria->compare('creation_date',$this->creation_date,true);
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -115,7 +88,7 @@ class LocalFolder extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return LocalFolder the static model class
+	 * @return Lote the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
