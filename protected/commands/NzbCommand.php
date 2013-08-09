@@ -202,8 +202,8 @@ class NzbCommand extends CConsoleCommand  {
 // 				$nzbMovieState->Id_nzb = $modelNzb->Id;
 // 				$nzbMovieState->Id_movie_state = 3;				
 // 				$nzbMovieState->save();
-//TODO: reemplazar "/srv/storage/" por un valor en settings
-				exec(dirname(__FILE__).'/../commands/shell/finishDonwload.sh '.$fileName." /srv/storage/".$fileName,$output,$return);
+//				TODO: reemplazar "/srv/storage/" por un valor en settings
+				exec(dirname(__FILE__).'/../commands/shell/finishDownload.sh '.$fileName." /srv/storage/".$fileName,$output,$return);
 				//TODO: $return verificar el resultado de esta variable para continuar
 				$pelicanoCliente = new Pelicano;
 				$request = new NzbStateRequest;
