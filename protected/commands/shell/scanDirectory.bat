@@ -1,3 +1,3 @@
 @echo off
 
-C:\xampp\htdocs\workspace\PelicanoC\protected\yiic.bat folder scanDyrectory --file_name=%2%
+C:\xampp\htdocs\workspace\PelicanoC\protected\yiic.bat folder scanDirectory --path=%2%
