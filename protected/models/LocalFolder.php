@@ -20,6 +20,10 @@
  */
 class LocalFolder extends CActiveRecord
 {
+	public $sourceType_description;
+	public $fileType_description;
+	public $title;
+		 
 	/**
 	 * @return string the associated database table name
 	 */
@@ -43,7 +47,7 @@ class LocalFolder extends CActiveRecord
 			array('read_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Id_file_type, Id_my_movie_disc, Id_source_type, read_date, path, Id_lote', 'safe', 'on'=>'search'),
+			array('Id, Id_file_type, Id_my_movie_disc, Id_source_type, read_date, path, Id_lote, sourceType_description, fileType_description, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,12 +73,14 @@ class LocalFolder extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'Id_file_type' => 'Id File Type',
+			'Id_file_type' => 'Tipo',
 			'Id_my_movie_disc' => 'Id My Movie Disc',
-			'Id_source_type' => 'Id Source Type',
-			'read_date' => 'Read Date',
-			'path' => 'Path',
-			'Id_lote' => 'Id Lote',
+			'Id_source_type' => 'Fuente',
+			'read_date' => 'Fecha',
+			'path' => 'Ruta',
+			'Id_lote' => 'Lote',
+			'fileType_description'=>'Tipo',
+			'sourceType_description'=>'Fuente',
 		);
 	}
 
@@ -96,18 +102,44 @@ class LocalFolder extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('Id',$this->Id);
-		$criteria->compare('Id_file_type',$this->Id_file_type);
-		$criteria->compare('Id_my_movie_disc',$this->Id_my_movie_disc,true);
-		$criteria->compare('Id_source_type',$this->Id_source_type);
 		$criteria->compare('read_date',$this->read_date,true);
 		$criteria->compare('path',$this->path,true);
 		$criteria->compare('Id_lote',$this->Id_lote);
+				
+ 		$criteria->join='INNER JOIN my_movie_disc md ON (md.Id = t.Id_my_movie_disc)
+ 						INNER JOIN my_movie m ON (m.Id = md.Id_my_movie)
+ 						LEFT JOIN source_type s ON (s.Id = t.Id_source_type)
+ 						INNER JOIN file_type f ON (f.Id = t.Id_file_type)';
 		
-		$criteria->order = "t.Id_lote DESC";
+ 		$criteria->addSearchCondition("m.original_title",$this->title);
+ 		$criteria->addSearchCondition("s.description",$this->sourceType_description);
+ 		$criteria->addSearchCondition("f.description",$this->fileType_description);
+		
+		// Create a custom sort
+		$sort=new CSort;
+		$sort->defaultOrder = 't.Id_lote DESC';
+		$sort->attributes=array(
+						'path',
+						'read_date',
+						'Id_lote',
+						'title' => array(
+								'asc' => 'm.original_title',
+								'desc' => 'm.original_title DESC',
+		),
+						'sourceType_description' => array(
+								'asc' => 's.description',
+								'desc' => 's.description DESC',
+		),
+						'fileType_description' => array(
+								'asc' => 'f.description',
+								'desc' => 'f.description DESC',
+		),		
+						'*',
+		);
 		
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+						'criteria'=>$criteria,
+						'sort'=>$sort,
 		));
 	}
 

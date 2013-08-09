@@ -8,111 +8,121 @@ class FolderCommand extends CConsoleCommand  {
 	
 	function actionScanDirectory($path) 
 	{		
-	
-		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path),
-		RecursiveIteratorIterator::SELF_FIRST);
-// 		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('C:/Users/Wensel/Desktop/PelicanoStorage'),
-// 		RecursiveIteratorIterator::SELF_FIRST);
-			
-		$chunksize = 1*(1024*1024); // how many bytes per chunk
-	
-		//genero un nuevo lote
-		$modelLote = new Lote();
-		$modelLote->save();
+		$_COMMAND_NAME = "scanDirectory";		
 		
-		foreach ($iterator as $file) {
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+		
+		if(isset($modelCommandStatus))
+		{
+			try {
+				
+				$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path),
+				RecursiveIteratorIterator::SELF_FIRST);
+					
+				$chunksize = 1*(1024*1024); // how many bytes per chunk
 			
-			if(!$file->isDir())
-			{
-				if(pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'txt') {
-						
-					$handle = fopen($file, 'rb');
-					if ($handle === false) {
-						return false;
-					}
-						
-					while (!feof($handle)) {
-						$buffer = fread($handle, $chunksize);
-						$arrayData = explode(';',$buffer);
-						$imdb = '';
-						$country = 'United States';
-						$idDisc = '';
-						$type = 'FOLDER';
-						$idDisc = '';
-						$name = '';
-						$season = '';
-						$episodes = '';
-						$source = '';
-						foreach($arrayData as $data)
-						{
-							$currentData = explode('=',$data);
-	
-							if(count($currentData) == 2)
-							{
-								$key = trim($currentData[0]);
-								$value = trim($currentData[1]);
-									
-								if(strtoupper($key) == 'IMDB')
-									$imdb = $value;
-	
-								if(strtoupper($key) == 'TYPE')
-									$type = strtoupper($value);
-	
-								if(strtoupper($key) == 'COUNTRY')
-									$country = $value;
-	
-								if(strtoupper($key) == 'NAME')
-									$name = $value;
+				//genero un nuevo lote
+				$modelLote = new Lote();
+				$modelLote->save();
+				
+				foreach ($iterator as $file) 
+				{
+					if(!$file->isDir())
+					{
+						if(pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'txt') {
 								
-								if(strtoupper($key) == 'SEASON')
-									$season = (int)$value;
-								
-								if(strtoupper($key) == 'EPISODE')
-									$episodes = $value;
-								
-								if(strtoupper($key) == 'SOURCE')
-									$source = strtoupper($value);
+							$handle = fopen($file, 'rb');
+							if ($handle === false) {
+								return false;
 							}
-						}
-	
-						$path = $file->getPath();
-						if($type == 'ISO')
-						{
-							foreach (new DirectoryIterator($file->getPath()) as $fileInfo) {
-								if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
-									pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv'))
+								
+							while (!feof($handle)) {
+								$buffer = fread($handle, $chunksize);
+								$arrayData = explode(';',$buffer);
+								$imdb = '';
+								$country = 'United States';
+								$idDisc = '';
+								$type = 'FOLDER';
+								$idDisc = '';
+								$name = '';
+								$season = '';
+								$episodes = '';
+								$source = '';
+								foreach($arrayData as $data)
 								{
-									$path .= '/'. $fileInfo->getFilename();
-									break;
-								}
-							}
-						}
-	
-						if(empty($idDisc))
-							$idDisc = uniqid();
+									$currentData = explode('=',$data);
+			
+									if(count($currentData) == 2)
+									{
+										$key = trim($currentData[0]);
+										$value = trim($currentData[1]);
 											
-						$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$path));
-						
-						if(!empty($imdb) && !isset($modelLocalFolderDB))
-						{
-							if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
-							{								
-								$modelLocalFolder = new LocalFolder();
-								$modelLocalFolder->Id_my_movie_disc = $idDisc;
-								$modelLocalFolder->Id_file_type = self::getFileType($type);
-								$modelLocalFolder->Id_source_type = self::getSoruceType($source);
-								$modelLocalFolder->Id_lote = $modelLote->Id;
-								$modelLocalFolder->path = $path;
-								$modelLocalFolder->save();
+										if(strtoupper($key) == 'IMDB')
+											$imdb = $value;
+			
+										if(strtoupper($key) == 'TYPE')
+											$type = strtoupper($value);
+			
+										if(strtoupper($key) == 'COUNTRY')
+											$country = $value;
+			
+										if(strtoupper($key) == 'NAME')
+											$name = $value;
+										
+										if(strtoupper($key) == 'SEASON')
+											$season = (int)$value;
+										
+										if(strtoupper($key) == 'EPISODE')
+											$episodes = $value;
+										
+										if(strtoupper($key) == 'SOURCE')
+											$source = strtoupper($value);
+									}
+								}
+			
+								$path = $file->getPath();
+								if($type == 'ISO')
+								{
+									foreach (new DirectoryIterator($file->getPath()) as $fileInfo) {
+										if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
+											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv'))
+										{
+											$path .= '/'. $fileInfo->getFilename();
+											break;
+										}
+									}
+								}
+			
+								if(empty($idDisc))
+									$idDisc = uniqid();
+													
+								$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$path));
+								
+								if(!empty($imdb) && !isset($modelLocalFolderDB))
+								{
+									if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
+									{								
+										$modelLocalFolder = new LocalFolder();
+										$modelLocalFolder->Id_my_movie_disc = $idDisc;
+										$modelLocalFolder->Id_file_type = self::getFileType($type);
+										$modelLocalFolder->Id_source_type = self::getSoruceType($source);
+										$modelLocalFolder->Id_lote = $modelLote->Id;
+										$modelLocalFolder->path = $path;
+										$modelLocalFolder->save();
+									}
+								}
+			
+								ob_flush();
+								flush();
 							}
+								
 						}
-	
-						ob_flush();
-						flush();
-					}
-						
+					}			
 				}
-			}			
+				$modelCommandStatus->setBusy(false);
+			} catch (Exception $e) {
+				$modelCommandStatus->setBusy(false);
+			}
 		}
 	}
 	
