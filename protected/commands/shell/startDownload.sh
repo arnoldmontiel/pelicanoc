@@ -1,2 +1,2 @@
 #!/bin/bash
-/var/www/pelicano/protected/commands/shell/finishDownload $1 $2
+/var/www/pelicano/protected/commands/shell/StartDownload $1 $2 $3
