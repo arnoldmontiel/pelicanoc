@@ -61,8 +61,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'Id_lote',
 		array(				
 				'htmlOptions' => array('style'=>'width:100px;'),
-			 	'type'=>'raw',
-			 	'value'=>'CHtml::button("Reproducir",array("id"=>$data->Id, "class"=>"btn-admin-state"))',			 			
+			 	'type'=>'raw',			 			
+				'value'=>'CHtml::link("Reproducir",Yii::app()->createUrl("'.Yii::app()->getController()->getId().'/start",array("id"=>$data->Id, "sourceType"=>3, "idResource"=>$data->myMovieDisc->Id_my_movie)),array("target"=>"_blank"))',
 			),
 		array(
 			'class'=>'CButtonColumn',
