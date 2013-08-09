@@ -6,8 +6,8 @@ class FolderCommand extends CConsoleCommand  {
 	 */
 	
 	
-	function scanDirectory($path) 
-	{
+	function actionScanDirectory($path) 
+	{		
 	
 		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path),
 		RecursiveIteratorIterator::SELF_FIRST);
