@@ -31,17 +31,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'local-folder-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'cssFile'=>false,
 	'columns'=>array(		        
 		array(
-		    'name'=>'Id_file_type',
+		    'name'=>'fileType_description',
 		    'value'=>'$data->fileType->description',		    
 		),
 		array(
-		    'name'=>'Id_my_movie_disc',
+		    'name'=>'title',
 		    'value'=>'$data->myMovieDisc->myMovie->original_title',		    
 		),
 		array(
-		    'name'=>'Id_source_type',
+		    'name'=>'sourceType_description',
 		    'value'=>'$data->sourceType->description',		    
 		),
         'read_date',
@@ -54,7 +55,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			),
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{view} {update}',
+			'template'=>'{delete}',
 		),
 	),
 )); ?>
