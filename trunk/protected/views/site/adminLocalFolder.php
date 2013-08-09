@@ -6,9 +6,20 @@ Yii::app()->clientScript->registerScript('admin-local-folder', "
 
 setInterval(function() {
    $.fn.yiiGridView.update('local-folder-grid');
-}, 1000*90)
+   getScanStatus();
+}, 100*90)
 
+function getScanStatus()
+{
+$.post('".SiteController::createUrl('AjaxGetScanStatus')."'
+	).success(
+	function(data){
+		if(data == 0)
+			$('#btn-scan').removeAttr('disabled');
+	});
+}
 $('#btn-scan').click(function(){	
+	$('#btn-scan').attr('disabled','disabled');
 	$.post('".SiteController::createUrl('AjaxGetFilesFromPath')."',
 	{ 
 		path: $('#txt-path').val()
@@ -51,11 +62,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(				
 				'htmlOptions' => array('style'=>'width:100px;'),
 			 	'type'=>'raw',
-			 	'value'=>'CHtml::button("Ver Estado",array("id"=>$data->Id, "class"=>"btn-admin-state"))',			 			
+			 	'value'=>'CHtml::button("Reproducir",array("id"=>$data->Id, "class"=>"btn-admin-state"))',			 			
 			),
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{delete}',
+			'deleteConfirmation'=>'¿Esta seguro de eliminar el registro?',
+			'buttons'=>array(
+				'delete' => array
+				(
+					'url'=>'Yii::app()->controller->createUrl("site/AjaxDeleteScan",array("id"=>$data->Id))',
+				)
+			),
 		),
 	),
 )); ?>
