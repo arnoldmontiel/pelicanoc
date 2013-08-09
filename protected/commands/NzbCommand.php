@@ -188,7 +188,9 @@ class NzbCommand extends CConsoleCommand  {
 			$modelNzb->downloading = 0;
 			$modelNzb->downloaded = 1;
 			$modelNzb->Id_nzb_state = 3;
-			if(strpos($modelNzb->file_name,$file_name)===false)
+			$fileName = explode('.',$modelNzb->file_name);
+			$fileName = $fileName[0];
+			if(strpos($file_name,$fileName)===false)
 			{
 				$modelNzb->Id_nzb_state = 2;
 				$modelNzb->downloading = 1;

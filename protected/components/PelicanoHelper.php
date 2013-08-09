@@ -431,21 +431,18 @@ class PelicanoHelper
 		{
 			$setting = Setting::getInstance();
 			try
-			{
-				$from = dirname(__FILE__).'/../../nzb/';
-				$to = dirname(__FILE__).'/../../nzbReady/';
+			{				
+				$from = dirname(__FILE__)."/../../".$setting->path_pending."/";
+				$to =  dirname(__FILE__)."/../../".$setting->path_ready."/";
 				$fileName = explode('.',$nzb->file_name);
 				$fileName = $fileName[0];
 				exec(dirname(__FILE__).'/../commands/shell/startDownload.sh '.$from.' '.$to.' '.$fileName,$output,$return);
-				if($return==0)
-				{
-					$nzb->downloaded = 0;
-					$nzb->downloading = 1;
-					$nzb->Id_nzb_state = 2;
-					$nzb->change_state_date = new CDbExpression('NOW()');
-					$nzb->sent = 0;
-					$nzb->save();						
-				}						
+				$nzb->downloaded = 0;
+				$nzb->downloading = 1;
+				$nzb->Id_nzb_state = 2;
+				$nzb->change_state_date = new CDbExpression('NOW()');
+				$nzb->sent = 0;
+				$nzb->save();						
 			}
 			catch (Exception $e)
 			{
