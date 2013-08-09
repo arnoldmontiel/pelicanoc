@@ -39,11 +39,15 @@ class NzbCommand extends CConsoleCommand  {
 							try {
 								$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
 								if ($content !== false) {
-									$file = fopen(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 'w');
+									$fileName = dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name;
+									$file = fopen($fileName, 'w');
+									
 									//$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
 									fwrite($file,$content);
 									fclose($file);
-									chmod(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 0666);
+									chmod($fileName, 0666);
+									chown($fileName, "www-data");
+									chgrp($fileName, "www-data");
 								} else {
 									// an error happened
 								}
