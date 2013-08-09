@@ -347,20 +347,24 @@ class SiteController extends Controller
 	public function actionStart($id, $sourceType, $idResource)
 	{
 		$this->showFilter = false;
-		if($sourceType == 1)
-		{
-			$nzbModel = Nzb::model()->findByPk($idResource);
-			$folderPath = explode('.',$nzbModel->file_name);			
-			DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
+		
+		switch ($sourceType) {
+			case 1:
+				$nzbModel = Nzb::model()->findByPk($idResource);
+				$folderPath = explode('.',$nzbModel->file_name);			
+				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
 				
-			$model = MyMovieNzb::model()->findByPk($id);
-			
-		}
-		else
-		{
-			$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
-			$model = MyMovie::model()->findByPk($id);
-		}
+				$model = MyMovieNzb::model()->findByPk($id);
+				break;
+			case 2:
+				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$model = MyMovie::model()->findByPk($id);
+				break;
+			case 3:
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$model = MyMovie::model()->findByPk($id);
+				break;
+		}		
 		
 		$this->render('start',array(
 						'model'=>$model,
