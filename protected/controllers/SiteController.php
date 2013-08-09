@@ -311,6 +311,26 @@ class SiteController extends Controller
 		
 	}
 	
+	public function actionAjaxDeleteScan($id)
+	{
+		$modelLocalFolder = LocalFolder::model()->findByPk($id);
+		if(isset($modelLocalFolder))
+			$modelLocalFolder->delete();
+	}
+	
+	public function actionAjaxGetScanStatus()
+	{
+		$_COMMAND_NAME = "scanDirectory";		
+		
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+		
+		if($modelCommandStatus->busy)
+			echo 1;
+		else 
+			echo 0; 
+		
+	}
+	
 	public function actionLocalFolderAdmin()
 	{
 		$model = new LocalFolder('search');
