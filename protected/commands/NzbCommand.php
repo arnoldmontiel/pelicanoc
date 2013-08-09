@@ -25,7 +25,6 @@ class NzbCommand extends CConsoleCommand  {
 				$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0));
 				
 				$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
-				umask(0666);
 				foreach ($arrayNbz as $modelNzb)
 				{
 						
@@ -44,6 +43,7 @@ class NzbCommand extends CConsoleCommand  {
 									//$file = fopen($setting->path_pending."/".$modelNzb->file_name, 'w');
 									fwrite($file,$content);
 									fclose($file);
+									chmod(dirname(__FILE__)."/../../".$setting->path_pending."/".$modelNzb->file_name, 0666);
 								} else {
 									// an error happened
 								}
