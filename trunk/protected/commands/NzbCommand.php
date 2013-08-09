@@ -25,7 +25,7 @@ class NzbCommand extends CConsoleCommand  {
 				$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0));
 				
 				$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
-				
+				umask(0666);
 				foreach ($arrayNbz as $modelNzb)
 				{
 						
