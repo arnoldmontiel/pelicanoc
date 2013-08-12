@@ -85,7 +85,8 @@ class FolderCommand extends CConsoleCommand  {
 								{
 									foreach (new DirectoryIterator($file->getPath()) as $fileInfo) {
 										if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
-											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv'))
+											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' || 
+											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4'))
 										{
 											$path .= '/'. $fileInfo->getFilename();
 											break;
