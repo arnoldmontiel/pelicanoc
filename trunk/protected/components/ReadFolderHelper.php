@@ -21,12 +21,12 @@ class ReadFolderHelper
 					if(substr($sys,0,3) == "WIN")
 					{
 						$WshShell = new COM('WScript.Shell');
-						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/scanDirectory -path '. $path, 0, false);
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/scanDirectory '. $path, 0, false);
 					}
 					else
 					{
 						//exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
-						exec(dirname(__FILE__).'/../commands/shell/scanDirectory.sh -path '.$path);
+						exec(dirname(__FILE__).'/../commands/shell/scanDirectory.sh '.$path. ' >/dev/null&');
 					}
 				} catch (Exception $e) {
 					$modelCommandStatus->setBusy(false);
