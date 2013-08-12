@@ -29,7 +29,7 @@ class FolderCommand extends CConsoleCommand  {
 				{
 					if(!$file->isDir())
 					{
-						if(pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'txt') {
+						if(pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'peli') {
 								
 							$handle = fopen($file, 'rb');
 							if ($handle === false) {
@@ -81,7 +81,7 @@ class FolderCommand extends CConsoleCommand  {
 								}
 			
 								$path = $file->getPath();
-								if($type == 'ISO')
+								if($type == 'ISO' || $type == 'MKV')
 								{
 									foreach (new DirectoryIterator($file->getPath()) as $fileInfo) {
 										if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
