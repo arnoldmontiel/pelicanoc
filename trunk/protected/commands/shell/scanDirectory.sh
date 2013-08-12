@@ -1,2 +1,2 @@
 #!/bin/bash
-/var/www/pelicano/protected/commands/shell/scanDirectory $1
+/var/www/pelicano/protected/yiic folder scanDirectory --path=$1
