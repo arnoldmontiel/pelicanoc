@@ -83,8 +83,10 @@
   </div>
   <script>
 	$('#btn-play').click(function(){
-		$('#btn-play').attr("disabled", "disabled");	    
-		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>isset($modelNzb)?$modelNzb->Id:$modelRippedMovie->Id)) . '"'; ?>;    
+		$('#btn-play').attr("disabled", "disabled");
+		<?php $idResource = isset($modelNzb)?$modelNzb->Id:isset($modelRippedMovie)?$modelRippedMovie->Id:$modelLocalFolder->Id;?>	    
+		 
+		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
 		return false;
 	});
 	</script>
