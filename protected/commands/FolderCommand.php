@@ -125,7 +125,11 @@ class FolderCommand extends CConsoleCommand  {
 					}
 				}
 				$modelCommandStatus->setBusy(false);
+				$modelLote->description = 'Successfull';
+				$modelLote->save();
 			} catch (Exception $e) {
+				$modelLote->description = 'Error: ' . $e->getMessage();
+				$modelLote->save();
 				$modelCommandStatus->setBusy(false);
 			}
 		}
