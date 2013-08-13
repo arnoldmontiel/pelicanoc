@@ -30,7 +30,7 @@ class FolderCommand extends CConsoleCommand  {
 									
 					foreach ($iterator as $file) 
 					{
-						if(is_readable($file) && !$file->isDir())
+						if(is_readable($file->getPath()) && !$file->isDir())
 						{
 							if(pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'peli') {
 									
