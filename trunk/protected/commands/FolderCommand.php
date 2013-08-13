@@ -12,6 +12,8 @@ class FolderCommand extends CConsoleCommand  {
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
 		
+		$modelLote = new Lote();
+		
 		if(isset($modelCommandStatus))
 		{
 			try {
@@ -24,7 +26,6 @@ class FolderCommand extends CConsoleCommand  {
 					$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
 					//genero un nuevo lote
-					$modelLote = new Lote();
 					$modelLote->save();
 									
 					foreach ($iterator as $file) 
