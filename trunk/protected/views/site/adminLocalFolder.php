@@ -62,12 +62,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(				
 				'htmlOptions' => array('style'=>'width:100px;'),
 			 	'type'=>'raw',			 			
-				'value'=>'CHtml::link("Reproducir",Yii::app()->createUrl("'.Yii::app()->getController()->getId().'/start",array("id"=>$data->Id, "sourceType"=>3, "idResource"=>$data->myMovieDisc->Id_my_movie)),array("target"=>"_blank"))',
+				'value'=>'CHtml::link("Reproducir",Yii::app()->createUrl("'.Yii::app()->getController()->getId().'/start",array("idResource"=>$data->Id, "sourceType"=>3, "id"=>$data->myMovieDisc->Id_my_movie)),array("target"=>"_blank"))',
 			),
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{delete}',
-			'deleteConfirmation'=>'¿Esta seguro de eliminar el registro?',
+			'deleteConfirmation'=>'ï¿½Esta seguro de eliminar el registro?',
 			'buttons'=>array(
 				'delete' => array
 				(
