@@ -21,7 +21,7 @@ class ReadFolderHelper
 					if(substr($sys,0,3) == "WIN")
 					{
 						$WshShell = new COM('WScript.Shell');
-						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/scanDirectory '. $path, 0, false);
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/scanDirectory -path '. $path, 0, false);
 					}
 					else
 					{
