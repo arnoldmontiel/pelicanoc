@@ -54,7 +54,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 		    'name'=>'sourceType_description',
-		    'value'=>'$data->sourceType->description',		    
+		    'value'=>'isset($data->sourceType)?$data->sourceType->description:""',		    
 		),
         'read_date',
         'path',
