@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'lote':
  * @property integer $Id
  * @property string $creation_date
+ * @property string $description
  *
  * The followings are the available model relations:
  * @property LocalFolder[] $localFolders
@@ -28,10 +29,11 @@ class Lote extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('description', 'length', 'max'=>512),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, creation_date', 'safe', 'on'=>'search'),
+			array('Id, creation_date, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +57,7 @@ class Lote extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'creation_date' => 'Creation Date',
+			'description' => 'Description',
 		);
 	}
 
@@ -78,6 +81,7 @@ class Lote extends CActiveRecord
 
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('creation_date',$this->creation_date,true);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
