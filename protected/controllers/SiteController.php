@@ -234,17 +234,24 @@ class SiteController extends Controller
 			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');			
 			$criteria->order = 't.Id ASC';			
 		}
-		else
+		else if($sourceType == 2)
 		{
 			$modelRippedMovie = RippedMovie::model()->findByPk($id_resource);
 			$model = MyMovie::model()->findByPk($id);
 			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
 			$criteria->order = 't.Id ASC';
+		}else
+		{
+			$localFolder = LocalFolder::model()->findByPk($id_resource);
+			$model = MyMovie::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';				
 		}
 		
 		$casting = $this->getCasting($criteria);
-		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie));
+		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie,'modelLocalFolder'=>$localFolder));
 	}
 	
 	public function actionAjaxSerieShowDetail()
