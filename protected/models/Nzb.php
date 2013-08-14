@@ -178,6 +178,7 @@ class Nzb extends CActiveRecord
 	
 		$criteria->compare('downloaded',0);		
 		$criteria->compare('downloading',0);
+		$criteria->compare('ready',1);
 	
 		return new CActiveDataProvider($this, array(
 									'criteria'=>$criteria,
@@ -193,6 +194,7 @@ class Nzb extends CActiveRecord
 	
 		$criteria->compare('downloaded',0);
 		$criteria->compare('downloading',1);
+		$criteria->compare('ready',1);
 	
 		return new CActiveDataProvider($this, array(
 										'criteria'=>$criteria,
