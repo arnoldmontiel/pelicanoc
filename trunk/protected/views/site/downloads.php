@@ -2,7 +2,7 @@
 
 Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 setInterval(function() {
-	$.get('".SABnzbdController::createUrl('AjaxRefreshSabNzbStatus')."').success(
+	$.get('".SiteController::createUrl('AjaxRefreshSabNzbStatus')."').success(
 		function(data) 
 		{
 			var result = JSON.parse(data);
