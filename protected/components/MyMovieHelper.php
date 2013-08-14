@@ -65,6 +65,14 @@ class MyMovieHelper
 							
 					}
 					$modelMyMovie->poster = self::getImage($modelMyMovie->poster_original, $idMyMovie);
+					//Big Poster
+					$modelMyMovie->big_poster_original = self::getBigPoster($data->MovieData);
+					if($modelMyMovie->big_poster_original=="")
+					{
+						$modelMyMovie->big_poster_original = self::getCovers($data);
+							
+					}
+					$modelMyMovie->big_poster = self::getImage($modelMyMovie->big_poster_original, $idMyMovie);
 						
 					//Backdrop
 					$modelMyMovie->backdrop_original = self::getBackdrop($data->MovieData);
@@ -363,6 +371,18 @@ class MyMovieHelper
 			foreach($xml->Posters->children() as $item)
 			{
 				return (string)$item['FileThumb'];
+			}
+	
+		}
+		return "";
+	}
+	private function getBigPoster($xml)
+	{
+		if(!empty($xml->Posters))
+		{
+			foreach($xml->Posters->children() as $item)
+			{
+				return (string)$item['File'];
 			}
 	
 		}
