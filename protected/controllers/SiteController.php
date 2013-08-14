@@ -152,13 +152,24 @@ class SiteController extends Controller
 	
 	public function actionDownloads()
 	{
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();
+		
 		$modelNzb = new Nzb();
 		$dataProvider = $modelNzb->searchDownloads();
 	
 	
 		$this->render('downloads',array(
 									'dataProvider'=>$dataProvider,
+									'sABnzbdStatus'=>$sABnzbdStatus,
 		));
+	}
+	
+	public function actionAjaxRefreshSabNzbStatus()
+	{
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();
+		echo CJSON::encode($sABnzbdStatus->jobs);
 	}
 	
 	public function actionAjaxDiscIn()
