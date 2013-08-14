@@ -83,7 +83,24 @@ class NzbCommand extends CConsoleCommand  {
 								// an error happened
 							}
 						}
-				
+						
+						if($modelMyMovieNzb->big_poster_original!='' && $validator->validateValue($modelMyMovieNzb->big_poster_original))
+						{
+							try {
+								$content = @file_get_contents($modelMyMovieNzb->big_poster_original);
+								if ($content !== false) {
+									$file = fopen($img_path . $modelMyMovieNzb->Id."_big.jpg", 'w');
+									fwrite($file,$content);
+									fclose($file);
+									$modelMyMovieNzb->big_poster = $modelMyMovieNzb->Id."_big.jpg";
+								} else {
+									// an error happened
+								}
+							} catch (Exception $e) {
+								// an error happened
+							}
+						}
+						
 						if($modelMyMovieNzb->backdrop_original!='' && $validator->validateValue($modelMyMovieNzb->backdrop_original))
 						{
 							try {
