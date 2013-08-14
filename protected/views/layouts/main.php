@@ -148,7 +148,7 @@ $(document).ready(function(){
       <div class="nav-collapse collapse">
         <ul id="nav" class="nav">
           <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
-          <li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexSerie') ?>">Mis Series</a></li>        
+          <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 		  <li id="li-download"><a href="<?php echo RippedMovieController::createUrl('site/downloads') ?>">Descargas</a></li>          
         </ul>
