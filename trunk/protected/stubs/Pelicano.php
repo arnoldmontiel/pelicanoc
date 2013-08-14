@@ -79,6 +79,7 @@ class MyMovieSOAP
 	public $genre; //string;
 	public $studio; //string;
 	public $poster_original; //string;
+	public $big_poster_original; //string;
 	public $backdrop_original; //string;
 	public $adult; //integer;
 	public $Id_parental_control; //integer;
@@ -211,6 +212,7 @@ class MyMovieSerieHeaderSOAP
 	public $Id; //string;
 	public $description; //string;
 	public $poster_original;
+	public $big_poster_original;
 	public $genre; //string;
 	public $name; //string;
 	public $sort_name; //string;

@@ -8,6 +8,8 @@
  * @property string $description
  * @property string $poster
  * @property string $poster_original
+ * @property string $big_poster
+ * @property string $big_poster_original
  * @property string $genre
  * @property string $name
  * @property string $sort_name
@@ -57,13 +59,13 @@ class MyMovieSerieHeader extends CActiveRecord
 		return array(
 			array('Id', 'required'),
 			array('Id', 'length', 'max'=>200),
-			array('poster, poster_original, genre, name, sort_name, original_network', 'length', 'max'=>255),
+			array('poster, poster_original, big_poster,big_poster_original, genre, name, sort_name, original_network', 'length', 'max'=>255),
 			array('rating', 'length', 'max'=>10),
 			array('original_status', 'length', 'max'=>100),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, description, poster, poster_original, genre, name, sort_name, rating, original_network, original_status', 'safe', 'on'=>'search'),
+			array('Id, description, poster, poster_original,big_poster, big_poster_original, genre, name, sort_name, rating, original_network, original_status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +91,8 @@ class MyMovieSerieHeader extends CActiveRecord
 			'description' => 'Description',
 			'poster' => 'Poster',
 			'poster_original' => 'Poster Original',
+			'big_poster' => 'Big Poster',
+			'big_poster_original' => 'Big Poster Original',
 			'genre' => 'Genre',
 			'name' => 'Name',
 			'sort_name' => 'Sort Name',
@@ -113,6 +117,8 @@ class MyMovieSerieHeader extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('poster',$this->poster,true);
 		$criteria->compare('poster_original',$this->poster_original,true);
+		$criteria->compare('big_poster',$this->big_poster,true);
+		$criteria->compare('big_poster_original',$this->big_poster_original,true);
 		$criteria->compare('genre',$this->genre,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('sort_name',$this->sort_name,true);
