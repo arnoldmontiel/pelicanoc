@@ -10,6 +10,8 @@ class FolderCommand extends CConsoleCommand  {
 	{		
 		$_COMMAND_NAME = "scanDirectory";		
 		
+		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
 		
 		$modelLote = new Lote();
@@ -18,10 +20,11 @@ class FolderCommand extends CConsoleCommand  {
 		{
 			try {
 				
-				$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path),
-				RecursiveIteratorIterator::SELF_FIRST);
-
-				if(isset($iterator))
+// 				$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path),
+// 				RecursiveIteratorIterator::SELF_FIRST);
+				$iterator = ReadFolderHelper::process_dir($path,true);
+				
+				if($iterator)
 				{
 					$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
@@ -30,11 +33,11 @@ class FolderCommand extends CConsoleCommand  {
 									
 					foreach ($iterator as $file) 
 					{
-						if(is_readable($file->getPath()) && !$file->isDir())
+						if(is_readable($file['dirpath']))
 						{
-							if(pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'peli') {
+							if(pathinfo($file['filename'], PATHINFO_EXTENSION) == 'peli') {
 									
-								$handle = fopen($file, 'rb');
+								$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
 								if ($handle === false) {
 									return false;
 								}
@@ -83,7 +86,7 @@ class FolderCommand extends CConsoleCommand  {
 										}
 									}
 				
-									$shortPath = str_replace($path,'',$file->getPath());
+									$shortPath = str_replace($path,'',$file['dirpath']);
 									
 									if($type == 'ISO' || $type == 'MKV' || $type == 'MP4' || $type == 'AVI')
 									{
