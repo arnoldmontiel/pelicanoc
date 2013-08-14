@@ -429,6 +429,8 @@ class RipperHelper
 				//Poster
 				$modelMyMovieSerieHeader->poster_original = self::getPoster($data);
 				$modelMyMovieSerieHeader->poster = self::getImage($modelMyMovieSerieHeader->poster_original, $modelMyMovieSerieHeader->Id);
+				$modelMyMovieSerieHeader->big_poster_original = self::getBigPoster($data);
+				$modelMyMovieSerieHeader->big_poster = self::getImage($modelMyMovieSerieHeader->big_poster_original, $modelMyMovieSerieHeader->Id);
 				
 				if(!$modelMyMovieSerieHeader->save())
 					return null;
