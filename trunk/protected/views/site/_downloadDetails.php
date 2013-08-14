@@ -7,7 +7,7 @@
     <div class="modal-body"> 
     <div class="row-fluid">
     <div class="span3 pagination-centered">
-    <img class="aficheDetail" src="images/<?php echo $model->poster;?>" width="100%" height="100%" border="0">
+    <img class="aficheDetail" src="images/<?php echo $model->big_poster;?>" width="100%" height="100%" border="0">
     </div><!--/.span3PRINCIPAL -->
     
     <div class="span9">
