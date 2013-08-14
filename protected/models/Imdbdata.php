@@ -16,6 +16,8 @@
  * @property string $Plot
  * @property string $Poster
  * @property string $Poster_original
+ * @property string $Big_poster
+ * @property string $Big_poster_original
  * @property string $Backdrop
  * @property string $Backdrop_original
  * @property string $Runtime
@@ -56,11 +58,11 @@ class Imdbdata extends CActiveRecord
 		return array(
 			array('ID', 'required'),
 			array('ID, Rated, Released, Runtime, Votes, Response, Year, Rating', 'length', 'max'=>45),
-			array('Title, Genre, Director, Writer, Poster, Poster_original, Backdrop, Backdrop_original', 'length', 'max'=>255),
+			array('Title, Genre, Director, Writer, Poster, Poster_original, Big_poster, Big_poster_original, Backdrop, Backdrop_original', 'length', 'max'=>255),
 			array('Actors, Plot', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ID, Title, Year, Rated, Released, Genre, Director, Writer, Actors, Plot, Poster, Poster_original, Backdrop, Backdrop_original, Runtime, Rating, Votes, Response', 'safe', 'on'=>'search'),
+			array('ID, Title, Year, Rated, Released, Genre, Director, Writer, Actors, Plot, Poster, Poster_original, Big_poster, Big_poster_original, Backdrop, Backdrop_original, Runtime, Rating, Votes, Response', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -94,6 +96,8 @@ class Imdbdata extends CActiveRecord
 			'Plot' => 'Plot',
 			'Poster' => 'Poster',
 			'Poster_original' => 'Poster Original',
+			'Big_poster' => 'Poster',
+			'Big_poster_original' => 'Poster Original',
 			'Backdrop' => 'Backdrop',
 			'Backdrop_original' => 'Backdrop Original',
 			'Runtime' => 'Runtime',
@@ -126,6 +130,8 @@ class Imdbdata extends CActiveRecord
 		$criteria->compare('Plot',$this->Plot,true);
 		$criteria->compare('Poster',$this->Poster,true);
 		$criteria->compare('Poster_original',$this->Poster_original,true);
+		$criteria->compare('Big_poster',$this->Big_poster,true);
+		$criteria->compare('Big_poster_original',$this->Big_poster_original,true);
 		$criteria->compare('Backdrop',$this->Backdrop,true);
 		$criteria->compare('Backdrop_original',$this->Backdrop_original,true);
 		$criteria->compare('Runtime',$this->Runtime,true);

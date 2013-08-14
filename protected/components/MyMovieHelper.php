@@ -72,7 +72,7 @@ class MyMovieHelper
 						$modelMyMovie->big_poster_original = self::getCovers($data);
 							
 					}
-					$modelMyMovie->big_poster = self::getImage($modelMyMovie->big_poster_original, $idMyMovie);
+					$modelMyMovie->big_poster = self::getImage($modelMyMovie->big_poster_original, $idMyMovie."_big");
 						
 					//Backdrop
 					$modelMyMovie->backdrop_original = self::getBackdrop($data->MovieData);
@@ -301,7 +301,7 @@ class MyMovieHelper
 				$modelMyMovieSerieHeader->poster_original = self::getPoster($data);
 				$modelMyMovieSerieHeader->poster = self::getImage($modelMyMovieSerieHeader->poster_original, $modelMyMovieSerieHeader->Id);
 				$modelMyMovieSerieHeader->big_poster_original = self::getBigPoster($data);
-				$modelMyMovieSerieHeader->big_poster = self::getImage($modelMyMovieSerieHeader->big_poster_original, $modelMyMovieSerieHeader->Id);
+				$modelMyMovieSerieHeader->big_poster = self::getImage($modelMyMovieSerieHeader->big_poster_original, $modelMyMovieSerieHeader->Id."_big");
 				
 				if(!$modelMyMovieSerieHeader->save())
 					return null;

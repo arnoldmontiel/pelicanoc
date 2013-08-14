@@ -27,6 +27,8 @@
  * @property string $studio
  * @property string $poster
  * @property string $poster_original
+ * @property string $big_poster
+ * @property string $big_poster_original
  * @property string $backdrop
  * @property string $backdrop_original
  * @property integer $Id_parental_control
@@ -74,13 +76,13 @@ class MyMovie extends CActiveRecord
 			array('Id, Id_my_movie_serie_header', 'length', 'max'=>200),
 			array('type, bar_code, country, aspect_ratio, video_standard, production_year, release_date, running_time, imdb, media_type', 'length', 'max'=>45),
 			array('local_title, original_title, sort_title, data_changed, covers_changed', 'length', 'max'=>100),
-			array('parental_rating_desc, genre, poster, poster_original, backdrop, backdrop_original', 'length', 'max'=>255),
+			array('parental_rating_desc, genre, poster, poster_original, big_poster, big_poster_original, backdrop, backdrop_original', 'length', 'max'=>255),
 			array('studio', 'length', 'max'=>512),
 			array('rating', 'length', 'max'=>10),
 			array('description, extra_features', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio, poster, poster_original, backdrop, backdrop_original, Id_parental_control, adult, Id_my_movie_serie_header, media_type', 'safe', 'on'=>'search'),
+			array('Id, type, bar_code, country, local_title, original_title, sort_title, aspect_ratio, video_standard, production_year, release_date, running_time, description, extra_features, parental_rating_desc, imdb, rating, data_changed, covers_changed, genre, studio, poster, poster_original, big_poster, big_poster_original, backdrop, backdrop_original, Id_parental_control, adult, Id_my_movie_serie_header, media_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -129,6 +131,8 @@ class MyMovie extends CActiveRecord
 			'studio' => 'Studio',
 			'poster' => 'Poster',
 			'poster_original' => 'Poster Original',
+			'big_poster' => 'Big Poster',
+			'big_poster_original' => 'Big Poster Original',
 			'backdrop' => 'Backdrop',
 			'backdrop_original' => 'Backdrop Original',
 			'Id_parental_control' => 'Id Parental Control',
@@ -172,6 +176,8 @@ class MyMovie extends CActiveRecord
 		$criteria->compare('studio',$this->studio,true);
 		$criteria->compare('poster',$this->poster,true);
 		$criteria->compare('poster_original',$this->poster_original,true);
+		$criteria->compare('big_poster',$this->big_poster,true);
+		$criteria->compare('big_poster_original',$this->big_poster_original,true);
 		$criteria->compare('backdrop',$this->backdrop,true);
 		$criteria->compare('backdrop_original',$this->backdrop_original,true);
 		$criteria->compare('Id_parental_control',$this->Id_parental_control);
