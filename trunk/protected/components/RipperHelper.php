@@ -211,6 +211,14 @@ class RipperHelper
 					}
 					$modelMyMovie->poster = self::getImage($modelMyMovie->poster_original, $idMyMovie);
 					
+					//BigPoster
+					$modelMyMovie->big_poster_original = self::getBigPoster($data->MovieData);
+					if($modelMyMovie->big_poster_original=="")
+					{
+						$modelMyMovie->big_poster_original = self::getCovers($data);
+					
+					}
+					$modelMyMovie->big_poster = self::getImage($modelMyMovie->big_poster_original, $idMyMovie);
 					//Backdrop
 					$modelMyMovie->backdrop_original = self::getBackdrop($data->MovieData);
 					$modelMyMovie->backdrop = self::getImage($modelMyMovie->backdrop_original, $idMyMovie . '_bd');
@@ -481,6 +489,18 @@ class RipperHelper
 		if(!empty($xml->Covers))
 		{
 			return (string)$xml->Covers->Front['Medium'];
+		}
+		return "";
+	}
+	private function getBigPoster($xml)
+	{
+		if(!empty($xml->Posters))
+		{
+			foreach($xml->Posters->children() as $item)
+			{
+				return (string)$item['File'];
+			}
+	
 		}
 		return "";
 	}
