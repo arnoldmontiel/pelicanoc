@@ -17,6 +17,27 @@ body#screenSeries {
 body#screenMarketplace{
   padding-top: 60px;
   }
+  
+    body#screenMarketplace2{
+  padding-top: 80px;
+  }
+  
+      body#screenDescargas{
+  padding-top: 80px;
+  }
+  
+body#screenMarketplace #content{
+  padding-bottom: 50px;
+  }
+
+  
+body#screenMarketplace2 #content{
+  padding-bottom: 50px;
+  }
+  
+  body#screenDescargas #content{
+  padding-bottom: 50px;
+  }
 
 body{ background-color:darkgrey;}
 
@@ -49,8 +70,30 @@ position:relative !important;
 position:absolute !important;
 }
 .peliTitulo {  
-    visibility: hidden;  
+    visibility: hidden;
+	color:#333333 !important;
+	background-color:#ccc;
+	padding:5px;
   }
+  
+ #screenMarketplace .peliTitulo {  
+    visibility:visible;
+	color:#333333 !important;
+	background-color:#ccc;
+	padding:5px;
+	color:black; margin-top:5px;
+
+  }
+   #screenMarketplace2 .peliTitulo {  
+    visibility:visible;
+	color:#333333 !important;
+	background-color:#ccc;
+	padding:5px;
+	color:black; margin-top:5px;
+  }
+  
+
+
 .peliPlay{
 top:165px !important;
 left:50px !important;
@@ -66,6 +109,12 @@ left:130px !important;
 -moz-box-shadow: 0px 0px 15px #000;
 -webkit-box-shadow: 0px 0px 15px #000;
 box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
+
+.peliAficheSmall{ width:130px; height:174px;
+-moz-box-shadow: 0px 0px 15px #000;
+-webkit-box-shadow: 0px 0px 15px #000;
+box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
+
 	.peliTitulo{ color:#ccc; margin-top:-5px;}
 	.pagination{ margin:5px 0px;}
 
@@ -214,4 +263,64 @@ margin-left:0px; left:7%;}
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
 
 .control{width: 90px;}
+
+/*-------- DESCARGAS --------------*/
+
+.descDone{ display:inline-block; color:white;
+font-size:0.8em; text-align:center;
+font-weight:normal;
+background-image:url(img/iconGreen.png);
+background-repeat:no-repeat;
+background-position:-1px;
+margin-left:5px;padding:0px 10px;
+line-height:10px;
+line-height:17px;}
+.descIP{display:inline-block; color:white;
+font-size:0.8em; text-align:center;
+font-weight:normal;
+background-image:url(img/iconGrey.png);
+background-repeat:no-repeat;
+background-position:-1px;
+margin-left:5px;
+padding:0px 10px;
+line-height:10px;
+line-height:17px;}
+
+
+.pelisFinalizadas{ padding:10px 40px; margin-bottom:20px;}
+.peliFinalizada{ width:140px; text-align:center; display:inline-block; margin-bottom:10px;}
+.peliFinalizadaBt{ padding:5px; text-align:center;}
+.peliFinalizada button{margin:auto; }
+.peliFinalizada img{margin:auto; }
+
+
+.pelisDescargadas{ padding:10px 40px;}
+.peliDescargando{ width:170px; text-align:center; display:inline-block; margin-bottom:10px;}
+.peliDescargandoProgress{ padding:5px; text-align:center;}
+.peliDescargando img{margin:auto; }
+
+.progress{ margin-bottom:0px !important; height:15px;}
+.progress .bar{ text-align:right; line-height:16px;}
+
+/*-------- SLIDER --------------*/
+h2.sliderTitle{ font-size:1.7em; font-weight:normal;  color:#666; text-shadow:0 1px 0 #ccc; line-height:25px; width:90%; margin:auto; margin-bottom:10px;}
+
+h2.sliderTitle.modified{ margin-left:75px; width:120px; float:left; margin-bottom:0px; margin-top:2px;}
+
+.marketTitle { width:88%; margin:auto;}
+.marketTitle .nav { margin-bottom:10px;}
+.marketTitle h2.sliderTitle{ float:left; width:120px; margin-bottom:0px; margin-top:2px;}
+
+.nav-pills>.active>a, .nav-pills>.active>a:hover {
+color: #ffffff;
+background-color: #9d9d00;
+}
+.nav-pills a {
+	color: #333;
+
+}
+
+.botonTodas{ float:right; margin-right:70px;}
+
+#MenuSecond{ top:55px; margin-left: 10px; margin-right:10px; font-size:0.95em;}
 </style>
