@@ -34,7 +34,7 @@ class NzbCommand extends CConsoleCommand  {
 				
 						$modelMyMovieNzb = MyMovieNzb::model()->findByPk($modelNzb->myMovieDiscNzb->Id_my_movie_nzb);
 				
-						if($modelNzb->url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->url))
+						if($modelNzb->url!='')
 						{
 							try {
 								$content = @file_get_contents($setting->host_name.$setting->host_path.$modelNzb->url);
