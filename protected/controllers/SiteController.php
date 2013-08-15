@@ -237,6 +237,7 @@ class SiteController extends Controller
 		
 		$modelNzb = null;
 		$modelRippedMovie = null;
+		$localFolder = null;
 		if($sourceType == 1)
 		{
 			$modelNzb = Nzb::model()->findByPk($id_resource);
