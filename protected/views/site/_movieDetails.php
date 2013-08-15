@@ -84,7 +84,7 @@
   <script>
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");
-		<?php $idResource = isset($modelNzb)?$modelNzb->Id:isset($modelRippedMovie)?$modelRippedMovie->Id:$modelLocalFolder->Id;?>	    
+		<?php $idResource = isset($modelNzb)?$modelNzb->Id:isset($modelRippedMovie)?$modelRippedMovie->Id:isset($modelLocalFolder)?$modelLocalFolder->Id:"";?>	    
 		 
 		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
 		return false;
