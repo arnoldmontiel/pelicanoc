@@ -31,14 +31,14 @@ foreach($dataProvider->getData() as $record)
 {
 	$data = $record->myMovieDiscNzb->myMovieNzb;
 	
-	$percentage = 0;
-	$fileName = "";
+	$percentage = 0;	
+	$fileName = explode('.',$record->file_name);
+	$fileName = $fileName[0];
+	
 	foreach($sABnzbdStatus->jobs as $job)
 	{
-		if(strpos($job['filename'], $record->file_name) !== false)
-		{
-			$fileName = str_replace(" ","",$job['filename']); 
-			$fileName = str_replace("/","",$fileName);
+		if(strpos($job['filename'], $fileName) !== false)
+		{			
 			$total = round($job['mb']);
 			$current = round($job["mb"]-$job["mbleft"]);
 			
@@ -47,12 +47,7 @@ foreach($dataProvider->getData() as $record)
 			
 			break;
 		}		
-	}
-	if($fileName == "")
-	{
-		$fileName = explode('.',$record->file_name);
-		$fileName = $fileName[0];		
-	}
+	}	
 	
 	
  ?>
