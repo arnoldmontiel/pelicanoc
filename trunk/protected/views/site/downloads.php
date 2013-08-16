@@ -48,6 +48,11 @@ foreach($dataProvider->getData() as $record)
 			break;
 		}		
 	}
+	if($fileName == "")
+	{
+		$fileName = explode('.',$record->file_name);
+		$fileName = $fileName[0];		
+	}
 	
 	
  ?>
