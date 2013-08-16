@@ -33,7 +33,7 @@ class FolderCommand extends CConsoleCommand  {
 									
 					foreach ($iterator as $file) 
 					{
-						if(pathinfo(($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') {
+						if(pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') {
 								
 							$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
 							if ($handle === false) {
