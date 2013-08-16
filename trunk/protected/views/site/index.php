@@ -1,12 +1,12 @@
 
 <?php
 
-$hola = ReadFolderHelper::process_dir('/srv/storage', true);
+// $hola = ReadFolderHelper::process_dir('/srv/storage', true);
 
-foreach ($hola as $file)
-{
-echo $file['dirpath']. '<br>';	
-}
+// foreach ($hola as $file)
+// {
+// echo $file['dirpath']. '<br>';	
+// }
 
 $this->widget('ext.isotope.Isotope',array(
     'dataProvider'=>$dataProvider,
