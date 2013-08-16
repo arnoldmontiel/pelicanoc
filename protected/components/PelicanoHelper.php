@@ -436,7 +436,8 @@ class PelicanoHelper
 				$to =  dirname(__FILE__)."/../../".$setting->path_ready."/";
 				$fileName = explode('.',$nzb->file_name);
 				$fileName = $fileName[0];
-				exec(dirname(__FILE__).'/../commands/shell/startDownload.sh '.$from.' '.$to.' '.$fileName,$output,$return);
+				$params = $from.' '.$to.' '.$fileName.' '.$setting->sabnzb_pwd_file_path;
+				exec(dirname(__FILE__).'/../commands/shell/startDownload.sh '.$params,$output,$return);
 				$nzb->downloaded = 0;
 				$nzb->downloading = 1;
 				$nzb->Id_nzb_state = 2;
