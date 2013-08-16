@@ -33,99 +33,96 @@ class FolderCommand extends CConsoleCommand  {
 									
 					foreach ($iterator as $file) 
 					{
-						if(is_readable($file['dirpath']))
-						{
-							if(pathinfo($file['filename'], PATHINFO_EXTENSION) == 'peli') {
-									
-								$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
-								if ($handle === false) {
-									return false;
-								}
-									
-								while (!feof($handle)) {
-									$buffer = fread($handle, $chunksize);
-									$arrayData = explode(';',$buffer);
-									$imdb = '';
-									$country = 'United States';
-									$idDisc = '';
-									$type = 'FOLDER';
-									$idDisc = '';
-									$name = '';
-									$season = '';
-									$episodes = '';
-									$source = '';
-									foreach($arrayData as $data)
-									{
-										$currentData = explode('=',$data);
-				
-										if(count($currentData) == 2)
-										{
-											$key = trim($currentData[0]);
-											$value = trim($currentData[1]);
-												
-											if(strtoupper($key) == 'IMDB')
-												$imdb = $value;
-				
-											if(strtoupper($key) == 'TYPE')
-												$type = strtoupper($value);
-				
-											if(strtoupper($key) == 'COUNTRY')
-												$country = $value;
-				
-											if(strtoupper($key) == 'NAME')
-												$name = $value;
-											
-											if(strtoupper($key) == 'SEASON')
-												$season = (int)$value;
-											
-											if(strtoupper($key) == 'EPISODE')
-												$episodes = $value;
-											
-											if(strtoupper($key) == 'SOURCE')
-												$source = strtoupper($value);
-										}
-									}
-				
-									$shortPath = str_replace($path,'',$file['dirpath']);
-									
-									if($type == 'ISO' || $type == 'MKV' || $type == 'MP4' || $type == 'AVI')
-									{
-										foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
-											if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
-												pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' || 
-												pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4' ||
-												pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'avi'))
-											{
-												$shortPath .= '/'. $fileInfo->getFilename();
-												break;
-											}
-										}
-									}
-				
-									if(empty($idDisc))
-										$idDisc = uniqid();
-														
-									$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
-									
-									if(!empty($imdb) && !isset($modelLocalFolderDB))
-									{
-										if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
-										{								
-											$modelLocalFolder = new LocalFolder();
-											$modelLocalFolder->Id_my_movie_disc = $idDisc;
-											$modelLocalFolder->Id_file_type = self::getFileType($type);
-											$modelLocalFolder->Id_source_type = self::getSoruceType($source);
-											$modelLocalFolder->Id_lote = $modelLote->Id;
-											$modelLocalFolder->path = $shortPath;
-											$modelLocalFolder->save();
-										}
-									}
-				
-									flush();
-								}
-									
+						if(pathinfo(($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') {
+								
+							$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
+							if ($handle === false) {
+								return false;
 							}
-						}			
+								
+							while (!feof($handle)) {
+								$buffer = fread($handle, $chunksize);
+								$arrayData = explode(';',$buffer);
+								$imdb = '';
+								$country = 'United States';
+								$idDisc = '';
+								$type = 'FOLDER';
+								$idDisc = '';
+								$name = '';
+								$season = '';
+								$episodes = '';
+								$source = '';
+								foreach($arrayData as $data)
+								{
+									$currentData = explode('=',$data);
+			
+									if(count($currentData) == 2)
+									{
+										$key = trim($currentData[0]);
+										$value = trim($currentData[1]);
+											
+										if(strtoupper($key) == 'IMDB')
+											$imdb = $value;
+			
+										if(strtoupper($key) == 'TYPE')
+											$type = strtoupper($value);
+			
+										if(strtoupper($key) == 'COUNTRY')
+											$country = $value;
+			
+										if(strtoupper($key) == 'NAME')
+											$name = $value;
+										
+										if(strtoupper($key) == 'SEASON')
+											$season = (int)$value;
+										
+										if(strtoupper($key) == 'EPISODE')
+											$episodes = $value;
+										
+										if(strtoupper($key) == 'SOURCE')
+											$source = strtoupper($value);
+									}
+								}
+			
+								$shortPath = str_replace($path,'',$file['dirpath']);
+								
+								if($type == 'ISO' || $type == 'MKV' || $type == 'MP4' || $type == 'AVI')
+								{
+									foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
+										if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
+											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' || 
+											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4' ||
+											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'avi'))
+										{
+											$shortPath .= '/'. $fileInfo->getFilename();
+											break;
+										}
+									}
+								}
+			
+								if(empty($idDisc))
+									$idDisc = uniqid();
+													
+								$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
+								
+								if(!empty($imdb) && !isset($modelLocalFolderDB))
+								{
+									if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
+									{								
+										$modelLocalFolder = new LocalFolder();
+										$modelLocalFolder->Id_my_movie_disc = $idDisc;
+										$modelLocalFolder->Id_file_type = self::getFileType($type);
+										$modelLocalFolder->Id_source_type = self::getSoruceType($source);
+										$modelLocalFolder->Id_lote = $modelLote->Id;
+										$modelLocalFolder->path = $shortPath;
+										$modelLocalFolder->save();
+									}
+								}
+			
+								flush();
+							}
+								
+						}
 					}
 				}
 				$modelCommandStatus->setBusy(false);
