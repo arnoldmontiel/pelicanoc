@@ -16,6 +16,18 @@
  * @property string $path_shared
  * @property string $host_path
  * @property integer $Id_reseller
+ * @property string $Id_device
+ * @property string $ip_v4
+ * @property string $ip_v6
+ * @property integer $port_v4
+ * @property integer $port_v6
+ * @property string $path_anydvd_download
+ * @property string $anydvd_version_installed
+ * @property string $mymovies_username
+ * @property string $mymovies_password
+ * @property string $host_file_server
+ * @property string $host_file_server_path
+ * @property string $sabnzb_pwd_file_path
  *
  * The followings are the available model relations:
  * @property Player[] $players 
@@ -83,11 +95,15 @@ class Setting extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer, Id_reseller', 'numerical', 'integerOnly'=>true),
-			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name, path_ready, path_subtitle, path_images, path_shared, host_path', 'length', 'max'=>255),
+			array('Id_customer, Id_reseller, port_v4, port_v6', 'numerical', 'integerOnly'=>true),
+			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name, path_ready, path_subtitle, 
+			path_images, path_shared, host_path, host_file_server, host_file_server_path, 
+			sabnzb_pwd_file_path', 'length', 'max'=>255),
+			array('path_anydvd_download, mymovies_username, mymovies_password', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,host_name, path_ready, path_subtitle, path_images, path_shared, host_path, Id_reseller', 'safe', 'on'=>'search'),
+			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,host_name, 
+			path_ready, path_subtitle, path_images, path_shared, host_path, Id_reseller, Id_device, ip_v4, ip_v6, port_v4, port_v6, path_anydvd_download, anydvd_version_installed, mymovies_username, mymovies_password, host_file_server, host_file_server_path, sabnzb_pwd_file_path', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -121,6 +137,18 @@ class Setting extends CActiveRecord
 			'path_shared' => 'Path Shared',
 			'host_path' => 'Host Path',
 			'Id_reseller' => 'Id Reseller',
+			'Id_device' => 'Id Device',
+			'ip_v4' => 'Ip V4',
+			'ip_v6' => 'Ip V6',
+			'port_v4' => 'Port V4',
+			'port_v6' => 'Port V6',
+			'path_anydvd_download' => 'Path Anydvd Download',
+			'anydvd_version_installed' => 'Anydvd Version Installed',
+			'mymovies_username' => 'Mymovies Username',
+			'mymovies_password' => 'Mymovies Password',
+			'host_file_server' => 'Host File Server',
+			'host_file_server_path' => 'Host File Server Path',
+			'sabnzb_pwd_file_path' => 'Sabnzb Pwd File Path',
 		);
 	}
 
@@ -147,9 +175,32 @@ class Setting extends CActiveRecord
 		$criteria->compare('path_shared',$this->path_shared,true);
 		$criteria->compare('host_path',$this->host_path,true);
 		$criteria->compare('Id_reseller',$this->Id_reseller);
+		$criteria->compare('Id_device',$this->Id_device,true);
+		$criteria->compare('ip_v4',$this->ip_v4,true);
+		$criteria->compare('ip_v6',$this->ip_v6,true);
+		$criteria->compare('port_v4',$this->port_v4);
+		$criteria->compare('port_v6',$this->port_v6);
+		$criteria->compare('path_anydvd_download',$this->path_anydvd_download,true);
+		$criteria->compare('anydvd_version_installed',$this->anydvd_version_installed,true);
+		$criteria->compare('mymovies_username',$this->mymovies_username,true);
+		$criteria->compare('mymovies_password',$this->mymovies_password,true);
+		$criteria->compare('host_file_server',$this->host_file_server,true);
+		$criteria->compare('host_file_server_path',$this->host_file_server_path,true);
+		$criteria->compare('sabnzb_pwd_file_path',$this->sabnzb_pwd_file_path,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	* Returns the static model of the specified AR class.
+	* Please note that you should have this exact method in all your CActiveRecord descendants!
+	* @param string $className active record class name.
+	* @return Setting the static model class
+	*/
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }
