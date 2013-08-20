@@ -413,10 +413,10 @@ CREATE TABLE `local_folder` (
   KEY `fk_local_folder_file_type1_idx` (`Id_file_type`),
   KEY `fk_local_folder_source_type1_idx` (`Id_source_type`),
   KEY `fk_local_folder_lote1_idx` (`Id_lote`),
-  CONSTRAINT `fk_local_folder_my_movie_disc1` FOREIGN KEY (`Id_my_movie_disc`) REFERENCES `my_movie_disc` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_local_folder_source_type1` FOREIGN KEY (`Id_source_type`) REFERENCES `source_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_local_folder_file_type1` FOREIGN KEY (`Id_file_type`) REFERENCES `file_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_local_folder_lote1` FOREIGN KEY (`Id_lote`) REFERENCES `lote` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_local_folder_file_type1` FOREIGN KEY (`Id_file_type`) REFERENCES `file_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_local_folder_my_movie_disc1` FOREIGN KEY (`Id_my_movie_disc`) REFERENCES `my_movie_disc` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_local_folder_source_type1` FOREIGN KEY (`Id_source_type`) REFERENCES `source_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=520 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1242,6 +1242,7 @@ CREATE TABLE `setting` (
   `mymovies_password` varchar(256) DEFAULT NULL,
   `host_file_server` varchar(255) DEFAULT NULL,
   `host_file_server_path` varchar(255) DEFAULT NULL,
+  `sabnzb_pwd_file_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1252,7 +1253,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://localhost','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/');
+INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://localhost','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1434,4 +1435,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-15 15:18:16
+-- Dump completed on 2013-08-16 16:53:11
