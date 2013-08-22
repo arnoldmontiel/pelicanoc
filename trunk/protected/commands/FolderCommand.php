@@ -45,13 +45,13 @@ class FolderCommand extends CConsoleCommand  {
 						if(!$hasPeliFile)
 							self::generatePeliFile($folderName, $file['dirpath'], $type);
 					}
-					
+
 					$iterator = ReadFolderHelper::process_dir_peli($path,true);
 					$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
 					//genero un nuevo lote
 					$modelLote->save();
-									
+
 					foreach ($iterator as $file) 
 					{
 						
@@ -207,14 +207,19 @@ class FolderCommand extends CConsoleCommand  {
 			{
 				$idImdb = (string)$title['imdb'];
 				$originalTitle = (string)$title['originalTitle'];
+				try {
+					
 				
-				$fp = fopen($path.'/pelicano.peli', 'w');
-				$content = 'imdb='.$idImdb.";\n";
-				$content .= 'type='.$type.";\n";
-				$content .= 'name='.$originalTitle.';';
-				
-				fwrite($fp, $content);
-				fclose($fp);
+					$fp = fopen($path.'/pelicano.peli', 'w');
+					$content = 'imdb='.$idImdb.";\n";
+					$content .= 'type='.$type.";\n";
+					$content .= 'name='.$originalTitle.';';
+					
+					fwrite($fp, $content);
+					fclose($fp);
+					} catch (Exception $e) {
+						break;
+					}
 				break;
 			}
 		}
