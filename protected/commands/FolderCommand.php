@@ -28,7 +28,7 @@ class FolderCommand extends CConsoleCommand  {
 				{
 					foreach ($videoIterator as $file)
 					{
-						$subIterator = ReadFolderHelper::process_dir($file['dirpath'], true);
+						$subIterator = ReadFolderHelper::process_dir_peli($file['dirpath'], true);
 						$hasPeliFile = false;
 						foreach ($subIterator as $fileSubIterator)
 						{
@@ -46,7 +46,7 @@ class FolderCommand extends CConsoleCommand  {
 							self::generatePeliFile($folderName, $file['dirpath'], $type);
 					}
 					
-					$iterator = ReadFolderHelper::process_dir($path,true);
+					$iterator = ReadFolderHelper::process_dir_peli($path,true);
 					$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
 					//genero un nuevo lote
@@ -209,8 +209,8 @@ class FolderCommand extends CConsoleCommand  {
 				$originalTitle = (string)$title['originalTitle'];
 				
 				$fp = fopen($path.'/pelicano.peli', 'w');
-				$content = 'imdb='.$idImdb.';';
-				$content .= 'type='.$type.';';
+				$content = 'imdb='.$idImdb.";\n";
+				$content .= 'type='.$type.";\n";
 				$content .= 'name='.$originalTitle.';';
 				
 				fwrite($fp, $content);
