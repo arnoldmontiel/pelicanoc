@@ -1,6 +1,42 @@
 <?php
 class ReadFolderHelper
 {
+
+	static public function process_dir_video($dir,$recursive = FALSE)
+	{
+		if (is_dir($dir)) {
+			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
+				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {
+					if (is_dir($path) && ($recursive)) 
+					{						
+						if(strstr($file,'BDMV')!=false)
+						{							
+							$entry = array('filename' => 'folder', 'dirpath' => $dir);
+							$list[] = $entry;
+						}
+						else
+							$list = array_merge($list, self::process_dir_video($path, TRUE));
+					} 
+					else 
+					{					
+						if((pathinfo($dir.$file, PATHINFO_EXTENSION) == 'iso' || 
+											pathinfo($dir.$file, PATHINFO_EXTENSION) == 'mkv' || 
+											pathinfo($dir.$file, PATHINFO_EXTENSION) == 'mp4' ||
+											pathinfo($dir.$file, PATHINFO_EXTENSION) == 'avi'))
+						{	
+							$entry = array('filename' => $file, 'dirpath' => $dir);
+							$entry['modtime'] = filemtime($path);	
+							$list[] = $entry;
+						}						
+					}
+				}
+			}
+			closedir($handle);
+			return $list;
+		}
+		else
+			return false;
+	}
 	
 	static public function process_dir($dir,$recursive = FALSE) 
 	{
@@ -28,7 +64,7 @@ class ReadFolderHelper
 	
 							$entry['size'] = filesize($path);
 							if (strstr(pathinfo($path,PATHINFO_BASENAME),'log')) {
-								if (!$entry['handle'] = fopen($path,r)) $entry['handle'] = "FAIL";
+								if (!$entry['handle'] = fopen($path,'r')) $entry['handle'] = "FAIL";
 							}
 	
 							//-----------------     End Editable     ------------------//
