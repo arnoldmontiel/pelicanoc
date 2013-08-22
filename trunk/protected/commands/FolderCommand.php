@@ -22,10 +22,31 @@ class FolderCommand extends CConsoleCommand  {
 				
 // 				$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path),
 // 				RecursiveIteratorIterator::SELF_FIRST);
-				$iterator = ReadFolderHelper::process_dir($path,true);
+				$videoIterator = ReadFolderHelper::process_dir_video($path,true);
 				
-				if($iterator)
+				if($videoIterator)
 				{
+					foreach ($videoIterator as $file)
+					{
+						$subIterator = ReadFolderHelper::process_dir($file['dirpath'], true);
+						$hasPeliFile = false;
+						foreach ($subIterator as $fileSubIterator)
+						{
+							if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
+							{
+								$hasPeliFile = true;
+								break;
+							}
+						}
+						$folderName = basename(dirname($file['dirpath'].'/'.$file['filename']));
+						
+						$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
+						
+						if(!$hasPeliFile)
+							self::generatePeliFile($folderName, $file['dirpath'], $type);
+					}
+					
+					$iterator = ReadFolderHelper::process_dir($path,true);
 					$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
 					//genero un nuevo lote
@@ -33,6 +54,7 @@ class FolderCommand extends CConsoleCommand  {
 									
 					foreach ($iterator as $file) 
 					{
+						
 						if(pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') {
 								
 							$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
@@ -170,6 +192,32 @@ class FolderCommand extends CConsoleCommand  {
 		}
 		
 		return $idSourceType;
+	}
+	
+	
+	private function generatePeliFile($folderName, $path, $type)
+	{
+		
+		$myMoviesAPI = new MyMoviesAPI();
+		$response = $myMoviesAPI->SearchDiscTitleByTitle($folderName);
+		if(!empty($response) && (string)$response['status'] == 'ok')
+		{
+			$titles = $response->Titles;		
+			foreach($titles->children() as $title)
+			{
+				$idImdb = (string)$title['imdb'];
+				$originalTitle = (string)$title['originalTitle'];
+				
+				$fp = fopen($path.'/pelicano.peli', 'w');
+				$content = 'imdb='.$idImdb.';';
+				$content .= 'type='.$type.';';
+				$content .= 'name='.$originalTitle.';';
+				
+				fwrite($fp, $content);
+				fclose($fp);
+				break;
+			}
+		}
 	}
 	
 	private function saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes)
