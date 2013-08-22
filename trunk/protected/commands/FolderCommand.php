@@ -217,8 +217,8 @@ class FolderCommand extends CConsoleCommand  {
 						$content .= 'type='.$type.";\n";
 						$content .= 'name='.$originalTitle.';';
 						
-						fwrite($fp, $content);
-						fclose($fp);
+						@fwrite($fp, $content);
+						@fclose($fp);
 					}
 				} catch (Exception $e) {
 					break;
