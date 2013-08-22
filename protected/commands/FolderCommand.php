@@ -210,16 +210,19 @@ class FolderCommand extends CConsoleCommand  {
 				try {
 					
 				
-					$fp = fopen($path.'/pelicano.peli', 'w');
-					$content = 'imdb='.$idImdb.";\n";
-					$content .= 'type='.$type.";\n";
-					$content .= 'name='.$originalTitle.';';
-					
-					fwrite($fp, $content);
-					fclose($fp);
-					} catch (Exception $e) {
-						break;
+					$fp = @fopen($path.'/pelicano.peli', 'w');
+					if(isset($fp))
+					{
+						$content = 'imdb='.$idImdb.";\n";
+						$content .= 'type='.$type.";\n";
+						$content .= 'name='.$originalTitle.';';
+						
+						fwrite($fp, $content);
+						fclose($fp);
 					}
+				} catch (Exception $e) {
+					break;
+				}
 				break;
 			}
 		}
