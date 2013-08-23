@@ -229,9 +229,9 @@ class SiteController extends Controller
 	
 	public function actionAjaxMovieShowDetail()
 	{
-		$id_resource = $_POST['idResource'];
+		$id_resource = $_POST['idresource'];
 		$id = $_POST['id'];
-		$sourceType = $_POST['sourceType'];
+		$sourceType = $_POST['sourcetype'];
 		
 		$criteria=new CDbCriteria;
 		
