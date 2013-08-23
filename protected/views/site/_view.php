@@ -22,7 +22,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		var sourceType = '$data->source_type';
 		var id = '$model->Id';
 		var idResource = '$data->Id';		
-		var param = 'id='+id+'&sourceType='+sourcetype+'&idresource='+idResource; 
+		var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('AjaxMovieShowDetail') . "',
