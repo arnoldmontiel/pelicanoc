@@ -413,7 +413,7 @@
             }
             
 	        this.element.find('.post').each(function(i){
-	        	
+	        	$(this).find('img').unbind('click');
 	        	$(this).find('img').click(function(){
 	        		if(locationUrl != null && params != null)
 	        		{	        
