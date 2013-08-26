@@ -421,14 +421,27 @@ class SiteController extends Controller
 			
 			$modelNzbs = Nzb::model()->findAll();
 
+			$modelNzbCurrent = null;
 			foreach($modelNzbs as $nzb)
 			{
-				if(strpos($playbackUrl,$nzb->path)>0)
+				if(isset($nzb->path) && strpos($playbackUrl,$nzb->path)>0)
 					$modelNzbCurrent = $nzb;
-			}
+			}						
 			
 			if(isset($modelNzbCurrent))
-				echo  $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;				
+				echo  $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
+
+			$modelLocalFolderCurrent = null;
+			$modelLocalFolders = LocalFolder::model()->findAll();
+			foreach($modelLocalFolders as $localFolder)
+			{
+				if(isset($localFolder->path) && strpos($playbackUrl,$localFolder->path)>0)
+					$modelLocalFolderCurrent = $localFolder;
+			}
+				
+			if(isset($modelLocalFolderCurrent))
+				echo  $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
+			
 		}
 		else
 			echo '0';
