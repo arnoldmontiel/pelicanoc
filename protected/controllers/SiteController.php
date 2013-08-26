@@ -445,7 +445,8 @@ class SiteController extends Controller
 				if(isset($modelLocalFolderCurrent))
 					echo $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
 			}
-			echo '0';
+			if(!isset($modelLocalFolderCurrent) && !isset($modelNzbCurrent))
+				echo '0';
 			
 		}
 		else
