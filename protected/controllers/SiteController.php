@@ -431,18 +431,20 @@ class SiteController extends Controller
 			
 			if(isset($modelNzbCurrent))
 				echo  $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
-
-			$modelLocalFolderCurrent = null;
-			$modelLocalFolders = LocalFolder::model()->findAll();
-			foreach($modelLocalFolders as $localFolder)
+			else 
 			{
-				if(isset($localFolder->path) && !empty($localFolder->path))
-					if(strpos($playbackUrl,$localFolder->path)>0)
-						$modelLocalFolderCurrent = $localFolder;
+				$modelLocalFolderCurrent = null;
+				$modelLocalFolders = LocalFolder::model()->findAll();
+				foreach($modelLocalFolders as $localFolder)
+				{
+					if(isset($localFolder->path) && !empty($localFolder->path))
+						if(strpos($playbackUrl,$localFolder->path)>0)
+							$modelLocalFolderCurrent = $localFolder;
+				}
+					
+				if(isset($modelLocalFolderCurrent))
+					echo  $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
 			}
-				
-			if(isset($modelLocalFolderCurrent))
-				echo  $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
 			
 		}
 		else
