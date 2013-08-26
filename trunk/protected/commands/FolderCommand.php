@@ -106,8 +106,7 @@ class FolderCommand extends CConsoleCommand  {
 									}
 								}
 			
-								$shortPath = str_replace($path,'',$file['dirpath']);
-								
+								$shortPath = str_replace($path,'',$file['dirpath']);								
 								if($type == 'ISO' || $type == 'MKV' || $type == 'MP4' || $type == 'AVI')
 								{
 									foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
