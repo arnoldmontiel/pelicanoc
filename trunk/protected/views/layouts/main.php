@@ -115,7 +115,8 @@ $(document).ready(function(){
     		function(data){
         		if(data != null)
         		{        			
-        			var param = '&id=' + data.id + '&type=' + data.type;
+        			var obj = jQuery.parseJSON(data);
+        			var param = '&id=' + obj.id + '&type=' + obj.type;
         			window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
         			return false;
         		}
