@@ -18,11 +18,9 @@ class ReadFolderHelper
 							$list = array_merge($list, self::process_dir_video($path, TRUE));
 					} 
 					else 
-					{					
-						if((pathinfo($dir.$file, PATHINFO_EXTENSION) == 'iso' || 
-											pathinfo($dir.$file, PATHINFO_EXTENSION) == 'mkv' || 
-											pathinfo($dir.$file, PATHINFO_EXTENSION) == 'mp4' ||
-											pathinfo($dir.$file, PATHINFO_EXTENSION) == 'avi'))
+					{			
+						$extension = strtoupper(pathinfo($dir.$file, PATHINFO_EXTENSION));		
+						if($extension == 'ISO' || $extension == 'MKV' || $extension == 'MP4' || $extension == 'AVI')
 						{	
 							$entry = array('filename' => $file, 'dirpath' => $dir);
 							$entry['modtime'] = filemtime($path);	
