@@ -123,7 +123,7 @@ $(document).ready(function(){
         		{		        		    				
     				$('#myModalNoPlaying').modal('show');
         		} 
-    		});
+    		},"json");
   	});
   	
     
