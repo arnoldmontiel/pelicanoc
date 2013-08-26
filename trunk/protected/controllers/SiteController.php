@@ -424,8 +424,9 @@ class SiteController extends Controller
 			$modelNzbCurrent = null;
 			foreach($modelNzbs as $nzb)
 			{
-				if(isset($nzb->path) && strpos($playbackUrl,$nzb->path)>0)
-					$modelNzbCurrent = $nzb;
+				if(isset($nzb->path))
+					if(strpos($playbackUrl,$nzb->path)>0)
+						$modelNzbCurrent = $nzb;
 			}						
 			
 			if(isset($modelNzbCurrent))
@@ -435,8 +436,9 @@ class SiteController extends Controller
 			$modelLocalFolders = LocalFolder::model()->findAll();
 			foreach($modelLocalFolders as $localFolder)
 			{
-				if(isset($localFolder->path) && strpos($playbackUrl,$localFolder->path)>0)
-					$modelLocalFolderCurrent = $localFolder;
+				if(isset($localFolder->path))
+					if(strpos($playbackUrl,$localFolder->path)>0)
+						$modelLocalFolderCurrent = $localFolder;
 			}
 				
 			if(isset($modelLocalFolderCurrent))
