@@ -430,7 +430,7 @@ class SiteController extends Controller
 			}						
 			
 			if(isset($modelNzbCurrent))
-				echo  'aa'.$modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
+				echo $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
 			else 
 			{
 				$modelLocalFolderCurrent = null;
@@ -443,9 +443,9 @@ class SiteController extends Controller
 				}
 					
 				if(isset($modelLocalFolderCurrent))
-					echo  'bb'.$modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
+					echo $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
 			}
-			echo $playbackUrl;
+			echo '0';
 			
 		}
 		else
