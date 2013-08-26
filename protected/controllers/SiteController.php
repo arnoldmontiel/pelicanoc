@@ -392,12 +392,15 @@ class SiteController extends Controller
 		));
 	}
 	
-	public function actionOpenDuneControl($id)
+	public function actionOpenDuneControl($id, $type)
 	{
 		$this->showFilter = false;
 		
-		$model = MyMovieNzb::model()->findByPk($id);
-	
+		if($type == 1)
+			$model = MyMovieNzb::model()->findByPk($id);
+		else
+			$model = MyMovie::model()->findByPk($id);
+		
 		$this->render('start',array(
 							'model'=>$model,
 		));
@@ -416,6 +419,10 @@ class SiteController extends Controller
 	public function actionAjaxGetPlayback()
 	{
 		$playbackUrl = DuneHelper::getPlaybackUrl();
+		//type = 1 = nzb
+		//type = 2 = localFolder
+		
+		$response = array('id'=>0,'type'=>1);
 		if(isset($playbackUrl))
 		{			
 			
@@ -430,7 +437,7 @@ class SiteController extends Controller
 			}						
 			
 			if(isset($modelNzbCurrent))
-				echo $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
+				$response['id'] = $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
 			else 
 			{
 				$modelLocalFolderCurrent = null;
@@ -441,17 +448,16 @@ class SiteController extends Controller
 						if(strpos($playbackUrl,$localFolder->path)>0)
 							$modelLocalFolderCurrent = $localFolder;
 				}
-					
+				
+				$response['type'] = 2;
+				
 				if(isset($modelLocalFolderCurrent))
-					echo $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
-			}
-			if(!isset($modelLocalFolderCurrent) && !isset($modelNzbCurrent))
-				echo '0';
+					$response['id'] = $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
+			}			
 			
 		}
-		else
-			echo '0';
-		//$this->renderPartial('_noPlaying',array('model'=>$modelCurrentDisc));		
+		
+		echo json_encode($response);
 	}
 	
 	
