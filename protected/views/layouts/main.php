@@ -113,9 +113,9 @@ $(document).ready(function(){
     	$.post("<?php echo SiteController::createUrl('AjaxGetPlayback'); ?>"
     	).success(
     		function(data){
-        		if(data != '0')
-        		{
-        			var param = '&id=' + data;
+        		if(data != null)
+        		{        			
+        			var param = '&id=' + data.id + '&type=' + data.type;
         			window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
         			return false;
         		}
@@ -238,7 +238,7 @@ $(document).ready(function(){
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalNoPlaying')); 
 
 echo CHtml::openTag('div',array('id'=>'view-no-playing'));
-echo $this->renderPartial('../site/_noPlaying');
+//echo $this->renderPartial('../site/_noPlaying');
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
