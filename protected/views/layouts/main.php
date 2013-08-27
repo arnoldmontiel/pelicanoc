@@ -244,7 +244,7 @@ $(document).ready(function(){
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalNoPlaying')); 
 
 echo CHtml::openTag('div',array('id'=>'view-no-playing'));
-//echo $this->renderPartial('../site/_noPlaying');
+echo $this->renderPartial('../site/_noPlaying');
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
