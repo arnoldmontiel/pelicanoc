@@ -116,9 +116,14 @@ $(document).ready(function(){
         		if(data != null)
         		{        			
         			var obj = jQuery.parseJSON(data);
-        			var param = '&id=' + obj.id + '&type=' + obj.type;
-        			window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
-        			return false;
+        			if(obj.id != 0)
+        			{
+        				var param = '&id=' + obj.id + '&type=' + obj.type;
+        				window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
+        				return false;
+        			}
+        			else
+        				$('#myModalNoPlaying').modal('show');
         		}
         		else
         		{		        		    				
