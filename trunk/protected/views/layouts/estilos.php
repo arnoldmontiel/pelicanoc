@@ -21,7 +21,7 @@ body#screenMarketplace{
   }
   
   body#screenControl{
-  padding-top: 80px;
+  padding-top: 0px;
   background-repeat:no-repeat;
   background-size:cover;  
   }
