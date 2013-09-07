@@ -390,14 +390,12 @@ class SiteController extends Controller
 		$this->render('control',array(
 				'model'=>$model,
 		));
-		
-// 		$this->render('start',array(
-// 						'model'=>$model,
-// 		));
 	}
 	
 	public function actionOpenDuneControl($id, $type)
 	{
+		$this->layout='//layouts/column3';
+		
 		$this->showFilter = false;
 		
 		if($type == 1)
@@ -405,8 +403,8 @@ class SiteController extends Controller
 		else
 			$model = MyMovie::model()->findByPk($id);
 		
-		$this->render('start',array(
-							'model'=>$model,
+		$this->render('control',array(
+				'model'=>$model,
 		));
 	}
 	
