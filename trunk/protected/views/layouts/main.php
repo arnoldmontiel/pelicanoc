@@ -43,7 +43,12 @@ function getCurrentDisc()
 }
 
 $(document).ready(function(){
-
+	$.ajaxSetup({
+	    cache: false,
+	    headers: {
+	        'Cache-Control': 'no-cache'
+	    }
+	});
 	/*
 	setInterval(function() {
 		getCurrentDisc();
