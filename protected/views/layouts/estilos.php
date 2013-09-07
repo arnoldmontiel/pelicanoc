@@ -266,7 +266,7 @@ body#screenControl .container{ text-align:center;}
 body#screenControl{ background-color:black; overflow:hidden; }
 
 
-.controlContainer{ width:70%;
+.controlContainer{ width:100%;
 margin:auto;
 }
 
