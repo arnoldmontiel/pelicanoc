@@ -25,7 +25,7 @@
     </div>
     <!-- /span6 -->
     <div class="span6">
-    <div class="controlFlechas">
+    <div class="controlFlechas"style="float:right;">
     <div class="flechasArriba">
 <button type="button" class="btn btn-large btn-primary btn-warning" id="upButton"><i class="icon-chevron-up icon-white icon-2x"></i></button>
 </div>
