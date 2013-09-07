@@ -6,9 +6,8 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <!-- isotope -->
 <link href="css/isotope.css" rel="stylesheet" media="screen">
 <!--<link href="css/pelicano.css" rel="stylesheet" media="screen">
