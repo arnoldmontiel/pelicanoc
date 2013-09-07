@@ -7,31 +7,26 @@
 
 body#screenHome {
   padding-top: 125px;
-  background-repeat:no-repeat;
-  background-size:cover;
 }
 body#screenSeries {
   padding-top: 105px;
 }
 
 body#screenMarketplace{
-  padding-top: 60px;
-  }
-  
-    body#screenMarketplace2{
   padding-top: 80px;
   }
   
-      body#screenDescargas{
+  body#screenDescargas{
   padding-top: 80px;
+  }
+  
+  body#screenControl{
+  padding-top: 80px;
+  background-repeat:no-repeat;
+  background-size:cover;  
   }
   
 body#screenMarketplace #content{
-  padding-bottom: 50px;
-  }
-
-  
-body#screenMarketplace2 #content{
   padding-bottom: 50px;
   }
   
@@ -59,7 +54,7 @@ body{ background-color:darkgrey;}
 #content{ margin-left:0px;}
 .element{
 	width:165px;
-	height:240px;
+	height:250px;
 	background-color:none !important;
 	background:none !important;
 	}
@@ -70,11 +65,12 @@ position:relative !important;
 position:absolute !important;
 }
 .peliTitulo {  
-    visibility: hidden;
 	color:#333333 !important;
 	background-color:#ccc;
 	padding:5px;
+	display:none;
   }
+
   
  #screenMarketplace .peliTitulo {  
     visibility:visible;
@@ -139,7 +135,7 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 @media (min-width: 1200px) {
 	.element{
 	width:165px;
-	height:240px;
+	height:250px;
 	background-color:none !important;
 	background:none !important;
 	}
@@ -262,7 +258,74 @@ margin-left:0px; left:7%;}
 
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
 
-.control{width: 90px;}
+
+/*-------- CONTROL REMOTO --------------*/
+
+body#screenControl .container{ text-align:center;}
+
+body#screenControl{ background-color:black; overflow:hidden; }
+
+
+.controlContainer{ width:70%;
+margin:auto;
+}
+
+
+.controlContainer .controlAfiche{ padding-top:10px; text-align:right;}
+
+
+.controlTitle{font-size: 2em;
+font-weight: normal;
+color: #fff;
+text-shadow: 0 1px 0 #666;
+text-align:left;
+padding-top:20px;
+padding-bottom:10px;
+margin-bottom:20px;
+border-bottom:1px solid #ccc;}
+
+
+.controlAudioSub{ text-align:left;}
+.controlAudioSub button{ width:200px; height:60px; margin-top:10px; margin-bottom:20px; display:block;}
+
+.controlFlechas{ width:165px; margin-bottom:20px;}
+
+.flechasArriba{ margin-bottom:5px;}
+
+.flechasCemtro .button{ margin-right:5px;}
+
+.flechasAbajo{ margin-top:5px;}
+
+.controlBackground{
+	/*background-color:rgba(31,81,139,0.2);*/
+	background-color:rgba(89,117,139,0.2);
+	-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	}
+
+.controlNavegacion{padding:15px;}
+
+.controlProgress{height: 60px;
+padding-top: 40px;}
+.controlLenght{height: 60px;
+padding-top: 37px; padding-right:15px; font-size:1em;}
+
+body#screenControl .controlContainer .btn-warning{ width:50px; height:50px;}
+body#screenControl .controlContainer .controlNavegacion .btn-inverse{ width:70px; height:70px;}
+
+.controlNumeros{ text-align:left; padding:20px 15px;}
+.controlNumeros .btn{ width:50px; height:50px; font-size:2em; margin-right:5px;}
+
+.controlConfig{ text-align:left; padding:20px 15px; text-align:right;}
+.controlConfig .btn{ width:50px; height:50px; font-size:2em; margin-left:5px;}
+
+
+body#screenControl .controlConfig .btn-inverse{ height:50px; width:50px; }
+
+body#screenControl .btn-large{ padding:0px;}
 
 /*-------- DESCARGAS --------------*/
 
@@ -323,4 +386,6 @@ background-color: #9d9d00;
 .botonTodas{ float:right; margin-right:70px;}
 
 #MenuSecond{ top:55px; margin-left: 10px; margin-right:10px; font-size:0.95em;}
+
+.noMargin{ margin:0px !important;}
 </style>
