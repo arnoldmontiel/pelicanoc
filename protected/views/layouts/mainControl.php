@@ -5,6 +5,7 @@
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
@@ -149,7 +150,7 @@ $(document).ready(function(){
 <input id="media-type-filter" type="hidden" name="media-type-filter" value="*">
 <input id="current-filter" type="hidden" name="current-filter" value="*">
 <input id="search-filter" type="hidden" name="search-filter" value="">
-<body id="screenHome">
+<body id="screenControl">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner" id="Menu">
     <div class="container"> 
