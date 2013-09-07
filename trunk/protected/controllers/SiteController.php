@@ -365,6 +365,7 @@ class SiteController extends Controller
 	
 	public function actionStart($id, $sourceType, $idResource)
 	{
+		$this->layout='//layouts/column3';
 		$this->showFilter = false;
 		
 		switch ($sourceType) {
@@ -386,10 +387,13 @@ class SiteController extends Controller
 				$model = MyMovie::model()->findByPk($id);
 				break;
 		}		
-		
-		$this->render('start',array(
-						'model'=>$model,
+		$this->render('control',array(
+				'model'=>$model,
 		));
+		
+// 		$this->render('start',array(
+// 						'model'=>$model,
+// 		));
 	}
 	
 	public function actionOpenDuneControl($id, $type)
