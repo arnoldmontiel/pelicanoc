@@ -263,7 +263,7 @@ margin-left:0px; left:7%;}
 
 body#screenControl .container{ text-align:center;}
 
-body#screenControl{ background-color:black; overflow:hidden; }
+body#screenControl{ background-color:black; overflow:hidden; padding-bottom: 0px;}
 
 
 .controlContainer{ width:100%;
