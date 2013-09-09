@@ -368,22 +368,31 @@ class SiteController extends Controller
 		$this->layout='//layouts/column3';
 		$this->showFilter = false;
 		
+		$currentPlayback = $this->getPlayback();
+		$play = false;
+		if($currentPlayback['id'] != $id)
+			$play = true;
+		
 		switch ($sourceType) {
 			case 1:
 				$nzbModel = Nzb::model()->findByPk($idResource);
-				$folderPath = explode('.',$nzbModel->file_name);			
-				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
+				$folderPath = explode('.',$nzbModel->file_name);
+				if($play)			
+					DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
 				
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
 			case 2:
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
+				//DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
 				$localFolder = LocalFolder::model()->findByPk($idResource);
-				$folderPath = explode('.',$localFolder->path);			
-				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				$folderPath = explode('.',$localFolder->path);
+				if($play)			
+					DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				
 				$model = MyMovie::model()->findByPk($id);
 				break;
 		}		
@@ -420,9 +429,16 @@ class SiteController extends Controller
 	
 	public function actionAjaxGetPlayback()
 	{
+		$response = $this->getPlayback();
+		
+		echo json_encode($response);
+	}
+	
+	private function getPlayback()
+	{
 		$playbackUrl = DuneHelper::getPlaybackUrl();
 		//type = 1 = nzb
-		//type = 2 = localFolder
+		//type = 2 = localFolder/rippedMovie
 		
 		$response = array('id'=>0,'type'=>1);
 		if(isset($playbackUrl))
@@ -459,10 +475,8 @@ class SiteController extends Controller
 			
 		}
 		
-		echo json_encode($response);
+		return $response;
 	}
-	
-	
 	/**
 	* This is the default 'music' action that is invoked
 	* when an action is not explicitly requested by users.
