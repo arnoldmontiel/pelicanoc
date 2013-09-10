@@ -368,17 +368,13 @@ class SiteController extends Controller
 		$this->layout='//layouts/column3';
 		$this->showFilter = false;
 		
-		$currentPlayback = $this->getPlayback();
 		$play = false;
-		if($currentPlayback['id'] != $id)
-			$play = true;
 		
 		switch ($sourceType) {
 			case 1:
 				$nzbModel = Nzb::model()->findByPk($idResource);
 				$folderPath = explode('.',$nzbModel->file_name);
-				if($play)			
-					DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
+				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
 				
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
@@ -390,8 +386,7 @@ class SiteController extends Controller
 			case 3:
 				$localFolder = LocalFolder::model()->findByPk($idResource);
 				$folderPath = explode('.',$localFolder->path);
-				if($play)			
-					DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
 				
 				$model = MyMovie::model()->findByPk($id);
 				break;
