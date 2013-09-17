@@ -266,6 +266,38 @@ class SiteController extends Controller
 		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie,'modelLocalFolder'=>$localFolder));
 	}
 	
+	public function actionAjaxCurrentDiscShowDetail()
+	{
+	
+		$modelNzb = null;
+		$modelRippedMovie = null;
+		$localFolder = null;
+		$sourceType = 4;
+		
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+		
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		$modelCurrentDisc->read = 1;
+		$modelCurrentDisc->save();
+		
+		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
+		
+		$id = $modelMyMovieDisc->Id_my_movie;
+		
+		$model = MyMovie::model()->findByPk($id);
+		
+		$criteria=new CDbCriteria;
+		$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+		$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+		$criteria->order = 't.Id ASC';
+		
+	
+		$casting = $this->getCasting($criteria);
+		
+		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie,'modelLocalFolder'=>$localFolder));
+	}
+	
 	public function actionAjaxSerieShowDetail()
 	{
 		$id = $_POST['id'];
@@ -390,6 +422,11 @@ class SiteController extends Controller
 				
 				$model = MyMovie::model()->findByPk($id);
 				break;
+			case 4:
+				DuneHelper::playDuneOnline($id);
+			
+				$model = MyMovie::model()->findByPk($id);
+				break;
 		}		
 		$this->render('control',array(
 				'model'=>$model,
@@ -433,7 +470,7 @@ class SiteController extends Controller
 	{
 		$playbackUrl = DuneHelper::getPlaybackUrl();
 		//type = 1 = nzb
-		//type = 2 = localFolder/rippedMovie
+		//type = 2 = localFolder/rippedMovie/online
 		
 		$response = array('id'=>0,'type'=>1);
 		if(isset($playbackUrl))
@@ -466,8 +503,33 @@ class SiteController extends Controller
 				
 				if(isset($modelLocalFolderCurrent))
 					$response['id'] = $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
+				
 			}			
 			
+		}
+		else
+		{
+			$duneState = DuneHelper::getState();
+			if(isset($duneState))
+			{
+				
+				if($duneState->player_state != "black_screen")
+				{
+					$criteria=new CDbCriteria;
+					$criteria->condition = 'Id_current_disc_state <> 1';
+			
+					$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+					if(isset($modelCurrentDisc))
+					{
+						$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
+						if(isset($modelMyMovieDisc))
+						{
+							$response['id'] = $modelMyMovieDisc->Id_my_movie;
+							$response['type'] = 2;
+						}
+					}
+				}
+			}	
 		}
 		
 		return $response;
@@ -524,10 +586,15 @@ class SiteController extends Controller
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		
 		$isDiscIN = 0;
+		$read = 1;
 		if(isset($modelCurrentDisc))
+		{
 			$isDiscIN = 1;
+			$read = $modelCurrentDisc->read;
+		}
 		
-		echo $isDiscIN;
+		$currentDisc = array('is_in'=>$isDiscIN,'read'=>$read);
+		echo CJSON::encode($currentDisc);		
 	}
 	
 	public function actionUseDisc($action)
@@ -568,7 +635,8 @@ class SiteController extends Controller
 										          'pagination'=>array('pageSize'=>10),
 				
 				));
-				$this->render('currentDisc',array('arrayDataProvider'=>$arrayDataProvider,));
+				//$this->render('currentDisc',array('arrayDataProvider'=>$arrayDataProvider,));
+				$this->renderPartial('currentDisc',array('arrayDataProvider'=>$arrayDataProvider));
 			}
 		}
 		else

@@ -36,14 +36,24 @@ class WsPelicanoCController extends Controller
 												$criteria);
 		//---------
 		
+// 		$modelCurrentDisc = new CurrentDisc();
+// 		$modelCurrentDisc->Id_current_disc_state = 2; // Pending Data
+// 		$modelCurrentDisc->Id_my_movie_disc = $idDisc;
+		
+// 		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$idDisc));
+// 		if(isset($modelMyMovieDisc))
+// 			$modelCurrentDisc->Id_current_disc_state = 3; // Width Data	
+		
+// 		if($modelCurrentDisc->save())
+// 			$idCurrent = $modelCurrentDisc->Id;
+		
+		$idCurrent = 0;
+		RipperHelper::saveCurrentDiscData($idDisc);
+		
 		$modelCurrentDisc = new CurrentDisc();
-		$modelCurrentDisc->Id_current_disc_state = 2; // Pending Data
+		$modelCurrentDisc->Id_current_disc_state = 3; // Width Data
 		$modelCurrentDisc->Id_my_movie_disc = $idDisc;
-		
-		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$idDisc));
-		if(isset($modelMyMovieDisc))
-			$modelCurrentDisc->Id_current_disc_state = 3; // Width Data	
-		
+					
 		if($modelCurrentDisc->save())
 			$idCurrent = $modelCurrentDisc->Id;
 		
@@ -69,6 +79,26 @@ class WsPelicanoCController extends Controller
 				return true;
 		}
 		return false;
+	}
+	
+	/**
+	*
+	* Set current command
+	* @param string $id
+	* @return integer command
+	* @soap
+	*/
+	public function getCurrentCommand($id)
+	{
+		$command = 0;
+		$modelCurrentDisc = CurrentDisc::model()->findByPk($id);
+	
+		if(isset($modelCurrentDisc))
+		{
+			$command = 0;
+		}
+		
+		return $command;
 	}
 	
 	/**

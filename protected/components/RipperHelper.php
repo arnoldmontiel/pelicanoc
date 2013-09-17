@@ -126,6 +126,29 @@ class RipperHelper
 	
 	}
 	
+	static public function saveCurrentDiscData($idDisc)
+	{	
+		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$idDisc));
+		if(!isset($modelMyMovieDisc))
+		{
+			$rawData = array();
+			$rawData = self::searchTitlesByDiscId($idDisc,'');
+			if(!empty($rawData))
+			{				
+				if(MyMovieHelper::saveMyMovieData($rawData[0]->id))
+				{
+					$modelMyMovieDiscDB = new MyMovieDisc();
+					$modelMyMovieDiscDB->Id = $idDisc;
+					$modelMyMovieDiscDB->Id_my_movie = $rawData[0]->id;
+					
+					$modelMyMovieDiscDB->name = $rawData[0]->title;
+					$modelMyMovieDiscDB->save();
+				}
+			}
+		}
+		
+	}
+	
 	static public function searchTitlesByDiscId($idDisc, $country)
 	{
 		$titlesResponse = array();
