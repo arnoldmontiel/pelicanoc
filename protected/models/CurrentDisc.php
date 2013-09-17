@@ -9,6 +9,8 @@
  * @property string $Id_my_movie_disc
  * @property string $in_date
  * @property string $out_date
+ * @property integer $command
+ * @property integer $read
  *
  * The followings are the available model relations:
  * @property CurrentDiscState $idCurrentDiscState
@@ -32,12 +34,12 @@ class CurrentDisc extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_current_disc_state', 'required'),
-			array('Id_current_disc_state', 'numerical', 'integerOnly'=>true),
+			array('Id_current_disc_state, command, read', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc', 'length', 'max'=>200),
 			array('in_date, out_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Id_current_disc_state, Id_my_movie_disc, in_date, out_date', 'safe', 'on'=>'search'),
+			array('Id, Id_current_disc_state, Id_my_movie_disc, in_date, out_date, command, read', 'safe', 'on'=>'search'),
 		);
 	}
 
