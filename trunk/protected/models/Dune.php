@@ -34,4 +34,5 @@ class Dune
 	public $playback_duration;
 	public $playback_position;
 	public $playback_volume;
+	public $player_state;
 }
