@@ -27,6 +27,21 @@ class DuneHelper
 		return true;
 	}
 	
+	static public function playDuneOnline($id)
+	{
+	
+		$setting = Setting::getInstance();
+	
+		$cmd = 'launch_media_url';
+
+		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
+		$url = $url . '//'. $setting->shared_online_path;
+		echo $url;
+		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
+		@file_get_contents($url);
+		return true;
+	}
+	
 	static public function getProgressBar()
 	{
 		$current_progress_bar = 0;
@@ -74,7 +89,7 @@ class DuneHelper
 		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
 	}
 	
-	private function getState()
+	static public function getState()
 	{
 		$modelDune = null;
 		
@@ -110,6 +125,10 @@ class DuneHelper
 			$param = $xml->xpath("//param[@name = 'playback_volume']");
 			if(!empty($param))
 				$modelDune->playback_volume = (string)$param[0]->attributes()->value;
+			
+			$param = $xml->xpath("//param[@name = 'player_state']");
+			if(!empty($param))
+				$modelDune->player_state = (string)$param[0]->attributes()->value;
 		}	
 		
 		return $modelDune;
