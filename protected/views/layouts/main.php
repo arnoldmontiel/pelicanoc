@@ -25,21 +25,17 @@ function getCurrentDisc()
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentDisc'); ?>"
 		).success(
 		function(data){
-			var image = $('#loginInfo').css('background-image');			
-			if(data == 0)
-				$('#loginInfo').css('background-image','url("img/userIcon.png")');
-			else{
-				if(image.indexOf('userIcon.png')>0)
-				{
-					$('#loginInfo').css('background-image','url("img/userIconIN.png")');
-					$.post("<?php echo SiteController::createUrl('AjaxDiscIn'); ?>"
-					).success(
-						function(data){		
-							$('#view-disc-in').html(data);
-							$('#myModalDiscIn').modal('show'); 
-						});
-				}
+			var result = JSON.parse(data);
+			if(result.read == 0)
+			{
+				$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
+				).success(
+					function(data){
+						$('#view-details').html(data);
+						$('#myModal').modal('show'); 
+					});
 			}
+			
 		});
 }
 
@@ -50,11 +46,11 @@ $(document).ready(function(){
 	        'Cache-Control': 'no-cache'
 	    }
 	});
-	/*
+	
 	setInterval(function() {
 		getCurrentDisc();
 	}, 5000);
-	*/
+	
 	
 	$('#nav li').removeClass('active');
 	if(document.URL.indexOf('Serie') > 0)
@@ -236,8 +232,8 @@ $(document).ready(function(){
 
   <div class="row-fluid">
     <div class="span12">
-    
-      	<?php echo $content; ?>        
+	
+   	<?php echo $content; ?>        
     
       <!-- /content -->
     </div>
