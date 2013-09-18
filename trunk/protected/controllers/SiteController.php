@@ -298,6 +298,17 @@ class SiteController extends Controller
 		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie,'modelLocalFolder'=>$localFolder));
 	}
 	
+	public function actionAjaxRipp()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+		
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		$modelCurrentDisc->command = 2; //ripp
+		$modelCurrentDisc->save();
+
+	}
+	
 	public function actionAjaxSerieShowDetail()
 	{
 		$id = $_POST['id'];
