@@ -26,6 +26,14 @@ function getCurrentDisc()
 		).success(
 		function(data){
 			var result = JSON.parse(data);
+			if(result.is_in == 1)
+			{
+				$('#loginInfo').css('background-image','url("img/userIconIN.png")');
+			}
+			else
+			{
+				$('#loginInfo').css('background-image','url("img/userIcon.png")');
+			}
 			if(result.read == 0)
 			{
 				$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
@@ -110,6 +118,19 @@ $(document).ready(function(){
 	  return false;
 	});
 
+    $('#loginInfo').click(function(){
+    	var image = $('#loginInfo').css('background-image');
+    	if(image.indexOf('userIconIN.png')>0)
+    	{
+    		$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
+			).success(
+				function(data){
+					$('#view-details').html(data);
+					$('#myModal').modal('show'); 
+				});
+    	}
+    	
+    });
 
     $('#btn-dune-control').click(function(){    	
     	$.post("<?php echo SiteController::createUrl('AjaxGetPlayback'); ?>"
