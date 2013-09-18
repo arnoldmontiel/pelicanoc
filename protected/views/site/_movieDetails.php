@@ -78,6 +78,9 @@
     
     </div>
     <div class="modal-footer">
+    	<?php if($sourceType == 4):?>
+    		<button id="btn-ripp" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiar</button>
+    	<?php endif;?>
     	<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>	  
     </div>
   </div>
@@ -98,5 +101,15 @@
 		 
 		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
 		return false;
+	});
+	
+	$('#btn-ripp').click(function(){
+		$('#btn-ripp').attr("disabled", "disabled"); 
+		$.post("<?php echo SiteController::createUrl('AjaxRipp'); ?>"
+			).success(
+				function(data){
+					$('#myModal').modal('hide'); 
+		});
+		return false;    
 	});
 	</script>
