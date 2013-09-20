@@ -21,9 +21,7 @@ body#screenMarketplace{
   }
   
   body#screenControl{
-  padding-top: 0px;
-  background-repeat:no-repeat;
-  background-size:cover;  
+  padding-top: 80px;
   }
   
 body#screenMarketplace #content{
@@ -51,12 +49,16 @@ body{ background-color:darkgrey;}
 .navbarSecond{ top:55px; margin-right:10px; margin-left:10px;}
 .btn-group{ margin-top:0px !important;}
 .modal{ color:#333;}
+
+#myModalLabel{ font-size:1.5em;}
+
 #content{ margin-left:0px;}
 .element{
 	width:165px;
 	height:250px;
 	background-color:none !important;
 	background:none !important;
+	border-radius:0px !important;
 	}
 	.element *{
 position:relative !important;
@@ -68,7 +70,6 @@ position:absolute !important;
 	color:#333333 !important;
 	background-color:#ccc;
 	padding:5px;
-	display:none;
   }
 
   
@@ -156,6 +157,15 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 	background:none !important;
 	}
 .peliAfiche{ width:180px; height:240px;}
+
+	}
+
+	#filtroGeneroMob{ display:none;}
+	#filtroEdadMob{ display:none;}
+	
+	
+	#filtroGenero .menuItem{ display:list-item;}
+	#filtroEdad .menuItem{ display:list-item;}
 
 	}
  
@@ -259,6 +269,17 @@ margin-left:0px; left:7%;}
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
 
 
+.tableInfo{
+	max-height: 380px;
+overflow-y: scroll;}
+
+.modal-body{ overflow:hidden;}
+
+#myModalSerie{ padding-bottom:30px;}
+.tableInfoSeries{
+	max-height: 350px;
+overflow-y: scroll;}
+
 /*-------- CONTROL REMOTO --------------*/
 
 body#screenControl .container{ text-align:center;}
@@ -327,6 +348,11 @@ body#screenControl .controlConfig .btn-inverse{ height:50px; width:50px; }
 
 body#screenControl .btn-large{ padding:0px;}
 
+.controlContainer .aficheImg {
+width: 200px;
+height: 280px;
+}
+
 /*-------- DESCARGAS --------------*/
 
 .descDone{ display:inline-block; color:white;
@@ -387,5 +413,101 @@ background-color: #9d9d00;
 
 #MenuSecond{ top:55px; margin-left: 10px; margin-right:10px; font-size:0.95em;}
 
+#filtroGenero.nav { margin-right:0px;}
+
+#filtroGenero li a{ padding-right: 20px;padding-left: 20px;}
+
+#filtroEdad{ border-right:1px solid #ccc;border-left:1px solid #ccc;}
+.search-query{ margin-right:10px;}
+
 .noMargin{ margin:0px !important;}
+
+
+/*Estilos Responsive*/
+
+/* Large desktop */
+@media (min-width: 1024px) {
+	.element{
+	width:180px;
+	height:290px;
+	background-color:none !important;
+	background:none !important;
+	}
+	.peliAfiche{ width:180px; height:260px;}
+	
+	.controlContainer{
+		width:70%;
+	}
+}
+/*IPAD LANDSCAPE*/
+@media (min-width: 768px) and (min-width: 1024px) {
+	.controlContainer{
+		width:100%;
+	}
+	
+	.element{
+	width:180px;
+	height:290px;
+	background-color:none !important;
+	background:none !important;
+	}
+	
+	.peliAfiche{ width:180px; height:260px;}
+	
+
+}
+
+/*IPAD PORTRAIT*/
+@media (max-width: 768px) { 
+	.navbar .nav>li>a{
+		padding:10px 10px 10px;
+	}
+		
+	.element{
+	width:165px;
+	height:270px;
+	background-color:none !important;
+	background:none !important;
+	}
+	
+	.peliAfiche{ width:165px; height:240px;}
+
+	.controlContainer{
+		width:100%;
+	}
+	
+	.controlContainer .span6{
+		width:100%;
+	}
+	.controlNavegacion{
+		width:680px;
+		margin:auto;
+	}
+	.controlContainer .controlNavegacion .btn-inverse {
+	width: 70px;
+	height: 70px;
+	}
+	.controlProgress{
+	width: 90%;
+	margin: auto;
+	}
+	
+	.controlNumeros .btn{
+		margin-right: 25px;
+		margin-bottom: 15px;
+	}
+	
+	#filtroGenero li.menuItem{ display:none;}
+	#filtroGenero li.dropdown{ display:inline-block;}
+	#filtroEdad li.menuItem{ display:none;}
+	#filtroEdad li.dropdown{ display:inline-block;}
+}
+
+
+  @media only screen and (max-width: 767px) {  
+  /*esto arma el menu mobile*/
+  /* .mobile-two .span2 { width: 50% !important; float: left; padding: 0 15px; }*/
+
+}
+
 </style>

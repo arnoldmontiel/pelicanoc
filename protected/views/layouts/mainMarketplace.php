@@ -176,10 +176,7 @@ $(document).ready(function(){
 </script>
 </head>
 
-<input id="media-type-filter" type="hidden" name="media-type-filter" value="*">
-<input id="current-filter" type="hidden" name="current-filter" value="*">
-<input id="search-filter" type="hidden" name="search-filter" value="">
-<body id="screenHome">
+<body id="screenMarketplace">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner" id="Menu">
     <div class="container"> 
@@ -204,87 +201,8 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-<?php if (isset($this->showFilter) && $this->showFilter): ?>
-<div class="navbar navbar-fixed-top  navbarSecond">
-  <div class="navbar-inner">
-    <div class="container">
- 
-      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-<!-- Everything you want hidden at 940px or less, place within here -->
-<div class="nav-collapse collapse">
-	<!-- .nav, .navbar-search, .navbar-form, etc -->
-	<ul id="filtroGenero" class="nav">
-		<li class="active menuItem generoTodas"><a  href="#" data-filter="*">Todas</a></li>
-		<li class="menuItem generoComedia"><a href="#" data-filter=".comedy">Comedia</a></li>
-		<li class="menuItem generoDrama"><a href="#" data-filter=".drama">Drama</a></li>
-		<li class="menuItem generoRomance"><a href="#" data-filter=".romance">Romance</a></li>
-		<li class="menuItem generoAdultos"><a href="#" data-filter=".fantasy">Fantasia</a></li>
-		<li class="dropdown" id="filtroGeneroMob">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedGenero"><span class="selected">Todos los G&eacute;neros</span> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            	<li><a href="#" data-sel="generoTodas" data-filter="*">Todos los G&eacute;neros</a></li>
-				<li><a href="#" data-sel="generoComedia" data-filter=".comedy">Comedia</a></li>
-                <li><a href="#" data-sel="generoDrama" data-filter=".drama">Drama</a></li>
-                <li><a href="#" data-sel="generoRomance" data-filter=".romances">Romance</a></li>
-                <li><a href="#" data-sel="generoAdultos" data-filter=".fantasy">Fantasia</a></li>
-			</ul>
-		</li>
-	</ul>
-    <ul id="filtroEdad" class="nav">
-    	<li class="active menuItem edadATP"><a href="#">ATP</a></li>
-        <li class="menuItem edad13"><a href="#">Mayores 13</a></li>
-        <li class="menuItem edad16"><a href="#">Mayores 16</a></li>
-        <li class="dropdown" id="filtroEdadMob">
-        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedEdad"><span class="selected">ATP</span> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            	<li><a href="#" data-sel="edadATP" data-filter=".comedia">ATP</a></li>
-                <li><a href="#" data-sel="edad13" data-filter=".comedia">Mayores 13</a></li>
-                <li><a href="#" data-sel="edad16" data-filter=".drama">Mayores 16</a></li>
-			</ul>
-		</li>
-	</ul>	
-    <form class="navbar-search pull-right">
-    	<input type="text" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">
-    	<button id="btn-dune-control" class="btn">Control</button>
-	</form>	    
-      		
-</div>
-</div>
-</div>
-</div>
-<?php endif; ?>
+
 <div class="container" >
-  <div class=" row-fluid visible-phone btn-toolbar">
-    <div class="span12">
-      <button class="btn dropdown-toggle" data-toggle="dropdown">G&eacute;nero <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">Todos</a></li>
-        <li><a href="#">Comedia</a></li>
-        <li><a href="#">Drama</a></li>
-        <li><a href="#">Romance</a></li>
-        <li><a href="#">Adultos</a></li>
-      </ul>
-      <button class="btn dropdown-toggle" data-toggle="dropdown">P&uacute;blico <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">ATP</a></li>
-        <li><a href="#">Mayores 13</a></li>
-        <li><a href="#">Mayores 16</a></li>
-      </ul>
-    </div>
-    <!-- /span12 -->
-  </div>
-  <!-- /row -->
- 
- 
- <?php
- //$descargar='no'; 
- //include('movieDetails.php'); 
- //include('serieDetails.php'); ?>
 
   <div class="row-fluid">
     <div class="span12">
