@@ -112,7 +112,8 @@ class SiteController extends Controller
 // 		PelicanoHelper::getCustomerSettings();
 	
 // 		PelicanoHelper::sendPendingNzbStates();
-
+//  		PelicanoHelper::updateNzbDataFromServer();
+	
 		$modelMovies = new Movies();
 		$dataProvider= $modelMovies->search();
 		$dataProvider->pagination->pageSize= 100;
@@ -141,6 +142,7 @@ class SiteController extends Controller
 	
 	public function actionMarketplace()
 	{
+		$this->showFilter = false;
 		$modelNzb = new Nzb();
 		$dataProvider = $modelNzb->searchMarketplace();
 		
