@@ -49,5 +49,5 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
 		?>    
     </a>
-    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $title;?></div>
+    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $model->original_title;?></div>
 </div>
