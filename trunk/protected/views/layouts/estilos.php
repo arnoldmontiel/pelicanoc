@@ -70,6 +70,8 @@ position:absolute !important;
 	color:#333333 !important;
 	background-color:#ccc;
 	padding:5px;
+	white-space: nowrap;
+	overflow: hidden;
   }
 
   
@@ -430,4 +432,24 @@ background-color: #9d9d00;
 
 .peliReroduciendo button{ margin:auto;}
 
+p.slide-text {
+position:relative;
+animation:mymove 5s infinite;
+-webkit-animation:mymove 5s infinite; /*Safari and Chrome*/
+width: 100%;
+}
+
+
+@keyframes mymove
+{
+from {right:0px;}
+to {right:100%;}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+from {right:0px;}
+to {right:100%;}
+}
+.peliReroduciendo button{ margin:auto;}
 </style>
