@@ -436,7 +436,7 @@ p.slide-text {
 position:relative;
 animation:mymove 5s infinite;
 -webkit-animation:mymove 5s infinite; /*Safari and Chrome*/
-width: 100%;
+width: auto;
 }
 
 

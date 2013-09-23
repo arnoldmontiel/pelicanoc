@@ -48,6 +48,16 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		 echo CHtml::image("images/".$moviePoster,'details',
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
 		?>    
-    </a>
-    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $model->original_title;?></div>
+    </a>			
+    <div id="<?php echo $data->Id;?>" class="peliTitulo">
+		<?php 
+		if(strlen($model->original_title) > 22)
+    		echo CHtml::openTag("p",array("class"=>"slide-text"));
+    	else
+    		echo CHtml::openTag("p");
+    							
+    	echo $model->original_title;
+    	echo CHtml::closeTag("p");
+		?>
+    </div>
 </div>
