@@ -53,9 +53,18 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
     								"idResource"=>$data->Id)),
     				
     				'',array("style"=>"position:relative", "data-toggle"=>"modal", "href"=>"#myModal"));
+    					
     					echo CHtml::openTag("div",array("id"=>$data->Id, "class"=>"peliTitulo"));
-    						echo $modelMyMovieNzb->original_title;
-    					echo CHtml::closeTag("div");    				 
+    					if(strlen($modelMyMovieNzb->original_title) > 20)
+    						echo CHtml::openTag("p",array("class"=>"slide-text"));
+    					else
+    						echo CHtml::openTag("p");
+    							
+    							echo $modelMyMovieNzb->original_title;
+    						echo CHtml::closeTag("p");
+    					echo CHtml::closeTag("div");
+    					
+    					
     				echo CHtml::closeTag("li");
     				
     				
