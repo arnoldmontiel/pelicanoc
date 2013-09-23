@@ -5,6 +5,7 @@
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/font-awesome.min.css">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
@@ -250,7 +251,7 @@ $(document).ready(function(){
 	</ul>	
     <form class="navbar-search pull-right">
     	<input type="text" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">
-    	<button id="btn-dune-control" class="btn">Control</button>
+    	<button id="btn-dune-controls" class="btn">Control</button>
 	</form>	    
       		
 </div>
@@ -313,5 +314,15 @@ echo CHtml::openTag('div',array('id'=>'view-disc-in'));
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
+
+<!-- floating DIV para Peliculas en Reproduccion -->
+<div class="peliReroduciendo">
+<div class="rep">
+Reproduciendo:
+<div class="tituloRep">Les Miserables</div>
+</div>
+<a class="btn" id="btn-dune-control"><i class="icon-keyboard"></i> Control Remoto</a>
+</div>
+<!-- /cierre floating -->
 </body>
 </html>

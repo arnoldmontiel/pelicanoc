@@ -422,92 +422,12 @@ background-color: #9d9d00;
 
 .noMargin{ margin:0px !important;}
 
+.peliReroduciendo{ position:fixed; bottom:10px; right:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333;}
 
-/*Estilos Responsive*/
+.peliReroduciendo .rep{text-align:left;}
 
-/* Large desktop */
-@media (min-width: 1024px) {
-	.element{
-	width:180px;
-	height:290px;
-	background-color:none !important;
-	background:none !important;
-	}
-	.peliAfiche{ width:180px; height:260px;}
-	
-	.controlContainer{
-		width:70%;
-	}
-}
-/*IPAD LANDSCAPE*/
-@media (min-width: 768px) and (min-width: 1024px) {
-	.controlContainer{
-		width:100%;
-	}
-	
-	.element{
-	width:180px;
-	height:290px;
-	background-color:none !important;
-	background:none !important;
-	}
-	
-	.peliAfiche{ width:180px; height:260px;}
-	
+.peliReroduciendo .tituloRep{ font-size:1.3em; margin-bottom:10px; border-bottom:1px dotted #393939; padding-bottom:10px;}
 
-}
-
-/*IPAD PORTRAIT*/
-@media (max-width: 768px) { 
-	.navbar .nav>li>a{
-		padding:10px 10px 10px;
-	}
-		
-	.element{
-	width:165px;
-	height:270px;
-	background-color:none !important;
-	background:none !important;
-	}
-	
-	.peliAfiche{ width:165px; height:240px;}
-
-	.controlContainer{
-		width:100%;
-	}
-	
-	.controlContainer .span6{
-		width:100%;
-	}
-	.controlNavegacion{
-		width:680px;
-		margin:auto;
-	}
-	.controlContainer .controlNavegacion .btn-inverse {
-	width: 70px;
-	height: 70px;
-	}
-	.controlProgress{
-	width: 90%;
-	margin: auto;
-	}
-	
-	.controlNumeros .btn{
-		margin-right: 25px;
-		margin-bottom: 15px;
-	}
-	
-	#filtroGenero li.menuItem{ display:none;}
-	#filtroGenero li.dropdown{ display:inline-block;}
-	#filtroEdad li.menuItem{ display:none;}
-	#filtroEdad li.dropdown{ display:inline-block;}
-}
-
-
-  @media only screen and (max-width: 767px) {  
-  /*esto arma el menu mobile*/
-  /* .mobile-two .span2 { width: 50% !important; float: left; padding: 0 15px; }*/
-
-}
+.peliReroduciendo button{ margin:auto;}
 
 </style>
