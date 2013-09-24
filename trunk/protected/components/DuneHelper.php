@@ -67,7 +67,9 @@ class DuneHelper
 		$playbackUrl = null;
 		if(isset($modelDune))
 		{
-			if($modelDune->playback_state == "playing")
+			if($modelDune->player_state == "file_playback" || 
+			$modelDune->player_state == "dvd_playback" ||
+			$modelDune->player_state == "bluray_playback")
 			{
 				$playbackUrl = $modelDune->playback_url;
 			}
