@@ -28,31 +28,32 @@
 function getCurrentDisc()
 {
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentDisc'); ?>"
-		).success(
-		function(data){
-			var result = JSON.parse(data);
-			if(result.is_in == 1)
-			{
-				$('#loginInfo').css('background-image','url("img/userIconIN.png")');
-			}
-			else
-			{
-				$('#loginInfo').css('background-image','url("img/userIcon.png")');
-			}
-			if(result.read == 0)
-			{
-				$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
-				).success(
-					function(data){
-						$('#view-details').html(data);
-						$('#myModal').modal('show'); 
-					});
-			}
-			
-		});
+	).success(
+	function(data){
+		var result = JSON.parse(data);
+		if(result.is_in == 1)
+		{
+			$('#newDisc').show();
+		}
+		else
+		{
+			$('#newDisc').hide();
+		}
+		if(result.read == 0)
+		{
+			$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
+			).success(
+				function(data){
+					$('#view-details').html(data);
+					$('#myModal').modal('show'); 
+				});
+		}
+		
+	});
 }
 
 $(document).ready(function(){
+	getCurrentDisc();
 	$.ajaxSetup({
 	    cache: false,
 	    headers: {
@@ -130,18 +131,13 @@ $(document).ready(function(){
 	  return false;
 	});
 
-    $('#loginInfo').click(function(){
-    	var image = $('#loginInfo').css('background-image');
-    	if(image.indexOf('userIconIN.png')>0)
-    	{
-    		$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
-			).success(
-				function(data){
-					$('#view-details').html(data);
-					$('#myModal').modal('show'); 
-				});
-    	}
-    	
+	$('#newDisc').click(function(){
+    	$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
+		).success(
+			function(data){
+				$('#view-details').html(data);
+				$('#myModal').modal('show'); 
+			});
     });
 
     $('#btn-dune-control').click(function(){    	
@@ -195,7 +191,8 @@ $(document).ready(function(){
 			 	$customer = Setting::getInstance()->getCustomer();
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
-        <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>		
+        <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>
+        <div id="newDisc" class="pull-right">Examinar Disco</div>		
       </div>
       <!--/.nav-collapse -->
     </div>
