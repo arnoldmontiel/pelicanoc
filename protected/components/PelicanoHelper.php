@@ -3,6 +3,37 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function setAnimationClass($text)
+	{
+		$class = "";
+		$size = strlen($text);
+		switch($size)
+		{
+			case ($size > 22 && $size <= 26):
+				$class = "slide-text26";
+				break;
+		
+			case ($size > 26 && $size <= 30):
+				$class = "slide-text30";
+				break;
+		
+			case ($size > 30 && $size <= 35):
+				$class = "slide-text35";
+				break;
+		
+			case ($size > 35 && $size <= 40):
+				$class = "slide-text40";
+				break;
+				
+			case ($size > 40):
+				$class = "slide-text41";
+				break;
+			default:
+				$class = "";
+				break;
+		}
+		return $class;
+	}
 	
 	static public function sendAnydvdVersionDownloaded($version)
 	{
