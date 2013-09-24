@@ -95,7 +95,7 @@ class WsPelicanoCController extends Controller
 	
 		if(isset($modelCurrentDisc))
 		{
-			$command = 0;
+			$command = $modelCurrentDisc->command;
 		}
 		
 		return $command;

@@ -322,6 +322,17 @@ class SiteController extends Controller
 
 	}
 	
+	public function actionAjaxCancelRipp()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+	
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		$modelCurrentDisc->command = 1; //cancel ripp
+		$modelCurrentDisc->save();
+	
+	}
+	
 	public function actionAjaxSerieShowDetail()
 	{
 		$id = $_POST['id'];
@@ -487,6 +498,27 @@ class SiteController extends Controller
 	{
 		$response = $this->getPlayback();
 		
+		echo json_encode($response);
+	}
+	
+	public function actionAjaxGetRipp()
+	{
+		$response = array('id'=>0, 'poster'=>'','originalTitle'=>'');
+		
+		$criteria=new CDbCriteria;
+		$criteria->join = 'INNER JOIN my_movie_disc mmd ON (mmd.Id_my_movie = t.Id) 
+							INNER JOIN current_disc cd ON (cd.Id_my_movie_disc = mmd.Id)';
+		$criteria->addCondition('cd.Id_current_disc_state <> 1');
+		$criteria->addCondition('cd.command =  2'); //ripping
+		
+		$modelMyMovie = MyMovie::model()->find($criteria);
+		
+		if(isset($modelMyMovie))
+		{
+			$response['originalTitle'] = $modelMyMovie->original_title;
+			$response['poster'] = $modelMyMovie->poster;
+			$response['id'] = $modelMyMovie->Id;
+		}
 		echo json_encode($response);
 	}
 	
