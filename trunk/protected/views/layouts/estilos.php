@@ -88,6 +88,7 @@ position:absolute !important;
 	padding:5px;
 	white-space: nowrap;
 	overflow: hidden;
+	height: 20px;
   }
 
   
