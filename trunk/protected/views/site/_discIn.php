@@ -18,6 +18,8 @@
 			    	<div class="span4 pagination-centered detailMain">
 						<button id="btn-play-ripp" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Rippear</button>    		
 			    	</div><!--/.span4 -->
+			    	<div class="span4 pagination-centered detailMain" id="ripp-area">
+			    	</div><!--/.span4 -->
 		    </div><!--/.span9PRINCIPAL -->
 		    
 		</div><!--/.rowPRINCIPAL -->
@@ -28,7 +30,16 @@
   </div>
   <script>
 	$('#btn-play').click(function(){
-		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    
+		window.location = <?php echo '"'. SiteController::createUrl('site/Ajaxstart',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    
 		return false;
 	});
+	$('#btn-play-ripp').click(function(){
+		$.post("<?php echo SiteController::createUrl('UseDisc',array('action'=>'aa')); ?>"
+			).success(
+				function(data){		
+					$('#ripp-area').html(data);
+		});
+		return false;
+	});
+	
   </script>
