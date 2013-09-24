@@ -114,6 +114,8 @@ class SiteController extends Controller
 // 		PelicanoHelper::sendPendingNzbStates();
 //  		PelicanoHelper::updateNzbDataFromServer();
 	
+		//RipperHelper::saveCurrentDiscData('28a35e6b-11fe83f9');
+		
 		$modelMovies = new Movies();
 		$dataProvider= $modelMovies->search();
 		$dataProvider->pagination->pageSize= 100;
@@ -501,7 +503,10 @@ class SiteController extends Controller
 			}						
 			
 			if(isset($modelNzbCurrent))
+			{
 				$response['id'] = $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
+				$response['originalTitle'] = $modelNzbCurrent->myMovieDiscNzb->myMovieNzb->original_title;
+			}
 			else 
 			{
 				$modelLocalFolderCurrent = null;
@@ -516,7 +521,10 @@ class SiteController extends Controller
 				$response['type'] = 2;
 				
 				if(isset($modelLocalFolderCurrent))
+				{
 					$response['id'] = $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
+					$response['originalTitle'] = $modelLocalFolderCurrent->myMovieDisc->myMovie->original_title;						
+				}
 				
 			}			
 			
@@ -538,6 +546,7 @@ class SiteController extends Controller
 						$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
 						if(isset($modelMyMovieDisc))
 						{
+							$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;						
 							$response['id'] = $modelMyMovieDisc->Id_my_movie;
 							$response['type'] = 2;
 						}
