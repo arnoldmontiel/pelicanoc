@@ -70,6 +70,7 @@ class Isotope extends CListView
         if (!$this->itemSelectorClass){
             throw new CException('Item Selector cannot be blank');
         }
+        $this->htmlOptions['class'] = '';
     }
 
     public function run(){
