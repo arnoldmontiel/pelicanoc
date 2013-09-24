@@ -1,7 +1,33 @@
 <?php
 
 Yii::app()->clientScript->registerScript('sabnzbdstatus', "
+
 setInterval(function() {
+	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'
+		).success(
+			function(data){				
+    			if(data != null)
+	    		{        			
+	    			var obj = jQuery.parseJSON(data);    			
+	    			if(obj.id != 0)
+	    			{    				
+	    				var src = 'images/' + obj.poster;
+	    				$('#ripp-image').attr('src', src);
+	    				$('#ripping-area').show();	
+					}
+	    			else
+	    				$('#ripping-area').hide();
+	    		}
+	    		else
+	    		{		        		    				
+					$('#ripping-area').hide();
+	    		} 
+			},'json');
+}, 5000)
+		
+		
+setInterval(function() {
+		
 	$.get('".SiteController::createUrl('AjaxRefreshSabNzbStatus')."').success(
 		function(data) 
 		{
@@ -62,13 +88,36 @@ foreach($dataProvider->getData() as $record)
 <!--      termina peli finalizada-->
 </div>
 <?php if(isset($modelMyMovie)): ?>
-<h2 class="sliderTitle">Copiando</h2>
-<div class="peliDescargando">
-	<img class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
-	<div class="peliDescargandoProgress">
-		<div class="progress progress-striped active">
-			<div id="percentage-bar" class="bar" style="width:5%;">5%</div>
+<div id="ripping-area">
+	<h2 class="sliderTitle">Copiando</h2>
+	<div class="peliDescargando">
+		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
+		<div class="peliDescargandoProgress">
+			<div class="progress progress-striped active">
+				<div id="percentage-bar" class="bar" style="width:45%;">45%</div>				
+			</div>
 		</div>
+		<a id="btn-cancel" class="btn">
+			<i class="icon-th"></i>
+				Cancelar
+		</a>
 	</div>
 </div>
 <?php endif; ?>
+<?php 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
+
+echo CHtml::openTag('div',array('id'=>'view-details'));
+//place holder
+echo CHtml::closeTag('div'); 
+
+$this->endWidget(); ?>
+<script>
+	$('#btn-cancel').click(function(){
+		$('#btn-cancel').attr("disabled", "disabled"); 
+		$.post("<?php echo SiteController::createUrl('AjaxCancelRipp'); ?>"
+			).success(
+				function(data){
+		});
+	});
+</script>
