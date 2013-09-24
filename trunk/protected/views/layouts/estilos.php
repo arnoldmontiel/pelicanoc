@@ -35,7 +35,7 @@ body#screenMarketplace #content{
 body{ background-color:darkgrey;}
 
 #Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #9d9d00;}
-#MenuLogo{ margin-left:10px;}
+#MenuLogo{ margin-left:0px;}
 
 #Menu .navbar-search{ margin-right:10px;}
 
@@ -60,7 +60,6 @@ border-right: 1px solid #ccc;
 .points{ font-size:11px; color:#000; font-weight:bold;}
 
 
-#filtroGenero{ margin-left:10px;}
 #filtroEdad{ margin-right:10px;}
 
 .navbarSecond{ top:55px; margin-right:10px; margin-left:10px;}
