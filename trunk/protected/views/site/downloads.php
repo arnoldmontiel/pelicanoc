@@ -61,3 +61,14 @@ foreach($dataProvider->getData() as $record)
 <?php } ?>
 <!--      termina peli finalizada-->
 </div>
+<?php if(isset($modelMyMovie)): ?>
+<h2 class="sliderTitle">Copiando</h2>
+<div class="peliDescargando">
+	<img class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
+	<div class="peliDescargandoProgress">
+		<div class="progress progress-striped active">
+			<div id="percentage-bar" class="bar" style="width:5%;">5%</div>
+		</div>
+	</div>
+</div>
+<?php endif; ?>
