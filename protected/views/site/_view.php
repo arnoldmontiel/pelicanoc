@@ -51,11 +51,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
     </a>			
     <div id="<?php echo $data->Id;?>" class="peliTitulo">
 		<?php 
-		if(strlen($model->original_title) > 22)
-    		echo CHtml::openTag("p",array("class"=>"slide-text"));
-    	else
-    		echo CHtml::openTag("p");
-    							
+    		echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($model->original_title)));
+    	    							
     	echo $model->original_title;
     	echo CHtml::closeTag("p");
 		?>
