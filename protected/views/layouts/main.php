@@ -25,7 +25,30 @@
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/tools.js");?>
 
 
-<script type="text/javascript">	
+<script type="text/javascript">
+function getPlayback()
+{
+	$.post("<?php echo SiteController::createUrl('AjaxGetPlayback'); ?>"
+	).success(
+		function(data){
+    		if(data != null)
+    		{        			
+    			var obj = jQuery.parseJSON(data);
+    			if(obj.id != 0)
+    			{    				
+    				$('#playback-title').html(obj.originalTitle);
+    				$('#playback').show();
+				}
+    			else
+    				$('#playback').hide();
+    		}
+    		else
+    		{		        		    				
+				$('#playback').hide();
+    		} 
+		},"json");
+	return false;
+}
 function getCurrentDisc()
 {
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentDisc'); ?>"
@@ -34,11 +57,11 @@ function getCurrentDisc()
 			var result = JSON.parse(data);
 			if(result.is_in == 1)
 			{
-				$('#loginInfo').css('background-image','url("img/userIconIN.png")');
+				$('#newDisc').show();
 			}
 			else
 			{
-				$('#loginInfo').css('background-image','url("img/userIcon.png")');
+				$('#newDisc').hide();
 			}
 			if(result.read == 0)
 			{
@@ -60,9 +83,12 @@ $(document).ready(function(){
 	        'Cache-Control': 'no-cache'
 	    }
 	});
-	
+	getPlayback();	
 	setInterval(function() {
 		getCurrentDisc();
+	}, 5000);
+	setInterval(function() {
+		getPlayback();
 	}, 5000);
 	
 	
@@ -200,6 +226,7 @@ $(document).ready(function(){
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
         <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>		
+        <div id="newDisc" class="pull-right">Examinar Disco</div>
       </div>
       <!--/.nav-collapse -->
     </div>
@@ -250,8 +277,7 @@ $(document).ready(function(){
 		</li>
 	</ul>	
     <form class="navbar-search pull-right">
-    	<input type="text" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">
-    	<button id="btn-dune-controls" class="btn">Control</button>
+    	<input type="text" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">    	
 	</form>	    
       		
 </div>
@@ -316,10 +342,10 @@ echo CHtml::closeTag('div');
 $this->endWidget(); ?>
 
 <!-- floating DIV para Peliculas en Reproduccion -->
-<div class="peliReroduciendo">
+<div id="playback" class="peliReroduciendo">
 <div class="rep">
 Reproduciendo:
-<div class="tituloRep">Les Miserables</div>
+<div id="playback-title" class="tituloRep"></div>
 </div>
 <a class="btn" id="btn-dune-control"><i class="icon-keyboard"></i> Control Remoto</a>
 </div>

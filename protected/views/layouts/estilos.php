@@ -41,7 +41,24 @@ body{ background-color:darkgrey;}
 
 #Menu #loginInfo{ width:100px; height:35px; padding-top:5px; background-color:#ebebeb;  background-image:url(img/userIcon.png); background-repeat:no-repeat; background-position:10px 12px; padding-left:35px; padding-right:10px; line-height:16px;color:#333; }
 
+#Menu #newDisc{
+display:none;
+width: 61px;
+height: 35px;
+padding-top: 5px;
+background-color: #ebebeb;
+background-image: url(img/discIcon.png);
+background-repeat: no-repeat;
+background-position: 10px 12px;
+padding-left: 33px;
+padding-right: 10px;
+line-height: 15px;
+color: #333;
+border-right: 1px solid #ccc;
+}
+
 .points{ font-size:11px; color:#000; font-weight:bold;}
+
 
 #filtroGenero{ margin-left:10px;}
 #filtroEdad{ margin-right:10px;}
@@ -424,7 +441,7 @@ background-color: #9d9d00;
 
 .noMargin{ margin:0px !important;}
 
-.peliReroduciendo{ position:fixed; bottom:10px; right:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333;}
+.peliReroduciendo{ display: none; position:fixed; bottom:10px; right:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333;}
 
 .peliReroduciendo .rep{text-align:left;}
 
