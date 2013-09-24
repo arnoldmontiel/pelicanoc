@@ -157,16 +157,24 @@ class SiteController extends Controller
 	
 	public function actionDownloads()
 	{
+		$this->showFilter = false;
 		$sABnzbdStatus= new SABnzbdStatus();
 		$sABnzbdStatus->getStatus();
 		
 		$modelNzb = new Nzb();
 		$dataProvider = $modelNzb->searchDownloads();
 	
+		$criteria=new CDbCriteria;
+		$criteria->join = 'INNER JOIN my_movie_disc mmd ON (mmd.Id_my_movie = t.Id) 
+							INNER JOIN current_disc cd ON (cd.Id_my_movie_disc = mmd.Id)';
+		$criteria->addCondition('cd.Id_current_disc_state <> 1');
+		$criteria->addCondition('cd.command =  2'); //ripping
+		$modelMyMovie = MyMovie::model()->find($criteria);
 	
 		$this->render('downloads',array(
 									'dataProvider'=>$dataProvider,
 									'sABnzbdStatus'=>$sABnzbdStatus,
+									'modelMyMovie'=>$modelMyMovie,
 		));
 	}
 	
