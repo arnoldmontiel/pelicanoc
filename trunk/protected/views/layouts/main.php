@@ -77,6 +77,7 @@ function getCurrentDisc()
 }
 
 $(document).ready(function(){
+	getCurrentDisc();
 	$.ajaxSetup({
 	    cache: false,
 	    headers: {
@@ -157,18 +158,13 @@ $(document).ready(function(){
 	  return false;
 	});
 
-    $('#loginInfo').click(function(){
-    	var image = $('#loginInfo').css('background-image');
-    	if(image.indexOf('userIconIN.png')>0)
-    	{
-    		$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
-			).success(
-				function(data){
-					$('#view-details').html(data);
-					$('#myModal').modal('show'); 
-				});
-    	}
-    	
+    $('#newDisc').click(function(){
+    	$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
+		).success(
+			function(data){
+				$('#view-details').html(data);
+				$('#myModal').modal('show'); 
+			});
     });
 
     $('#btn-dune-control').click(function(){    	
