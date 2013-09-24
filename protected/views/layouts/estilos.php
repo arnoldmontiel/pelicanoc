@@ -449,24 +449,99 @@ background-color: #9d9d00;
 
 .peliReroduciendo button{ margin:auto;}
 
-p.slide-text {
+p.slide-text26 {
 position:relative;
-animation:mymove 5s infinite;
--webkit-animation:mymove 5s infinite; /*Safari and Chrome*/
+animation:mymove26 2s infinite;
+-webkit-animation:mymove26 2s infinite; /*Safari and Chrome*/
 width: auto;
 }
 
-
-@keyframes mymove
-{
-from {right:0px;}
-to {right:100%;}
+p.slide-text30 {
+position:relative;
+animation:mymove30 5s infinite;
+-webkit-animation:mymove30 5s infinite; /*Safari and Chrome*/
+width: auto;
 }
 
-@-webkit-keyframes mymove /*Safari and Chrome*/
+p.slide-text35 {
+position:relative;
+animation:mymove35 5s infinite;
+-webkit-animation:mymove35 5s infinite; /*Safari and Chrome*/
+width: auto;
+}
+
+p.slide-text40 {
+position:relative;
+animation:mymove40 5s infinite;
+-webkit-animation:mymove40 5s infinite; /*Safari and Chrome*/
+width: auto;
+}
+
+p.slide-text41 {
+position:relative;
+animation:mymove41 5s infinite;
+-webkit-animation:mymove41 5s infinite; /*Safari and Chrome*/
+width: auto;
+}
+
+@keyframes mymove26
 {
 from {right:0px;}
-to {right:100%;}
+to {right:18px;}
+}
+
+@-webkit-keyframes mymove26 /*Safari and Chrome*/
+{
+from {right:0px;}
+to {right:18px;}
+}
+
+@keyframes mymove30
+{
+from {right:0px;}
+to {right:70px;}
+}
+
+@-webkit-keyframes mymove30 /*Safari and Chrome*/
+{
+from {right:0px;}
+to {right:70px;}
+}
+
+@keyframes mymove35
+{
+from {right:0px;}
+to {right:80px;}
+}
+
+@-webkit-keyframes mymove35 /*Safari and Chrome*/
+{
+from {right:0px;}
+to {right:80px;}
+}
+
+@keyframes mymove40
+{
+from {right:0px;}
+to {right:100px;}
+}
+
+@-webkit-keyframes mymove40 /*Safari and Chrome*/
+{
+from {right:0px;}
+to {right:100px;}
+}
+
+@keyframes mymove41
+{
+from {right:0px;}
+to {right:150px;}
+}
+
+@-webkit-keyframes mymove41 /*Safari and Chrome*/
+{
+from {right:0px;}
+to {right:150px;}
 }
 .peliReroduciendo button{ margin:auto;}
 </style>
