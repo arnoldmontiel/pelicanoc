@@ -567,6 +567,22 @@ class SiteController extends Controller
 						$response['id'] = $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
 						$response['originalTitle'] = $modelLocalFolderCurrent->myMovieDisc->myMovie->original_title;
 					}
+					else 
+					{
+						$criteria=new CDbCriteria;
+						$criteria->condition = 'Id_current_disc_state <> 1';
+							
+						$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+						if(isset($modelCurrentDisc))
+						{
+							$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
+							if(isset($modelMyMovieDisc))
+							{
+								$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;
+								$response['id'] = $modelMyMovieDisc->Id_my_movie;						
+							}
+						}	
+					}
 					
 				}			
 			}
