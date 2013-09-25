@@ -447,7 +447,7 @@ class SiteController extends Controller
 				break;
 			case 2:
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
-				//DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path);
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
