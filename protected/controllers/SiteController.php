@@ -586,23 +586,23 @@ class SiteController extends Controller
 					
 				}			
 			}
-			else 
-			{
-				$criteria=new CDbCriteria;
-				$criteria->condition = 'Id_current_disc_state <> 1';
+// 			else 
+// 			{
+// 				$criteria=new CDbCriteria;
+// 				$criteria->condition = 'Id_current_disc_state <> 1';
 					
-				$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-				if(isset($modelCurrentDisc))
-				{
-					$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
-					if(isset($modelMyMovieDisc))
-					{
-						$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;
-						$response['id'] = $modelMyMovieDisc->Id_my_movie;
-						$response['type'] = 2;
-					}
-				}
-			}
+// 				$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+// 				if(isset($modelCurrentDisc))
+// 				{
+// 					$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
+// 					if(isset($modelMyMovieDisc))
+// 					{
+// 						$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;
+// 						$response['id'] = $modelMyMovieDisc->Id_my_movie;
+// 						$response['type'] = 2;
+// 					}
+// 				}
+// 			}
 			
 		}		
 		
