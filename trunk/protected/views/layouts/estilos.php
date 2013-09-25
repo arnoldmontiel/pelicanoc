@@ -85,7 +85,7 @@ position:absolute !important;
 .peliTitulo {  
 	color:#333333 !important;
 	background-color:#ccc;
-	padding:5px;
+	padding-left:5px;
 	white-space: nowrap;
 	overflow: hidden;
 	height: 20px;
