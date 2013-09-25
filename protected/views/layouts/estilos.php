@@ -96,7 +96,7 @@ position:absolute !important;
     visibility:visible;
 	color:#333333 !important;
 	background-color:#ccc;
-	padding:5px;
+	padding-left: 5px;
 	color:black; margin-top:5px;
 
   }
