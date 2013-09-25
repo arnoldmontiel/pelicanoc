@@ -36,7 +36,7 @@ class DuneHelper
 
 		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
 		$url = $url . '//'. $setting->shared_online_path;
-		echo $url;
+		
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
 		@file_get_contents($url);
 		return true;
