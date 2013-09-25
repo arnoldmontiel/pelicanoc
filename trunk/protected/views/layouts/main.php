@@ -259,19 +259,6 @@ $(document).ready(function(){
 			</ul>
 		</li>
 	</ul>
-    <ul id="filtroEdad" class="nav">
-    	<li class="active menuItem edadATP"><a href="#">ATP</a></li>
-        <li class="menuItem edad13"><a href="#">Mayores 13</a></li>
-        <li class="menuItem edad16"><a href="#">Mayores 16</a></li>
-        <li class="dropdown" id="filtroEdadMob">
-        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedEdad"><span class="selected">ATP</span> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            	<li><a href="#" data-sel="edadATP" data-filter=".comedia">ATP</a></li>
-                <li><a href="#" data-sel="edad13" data-filter=".comedia">Mayores 13</a></li>
-                <li><a href="#" data-sel="edad16" data-filter=".drama">Mayores 16</a></li>
-			</ul>
-		</li>
-	</ul>	
     <form class="navbar-search pull-right">
     	<input type="text" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">    	
 	</form>	    
@@ -293,11 +280,6 @@ $(document).ready(function(){
         <li><a href="#">Adultos</a></li>
       </ul>
       <button class="btn dropdown-toggle" data-toggle="dropdown">P&uacute;blico <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">ATP</a></li>
-        <li><a href="#">Mayores 13</a></li>
-        <li><a href="#">Mayores 16</a></li>
-      </ul>
     </div>
     <!-- /span12 -->
   </div>
