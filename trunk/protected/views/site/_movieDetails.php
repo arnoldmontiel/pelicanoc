@@ -84,13 +84,17 @@
     			<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>
     		<?php else:?>
     			<button id="btn-ripp" disabled="disabled" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiando...</button>
-    		<?php endif;?>	
+    		<?php endif;?>
+    		<button id="btn-eject" class="btn btn-primary btn-large"><i class="icon-eject icon-large"></i></button>
     	<?php else:?>
     	<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>
     	<?php endif;?>	  
     </div>
   </div>
+
   <script>
+
+  
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");
 		<?php $idResource = "";
@@ -126,6 +130,25 @@
 				function(data){
 					$('#myModal').modal('hide'); 
 		});
+		return false;    
+	});	
+
+	
+	$('#btn-eject').click(function(){
+		$('#btn-eject').attr("disabled", "disabled");
+		if (confirm("\u00bfSeguro desea expulsar el disco?"))
+		{
+			$.post("<?php echo SiteController::createUrl('AjaxEject'); ?>"
+			).success(
+				function(data){
+					$('#myModal').modal('hide'); 
+			});
+		}
+		else
+		{
+			$('#btn-eject').removeAttr("disabled");
+		}
+		
 		return false;    
 	});
 	</script>
