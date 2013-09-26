@@ -26,6 +26,73 @@ class CurrentDisc extends CActiveRecord
 		return 'current_disc';
 	}
 
+	public function isPlaying()
+	{
+		$isPlaying = false;
+		$playbackUrl = DuneHelper::getPlaybackUrl();
+		
+		if(isset($playbackUrl))
+		{
+			if(!empty($playbackUrl))
+			{
+				$modelNzbs = Nzb::model()->findAll();
+		
+				$modelNzbCurrent = null;
+				foreach($modelNzbs as $nzb)
+				{
+					if(isset($nzb->path) && !empty($nzb->path))
+					{
+						if(strpos($playbackUrl,$nzb->path)>0)
+						{
+							$modelNzbCurrent = $nzb;
+							break;
+						}
+					}
+				}
+		
+				if(!isset($modelNzbCurrent))
+				{
+					$modelLocalFolderCurrent = null;
+					$modelLocalFolders = LocalFolder::model()->findAll();
+					foreach($modelLocalFolders as $localFolder)
+					{
+						if(isset($localFolder->path) && !empty($localFolder->path))
+						{
+							if(strpos($playbackUrl,$localFolder->path)>0)
+							{
+								$modelLocalFolderCurrent = $localFolder;
+								break;
+							}
+						}
+					}
+						
+					if(!isset($modelLocalFolderCurrent))					
+					{
+						$modeRippedMovieCurrent = null;
+						$modelRippedMovies = RippedMovie::model()->findAll();
+						foreach($modelRippedMovies as $rippedMovie)
+						{
+							if(isset($rippedMovie->path) && !empty($rippedMovie->path))
+							{
+								if(strpos($playbackUrl,$rippedMovie->path)>0)
+								{
+									$modeRippedMovieCurrent = $rippedMovie;
+									break;
+								}
+							}
+						}
+						
+						if(!isset($modeRippedMovieCurrent))
+							$isPlaying = true;
+					}
+						
+				}
+			}
+				
+		}		
+		return $isPlaying;
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
