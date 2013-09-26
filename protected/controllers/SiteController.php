@@ -351,6 +351,18 @@ class SiteController extends Controller
 
 	}
 	
+	public function actionAjaxEject()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+	
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		$modelCurrentDisc->command = 3; //eject
+		$modelCurrentDisc->read = 1;
+		$modelCurrentDisc->save();
+	
+	}
+	
 	public function actionAjaxCancelRipp()
 	{
 		$criteria=new CDbCriteria;
