@@ -79,9 +79,15 @@
     </div>
     <div class="modal-footer">
     	<?php if($sourceType == 4):?>
-    		<button id="btn-ripp" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiar</button>
-    	<?php endif;?>
-    	<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>	  
+    		<?php if(isset($modelCurrentDisc) && $modelCurrentDisc->command <> 2):?>
+    			<button id="btn-ripp" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiar</button>
+    			<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>
+    		<?php else:?>
+    			<button id="btn-ripp" disabled="disabled" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiando...</button>
+    		<?php endif;?>	
+    	<?php else:?>
+    	<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>
+    	<?php endif;?>	  
     </div>
   </div>
   <script>
@@ -101,6 +107,16 @@
 		 
 		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
 		return false;
+	});
+
+	$('.close').click(function(){
+		<?php if($sourceType == 4):?>
+		
+		$.post("<?php echo SiteController::createUrl('AjaxMarkCurrentDiscRead'); ?>"
+		).success(
+			function(data){
+		});
+		<?php endif;?>
 	});
 	
 	$('#btn-ripp').click(function(){

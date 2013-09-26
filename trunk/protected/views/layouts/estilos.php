@@ -100,14 +100,6 @@ position:absolute !important;
 	color:black; margin-top:5px;
 
   }
-   #screenMarketplace2 .peliTitulo {  
-    visibility:visible;
-	color:#333333 !important;
-	background-color:#ccc;
-	padding:5px;
-	color:black; margin-top:5px;
-  }
-  
 
 
 .peliPlay{
