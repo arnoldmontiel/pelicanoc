@@ -68,8 +68,11 @@ function getCurrentDisc()
 				$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
 				).success(
 					function(data){
-						$('#view-details').html(data);
-						$('#myModal').modal('show'); 
+						if(!$('#myModal').is(':visible'))
+						{
+							$('#view-details').html(data);
+							$('#myModal').modal('show');
+						} 
 					});
 			}
 			
