@@ -13,6 +13,8 @@ setInterval(function() {
 	    			{    				
 	    				var src = 'images/' + obj.poster;
 	    				$('#ripp-image').attr('src', src);
+	    				$('#percentage-bar').width(obj.percentage+'%');
+						$('#percentage-bar').html(obj.percentage+'%');
 	    				$('#ripping-area').show();	
 					}
 	    			else
@@ -94,7 +96,7 @@ foreach($dataProvider->getData() as $record)
 		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
 		<div class="peliDescargandoProgress">
 			<div class="progress progress-striped active">
-				<div id="percentage-bar" class="bar" style="width:45%;">45%</div>				
+				<div id="percentage-bar" class="bar" style="width:0%;">0%</div>				
 			</div>
 		</div>
 		<a id="btn-cancel" class="btn">
