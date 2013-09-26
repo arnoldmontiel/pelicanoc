@@ -251,6 +251,8 @@ class SiteController extends Controller
 		$modelNzb = null;
 		$modelRippedMovie = null;
 		$localFolder = null;
+		$modelCurrentDisc = null;
+		
 		if($sourceType == 1)
 		{
 			$modelNzb = Nzb::model()->findByPk($id_resource);
@@ -276,7 +278,29 @@ class SiteController extends Controller
 		}
 		
 		$casting = $this->getCasting($criteria);
-		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie,'modelLocalFolder'=>$localFolder));
+		$this->renderPartial('_movieDetails',array('model'=>$model, 
+													'casting'=>$casting, 
+													'sourceType'=>$sourceType,
+													'modelNzb'=>$modelNzb,
+													'modelRippedMovie'=>$modelRippedMovie,
+													'modelLocalFolder'=>$localFolder,
+													'modelCurrentDisc'=>$modelCurrentDisc,));
+	}
+	
+	public function actionAjaxMarkCurrentDiscRead()
+	{		
+		self::markCurrentDiscRead();
+	}
+	
+	private function markCurrentDiscRead()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('Id_current_disc_state <> 1');
+		$criteria->addCondition('t.read = 0');
+		
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		$modelCurrentDisc->read = 1;
+		$modelCurrentDisc->save();
 	}
 	
 	public function actionAjaxCurrentDiscShowDetail()
@@ -291,8 +315,6 @@ class SiteController extends Controller
 		$criteria->condition = 'Id_current_disc_state <> 1';
 		
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-		$modelCurrentDisc->read = 1;
-		$modelCurrentDisc->save();
 		
 		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
 		
@@ -308,7 +330,13 @@ class SiteController extends Controller
 	
 		$casting = $this->getCasting($criteria);
 		
-		$this->renderPartial('_movieDetails',array('model'=>$model, 'casting'=>$casting, 'sourceType'=>$sourceType,'modelNzb'=>$modelNzb,'modelRippedMovie'=>$modelRippedMovie,'modelLocalFolder'=>$localFolder));
+		$this->renderPartial('_movieDetails',array('model'=>$model, 
+													'casting'=>$casting, 
+													'sourceType'=>$sourceType,
+													'modelNzb'=>$modelNzb,
+													'modelRippedMovie'=>$modelRippedMovie,
+													'modelLocalFolder'=>$localFolder,
+													'modelCurrentDisc'=>$modelCurrentDisc,));
 	}
 	
 	public function actionAjaxRipp()
@@ -318,6 +346,7 @@ class SiteController extends Controller
 		
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		$modelCurrentDisc->command = 2; //ripp
+		$modelCurrentDisc->read = 1;
 		$modelCurrentDisc->save();
 
 	}
@@ -458,6 +487,7 @@ class SiteController extends Controller
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 4:
+				self::markCurrentDiscRead();
 				DuneHelper::playDuneOnline($id);
 			
 				$model = MyMovie::model()->findByPk($id);
