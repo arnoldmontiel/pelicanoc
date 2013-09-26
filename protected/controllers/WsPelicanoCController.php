@@ -163,4 +163,31 @@ class WsPelicanoCController extends Controller
 		return false;
 	}
 	
+	/**
+	* Set percentage
+	* @param integer id
+	* @param integer percentage
+	* @return bool success
+	* @soap
+	*/
+	public function setPercentage($id, $percentage)
+	{
+		$modelCurrentDisc = CurrentDisc::model()->findByPk($id);
+	
+		if(isset($modelCurrentDisc))
+		{
+			try {
+	
+				$modelCurrentDisc->percentage = $percentage;
+				$modelCurrentDisc->save();
+	
+				return true;
+			} catch (Exception $e) {
+				return false;
+			}
+		}
+		return false;
+	
+	}
+	
 }
