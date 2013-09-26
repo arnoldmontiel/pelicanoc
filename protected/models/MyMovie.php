@@ -45,6 +45,7 @@
  */
 class MyMovie extends CActiveRecord
 {
+	public $percentage;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
