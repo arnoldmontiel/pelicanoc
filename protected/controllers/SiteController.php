@@ -299,8 +299,11 @@ class SiteController extends Controller
 		$criteria->addCondition('t.read = 0');
 		
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-		$modelCurrentDisc->read = 1;
-		$modelCurrentDisc->save();
+		if(isset($modelCurrentDisc))
+		{
+			$modelCurrentDisc->read = 1;
+			$modelCurrentDisc->save();
+		}
 	}
 	
 	public function actionAjaxCurrentDiscShowDetail()
