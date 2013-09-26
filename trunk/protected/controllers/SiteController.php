@@ -533,9 +533,10 @@ class SiteController extends Controller
 	
 	public function actionAjaxGetRipp()
 	{
-		$response = array('id'=>0, 'poster'=>'','originalTitle'=>'');
+		$response = array('id'=>0, 'poster'=>'','originalTitle'=>'', 'percentage'=>0);
 		
 		$criteria=new CDbCriteria;
+		$criteria->select = 'cd.percentage, t.original_title, t.poster, t.Id';
 		$criteria->join = 'INNER JOIN my_movie_disc mmd ON (mmd.Id_my_movie = t.Id) 
 							INNER JOIN current_disc cd ON (cd.Id_my_movie_disc = mmd.Id)';
 		$criteria->addCondition('cd.Id_current_disc_state <> 1');
@@ -548,6 +549,7 @@ class SiteController extends Controller
 			$response['originalTitle'] = $modelMyMovie->original_title;
 			$response['poster'] = $modelMyMovie->poster;
 			$response['id'] = $modelMyMovie->Id;
+			$response['percentage'] = $modelMyMovie->percentage;
 		}
 		echo json_encode($response);
 	}
