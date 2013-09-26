@@ -584,8 +584,13 @@ class SiteController extends Controller
 				foreach($modelNzbs as $nzb)
 				{
 					if(isset($nzb->path) && !empty($nzb->path))
+					{
 						if(strpos($playbackUrl,$nzb->path)>0)
+						{
 							$modelNzbCurrent = $nzb;
+							break;
+						}
+					}
 				}						
 				
 				if(isset($modelNzbCurrent))
@@ -600,8 +605,13 @@ class SiteController extends Controller
 					foreach($modelLocalFolders as $localFolder)
 					{
 						if(isset($localFolder->path) && !empty($localFolder->path))
+						{
 							if(strpos($playbackUrl,$localFolder->path)>0)
+							{
 								$modelLocalFolderCurrent = $localFolder;
+								break;
+							}
+						}
 					}
 					
 					$response['type'] = 2;
@@ -613,19 +623,42 @@ class SiteController extends Controller
 					}
 					else 
 					{
-						$criteria=new CDbCriteria;
-						$criteria->condition = 'Id_current_disc_state <> 1';
-							
-						$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-						if(isset($modelCurrentDisc))
+						
+						$modeRippedMovieCurrent = null;
+						$modelRippedMovies = RippedMovie::model()->findAll();
+						foreach($modelRippedMovies as $rippedMovie)
 						{
-							$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
-							if(isset($modelMyMovieDisc))
+							if(isset($rippedMovie->path) && !empty($rippedMovie->path))
 							{
-								$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;
-								$response['id'] = $modelMyMovieDisc->Id_my_movie;						
+								if(strpos($playbackUrl,$rippedMovie->path)>0)
+								{
+									$modeRippedMovieCurrent = $rippedMovie;
+									break;
+								}
 							}
-						}	
+						}
+						
+						if(isset($modeRippedMovieCurrent))
+						{
+							$response['id'] = $modeRippedMovieCurrent->myMovieDisc->Id_my_movie;
+							$response['originalTitle'] = $modeRippedMovieCurrent->myMovieDisc->myMovie->original_title;
+						}
+						else 
+						{
+							$criteria=new CDbCriteria;
+							$criteria->condition = 'Id_current_disc_state <> 1';
+								
+							$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+							if(isset($modelCurrentDisc))
+							{
+								$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
+								if(isset($modelMyMovieDisc))
+								{
+									$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;
+									$response['id'] = $modelMyMovieDisc->Id_my_movie;						
+								}
+							}	
+						}
 					}
 					
 				}			

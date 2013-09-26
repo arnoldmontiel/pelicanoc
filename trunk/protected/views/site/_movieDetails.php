@@ -80,10 +80,14 @@
     <div class="modal-footer">
     	<?php if($sourceType == 4):?>
     		<?php if(isset($modelCurrentDisc) && $modelCurrentDisc->command <> 2):?>
-    			<button id="btn-ripp" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiar</button>
-    			<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>
+    			<?php if($modelCurrentDisc->isPlaying()):?>
+    				<button id="btn-playing" disabled="disabled" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Reproduciendo...</button>
+    			<?php else:?>
+    				<button id="btn-ripp" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiar</button>
+    				<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>
+    			<?php endif;?>
     		<?php else:?>
-    			<button id="btn-ripp" disabled="disabled" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiando...</button>
+    			<button id="btn-ripping" disabled="disabled" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Copiando...</button>
     		<?php endif;?>
     		<button id="btn-eject" class="btn btn-primary btn-large"><i class="icon-eject icon-large"></i></button>
     	<?php else:?>
