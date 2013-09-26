@@ -55,6 +55,7 @@ padding-right: 10px;
 line-height: 15px;
 color: #333;
 border-right: 1px solid #ccc;
+cursor: pointer;
 }
 
 .points{ font-size:11px; color:#000; font-weight:bold;}
