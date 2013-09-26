@@ -272,22 +272,6 @@ $(document).ready(function(){
 </div>
 <?php endif; ?>
 <div class="container" >
-  <div class=" row-fluid visible-phone btn-toolbar">
-    <div class="span12">
-      <button class="btn dropdown-toggle" data-toggle="dropdown">G&eacute;nero <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">Todos</a></li>
-        <li><a href="#">Comedia</a></li>
-        <li><a href="#">Drama</a></li>
-        <li><a href="#">Romance</a></li>
-        <li><a href="#">Adultos</a></li>
-      </ul>
-      <button class="btn dropdown-toggle" data-toggle="dropdown">P&uacute;blico <span class="caret"></span></button>
-    </div>
-    <!-- /span12 -->
-  </div>
-  <!-- /row -->
- 
  
  <?php
  //$descargar='no'; 
