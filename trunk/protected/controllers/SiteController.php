@@ -308,12 +308,7 @@ class SiteController extends Controller
 	
 	public function actionAjaxCurrentDiscShowDetail()
 	{
-	
-		$modelNzb = null;
-		$modelRippedMovie = null;
-		$localFolder = null;
-		$sourceType = 4;
-		
+				
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
 		
@@ -333,13 +328,9 @@ class SiteController extends Controller
 	
 		$casting = $this->getCasting($criteria);
 		
-		$this->renderPartial('_movieDetails',array('model'=>$model, 
+		$this->renderPartial('_onlineDetails',array('model'=>$model, 
 													'casting'=>$casting, 
-													'sourceType'=>$sourceType,
-													'modelNzb'=>$modelNzb,
-													'modelRippedMovie'=>$modelRippedMovie,
-													'modelLocalFolder'=>$localFolder,
-													'modelCurrentDisc'=>$modelCurrentDisc,));
+													'modelCurrentDisc'=>$modelCurrentDisc));
 	}
 	
 	public function actionAjaxRipp()
