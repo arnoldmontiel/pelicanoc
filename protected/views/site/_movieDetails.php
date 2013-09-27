@@ -2,41 +2,26 @@
    <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
    <?php 
    		$idResource = "";
-		$path = "";
+		$modelResource = null;
 		$size = 0;
 		
 		if(isset($modelNzb)){
 			$idResource = $modelNzb->Id;
-			$path = $modelNzb->path;
+			$modelResource = $modelNzb;
 		}
 		
 		if(isset($modelRippedMovie)){
 			$idResource = $modelRippedMovie->Id;
-			$path = $modelRippedMovie->path;
+			$modelResource = $modelRippedMovie;
 		}
 		
 		if(isset($modelLocalFolder)){
 			$idResource = $modelLocalFolder->Id;
-			$path = $modelLocalFolder->path;
+			$modelResource = $modelLocalFolder;
 		}
 		
-		$setting = Setting::getInstance();
-		$path = $setting->host_file_server . $setting->host_file_server_path . $path;
-		$path = '/var/www';
-// 		$obj = new COM ( 'scripting.filesystemobject' );
-		
-// 		if ( is_object ( $obj ) )
-// 		{
-// 			$ref = $obj->getfolder ( $path );
-		
-// 			$size = $ref->size;
-		
-// 			$obj = null;
-// 		}
-		//$size = disk_total_space($path);
-
-		$output = exec('du -sk ' . $path);
-		$size = trim(str_replace($path, '', $output)) * 1024;
+		if(isset($modelResource))
+			$size = PelicanoHelper::getDirectorySize($modelResource->path);
 				
 		?>	    
     <div class="modal-header">
@@ -144,10 +129,10 @@
 		    
 		    <div class="row-fluid detailSecondGroup">
 			    <div class="span3 pagination-left detailSecond detailSecondFirst">
-			    	<button id="btn-delete" class="btn btn-primary btn-2x"><span class="iconFontButton iconPlay"></span> Borrar</button>
+			    	BORRAR PEL&Iacute;CULA
 			    </div><!--/.span4 -->
 			    <div class="span9 pagination-left detailSecond">
-			    	&nbsp;
+			    	<i id="btn-eraser" class="icon-eraser pointer"></i>
 			    </div><!--/.span8 -->
 		    </div><!--/.row -->
 		    
@@ -170,6 +155,22 @@
 		$('#btn-play').attr("disabled", "disabled");
 		 
 		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
+		return false;
+	});
+
+	$('#btn-eraser').click(function(){		
+		if (confirm("\u00bfSeguro desea eliminarlo?"))
+		{
+			$.post("<?php echo SiteController::createUrl('AjaxRemoveMovie'); ?>",
+			{
+				idResource:<?php echo $idResource; ?>,
+			    sourceType:<?php echo $sourceType; ?>
+			 }
+			).success(
+				function(data){
+					window.location = <?php echo '"'. SiteController::createUrl('index') . '"'; ?>; 
+			});
+		}
 		return false;
 	});
 
