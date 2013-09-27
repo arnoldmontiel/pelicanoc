@@ -345,6 +345,32 @@ class SiteController extends Controller
 
 	}
 	
+	public function actionAjaxRemoveMovie()
+	{
+		$idResource = (isset($_POST['idResource']))?$_POST['idResource']:null;
+		$sourceType = (isset($_POST['sourceType']))?$_POST['sourceType']:null;
+		if(isset($idResource) && isset($sourceType))
+		{
+			switch ($sourceType) {
+				case 1:
+					$modelNzb = Nzb::model()->findByPk($idResource);
+					if(isset($modelNzb))
+						$modelNzb->delete();					
+					break;
+				case 2:
+					$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+					if(isset($modelRippedMovie))
+						$modelRippedMovie->delete();
+					break;
+				case 3:
+					$modelLocalFolder = LocalFolder::model()->findByPk($idResource);
+					if(isset($modelLocalFolder))
+						$modelLocalFolder->delete();
+					break;				
+			}
+		}
+	}
+	
 	public function actionAjaxEject()
 	{
 		$criteria=new CDbCriteria;

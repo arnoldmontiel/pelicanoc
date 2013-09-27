@@ -3,6 +3,64 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function getDirectorySize($path)
+	{
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			//This is a server using Windows
+			$output = self::format_bytes(self::getWinDirSize($path));
+		} else {
+			//This is a server not using Windows
+			$output = self::format_bytes(self::getNixDirSize($path));
+		}
+		return $output;
+	}
+	
+	
+	private function getNixDirSize($path) {
+		$size = 0;
+		$setting = Setting::getInstance();
+		$path = $setting->path_shared . $path;
+		$path = '/var/www';
+		
+		$output = exec('du -sk ' . $path);
+		$size = trim(str_replace($path, '', $output)) * 1024;
+		return $size;
+	}
+	
+	private function getWinDirSize($path) 
+	{
+		$size = 0;
+		$setting = Setting::getInstance();
+		$path = $setting->path_shared . $path;
+		$path = 'C:\cabs';
+		$obj = new COM ( 'scripting.filesystemobject' );
+		
+		if ( is_object ( $obj ) )
+		{
+			$ref = $obj->getfolder ( $path );
+		
+			$size = $ref->size;
+		
+			$obj = null;
+		}
+		
+		return $size;
+	}
+	
+	private function format_bytes($a_bytes) {
+		if ($a_bytes < 1024) {
+			return $a_bytes .' B';
+		} elseif ($a_bytes < 1048576) {
+			return round($a_bytes / 1024, 2) .' KB';
+		} elseif ($a_bytes < 1073741824) {
+			return round($a_bytes / 1048576, 2) . ' MB';
+		} elseif ($a_bytes < 1099511627776) {
+			return round($a_bytes / 1073741824, 2) . ' GB';
+		} elseif ($a_bytes < 1125899906842624) {
+			return round($a_bytes / 1099511627776, 2) .' TB';
+		}
+	}
+	
 	static public function setAnimationClass($text)
 	{
 		$class = "";
