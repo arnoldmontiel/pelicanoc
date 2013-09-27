@@ -2,7 +2,15 @@
 
 Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 
+getRipp();
+getNzbStatus();
+
 setInterval(function() {
+	getRipp();
+}, 5000)
+		
+function getRipp()
+{
 	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'
 		).success(
 			function(data){				
@@ -25,11 +33,10 @@ setInterval(function() {
 					$('#ripping-area').hide();
 	    		} 
 			},'json');
-}, 5000)
-		
-		
-setInterval(function() {
-		
+}
+
+function getNzbStatus()
+{
 	$.get('".SiteController::createUrl('AjaxRefreshSabNzbStatus')."').success(
 		function(data) 
 		{
@@ -48,6 +55,9 @@ setInterval(function() {
 			}
 		}
 	);
+}
+setInterval(function() {
+	getNzbStatus();
 }, 5000)
 ");
 ?>
