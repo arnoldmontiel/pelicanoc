@@ -442,6 +442,11 @@ background-color: #9d9d00;
 
 .peliReroduciendo button{ margin:auto;}
 
+i.pointer
+{
+cursor: pointer;
+}
+
 p.slide-text26 {
 position:relative;
 animation:mymove26 2s infinite;
