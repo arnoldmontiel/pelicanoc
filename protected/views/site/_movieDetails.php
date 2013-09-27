@@ -22,7 +22,7 @@
 		
 		$setting = Setting::getInstance();
 		$path = $setting->host_file_server . $setting->host_file_server_path . $path;
-		$path = 'C:\\cabs';
+		//$path = 'C:\\cabs';
 		$obj = new COM ( 'scripting.filesystemobject' );
 		
 		if ( is_object ( $obj ) )
