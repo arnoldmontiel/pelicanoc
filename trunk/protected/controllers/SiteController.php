@@ -351,23 +351,23 @@ class SiteController extends Controller
 		$sourceType = (isset($_POST['sourceType']))?$_POST['sourceType']:null;
 		if(isset($idResource) && isset($sourceType))
 		{
+			$modelResource = null;			
+			
 			switch ($sourceType) {
 				case 1:
-					$modelNzb = Nzb::model()->findByPk($idResource);
-					if(isset($modelNzb))
-						$modelNzb->delete();					
+					$modelResource = Nzb::model()->findByPk($idResource);
 					break;
 				case 2:
-					$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-					if(isset($modelRippedMovie))
-						$modelRippedMovie->delete();
+					$modelResource = RippedMovie::model()->findByPk($idResource);
 					break;
 				case 3:
-					$modelLocalFolder = LocalFolder::model()->findByPk($idResource);
-					if(isset($modelLocalFolder))
-						$modelLocalFolder->delete();
+					$modelResource = LocalFolder::model()->findByPk($idResource);
 					break;				
 			}
+			
+			if(isset($modelResource))
+				if(PelicanoHelper::eraseResource($modelResource->path))
+					$modelResource->delete();
 		}
 	}
 	

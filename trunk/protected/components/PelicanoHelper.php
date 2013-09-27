@@ -15,12 +15,18 @@ class PelicanoHelper
 		return $output;
 	}
 	
+	static public function eraseResource($path)
+	{
+		$setting = Setting::getInstance();
+		$path = $setting->path_shared . $path;
+		
+		return unlink($path);
+	}
 	
 	private function getNixDirSize($path) {
 		$size = 0;
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
-		$path = '/var/www';
 		
 		$output = exec('du -sk ' . $path);
 		$size = trim(str_replace($path, '', $output)) * 1024;
