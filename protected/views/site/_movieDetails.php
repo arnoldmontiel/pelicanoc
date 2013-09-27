@@ -23,17 +23,20 @@
 		$setting = Setting::getInstance();
 		$path = $setting->host_file_server . $setting->host_file_server_path . $path;
 		$path = '/var/www';
-		$obj = new COM ( 'scripting.filesystemobject' );
+// 		$obj = new COM ( 'scripting.filesystemobject' );
 		
-		if ( is_object ( $obj ) )
-		{
-			$ref = $obj->getfolder ( $path );
+// 		if ( is_object ( $obj ) )
+// 		{
+// 			$ref = $obj->getfolder ( $path );
 		
-			$size = $ref->size;
+// 			$size = $ref->size;
 		
-			$obj = null;
-		}
-		//$size = disk_total_space($path);		
+// 			$obj = null;
+// 		}
+		//$size = disk_total_space($path);
+
+		$output = exec('du -sk ' . $path);
+		$size = trim(str_replace($path, '', $output)) * 1024;
 				
 		?>	    
     <div class="modal-header">
