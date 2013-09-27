@@ -20,7 +20,20 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
 		
-		return unlink($path);
+// 		$path = 'C:\Users\Wensel\Desktop\carola\bbb.txt';
+// 		return self::delTree($path);
+		return true;
+	}
+	
+	private function delTree($dir) {
+		$files = glob( $dir . '*', GLOB_MARK );
+		foreach( $files as $file ){
+			if( substr( $file, -1 ) == '/' )
+				delTree( $file );
+			else
+				unlink( $file );
+		}
+		return rmdir( $dir );
 	}
 	
 	private function getNixDirSize($path) {
