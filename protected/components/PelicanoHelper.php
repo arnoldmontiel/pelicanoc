@@ -21,7 +21,7 @@ class PelicanoHelper
 		$path = $setting->path_shared . $path;
 		
 		if(!is_dir($path))
-			$path = (dirname($path) != $setting->host_file_server_path)?dirname($path):$path;
+			$path = (dirname($path) != $setting->path_shared)?dirname($path):$path;
 		
  		return self::deleteTree($path);		
 	}
