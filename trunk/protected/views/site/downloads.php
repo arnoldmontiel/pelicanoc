@@ -23,8 +23,8 @@ function getRipp()
 	    				$('#ripp-image').attr('src', src);
 	    				$('#percentage-bar').width(obj.percentage+'%');
 						$('#percentage-bar').html(obj.percentage+'%');
-	    				$('#ripping-area').show();	
-						alert(1);
+						$('#btn-cancel').removeAttr('disabled');	
+	    				$('#ripping-area').show();
 					}
 	    			else
 	    				$('#ripping-area').hide();
