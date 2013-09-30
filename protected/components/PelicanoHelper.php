@@ -20,20 +20,30 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
 		
-// 		$path = 'C:\Users\Wensel\Desktop\carola\bbb.txt';
-// 		return self::delTree($path);
-		return true;
+ 		return self::deleteTree($path);		
 	}
 	
-	private function delTree($dir) {
-		$files = glob( $dir . '*', GLOB_MARK );
-		foreach( $files as $file ){
-			if( substr( $file, -1 ) == '/' )
-				delTree( $file );
-			else
-				unlink( $file );
+	
+	private function deleteTree($path)
+	{
+		if (is_dir($path) === true)
+		{
+			$files = array_diff(scandir($path), array('.', '..'));
+	
+			foreach ($files as $file)
+			{
+				self::deleteTree(realpath($path) . '/' . $file);
+			}
+	
+			return rmdir($path);
 		}
-		return rmdir( $dir );
+	
+		else if (is_file($path) === true)
+		{
+			return unlink($path);
+		}
+	
+		return false;
 	}
 	
 	private function getNixDirSize($path) {
@@ -51,12 +61,12 @@ class PelicanoHelper
 		$size = 0;
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
-		$path = 'C:\cabs';
+
 		$obj = new COM ( 'scripting.filesystemobject' );
 		
 		if ( is_object ( $obj ) )
 		{
-			$ref = $obj->getfolder ( $path );
+			$ref = $obj->getfolder( $path );
 		
 			$size = $ref->size;
 		
@@ -118,6 +128,7 @@ class PelicanoHelper
 		$settingsWS = new wsSettings();		
 		$settingsWS->setAnydvdVersionDownloaded($settings->Id_device,$version);		
 	}
+	
 	static public function sendAnydvdVersionInstalled($version)
 	{
 		$settings = Setting::getInstance();
