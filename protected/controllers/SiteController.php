@@ -768,6 +768,27 @@ class SiteController extends Controller
 		echo CJSON::encode($currentDisc);		
 	}
 	
+	public function actionAjaxGetCurrentState()
+	{
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'Id_current_disc_state <> 1';
+		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
+		
+		$isDiscIN = 0;
+		$read = 1;
+		if(isset($modelCurrentDisc))
+		{
+			$isDiscIN = 1;
+			$read = $modelCurrentDisc->read;
+		}
+		
+		$currentDisc = array('is_in'=>$isDiscIN,'read'=>$read);
+		
+		
+		$response = array('playBack'=>$this->getPlayback(),'currentDisc'=>$currentDisc);		
+		echo json_encode($response);
+	}
+	
 	public function actionUseDisc($action)
 	{
 		$criteria=new CDbCriteria;
