@@ -16,7 +16,8 @@ function getRipp()
 			function(data){		
     			if(data != null)
 	    		{        			
-	    			var obj = jQuery.parseJSON(data);    			
+	    			var obj = jQuery.parseJSON(data);
+	    			alert(obj.id);
 	    			if(obj.id != 0)
 	    			{    				
 	    				var src = 'images/' + obj.poster;
