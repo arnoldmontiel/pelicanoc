@@ -14,7 +14,6 @@ function getRipp()
 	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'
 		).success(
 			function(data){		
-				debugger;
     			if(data != null)
 	    		{        			
 	    			var obj = jQuery.parseJSON(data);    			
