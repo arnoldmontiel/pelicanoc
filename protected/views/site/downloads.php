@@ -105,7 +105,7 @@ foreach($dataProvider->getData() as $record)
 	<div class="peliDescargando">
 	<?php if(isset($modelMyMovie)): ?>
 		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
-	<?php else ?>
+	<?php else: ?>
 		<img id="ripp-image" class="peliAfiche" src="" border="0">
 	<?php endif; ?>		
 		<div class="peliDescargandoProgress">
