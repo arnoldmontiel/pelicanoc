@@ -18,13 +18,14 @@ function getRipp()
 	    		{        			
 	    			var obj = jQuery.parseJSON(data);
 	    			if(obj.id != 0)
-	    			{    				
+	    			{   
+	    				$('#ripping-area').show(); 				
 	    				var src = 'images/' + obj.poster;
 	    				$('#ripp-image').attr('src', src);
 	    				$('#percentage-bar').width(obj.percentage+'%');
 						$('#percentage-bar').html(obj.percentage+'%');
 						$('#btn-cancel').removeAttr('disabled');	
-	    				$('#ripping-area').show();
+	    				
 					}
 	    			else
 	    				$('#ripping-area').hide();
