@@ -20,6 +20,9 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
 		
+		if(!is_dir($path))
+			$path = dirname($path);
+		
  		return self::deleteTree($path);		
 	}
 	
