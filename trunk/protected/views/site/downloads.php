@@ -103,7 +103,11 @@ foreach($dataProvider->getData() as $record)
 <div id="ripping-area">
 	<h2 class="sliderTitle">Copiando</h2>
 	<div class="peliDescargando">
-		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. isset($modelMyMovie)?$modelMyMovie->poster:'' ?>" border="0">
+	<?php if(isset($modelMyMovie)): ?>
+		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
+	<?php else ?>
+		<img id="ripp-image" class="peliAfiche" src="" border="0">
+	<?php endif; ?>		
 		<div class="peliDescargandoProgress">
 			<div class="progress progress-striped active">
 				<div id="percentage-bar" class="bar" style="width:0%;">0%</div>				
@@ -114,6 +118,7 @@ foreach($dataProvider->getData() as $record)
 				Cancelar
 		</a>
 	</div>
+
 </div>
 <?php 
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
