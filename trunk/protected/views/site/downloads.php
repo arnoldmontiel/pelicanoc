@@ -13,7 +13,7 @@ function getRipp()
 {
 	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'
 		).success(
-			function(data){				
+			function(data){		
     			if(data != null)
 	    		{        			
 	    			var obj = jQuery.parseJSON(data);    			
@@ -29,7 +29,7 @@ function getRipp()
 	    				$('#ripping-area').hide();
 	    		}
 	    		else
-	    		{		        		    				
+	    		{
 					$('#ripping-area').hide();
 	    		} 
 			},'json');
@@ -126,7 +126,8 @@ echo CHtml::closeTag('div');
 $this->endWidget(); ?>
 <script>
 	$('#btn-cancel').click(function(){
-		$('#btn-cancel').attr("disabled", "disabled"); 
+		alert(1);
+		$('#btn-cancel').attr("disabled", "disabled");		
 		$.post("<?php echo SiteController::createUrl('AjaxCancelRipp'); ?>"
 			).success(
 				function(data){
