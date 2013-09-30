@@ -14,6 +14,7 @@ function getRipp()
 	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'
 		).success(
 			function(data){		
+				debugger;
     			if(data != null)
 	    		{        			
 	    			var obj = jQuery.parseJSON(data);    			
@@ -126,7 +127,6 @@ echo CHtml::closeTag('div');
 $this->endWidget(); ?>
 <script>
 	$('#btn-cancel').click(function(){
-		alert(1);
 		$('#btn-cancel').attr("disabled", "disabled");		
 		$.post("<?php echo SiteController::createUrl('AjaxCancelRipp'); ?>"
 			).success(
