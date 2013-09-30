@@ -55,6 +55,7 @@ class PelicanoHelper
 		$path = $setting->path_shared . $path;
 		
 		$output = exec('du -sk ' . $path);
+		echo $output;
 		$size = trim(str_replace($path, '', $output)) * 1024;
 		return $size;
 	}
