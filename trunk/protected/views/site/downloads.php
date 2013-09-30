@@ -101,8 +101,9 @@ foreach($dataProvider->getData() as $record)
 <?php } ?>
 <!--      termina peli finalizada-->
 </div>
-<?php if(isset($modelMyMovie)): ?>
 <div id="ripping-area">
+<?php if(isset($modelMyMovie)): ?>
+
 	<h2 class="sliderTitle">Copiando</h2>
 	<div class="peliDescargando">
 		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
@@ -116,8 +117,8 @@ foreach($dataProvider->getData() as $record)
 				Cancelar
 		</a>
 	</div>
-</div>
 <?php endif; ?>
+</div>
 <?php 
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
 
