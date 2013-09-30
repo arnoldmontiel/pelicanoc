@@ -64,18 +64,19 @@ class PelicanoHelper
 		$size = 0;
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
-
+		
 		$obj = new COM ( 'scripting.filesystemobject' );
 		
 		if ( is_object ( $obj ) )
 		{
+			if(is_file($path))
+				$path = dirname($path);
+			
 			$ref = $obj->getfolder( $path );
-		
 			$size = $ref->size;
-		
+			
 			$obj = null;
-		}
-		
+		}		
 		return $size;
 	}
 	

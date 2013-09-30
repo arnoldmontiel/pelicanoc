@@ -1,28 +1,29 @@
  <!--  <div id="myModal" class="modal modalDetail">-->   
    <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
    <?php 
-   		$idResource = "";
-		$modelResource = null;
+   		$idResource = "";		
 		$size = 0;
+		$path = "";
 		
 		if(isset($modelNzb)){
-			$idResource = $modelNzb->Id;
-			$modelResource = $modelNzb;
+			$idResource = $modelNzb->Id;			
+			$folderPath = explode('.',$nzbModel->file_name);
+			$path = $folderPath[0]; 
 		}
 		
 		if(isset($modelRippedMovie)){
 			$idResource = $modelRippedMovie->Id;
-			$modelResource = $modelRippedMovie;
+			$path = $modelRippedMovie->path;
 		}
 		
 		if(isset($modelLocalFolder)){
 			$idResource = $modelLocalFolder->Id;
-			$modelResource = $modelLocalFolder;
+			$path = $modelLocalFolder->path;
 		}
 		
-		if(isset($modelResource))
-			$size = PelicanoHelper::getDirectorySize($modelResource->path);
-				
+ 		if(!empty($path))
+ 			$size = PelicanoHelper::getDirectorySize($path);
+		
 		?>	    
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
