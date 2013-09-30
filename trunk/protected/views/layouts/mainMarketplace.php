@@ -25,38 +25,61 @@
 
 
 <script type="text/javascript">	
-function getCurrentDisc()
+function getGetCurrentState()
 {
-	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentDisc'); ?>"
+	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentState'); ?>"
 	).success(
-	function(data){
-		var result = JSON.parse(data);
-		if(result.is_in == 1)
-		{
-			$('#newDisc').show();
-		}
-		else
-		{
-			$('#newDisc').hide();
-		}
-		if(result.read == 0)
-		{
-			$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
-			).success(
-				function(data){
-					if(!$('#myModal').is(':visible'))
+		function(data){
+    		if(data != null)
+    		{        			
+    			var obj = jQuery.parseJSON(data);
+    			if(obj.playBack != null)
+    			{
+        			if(obj.playBack.id != 0)
+        			{
+    					$('#playback-title').html(obj.playBack.originalTitle);
+    					$('#playback').show();
+        			}
+        			else
+        				$('#playback').hide();
+    			}
+    			else
+    				$('#playback').hide();
+
+				if(obj.currentDisc != null)
+				{
+					if(obj.currentDisc.is_in == 1)
 					{
-						$('#view-details').html(data);
-						$('#myModal').modal('show');
-					} 
-				});
-		}
-		
-	});
+						$('#newDisc').show();
+					}
+					else
+					{
+						$('#newDisc').hide();
+					}
+					if(obj.currentDisc.read == 0)
+					{
+						$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
+						).success(
+							function(data){
+								if(!$('#myModal').is(':visible'))
+								{
+									$('#view-details').html(data);
+									$('#myModal').modal('show');
+								} 
+							});
+					}
+				}
+    		}
+    		else
+    		{		        		    				
+				$('#playback').hide();
+    		} 
+		},"json");
+	return false;
 }
 
 $(document).ready(function(){
-	getCurrentDisc();
+	getGetCurrentState();
 	$.ajaxSetup({
 	    cache: false,
 	    headers: {
@@ -65,7 +88,7 @@ $(document).ready(function(){
 	});
 	
 	setInterval(function() {
-		getCurrentDisc();
+		getGetCurrentState();
 	}, 5000);
 	
 	
@@ -231,5 +254,16 @@ echo CHtml::openTag('div',array('id'=>'view-disc-in'));
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
+
+<!-- floating DIV para Peliculas en Reproduccion -->
+<div id="playback" class="peliReroduciendo">
+<div class="rep">
+Reproduciendo:
+<div id="playback-title" class="tituloRep"></div>
+</div>
+<a class="btn" id="btn-dune-control"><i class="icon-keyboard"></i> Control Remoto</a>
+</div>
+<!-- /cierre floating -->
+
 </body>
 </html>

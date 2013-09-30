@@ -26,21 +26,50 @@
 
 
 <script type="text/javascript">
-function getPlayback()
+function getGetCurrentState()
 {
-	$.post("<?php echo SiteController::createUrl('AjaxGetPlayback'); ?>"
+	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentState'); ?>"
 	).success(
 		function(data){
     		if(data != null)
     		{        			
     			var obj = jQuery.parseJSON(data);
-    			if(obj.id != 0)
-    			{    				
-    				$('#playback-title').html(obj.originalTitle);
-    				$('#playback').show();
-				}
+    			if(obj.playBack != null)
+    			{
+        			if(obj.playBack.id != 0)
+        			{
+    					$('#playback-title').html(obj.playBack.originalTitle);
+    					$('#playback').show();
+        			}
+        			else
+        				$('#playback').hide();
+    			}
     			else
     				$('#playback').hide();
+
+				if(obj.currentDisc != null)
+				{
+					if(obj.currentDisc.is_in == 1)
+					{
+						$('#newDisc').show();
+					}
+					else
+					{
+						$('#newDisc').hide();
+					}
+					if(obj.currentDisc.read == 0)
+					{
+						$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
+						).success(
+							function(data){
+								if(!$('#myModal').is(':visible'))
+								{
+									$('#view-details').html(data);
+									$('#myModal').modal('show');
+								} 
+							});
+					}
+				}
     		}
     		else
     		{		        		    				
@@ -49,51 +78,20 @@ function getPlayback()
 		},"json");
 	return false;
 }
-function getCurrentDisc()
-{
-	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentDisc'); ?>"
-		).success(
-		function(data){
-			var result = JSON.parse(data);
-			if(result.is_in == 1)
-			{
-				$('#newDisc').show();
-			}
-			else
-			{
-				$('#newDisc').hide();
-			}
-			if(result.read == 0)
-			{
-				$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
-				).success(
-					function(data){
-						if(!$('#myModal').is(':visible'))
-						{
-							$('#view-details').html(data);
-							$('#myModal').modal('show');
-						} 
-					});
-			}
-			
-		});
-}
+
 
 $(document).ready(function(){
-	getCurrentDisc();
+	getGetCurrentState();
 	$.ajaxSetup({
 	    cache: false,
 	    headers: {
 	        'Cache-Control': 'no-cache'
 	    }
 	});
-	getPlayback();	
+	
 	setInterval(function() {
-		getCurrentDisc();
-	}, 5000);
-	setInterval(function() {
-		getPlayback();
-	}, 5000);
+		getGetCurrentState();
+	}, 5000);	
 	
 	
 	$('#nav li').removeClass('active');
