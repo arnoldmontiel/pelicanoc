@@ -143,11 +143,10 @@
     
     
     </div>
-    <div class="modal-footer">    	
+  </div>
+	<div class="modal-footer">    	
     	<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Ver Pel&iacute;cula</button>
     </div>
-  </div>
-
   <script>
 
   

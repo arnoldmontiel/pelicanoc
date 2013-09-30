@@ -285,7 +285,7 @@ margin-left:0px; left:7%;}
 	max-height: 380px;
 overflow-y: scroll;}
 
-.modal-body{ overflow:hidden;max-height: 430px;}
+.modal-body{ overflow:hidden;}
 
 #myModalSerie{ padding-bottom:30px;}
 .tableInfoSeries{
