@@ -54,10 +54,10 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
 		
+		$path = str_replace(' ', '\ ', $path);
+		
 		$output = exec('du -sk ' . $path);
-		echo $path;
-		echo "--------------------------";
-		echo $output;
+		
 		$size = trim(str_replace($path, '', $output)) * 1024;
 		return $size;
 	}
