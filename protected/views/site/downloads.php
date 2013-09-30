@@ -17,7 +17,6 @@ function getRipp()
     			if(data != null)
 	    		{        			
 	    			var obj = jQuery.parseJSON(data);
-	    			alert(obj.id);
 	    			if(obj.id != 0)
 	    			{    				
 	    				var src = 'images/' + obj.poster;
@@ -25,6 +24,7 @@ function getRipp()
 	    				$('#percentage-bar').width(obj.percentage+'%');
 						$('#percentage-bar').html(obj.percentage+'%');
 	    				$('#ripping-area').show();	
+						alert(1);
 					}
 	    			else
 	    				$('#ripping-area').hide();
