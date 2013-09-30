@@ -19,13 +19,12 @@ function getRipp()
 	    			var obj = jQuery.parseJSON(data);
 	    			if(obj.id != 0)
 	    			{   
-	    				$('#ripping-area').show(); 				
 	    				var src = 'images/' + obj.poster;
 	    				$('#ripp-image').attr('src', src);
 	    				$('#percentage-bar').width(obj.percentage+'%');
 						$('#percentage-bar').html(obj.percentage+'%');
 						$('#btn-cancel').removeAttr('disabled');	
-	    				
+						$('#ripping-area').show();
 					}
 	    			else
 	    				$('#ripping-area').hide();
@@ -101,12 +100,10 @@ foreach($dataProvider->getData() as $record)
 <?php } ?>
 <!--      termina peli finalizada-->
 </div>
-<div id="ripping-area">
-<?php if(isset($modelMyMovie)): ?>
-
+<div id="ripping-area" style="display:none;">
 	<h2 class="sliderTitle">Copiando</h2>
 	<div class="peliDescargando">
-		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
+		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. (isset($modelMyMovie))?$modelMyMovie->poster:'' ?>" border="0">
 		<div class="peliDescargandoProgress">
 			<div class="progress progress-striped active">
 				<div id="percentage-bar" class="bar" style="width:0%;">0%</div>				
@@ -117,7 +114,6 @@ foreach($dataProvider->getData() as $record)
 				Cancelar
 		</a>
 	</div>
-<?php endif; ?>
 </div>
 <?php 
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
