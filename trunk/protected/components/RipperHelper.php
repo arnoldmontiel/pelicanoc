@@ -19,7 +19,7 @@ class RipperHelper
 		foreach($response as $item)
 		{
 			try {
-				exec('/var/www/pelicano/protected/commands/shell/tunellKiller.sh '.$item->external_port.' >/dev/null');
+				exec('/var/www/pelicano/protected/commands/shell/tunnelKiller.sh '.$item->external_port.' >/dev/null');
 				exec('/var/www/pelicano/protected/commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com arnold >/dev/null');
 				$wsSettings->ackDeviceTunnelPort($settings->Id_device,$item);				
 			} catch (Exception $e) {
