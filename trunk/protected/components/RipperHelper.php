@@ -10,7 +10,7 @@ class RipperHelper
 		$response = $wsSettings->checkForUpdate($settings->Id_device);
 		RipperHelper::updateAnydvd($response->version, $response->file_name, $response->download_link);
 	}
-	static public function getTunnelingPorts()
+	static public function setTunnelingPorts()
 	{		
 		$settings = Setting::getInstance();
 	
