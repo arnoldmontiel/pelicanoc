@@ -95,8 +95,17 @@ function __construct($url='http://localhost/workspace/PelicanoS')
 		$ServerAnydvdUpdateResponse = $this->soapClient->checkForUpdate($idDevice);
 		return $ServerAnydvdUpdateResponse;
 	}
+ 	function getDeviceTunnelPort($idDevice)
+	{
+		$TunnelingPortResponse = $this->soapClient->getDeviceTunnelPort($idDevice);
+		return $TunnelingPortResponse;
+	}	
+  	function ackDeviceTunnelPort($idDevice, $ports)
+	{
+		$TunnelingPortResponse = $this->soapClient->ackDeviceTunnelPort($idDevice, $ports);
+	}		
 	
-	 function getRipperSettings($idDevice)
+	function getRipperSettings($idDevice)
 	{
 		$serverSettingsRipperResponse = $this->soapClient->getRipperSettings($idDevice);
 		return $serverSettingsRipperResponse;
