@@ -14,4 +14,11 @@ class TunnelingPorts
 	*/
 	public $external_port;
 	
+	/**
+	 * @var integer open
+	 * @soap
+	 */
+	public $open;
+	
+	
 }
