@@ -19,4 +19,20 @@ class SettingsCommand extends CConsoleCommand  {
 		return true;
 		
 	}
+	function actionOpenConnections()
+	{
+		$settings = Setting::getInstance();
+	
+		RipperHelper::updateRipperSettings();
+		RipperHelper::checkForAnyDvdUpdate();
+	
+		PelicanoHelper::sincronizeWithServer();
+		PelicanoHelper::setHeartBeat(2);//to PelicanoM
+		PelicanoHelper::sendExternalIPAddressToServer();
+		PelicanoHelper::getCustomerSettings();
+		PelicanoHelper::updateNzbDataFromServer();
+		return true;
+	
+	}
+	
 }

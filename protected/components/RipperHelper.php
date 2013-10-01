@@ -10,6 +10,23 @@ class RipperHelper
 		$response = $wsSettings->checkForUpdate($settings->Id_device);
 		RipperHelper::updateAnydvd($response->version, $response->file_name, $response->download_link);
 	}
+	static public function getTunnelingPorts()
+	{		
+		$settings = Setting::getInstance();
+	
+		$wsSettings = new wsSettings();
+		$response = $wsSettings->getDeviceTunnelPort($settings->Id_device);
+		foreach($response as $item)
+		{
+			try {
+				exec('/var/www/pelicano/protected/commands/shell/tunellKiller.sh '.$item->external_port.' >/dev/null');
+				exec('/var/www/pelicano/protected/commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com arnold >/dev/null');
+				$wsSettings->ackDeviceTunnelPort($settings->Id_device,$item);				
+			} catch (Exception $e) {
+			}
+		}
+		//RipperHelper::updateAnydvd($response->version, $response->file_name, $response->download_link);
+	}
 	
 	static public function updateAnydvd($version,$file_name,$download_link)
 	{
