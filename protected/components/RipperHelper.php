@@ -16,14 +16,16 @@ class RipperHelper
 	
 		$wsSettings = new wsSettings();
 		$response = $wsSettings->getDeviceTunnelPort($settings->Id_device);
+		$result = array();
 		foreach($response as $item)
 		{
 			try {
 				exec('/var/www/pelicano/protected/commands/shell/tunnelKiller.sh '.$item->external_port.' >/dev/null');
 				exec('/var/www/pelicano/protected/commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com arnold >/dev/null');
-				$wsSettings->ackDeviceTunnelPort($settings->Id_device,$item);				
+				$result[]=$item;
 			} catch (Exception $e) {
 			}
+			$wsSettings->ackDeviceTunnelPort($settings->Id_device,$result);				
 		}
 		//RipperHelper::updateAnydvd($response->version, $response->file_name, $response->download_link);
 	}
