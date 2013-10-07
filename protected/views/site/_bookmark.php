@@ -13,7 +13,7 @@
     Lista de bookmarks
     </div><!--/.row -->
     
-    <div class="row-fluid detailSecondGroup">
+    <div class="row-fluid detailSecondGroup tableInfoBookmark">
 		<table class="table table-striped">
               <thead>
                 <tr>
