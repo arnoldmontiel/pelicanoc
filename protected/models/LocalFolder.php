@@ -63,7 +63,7 @@ class LocalFolder extends CActiveRecord
 			'fileType' => array(self::BELONGS_TO, 'FileType', 'Id_file_type'),
 			'myMovieDisc' => array(self::BELONGS_TO, 'MyMovieDisc', 'Id_my_movie_disc'),
 			'sourceType' => array(self::BELONGS_TO, 'SourceType', 'Id_source_type'),
-			'bookmarks' => array(self::HAS_MANY, 'Bookmarks', 'Id_local_folder'),				
+			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_local_folder'),				
 		);
 	}
 
