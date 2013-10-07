@@ -74,9 +74,12 @@ class PelicanoHelper
 		{
 			if(is_file($path))
 				$path = dirname($path);
-			
-			$ref = $obj->getfolder( $path );
-			$size = $ref->size;
+			try {
+				$ref = $obj->getfolder( $path );
+				$size = $ref->size;				
+			} catch (Exception $e) {
+				//error opening folder.
+			}
 			
 			$obj = null;
 		}		
