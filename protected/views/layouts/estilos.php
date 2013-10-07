@@ -292,6 +292,10 @@ overflow-y: scroll;}
 	max-height: 350px;
 overflow-y: scroll;}
 
+.tableInfoBookmark{
+	max-height: 350px;
+overflow-y: scroll;}
+
 /*-------- CONTROL REMOTO --------------*/
 
 body#screenControl .container{ text-align:center;}
