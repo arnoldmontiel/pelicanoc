@@ -86,6 +86,7 @@ class Nzb extends CActiveRecord
 			'myMovieDiscNzb' => array(self::BELONGS_TO, 'MyMovieDiscNzb', 'Id_my_movie_disc_nzb'),
 			'idResource' => array(self::BELONGS_TO, 'Resource', 'Id_resource'),
 			'nzbState' => array(self::BELONGS_TO, 'NzbState', 'Id_nzb_state'),
+			'bookmarks' => array(self::HAS_MANY, 'Bookmarks', 'Id_nzb'),
 		);
 	}
 
