@@ -527,7 +527,70 @@ class SiteController extends Controller
 		}		
 		$this->render('control',array(
 				'model'=>$model,
+				'idResource'=>$idResource,
+				'sourceType'=>$sourceType,
 		));
+	}
+	
+	public function actionAjaxShowBookmark()
+	{
+		$id = $_POST['id'];
+		$sourceType = $_POST['sourceType'];
+		
+		$criteria = new CDbCriteria();
+		
+		switch ($sourceType) {
+			case 1:		
+				$criteria->addCondition('t.Id_nzb = '. $id);
+				break;
+			case 2:				
+				$criteria->addCondition('t.Id_ripped_movie = '. $id);
+				break;
+			case 3:
+				$criteria->addCondition('t.Id_local_folder = '. $id);
+				break;			
+		}
+		
+		
+		$bookmarks = Bookmark::model()->findAll($criteria);
+
+		
+		$this->renderPartial('_bookmark',array('bookmarks'=>$bookmarks,
+												'idResource'=>$id,
+												'sourceType'=>$sourceType));		
+		
+	}
+	
+	public function actionAjaxSaveScene()
+	{	
+		$idResource = (isset($_POST['idResource']))?$_POST['idResource']:null;
+		$sourceType = (isset($_POST['sourceType']))?$_POST['sourceType']:null;
+		$sceneStart = (isset($_POST['sceneStart']))?$_POST['sceneStart']:null;
+		$sceneEnd = (isset($_POST['sceneEnd']))?$_POST['sceneEnd']:null;
+		$sceneText = (isset($_POST['sceneText']))?$_POST['sceneText']:null;
+		
+		if(isset($idResource) && isset($sourceType) &&
+			isset($sceneStart) && isset($sceneEnd) && isset($sceneText))
+		{
+			$model = new Bookmark();
+			switch ($sourceType) {
+				case 1:
+					$model->Id_nzb = $idResource;
+					break;
+				case 2:
+					$model->Id_ripped_movie = $idResource;
+					break;
+				case 3:
+					$model->Id_local_folder = $idResource;
+					break;
+			}
+			
+			$model->start = $sceneStart;
+			$model->end = $sceneEnd;
+			$model->description = $sceneText;
+			$model->save();
+		}
+		
 	}
 	
 	public function actionOpenDuneControl($id, $type)
@@ -543,6 +606,8 @@ class SiteController extends Controller
 		
 		$this->render('control',array(
 				'model'=>$model,
+				'idResource'=>$id,
+				'sourceType'=>$type,
 		));
 	}
 	
@@ -590,7 +655,9 @@ class SiteController extends Controller
 	{
 		$playbackUrl = DuneHelper::getPlaybackUrl();
 		//type = 1 = nzb
-		//type = 2 = localFolder/rippedMovie/online
+		//type = 2 = rippedMovie
+		//type = 3 = localFolder
+		//type = 4 = online
 		
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
 		if(isset($playbackUrl))
@@ -634,7 +701,7 @@ class SiteController extends Controller
 						}
 					}
 					
-					$response['type'] = 2;
+					$response['type'] = 3;
 					
 					if(isset($modelLocalFolderCurrent))
 					{
@@ -658,6 +725,8 @@ class SiteController extends Controller
 							}
 						}
 						
+						$response['type'] = 2;
+						
 						if(isset($modeRippedMovieCurrent))
 						{
 							$response['id'] = $modeRippedMovieCurrent->myMovieDisc->Id_my_movie;
@@ -678,6 +747,7 @@ class SiteController extends Controller
 									$response['id'] = $modelMyMovieDisc->Id_my_movie;						
 								}
 							}	
+							$response['type'] = 4;
 						}
 					}
 					
