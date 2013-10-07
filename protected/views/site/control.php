@@ -22,6 +22,9 @@
 <button type="button" class="btn btn-large btn-primary"id="subtButton">Cambiar Subt&iacute;tulos</button>
 <button type="button" class="btn btn-large btn-primary noMargin" id="audioButton">Cambiar Audio</button>
 </div>
+<div class="controlBookmark">
+<button type="button" class="btn btn-large btn-primary"id="bookmarkButton"><i class="icon-bookmark"></i></button>
+</div>
     </div>
     <!-- /span6 -->
     <div class="span6">
@@ -108,11 +111,34 @@
     </div>
   <!-- /row -->
   </div>
-  <?php
+
+<?php 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modalBookmark')); 
+echo CHtml::openTag('div',array('id'=>'view-bookmarks'));
+//place holder
+echo CHtml::closeTag('div');
+$this->endWidget(); ?>
+ <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	
 	ChangeBG('images/','".$model->backdrop."');
 
+$('#bookmarkButton').click(function(){
+	var id = '".$idResource."';
+	var sourceType = '".$sourceType."';	
+	var param = 'id='+id+'&sourceType='+sourceType; 
+	$.ajax({
+		type: 'POST',
+	   	url: '". SiteController::createUrl('AjaxShowBookmark') . "',
+	   	data: param,
+	}).success(
+		function(data){	 	
+			$('#view-bookmarks').html(data);
+			$('#modalBookmark').modal('show');			
+	});
+});
+		
+	
 $('#playButton').click(function(){
 	$.ajax({
    		type: 'GET',

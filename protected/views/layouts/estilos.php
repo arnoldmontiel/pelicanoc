@@ -317,8 +317,10 @@ padding-bottom:10px;
 margin-bottom:20px;
 border-bottom:1px solid #ccc;}
 
+.controlBookmark{ text-align:right;width:30%;float:right;display: inline-block;}
+.controlBookmark button{ width:100px; height:60px; margin-top:10px; margin-bottom:20px; display:block;}
 
-.controlAudioSub{ text-align:left;}
+.controlAudioSub{ text-align:left;width:50%;display: inline-block;}
 .controlAudioSub button{ width:200px; height:60px; margin-top:10px; margin-bottom:20px; display:block;}
 
 .controlFlechas{ width:165px; margin-bottom:20px;}
