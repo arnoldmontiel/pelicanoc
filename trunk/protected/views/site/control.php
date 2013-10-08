@@ -22,9 +22,11 @@
 <button type="button" class="btn btn-large btn-primary"id="subtButton">Cambiar Subt&iacute;tulos</button>
 <button type="button" class="btn btn-large btn-primary noMargin" id="audioButton">Cambiar Audio</button>
 </div>
+<?php if($sourceType != 4):?>
 <div class="controlBookmark">
 <button type="button" class="btn btn-large btn-primary"id="bookmarkButton"><i class="icon-bookmark"></i></button>
 </div>
+<?php endif;?>
     </div>
     <!-- /span6 -->
     <div class="span6">
@@ -111,7 +113,7 @@
     </div>
   <!-- /row -->
   </div>
-
+  <input type="hidden" name="hidden-end-value" id="hidden-end-value">
 <?php 
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modalBookmark')); 
 echo CHtml::openTag('div',array('id'=>'view-bookmarks'));
@@ -122,6 +124,34 @@ $this->endWidget(); ?>
 Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	
 	ChangeBG('images/','".$model->backdrop."');
+	
+setInterval(function() {
+	checkEndScene();
+}, 5000);	
+
+function checkEndScene()
+{
+	var endValue = $('#hidden-end-value').val();
+	if(endValue != '')
+	{
+		$.ajax({
+			type: 'POST',
+		   	url: '". SiteController::createUrl('AjaxGetDunePosition') . "'
+		}).success(
+			function(data){	 	
+				if(endValue <= data)
+				{
+					$.ajax({
+						type: 'POST',
+					   	url: '". SiteController::createUrl('AjaxPauseDune') . "'
+					}).success(
+						function(data){	 	
+							$('#hidden-end-value').val('');	
+					});					
+				}
+		});
+	}		
+}
 
 $('#bookmarkButton').click(function(){
 	var id = '".$idResource."';

@@ -345,6 +345,26 @@ class SiteController extends Controller
 
 	}
 	
+	public function actionAjaxRemoveBookmark()
+	{
+		$id = (isset($_POST['id']))?$_POST['id']:null;
+		$success = "0";
+		if(isset($id))
+		{
+			$model = Bookmark::model()->findByPk($id);
+			
+				
+			if(isset($model))
+			{
+				PlaylistBookmark::model()->deleteAllByAttributes(array('Id_bookmark'=>$id));			
+				if($model->delete())
+					$success = "1";
+			}
+		}
+		
+		echo $success;		
+	}
+	
 	public function actionAjaxRemoveMovie()
 	{
 		$idResource = (isset($_POST['idResource']))?$_POST['idResource']:null;
@@ -514,7 +534,7 @@ class SiteController extends Controller
 			case 3:
 				$localFolder = LocalFolder::model()->findByPk($idResource);
 				$folderPath = explode('.',$localFolder->path);
-				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				//DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
 				
 				$model = MyMovie::model()->findByPk($id);
 				break;
@@ -550,7 +570,7 @@ class SiteController extends Controller
 				$criteria->addCondition('t.Id_local_folder = '. $id);
 				break;			
 		}
-		
+		$criteria->order = 'Id desc';
 		
 		$bookmarks = Bookmark::model()->findAll($criteria);
 
@@ -559,6 +579,40 @@ class SiteController extends Controller
 												'idResource'=>$id,
 												'sourceType'=>$sourceType));		
 		
+	}
+	
+	public function actionAjaxGetDunePosition()
+	{
+		$modelDune = DuneHelper::getState();
+		$position = 0;
+		if(isset($modelDune))
+		{
+			$position = $modelDune->playback_position;
+		}
+		echo $position;
+	}
+	
+	public function actionAjaxPauseDune()
+	{
+		DuneHelper::pause();		
+	}
+	
+	public function actionAjaxPlayFromPosition()
+	{
+		$id = (isset($_POST['id']))?$_POST['id']:null;
+		$end = 0;
+		
+		if(isset($id))
+		{
+			$model = Bookmark::model()->findByPk($id);
+				
+			if(isset($model))
+			{				
+				DuneHelper::playFromPosition($model->start);
+				$end = $model->end; 
+			}
+		}
+		echo $end;
 	}
 	
 	public function actionAjaxSaveScene()
@@ -587,8 +641,29 @@ class SiteController extends Controller
 			
 			$model->start = $sceneStart;
 			$model->end = $sceneEnd;
+			$model->time_start = gmdate("H:i:s", $sceneStart);
+			$model->time_end = gmdate("H:i:s", $sceneEnd);			
 			$model->description = $sceneText;
 			$model->save();
+			
+			$newRow = CHtml::openTag('tr',array('class'=>'bookmark-row','id'=>'id_'.$model->Id));
+			$newRow .= CHtml::openTag('td');
+			$newRow .= $model->description;
+			$newRow .= CHtml::closeTag('td');
+			$newRow .= CHtml::openTag('td');
+			$newRow .= $model->time_start;
+			$newRow .= CHtml::closeTag('td');
+			$newRow .= CHtml::openTag('td');
+			$newRow .= $model->time_end;
+			$newRow .= CHtml::closeTag('td');
+			$newRow .= CHtml::openTag('td');
+			$newRow .= "<button idrecord='".$model->Id."' class='btn btn-primary btn-medium btn-play-position'><i class='icon-play'></i></button>";
+			$newRow .= CHtml::closeTag('td');
+			$newRow .= CHtml::openTag('td');
+			$newRow .= "<i idrecord='".$model->Id."' class='icon-eraser pointer btn-eraser'></i>";
+			$newRow .= CHtml::closeTag('td');
+			$newRow .= CHtml::closeTag('tr');
+			echo $newRow;
 		}
 		
 	}
