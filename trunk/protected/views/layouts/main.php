@@ -167,7 +167,15 @@ $(document).ready(function(){
 				$('#myModal').modal('show'); 
 			});
     });
-
+    $('#playlist').click(function(){
+    	$.post("<?php echo SiteController::createUrl('AjaxPlaylistsShow'); ?>"
+		).success(
+			function(data){
+				$('#view-details').html(data);
+				$('#myModal').modal('show'); 
+			});
+    });
+    
     $('#btn-dune-control').click(function(){    	
     	$.post("<?php echo SiteController::createUrl('AjaxGetPlayback'); ?>"
     	).success(
@@ -223,8 +231,9 @@ $(document).ready(function(){
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
         <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>		
+        <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>
         <div id="newDisc" class="pull-right">Examinar Disco</div>
-      </div>
+        </div>
       <!--/.nav-collapse -->
     </div>
   </div>
