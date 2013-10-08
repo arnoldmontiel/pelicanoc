@@ -2,6 +2,48 @@
 class DuneHelper
 {
 
+	static public function playFromPosition($position)
+	{
+		$modelDune = self::getState();
+		
+		if(isset($modelDune))
+		{
+			if($modelDune->playback_speed == 0)
+				self::playBySpeed(); //play			
+			
+			$setting = Setting::getInstance();
+			$cmd = 'set_playback_state&position='.$position;
+			
+			$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd;
+			@file_get_contents($url);
+		}
+		
+		
+		return true;
+	}
+	
+	static public function playBySpeed()
+	{
+		$setting = Setting::getInstance();
+		$cmd = 'set_playback_state&speed=256';
+		
+		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd;
+		@file_get_contents($url);
+		
+		return true;
+	}
+	
+	static public function pause()
+	{
+		$setting = Setting::getInstance();
+		$cmd = 'set_playback_state&speed=0';
+	
+		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd;
+		@file_get_contents($url);
+	
+		return true;
+	}
+	
 	static public function playDune($id,$path)
 	{
 //		$modelMyMovieDiscNzb = MyMovieDiscNzb::model()->findByAttributes(array('Id_my_movie_nzb'=>$id));

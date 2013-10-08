@@ -21,25 +21,31 @@
                   <th>Inicio escena</th>
                   <th>Fin escena</th>
                   <th>Reproducir</th>
+                  <th>Borrar</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="bookmark-table">
               <?php 
+              	echo CHtml::openTag('tr',array('class'=>'bookmark-row'));
+              	echo CHtml::closeTag('tr');
               	foreach($bookmarks as $item){
-              		echo CHtml::openTag('tr');
+              		echo CHtml::openTag('tr',array('class'=>'bookmark-row', 'id'=>'id_'.$item->Id));
               			echo CHtml::openTag('td');
               				echo $item->description;
               			echo CHtml::closeTag('td');
               			echo CHtml::openTag('td');
-              				echo $item->start;
+              				echo $item->time_start;
               			echo CHtml::closeTag('td');
               			echo CHtml::openTag('td');
-              				echo $item->end;
+              				echo $item->time_end;
               			echo CHtml::closeTag('td');
               			echo CHtml::openTag('td');
-              				echo "<button class='btn btn-primary btn-medium'><i class='icon-play-circle'></i></button>";
-              			echo CHtml::closeTag('td');              				
+              				echo "<button idrecord='".$item->Id."' class='btn btn-primary btn-medium btn-play-position'><i class='icon-play'></i></button>";
+              			echo CHtml::closeTag('td');
+              			echo CHtml::openTag('td');
+              				echo "<i idrecord='".$item->Id."' class='icon-eraser pointer btn-eraser'></i>";
+              			echo CHtml::closeTag('td');
               		echo CHtml::closeTag('tr');
               	}
               ?>                
@@ -56,9 +62,9 @@
 	    
 	    <br>
 	    <button id="btn-scene-start" class='btn btn-primary btn-medium'>Inicio escena</button>
-	    <input type="hidden" name="hiden-start" id="hidden-start">
+	    <input type="hidden" name="hidden-start" id="hidden-start">
 	    <button id="btn-scene-end" disabled="disabled" class='btn btn-primary btn-medium'>Fin escena</button>
-	    <input type="hidden" name="hiden-end" id="hidden-end">
+	    <input type="hidden" name="hidden-end" id="hidden-end">
 	   
 	   	<br>
 	   	<br>
@@ -83,15 +89,50 @@
  
  <script>
  	$('#btn-scene-cancel').click();
- 	
-	$('#btn-scene-start').click(function(){
-		$(this).attr("disabled","disabled");		
-		$.post("<?php echo SiteController::createUrl('AjaxStartDownloadsdfdf'); ?>",
-			{Id_nzb: "<?php echo "aa"; ?>"}
+
+ 	$('.btn-play-position').click(function(){
+ 		$(this).attr("disabled","disabled");	
+ 		var id = $(this).attr('idrecord');	
+ 		$.post("<?php echo SiteController::createUrl('AjaxPlayFromPosition'); ?>",
+ 			{
+ 				id:id			    
+ 			}		
 		).success(
 			function(data) 
 			{					
-				//save start
+				$('#hidden-end-value').val(data);
+				$('#modalBookmark').modal('hide');
+			}
+		);		
+		return false; 	 	
+ 		
+ 	});
+ 	
+ 	$('.btn-eraser').click(function(){
+ 	 	var id = $(this).attr('idrecord');
+ 	 	if (confirm("\u00bfSeguro desea eliminarlo?"))
+		{
+			$.post("<?php echo SiteController::createUrl('AjaxRemoveBookmark'); ?>",
+			{
+				id:id			    
+			}
+			).success(
+				function(data){
+					if(data == "1")
+						$('#bookmark-table').find('#id_'+id).remove(); 
+			});
+		}
+		return false;
+ 	});
+ 	
+	$('#btn-scene-start').click(function(){
+		$(this).attr("disabled","disabled");		
+		$.post("<?php echo SiteController::createUrl('AjaxGetDunePosition'); ?>"			
+		).success(
+			function(data) 
+			{					
+				if(data!=0)
+					$('#hidden-start').val(data);
 			}
 		);
 		$('#btn-scene-end').removeAttr("disabled");
@@ -100,12 +141,12 @@
 
 	$('#btn-scene-end').click(function(){
 		$(this).attr("disabled","disabled");		
-		$.post("<?php echo SiteController::createUrl('AjaxStartDownloadsdfdf'); ?>",
-			{Id_nzb: "<?php echo "aa"; ?>"}
+		$.post("<?php echo SiteController::createUrl('AjaxGetDunePosition'); ?>"			
 		).success(
 			function(data) 
 			{					
-				//save start
+				if(data!=0)
+					$('#hidden-end').val(data);
 			}
 		);
 		$('#txt-scene-name').removeAttr("disabled");
@@ -121,9 +162,7 @@
 		return false;
 	});
 
-	$('#btn-scene-save').click(function(){
-		$('#hidden-start').val(2);
-		$('#hidden-end').val(22);
+	$('#btn-scene-save').click(function(){				
 		$.post("<?php echo SiteController::createUrl('AjaxSaveScene'); ?>",
 				{
 					idResource:<?php echo $idResource; ?>,
@@ -135,7 +174,42 @@
 			).success(
 				function(data) 
 				{					
-					//save start
+					$('.bookmark-row').first().before(data);
+					$('#btn-scene-cancel').click();
+
+					$('.bookmark-row').first().find('.btn-play-position').click(function(){
+						$(this).attr("disabled","disabled");	
+				 		var id = $(this).attr('idrecord');	
+				 		$.post("<?php echo SiteController::createUrl('AjaxPlayFromPosition'); ?>",
+				 			{
+				 				id:id			    
+				 			}		
+						).success(
+							function(data) 
+							{				
+								$('#hidden-end-value').val(data);	
+								$('#modalBookmark').modal('hide');
+							}
+						);		
+						return false; 	 	
+					});
+					
+					$('.bookmark-row').first().find('.btn-eraser').click(function(){
+						var id = $(this).attr('idrecord');
+				 	 	if (confirm("\u00bfSeguro desea eliminarlo?"))
+						{
+							$.post("<?php echo SiteController::createUrl('AjaxRemoveBookmark'); ?>",
+							{
+								id:id			    
+							}
+							).success(
+								function(data){
+									if(data == "1")
+										$('#bookmark-table').find('#id_'+id).remove(); 
+							});
+						}
+						return false;
+					});
 				}
 			);
 		return false;
