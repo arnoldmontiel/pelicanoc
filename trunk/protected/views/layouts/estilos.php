@@ -57,6 +57,20 @@ color: #333;
 border-right: 1px solid #ccc;
 cursor: pointer;
 }
+#Menu #playlist{
+width: 61px;
+height: 35px;
+padding-top: 5px;
+background-color: #ebebeb;
+background-repeat: no-repeat;
+background-position: 10px 12px;
+padding-left: 33px;
+padding-right: 10px;
+line-height: 15px;
+color: #333;
+border-right: 1px solid #ccc;
+cursor: pointer;
+}
 
 .points{ font-size:11px; color:#000; font-weight:bold;}
 
