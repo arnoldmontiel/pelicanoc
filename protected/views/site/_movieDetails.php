@@ -40,8 +40,9 @@
               <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
+                <li class=""><a href="#tab3" data-toggle="tab">Bookmarks</a></li>
               </ul>
-              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;  min-height: 300px;  ">
                 <div class="tab-pane active" id="tab1">
                 
 				    <div class="row-fluid detailMainGroup">
@@ -138,7 +139,59 @@
 		    </div><!--/.row -->
 		    
     	 </div><!--/.tab-pane -->
-   	</div><!--/.tababble -->  
+    	<div class="tab-pane" id="tab3"><!--/.bookmarks -->
+			<div class="row-fluid detailMainGroup">
+		    <div class="span4 pagination-centered detailMain detailMainFirst">
+		    <?php echo $model->genre;?>
+		    </div><!--/.span4 -->
+		    <div class="span4 pagination-centered detailMain">
+		    <?php echo $model->parentalControl->description;?>
+		    </div><!--/.span4 -->
+		    <div class="span4 pagination-centered detailMain">
+		     <?php    	
+		    	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';    	
+			?>
+		    <img src="images/<?php echo $image;?>" width="100" height="20" border="0">    
+		    </div><!--/.span4 -->
+		    </div><!--/.row -->
+		    <?php foreach ($modelBookmarks as $bookmark){?>
+		    
+		    <div class="row-fluid detailSecondGroup">
+			    <div class="span3 pagination-left detailSecond detailSecondFirst">
+			    <?php echo $bookmark->description; ?>
+			    </div><!--/.span4 -->
+			    <div class="span9 pagination-left detailSecond">
+			    <?php echo $bookmark->time_start." - ".$bookmark->time_end;?>
+				
+				<button id="btn-play-bookmark-<?php echo $bookmark->Id;?>" class="btn btn-primary btn" style="float: right; margin-right: 30px;"><i class="icon-play icon-large"></i></button>
+				
+			    <div class="btn-group open" style="float: right; margin-right: 30px;">
+					<a class="btn btn-primary" href="#"><i class="icon-heart"></i> Agregar a...</a>
+					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+					<span class="icon-caret-down"></span></a>
+					<ul class="dropdown-menu">
+						<?php 
+						$playLists = Playlist::model()->findAll();
+						foreach ($playLists as $playList)
+						{
+							$playListBookmarks = PlaylistBookmark::model()->findAllByAttributes(array('Id_bookmark'=>$bookmark->Id,'Id_playlist'=>$playList->Id));
+							if(!empty($playListBookmarks))
+							{
+							?>
+							    <li><a class="check-playlist" id="<?php echo $playList->Id;?>" idBookmark="<?php echo $bookmark->Id;?>" href="#"><i class="icon-fixed-width icon-check"></i><i class="icon-fixed-width icon-bookmark"></i> <?php echo $playList->description;?></a></li>
+							<?php }else{?>
+							    <li><a class="check-playlist" id="<?php echo $playList->Id;?>" idBookmark="<?php echo $bookmark->Id;?>" href="#"><i class="icon-fixed-width icon-check-empty"></i><i class="icon-fixed-width icon-bookmark"></i> <?php echo $playList->description;?></a></li>
+							<?php }?>
+						<?php }?>
+					 </ul>
+				</div>
+				
+			    </div><!--/.span8 -->
+		    </div><!--/.row -->
+			<?php }?>
+		    
+    	 </div><!--/.tab-pane -->
+    	 </div><!--/.tababble -->  
     </div><!--/.span9PRINCIPAL -->
     </div><!--/.rowPRINCIPAL -->
     
@@ -150,7 +203,24 @@
     </div>
   <script>
 
-  
+	$(".check-playlist").click(function(){
+		var target = this;
+		$.post("<?php echo SiteController::createUrl('AjaxAddOrRemovePlaylist'); ?>",
+				{
+					idBookmark:$(this).attr("idBookmark"),
+				    idPlaylist:$(this).attr("id")
+				 }
+				).success(
+					function(data){
+						var empty =$(target).find("i.icon-fixed-width.icon-check-empty");
+						var notEmpty =$(target).find("i.icon-fixed-width.icon-check");
+						$(empty).removeClass( "icon-check-empty");
+						$(empty).addClass( "icon-check");
+						$(notEmpty).removeClass( "icon-check");
+						$(notEmpty).addClass("icon-check-empty");		
+					});			
+		return false;
+	});
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");
 		 
