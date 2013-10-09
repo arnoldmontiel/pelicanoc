@@ -584,6 +584,11 @@ class SiteController extends Controller
 		));
 	}
 	
+	public function actionAjaxGetProgressBar()
+	{		
+		echo json_encode(DuneHelper::getProgressBar());
+	}
+	
 	public function actionAjaxShowBookmark()
 	{
 		$id = $_POST['id'];
