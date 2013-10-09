@@ -64,7 +64,7 @@
 	    
 	    <div id="recording" style="display:none;">
 	    <?php
-	    echo CHtml::image('images/saving_note.gif','saving',array('title'=>'Grabando'));
+	    echo CHtml::image('images/recording.gif','saving',array('title'=>'Grabando'));
 	    ?>	    
 	    </div>
 	    <button id="btn-scene-start" class='btn btn-primary btn-medium'>Inicio escena</button>
