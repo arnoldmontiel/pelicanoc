@@ -61,6 +61,12 @@
 	    </div><!--/.row -->
 	    
 	    <br>
+	    
+	    <div id="recording" style="display:none;">
+	    <?php
+	    echo CHtml::image('images/saving_note.gif','saving',array('title'=>'Grabando'));
+	    ?>	    
+	    </div>
 	    <button id="btn-scene-start" class='btn btn-primary btn-medium'>Inicio escena</button>
 	    <input type="hidden" name="hidden-start" id="hidden-start">
 	    <button id="btn-scene-end" disabled="disabled" class='btn btn-primary btn-medium'>Fin escena</button>
@@ -126,7 +132,8 @@
  	});
  	
 	$('#btn-scene-start').click(function(){
-		$(this).attr("disabled","disabled");		
+		$(this).attr("disabled","disabled");
+		$('#recording').show();
 		$.post("<?php echo SiteController::createUrl('AjaxGetDunePosition'); ?>"			
 		).success(
 			function(data) 
@@ -140,7 +147,8 @@
 	});
 
 	$('#btn-scene-end').click(function(){
-		$(this).attr("disabled","disabled");		
+		$(this).attr("disabled","disabled");
+		$('#recording').hide();		
 		$.post("<?php echo SiteController::createUrl('AjaxGetDunePosition'); ?>"			
 		).success(
 			function(data) 
@@ -162,7 +170,7 @@
 		return false;
 	});
 
-	$('#btn-scene-save').click(function(){				
+	$('#btn-scene-save').click(function(){
 		$.post("<?php echo SiteController::createUrl('AjaxSaveScene'); ?>",
 				{
 					idResource:<?php echo $idResource; ?>,
@@ -216,6 +224,7 @@
 	});
 	
 	$('#btn-scene-cancel').click(function(){
+		$('#recording').hide();
 		$('#hidden-start').val(null);
 		$('#hidden-end').val(null);
 		$('#btn-scene-start').removeAttr("disabled");
