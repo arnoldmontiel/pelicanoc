@@ -86,7 +86,9 @@ class DuneHelper
 	
 	static public function getProgressBar()
 	{
-		$current_progress_bar = 0;
+		$progressBar = array('currentProgress'=>0,
+							'currentTime'=>gmdate("H:i:s",0),
+							'totalTime'=>gmdate("H:i:s",0));		
 		
 		$modelDune = self::getState();
 		
@@ -95,11 +97,13 @@ class DuneHelper
 			if($modelDune->playback_state == "playing" && (int)$modelDune->playback_duration > 0)
 			{
 				$value = ((int)$modelDune->playback_position/(int)$modelDune->playback_duration) * 100;
-				$current_progress_bar = round($value); 
+				$progressBar['currentProgress'] = round($value);
+				$progressBar['currentTime'] = gmdate("H:i:s",$modelDune->playback_position);
+				$progressBar['totalTime'] = gmdate("H:i:s",$modelDune->playback_duration);
 			}	
 		}
 		
-		return $current_progress_bar;
+		return $progressBar;
 	}
 	
 	static public function getPlaybackUrl()
