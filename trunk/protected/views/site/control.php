@@ -69,14 +69,15 @@
     <div class="span8">
     <div class="controlProgress">
     <div class="progress">
-  <div class="bar" style="width: 60%;"></div>
+  <div class="bar" id="progressBar" style="width: 60%;"></div>
 </div>
     </div>
     </div>
     <!-- /span8 -->
     <div class="span4">
     <div class="controlLenght">
-    10:20:10 / 03:20:14
+    <span id="currentTime"></span> / 
+    <span id="totalTime"></span>
     </div>
     </div>
     <!-- /span4 -->
@@ -114,6 +115,7 @@
   <!-- /row -->
   </div>
   <input type="hidden" name="hidden-end-value" id="hidden-end-value">
+  	
 <?php 
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modalBookmark')); 
 echo CHtml::openTag('div',array('id'=>'view-bookmarks'));
@@ -127,7 +129,24 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	
 setInterval(function() {
 	checkEndScene();
+	getProgressBar();
 }, 5000);	
+
+function getProgressBar()
+{
+ 	
+ 	$.post('".RippedMovieController::createUrl('AjaxGetProgressBar')."'	
+		).success(
+		function(data){	
+			var obj = jQuery.parseJSON(data);
+			if(obj != null && obj.currentProgress > 0)
+			{			
+				$('#progressBar').width(obj.currentProgress+'%');
+				$('#currentTime').html(obj.currentTime); 
+				$('#totalTime').html(obj.totalTime);
+			}
+		});		
+}
 
 function checkEndScene()
 {
