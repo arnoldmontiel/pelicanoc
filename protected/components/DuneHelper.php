@@ -94,13 +94,14 @@ class DuneHelper
 		
 		if(isset($modelDune))
 		{
-			if($modelDune->playback_state == "playing" && (int)$modelDune->playback_duration > 0)
+			if(($modelDune->playback_state == "playing" || $modelDune->player_state == "bluray_playback")
+				&& (int)$modelDune->playback_duration > 0)
 			{
 				$value = ((int)$modelDune->playback_position/(int)$modelDune->playback_duration) * 100;
 				$progressBar['currentProgress'] = round($value);
 				$progressBar['currentTime'] = gmdate("H:i:s",$modelDune->playback_position);
 				$progressBar['totalTime'] = gmdate("H:i:s",$modelDune->playback_duration);
-			}	
+			}
 		}
 		
 		return $progressBar;
