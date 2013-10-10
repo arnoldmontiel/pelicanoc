@@ -566,7 +566,7 @@ class SiteController extends Controller
 			case 3:
 				$localFolder = LocalFolder::model()->findByPk($idResource);
 				$folderPath = explode('.',$localFolder->path);
-				//DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
 				
 				$model = MyMovie::model()->findByPk($id);
 				break;
