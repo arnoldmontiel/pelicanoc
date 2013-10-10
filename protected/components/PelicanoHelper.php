@@ -55,6 +55,8 @@ class PelicanoHelper
 		$path = $setting->path_shared . $path;
 		
 		$path = str_replace(' ', '\ ', $path);
+		$path = str_replace('(', '\( ', $path);
+		$path = str_replace(')', '\) ', $path);
 		
 		$output = exec('du -sk ' . $path);
 		
