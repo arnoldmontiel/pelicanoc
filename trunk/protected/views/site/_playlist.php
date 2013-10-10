@@ -18,6 +18,10 @@
 	    	<li<?php echo $isFirst?" class='active'":"";?>><a href="#"><?php echo $playlist->description;?></a></li>
 	    <?php $isFirst=false;}?>    
 		</ul>
+		<div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;  min-height: 300px;  ">
+		<div class="tab-pane active" id="tab1">
+		</div>
+		</div>
 	    </div><!--/.span3PRINCIPAL -->
 	</span>
     </div><!--/.span3PRINCIPAL -->
