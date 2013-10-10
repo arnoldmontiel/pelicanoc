@@ -86,7 +86,7 @@ class DuneHelper
 	
 	static public function getProgressBar()
 	{
-		$progressBar = array('currentProgress'=>0,
+		$progressBar = array('currentProgress'=>-1,
 							'currentTime'=>gmdate("H:i:s",0),
 							'totalTime'=>gmdate("H:i:s",0));		
 		
