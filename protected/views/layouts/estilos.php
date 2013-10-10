@@ -454,7 +454,7 @@ background-color: #9d9d00;
 
 .noMargin{ margin:0px !important;}
 
-.peliReroduciendo{ display: none; position:fixed; bottom:10px; right:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333;}
+.peliReroduciendo{ display: none; position:fixed; bottom:10px; left:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333;}
 
 .peliReroduciendo .rep{text-align:left;}
 
