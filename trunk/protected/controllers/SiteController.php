@@ -118,7 +118,7 @@ class SiteController extends Controller
 		
 		$modelMovies = new Movies();
 		$dataProvider= $modelMovies->search();
-		$dataProvider->pagination->pageSize= 100;
+		$dataProvider->pagination->pageSize= 250;
 		
 //		$dataProviderSeries= $modelNzb->searchSeriesOrdered();
 //		$dataProviderSeries->pagination->pageSize= 4;
