@@ -113,7 +113,7 @@ class WsPelicanoCController extends Controller
 	public function addNewRipMovie($idMyMovie, $path, $parentalControl, $idDisc)
 	{
 	
-		$result = RipperHelper::saveRipped($idMyMovie, $path, $parentalControl, $idDisc);
+		$result = RipperHelper::saveRipped($idMyMovie, "/pelicano/ripped/".$path, $parentalControl, $idDisc);
 		
 		//Esto se hace en el heartbeat para mejorar performance
 		// 		if($result)
