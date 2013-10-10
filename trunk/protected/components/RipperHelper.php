@@ -22,7 +22,7 @@ class RipperHelper
 			try {
 				exec('/var/www/pelicano/protected/commands/shell/tunnelKiller.sh '.$item->external_port.' >/dev/null');
 				if($item->open)
-					exec('/var/www/pelicano/protected/commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com arnold >/dev/null');
+					exec('/var/www/pelicano/protected/commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com pelicano >/dev/null');
 				$result[]=$item;
 			} catch (Exception $e) {
 			}
