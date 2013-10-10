@@ -17,7 +17,7 @@ $moviePoster = $model->poster;
 
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
-	$('#link-movie-$model->Id').click(function(){
+	$('#link-movie-$model->Id-$data->Id-$data->source_type').click(function(){
 		var target = $(this).attr('href');
 		var sourceType = '$data->source_type';
 		var id = '$model->Id';
@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
         
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
-	<a id="link-movie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
+	<a id="link-movie-<?php echo $model->Id;?>-<?php echo $data->Id;?>-<?php echo $data->source_type;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));

@@ -69,7 +69,7 @@
     <div class="span8">
     <div class="controlProgress">
     <div class="progress">
-  <div class="bar" id="progressBar" style="width: 60%;"></div>
+  <div class="bar" id="progressBar" style="width: 1%;"></div>
 </div>
     </div>
     </div>
@@ -130,7 +130,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 setInterval(function() {
 	checkEndScene();
 	getProgressBar();
-}, 5000);	
+}, 1000);	
 
 function getProgressBar()
 {
