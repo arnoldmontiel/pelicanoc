@@ -84,7 +84,7 @@ class Movies extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->order = "t.date DESC";
+		$criteria->order = "t.title ASC";
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
