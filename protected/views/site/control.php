@@ -139,7 +139,7 @@ function getProgressBar()
 		).success(
 		function(data){	
 			var obj = jQuery.parseJSON(data);
-			if(obj != null && obj.currentProgress > 0)
+			if(obj != null && obj.currentProgress >= 0)
 			{			
 				$('#progressBar').width(obj.currentProgress+'%');
 				$('#currentTime').html(obj.currentTime); 
