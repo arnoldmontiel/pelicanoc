@@ -231,7 +231,7 @@ $(document).ready(function(){
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
         <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>		
-        <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>
+        <!-- <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div> -->
         <div id="newDisc" class="pull-right">Examinar Disco</div>
         </div>
       <!--/.nav-collapse -->
