@@ -103,13 +103,13 @@ $(document).ready(function(){
 		$('#li-download').addClass('active');
 	else 
 		$('#li-movie').addClass('active');
-	$("#search-query-filter").keyup(function(e){
+//	$("#search-query-filter").keyup(function(e){
 		//if($(this).val().length <=3)	return false;
-		return false;
-		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
-	 	$('#search-filter').val(searchFilter); 	 	
-		$('#wall .items').infinitescroll('filterText');
-		});
+//		return false;
+//		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
+//	 	$('#search-filter').val(searchFilter); 	 	
+//		$('#wall .items').infinitescroll('filterText');
+//		});
 	$("#search-query-filter").change(function(e){
 		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
 	 	$('#search-filter').val(searchFilter); 	 	
