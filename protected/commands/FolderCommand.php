@@ -126,7 +126,7 @@ class FolderCommand extends CConsoleCommand  {
 													
 								$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 								
-								if(!empty($imdb) && !isset($modelLocalFolderDB))
+								if(!empty($imdb) && !isset($modelLocalFolderDB) && $imdb != 'tt0000000')
 								{
 									if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
 									{								
@@ -205,6 +205,9 @@ class FolderCommand extends CConsoleCommand  {
 			foreach($titles->children() as $title)
 			{
 				$idImdb = (string)$title['imdb'];
+				if($idImdb == 'tt0000000')
+					continue;
+				
 				$originalTitle = (string)$title['originalTitle'];
 				try {
 					
