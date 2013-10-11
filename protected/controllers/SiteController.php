@@ -718,38 +718,42 @@ class SiteController extends Controller
 		//type = 3 = localFolder
 		//type = 4 = online
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
-		$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1));
-		
-		if(isset($modelCurrentPlaying))
+		if(DuneHelper::isPlaying())
 		{
-			if(isset($modelCurrentPlaying->Id_nzb))
-			{
-				$response['type'] = 1;
-				$response['id'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->Id_my_movie_nzb;
-				$response['originalTitle'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
-			}
+			$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1));
 			
-			if(isset($modelCurrentPlaying->Id_ripped_movie))
+			if(isset($modelCurrentPlaying))
 			{
-				$response['type'] = 2;
-				$response['id'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->Id_my_movie;
-				$response['originalTitle'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
-			}
-			
-			if(isset($modelCurrentPlaying->Id_local_folder))
-			{
-				$response['type'] = 3;
-				$response['id'] = $modelCurrentPlaying->localFolder->myMovieDisc->Id_my_movie;
-				$response['originalTitle'] = $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
-			}
-			
-			if(isset($modelCurrentPlaying->Id_current_disc))
-			{
-				$response['type'] = 4;
-				$response['originalTitle'] = $modelCurrentPlaying->currentDisc->myMovie->original_title;
-				$response['id'] = $modelCurrentPlaying->currentDisc->Id_my_movie;
+				if(isset($modelCurrentPlaying->Id_nzb))
+				{
+					$response['type'] = 1;
+					$response['id'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->Id_my_movie_nzb;
+					$response['originalTitle'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+				}
+				
+				if(isset($modelCurrentPlaying->Id_ripped_movie))
+				{
+					$response['type'] = 2;
+					$response['id'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->Id_my_movie;
+					$response['originalTitle'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
+				}
+				
+				if(isset($modelCurrentPlaying->Id_local_folder))
+				{
+					$response['type'] = 3;
+					$response['id'] = $modelCurrentPlaying->localFolder->myMovieDisc->Id_my_movie;
+					$response['originalTitle'] = $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
+				}
+				
+				if(isset($modelCurrentPlaying->Id_current_disc))
+				{
+					$response['type'] = 4;
+					$response['originalTitle'] = $modelCurrentPlaying->currentDisc->myMovie->original_title;
+					$response['id'] = $modelCurrentPlaying->currentDisc->Id_my_movie;
+				}
 			}
 		}
+		
 		return $response;
 
 	}
