@@ -296,7 +296,7 @@ class LoadDiscTitleByIdResult
 	{
 		$modelRequest = new SearchDiscTitleByTitleRequest();
 		$modelRequest->Title = $title;
-		$modelRequest->Results = 1;
+		$modelRequest->Results = 10;
 		$modelRequest->Strict = true;
 		$modelRequest->IncludeEnglish = true;
 		$modelRequest->IncludeAdult = true;
