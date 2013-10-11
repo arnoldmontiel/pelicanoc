@@ -104,6 +104,13 @@ $(document).ready(function(){
 	else 
 		$('#li-movie').addClass('active');
 	$("#search-query-filter").keyup(function(e){
+		//if($(this).val().length <=3)	return false;
+		return false;
+		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
+	 	$('#search-filter').val(searchFilter); 	 	
+		$('#wall .items').infinitescroll('filterText');
+		});
+	$("#search-query-filter").change(function(e){
 		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
 	 	$('#search-filter').val(searchFilter); 	 	
 		$('#wall .items').infinitescroll('filterText');
@@ -231,7 +238,7 @@ $(document).ready(function(){
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
         <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>		
-        <!-- <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div> -->
+      <!--  <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>-->
         <div id="newDisc" class="pull-right">Examinar Disco</div>
         </div>
       <!--/.nav-collapse -->
@@ -270,7 +277,7 @@ $(document).ready(function(){
 		</li>
 	</ul>
     <form class="navbar-search pull-right">
-    	<input type="text" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">    	
+    	<input type="search" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">    	
 	</form>	    
       		
 </div>
