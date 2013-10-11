@@ -22,7 +22,7 @@
 <button type="button" class="btn btn-large btn-primary"id="subtButton">Cambiar Subt&iacute;tulos</button>
 <button type="button" class="btn btn-large btn-primary noMargin" id="audioButton">Cambiar Audio</button>
 </div>
-<?php if($sourceType != 4):?>
+<?php if($sourceType > 10):?>
 <div class="controlBookmark">
 <button type="button" class="btn btn-large btn-primary"id="bookmarkButton"><i class="icon-bookmark"></i></button>
 </div>
@@ -128,7 +128,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	ChangeBG('images/','".$model->backdrop."');
 	
 setInterval(function() {
-	checkEndScene();
+	//checkEndScene();
 	getProgressBar();
 }, 1000);	
 
