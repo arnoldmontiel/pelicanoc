@@ -40,7 +40,7 @@
               <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
-                <li class=""><a href="#tab3" data-toggle="tab">Bookmarks</a></li>
+              <!-- <li class=""><a href="#tab3" data-toggle="tab">Bookmarks</a></li>--> 
               </ul>
               <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;  min-height: 300px;  ">
                 <div class="tab-pane active" id="tab1">
