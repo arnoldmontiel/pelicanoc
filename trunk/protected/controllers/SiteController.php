@@ -215,6 +215,7 @@ class SiteController extends Controller
 	
 	private function markCurrentDiscRead()
 	{
+		$idCurrentDisc = 0;
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('Id_current_disc_state <> 1');
 		$criteria->addCondition('t.read = 0');
@@ -222,9 +223,12 @@ class SiteController extends Controller
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		if(isset($modelCurrentDisc))
 		{
+			$idCurrentDisc = $modelCurrentDisc->Id;
 			$modelCurrentDisc->read = 1;
 			$modelCurrentDisc->save();
 		}
+		
+		return $idCurrentDisc;
 	}
 	
 	public function actionAjaxCurrentDiscShowDetail()
@@ -458,10 +462,11 @@ class SiteController extends Controller
 		$this->showFilter = false;
 		
 		$play = false;
-		
+		$idResourceCurrentPlay = 0; 		
 		switch ($sourceType) {
-			case 1:
+			case 1:				
 				$nzbModel = Nzb::model()->findByPk($idResource);
+				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$nzbModel->file_name);
 				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
 				
@@ -469,28 +474,62 @@ class SiteController extends Controller
 				break;
 			case 2:
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$idResourceCurrentPlay = $idResource;
 				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path);
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
 				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
-				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				//DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
 				
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 4:
-				self::markCurrentDiscRead();
+				$idCurrentDisc = self::markCurrentDiscRead();
+				$idResourceCurrentPlay = $idCurrentDisc;
 				DuneHelper::playDuneOnline($id);
 			
 				$model = MyMovie::model()->findByPk($id);
 				break;
 		}		
+
+		self::saveCurrentPlay($idResourceCurrentPlay, $sourceType);
+		
 		$this->render('control',array(
 				'model'=>$model,
 				'idResource'=>$idResource,
 				'sourceType'=>$sourceType,
 		));
+	}
+	
+	private function saveCurrentPlay($id, $sourceType)
+	{
+		if($id > 0)
+		{
+			CurrentPlay::model()->updateAll(array('is_playing'=>0));
+			
+			$modelCurrentPlay = new CurrentPlay();
+			
+			switch ($sourceType) {
+				case 1:
+					$modelCurrentPlay->Id_nzb = $id;
+					break;
+				case 2:
+					$modelCurrentPlay->Id_ripped_movie = $id;
+					break;
+				case 3:
+					$modelCurrentPlay->Id_local_folder = $id;
+					break;
+				case 4:
+					$modelCurrentPlay->Id_current_disc = $id;
+					break;
+			}
+			
+			$modelCurrentPlay->Id_player = 1;
+			$modelCurrentPlay->save();
+		}
 	}
 	
 	public function actionAjaxGetProgressBar()
@@ -674,127 +713,45 @@ class SiteController extends Controller
 	
 	private function getPlayback()
 	{
-		$playbackUrl = DuneHelper::getPlaybackUrl();
 		//type = 1 = nzb
 		//type = 2 = rippedMovie
 		//type = 3 = localFolder
 		//type = 4 = online
-		
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
-		if(isset($playbackUrl))
-		{			
-			
-			if(!empty($playbackUrl))
-			{
-				$modelNzbs = Nzb::model()->findAll();
-	
-				$modelNzbCurrent = null;
-				foreach($modelNzbs as $nzb)
-				{
-					if(isset($nzb->path) && !empty($nzb->path))
-					{
-						if(strpos($playbackUrl,$nzb->path)>0)
-						{
-							$modelNzbCurrent = $nzb;
-							break;
-						}
-					}
-				}						
-				
-				if(isset($modelNzbCurrent))
-				{
-					$response['id'] = $modelNzbCurrent->myMovieDiscNzb->Id_my_movie_nzb;
-					$response['originalTitle'] = $modelNzbCurrent->myMovieDiscNzb->myMovieNzb->original_title;
-				}
-				else 
-				{
-					$modelLocalFolderCurrent = null;
-					$modelLocalFolders = LocalFolder::model()->findAll();
-					foreach($modelLocalFolders as $localFolder)
-					{
-						if(isset($localFolder->path) && !empty($localFolder->path))
-						{
-							if(strpos($playbackUrl,$localFolder->path)>0)
-							{
-								$modelLocalFolderCurrent = $localFolder;
-								break;
-							}
-						}
-					}
-					
-					$response['type'] = 3;
-					
-					if(isset($modelLocalFolderCurrent))
-					{
-						$response['id'] = $modelLocalFolderCurrent->myMovieDisc->Id_my_movie;
-						$response['originalTitle'] = $modelLocalFolderCurrent->myMovieDisc->myMovie->original_title;
-					}
-					else 
-					{
-						
-						$modeRippedMovieCurrent = null;
-						$modelRippedMovies = RippedMovie::model()->findAll();
-						foreach($modelRippedMovies as $rippedMovie)
-						{
-							if(isset($rippedMovie->path) && !empty($rippedMovie->path))
-							{
-								if(strpos($playbackUrl,$rippedMovie->path)>0)
-								{
-									$modeRippedMovieCurrent = $rippedMovie;
-									break;
-								}
-							}
-						}
-						
-						$response['type'] = 2;
-						
-						if(isset($modeRippedMovieCurrent))
-						{
-							$response['id'] = $modeRippedMovieCurrent->myMovieDisc->Id_my_movie;
-							$response['originalTitle'] = $modeRippedMovieCurrent->myMovieDisc->myMovie->original_title;
-						}
-						else 
-						{
-							$criteria=new CDbCriteria;
-							$criteria->condition = 'Id_current_disc_state <> 1';
-								
-							$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-							if(isset($modelCurrentDisc))
-							{
-								$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
-								if(isset($modelMyMovieDisc))
-								{
-									$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;
-									$response['id'] = $modelMyMovieDisc->Id_my_movie;						
-								}
-							}	
-							$response['type'] = 4;
-						}
-					}
-					
-				}			
-			}
-// 			else 
-// 			{
-// 				$criteria=new CDbCriteria;
-// 				$criteria->condition = 'Id_current_disc_state <> 1';
-					
-// 				$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-// 				if(isset($modelCurrentDisc))
-// 				{
-// 					$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
-// 					if(isset($modelMyMovieDisc))
-// 					{
-// 						$response['originalTitle'] = $modelMyMovieDisc->myMovie->original_title;
-// 						$response['id'] = $modelMyMovieDisc->Id_my_movie;
-// 						$response['type'] = 2;
-// 					}
-// 				}
-// 			}
-			
-		}		
+		$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1));
 		
+		if(isset($modelCurrentPlaying))
+		{
+			if(isset($modelCurrentPlaying->Id_nzb))
+			{
+				$response['type'] = 1;
+				$response['id'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->Id_my_movie_nzb;
+				$response['originalTitle'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+			}
+			
+			if(isset($modelCurrentPlaying->Id_ripped_movie))
+			{
+				$response['type'] = 2;
+				$response['id'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->Id_my_movie;
+				$response['originalTitle'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
+			}
+			
+			if(isset($modelCurrentPlaying->Id_local_folder))
+			{
+				$response['type'] = 3;
+				$response['id'] = $modelCurrentPlaying->localFolder->myMovieDisc->Id_my_movie;
+				$response['originalTitle'] = $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
+			}
+			
+			if(isset($modelCurrentPlaying->Id_current_disc))
+			{
+				$response['type'] = 4;
+				$response['originalTitle'] = $modelCurrentPlaying->currentDisc->myMovie->original_title;
+				$response['id'] = $modelCurrentPlaying->currentDisc->Id_my_movie;
+			}
+		}
 		return $response;
+
 	}
 	/**
 	* This is the default 'music' action that is invoked
