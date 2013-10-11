@@ -138,6 +138,26 @@ class DuneHelper
 		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
 	}
 	
+	static public function isPlaying()
+	{
+		$modelDune = self::getState();
+		
+		if(isset($modelDune))
+		{
+			if($modelDune->player_state == 'bluray_playback' || $modelDune->player_state == 'dvd_playback')
+				return true;
+			
+			if($modelDune->player_state == 'file_playback')
+			{
+				if($modelDune->playback_state == 'stopped')
+					return false;
+				else 
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	static public function getState()
 	{
 		$modelDune = null;
