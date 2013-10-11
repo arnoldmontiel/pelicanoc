@@ -20,9 +20,9 @@ class RipperHelper
 		foreach($response as $item)
 		{
 			try {
-				exec('/var/www/pelicano/protected/commands/shell/tunnelKiller.sh '.$item->external_port.' >/dev/null');
+				exec(dirname(__FILE__).'/../commands/shell/tunnelKiller.sh '.$item->external_port.' >/dev/null');
 				if($item->open)
-					exec('/var/www/pelicano/protected/commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com pelicano >/dev/null');
+					exec(dirname(__FILE__).'/../commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com pelicano >/dev/null');
 				$result[]=$item;
 			} catch (Exception $e) {
 			}
@@ -67,11 +67,11 @@ class RipperHelper
 					if(substr($sys,0,3) == "WIN")
 					{
 						$WshShell = new COM('WScript.Shell');
-						$oExec = $WshShell->Run('/var/www/pelicano/protected/commands/shell/updateAnydvd.bat', 0, false);
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/updateAnydvd.bat', 0, false);
 					}
 					else
 					{
-						exec('/var/www/pelicano/protected/commands/shell/updateAnydvd >/dev/null&');
+						exec(dirname(__FILE__).'/../commands/shell/updateAnydvd >/dev/null&');
 					}
 	
 				} catch (Exception $e) {
