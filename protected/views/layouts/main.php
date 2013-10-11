@@ -124,7 +124,13 @@ $(document).ready(function(){
 	    		$('#main-search').change();
 	    		return false;
 	    	}    	
-			return false; 
+	    	if($('*:focus').attr('id') == 'search-query-filter')
+	    	{
+	    		$("#search-query-filter").change();
+	    		$("#search-query-filter").trigger('blur');
+	    		return false;
+	    	}    	
+	    	return false; 
 	    }
 	});
 	
