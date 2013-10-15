@@ -8,6 +8,7 @@
  * @property string $in_date
  * @property string $out_date
  * @property integer $is_in
+ * @property integer $read
  */
 class CurrentExternalStorage extends CActiveRecord
 {
@@ -27,11 +28,11 @@ class CurrentExternalStorage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('is_in', 'numerical', 'integerOnly'=>true),
+			array('is_in, read', 'numerical', 'integerOnly'=>true),
 			array('in_date, out_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, in_date, out_date, is_in', 'safe', 'on'=>'search'),
+			array('Id, in_date, out_date, is_in, read', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +57,7 @@ class CurrentExternalStorage extends CActiveRecord
 			'in_date' => 'In Date',
 			'out_date' => 'Out Date',
 			'is_in' => 'Is In',
+			'read' => 'Read',
 		);
 	}
 
@@ -81,6 +83,7 @@ class CurrentExternalStorage extends CActiveRecord
 		$criteria->compare('in_date',$this->in_date,true);
 		$criteria->compare('out_date',$this->out_date,true);
 		$criteria->compare('is_in',$this->is_in);
+		$criteria->compare('read',$this->read);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
