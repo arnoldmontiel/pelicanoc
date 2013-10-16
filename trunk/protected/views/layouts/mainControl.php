@@ -129,13 +129,7 @@ $(document).ready(function(){
         				window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
         				return false;
         			}
-        			else
-        				$('#myModalNoPlaying').modal('show');
         		}
-        		else
-        		{		        		    				
-    				$('#myModalNoPlaying').modal('show');
-        		} 
     		},"json");
   	});
   	
@@ -248,10 +242,10 @@ $(document).ready(function(){
 </div>
 <!-- /container -->
 <?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalNoPlaying')); 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
 
-echo CHtml::openTag('div',array('id'=>'view-no-playing'));
-echo $this->renderPartial('../site/_noPlaying');
+echo CHtml::openTag('div',array('id'=>'view-external-storage'));
+echo $this->renderPartial('../site/_externalStorage');
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
