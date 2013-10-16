@@ -208,6 +208,18 @@ class SiteController extends Controller
 		));
 	}
 	
+	public function actionAjaxMarkCurrentESRead()
+	{		
+		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
+		
+		if(isset($modelCurrentES))
+		{
+			$modelCurrentES->read = 1;
+			$modelCurrentES->save();
+		}
+		
+	}
+	
 	public function actionAjaxMarkCurrentDiscRead()
 	{		
 		self::markCurrentDiscRead();
@@ -718,6 +730,7 @@ class SiteController extends Controller
 		//type = 3 = localFolder
 		//type = 4 = online
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
+		//return $response; 
 		if(DuneHelper::isPlaying())
 		{
 			$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1));
@@ -836,8 +849,24 @@ class SiteController extends Controller
 		
 		$currentDisc = array('is_in'=>$isDiscIN,'read'=>$read);
 		
+		$criteria=new CDbCriteria;
+		$criteria->condition = 'is_in = 1';
+		$modelCurrentUSB = CurrentExternalStorage::model()->find($criteria);
 		
-		$response = array('playBack'=>$this->getPlayback(),'currentDisc'=>$currentDisc);		
+		$isDiscIN = 0;
+		$read = 0;
+		if(isset($modelCurrentUSB))
+		{
+			$isDiscIN = 1;
+			$read = $modelCurrentUSB->read;
+		}
+		
+		$currentUSB = array('is_in'=>$isDiscIN,'read'=>$read);
+		
+		$response = array('playBack'=>$this->getPlayback(),
+							'currentDisc'=>$currentDisc,
+							'currentUSB'=>$currentUSB);
+		
 		echo json_encode($response);
 	}
 	

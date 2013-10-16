@@ -5,154 +5,180 @@ class FolderCommand extends CConsoleCommand  {
 	 * @return 0: It was an error, 1:It was success
 	 */
 	
+	function actionScanExtermanStorage($path)
+	{		
+		self::generatePeliFiles($path);
+	}
+	
 	
 	function actionScanDirectory($path) 
 	{		
 		$_COMMAND_NAME = "scanDirectory";		
-		
+	
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
 		
-		$modelLote = new Lote();
-		
 		if(isset($modelCommandStatus))
 		{
-			try {
+			try 
+			{				
+				self::generatePeliFiles($path);				
+				self::processPeliFile($path);				
 				
-// 				$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path),
-// 				RecursiveIteratorIterator::SELF_FIRST);
-				$videoIterator = ReadFolderHelper::process_dir_video($path,true);
+				$modelCommandStatus->setBusy(false);				
+			} 
+			catch (Exception $e) 
+			{				
+				$modelCommandStatus->setBusy(false);
+			}
+		}
+	}
+	
+	private function processPeliFile($path)
+	{		
+		try 
+		{
+			$modelLote = new Lote();
+			$iterator = ReadFolderHelper::process_dir_peli($path,true);
+			$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
-				if($videoIterator)
-				{
-					foreach ($videoIterator as $file)
-					{
-						$subIterator = ReadFolderHelper::process_dir_peli($file['dirpath'], true);
-						$hasPeliFile = false;
-						foreach ($subIterator as $fileSubIterator)
-						{
-							if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
-							{
-								$hasPeliFile = true;
-								break;
-							}
-						}
-						$folderName = basename(dirname($file['dirpath'].'/'.$file['filename']));
+			//genero un nuevo lote
+			$modelLote->save();
+			
+			foreach ($iterator as $file)
+			{
+					
+				if(pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') {
 						
-						$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
-						
-						if(!$hasPeliFile)
-							self::generatePeliFile($folderName, $file['dirpath'], $type);
+					$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
+					if ($handle === false) {
+						return false;
 					}
-
-					$iterator = ReadFolderHelper::process_dir_peli($path,true);
-					$chunksize = 1*(1024*1024); // how many bytes per chunk
-				
-					//genero un nuevo lote
-					$modelLote->save();
-
-					foreach ($iterator as $file) 
-					{
 						
-						if(pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') {
-								
-							$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
-							if ($handle === false) {
-								return false;
+					while (!feof($handle)) {
+						$buffer = fread($handle, $chunksize);
+						$arrayData = explode(';',$buffer);
+						$imdb = '';
+						$country = 'United States';
+						$idDisc = '';
+						$type = 'FOLDER';
+						$idDisc = '';
+						$name = '';
+						$season = '';
+						$episodes = '';
+						$source = '';
+						foreach($arrayData as $data)
+						{
+							$currentData = explode('=',$data);
+			
+							if(count($currentData) == 2)
+							{
+								$key = trim($currentData[0]);
+								$value = trim($currentData[1]);
+			
+								if(strtoupper($key) == 'IMDB')
+								$imdb = $value;
+			
+								if(strtoupper($key) == 'TYPE')
+								$type = strtoupper($value);
+			
+								if(strtoupper($key) == 'COUNTRY')
+								$country = $value;
+			
+								if(strtoupper($key) == 'NAME')
+								$name = $value;
+									
+								if(strtoupper($key) == 'SEASON')
+								$season = (int)$value;
+									
+								if(strtoupper($key) == 'EPISODE')
+								$episodes = $value;
+									
+								if(strtoupper($key) == 'SOURCE')
+								$source = strtoupper($value);
 							}
-								
-							while (!feof($handle)) {
-								$buffer = fread($handle, $chunksize);
-								$arrayData = explode(';',$buffer);
-								$imdb = '';
-								$country = 'United States';
-								$idDisc = '';
-								$type = 'FOLDER';
-								$idDisc = '';
-								$name = '';
-								$season = '';
-								$episodes = '';
-								$source = '';
-								foreach($arrayData as $data)
-								{
-									$currentData = explode('=',$data);
-			
-									if(count($currentData) == 2)
-									{
-										$key = trim($currentData[0]);
-										$value = trim($currentData[1]);
-											
-										if(strtoupper($key) == 'IMDB')
-											$imdb = $value;
-			
-										if(strtoupper($key) == 'TYPE')
-											$type = strtoupper($value);
-			
-										if(strtoupper($key) == 'COUNTRY')
-											$country = $value;
-			
-										if(strtoupper($key) == 'NAME')
-											$name = $value;
-										
-										if(strtoupper($key) == 'SEASON')
-											$season = (int)$value;
-										
-										if(strtoupper($key) == 'EPISODE')
-											$episodes = $value;
-										
-										if(strtoupper($key) == 'SOURCE')
-											$source = strtoupper($value);
-									}
-								}
-			
-								$shortPath = str_replace($path,'',$file['dirpath']);								
-								if($type == 'ISO' || $type == 'MKV' || $type == 'MP4' || $type == 'AVI')
-								{
-									foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
-										if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' || 
-											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' || 
-											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4' ||
-											pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'avi'))
-										{
-											$shortPath .= '/'. $fileInfo->getFilename();
-											break;
-										}
-									}
-								}
-			
-								if(empty($idDisc))
-									$idDisc = uniqid();
-													
-								$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
-								
-								if(!empty($imdb) && !isset($modelLocalFolderDB) && $imdb != 'tt0000000')
-								{
-									if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
-									{								
-										$modelLocalFolder = new LocalFolder();
-										$modelLocalFolder->Id_my_movie_disc = $idDisc;
-										$modelLocalFolder->Id_file_type = self::getFileType($type);
-										$modelLocalFolder->Id_source_type = self::getSoruceType($source);
-										$modelLocalFolder->Id_lote = $modelLote->Id;
-										$modelLocalFolder->path = $shortPath;
-										$modelLocalFolder->save();
-									}
-								}
-			
-								flush();
-							}
-								
 						}
+			
+						$shortPath = str_replace($path,'',$file['dirpath']);
+						if($type == 'ISO' || $type == 'MKV' || $type == 'MP4' || $type == 'AVI')
+						{
+							foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
+								if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' ||
+								pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' ||
+								pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4' ||
+								pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'avi'))
+								{
+									$shortPath .= '/'. $fileInfo->getFilename();
+									break;
+								}
+							}
+						}
+			
+						if(empty($idDisc))
+							$idDisc = uniqid();
+			
+						$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
+							
+						if(!empty($imdb) && !isset($modelLocalFolderDB) && $imdb != 'tt0000000')
+						{
+							if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
+							{
+								$modelLocalFolder = new LocalFolder();
+								$modelLocalFolder->Id_my_movie_disc = $idDisc;
+								$modelLocalFolder->Id_file_type = self::getFileType($type);
+								$modelLocalFolder->Id_source_type = self::getSoruceType($source);
+								$modelLocalFolder->Id_lote = $modelLote->Id;
+								$modelLocalFolder->path = $shortPath;
+								$modelLocalFolder->save();
+							}
+						}
+			
+						flush();
+					}
+						
+				}
+			}			
+			$modelLote->description = 'Successfull';
+			$modelLote->save();
+			return true;			
+		} 
+		catch (Exception $e) 
+		{
+			$modelLote->description = 'Error: ' . $e->getMessage();
+			$modelLote->save();
+			return false;			
+		}
+		
+		return true;
+		
+	}
+	
+	private function generatePeliFiles($path)
+	{
+		
+		$videoIterator = ReadFolderHelper::process_dir_video($path,true);
+		
+		if($videoIterator)
+		{
+			foreach ($videoIterator as $file)
+			{
+				$subIterator = ReadFolderHelper::process_dir_peli($file['dirpath'], true);
+				$hasPeliFile = false;
+				foreach ($subIterator as $fileSubIterator)
+				{
+					if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
+					{
+						$hasPeliFile = true;
+						break;
 					}
 				}
-				$modelCommandStatus->setBusy(false);
-				$modelLote->description = 'Successfull';
-				$modelLote->save();
-			} catch (Exception $e) {
-				$modelLote->description = 'Error: ' . $e->getMessage();
-				$modelLote->save();
-				$modelCommandStatus->setBusy(false);
+				$folderName = basename(dirname($file['dirpath'].'/'.$file['filename']));
+		
+				$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
+		
+				if(!$hasPeliFile)
+					self::buildPeliFile($folderName, $file['dirpath'], $type);
 			}
 		}
 	}
@@ -194,7 +220,7 @@ class FolderCommand extends CConsoleCommand  {
 	}
 	
 	
-	private function generatePeliFile($folderName, $path, $type)
+	private function buildPeliFile($folderName, $path, $type)
 	{
 		
 		$myMoviesAPI = new MyMoviesAPI();
