@@ -10,14 +10,22 @@ class FolderCommand extends CConsoleCommand  {
 	function actionCopyExternalStorage()
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
 		
-		if(isset($modelCurrentES))
+		$_COMMAND_NAME = "copyExternalStorage";		
+		
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+		
+		if(isset($modelCommandStatus))
 		{
-			self::generatePeliFiles($modelCurrentES->path);
-		}
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
+			
+			if(isset($modelCurrentES))
+			{
+				self::generatePeliFiles($modelCurrentES->path);
+			}
 		
-		$modelCommandStatus->setBusy(false);
+			$modelCommandStatus->setBusy(false);
+		}
 	}	
 	
 // 	function actionCopyPeliFiles($path)
