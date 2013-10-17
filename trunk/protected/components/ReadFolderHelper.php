@@ -131,5 +131,37 @@ class ReadFolderHelper
 		
 	}
 	
-	
+	static public function checkExternalStorage()
+	{
+		$folders = glob("/media/*usb*");
+		foreach ($folders as $folder)
+		{
+			if(is_dir($folder))
+			{
+				//echo "folder: ".$folder."\n";
+				$files = glob($folder."/*");
+				$isEmpty = empty($files);
+				if(!$isEmpty)
+				{
+					$current = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1,'path'=>$folder));
+					if(!isset($current))
+					{
+						//CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_data'=>'now()'),'is_in=1 and path="'.$folder.'"');
+						$currentExternalStorage =  new CurrentExternalStorage;
+						$currentExternalStorage->is_in = 1;
+						$currentExternalStorage->path = $folder;
+						$currentExternalStorage->save();						
+					}
+				}
+				else if($isEmpty)
+				{
+					$current = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1,'path'=>$folder));
+					if(isset($current))
+					{
+						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');						
+					}
+				}				
+			}
+		}		
+	}
 }
