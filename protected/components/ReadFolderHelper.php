@@ -2,6 +2,40 @@
 class ReadFolderHelper
 {
 
+	static public function copyExternalStorage()
+	{
+		$_COMMAND_NAME = "copyExternalStorage";
+		
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+		
+		if(isset($modelCommandStatus))
+		{
+			if(!$modelCommandStatus->busy)
+			{
+				try {
+					$modelCommandStatus->setBusy(true);
+						
+					$sys = strtoupper(PHP_OS);
+						
+						
+					if(substr($sys,0,3) == "WIN")
+					{
+						$WshShell = new COM('WScript.Shell');
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/copyExternalStorage', 0, false);
+					}
+					else
+					{
+						//exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
+						exec(dirname(__FILE__).'/../commands/shell/copyExternalStorage.sh >/dev/null&');
+					}
+				} catch (Exception $e) {
+					$modelCommandStatus->setBusy(false);
+				}
+			}
+		
+		}
+	}
+	
 	static public function process_dir_video($dir,$recursive = FALSE)
 	{
 		if (is_dir($dir)) {
