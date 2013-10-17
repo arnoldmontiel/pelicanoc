@@ -61,7 +61,7 @@ class FolderCommand extends CConsoleCommand  {
 		
 		foreach ($iterator as $file)
 		{
-			$destination = $setting->path_shared . DIRECTORY_SEPARATOR . str_replace($sourcePath,'',$file['dirpath']);
+			$destination = $setting->path_shared;
 			$source = $file['dirpath'];
 			
 			$source = str_replace(' ', '\ ', $source);
