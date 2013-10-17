@@ -6,11 +6,7 @@ class FolderCommand extends CConsoleCommand  {
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		ReadFolderHelper::checkExternalStorage();
 	}
-	/*
-	 * @param path 
-	 * @return 0: It was an error, 1:It was success
-	 */
-	
+
 	function actionCopyExternalStorage()
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
