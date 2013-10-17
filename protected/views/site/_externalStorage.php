@@ -30,6 +30,16 @@
 		return false;
 	});
 
+	$('#btn-acept').click(function(){
+		$('#myModalExternalStorage').modal('hide');
+		$.post("<?php echo SiteController::createUrl('AjaxCopyExternalStorage'); ?>"
+		).success(
+			function(data){
+		});
+		markRead();
+		return false;
+	});
+	
 	function markRead()
 	{
 		$.post("<?php echo SiteController::createUrl('AjaxMarkCurrentESRead'); ?>"
