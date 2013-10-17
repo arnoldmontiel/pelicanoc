@@ -23,6 +23,7 @@ class FolderCommand extends CConsoleCommand  {
 			{
 				self::generatePeliFiles($modelCurrentES->path);				
 				self::copyExternalStorage($modelCurrentES->path);
+				self::processPeliFile();
 			}
 		
 			$modelCommandStatus->setBusy(false);
@@ -42,7 +43,7 @@ class FolderCommand extends CConsoleCommand  {
 			try 
 			{				
 				self::generatePeliFiles($path);				
-				self::processPeliFile($path);				
+				self::processPeliFile();				
 				
 				$modelCommandStatus->setBusy(false);				
 			} 
@@ -72,12 +73,13 @@ class FolderCommand extends CConsoleCommand  {
 			$destination = str_replace(')', '\)', $destination);
 			
 			exec("cp -r -u ".$source . " " .$destination);
-			//exec("sudo chown www-data.www-data ".$destination."*");
 		}
 	}
 	
-	private function processPeliFile($path)
+	private function processPeliFile()
 	{		
+		$setting = Setting::getInstance();
+		$path = $setting->path_shared;
 		try 
 		{
 			$modelLote = new Lote();
