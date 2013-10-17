@@ -33,7 +33,7 @@ class Log extends CActiveRecord
 		$model = new Log();
 		$model->description = $description;
 		$model->Id_log_type = $type;
-		$model->username = $modelUser->username;
+		$model->username = 'arnold';//$modelUser->username;
 		$model->save();
 	}
 	
