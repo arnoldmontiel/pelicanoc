@@ -210,7 +210,7 @@ class SiteController extends Controller
 	
 	public function actionAjaxCopyExternalStorage()
 	{
-		ReadFolderHelper::copyExternalStorage();	
+		ReadFolderHelper::processExternalStorage();	
 	}
 	
 	public function actionAjaxMarkCurrentESRead()
