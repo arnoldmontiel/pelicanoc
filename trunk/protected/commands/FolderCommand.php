@@ -71,7 +71,8 @@ class FolderCommand extends CConsoleCommand  {
 			$destination = str_replace('(', '\(', $destination);
 			$destination = str_replace(')', '\)', $destination);
 			
-			exec("cp -r ".$source . " " .$destination);
+			exec("cp -r -u ".$source . " " .$destination);
+			//exec("sudo chown www-data.www-data ".$destination."*");
 		}
 	}
 	
