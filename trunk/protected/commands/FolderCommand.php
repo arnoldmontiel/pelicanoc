@@ -15,18 +15,14 @@ class FolderCommand extends CConsoleCommand  {
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
 		
-		Log::saveLog('antes del if', 1);
 		if(isset($modelCommandStatus))
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
 			
 			if(isset($modelCurrentES))
 			{
-				
-				self::generatePeliFiles($modelCurrentES->path);
-				Log::saveLog('despues del generar Peli', 1);
+				self::generatePeliFiles($modelCurrentES->path);				
 				self::copyExternalStorage($modelCurrentES->path);
-				Log::saveLog('despues de copiar', 1);
 			}
 		
 			$modelCommandStatus->setBusy(false);
