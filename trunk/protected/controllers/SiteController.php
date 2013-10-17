@@ -208,6 +208,11 @@ class SiteController extends Controller
 		));
 	}
 	
+	public function actionAjaxCopyExternalStorage()
+	{
+		ReadFolderHelper::copyExternalStorage();	
+	}
+	
 	public function actionAjaxMarkCurrentESRead()
 	{		
 		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
