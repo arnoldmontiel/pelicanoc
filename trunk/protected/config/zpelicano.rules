@@ -1,0 +1,3 @@
+ACTION=="add", RUN+="/var/www/pelicano/protected/commands/shell/checkExternalStorages.sh"
+
+ACTION=="remove", RUN+="/var/www/pelicano/protected/commands/shell/checkExternalStorages.sh"
