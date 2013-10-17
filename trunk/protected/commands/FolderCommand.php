@@ -7,11 +7,11 @@ class FolderCommand extends CConsoleCommand  {
 		ReadFolderHelper::checkExternalStorage();
 	}
 
-	function actionCopyExternalStorage()
+	function actionProcessExternalStorage()
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		
-		$_COMMAND_NAME = "copyExternalStorage";		
+		$_COMMAND_NAME = "processExternalStorage";		
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
 		
@@ -22,36 +22,12 @@ class FolderCommand extends CConsoleCommand  {
 			if(isset($modelCurrentES))
 			{
 				self::generatePeliFiles($modelCurrentES->path);
+				self::copyExternalStorage($modelCurrentES->path);
 			}
 		
 			$modelCommandStatus->setBusy(false);
 		}
 	}	
-	
-// 	function actionCopyPeliFiles($path)
-// 	{		
-// 		$setting = Setting::getInstance();
-// 		$iterator = ReadFolderHelper::process_dir_peli($path,true);
-		
-// 		foreach ($iterator as $file)
-// 		{			
-// 			$destination = $setting->path_shared . DIRECTORY_SEPARATOR . str_replace($path,'',$file['dirpath']);
-// 			$source = $file['dirpath'];			
-// 			self::copyDirectory($source,$destination);			
-// 		}
-// 	}
-	
-// 	private function copyDirectory($sourceDir, $targetDir)
-// 	{
-//     	if (!file_exists($sourceDir)) return false;
-//     	if (!is_dir($sourceDir)) return copy($sourceDir, $targetDir);
-//     	if (!mkdir($targetDir)) return false;    
-//     	foreach (scandir($sourceDir) as $item) {
-//       		if ($item == '.' || $item == '..') continue;
-// 			if (!self::copyDirectory($sourceDir.DIRECTORY_SEPARATOR.$item, $targetDir.DIRECTORY_SEPARATOR.$item)) return false;
-//     	}
-//     	return true;
-//   	}
 	
 	function actionScanDirectory($path) 
 	{		
@@ -74,6 +50,28 @@ class FolderCommand extends CConsoleCommand  {
 			{				
 				$modelCommandStatus->setBusy(false);
 			}
+		}
+	}
+	
+	private function copyExternalStorage($sourcePath)
+	{
+		$setting = Setting::getInstance();
+		$iterator = ReadFolderHelper::process_dir_peli($sourcePath,true);
+		
+		foreach ($iterator as $file)
+		{
+			$destination = $setting->path_shared . DIRECTORY_SEPARATOR . str_replace($sourcePath,'',$file['dirpath']);
+			$source = $file['dirpath'];
+			
+			$source = str_replace(' ', '\ ', $source);
+			$source = str_replace('(', '\(', $source);
+			$source = str_replace(')', '\)', $source);
+			
+			$destination = str_replace(' ', '\ ', $destination);
+			$destination = str_replace('(', '\(', $destination);
+			$destination = str_replace(')', '\)', $destination);
+			
+			exec("cp -r ".$source . " " .$destination);
 		}
 	}
 	
