@@ -11,11 +11,43 @@ class FolderCommand extends CConsoleCommand  {
 	 * @return 0: It was an error, 1:It was success
 	 */
 	
-	function actionScanExtermanStorage($path)
-	{		
-		self::generatePeliFiles($path);
-	}
+	function actionCopyExternalStorage()
+	{
+		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
+		
+		if(isset($modelCurrentES))
+		{
+			self::generatePeliFiles($modelCurrentES->path);
+		}
+		
+		$modelCommandStatus->setBusy(false);
+	}	
 	
+// 	function actionCopyPeliFiles($path)
+// 	{		
+// 		$setting = Setting::getInstance();
+// 		$iterator = ReadFolderHelper::process_dir_peli($path,true);
+		
+// 		foreach ($iterator as $file)
+// 		{			
+// 			$destination = $setting->path_shared . DIRECTORY_SEPARATOR . str_replace($path,'',$file['dirpath']);
+// 			$source = $file['dirpath'];			
+// 			self::copyDirectory($source,$destination);			
+// 		}
+// 	}
+	
+// 	private function copyDirectory($sourceDir, $targetDir)
+// 	{
+//     	if (!file_exists($sourceDir)) return false;
+//     	if (!is_dir($sourceDir)) return copy($sourceDir, $targetDir);
+//     	if (!mkdir($targetDir)) return false;    
+//     	foreach (scandir($sourceDir) as $item) {
+//       		if ($item == '.' || $item == '..') continue;
+// 			if (!self::copyDirectory($sourceDir.DIRECTORY_SEPARATOR.$item, $targetDir.DIRECTORY_SEPARATOR.$item)) return false;
+//     	}
+//     	return true;
+//   	}
 	
 	function actionScanDirectory($path) 
 	{		
