@@ -72,7 +72,7 @@ class FolderCommand extends CConsoleCommand  {
 			$destination = str_replace('(', '\(', $destination);
 			$destination = str_replace(')', '\)', $destination);
 			
-			exec("cp -r -u ".$source . " " .$destination);
+			exec("cp -fr ".$source . " " .$destination);
 		}
 	}
 	
