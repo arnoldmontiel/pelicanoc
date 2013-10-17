@@ -208,7 +208,7 @@ class SiteController extends Controller
 		));
 	}
 	
-	public function actionAjaxCopyExternalStorage()
+	public function actionAjaxProcessExternalStorage()
 	{
 		ReadFolderHelper::processExternalStorage();	
 	}

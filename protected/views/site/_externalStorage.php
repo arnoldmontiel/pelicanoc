@@ -19,7 +19,7 @@
     </div>
     
     <div class="modal-footer">
-    	<button id="btn-acept" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Aceptar</button>
+    	<button id="btn-process" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Aceptar</button>
     	<button id="btn-cancel" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Cancelar</button>
     </div>
   </div>
@@ -30,9 +30,9 @@
 		return false;
 	});
 
-	$('#btn-acept').click(function(){
+	$('#btn-process').click(function(){
 		$('#myModalExternalStorage').modal('hide');
-		$.post("<?php echo SiteController::createUrl('AjaxCopyExternalStorage'); ?>"
+		$.post("<?php echo SiteController::createUrl('AjaxProcessExternalStorage'); ?>"
 		).success(
 			function(data){
 		});
