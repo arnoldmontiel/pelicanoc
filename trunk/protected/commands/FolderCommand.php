@@ -21,9 +21,15 @@ class FolderCommand extends CConsoleCommand  {
 			
 			if(isset($modelCurrentES))
 			{
+				$modelCurrentES->state = 2;
+				$modelCurrentES->save();
+				
 				self::generatePeliFiles($modelCurrentES->path);				
 				self::copyExternalStorage($modelCurrentES->path);
 				self::processPeliFile();
+				
+				$modelCurrentES->state = 3;
+				$modelCurrentES->save();
 			}
 		
 			$modelCommandStatus->setBusy(false);
