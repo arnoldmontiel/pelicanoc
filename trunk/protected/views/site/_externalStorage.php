@@ -19,7 +19,7 @@
     </div>
     
     <div class="modal-footer">
-    	<button id="btn-process" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Aceptar</button>
+    	<button id="btn-process" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargar</button>
     	<button id="btn-ripping" disabled="disabled" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargando...</button>
     	<button id="btn-cancel" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Cancelar</button>
     </div>
