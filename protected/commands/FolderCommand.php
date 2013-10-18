@@ -80,9 +80,8 @@ class FolderCommand extends CConsoleCommand  {
 			
 			$modelPeliFile = self::getPeliFile($file);
 			if(isset($modelPeliFile))
-			{
-					
-				$shortPath = self::getShortPath($path, $file, $modelPeliFile);
+			{				
+				$shortPath = self::getShortPath($destination, $file, $modelPeliFile);
 			
 				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 			
