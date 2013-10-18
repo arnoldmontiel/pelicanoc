@@ -72,7 +72,19 @@ class FolderCommand extends CConsoleCommand  {
 			$destination = str_replace('(', '\(', $destination);
 			$destination = str_replace(')', '\)', $destination);
 			
-			exec("cp -fr ".$source . " " .$destination);
+			$modelPeliFile = self::getPeliFile($file);
+			if(isset($modelPeliFile))
+			{
+					
+				$shortPath = self::getShortPath($path, $file, $modelPeliFile);
+			
+				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
+			
+				if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
+				{
+					exec("cp -fr ".$source . " " .$destination);
+				}
+			}			
 		}
 	}
 	
@@ -92,95 +104,29 @@ class FolderCommand extends CConsoleCommand  {
 			foreach ($iterator as $file)
 			{
 					
-				if(pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') {
+				$modelPeliFile = self::getPeliFile($file);
+				if(isset($modelPeliFile)) 
+				{
+			
+					$shortPath = self::getShortPath($path, $file, $modelPeliFile);
+		
+					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 						
-					$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
-					if ($handle === false) {
-						return false;
+					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
+					{
+						if(self::saveByImdb($modelPeliFile))
+						{
+							$modelLocalFolder = new LocalFolder();
+							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
+							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
+							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
+							$modelLocalFolder->Id_lote = $modelLote->Id;
+							$modelLocalFolder->path = $shortPath;
+							$modelLocalFolder->save();
+						}
 					}
 						
-					while (!feof($handle)) {
-						$buffer = fread($handle, $chunksize);
-						$arrayData = explode(';',$buffer);
-						$imdb = '';
-						$country = 'United States';
-						$idDisc = '';
-						$type = 'FOLDER';
-						$idDisc = '';
-						$name = '';
-						$season = '';
-						$episodes = '';
-						$source = '';
-						foreach($arrayData as $data)
-						{
-							$currentData = explode('=',$data);
-			
-							if(count($currentData) == 2)
-							{
-								$key = trim($currentData[0]);
-								$value = trim($currentData[1]);
-			
-								if(strtoupper($key) == 'IMDB')
-								$imdb = $value;
-			
-								if(strtoupper($key) == 'TYPE')
-								$type = strtoupper($value);
-			
-								if(strtoupper($key) == 'COUNTRY')
-								$country = $value;
-			
-								if(strtoupper($key) == 'NAME')
-								$name = $value;
-									
-								if(strtoupper($key) == 'SEASON')
-								$season = (int)$value;
-									
-								if(strtoupper($key) == 'EPISODE')
-								$episodes = $value;
-									
-								if(strtoupper($key) == 'SOURCE')
-								$source = strtoupper($value);
-							}
-						}
-			
-						$shortPath = str_replace($path,'',$file['dirpath']);
-						if($type == 'ISO' || $type == 'MKV' || $type == 'MP4' || $type == 'AVI')
-						{
-							foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
-								if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' ||
-								pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' ||
-								pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4' ||
-								pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'avi'))
-								{
-									$shortPath .= '/'. $fileInfo->getFilename();
-									break;
-								}
-							}
-						}
-			
-						if(empty($idDisc))
-							$idDisc = uniqid();
-			
-						$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
-							
-						if(!empty($imdb) && !isset($modelLocalFolderDB) && $imdb != 'tt0000000')
-						{
-							if(self::saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes))
-							{
-								$modelLocalFolder = new LocalFolder();
-								$modelLocalFolder->Id_my_movie_disc = $idDisc;
-								$modelLocalFolder->Id_file_type = self::getFileType($type);
-								$modelLocalFolder->Id_source_type = self::getSoruceType($source);
-								$modelLocalFolder->Id_lote = $modelLote->Id;
-								$modelLocalFolder->path = $shortPath;
-								$modelLocalFolder->save();
-							}
-						}
-			
-						flush();
-					}
-						
-				}
+				} //end if null
 			}			
 			$modelLote->description = 'Successfull';
 			$modelLote->save();
@@ -195,6 +141,88 @@ class FolderCommand extends CConsoleCommand  {
 		
 		return true;
 		
+	}
+	
+	private function getShortPath($path, $file, $modelPeliFile)
+	{		
+		$shortPath = str_replace($path,'',$file['dirpath']);
+		if($modelPeliFile->type == 'ISO' || 
+			$modelPeliFile->type == 'MKV' || 
+			$modelPeliFile->type == 'MP4' || 
+			$modelPeliFile->type == 'AVI')
+		{
+			foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
+				if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' ||
+				pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' ||
+				pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4' ||
+				pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'avi'))
+				{
+					$shortPath .= '/'. $fileInfo->getFilename();
+					break;
+				}
+			}
+		}
+		return $shortPath;	
+	}
+	
+	private function getPeliFile($file)
+	{
+		$modelPeliFile = null;
+			
+		if(pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION) == 'peli') 
+		{		
+			$handle = fopen($file['dirpath'].'/'.$file['filename'], 'rb');
+			if ($handle === false) {
+				return $modelPeliFile;
+			}
+			
+			$chunksize = 1*(1024*1024); // how many bytes per chunk
+			while (!feof($handle)) 
+			{
+				$buffer = fread($handle, $chunksize);
+				$arrayData = explode(';',$buffer);
+				
+				$modelPeliFile = new PeliFile();
+				
+				foreach($arrayData as $data)
+				{
+					$currentData = explode('=',$data);
+						
+					if(count($currentData) == 2)
+					{
+						$key = trim($currentData[0]);
+						$value = trim($currentData[1]);
+							
+						if(strtoupper($key) == 'IMDB')
+							$modelPeliFile->imdb = $value;
+							
+						if(strtoupper($key) == 'TYPE')
+							$modelPeliFile->type = strtoupper($value);
+							
+						if(strtoupper($key) == 'COUNTRY')
+							$modelPeliFile->country = $value;
+							
+						if(strtoupper($key) == 'NAME')
+							$modelPeliFile->name = $value;
+							
+						if(strtoupper($key) == 'SEASON')
+							$modelPeliFile->season = (int)$value;
+							
+						if(strtoupper($key) == 'EPISODE')
+							$modelPeliFile->episodes = $value;
+							
+						if(strtoupper($key) == 'SOURCE')
+							$modelPeliFile->source = strtoupper($value);
+					}
+				}
+				flush();
+			}
+		}
+		
+		if(empty($modelPeliFile->idDisc))
+			$modelPeliFile->idDisc = uniqid();
+		
+		return $modelPeliFile;
 	}
 	
 	private function generatePeliFiles($path)
@@ -299,14 +327,14 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
-	private function saveByImdb($imdb, $country, $type, $idDisc, $name, $season, $episodes)
+	private function saveByImdb($modelPeliFile)
 	{
-		$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$imdb, 'type'=>'Blu-ray'));
+		$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb, 'type'=>'Blu-ray'));
 		
 		if(!isset($modelMyMovieDB))
 		{
 			$myMoviesAPI = new MyMoviesAPI();
-			$response = $myMoviesAPI->SearchDiscTitleByIMDBId($imdb, $country);
+			$response = $myMoviesAPI->SearchDiscTitleByIMDBId($modelPeliFile->imdb, $modelPeliFile->country);
 			if(!empty($response) && (string)$response['status'] == 'ok')
 			{
 				$titles = $response->Titles;
@@ -321,20 +349,20 @@ class FolderCommand extends CConsoleCommand  {
 				if(MyMovieHelper::saveMyMovieData($idMyMovie))
 				{					
 					
-					$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($idDisc);
+					$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
 					
 					if(!isset($modelMyMovieDiscDB))
 					{
 						$modelMyMovieDiscDB = new MyMovieDisc();
-						$modelMyMovieDiscDB->Id = $idDisc;
+						$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
 						$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
-						$modelMyMovieDiscDB->name = $name;
+						$modelMyMovieDiscDB->name = $modelPeliFile->name;
 						if($modelMyMovieDiscDB->save())
 						{
 							$modelMyMovieDB = MyMovie::model()->findByPk($idMyMovie);
 								
-							if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($season) && !empty($episodes))
-								MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $season, $episodes, $modelMyMovieDiscDB->Id);
+							if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($modelPeliFile->season) && !empty($modelPeliFile->episodes))
+								MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $modelPeliFile->season, $modelPeliFile->episodes, $modelMyMovieDiscDB->Id);
 							
 							return true;
 						}
@@ -345,18 +373,18 @@ class FolderCommand extends CConsoleCommand  {
 		}
 		else
 		{
-			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($idDisc);
+			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
 				
 			if(!isset($modelMyMovieDiscDB))
 			{
 				$modelMyMovieDiscDB = new MyMovieDisc();
-				$modelMyMovieDiscDB->Id = $idDisc;
+				$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
 				$modelMyMovieDiscDB->Id_my_movie = $modelMyMovieDB->Id;
-				$modelMyMovieDiscDB->name = $name;
+				$modelMyMovieDiscDB->name = $modelPeliFile->name;
 				if($modelMyMovieDiscDB->save())
 				{
-					if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($season) && !empty($episodes))
-						MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $season, $episodes, $modelMyMovieDiscDB->Id);
+					if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($modelPeliFile->season) && !empty($modelPeliFile->episodes))
+						MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $modelPeliFile->season, $modelPeliFile->episodes, $modelMyMovieDiscDB->Id);
 					
 					return true;
 				}
