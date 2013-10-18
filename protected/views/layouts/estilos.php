@@ -57,6 +57,23 @@ color: #333;
 border-right: 1px solid #ccc;
 cursor: pointer;
 }
+#Menu #externalStorage{
+display:none;
+width: 61px;
+height: 35px;
+padding-top: 5px;
+background-color: #ebebeb;
+background-image: url(img/usb_black.png);
+background-size: 16px 16px;
+background-repeat: no-repeat;
+background-position: 10px 12px;
+padding-left: 33px;
+padding-right: 10px;
+line-height: 15px;
+color: #333;
+border-right: 1px solid #ccc;
+cursor: pointer;
+}
 #Menu #playlist{
 width: 61px;
 height: 35px;
