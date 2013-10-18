@@ -258,21 +258,28 @@ class SiteController extends Controller
 		
 		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
 		
-		$id = $modelMyMovieDisc->Id_my_movie;
+		if(isset($modelMyMovieDisc))
+		{
+			$id = $modelMyMovieDisc->Id_my_movie;
+			
+			$model = MyMovie::model()->findByPk($id);
+			
+			$criteria=new CDbCriteria;
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			
 		
-		$model = MyMovie::model()->findByPk($id);
-		
-		$criteria=new CDbCriteria;
-		$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
-		$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
-		$criteria->order = 't.Id ASC';
-		
-	
-		$casting = $this->getCasting($criteria);
-		
-		$this->renderPartial('_onlineDetails',array('model'=>$model, 
-													'casting'=>$casting, 
-													'modelCurrentDisc'=>$modelCurrentDisc));
+			$casting = $this->getCasting($criteria);
+			
+			$this->renderPartial('_onlineDetails',array('model'=>$model, 
+														'casting'=>$casting, 
+														'modelCurrentDisc'=>$modelCurrentDisc));
+		}
+		else 
+		{
+			$this->renderPartial('_onlineNoDetails');
+		}
 	}
 	
 	public function actionAjaxRipp()
@@ -860,13 +867,15 @@ class SiteController extends Controller
 		
 		$isDiscIN = 0;
 		$read = 0;
+		$state = 1;
 		if(isset($modelCurrentUSB))
 		{
 			$isDiscIN = 1;
 			$read = $modelCurrentUSB->read;
+			$state = $modelCurrentUSB->state;
 		}
 		
-		$currentUSB = array('is_in'=>$isDiscIN,'read'=>$read);
+		$currentUSB = array('is_in'=>$isDiscIN,'read'=>$read, 'state'=>$state);
 		
 		$response = array('playBack'=>$this->getPlayback(),
 							'currentDisc'=>$currentDisc,
