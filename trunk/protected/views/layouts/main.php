@@ -49,13 +49,37 @@ function getGetCurrentState()
 
     			if(obj.currentUSB != null)
     			{
+    				if(obj.currentUSB.is_in == 1)
+					{
+						$('#externalStorage').show();
+					}
+					else
+					{
+						$('#externalStorage').hide();
+					}
+
+    				if(obj.currentUSB.state == 1) //stand-by
+					{
+    					$('#externalStorage').css("background-image", "url(img/usb_black.png)");
+					}
+					else if(obj.currentUSB.state == 2) //on copy
+					{
+						$('#externalStorage').css("background-image", "url(img/usb_green.png)");
+					}
+					else // finish copy
+					{
+						$('#externalStorage').css("background-image", "url(img/usb_red.png)");
+					}
+					
+    				 
+					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
-    				{
+    				{    					
 	    				if(!$('#myModalDiscIn').is(':visible'))
 						{							
 							$('#myModalExternalStorage').modal('show');							
 						}
-    				}
+    				}    				
     			}    			
     			
 				if(obj.currentDisc != null)
@@ -191,6 +215,12 @@ $(document).ready(function(){
 				$('#myModal').modal('show'); 
 			});
     });
+    $('#externalStorage').click(function(){
+    	if(!$('#myModalDiscIn').is(':visible'))
+		{							
+			$('#myModalExternalStorage').modal('show');							
+		}
+    });
     $('#playlist').click(function(){
     	$.post("<?php echo SiteController::createUrl('AjaxPlaylistsShow'); ?>"
 		).success(
@@ -251,6 +281,7 @@ $(document).ready(function(){
         <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>		
       <!--  <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>-->
         <div id="newDisc" class="pull-right">Examinar Disco</div>
+        <div id="externalStorage" class="pull-right">Disco Externo</div>
         </div>
       <!--/.nav-collapse -->
     </div>
