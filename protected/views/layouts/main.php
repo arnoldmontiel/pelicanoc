@@ -67,14 +67,17 @@ function getGetCurrentState()
 					else if(obj.currentUSB.state == 2) //on copy
 					{
 						$('#externalStorage').css("background-image", "url(img/usb_green.png)");
+						$('#myModalExternalStorage').find('#ESModalMsg').text('Descargando contenido.');
 						$('#myModalExternalStorage').find('#btn-process').hide();
 						$('#myModalExternalStorage').find('#btn-ripping').show();
 					}
 					else // finish copy
 					{
 						$('#externalStorage').css("background-image", "url(img/usb_red.png)");
+						$('#myModalExternalStorage').find('#ESModalMsg').text('Contenido descargado con éxito.');
 						$('#myModalExternalStorage').find('#btn-process').hide();						
 						$('#myModalExternalStorage').find('#btn-ripping').hide();
+						$('#myModalExternalStorage').find('#btn-cancel').html('Cerrar');
 					}
 					
     				 
