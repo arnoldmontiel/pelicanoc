@@ -12,7 +12,7 @@
 	    
     
 			<div class="span9">			    
-			    	<p>&iquest;Desea descargar a Pelicano el contenido de video del dispositivo externo?</p>
+			    	<p id="ESModalMsg">&iquest;Desea descargar a Pelicano el contenido de video del dispositivo externo?</p>
 		    </div><!--/.span9PRINCIPAL -->
 		    
 		</div><!--/.rowPRINCIPAL -->
