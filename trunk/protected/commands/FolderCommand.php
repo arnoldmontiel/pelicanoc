@@ -26,7 +26,11 @@ class FolderCommand extends CConsoleCommand  {
 				
 				self::generatePeliFiles($modelCurrentES->path);				
 				self::copyExternalStorage($modelCurrentES->path);
-				self::processPeliFile();
+				
+				$setting = Setting::getInstance();
+				$path = $setting->path_shared;
+				
+				self::processPeliFile($path);
 				
 				$modelCurrentES->state = 3;
 				$modelCurrentES->save();
@@ -43,13 +47,16 @@ class FolderCommand extends CConsoleCommand  {
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-		
+				
 		if(isset($modelCommandStatus))
 		{
 			try 
-			{				
+			{
+				$setting = Setting::getInstance();
+				$path = $setting->path_shared;
+				
 				self::generatePeliFiles($path);				
-				self::processPeliFile();				
+				self::processPeliFile($path);				
 				
 				$modelCommandStatus->setBusy(false);				
 			} 
@@ -93,10 +100,8 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
-	private function processPeliFile()
+	private function processPeliFile($path)
 	{		
-		$setting = Setting::getInstance();
-		$path = $setting->path_shared;
 		try 
 		{
 			$modelLote = new Lote();
