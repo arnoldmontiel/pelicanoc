@@ -22,7 +22,7 @@ $('#btn-scan').click(function(){
 	$('#btn-scan').attr('disabled','disabled');
 	$.post('".SiteController::createUrl('AjaxGetFilesFromPath')."',
 	{ 
-		path: $('#txt-path').val()
+		path: 'a'
 	}
 	).success(
 	function(data){
@@ -35,7 +35,6 @@ $('#btn-scan').click(function(){
 
 <?php 
 
-echo CHtml::textField('txt-path','',array('id'=>'txt-path'));
 echo CHtml::button('Escanear',array('id'=>'btn-scan'));
 
 $this->widget('zii.widgets.grid.CGridView', array(
