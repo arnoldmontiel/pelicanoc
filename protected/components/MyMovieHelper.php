@@ -92,6 +92,10 @@ class MyMovieHelper
 					}
 		
 				}
+				else 
+				{
+					return false;
+				}
 			} catch (Exception $e) {
 				return false;
 			}
