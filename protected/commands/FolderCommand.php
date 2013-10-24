@@ -31,7 +31,7 @@ class FolderCommand extends CConsoleCommand  {
 				$path = $setting->path_shared;
 				$path = $path.'/pelicano/copied/';
 				
-				self::processPeliFile($path);
+				self::processPeliFileES($path);
 				
 				$modelCurrentES->state = 3;
 				$modelCurrentES->save();
@@ -100,6 +100,60 @@ class FolderCommand extends CConsoleCommand  {
 				}
 			}			
 		}
+	}
+	
+	private function processPeliFileES($path)
+	{
+		try
+		{
+			$modelLote = new Lote();
+			$iterator = ReadFolderHelper::process_dir_peli($path,true);
+			$chunksize = 1*(1024*1024); // how many bytes per chunk
+	
+			//genero un nuevo lote
+			$modelLote->save();
+				
+			foreach ($iterator as $file)
+			{
+					
+				$modelPeliFile = self::getPeliFile($file);
+				if(isset($modelPeliFile))
+				{
+						
+					$shortPath = self::getShortPath($path, $file, $modelPeliFile);
+					$shortPath = '/pelicano/copied/'.$shortPath;
+					
+					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
+	
+					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
+					{
+						if(self::saveByImdb($modelPeliFile))
+						{
+							$modelLocalFolder = new LocalFolder();
+							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
+							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
+							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
+							$modelLocalFolder->Id_lote = $modelLote->Id;
+							$modelLocalFolder->path = $shortPath;
+							$modelLocalFolder->save();
+						}
+					}
+	
+				} //end if null
+			}
+			$modelLote->description = 'Successfull';
+			$modelLote->save();
+			return true;
+		}
+		catch (Exception $e)
+		{
+			$modelLote->description = 'Error: ' . $e->getMessage();
+			$modelLote->save();
+			return false;
+		}
+	
+		return true;
+	
 	}
 	
 	private function processPeliFile($path)
