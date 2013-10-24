@@ -94,6 +94,7 @@ class FolderCommand extends CConsoleCommand  {
 			
 				if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
 				{
+					$destination = $destination.'/pelicano/copied/';
 					exec("cp -fr ".$source . " " .$destination);
 				}
 			}			
