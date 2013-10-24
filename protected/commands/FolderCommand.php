@@ -29,6 +29,7 @@ class FolderCommand extends CConsoleCommand  {
 				
 				$setting = Setting::getInstance();
 				$path = $setting->path_shared;
+				$path = $path.'/pelicano/copied/';
 				
 				self::processPeliFile($path);
 				
