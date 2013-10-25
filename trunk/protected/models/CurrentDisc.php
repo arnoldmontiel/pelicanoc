@@ -120,6 +120,7 @@ class CurrentDisc extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'idCurrentDiscState' => array(self::BELONGS_TO, 'CurrentDiscState', 'Id_current_disc_state'),
+			'myMovieDisc' => array(self::BELONGS_TO, 'MyMovieDisc', 'Id_my_movie_disc'),
 		);
 	}
 
