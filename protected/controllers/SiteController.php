@@ -773,8 +773,8 @@ class SiteController extends Controller
 				if(isset($modelCurrentPlaying->Id_current_disc))
 				{
 					$response['type'] = 4;
-					$response['originalTitle'] = $modelCurrentPlaying->currentDisc->myMovie->original_title;
-					$response['id'] = $modelCurrentPlaying->currentDisc->Id_my_movie;
+					$response['originalTitle'] = $modelCurrentPlaying->currentDisc->myMovieDisc->myMovie->original_title;
+					$response['id'] = $modelCurrentPlaying->currentDisc->myMovieDisc->Id_my_movie;
 				}
 			}
 		}
