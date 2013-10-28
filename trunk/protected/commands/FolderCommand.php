@@ -7,39 +7,65 @@ class FolderCommand extends CConsoleCommand  {
 		ReadFolderHelper::checkExternalStorage();
 	}
 
+// 	function actionProcessExternalStorage()
+// 	{
+// 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		
+// 		$_COMMAND_NAME = "processExternalStorage";		
+		
+// 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+		
+// 		if(isset($modelCommandStatus))
+// 		{
+// 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
+			
+// 			if(isset($modelCurrentES))
+// 			{
+// 				$modelCurrentES->state = 2;
+// 				$modelCurrentES->save();
+				
+// 				self::generatePeliFiles($modelCurrentES->path);				
+// 				self::copyExternalStorage($modelCurrentES->path);
+				
+// 				$setting = Setting::getInstance();
+// 				$path = $setting->path_shared;
+// 				$path = $path.'/pelicano/copied/';
+				
+// 				self::processPeliFileES($path);
+				
+// 				$modelCurrentES->state = 3;
+// 				$modelCurrentES->save();
+// 			}
+		
+// 			$modelCommandStatus->setBusy(false);
+// 		}
+// 	}	
+	
 	function actionProcessExternalStorage()
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-		
-		$_COMMAND_NAME = "processExternalStorage";		
-		
-		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-		
-		if(isset($modelCommandStatus))
-		{
-			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
+		$idES = 1;
+		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idES, 'is_in'=>1));
 			
-			if(isset($modelCurrentES))
+		if(isset($modelCurrentES))
+		{
+			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array(
+												'Id_current_external_storage' => $idES,
+												'copy'=>1,
+												));
+			
+			foreach($modelESDatas as $modelESData)
 			{
-				$modelCurrentES->state = 2;
-				$modelCurrentES->save();
-				
-				self::generatePeliFiles($modelCurrentES->path);				
-				self::copyExternalStorage($modelCurrentES->path);
-				
+				self::copyExternalStorage($modelESData->path);
 				$setting = Setting::getInstance();
 				$path = $setting->path_shared;
 				$path = $path.'/pelicano/copied/';
 				
 				self::processPeliFileES($path);
-				
-				$modelCurrentES->state = 3;
-				$modelCurrentES->save();
 			}
-		
-			$modelCommandStatus->setBusy(false);
+						
 		}
-	}	
+	}
 	
 	function actionScanExternalStorage()
 	{
