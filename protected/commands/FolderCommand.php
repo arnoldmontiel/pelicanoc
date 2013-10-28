@@ -41,6 +41,20 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}	
 	
+	function actionScanExternalStorage()
+	{
+		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		
+		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
+			
+		if(isset($modelCurrentES))
+		{
+		
+			self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);			
+		
+		}
+	}	
+	
 	function actionScanDirectory($path) 
 	{		
 		$_COMMAND_NAME = "scanDirectory";		
@@ -71,7 +85,7 @@ class FolderCommand extends CConsoleCommand  {
 	private function copyExternalStorage($sourcePath)
 	{
 		$setting = Setting::getInstance();
-		$iterator = ReadFolderHelper::process_dir_peli($sourcePath,true);
+		$iterator = ReadFolderHelper::getPeliDirectoryList($sourcePath,true);
 		
 		foreach ($iterator as $file)
 		{
@@ -107,7 +121,7 @@ class FolderCommand extends CConsoleCommand  {
 		try
 		{
 			$modelLote = new Lote();
-			$iterator = ReadFolderHelper::process_dir_peli($path,true);
+			$iterator = ReadFolderHelper::getPeliDirectoryList($path,true);
 			$chunksize = 1*(1024*1024); // how many bytes per chunk
 	
 			//genero un nuevo lote
@@ -161,7 +175,7 @@ class FolderCommand extends CConsoleCommand  {
 		try 
 		{
 			$modelLote = new Lote();
-			$iterator = ReadFolderHelper::process_dir_peli($path,true);
+			$iterator = ReadFolderHelper::getPeliDirectoryList($path, true, $path.'/pelicano');
 			$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
 			//genero un nuevo lote
@@ -279,6 +293,12 @@ class FolderCommand extends CConsoleCommand  {
 							
 						if(strtoupper($key) == 'SOURCE')
 							$modelPeliFile->source = strtoupper($value);
+						
+						if(strtoupper($key) == 'POSTER')
+							$modelPeliFile->poster = strtoupper($value);
+						
+						if(strtoupper($key) == 'YEAR')
+							$modelPeliFile->year = strtoupper($value);
 					}
 				}
 				flush();
@@ -294,13 +314,13 @@ class FolderCommand extends CConsoleCommand  {
 	private function generatePeliFiles($path)
 	{
 		
-		$videoIterator = ReadFolderHelper::process_dir_video($path,true);
+		$videoIterator = ReadFolderHelper::getVideoDirectoryList($path,true);
 		
 		if($videoIterator)
 		{
 			foreach ($videoIterator as $file)
 			{
-				$subIterator = ReadFolderHelper::process_dir_peli($file['dirpath'], true);
+				$subIterator = ReadFolderHelper::getPeliDirectoryList($file['dirpath'], true);
 				$hasPeliFile = false;
 				foreach ($subIterator as $fileSubIterator)
 				{
@@ -316,6 +336,53 @@ class FolderCommand extends CConsoleCommand  {
 		
 				if(!$hasPeliFile)
 					self::buildPeliFile($folderName, $file['dirpath'], $type);
+			}
+		}
+	}
+	
+	private function generatePeliFilesES($path, $idCurrentES)
+	{
+	
+		$videoIterator = ReadFolderHelper::getVideoDirectoryList($path,true);
+	
+		if($videoIterator)
+		{
+			foreach ($videoIterator as $file)
+			{
+				$subIterator = ReadFolderHelper::getPeliDirectoryList($file['dirpath'], true);
+				$hasPeliFile = false;
+				foreach ($subIterator as $fileSubIterator)
+				{
+					if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
+					{
+						$modelPeliFile = self::getPeliFile($fileSubIterator);
+						$hasPeliFile = true;
+						break;
+					}
+				}
+				$folderName = basename(dirname($file['dirpath'].'/'.$file['filename']));
+	
+				$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
+	
+				$modelESData = new ExternalStorageData();				
+				$modelESData->path = $file['dirpath'];
+				$modelESData->type = $type;
+				$modelESData->Id_current_external_storage = $idCurrentES;
+												
+				if(!$hasPeliFile)
+					$modelPeliFile = self::buildPeliFileES($folderName, $file['dirpath'], $type);				
+				
+				if(isset($modelPeliFile))
+				{
+					$modelESData->title = $modelPeliFile->name;
+					$modelESData->year = $modelPeliFile->year;
+					$modelESData->poster = $modelPeliFile->poster;
+					$modelESData->imdb = $modelPeliFile->imdb;
+				}
+				
+				$modelESData->save();
+				
+				
 			}
 		}
 	}
@@ -356,9 +423,44 @@ class FolderCommand extends CConsoleCommand  {
 		return $idSourceType;
 	}
 	
-	
 	private function buildPeliFile($folderName, $path, $type)
 	{
+		$myMoviesAPI = new MyMoviesAPI();
+		$response = $myMoviesAPI->SearchDiscTitleByTitle($folderName);
+		if(!empty($response) && (string)$response['status'] == 'ok')
+		{
+			$titles = $response->Titles;
+			foreach($titles->children() as $title)
+			{
+				$idImdb = (string)$title['imdb'];
+				if($idImdb == 'tt0000000')
+					continue;
+	
+				$originalTitle = (string)$title['originalTitle'];	
+				try {
+						
+	
+					$fp = @fopen($path.'/pelicano.peli', 'w');
+					if(isset($fp))
+					{
+						$content = 'imdb='.$idImdb.";\n";
+						$content .= 'type='.$type.";\n";
+						$content .= 'name='.$originalTitle.';';		
+	
+						@fwrite($fp, $content);
+						@fclose($fp);
+					}
+				} catch (Exception $e) {
+					break;
+				}
+				break;
+			}
+		}		
+	}
+	
+	private function buildPeliFileES($folderName, $path, $type)
+	{
+		$modelPeliFile = new PeliFile();		
 		
 		$myMoviesAPI = new MyMoviesAPI();
 		$response = $myMoviesAPI->SearchDiscTitleByTitle($folderName);
@@ -372,6 +474,13 @@ class FolderCommand extends CConsoleCommand  {
 					continue;
 				
 				$originalTitle = (string)$title['originalTitle'];
+				$year = (string)$title['year'];
+				$poster = (string)$title['bigthumbnail'];
+				
+				$modelPeliFile->name = $originalTitle;
+				$modelPeliFile->imdb = $idImdb;
+				$modelPeliFile->year = $year; 
+				$modelPeliFile->poster = $poster; 
 				try {
 					
 				
@@ -381,6 +490,8 @@ class FolderCommand extends CConsoleCommand  {
 						$content = 'imdb='.$idImdb.";\n";
 						$content .= 'type='.$type.";\n";
 						$content .= 'name='.$originalTitle.';';
+						$content .= 'year='.$year.';';
+						$content .= 'poster='.$poster.';';
 						
 						@fwrite($fp, $content);
 						@fclose($fp);
@@ -391,6 +502,7 @@ class FolderCommand extends CConsoleCommand  {
 				break;
 			}
 		}
+		return $modelPeliFile;
 	}
 	
 	private function saveByImdb($modelPeliFile)

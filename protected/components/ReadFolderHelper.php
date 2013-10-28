@@ -35,7 +35,7 @@ class ReadFolderHelper
 		}
 	}
 	
-	static public function process_dir_video($dir,$recursive = FALSE)
+	static public function getVideoDirectoryList($dir,$recursive = FALSE)
 	{
 		if (is_dir($dir)) {
 			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
@@ -48,7 +48,7 @@ class ReadFolderHelper
 							$list[] = $entry;
 						}
 						else
-							$list = array_merge($list, self::process_dir_video($path, TRUE));
+							$list = array_merge($list, self::getVideoDirectoryList($path, TRUE));
 					} 
 					else 
 					{			
@@ -69,17 +69,21 @@ class ReadFolderHelper
 			return false;
 	}
 	
-	static public function process_dir_peli($dir,$recursive = FALSE) 
-	{
+	static public function getPeliDirectoryList($dir,$recursive = FALSE, $excluded = '') 
+	{		
 		if (is_dir($dir)) {
 			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
-				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {
-					if (is_dir($path) && ($recursive)) {
-						$list = array_merge($list, self::process_dir_peli($path, TRUE));
-					} else {
-						
+				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {					
+					if(!empty($excluded) && realpath($dir.$file) == realpath($excluded))
+						continue;	
+					if (is_dir($path) && ($recursive)) 
+					{
+						$list = array_merge($list, self::getPeliDirectoryList($path, TRUE));
+					} 
+					else 
+					{
 						if((pathinfo($dir.$file, PATHINFO_EXTENSION) == 'peli'))
-						{
+						{	
 							$entry = array('filename' => $file, 'dirpath' => $dir);
 							$entry['modtime'] = filemtime($path);
 							$list[] = $entry;
