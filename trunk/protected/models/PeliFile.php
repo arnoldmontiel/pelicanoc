@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "SABnzbdJob".
+ * This is the model class for table "PeliFile".
  *
  * The followings are the available columns in table 'resource':
  * @property array $attributes Attribute values indexed by attribute names.
@@ -20,6 +20,8 @@ class PeliFile extends CModel
 		$this->season = '';
 		$this->episodes = '';
 		$this->source = '';
+		$this->poster = '';		
+		$this->year = '';
 	}
 	
 	/**
@@ -36,6 +38,8 @@ class PeliFile extends CModel
 					'season' => 'Season',
 					'episodes' => 'Episodes',
 					'source' => 'Source',
+					'poster' => 'Poster',
+					'year' => 'Year',
 		);
 	}
 	
@@ -79,6 +83,8 @@ class PeliFile extends CModel
 	public $name;
 	public $season;
 	public $episodes;
-	public $source;	
+	public $source;
+	public $poster;	
+	public $year;
 	
 }
