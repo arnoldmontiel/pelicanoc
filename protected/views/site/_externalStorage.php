@@ -2,7 +2,7 @@
    <div id="myModalExternalStorage" class="modal hide fade noPlaying in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
     <div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
-    	<h3 id="myModalLabel">Unidad Externa Reconocida</h3>
+    	<h3 id="myModalLabel">Unidades Externas</h3>
     </div>
     <div class="modal-body"> 
 	    <div class="row-fluid">
@@ -12,13 +12,7 @@
 	    
     
 			<div class="span9">
-				Unidades
-				<?php 
-					foreach($modelCurrentESs as $modelCurrentES)
-					{
-						echo CHtml::imageButton('img/usb_black.png',array('id'=>$modelCurrentES->Id, 'class'=>'usb-button-scan'));
-					}
-				 ?>			    
+				<div id="external-unit"></div>
 		    </div><!--/.span9PRINCIPAL -->
 		    
 		</div><!--/.rowPRINCIPAL -->
@@ -30,10 +24,6 @@
     </div>
   </div>
   <script>
-
-//	setInterval(function() {
-//		alert(1);
-//	}, 10000);
 	
 	$('#btn-cancel').click(function(){
 		$('#myModalExternalStorage').modal('hide');
