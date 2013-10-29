@@ -58,7 +58,7 @@
 		var id = $(this).attr("id");		
 		$.post("<?php echo SiteController::createUrl('AjaxProcessExternalStorage'); ?>",
 			{
-				id:id			    
+				id:23			    
 			}
 		).success(
 			function(data){
