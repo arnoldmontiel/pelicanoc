@@ -2,7 +2,7 @@
 class ReadFolderHelper
 {
 
-	static public function processExternalStorage()
+	static public function processExternalStorage($idCurrentES)
 	{
 		$_COMMAND_NAME = "processExternalStorage";
 		
@@ -21,11 +21,11 @@ class ReadFolderHelper
 					if(substr($sys,0,3) == "WIN")
 					{
 						$WshShell = new COM('WScript.Shell');
-						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/processExternalStorage', 0, false);
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/processExternalStorage -id '. $idCurrentES, 0, false);
 					}
 					else
 					{						
-						exec(dirname(__FILE__).'/../commands/shell/processExternalStorage.sh >/dev/null&');
+						exec(dirname(__FILE__).'/../commands/shell/processExternalStorage.sh '.$idCurrentES.' >/dev/null&');
 					}
 				} catch (Exception $e) {
 					$modelCommandStatus->setBusy(false);
@@ -35,72 +35,41 @@ class ReadFolderHelper
 		}
 	}
 	
-	static public function getVideoDirectoryList($dir,$recursive = FALSE)
+	static public function scanExternalStorage($idCurrentES)
 	{
-		if (is_dir($dir)) {
-			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
-				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {
-					if (is_dir($path) && ($recursive)) 
-					{						
-						if(strstr($file,'BDMV')!=false)
-						{							
-							$entry = array('filename' => 'folder', 'dirpath' => $dir);
-							$list[] = $entry;
-						}
-						else
-							$list = array_merge($list, self::getVideoDirectoryList($path, TRUE));
-					} 
-					else 
-					{			
-						$extension = strtoupper(pathinfo($dir.$file, PATHINFO_EXTENSION));		
-						if($extension == 'ISO' || $extension == 'MKV' || $extension == 'MP4' || $extension == 'AVI')
-						{	
-							$entry = array('filename' => $file, 'dirpath' => $dir);
-							$entry['modtime'] = filemtime($path);	
-							$list[] = $entry;
-						}						
-					}
-				}
-			}
-			closedir($handle);
-			return $list;
-		}
-		else
-			return false;
-	}
+		$_COMMAND_NAME = "scanExternalStorage";
 	
-	static public function getPeliDirectoryList($dir,$recursive = FALSE, $excluded = '') 
-	{		
-		if (is_dir($dir)) {
-			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
-				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {					
-					if(!empty($excluded) && realpath($dir.$file) == realpath($excluded))
-						continue;	
-					if (is_dir($path) && ($recursive)) 
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+	
+		if(isset($modelCommandStatus))
+		{
+			if(!$modelCommandStatus->busy)
+			{
+				try {
+					$modelCommandStatus->setBusy(true);
+	
+					$sys = strtoupper(PHP_OS);
+	
+	
+					if(substr($sys,0,3) == "WIN")
 					{
-						$list = array_merge($list, self::getPeliDirectoryList($path, TRUE));
-					} 
-					else 
-					{
-						if((pathinfo($dir.$file, PATHINFO_EXTENSION) == 'peli'))
-						{	
-							$entry = array('filename' => $file, 'dirpath' => $dir);
-							$entry['modtime'] = filemtime($path);
-							$list[] = $entry;
-						}
+						$WshShell = new COM('WScript.Shell');						
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/scanExternalStorage -id '. $idCurrentES, 0, false);
 					}
+					else
+					{
+						exec(dirname(__FILE__).'/../commands/shell/scanExternalStorage.sh '.$idCurrentES.' >/dev/null&');
+					}
+				} catch (Exception $e) {
+					$modelCommandStatus->setBusy(false);
 				}
 			}
-			closedir($handle);
-			return $list;
-		} 
-		else 
-			return FALSE;
+	
+		}
 	}
 	
 	static public function scanDirectory($path)
-	{
-		//C:\Users\Wensel\Desktop\PelicanoStorage
+	{		
 		$_COMMAND_NAME = "scanDirectory";
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
@@ -166,5 +135,68 @@ class ReadFolderHelper
 				}				
 			}
 		}		
+	}
+	
+	static public function getVideoDirectoryList($dir,$recursive = FALSE)
+	{
+		if (is_dir($dir)) {
+			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
+				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {
+					if (is_dir($path) && ($recursive))
+					{
+						if(strstr($file,'BDMV')!=false)
+						{
+							$entry = array('filename' => 'folder', 'dirpath' => $dir);
+							$list[] = $entry;
+						}
+						else
+						$list = array_merge($list, self::getVideoDirectoryList($path, TRUE));
+					}
+					else
+					{
+						$extension = strtoupper(pathinfo($dir.$file, PATHINFO_EXTENSION));
+						if($extension == 'ISO' || $extension == 'MKV' || $extension == 'MP4' || $extension == 'AVI')
+						{
+							$entry = array('filename' => $file, 'dirpath' => $dir);
+							$entry['modtime'] = filemtime($path);
+							$list[] = $entry;
+						}
+					}
+				}
+			}
+			closedir($handle);
+			return $list;
+		}
+		else
+		return false;
+	}
+	
+	static public function getPeliDirectoryList($dir,$recursive = FALSE, $excluded = '')
+	{
+		if (is_dir($dir)) {
+			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
+				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {
+					if(!empty($excluded) && realpath($dir.$file) == realpath($excluded))
+					continue;
+					if (is_dir($path) && ($recursive))
+					{
+						$list = array_merge($list, self::getPeliDirectoryList($path, TRUE));
+					}
+					else
+					{
+						if((pathinfo($dir.$file, PATHINFO_EXTENSION) == 'peli'))
+						{
+							$entry = array('filename' => $file, 'dirpath' => $dir);
+							$entry['modtime'] = filemtime($path);
+							$list[] = $entry;
+						}
+					}
+				}
+			}
+			closedir($handle);
+			return $list;
+		}
+		else
+		return FALSE;
 	}
 }
