@@ -122,10 +122,10 @@ class SiteController extends Controller
 		$this->renderPartial('_downloadDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
 	}
 	
-	public function actionAjaxCurrentExternalStorageShow()
+	public function actionAjaxGetExternalStorage()
 	{
 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
-		$this->renderPartial('_externalStorage',array('modelCurrentESs'=>$modelCurrentESs));
+		$this->renderPartial('_externalStorageAccess',array('modelCurrentESs'=>$modelCurrentESs));
 	}
 	
 	public function actionAjaxMarketShowDetail()
