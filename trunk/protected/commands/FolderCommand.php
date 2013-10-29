@@ -44,41 +44,65 @@ class FolderCommand extends CConsoleCommand  {
 	function actionProcessExternalStorage($idCurrentES)
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 'is_in'=>1));
-			
-		if(isset($modelCurrentES))
+		
+		$_COMMAND_NAME = "processExternalStorage";
+		
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+		
+		if(isset($modelCommandStatus))
 		{
-			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array(
-												'Id_current_external_storage' => $idCurrentES,
-												'copy'=>1,
-												));
-			
-			$setting = Setting::getInstance();
-			$path = $setting->path_shared;
-			$path = $path.'/pelicano/copied/';
-			
-			foreach($modelESDatas as $modelESData)
-			{
-				self::copyExternalStorage($modelESData->path);				
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 'is_in'=>1));
 				
-				self::processPeliFileES($path);
+			if(isset($modelCurrentES))
+			{
+				$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array(
+													'Id_current_external_storage' => $idCurrentES,
+													'copy'=>1,
+													));
+				
+				$setting = Setting::getInstance();
+				$path = $setting->path_shared;
+				$path = $path.'/pelicano/copied/';
+				
+				foreach($modelESDatas as $modelESData)
+				{
+					self::copyExternalStorage($modelESData->path);				
+					
+					self::processPeliFileES($path);
+				}
+							
 			}
-						
+			$modelCommandStatus->setBusy(false);
 		}
 	}
 	
 	function actionScanExternalStorage($idCurrentES)
 	{
+		$_COMMAND_NAME = "scanExternalStorage";
+		
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		
-		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 
-																					'is_in'=>1));
-			
-		if(isset($modelCurrentES))
+		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+		
+		if(isset($modelCommandStatus))
 		{
-		
-			self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);			
-		
+			try
+			{
+				$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 
+																							'is_in'=>1));
+					
+				if(isset($modelCurrentES))
+				{
+				
+					self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);			
+				
+				}
+				$modelCommandStatus->setBusy(false);
+			}
+			catch (Exception $e)
+			{
+				$modelCommandStatus->setBusy(false);
+			}
 		}
 	}	
 	
@@ -399,15 +423,19 @@ class FolderCommand extends CConsoleCommand  {
 				if(!$hasPeliFile)
 					$modelPeliFile = self::buildPeliFileES($folderName, $file['dirpath'], $type);				
 				
-				if(isset($modelPeliFile))
+				$modelESDataDB = ExternalStorageData::model()->findByAttributes(array('path'=>$modelESData->path));
+				if(!isset($modelESDataDB))
 				{
-					$modelESData->title = $modelPeliFile->name;
-					$modelESData->year = $modelPeliFile->year;
-					$modelESData->poster = $modelPeliFile->poster;
-					$modelESData->imdb = $modelPeliFile->imdb;
+					if(isset($modelPeliFile))
+					{
+						$modelESData->title = $modelPeliFile->name;
+						$modelESData->year = $modelPeliFile->year;
+						$modelESData->poster = $modelPeliFile->poster;
+						$modelESData->imdb = $modelPeliFile->imdb;
+					}
+					
+					$modelESData->save();
 				}
-				
-				$modelESData->save();
 				
 				
 			}
