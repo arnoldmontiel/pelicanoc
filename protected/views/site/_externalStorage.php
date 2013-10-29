@@ -11,29 +11,55 @@
 		    </div><!--/.span3PRINCIPAL -->
 	    
     
-			<div class="span9">			    
-			    	<p id="ESModalMsg">&iquest;Desea descargar a Pelicano el contenido de video del dispositivo externo?</p>
+			<div class="span9">
+				Unidades
+				<?php 
+					foreach($modelCurrentESs as $modelCurrentES)
+					{
+						echo CHtml::imageButton('img/usb_black.png',array('id'=>$modelCurrentES->Id, 'class'=>'usb-button-scan'));
+					}
+				 ?>			    
 		    </div><!--/.span9PRINCIPAL -->
 		    
 		</div><!--/.rowPRINCIPAL -->
     </div>
     
     <div class="modal-footer">
-    	<button id="btn-process" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargar</button>
-    	<button id="btn-ripping" disabled="disabled" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargando...</button>
+    	<button id="btn-process" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargar</button>    	
     	<button id="btn-cancel" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Cancelar</button>
     </div>
   </div>
   <script>
+
+//	setInterval(function() {
+//		alert(1);
+//	}, 10000);
+	
 	$('#btn-cancel').click(function(){
 		$('#myModalExternalStorage').modal('hide');
 		markRead();
 		return false;
 	});
 
-	$('#btn-process').click(function(){
-		$('#myModalExternalStorage').modal('hide');
-		$.post("<?php echo SiteController::createUrl('AjaxProcessExternalStorage'); ?>"
+	$('.usb-button-scan').click(function(){
+		var id = $(this).attr("id");		
+		$.post("<?php echo SiteController::createUrl('AjaxExternalStorageExplore'); ?>",
+			{
+				id:id			    
+			}
+		).success(
+			function(data){
+		});
+				
+		return false;
+	});
+
+	$('#btn-process').click(function(){		
+		var id = $(this).attr("id");		
+		$.post("<?php echo SiteController::createUrl('AjaxProcessExternalStorage'); ?>",
+			{
+				id:id			    
+			}
 		).success(
 			function(data){
 		});
