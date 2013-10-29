@@ -175,9 +175,9 @@ class ReadFolderHelper
 	{
 		if (is_dir($dir)) {
 			for ($list = array(),$handle = opendir($dir); (FALSE !== ($file = readdir($handle)));) {
-				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {
-					if(!empty($excluded) && realpath($dir.$file) == realpath($excluded))
-					continue;
+				if (($file != '.' && $file != '..') && (is_readable($dir.'/'.$file)) && (file_exists($path = $dir.'/'.$file))) {					
+					if(!empty($excluded) && realpath($dir.'/'.$file) == realpath($excluded))
+						continue;
 					if (is_dir($path) && ($recursive))
 					{
 						$list = array_merge($list, self::getPeliDirectoryList($path, TRUE));
