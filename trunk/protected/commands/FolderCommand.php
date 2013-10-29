@@ -54,12 +54,13 @@ class FolderCommand extends CConsoleCommand  {
 												'copy'=>1,
 												));
 			
+			$setting = Setting::getInstance();
+			$path = $setting->path_shared;
+			$path = $path.'/pelicano/copied/';
+			
 			foreach($modelESDatas as $modelESData)
 			{
-				self::copyExternalStorage($modelESData->path);
-				$setting = Setting::getInstance();
-				$path = $setting->path_shared;
-				$path = $path.'/pelicano/copied/';
+				self::copyExternalStorage($modelESData->path);				
 				
 				self::processPeliFileES($path);
 			}
@@ -161,7 +162,7 @@ class FolderCommand extends CConsoleCommand  {
 				{
 						
 					$shortPath = self::getShortPath($path, $file, $modelPeliFile);
-					$shortPath = '/pelicano/copied/'.$shortPath;
+					$shortPath = '/pelicano/copied'.$shortPath;
 					
 					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 	
