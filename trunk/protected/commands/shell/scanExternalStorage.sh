@@ -1,2 +1,2 @@
 #!/bin/bash
-/var/www/pelicano/protected/yiic folder scanExternalStorage --id=$1
+/var/www/pelicano/protected/yiic folder scanExternalStorage --idCurrentES=$1
