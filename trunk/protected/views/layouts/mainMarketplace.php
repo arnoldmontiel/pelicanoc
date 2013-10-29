@@ -74,7 +74,7 @@ function getGetCurrentState()
 					else // finish copy
 					{
 						$('#externalStorage').css("background-image", "url(img/usb_red.png)");
-						$('#myModalExternalStorage').find('#ESModalMsg').text('Contenido descargado con éxito.');
+						$('#myModalExternalStorage').find('#ESModalMsg').text('Contenido descargado con ï¿½xito.');
 						$('#myModalExternalStorage').find('#btn-process').hide();						
 						$('#myModalExternalStorage').find('#btn-ripping').hide();
 						$('#myModalExternalStorage').find('#btn-cancel').html('Cerrar');
@@ -225,7 +225,7 @@ $(document).ready(function(){
         			var obj = jQuery.parseJSON(data);
         			if(obj.id != 0)
         			{
-        				var param = '&id=' + obj.id + '&type=' + obj.type;
+        				var param = '&id=' + obj.id + '&type=' + obj.type + '&id_resource=' + obj.id_resource;
         				window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
         				return false;
         			}
