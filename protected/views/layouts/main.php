@@ -26,7 +26,7 @@
 
 
 <script type="text/javascript">
-function getGetCurrentState()
+function getCurrentState()
 {
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentState'); ?>"
 	).success(
@@ -84,15 +84,10 @@ function getGetCurrentState()
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
     				{    					
-	    				$.post("<?php echo SiteController::createUrl('AjaxCurrentExternalStorageShow'); ?>"
-						).success(
-							function(data){
-								if(!$('#myModalExternalStorage').is(':visible'))
-								{
-									$('#view-external-storage').html(data);
-									$('#myModalExternalStorage').modal('show');
-								} 
-						});
+    					if(!$('#myModalExternalStorage').is(':visible'))
+						{							
+							$('#myModalExternalStorage').modal('show');							
+						}
     				}    				
     			}    			
     			
@@ -128,18 +123,31 @@ function getGetCurrentState()
 	return false;
 }
 
+function getExternalUnit()
+{
+	if($('#myModalExternalStorage').is(':visible'))
+	{
+		$.post("<?php echo SiteController::createUrl('AjaxGetExternalStorage'); ?>"
+		).success(
+			function(data){
+				$('#external-unit').html(data);
+		});
+	}
+}
 
 $(document).ready(function(){
-	getGetCurrentState();
+	getCurrentState();
 	$.ajaxSetup({
 	    cache: false,
 	    headers: {
 	        'Cache-Control': 'no-cache'
 	    }
 	});
+
 	
 	setInterval(function() {
-		getGetCurrentState();
+		getExternalUnit();
+		getCurrentState();
 	}, 5000);	
 	
 	
@@ -230,15 +238,10 @@ $(document).ready(function(){
 			});
     });
     $('#externalStorage').click(function(){
-    	$.post("<?php echo SiteController::createUrl('AjaxCurrentExternalStorageShow'); ?>"
-		).success(
-			function(data){
-				if(!$('#myModalExternalStorage').is(':visible'))
-				{
-					$('#view-external-storage').html(data);
-					$('#myModalExternalStorage').modal('show');
-				} 
-		});
+    	if(!$('#myModalExternalStorage').is(':visible'))
+		{							
+			$('#myModalExternalStorage').modal('show');							
+		}
     });
     $('#playlist').click(function(){
     	$.post("<?php echo SiteController::createUrl('AjaxPlaylistsShow'); ?>"
@@ -369,7 +372,7 @@ $(document).ready(function(){
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
 
 echo CHtml::openTag('div',array('id'=>'view-external-storage'));
-
+echo $this->renderPartial('../site/_externalStorage');
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
