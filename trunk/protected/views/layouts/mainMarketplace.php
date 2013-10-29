@@ -26,7 +26,7 @@
 
 
 <script type="text/javascript">	
-function getGetCurrentState()
+function getCurrentState()
 {
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentState'); ?>"
 	).success(
@@ -57,7 +57,7 @@ function getGetCurrentState()
 					{
 						$('#externalStorage').hide();
 					}
-
+/*
     				if(obj.currentUSB.state == 1) //stand-by
 					{
     					$('#externalStorage').css("background-image", "url(img/usb_black.png)");
@@ -79,10 +79,10 @@ function getGetCurrentState()
 						$('#myModalExternalStorage').find('#btn-ripping').hide();
 						$('#myModalExternalStorage').find('#btn-cancel').html('Cerrar');
 					}
-					
+					*/
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
     				{
-	    				if(!$('#myModalDiscIn').is(':visible'))
+	    				if(!$('#myModalExternalStorage').is(':visible'))
 						{							
 							$('#myModalExternalStorage').modal('show');							
 						}
@@ -121,8 +121,20 @@ function getGetCurrentState()
 	return false;
 }
 
+function getExternalUnit()
+{
+	if($('#myModalExternalStorage').is(':visible'))
+	{
+		$.post("<?php echo SiteController::createUrl('AjaxGetExternalStorage'); ?>"
+		).success(
+			function(data){
+				$('#external-unit').html(data);
+		});
+	}
+}
+
 $(document).ready(function(){
-	getGetCurrentState();
+	getCurrentState();
 	$.ajaxSetup({
 	    cache: false,
 	    headers: {
@@ -131,7 +143,8 @@ $(document).ready(function(){
 	});
 	
 	setInterval(function() {
-		getGetCurrentState();
+		getExternalUnit();
+		getCurrentState();
 	}, 5000);
 	
 	
@@ -210,7 +223,7 @@ $(document).ready(function(){
     });
 
 	$('#externalStorage').click(function(){
-    	if(!$('#myModalDiscIn').is(':visible'))
+    	if(!$('#myModalExternalStorage').is(':visible'))
 		{							
 			$('#myModalExternalStorage').modal('show');							
 		}
