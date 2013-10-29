@@ -65,7 +65,8 @@ class RippedMovie extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'myMovieDisc' => array(self::BELONGS_TO, 'MyMovieDisc', 'Id_my_movie_disc'),
-			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_ripped_movie'),				
+			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_ripped_movie'),
+			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),				
 		);
 	}
 

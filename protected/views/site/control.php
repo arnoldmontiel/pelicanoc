@@ -4,7 +4,7 @@
   <div class="row-fluid">
     <div class="span3">
     <div class="controlAfiche">
-<img class="peliAfiche" src="<?php echo "images/".$model->big_poster?>" border="0"> 
+<img class="peliAfiche" src="<?php echo "images/".$big_poster?>" border="0"> 
 </div>   
 </div>
     <!-- /span3 -->
@@ -125,7 +125,7 @@ $this->endWidget(); ?>
  <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	
-	ChangeBG('images/','".$model->backdrop."');
+	ChangeBG('images/','".$backdrop."');
 	
 setInterval(function() {
 	//checkEndScene();

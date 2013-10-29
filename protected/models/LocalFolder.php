@@ -41,10 +41,10 @@ class LocalFolder extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_file_type, Id_my_movie_disc, Id_lote', 'required'),
-			array('Id_file_type, Id_source_type, Id_lote', 'numerical', 'integerOnly'=>true),
+			array('Id_file_type, Id_source_type, Id_lote, Id_TMDB_data', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc', 'length', 'max'=>200),
 			array('path', 'length', 'max'=>255),
-			array('read_date', 'safe'),
+			array('read_date, Id_TMDB_data', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('Id, Id_file_type, Id_my_movie_disc, Id_source_type, read_date, path, Id_lote, sourceType_description, fileType_description, title', 'safe', 'on'=>'search'),
@@ -63,7 +63,8 @@ class LocalFolder extends CActiveRecord
 			'fileType' => array(self::BELONGS_TO, 'FileType', 'Id_file_type'),
 			'myMovieDisc' => array(self::BELONGS_TO, 'MyMovieDisc', 'Id_my_movie_disc'),
 			'sourceType' => array(self::BELONGS_TO, 'SourceType', 'Id_source_type'),
-			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_local_folder'),				
+			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_local_folder'),
+			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),				
 		);
 	}
 

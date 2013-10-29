@@ -1,21 +1,25 @@
-	<?php
+<?php
 
 /**
- * This is the model class for table "movies".
+ * This is the model class for table "TMDB_data".
  *
- * The followings are the available columns in table 'movies':
+ * The followings are the available columns in table 'TMDB_data':
  * @property integer $Id
- * @property string Id_my_movie_disc_nzb
- * @property string Id_my_movie_disc
- * @property string $source_type
- * @property string $date
+ * @property string $poster
+ * @property string $big_poster
+ * @property string $backdrop
+ *
+ * The followings are the available model relations:
+ * @property LocalFolder[] $localFolders
+ * @property Nzb[] $nzbs
+ * @property RippedMovie[] $rippedMovies
  */
-class Movies extends CActiveRecord
+class TMDBData extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Movies the static model class
+	 * @return TMDBData the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +31,7 @@ class Movies extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'movies';
+		return 'TMDB_data';
 	}
 
 	/**
@@ -39,12 +43,10 @@ class Movies extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id', 'numerical', 'integerOnly'=>true),
-			array('Id_my_movie_disc_nzb, Id_my_movie_disc', 'length', 'max'=>200),
-			array('source_type', 'length', 'max'=>20),
-			array('date', 'safe'),
+			array('poster, big_poster, backdrop', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_my_movie_disc_nzb, Id_my_movie_disc, source_type, date', 'safe', 'on'=>'search'),
+			array('Id, poster, big_poster, backdrop, TMDB_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,9 +58,9 @@ class Movies extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'myMovieDisc' => array(self::BELONGS_TO, 'myMovieDisc', 'Id_my_movie_disc'),
-			'myMovieDiscNzb' => array(self::BELONGS_TO, 'MyMovieDiscNzb', 'Id_my_movie_disc_nzb'),
-			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),
+			'localFolders' => array(self::HAS_MANY, 'LocalFolder', 'Id_TMDB_data'),
+			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_TMDB_data'),
+			'rippedMovies' => array(self::HAS_MANY, 'RippedMovie', 'Id_TMDB_data'),
 		);
 	}
 
@@ -69,9 +71,9 @@ class Movies extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'disc' => 'Disc',
-			'source_type' => 'Source Type',
-			'date' => 'Date',
+			'poster' => 'Poster',
+			'big_poster' => 'Big Poster',
+			'backdrop' => 'Backdrop',
 		);
 	}
 
@@ -85,8 +87,12 @@ class Movies extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->order = "t.title ASC";
-		
+
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('poster',$this->poster,true);
+		$criteria->compare('big_poster',$this->big_poster,true);
+		$criteria->compare('backdrop',$this->backdrop,true);
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

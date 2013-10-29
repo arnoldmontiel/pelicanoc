@@ -11,9 +11,21 @@ else
 	$model = $model->myMovie;
 }
 
+//$modelTMDB =  $data->TMDBData;
+$modelTMDB =  TMDBData::model()->findByPk($data->Id_TMDB_data);;
+if(isset($modelTMDB))
+{
+	$moviePoster = $modelTMDB->poster;
+}
+else
+{
+	$moviePoster = $model->poster;	
+}
+
+//$moviePoster = $data->TMDBData->poster;
+
 $genre = preg_replace('/\W/', ' ',strtolower($model->genre));
 $title = preg_replace('/\W/', '-',strtolower($model->original_title));
-$moviePoster = $model->poster;
 
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "

@@ -8,22 +8,35 @@
 		if(isset($modelNzb)){
 			$idResource = $modelNzb->Id;			
 			$folderPath = explode('.',$nzbModel->file_name);
-			$path = $folderPath[0]; 
+			$path = $folderPath[0];
+			$modelTMDB =  $modelNzb->TMDBData;
+				
 		}
 		
 		if(isset($modelRippedMovie)){
 			$idResource = $modelRippedMovie->Id;
 			$path = $modelRippedMovie->path;
+ 			$modelTMDB =  $modelRippedMovie->TMDBData;
 		}
 		
 		if(isset($modelLocalFolder)){
 			$idResource = $modelLocalFolder->Id;
 			$path = $modelLocalFolder->path;
+ 			$modelTMDB =  $modelLocalFolder->TMDBData;
 		}
 		
  		if(!empty($path))
  			$size = PelicanoHelper::getDirectorySize($path);
-		
+
+ 		if(isset($modelTMDB))
+ 		{
+ 			$moviePoster = $modelTMDB->big_poster;
+ 		}
+ 		else
+ 		{
+ 			$moviePoster = $model->big_poster;
+ 		}
+ 			
 		?>	    
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
@@ -32,7 +45,7 @@
     <div class="modal-body"> 
     <div class="row-fluid">
     <div class="span3 pagination-centered">
-    <img class="aficheDetail" src="images/<?php echo $model->big_poster;?>" width="100%" height="100%" border="0">
+    <img class="aficheDetail" src="images/<?php echo $moviePoster;?>" width="100%" height="100%" border="0">
     </div><!--/.span3PRINCIPAL -->
     
     <div class="span9 tableInfo">
@@ -135,6 +148,14 @@
 			    </div><!--/.span4 -->
 			    <div class="span9 pagination-left detailSecond">
 			    	<i id="btn-eraser" class="icon-eraser pointer"></i>
+			    </div><!--/.span8 -->
+		    </div><!--/.row -->
+		    <div class="row-fluid detailSecondGroup">
+			    <div class="span3 pagination-left detailSecond detailSecondFirst">
+			    	TMDB
+			    </div><!--/.span4 -->
+			    <div class="span9 pagination-left detailSecond">
+			    	<i id="btn-tmdb" class="icon-pencil pointer"></i>
 			    </div><!--/.span8 -->
 		    </div><!--/.row -->
 		    
@@ -243,5 +264,10 @@
 		}
 		return false;
 	});
-
+	
+	$('#btn-tmdb').click(function(){		
+		window.location = <?php echo '"'. SiteController::createUrl('site/tmdb',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
+		return false;
+	});
+	
 	</script>
