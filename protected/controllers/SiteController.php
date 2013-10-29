@@ -503,8 +503,9 @@ class SiteController extends Controller
 		$play = false;
 		$idResourceCurrentPlay = 0; 		
 		switch ($sourceType) {
-			case 1:				
+			case 1:				 				
 				$nzbModel = Nzb::model()->findByPk($idResource);
+				$TMDBData =$nzbModel->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$nzbModel->file_name);
 				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
@@ -513,12 +514,14 @@ class SiteController extends Controller
 				break;
 			case 2:
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$TMDBData =$nzbRippedMovie->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path);
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
 				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$TMDBData =$localFolder->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
 				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
@@ -533,11 +536,22 @@ class SiteController extends Controller
 				$model = MyMovie::model()->findByPk($id);
 				break;
 		}		
-
+		if(isset($TMDBData))
+		{
+			$backdrop = $TMDBData->backdrop;				
+			$poster = $TMDBData->big_poster;				
+		}
+		else
+		{
+			$backdrop = $model->backdrop;
+			$poster = $model->big_poster;
+		}
 		self::saveCurrentPlay($idResourceCurrentPlay, $sourceType);
 		
 		$this->render('control',array(
 				'model'=>$model,
+				'backdrop'=>$backdrop,
+				'big_poster'=>$poster,
 				'idResource'=>$idResource,
 				'sourceType'=>$sourceType,
 		));
@@ -692,19 +706,45 @@ class SiteController extends Controller
 		
 	}
 	
-	public function actionOpenDuneControl($id, $type)
+	public function actionOpenDuneControl($id, $type,$id_resource)
 	{
 		$this->layout='//layouts/column3';
 		
 		$this->showFilter = false;
 		
 		if($type == 1)
+		{
 			$model = MyMovieNzb::model()->findByPk($id);
-		else
+			$modelNzb = Nzb::model()->findByPk($id_resource);
+			$TMDBData = $modelNzb->TMDBData;
+		}
+		else if($type == 2)
+		{
+			$modelRipped = RippedMovie::model()->findByPk($id_resource);
+			$TMDBData = $modelRipped->TMDBData;				
 			$model = MyMovie::model()->findByPk($id);
-		
+		}
+		else if($type == 3)
+		{
+			$modelLocal = LocalFolder::model()->findByPk($id_resource);
+			$TMDBData = $modelLocal->TMDBData;
+			$model = MyMovie::model()->findByPk($id);
+		}
+			if(isset($TMDBData))
+		{
+			$backdrop = $TMDBData->backdrop;				
+			$poster = $TMDBData->big_poster;				
+		}
+		else
+		{
+			$backdrop = $model->backdrop;
+			$poster = $model->big_poster;
+		}
+				
 		$this->render('control',array(
 				'model'=>$model,
+				'big_poster'=>$poster,
+				'backdrop'=>$backdrop,
 				'idResource'=>$id,
 				'sourceType'=>$type,
 		));
@@ -768,24 +808,24 @@ class SiteController extends Controller
 				{
 					$response['type'] = 1;
 					$response['id'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->Id_my_movie_nzb;
+					$response['id_resource'] = $modelCurrentPlaying->Id_nzb;
 					$response['originalTitle'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
 				}
-				
-				if(isset($modelCurrentPlaying->Id_ripped_movie))
+				else if(isset($modelCurrentPlaying->Id_ripped_movie))
 				{
 					$response['type'] = 2;
 					$response['id'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->Id_my_movie;
 					$response['originalTitle'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
+					$response['id_resource'] = $modelCurrentPlaying->Id_ripped_movie;
 				}
-				
-				if(isset($modelCurrentPlaying->Id_local_folder))
+				else if(isset($modelCurrentPlaying->Id_local_folder))
 				{
 					$response['type'] = 3;
 					$response['id'] = $modelCurrentPlaying->localFolder->myMovieDisc->Id_my_movie;
 					$response['originalTitle'] = $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
+					$response['id_resource'] = $modelCurrentPlaying->Id_local_folder;
 				}
-				
-				if(isset($modelCurrentPlaying->Id_current_disc))
+				else if(isset($modelCurrentPlaying->Id_current_disc))
 				{
 					$response['type'] = 4;
 					$response['originalTitle'] = $modelCurrentPlaying->currentDisc->myMovieDisc->myMovie->original_title;
@@ -984,4 +1024,58 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+	public function actionTmdb()
+	{
+		$idResource = $_GET['idResource'];
+		$sourceType = $_GET['sourceType'];
+		if(isset($_POST['TMDBData']['TMDB_id']))
+		{ 
+			$idResource = $_POST['idResource'];
+			$sourceType = $_POST['sourceType'];
+			$TMDBId = $_POST['TMDBData']['TMDB_id'];
+			$poster = $_POST['poster'];
+			$bigPoster = $_POST['poster'];
+			$bigPoster = str_replace ( "w154" , "w500" , $bigPoster );
+			$backdrop = isset($_POST['backdrop'])?$_POST['backdrop']:"";
+			$backdrop = str_replace ( "w300" , "original" , $backdrop );
+			TMDBHelper::downloadAndLinkImages($TMDBId,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
+			$this->redirect(Yii::app()->homeUrl);				
+		}
+		else {
+			if($sourceType == 1)
+			{
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$model = $modelNzb->TMDBData;
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$model = $modelRippedMovie->TMDBData;
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$model = $localFolder->TMDBData;
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+			
+			$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
+			$movie = reset($results);
+			$images = $movie->posters('154');
+			$bds = $movie->backdrops('300',"");
+			if(!isset($model))
+			{
+				$model = new TMDBData();
+				$model->TMDB_id =$movie->id;
+			}
+			$this->render('_tmdb',array('idResource'=>$idResource,'sourceType'=>$sourceType, 'model'=>$model,'myMovie'=>$myMovie,'movie'=>$movie,'images'=>$images,'bds'=>$bds));
+				
+		}
+	}
+	
 }
