@@ -87,6 +87,7 @@ class Nzb extends CActiveRecord
 			'idResource' => array(self::BELONGS_TO, 'Resource', 'Id_resource'),
 			'nzbState' => array(self::BELONGS_TO, 'NzbState', 'Id_nzb_state'),
 			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_nzb'),
+			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),
 		);
 	}
 
