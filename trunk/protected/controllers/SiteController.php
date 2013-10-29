@@ -122,6 +122,12 @@ class SiteController extends Controller
 		$this->renderPartial('_downloadDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
 	}
 	
+	public function actionAjaxCurrentExternalStorageShow()
+	{
+		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
+		$this->renderPartial('_externalStorage',array('modelCurrentESs'=>$modelCurrentESs));
+	}
+	
 	public function actionAjaxMarketShowDetail()
 	{
 		$id = $_POST['id'];
@@ -209,8 +215,17 @@ class SiteController extends Controller
 	}
 	
 	public function actionAjaxProcessExternalStorage()
+	{		
+		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		if(isset($idCurrentES))
+			ReadFolderHelper::processExternalStorage($idCurrentES);
+	}
+	
+	public function actionAjaxExternalStorageExplore()
 	{
-		ReadFolderHelper::processExternalStorage();	
+		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		if(isset($idCurrentES))
+			ReadFolderHelper::scanExternalStorage($idCurrentES);
 	}
 	
 	public function actionAjaxMarkCurrentESRead()
