@@ -230,14 +230,7 @@ class SiteController extends Controller
 	
 	public function actionAjaxMarkCurrentESRead()
 	{		
-		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
-		
-		if(isset($modelCurrentES))
-		{
-			$modelCurrentES->read = 1;
-			$modelCurrentES->save();
-		}
-		
+		CurrentExternalStorage::model()->updateAll(array('read'=>1));		
 	}
 	
 	public function actionAjaxMarkCurrentDiscRead()
