@@ -1,3 +1,3 @@
 @echo off
 
-C:\xampp\htdocs\workspace\PelicanoC\protected\yiic.bat folder scanExternalStorage
+C:\xampp\htdocs\workspace\PelicanoC\protected\yiic.bat folder scanExternalStorage --id=%2%

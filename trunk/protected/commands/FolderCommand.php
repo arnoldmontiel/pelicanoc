@@ -41,16 +41,15 @@ class FolderCommand extends CConsoleCommand  {
 // 		}
 // 	}	
 	
-	function actionProcessExternalStorage()
+	function actionProcessExternalStorage($idCurrentES)
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-		$idES = 1;
-		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idES, 'is_in'=>1));
+		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 'is_in'=>1));
 			
 		if(isset($modelCurrentES))
 		{
 			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array(
-												'Id_current_external_storage' => $idES,
+												'Id_current_external_storage' => $idCurrentES,
 												'copy'=>1,
 												));
 			
@@ -68,11 +67,12 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
-	function actionScanExternalStorage()
+	function actionScanExternalStorage($idCurrentES)
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		
-		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
+		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 
+																					'is_in'=>1));
 			
 		if(isset($modelCurrentES))
 		{
