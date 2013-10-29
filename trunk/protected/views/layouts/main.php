@@ -58,6 +58,7 @@ function getGetCurrentState()
 						$('#externalStorage').hide();
 					}
 
+    				/*
     				if(obj.currentUSB.state == 1) //stand-by
 					{
     					$('#externalStorage').css("background-image", "url(img/usb_black.png)");
@@ -78,16 +79,20 @@ function getGetCurrentState()
 						$('#myModalExternalStorage').find('#btn-process').hide();						
 						$('#myModalExternalStorage').find('#btn-ripping').hide();
 						$('#myModalExternalStorage').find('#btn-cancel').html('Cerrar');
-					}
-					
-    				 
+					}					
+    				 */
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
     				{    					
-	    				if(!$('#myModalDiscIn').is(':visible'))
-						{							
-							$('#myModalExternalStorage').modal('show');							
-						}
+	    				$.post("<?php echo SiteController::createUrl('AjaxCurrentExternalStorageShow'); ?>"
+						).success(
+							function(data){
+								if(!$('#myModalExternalStorage').is(':visible'))
+								{
+									$('#view-external-storage').html(data);
+									$('#myModalExternalStorage').modal('show');
+								} 
+						});
     				}    				
     			}    			
     			
@@ -225,10 +230,15 @@ $(document).ready(function(){
 			});
     });
     $('#externalStorage').click(function(){
-    	if(!$('#myModalDiscIn').is(':visible'))
-		{							
-			$('#myModalExternalStorage').modal('show');							
-		}
+    	$.post("<?php echo SiteController::createUrl('AjaxCurrentExternalStorageShow'); ?>"
+		).success(
+			function(data){
+				if(!$('#myModalExternalStorage').is(':visible'))
+				{
+					$('#view-external-storage').html(data);
+					$('#myModalExternalStorage').modal('show');
+				} 
+		});
     });
     $('#playlist').click(function(){
     	$.post("<?php echo SiteController::createUrl('AjaxPlaylistsShow'); ?>"
@@ -359,7 +369,7 @@ $(document).ready(function(){
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
 
 echo CHtml::openTag('div',array('id'=>'view-external-storage'));
-echo $this->renderPartial('../site/_externalStorage');
+
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
