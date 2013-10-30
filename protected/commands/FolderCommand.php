@@ -6,40 +6,6 @@ class FolderCommand extends CConsoleCommand  {
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		ReadFolderHelper::checkExternalStorage();
 	}
-
-// 	function actionProcessExternalStorage()
-// 	{
-// 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-		
-// 		$_COMMAND_NAME = "processExternalStorage";		
-		
-// 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-		
-// 		if(isset($modelCommandStatus))
-// 		{
-// 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1));
-			
-// 			if(isset($modelCurrentES))
-// 			{
-// 				$modelCurrentES->state = 2;
-// 				$modelCurrentES->save();
-				
-// 				self::generatePeliFiles($modelCurrentES->path);				
-// 				self::copyExternalStorage($modelCurrentES->path);
-				
-// 				$setting = Setting::getInstance();
-// 				$path = $setting->path_shared;
-// 				$path = $path.'/pelicano/copied/';
-				
-// 				self::processPeliFileES($path);
-				
-// 				$modelCurrentES->state = 3;
-// 				$modelCurrentES->save();
-// 			}
-		
-// 			$modelCommandStatus->setBusy(false);
-// 		}
-// 	}	
 	
 	function actionProcessExternalStorage($idCurrentES)
 	{
@@ -78,32 +44,29 @@ class FolderCommand extends CConsoleCommand  {
 	
 	function actionScanExternalStorage($idCurrentES)
 	{
-		$_COMMAND_NAME = "scanExternalStorage";
 		
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-		
-		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-		
-		if(isset($modelCommandStatus))
+				
+		try
 		{
-			try
-			{
-				$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 
-																							'is_in'=>1));
-					
-				if(isset($modelCurrentES))
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 
+																						'is_in'=>1));
+				
+			if(isset($modelCurrentES) && $modelCurrentES->state != 4) //solo si no esta escaneando
+			{				
+				if($modelCurrentES->state != 5)
 				{
-				
-					self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);			
-				
+					self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);
+					$modelCurrentES->state = 5;
+					$modelCurrentES->save();
 				}
-				$modelCommandStatus->setBusy(false);
-			}
-			catch (Exception $e)
-			{
-				$modelCommandStatus->setBusy(false);
-			}
+			}		
 		}
+		catch (Exception $e)
+		{
+		
+		}
+		
 	}	
 	
 	function actionScanDirectory($path) 
@@ -423,7 +386,7 @@ class FolderCommand extends CConsoleCommand  {
 				if(!$hasPeliFile)
 					$modelPeliFile = self::buildPeliFileES($folderName, $file['dirpath'], $type);				
 				
-				$modelESDataDB = ExternalStorageData::model()->findByAttributes(array('path'=>$modelESData->path));
+				$modelESDataDB = ExternalStorageData::model()->findByAttributes(array('path'=>$modelESData->path, 'Id_current_external_storage'=>$idCurrentES));
 				if(!isset($modelESDataDB))
 				{
 					if(isset($modelPeliFile))
@@ -554,6 +517,31 @@ class FolderCommand extends CConsoleCommand  {
 				} catch (Exception $e) {
 					break;
 				}
+				break;
+			}
+		}
+		else
+		{
+			$modelPeliFile->name = "Desconocido";
+			$modelPeliFile->imdb = 'tt0000000';
+			$modelPeliFile->year = "";
+			$modelPeliFile->poster = "";
+			try {
+					
+			
+				$fp = @fopen($path.'/pelicano.peli', 'w');
+				if(isset($fp))
+				{
+					$content = 'imdb='.$modelPeliFile->imdb.";\n";
+					$content .= 'type='.$type.";\n";
+					$content .= 'name='.$modelPeliFile->name.';';
+					$content .= 'year='.$modelPeliFile->year.';';
+					$content .= 'poster='.$modelPeliFile->poster.';';
+			
+					@fwrite($fp, $content);
+					@fclose($fp);
+				}
+			} catch (Exception $e) {
 				break;
 			}
 		}
