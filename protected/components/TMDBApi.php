@@ -68,13 +68,15 @@ class TMDBApi {
       $asset_class = ucfirst($type); // NOTE: As long as we can map the methods to the class name, this works...
       $results = array();
       foreach ($response->data->results as $asset) {
-        if ($expand) {
-          $info = $this->info($type, $asset->id);
-          if ($info) {
-            $asset = $info;
-          }
-        }
-        $results[$asset->id] = new $asset_class($asset);
+      	if(isset($asset)){
+      		if ($expand) {
+      			$info = $this->info($type, $asset->id);
+      			if ($info) {
+      				$asset = $info;
+      			}
+      		}
+      		$results[$asset->id] = new $asset_class($asset);      		
+      	}
       }
 
     }
