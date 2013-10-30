@@ -1058,8 +1058,12 @@ class SiteController extends Controller
 			$db->paged = false; // merges all paged results into a single result automatically
 			
 			$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
+			if(empty($results))
+			{
+				$results = $db->search('movie', array('query'=>$myMovie->original_title));
+			}
 			$movie = reset($results);
-			$images = $movie->posters('154');
+			$images = $movie->posters('154',"");
 			$bds = $movie->backdrops('300',"");
 			if(!isset($model))
 			{
