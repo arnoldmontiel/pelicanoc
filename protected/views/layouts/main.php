@@ -147,8 +147,15 @@ function getUnitExplorer()
 					}
 			).success(
 				function(data){
-					$('#explorer-unit').html(data);
-					$('#hidden-working').val(0);
+					if(data != 0)
+					{
+						$('#explorer-unit').html(data);
+						$('#hidden-working').val(0);
+					}
+					else
+					{
+						$('#explorer-unit').html("<p>La unidad se esta escaneando...</p>");
+					}
 			});	
 		}		
 	}
