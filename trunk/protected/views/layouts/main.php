@@ -135,6 +135,25 @@ function getExternalUnit()
 	}
 }
 
+function getUnitExplorer()
+{
+	if($('#myModalExternalStorage').is(':visible'))
+	{
+		if($('#hidden-working').val() != 0)
+		{
+			$.post("<?php echo SiteController::createUrl('AjaxGetUnitContent'); ?>",
+					{
+						id:$('#hidden-unit').val()			    
+					}
+			).success(
+				function(data){
+					$('#explorer-unit').html(data);
+					$('#hidden-working').val(0);
+			});	
+		}		
+	}
+}
+
 $(document).ready(function(){
 	getCurrentState();
 	$.ajaxSetup({
@@ -147,6 +166,7 @@ $(document).ready(function(){
 	
 	setInterval(function() {
 		getExternalUnit();
+		getUnitExplorer();
 		getCurrentState();
 	}, 5000);	
 	
@@ -383,7 +403,14 @@ echo CHtml::openTag('div',array('id'=>'view-disc-in'));
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
+<?php 
+$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalESExplorer')); 
 
+echo CHtml::openTag('div',array('id'=>'view-es-explorer'));
+echo $this->renderPartial('../site/_externalStorageExplorer');
+echo CHtml::closeTag('div'); 
+
+$this->endWidget(); ?>
 <!-- floating DIV para Peliculas en Reproduccion -->
 <div id="playback" class="peliReroduciendo">
 <div class="rep">
