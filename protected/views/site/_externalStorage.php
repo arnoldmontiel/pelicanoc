@@ -10,16 +10,17 @@
 		   		<img class="aficheDetail" src="img/discIn.jpg" width="100%" height="100%" border="0">
 		    </div><!--/.span3PRINCIPAL -->
 	    
-    
+    		<input type="hidden" id="hidden-unit" value="0">
+    		<input type="hidden" id="hidden-working" value="0">
 			<div class="span9">
 				<div id="external-unit"></div>
+				<div id="explorer-unit"></div>
 		    </div><!--/.span9PRINCIPAL -->
 		    
 		</div><!--/.rowPRINCIPAL -->
     </div>
     
     <div class="modal-footer">
-    	<button id="btn-process" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargar</button>    	
     	<button id="btn-cancel" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Cancelar</button>
     </div>
   </div>
@@ -28,19 +29,6 @@
 	$('#btn-cancel').click(function(){
 		$('#myModalExternalStorage').modal('hide');
 		markRead();
-		return false;
-	});
-
-	$('.usb-button-scan').click(function(){
-		var id = $(this).attr("id");		
-		$.post("<?php echo SiteController::createUrl('AjaxExternalStorageExplore'); ?>",
-			{
-				id:id			    
-			}
-		).success(
-			function(data){
-		});
-				
 		return false;
 	});
 
