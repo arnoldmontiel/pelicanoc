@@ -221,11 +221,31 @@ class SiteController extends Controller
 			ReadFolderHelper::processExternalStorage($idCurrentES);
 	}
 	
-	public function actionAjaxExternalStorageExplore()
+	public function actionAjaxGetUnitContent()
+	{
+		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		$modelCurrentES = null;
+		$ready = false;		
+		if(isset($idCurrentES))
+		{
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			
+			if(isset($modelCurrentES) && $modelCurrentES->state != 4)
+			{
+					$modelESDataDBs = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES));
+					$ready = true;
+			}			
+		}
+				
+		$this->renderPartial('_externalStorageExplorer',array('modelESDataDBs'=>$modelESDataDBs, 'ready'=>$ready));
+	}
+	
+	public function actionAjaxExploreExternalStorage()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		if(isset($idCurrentES))
 			ReadFolderHelper::scanExternalStorage($idCurrentES);
+		echo "<p>La unidad se esta escaneando...</p>";
 	}
 	
 	public function actionAjaxMarkCurrentESRead()
