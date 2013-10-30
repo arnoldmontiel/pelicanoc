@@ -237,7 +237,10 @@ class SiteController extends Controller
 			}			
 		}
 				
-		$this->renderPartial('_externalStorageExplorer',array('modelESDataDBs'=>$modelESDataDBs, 'ready'=>$ready));
+		if($ready)
+			$this->renderPartial('_externalStorageExplorer',array('modelESDataDBs'=>$modelESDataDBs, 'ready'=>$ready));
+		else
+			echo "0";
 	}
 	
 	public function actionAjaxExploreExternalStorage()
