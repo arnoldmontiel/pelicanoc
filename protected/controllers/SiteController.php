@@ -911,16 +911,22 @@ class SiteController extends Controller
 		
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'is_in = 1';
-		$modelCurrentUSB = CurrentExternalStorage::model()->find($criteria);
+		$modelCurrentUSBs = CurrentExternalStorage::model()->findAll($criteria);
 		
 		$isDiscIN = 0;
-		$read = 0;
+		$read = 1;
 		$state = 1;
-		if(isset($modelCurrentUSB))
-		{
+		if(count($modelCurrentUSBs)>0)
+		{			
 			$isDiscIN = 1;
-			$read = $modelCurrentUSB->read;
-			$state = $modelCurrentUSB->state;
+			foreach($modelCurrentUSBs as $modelCurrentUSB)
+			{
+				if($modelCurrentUSB->read == 0)
+				{
+					$read = 0;
+					break;
+				}
+			}			
 		}
 		
 		$currentUSB = array('is_in'=>$isDiscIN,'read'=>$read, 'state'=>$state);
