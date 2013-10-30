@@ -36,36 +36,29 @@ class ReadFolderHelper
 	}
 	
 	static public function scanExternalStorage($idCurrentES)
-	{
-		$_COMMAND_NAME = "scanExternalStorage";
-	
-		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-	
-		if(isset($modelCommandStatus))
-		{
-			if(!$modelCommandStatus->busy)
+	{		
+		try {			
+
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES) && $modelCurrentES->state != 4) // distinto de "on scan"
 			{
-				try {
-					$modelCommandStatus->setBusy(true);
-	
-					$sys = strtoupper(PHP_OS);
+				$sys = strtoupper(PHP_OS);
 	
 	
-					if(substr($sys,0,3) == "WIN")
-					{
-						$WshShell = new COM('WScript.Shell');						
-						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/scanExternalStorage -id '. $idCurrentES, 0, false);
-					}
-					else
-					{
-						exec(dirname(__FILE__).'/../commands/shell/scanExternalStorage.sh '.$idCurrentES.' >/dev/null&');
-					}
-				} catch (Exception $e) {
-					$modelCommandStatus->setBusy(false);
+				if(substr($sys,0,3) == "WIN")
+				{
+					$WshShell = new COM('WScript.Shell');						
+					$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/scanExternalStorage -idCurrentEs '. $idCurrentES, 0, false);
+				}
+				else
+				{
+					exec(dirname(__FILE__).'/../commands/shell/scanExternalStorage.sh '.$idCurrentES.' >/dev/null&');
 				}
 			}
-	
+		} catch (Exception $e) {
+						
 		}
+		
 	}
 	
 	static public function scanDirectory($path)
@@ -130,6 +123,7 @@ class ReadFolderHelper
 					$current = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1,'path'=>$folder));
 					if(isset($current))
 					{
+						//TODO falta eliminar los registros de external_storage_data
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');						
 					}
 				}				
