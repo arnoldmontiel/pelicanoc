@@ -52,14 +52,11 @@ class FolderCommand extends CConsoleCommand  {
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 
 																						'is_in'=>1));
 				
-			if(isset($modelCurrentES) && $modelCurrentES->state != 4) //solo si no esta escaneando
+			if(isset($modelCurrentES) && $modelCurrentES->state == 4) //solo si esta en modo scan
 			{				
-				if($modelCurrentES->state != 5)
-				{
-					self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);
-					$modelCurrentES->state = 5;
-					$modelCurrentES->save();
-				}
+				self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);
+				$modelCurrentES->state = 5;
+				$modelCurrentES->save();				
 			}		
 		}
 		catch (Exception $e)
