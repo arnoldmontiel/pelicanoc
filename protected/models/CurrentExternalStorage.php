@@ -11,6 +11,10 @@
  * @property integer $read
  * @property string $path
  * @property integer $state
+ * @property integer $is_scanned
+ *
+ * The followings are the available model relations:
+ * @property ExternalStorageData[] $externalStorageDatas
  */
 class CurrentExternalStorage extends CActiveRecord
 {
@@ -30,12 +34,12 @@ class CurrentExternalStorage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('is_in, read, state', 'numerical', 'integerOnly'=>true),
+			array('is_in, read, state, is_scanned', 'numerical', 'integerOnly'=>true),
 			array('path', 'length', 'max'=>200),
 			array('in_date, out_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, in_date, out_date, is_in, read, path, state', 'safe', 'on'=>'search'),
+			array('Id, in_date, out_date, is_in, read, path, state, is_scanned', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,6 +51,7 @@ class CurrentExternalStorage extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'externalStorageDatas' => array(self::HAS_MANY, 'ExternalStorageData', 'Id_current_external_storage'),
 		);
 	}
 
@@ -63,6 +68,7 @@ class CurrentExternalStorage extends CActiveRecord
 			'read' => 'Read',
 			'path' => 'Path',
 			'state' => 'State',
+			'is_scanned' => 'Is Scanned',
 		);
 	}
 
@@ -91,6 +97,7 @@ class CurrentExternalStorage extends CActiveRecord
 		$criteria->compare('read',$this->read);
 		$criteria->compare('path',$this->path,true);
 		$criteria->compare('state',$this->state);
+		$criteria->compare('is_scanned',$this->is_scanned);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
