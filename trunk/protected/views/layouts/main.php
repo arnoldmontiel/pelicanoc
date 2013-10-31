@@ -414,7 +414,7 @@ $this->endWidget(); ?>
 $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalESExplorer')); 
 
 echo CHtml::openTag('div',array('id'=>'view-es-explorer'));
-echo $this->renderPartial('../site/_externalStorageExplorer');
+
 echo CHtml::closeTag('div'); 
 
 $this->endWidget(); ?>
