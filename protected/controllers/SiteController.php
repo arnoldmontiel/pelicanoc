@@ -249,6 +249,7 @@ class SiteController extends Controller
 		if(isset($idCurrentES))
 		{
 			ExternalStorageData::model()->updateAll(array('copy'=>1),'Id_current_external_storage = '.$idCurrentES);
+			ReadFolderHelper::processExternalStorage($idCurrentES);
 		}
 	}
 	
