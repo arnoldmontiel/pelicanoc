@@ -26,8 +26,10 @@ class TMDBMovie extends Asset {
     $info = $db->info(self::$type, $this->id, 'casts');
     foreach($info as $group => $persons){
       if(!is_array($persons)) continue;
+      $i= 0;
       foreach($persons as $index => $person){
-        $casts[$group][$person->id] = new TMDBPerson($person);
+        $casts[$group][$i."_".$person->id] = new TMDBPerson($person);
+        $i++;
       }
     }
     return $casts;
