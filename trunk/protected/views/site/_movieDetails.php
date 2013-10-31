@@ -152,10 +152,18 @@
 		    </div><!--/.row -->
 		    <div class="row-fluid detailSecondGroup">
 			    <div class="span3 pagination-left detailSecond detailSecondFirst">
-			    	TMDB
+			    	Imagenes
 			    </div><!--/.span4 -->
 			    <div class="span9 pagination-left detailSecond">
 			    	<i id="btn-tmdb" class="icon-pencil pointer"></i>
+			    </div><!--/.span8 -->
+		    </div><!--/.row -->
+		    <div class="row-fluid detailSecondGroup">
+			    <div class="span3 pagination-left detailSecond detailSecondFirst">
+			    	Cambiar pelicula
+			    </div><!--/.span4 -->
+			    <div class="span9 pagination-left detailSecond">
+			    	<i id="btn-tmdb-movie" class="icon-pencil pointer"></i>
 			    </div><!--/.span8 -->
 		    </div><!--/.row -->
 		    
@@ -267,6 +275,10 @@
 	
 	$('#btn-tmdb').click(function(){		
 		window.location = <?php echo '"'. SiteController::createUrl('site/tmdb',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
+		return false;
+	});
+	$('#btn-tmdb-movie').click(function(){		
+		window.location = <?php echo '"'. SiteController::createUrl('site/tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
 		return false;
 	});
 	

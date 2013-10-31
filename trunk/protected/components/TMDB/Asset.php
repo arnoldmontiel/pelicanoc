@@ -9,7 +9,7 @@ class Asset {
   public function __construct($data){
     if(is_numeric($data)){
     	$db = TMDBApi::getInstance();
-		$data = $db->info(static::$type, $data);
+    	$data = $db->info(static::$type, $data);
     }
     foreach($data as $key => $value){
       $this->{$key} = $value;

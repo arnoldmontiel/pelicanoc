@@ -4,7 +4,7 @@
  *
  * @link http://help.themoviedb.org/kb/api/movie-info-2
  */
-class Movie extends Asset {
+class TMDBMovie extends Asset {
 
   public static $type = 'movie';
 
@@ -27,7 +27,7 @@ class Movie extends Asset {
     foreach($info as $group => $persons){
       if(!is_array($persons)) continue;
       foreach($persons as $index => $person){
-        $casts[$group][$person->id] = new Person($person);
+        $casts[$group][$person->id] = new TMDBPerson($person);
       }
     }
     return $casts;
@@ -112,7 +112,7 @@ class Movie extends Asset {
     $movies = array();
     $info = $db->info(self::$type, $this->id, 'similar_movies', array('language'=>$language, 'page'=>$page));
     foreach($info->results as $index => $movie){
-      $movies[$movie->id] = new Movie($movie);
+      $movies[$movie->id] = new TMDBMovie($movie);
     }
     return $movies;
   }
@@ -127,7 +127,7 @@ class Movie extends Asset {
     $collection = false;
 
     if(isset($this->belongs_to_collection)){
-      $collection = new Collection($this->belongs_to_collection->id);
+      $collection = new TMDBCollection($this->belongs_to_collection->id);
     }
 
     return $collection;

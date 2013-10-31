@@ -1,6 +1,6 @@
 <?php
 
-class Person extends Asset {
+class TMDBPerson extends Asset {
 
   public static $type = 'person';
 
