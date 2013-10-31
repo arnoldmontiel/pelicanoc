@@ -173,7 +173,6 @@ class SiteController extends Controller
 		$localFolder = null;
 		$bookmarks = null;
 		$modelCurrentDisc = null;
-		
 		if($sourceType == 1)
 		{
 			$modelNzb = Nzb::model()->findByPk($id_resource);
@@ -201,7 +200,6 @@ class SiteController extends Controller
 			$criteria->order = 't.Id ASC';				
 			$bookmarks = $localFolder->bookmarks;				
 		}
-		
 		$casting = $this->getCasting($criteria);
 		$this->renderPartial('_movieDetails',array('model'=>$model, 
 													'casting'=>$casting, 
@@ -1103,5 +1101,187 @@ class SiteController extends Controller
 				
 		}
 	}
+	public function actionTmdbChangeMovie()
+	{		
+		if(isset($_POST['movie']))
+		{ 
+			$transaction=Yii::app()->db->beginTransaction();
+			try 
+			{
+				$idResource = $_POST['idResource'];
+				$sourceType = $_POST['sourceType'];
+				$personRelation ="";
+				if($sourceType == 1)
+				{
+					$personRelation ="MyMovieNzbPerson";
+					$idRelation = "Id_my_movie_nzb";
+					$model = Nzb::model()->findByPk($idResource);
+					$myMovie = $model->myMovieDiscNzb->myMovieNzb;
+					$disc = $model->myMovieDiscNzb;
+					$newMyMovie = new MyMovieNzb();
+				}
+				else if($sourceType == 2)
+				{
+					$personRelation ="MyMoviePerson";
+					$idRelation = "Id_my_movie";
+					$model = RippedMovie::model()->findByPk($idResource);
+					$myMovie = $model->myMovieDisc->myMovie;
+					$disc = $model->myMovieDisc;
+					$newMyMovie = new MyMovie();
+				}
+				else
+				{
+					$personRelation ="MyMoviePerson";
+					$idRelation = "Id_my_movie";
+					$model = LocalFolder::model()->findByPk($idResource);
+					$myMovie = $model->myMovieDisc->myMovie;
+					$disc = $model->myMovieDisc;
+					$newMyMovie = new MyMovie();
+				}
+				$db = TMDBApi::getInstance();
+				$db->adult = true;  // return adult content
+				$db->paged = false; // merges all paged results into a single result automatically
+				
+				$movie = new TMDBMovie($_POST['movie']);
+				$images = $movie->posters('154',"");
+				$bds = $movie->backdrops('300',"");
+				$persons = $movie->casts();
+				$poster = $images[0]->file_path;
+				$bigPoster = $images[0]->file_path;
+				$bigPoster = str_replace ( "w154" , "w500" , $bigPoster );
+				$backdrop = $bds[0]->file_path;
+				$backdrop = str_replace ( "w300" , "original" , $backdrop );
+				
+				TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
+				if(!$myMovie->is_custom)
+				{
+					$myMovie->Id=uniqid ("cust_");
+					$newMyMovie->attributes =$myMovie->attributes;
+					$myMovie = $newMyMovie;
+				}
+				$myMovie->original_title = $movie->original_title;
+				$myMovie->adult = $movie->adult?1:0;
+				$myMovie->release_date = $movie->release_date;
+				$date =date_parse($movie->release_date);
+				$myMovie->production_year = $date['year'];
+				$myMovie->running_time = $movie->runtime;
+				$myMovie->description = $movie->overview;
+				$myMovie->local_title = $movie->title;
+				$myMovie->sort_title= $movie->title;
+				$myMovie->imdb= $movie->imdb_id;
+				$myMovie->rating= $movie->vote_average;
+				$myMovie->is_custom = true;
+				$genres = $movie->genres;
+				$myMovie->genre="";
+				$first = true;
+				foreach($genres as $genre)
+				{
+					if($first)
+					{
+						$first = false;
+						$myMovie->genre = $genre->name;
+					}
+					else
+					{
+						$myMovie->genre = $myMovie->genre.", ".$genre->name;
+					}
+				}
+				
+				$companies = $movie->production_companies;
+				$myMovie->studio = "";
+				$first = true;
+				foreach($companies as $companie)
+				{
+					if($first)
+					{
+						$first = false;
+						$myMovie->studio = $companie->name;
+					}
+					else
+					{
+						$myMovie->studio = $myMovie->studio.", ".$companie->name;
+					}
+				}
+				if($myMovie->save())
+				{
+					$casts =$persons['cast'];
+			
+					$personRelation::model()->deleteAllByAttributes(array($idRelation=>$myMovie->Id));
+					foreach($casts as $cast)
+					{
+						$person = new Person();
+						$person->name= $cast->name;
+						$person->type = "Actor";
+						$person->role = $cast->character;
+						$person->photo_original = $cast->profile();
+						if($person->save())
+						{
+							$myMoviePerson =  new $personRelation();
+							$myMoviePerson->$idRelation = $myMovie->Id;
+							$myMoviePerson->Id_person =$person->Id;
+							$myMoviePerson->save();
+						}
+					}
+					$crews =isset($persons['crew'])?$persons['crew']:array();
+					foreach($crews as $crew)
+					{
+						$person = new Person();
+						$person->name= $crew->name;
+						$person->type = $crew->job;
+						$person->photo_original = $crew->profile();
+						if($person->save())
+						{
+							$myMoviePerson =  new $personRelation();
+							$myMoviePerson->$idRelation = $myMovie->Id;
+							$myMoviePerson->Id_person =$person->Id;
+							$myMoviePerson->save();
+						}
+					}
+			
+					if(isset($disc->Id_my_movie))	$disc->Id_my_movie=$myMovie->Id;
+					else $disc->Id_my_movie_nzb=$myMovie->Id;;
+						
+					if($disc->save())
+					{
+						$transaction->commit();
+						$this->redirect(Yii::app()->homeUrl);
+					}
+				}
+			}
+			catch (Exception $e) {
+				var_dump($e);
+				$transaction->rollBack();				
+			}
+		}
+		else 
+		{
+			$idResource = $_GET['idResource'];
+			$sourceType = $_GET['sourceType'];
+				
+			if($sourceType == 1)
+			{
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			$path = explode("/",$localFolder->path);
+			echo $path[count($path)-1];
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+			$results = $db->search('movie', array('query'=>$myMovie->original_title));
+			$this->render('_tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));				
+		}
+	}
+	
 	
 }

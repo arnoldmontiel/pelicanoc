@@ -1,6 +1,5 @@
 <?php
-
-class Company extends Asset {
+class TMDBCompany extends Asset {
 
   public static $type = 'company';
 

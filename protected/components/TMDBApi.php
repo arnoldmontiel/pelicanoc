@@ -1,11 +1,10 @@
 <?php
 require_once(__DIR__ . '/TMDB/Asset.php');
-require_once(__DIR__ . '/TMDB/Movie.php');
-require_once(__DIR__ . '/TMDB/Person.php');
-require_once(__DIR__ . '/TMDB/Collection.php');
-require_once(__DIR__ . '/TMDB/Company.php');
-require_once(__DIR__ . '/TMDB/Genre.php');
-
+require_once(__DIR__ . '/TMDB/TMDBMovie.php');
+require_once(__DIR__ . '/TMDB/TMDBPerson.php');
+require_once(__DIR__ . '/TMDB/TMDBCollection.php');
+require_once(__DIR__ . '/TMDB/TMDBCompany.php');
+require_once(__DIR__ . '/TMDB/TMDBGenre.php');
 class TMDBApi {
 
   protected $api_url = "http://api.themoviedb.org";
@@ -75,7 +74,10 @@ class TMDBApi {
       				$asset = $info;
       			}
       		}
-      		$results[$asset->id] = new $asset_class($asset);      		
+      		$class ="TMDB".$asset_class;
+	  		//$class =$asset_class;
+      		$results[$asset->id] = new $class($asset);
+      		
       	}
       }
 

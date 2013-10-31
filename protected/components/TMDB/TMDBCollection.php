@@ -1,11 +1,10 @@
 <?php
-
 /**
  * Helper class to hold the Collection Info API calls
  *
  * @link http://help.themoviedb.org/kb/api/collection-info
  */
-class Collection extends Asset {
+class TMDBCollection extends Asset {
 
   public static $type = 'collection';
 

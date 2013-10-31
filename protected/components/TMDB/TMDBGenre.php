@@ -1,11 +1,10 @@
 <?php
-
 /**
  * Helper class to hold the Genre Info API calls
  *
  * @link http://help.themoviedb.org/kb/api/genre-info
  */
-class Genre extends Asset {
+class TMDBGenre extends Asset {
 
   public static $type = 'genre';
 
