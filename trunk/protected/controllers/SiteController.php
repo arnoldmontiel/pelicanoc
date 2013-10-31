@@ -226,9 +226,10 @@ class SiteController extends Controller
 		$ready = false;		
 		if(isset($idCurrentES))
 		{
-			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
+																					'is_scanned'=>1));
 			
-			if(isset($modelCurrentES) && $modelCurrentES->state != 4)
+			if(isset($modelCurrentES))
 			{
 					$modelESDataDBs = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES));
 					$ready = true;
@@ -236,9 +237,19 @@ class SiteController extends Controller
 		}
 				
 		if($ready)
-			$this->renderPartial('_externalStorageExplorer',array('modelESDataDBs'=>$modelESDataDBs, 'ready'=>$ready));
+			$this->renderPartial('_externalStorageExplorer',array('modelESDataDBs'=>$modelESDataDBs, 
+																	'ready'=>$ready));
 		else
 			echo "0";
+	}
+	
+	public function actionAjaxDownloadAllES()
+	{
+		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		if(isset($idCurrentES))
+		{
+			ExternalStorageData::model()->updateAll(array('copy'=>1),'Id_current_external_storage = '.$idCurrentES);
+		}
 	}
 	
 	public function actionAjaxExploreExternalStorage()
@@ -246,6 +257,7 @@ class SiteController extends Controller
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		if(isset($idCurrentES))
 			ReadFolderHelper::scanExternalStorage($idCurrentES);
+		
 		echo "<p>La unidad se esta escaneando...</p>";
 	}
 	
