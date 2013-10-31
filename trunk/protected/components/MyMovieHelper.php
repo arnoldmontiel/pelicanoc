@@ -1,6 +1,26 @@
 <?php
 class MyMovieHelper
 {
+	static public function saveUnknownMyMovieData()
+	{
+		$modelMyMovie = new MyMovie();
+		
+		$modelMyMovie->Id = uniqid();
+		$modelMyMovie->type = "Blu-ray";
+		$modelMyMovie->local_title = "Desconocido";
+		$modelMyMovie->original_title = "Desconocido";
+		$modelMyMovie->sort_title = "Desconocido";
+		
+		//TODO agregar poster para pelicula desconocida
+		$modelMyMovie->poster = "";
+		
+		//TODO agregar backdrop para pelicula desconocida
+		$modelMyMovie->backdrop = "";
+		
+		$modelMyMovie->save()
+		return $modelMyMovie->Id;
+	}
+	
 	static public function saveMyMovieData($idMyMovie)
 	{
 		$modelMyMovieDB = MyMovie::model()->findByPk($idMyMovie);

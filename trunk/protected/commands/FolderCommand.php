@@ -154,7 +154,7 @@ class FolderCommand extends CConsoleCommand  {
 					
 					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 	
-					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
+					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB))
 					{
 						if(self::saveByImdb($modelPeliFile))
 						{
@@ -553,63 +553,84 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function saveByImdb($modelPeliFile)
 	{
-		$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb, 'type'=>'Blu-ray'));
-		
-		if(!isset($modelMyMovieDB))
+		if($modelPeliFile->imdb != 'tt0000000')
 		{
-			$myMoviesAPI = new MyMoviesAPI();
-			$response = $myMoviesAPI->SearchDiscTitleByIMDBId($modelPeliFile->imdb, $modelPeliFile->country);
-			if(!empty($response) && (string)$response['status'] == 'ok')
+			$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb, 'type'=>'Blu-ray'));
+			
+			if(!isset($modelMyMovieDB))
 			{
-				$titles = $response->Titles;
-				$idMyMovie = '';
-				foreach($titles->children() as $title)
+				$myMoviesAPI = new MyMoviesAPI();
+				$response = $myMoviesAPI->SearchDiscTitleByIMDBId($modelPeliFile->imdb, $modelPeliFile->country);
+				if(!empty($response) && (string)$response['status'] == 'ok')
 				{
-					$idMyMovie = (string)$title['id'];
-					if((string)$title['type'] == "Blu-ray")
-						break;				
-				}
-			    		
-				if(MyMovieHelper::saveMyMovieData($idMyMovie))
-				{					
-					
-					$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
-					
-					if(!isset($modelMyMovieDiscDB))
+					$titles = $response->Titles;
+					$idMyMovie = '';
+					foreach($titles->children() as $title)
 					{
-						$modelMyMovieDiscDB = new MyMovieDisc();
-						$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
-						$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
-						$modelMyMovieDiscDB->name = $modelPeliFile->name;
-						if($modelMyMovieDiscDB->save())
-						{
-							$modelMyMovieDB = MyMovie::model()->findByPk($idMyMovie);
-								
-							if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($modelPeliFile->season) && !empty($modelPeliFile->episodes))
-								MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $modelPeliFile->season, $modelPeliFile->episodes, $modelMyMovieDiscDB->Id);
-							
-							return true;
-						}
+						$idMyMovie = (string)$title['id'];
+						if((string)$title['type'] == "Blu-ray")
+							break;				
 					}
+				    		
+					if(MyMovieHelper::saveMyMovieData($idMyMovie))
+					{					
 						
-				}		    
+						$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
+						
+						if(!isset($modelMyMovieDiscDB))
+						{
+							$modelMyMovieDiscDB = new MyMovieDisc();
+							$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+							$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
+							$modelMyMovieDiscDB->name = $modelPeliFile->name;
+							if($modelMyMovieDiscDB->save())
+							{
+								$modelMyMovieDB = MyMovie::model()->findByPk($idMyMovie);
+									
+								if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($modelPeliFile->season) && !empty($modelPeliFile->episodes))
+									MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $modelPeliFile->season, $modelPeliFile->episodes, $modelMyMovieDiscDB->Id);
+								
+								return true;
+							}
+						}
+							
+					}		    
+				}
+			}
+			else
+			{
+				$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
+					
+				if(!isset($modelMyMovieDiscDB))
+				{
+					$modelMyMovieDiscDB = new MyMovieDisc();
+					$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+					$modelMyMovieDiscDB->Id_my_movie = $modelMyMovieDB->Id;
+					$modelMyMovieDiscDB->name = $modelPeliFile->name;
+					if($modelMyMovieDiscDB->save())
+					{
+						if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($modelPeliFile->season) && !empty($modelPeliFile->episodes))
+							MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $modelPeliFile->season, $modelPeliFile->episodes, $modelMyMovieDiscDB->Id);
+						
+						return true;
+					}
+				}
 			}
 		}
 		else
 		{
+			$idMyMovie = MyMovieHelper::saveUnknownMyMovieData();
 			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
-				
+			
 			if(!isset($modelMyMovieDiscDB))
 			{
 				$modelMyMovieDiscDB = new MyMovieDisc();
 				$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
-				$modelMyMovieDiscDB->Id_my_movie = $modelMyMovieDB->Id;
+				$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
 				$modelMyMovieDiscDB->name = $modelPeliFile->name;
 				if($modelMyMovieDiscDB->save())
 				{
-					if(isset($modelMyMovieDB->Id_my_movie_serie_header) && !empty($modelPeliFile->season) && !empty($modelPeliFile->episodes))
-						MyMovieHelper::createSerieTreeByFolder($modelMyMovieDB->Id_my_movie_serie_header, $modelPeliFile->season, $modelPeliFile->episodes, $modelMyMovieDiscDB->Id);
-					
+						
 					return true;
 				}
 			}
