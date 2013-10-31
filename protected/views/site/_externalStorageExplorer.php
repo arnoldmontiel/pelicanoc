@@ -26,7 +26,7 @@
 						echo $item->path;
 					echo CHtml::closeTag('td');								
 					echo CHtml::openTag('td');
-						echo "<button idrecord='".$item->Id."' class='btn btn-primary btn-medium '>Descargar</button>";
+						echo "<button idrecord='".$item->Id."' class='btn-download-handler btn btn-primary btn-medium '>Descargar</button>";
 					echo CHtml::closeTag('td');
 				echo CHtml::closeTag('tr');
 			}
@@ -37,14 +37,17 @@
 	<script>
 		$('#btn-download-all').click(function(){
 			var id = $('#hidden-unit').val();
+			var target = $(this);
 			$.post("<?php echo SiteController::createUrl('AjaxDownloadAllES'); ?>",
 			{
 				id:id
 			}
 			).success(
 			function(data){
-			});
-			markRead();
+				$('.btn-download-handler').text("Descargando...");
+				$('.btn-download-handler').attr("disabled", "disabled");
+				target.attr("disabled", "disabled");
+			});			
 			return false;
 		});	
 	</script>
