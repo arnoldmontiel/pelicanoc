@@ -1181,7 +1181,7 @@ class SiteController extends Controller
 				$myMovie->local_title = $movie->title;
 				$myMovie->sort_title= $movie->title;
 				$myMovie->imdb= $movie->imdb_id;
-				$myMovie->rating= $movie->vote_average;
+				$myMovie->rating= (int)$movie->vote_average;
 				$myMovie->is_custom = true;
 				$genres = $movie->genres;
 				$myMovie->genre="";
@@ -1218,7 +1218,17 @@ class SiteController extends Controller
 				{
 					$casts =$persons['cast'];
 			
+					$relations = $personRelation::model()->findAllByAttributes(array($idRelation=>$myMovie->Id));
+					$personsToDelete = array();
+					foreach ($relations as $relation)
+					{
+						$personsToDelete[] = $relation->person;
+					}
 					$personRelation::model()->deleteAllByAttributes(array($idRelation=>$myMovie->Id));
+					foreach ($personsToDelete as $toDelete)
+					{
+						$toDelete->delete();
+					}
 					foreach($casts as $cast)
 					{
 						$person = new Person();
@@ -1235,8 +1245,10 @@ class SiteController extends Controller
 						}
 					}
 					$crews =isset($persons['crew'])?$persons['crew']:array();
+					//var_dump($persons);
 					foreach($crews as $crew)
 					{
+						//var_dump($crew);
 						$person = new Person();
 						$person->name= $crew->name;
 						$person->type = $crew->job;
@@ -1249,7 +1261,6 @@ class SiteController extends Controller
 							$myMoviePerson->save();
 						}
 					}
-			
 					if(isset($disc->Id_my_movie))	$disc->Id_my_movie=$myMovie->Id;
 					else $disc->Id_my_movie_nzb=$myMovie->Id;;
 						
@@ -1286,12 +1297,25 @@ class SiteController extends Controller
 				$myMovie = $localFolder->myMovieDisc->myMovie;
 			}
 			$path = explode("/",$localFolder->path);
-			echo $path[count($path)-1];
+			$path = $path[count($path)-1];
+			echo $path; 
 			$db = TMDBApi::getInstance();
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
 			$results = $db->search('movie', array('query'=>$myMovie->original_title));
 			$this->render('_tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));				
+		}
+	}
+	public function actionAjaxShearMovieTMDB()
+	{
+		if(isset($_POST['title']))
+		{
+			$title = $_POST['title'];
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+			$results = $db->search('movie', array('query'=>$title));			
+			$this->renderPartial('_searchMoviesResult',array('movies'=>$results));				
 		}
 	}
 	
