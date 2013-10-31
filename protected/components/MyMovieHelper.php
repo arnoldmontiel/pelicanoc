@@ -17,7 +17,7 @@ class MyMovieHelper
 		//TODO agregar backdrop para pelicula desconocida
 		$modelMyMovie->backdrop = "";
 		
-		$modelMyMovie->save()
+		$modelMyMovie->save();
 		return $modelMyMovie->Id;
 	}
 	
