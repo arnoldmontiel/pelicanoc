@@ -33,6 +33,21 @@
 			?>
 		</tbody>
 	</table>         
+	<button id="btn-download-all" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargar Todo</button>
+	<script>
+		$('#btn-download-all').click(function(){
+			var id = $('#hidden-unit').val();
+			$.post("<?php echo SiteController::createUrl('AjaxDownloadAllES'); ?>",
+			{
+				id:id
+			}
+			).success(
+			function(data){
+			});
+			markRead();
+			return false;
+		});	
+	</script>
 <?php else: ?>
 <p>La unidad se esta escaneando...</p>
 <?php endif; ?>
