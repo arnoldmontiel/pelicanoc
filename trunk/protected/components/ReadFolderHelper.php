@@ -40,8 +40,10 @@ class ReadFolderHelper
 		try {			
 
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
-			if(isset($modelCurrentES) && $modelCurrentES->state != 4) // distinto de "on scan"
+			if(isset($modelCurrentES) && $modelCurrentES->state != 4 &&  
+				$modelCurrentES->is_scanned == 0) // nunca fue escaneado y el estado no es escaneando
 			{
+				//grabo estado escaneando..
 				$modelCurrentES->state = 4;
 				$modelCurrentES->save();
 				

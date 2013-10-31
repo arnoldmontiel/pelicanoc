@@ -27,8 +27,7 @@ class FolderCommand extends CConsoleCommand  {
 													));
 				
 				$setting = Setting::getInstance();
-				$path = $setting->path_shared;
-				$path = $path.'/pelicano/copied/';
+				$path = $setting->path_shared. $setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';				
 				
 				foreach($modelESDatas as $modelESData)
 				{
@@ -49,12 +48,14 @@ class FolderCommand extends CConsoleCommand  {
 				
 		try
 		{
-			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
+																						'is_scanned'=>0, 
 																						'is_in'=>1));
 				
 			if(isset($modelCurrentES) && $modelCurrentES->state == 4) //solo si esta en modo scan
 			{				
 				self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);
+				$modelCurrentES->is_scanned = 1;
 				$modelCurrentES->state = 5;
 				$modelCurrentES->save();				
 			}		
@@ -119,8 +120,8 @@ class FolderCommand extends CConsoleCommand  {
 				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 			
 				if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
-				{
-					$destination = $destination.'/pelicano/copied/';
+				{					
+					$destination = $destination.$setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';
 					exec("cp -fr ".$source . " " .$destination);
 				}
 			}			
@@ -138,6 +139,8 @@ class FolderCommand extends CConsoleCommand  {
 			//genero un nuevo lote
 			$modelLote->save();
 				
+			$setting = Setting::getInstance();
+			$copiedPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
 			foreach ($iterator as $file)
 			{
 					
@@ -146,7 +149,8 @@ class FolderCommand extends CConsoleCommand  {
 				{
 						
 					$shortPath = self::getShortPath($path, $file, $modelPeliFile);
-					$shortPath = '/pelicano/copied'.$shortPath;
+					
+					$shortPath = $copiedPath.$shortPath;
 					
 					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 	
@@ -185,8 +189,10 @@ class FolderCommand extends CConsoleCommand  {
 	{		
 		try 
 		{
+			$setting = Setting::getInstance();
+						
 			$modelLote = new Lote();
-			$iterator = ReadFolderHelper::getPeliDirectoryList($path, true, $path.'/pelicano');
+			$iterator = ReadFolderHelper::getPeliDirectoryList($path, true, $path.$setting->path_shared_pelicano_root);
 			$chunksize = 1*(1024*1024); // how many bytes per chunk
 				
 			//genero un nuevo lote
