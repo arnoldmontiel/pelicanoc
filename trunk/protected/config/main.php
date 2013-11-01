@@ -10,7 +10,7 @@ return array(
 	'name'=>'PELICANO',
 
 	// preloading 'log' component
-	'preload'=>array('log','bootstrap'),
+	'preload'=>array('log'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -66,10 +66,6 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-		'bootstrap' => array(
-			    'class' => 'ext.bootstrap.components.Bootstrap',
-			    'responsiveCss' => true,
-		),
 		'session'=>array('timeout'=>3600*24*30),
 		// uncomment the following to enable URLs in path-format
 		/*
@@ -87,7 +83,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=pelicanoc',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => 'root',
 			'charset' => 'utf8',
 		),
 

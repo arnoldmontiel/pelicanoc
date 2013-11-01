@@ -4,7 +4,7 @@
 <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+<script src="js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/font-awesome.min.css">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,8 +12,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- isotope -->
 <link href="css/isotope.css" rel="stylesheet" media="screen">
-<!--<link href="css/pelicano.css" rel="stylesheet" media="screen">
--->
 <!-- Flexslider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
@@ -308,93 +306,93 @@ $(document).ready(function(){
 <input id="media-type-filter" type="hidden" name="media-type-filter" value="*">
 <input id="current-filter" type="hidden" name="current-filter" value="*">
 <input id="search-filter" type="hidden" name="search-filter" value="">
-<body id="screenHome">
-<div class="navbar navbar-fixed-top">
-<div class="navbar-inner" id="Menu">
-    <div class="container"> 
-    	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
-    		<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> 
-    	</a> 
-    	<a class="brand" id="MenuLogo" href="#">Pelicano</a>
-      <div class="nav-collapse collapse">
-        <ul id="nav" class="nav">
-          <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation"  id="Menu">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" id="MenuLogo">Pelicano</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex5-collapse">
+          <ul class="nav navbar-nav">
+            <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
           <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 		  <li id="li-download"><a href="<?php echo RippedMovieController::createUrl('site/downloads') ?>">Descargas</a></li>          
         </ul>
-        <?php 
+          <?php 
 			 	$customer = Setting::getInstance()->getCustomer();
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
-        <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>		
-      <!--  <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>-->
-        <div id="newDisc" class="pull-right">Examinar Disco</div>
-        <div id="externalStorage" class="pull-right">Disco Externo</div>
-        </div>
-      <!--/.nav-collapse -->
-    </div>
-  </div>
-</div>
+          <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?>  points</span></div>
+          <!--  <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>-->
+          <div id="newDisc" class="pull-right">Examinar Disco</div>
+          <div id="externalStorage" class="pull-right">Disco Externo</div>
+        </div><!-- /.navbar-collapse -->
+      </nav>
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
-<div class="navbar navbar-fixed-top  navbarSecond">
-  <div class="navbar-inner">
-    <div class="container">
- 
-      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-<!-- Everything you want hidden at 940px or less, place within here -->
-<div class="nav-collapse collapse">
-	<!-- .nav, .navbar-search, .navbar-form, etc -->
-	<ul id="filtroGenero" class="nav">
-		<li class="active menuItem generoTodas"><a  href="#" data-filter="*">Todas</a></li>
-		<li class="menuItem generoComedia"><a href="#" data-filter=".comedy">Comedia</a></li>
-		<li class="menuItem generoDrama"><a href="#" data-filter=".drama">Drama</a></li>
-		<li class="menuItem generoRomance"><a href="#" data-filter=".romance">Romance</a></li>
-		<li class="menuItem generoAdultos"><a href="#" data-filter=".fantasy">Fantasia</a></li>
-		<li class="dropdown" id="filtroGeneroMob">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedGenero"><span class="selected">Todos los G&eacute;neros</span> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            	<li><a href="#" data-sel="generoTodas" data-filter="*">Todos los G&eacute;neros</a></li>
-				<li><a href="#" data-sel="generoComedia" data-filter=".comedy">Comedia</a></li>
-                <li><a href="#" data-sel="generoDrama" data-filter=".drama">Drama</a></li>
-                <li><a href="#" data-sel="generoRomance" data-filter=".romances">Romance</a></li>
-                <li><a href="#" data-sel="generoAdultos" data-filter=".fantasy">Fantasia</a></li>
-			</ul>
-		</li>
-	</ul>
-    <form class="navbar-search pull-right">
-    	<input type="search" id="search-query-filter" class="search-query" placeholder="Buscar en Peliculas">    	
-	</form>	    
-      		
-</div>
-</div>
-</div>
-</div>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation"  id="menuSecond">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div  id="filtros" class="collapse navbar-collapse navbar-ex5-collapse">
+<ul id="filtroGenero" class="nav navbar-nav clearfix">
+        <li class="active menuItem generoTodas"><a href="#" data-filter="*">Todas</a></li>
+      <li class="menuItem generoComedia"><a href="#" data-filter=".comedy">Comedia</a></li>
+      <li class="menuItem generoDrama"><a href="#" data-filter=".drama">Drama</a></li>
+      <li class="menuItem generoRomance"><a href="#" data-filter=".romance">Romance</a></li>
+      <li class="menuItem generoAdultos"><a href="#" data-filter=".fantasy">Fantasia</a></li>
+     <li class="dropdown" id="filtroGeneroMob">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedGenero"><span class="selected">Todos los G&eacute;neros</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="filtroGenero">
+                          <li><a href="#" data-sel="generoTodas" data-filter="*">Todos los G&eacute;neros</a></li>
+                          <li><a href="#" data-sel="generoComedia" data-filter=".comedy">Comedia</a></li>
+                          <li><a href="#" data-sel="generoDrama" data-filter=".drama">Drama</a></li>
+                          <li><a href="#" data-sel="generoRomance" data-filter=".romance">Romance</a></li>
+                          <li><a href="#" data-sel="generoAdultos" data-filter=".fantasy">Fantasia</a></li>
+                        </ul>
+                      </li>
+      </ul>
+     <form class="navbar-form navbar-right" role="search">
+      <div class="form-group">
+        <input type="search" id="search-query-filter" class="form-control" placeholder="Buscar Pel&iacute;culas">
+      </div>
+    </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
 <?php endif; ?>
-<div class="container" >
+<div class="container" style=" margin-top:110px;" >
  
  <?php
  //$descargar='no'; 
  //include('movieDetails.php'); 
  //include('serieDetails.php'); ?>
 
-  <div class="row-fluid">
-    <div class="span12">
+  <div class="row">
+    <div class="col-md-12">
 	
    	<?php echo $content; ?>        
     
       <!-- /content -->
     </div>
-    <!-- /span12 -->
+    <!-- /col-md-12 -->
   </div>
   <!-- /row -->
 </div>
 <!-- /container -->
+
+<div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+<!-- ACA VA LO QUE ESTA EN _movieDetails.php -->
+</div>
+   <?php
+ 
+/*
+echo CHtml::openTag('div',array('id'=>'myModal'));
+//place holder
+echo CHtml::closeTag('div'); 
+*/?>
+
 <?php 
 // $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
 
@@ -425,7 +423,7 @@ $(document).ready(function(){
 Reproduciendo:
 <div id="playback-title" class="tituloRep"></div>
 </div>
-<a class="btn" id="btn-dune-control"><i class="icon-keyboard"></i> Control Remoto</a>
+<a class="btn" id="btn-dune-control"><i class="fa fa-keyboard"></i> Control Remoto</a>
 </div>
 <!-- /cierre floating -->
 </body>
