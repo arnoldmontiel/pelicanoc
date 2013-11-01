@@ -14,10 +14,10 @@ $this->widget('ext.isotope.Isotope',array(
 ?>
 
 <?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
 
-echo CHtml::openTag('div',array('id'=>'view-details'));
-//place holder
-echo CHtml::closeTag('div'); 
+// echo CHtml::openTag('div',array('id'=>'view-details'));
+// //place holder
+// echo CHtml::closeTag('div'); 
 
-$this->endWidget(); ?>
+// $this->endWidget(); ?>

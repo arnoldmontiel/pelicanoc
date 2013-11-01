@@ -106,7 +106,7 @@ function getCurrentState()
 							function(data){
 								if(!$('#myModal').is(':visible'))
 								{
-									$('#view-details').html(data);
+									$('#myModal').html(data);
 									$('#myModal').modal('show');
 								} 
 							});
@@ -217,7 +217,7 @@ $(document).ready(function(){
     	$.post("<?php echo SiteController::createUrl('AjaxCurrentDiscShowDetail'); ?>"
 		).success(
 			function(data){
-				$('#view-details').html(data);
+				$('#myModal').html(data);
 				$('#myModal').modal('show'); 
 			});
     });
