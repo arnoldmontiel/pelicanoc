@@ -57,7 +57,7 @@ class ExternalStorageData extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idCurrentExternalStorage' => array(self::BELONGS_TO, 'CurrentExternalStorage', 'Id_current_external_storage'),
+			'currentExternalStorage' => array(self::BELONGS_TO, 'CurrentExternalStorage', 'Id_current_external_storage'),
 		);
 	}
 
