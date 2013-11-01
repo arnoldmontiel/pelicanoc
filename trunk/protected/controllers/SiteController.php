@@ -238,7 +238,8 @@ class SiteController extends Controller
 				
 		if($ready)
 			$this->renderPartial('_externalStorageExplorer',array('modelESDataDBs'=>$modelESDataDBs, 
-																	'ready'=>$ready));
+																	'ready'=>$ready,
+																	'idCurrentES'=>$idCurrentES));
 		else
 			echo "0";
 	}
