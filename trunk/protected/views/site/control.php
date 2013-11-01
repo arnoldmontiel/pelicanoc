@@ -116,12 +116,12 @@
 </div><!-- /container -->
   <input type="hidden" name="hidden-end-value" id="hidden-end-value">
   	
-<?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modalBookmark')); 
-echo CHtml::openTag('div',array('id'=>'view-bookmarks'));
-//place holder
-echo CHtml::closeTag('div');
-$this->endWidget(); ?>
+<?php //  
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'modalBookmark')); 
+// echo CHtml::openTag('div',array('id'=>'view-bookmarks'));
+// //place holder
+// echo CHtml::closeTag('div');
+// $this->endWidget(); ?>
  <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	

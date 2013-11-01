@@ -241,20 +241,20 @@ $(document).ready(function(){
   <!-- /row -->
 </div>
 <!-- /container -->
-<?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
+<?php //  
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
 
-echo CHtml::openTag('div',array('id'=>'view-external-storage'));
-echo $this->renderPartial('../site/_externalStorage');
-echo CHtml::closeTag('div'); 
+// echo CHtml::openTag('div',array('id'=>'view-external-storage'));
+// echo $this->renderPartial('../site/_externalStorage');
+// echo CHtml::closeTag('div'); 
 
-$this->endWidget(); ?>
-<?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
+// $this->endWidget(); ?>
+<?php //  
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
 
-echo CHtml::openTag('div',array('id'=>'view-disc-in'));
-echo CHtml::closeTag('div'); 
+// echo CHtml::openTag('div',array('id'=>'view-disc-in'));
+// echo CHtml::closeTag('div'); 
 
-$this->endWidget(); ?>
+// $this->endWidget(); ?>
 </body>
 </html>
