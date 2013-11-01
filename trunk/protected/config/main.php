@@ -2,13 +2,12 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'PELICANO',
-
+	'charset' => 'utf-8',
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -16,6 +15,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.components.TMDB.*',
 		'application.stubs.*',
 		'application.controllers.*',
 		'application.modules.srbac.controllers.SBaseController',		
@@ -83,7 +83,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=pelicanoc',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'root',
+			'password' => 'admin',
 			'charset' => 'utf8',
 		),
 

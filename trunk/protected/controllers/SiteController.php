@@ -1157,14 +1157,10 @@ class SiteController extends Controller
 				$db->paged = false; // merges all paged results into a single result automatically
 				
 				$movie = new TMDBMovie($_POST['movie']);
-				$images = $movie->posters('154',"");
-				$bds = $movie->backdrops('300',"");
 				$persons = $movie->casts();
-				$poster = $images[0]->file_path;
-				$bigPoster = $images[0]->file_path;
-				$bigPoster = str_replace ( "w154" , "w500" , $bigPoster );
-				$backdrop = $bds[0]->file_path;
-				$backdrop = str_replace ( "w300" , "original" , $backdrop );
+				$poster = $movie->poster('154');
+				$bigPoster = $movie->poster('500');
+				$backdrop = $movie->backdrop('original');
 				
 				TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
 				if(!$myMovie->is_custom)
@@ -1264,7 +1260,7 @@ class SiteController extends Controller
 						}
 					}
 					if(isset($disc->Id_my_movie))	$disc->Id_my_movie=$myMovie->Id;
-					else $disc->Id_my_movie_nzb=$myMovie->Id;;
+					else $disc->Id_my_movie_nzb=$myMovie->Id;
 						
 					if($disc->save())
 					{
@@ -1308,6 +1304,28 @@ class SiteController extends Controller
 			$this->render('_tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));				
 		}
 	}
+	public function actionUpdateMyMovieInfo()
+	{
+		$idResource = $_GET['idResource'];
+		$sourceType = $_GET['sourceType'];
+		
+		if($sourceType == 1)
+		{
+			$modelNzb = Nzb::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+		}
+		else if($sourceType == 2)
+		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		else
+		{
+			$localFolder = LocalFolder::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}		
+		$this->render('_formMyMovie',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType));				
+	}
 	public function actionAjaxShearMovieTMDB()
 	{
 		if(isset($_POST['title']))
@@ -1316,6 +1334,7 @@ class SiteController extends Controller
 			$db = TMDBApi::getInstance();
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
+			//$db->debug = true;
 			$results = $db->search('movie', array('query'=>$title));			
 			$this->renderPartial('_searchMoviesResult',array('movies'=>$results));				
 		}
