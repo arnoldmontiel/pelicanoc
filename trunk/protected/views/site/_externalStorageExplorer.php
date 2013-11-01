@@ -11,9 +11,6 @@
 		</thead>
 		<tbody id="bookmark-table">
 			<?php
-			
-			$path = $setting->path_shared. $setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';
-			
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
 			if(isset($modelCurrentES))
 			{
