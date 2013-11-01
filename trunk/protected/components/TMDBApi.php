@@ -60,8 +60,11 @@ class TMDBApi {
 
   public function search($type, $params, $expand = false) {
     $results = array();
-
+    if($this->debug)
+    	echo "antes search";
     $response = $this->send_request('search/' . $type, $params);
+    if($this->debug)
+    	echo "desoues search";
     if (!$response->error) {
 
       $asset_class = ucfirst($type); // NOTE: As long as we can map the methods to the class name, this works...
@@ -85,7 +88,6 @@ class TMDBApi {
     else {
       $this->error = $response->error;
     }
-
     return $results;
   }
 
@@ -140,9 +142,14 @@ class TMDBApi {
    */
 
   private function send_request($method, $params = array(), $data = array()) {
-
-    $response = new stdClass();
-
+  	if($this->debug){
+  		echo "send_request: ";
+  		//var_dump($method);
+  		var_dump($params);
+  		//var_dump($data);
+  	}
+  	 
+    $response = new stdClass();    
     $params = $this->params_merge($params);
     $query = http_build_query($params);
     $url = $this->api_url . '/' . $this->api_version . '/' . $method . '?' . $query;
@@ -170,18 +177,23 @@ class TMDBApi {
       }
 
       $results = curl_exec($ch);
-
+       	if($this->debug){
+  		echo "results: ";
+  		//var_dump($results);
+       	}
       $response->headers = curl_getinfo($ch);
 
       if ($results) {
         $response->data = json_decode($results);
-
+        if($this->debug){
+        	echo "response: ";
+        	var_dump($response);
+        }
+        
         if (!$this->paged && isset($response->data->total_pages) && $response
           ->data->page < $response->data->total_pages) {
-          $paged_response = $this
-            ->send_request($method, $params + array(
-              'page' => $response->data->page + 1
-            ));
+        	$params['page']=($response->data->page + 1);
+        	$paged_response = $this->send_request($method, $params);
 
           if (!$paged_response->error) {
             $response->data->page = 1;
