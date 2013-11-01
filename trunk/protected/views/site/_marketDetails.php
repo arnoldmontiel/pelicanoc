@@ -1,5 +1,5 @@
  <!--  <div id="myModal" class="modal modalDetail">-->   
-   <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+    <!--    <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
       <h3 id="myModalLabel"><?php echo $model->original_title;?></h3>
@@ -80,7 +80,7 @@
     <div class="modal-footer">    
       		<button id="btn-download" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Descargar</button>
     </div>
-  </div>
+ <!--      </div>-->
   <script>
 	$('#btn-download').click(function(){
 		$(this).attr("disabled", "disabled");

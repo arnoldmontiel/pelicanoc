@@ -36,7 +36,7 @@ function getCurrentDisc()
 					$.post("<?php echo SiteController::createUrl('AjaxDiscIn'); ?>"
 					).success(
 						function(data){		
-							$('#view-disc-in').html(data);
+							$('#myModalDiscIn').html(data);
 							$('#myModalDiscIn').modal('show'); 
 						});
 				}
@@ -241,6 +241,15 @@ $(document).ready(function(){
   <!-- /row -->
 </div>
 <!-- /container -->
+<div id="myModalDiscIn" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+<div id="myModalESExplorer" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+<div id="myModalExternalStorage" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+<div id="modalBookmark" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+
 <?php //  
 // $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
 

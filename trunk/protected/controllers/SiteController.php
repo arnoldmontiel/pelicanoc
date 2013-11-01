@@ -825,7 +825,7 @@ class SiteController extends Controller
 		//type = 3 = localFolder
 		//type = 4 = online
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
-		return $response; 
+		//return $response; 
 		if(DuneHelper::isPlaying())
 		{
 			$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1));
