@@ -663,7 +663,7 @@ class FolderCommand extends CConsoleCommand  {
 		$path = "";
 		if(isset($modelESData))
 		{
-			$path = $modelESData->path
+			$path = $modelESData->path;
 			if(!empty($modelESData->file))
 				$path .= '/'.$modelESData->file;
 		}
