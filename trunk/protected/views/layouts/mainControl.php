@@ -145,16 +145,14 @@ $(document).ready(function(){
 <input id="current-filter" type="hidden" name="current-filter" value="*">
 <input id="search-filter" type="hidden" name="search-filter" value="">
 <body id="screenControl">
-<div class="navbar navbar-fixed-top">
-<div class="navbar-inner" id="Menu">
-    <div class="container"> 
-    	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
-    		<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> 
-    	</a> 
-    	<a class="brand" id="MenuLogo" href="#">Pelicano</a>
-      <div class="nav-collapse collapse">
-        <ul id="nav" class="nav">
-          <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation"  id="Menu">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" id="MenuLogo">Pelicano</a>
+          </div>
+          <div class="collapse navbar-collapse navbar-ex5-collapse">
+          <ul class="nav navbar-nav">
+            <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
           <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 		  <li id="li-download"><a href="<?php echo RippedMovieController::createUrl('site/downloads') ?>">Descargas</a></li>          
@@ -163,17 +161,14 @@ $(document).ready(function(){
 			 	$customer = Setting::getInstance()->getCustomer();
 			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
 		?>
-        <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>
+		<div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?> points</span></div>
 		<?php if (isset($this->showFilter) && $this->showFilter): ?>
         <form class="navbar-search pull-right">
           <input type="text" id="main-search" class="search-query" placeholder="Buscar...">
         </form>
         <?php endif; ?>
-      </div>
-      <!--/.nav-collapse -->
-    </div>
-  </div>
-</div>
+		</div><!-- /.navbar-collapse -->
+      </nav>
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
 <div class="navbar navbar-fixed-top  navbarSecond">
               <div class="navbar-inner">
