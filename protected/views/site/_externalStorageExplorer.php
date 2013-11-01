@@ -21,7 +21,9 @@
 				{
 					$localFolderPath = str_replace($modelCurrentES->path,'',$item->path);
 					$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
-										
+					if(!empty($item->file))
+						$localFolderPath = $localFolderPath.'/'.$item->file;
+					
 					$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
 					
 					echo CHtml::openTag('tr',array('class'=>'bookmark-row', 'id'=>'id_'.$item->Id));
