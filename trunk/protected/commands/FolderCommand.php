@@ -26,14 +26,10 @@ class FolderCommand extends CConsoleCommand  {
 													'copy'=>1,
 													));
 				
-				$setting = Setting::getInstance();
-				$path = $setting->path_shared. $setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';				
-				
 				foreach($modelESDatas as $modelESData)
 				{
-					self::copyExternalStorage($modelESData->path);				
-					
-					self::processPeliFileES($path);
+					self::copyExternalStorage($modelESData);
+					self::processPeliFileES($modelESData);
 				}
 							
 			}
@@ -94,85 +90,99 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
-	private function copyExternalStorage($sourcePath)
-	{
-		$setting = Setting::getInstance();
-		$iterator = ReadFolderHelper::getPeliDirectoryList($sourcePath,true);
-		
-		foreach ($iterator as $file)
+	private function copyExternalStorage($modelESData)
+	{		
+		if(isset($modelESData))
 		{
-			$destination = $setting->path_shared;
-			$source = $file['dirpath'];
-			
-			$source = str_replace(' ', '\ ', $source);
-			$source = str_replace('(', '\(', $source);
-			$source = str_replace(')', '\)', $source);
-			
-			$destination = str_replace(' ', '\ ', $destination);
-			$destination = str_replace('(', '\(', $destination);
-			$destination = str_replace(')', '\)', $destination);
-			
-			$modelPeliFile = self::getPeliFile($file);
-			if(isset($modelPeliFile))
-			{				
-				$shortPath = self::getShortPath($destination, $file, $modelPeliFile);
-			
-				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
-			
-				if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
-				{					
-					$destination = $destination.$setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';
-					exec("cp -fr ".$source . " " .$destination);
+			$externalStoragePath = (isset($modelESData->currentExternalStorage))?$modelESData->currentExternalStorage->path:null;
+			if(isset($externalStoragePath))
+			{
+				
+				$setting = Setting::getInstance();
+				$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';
+				
+				$localFolderPath = $modelESData->path . (!emtpy($modelESData->file))?'/'.$modelESData->file:'';
+				$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
+				
+				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+				
+				if(!isset($modelLocalFolderDB))
+				{
+					$source = $externalStoragePath . $modelESData->path;
+					
+					$source = str_replace(' ', '\ ', $source);
+					$source = str_replace('(', '\(', $source);
+					$source = str_replace(')', '\)', $source);
+						
+					$destinationPath = str_replace(' ', '\ ', $destinationPath);
+					$destinationPath = str_replace('(', '\(', $destinationPath);
+					$destinationPath = str_replace(')', '\)', $destinationPath);
+					
+					exec("cp -fr ".$source . " " .$destinationPath);
 				}
-			}			
+				
+			}
 		}
 	}
 	
-	private function processPeliFileES($path)
+	private function processPeliFileES($modelESData)
 	{
 		try
 		{
-			$modelLote = new Lote();
-			$iterator = ReadFolderHelper::getPeliDirectoryList($path,true);
-			$chunksize = 1*(1024*1024); // how many bytes per chunk
-	
-			//genero un nuevo lote
-			$modelLote->save();
-				
-			$setting = Setting::getInstance();
-			$copiedPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
-			foreach ($iterator as $file)
+			if(isset($modelESData))
 			{
-					
-				$modelPeliFile = self::getPeliFile($file);
-				if(isset($modelPeliFile))
+				$externalStoragePath = (isset($modelESData->currentExternalStorage))?$modelESData->currentExternalStorage->path:null;
+				if(isset($externalStoragePath))
 				{
-						
-					$shortPath = self::getShortPath($path, $file, $modelPeliFile);
+					$setting = Setting::getInstance();
+					$pelicanoCopiedPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied;
+					$modelLote = new Lote();
+					$iterator = ReadFolderHelper::getPeliDirectoryList($pelicanoCopiedPath.$modelESData->path,true);
+					$chunksize = 1*(1024*1024); // how many bytes per chunk
 					
-					$shortPath = $copiedPath.$shortPath;
-					
-					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
-	
-					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB))
+					//genero un nuevo lote
+					$modelLote->save();
+					foreach ($iterator as $file)
 					{
-						if(self::saveByImdb($modelPeliFile))
+							
+						$modelPeliFile = self::getPeliFile($file);
+						if(isset($modelPeliFile))
 						{
-							$modelLocalFolder = new LocalFolder();
-							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
-							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
-							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
-							$modelLocalFolder->Id_lote = $modelLote->Id;
-							$modelLocalFolder->path = $shortPath;
-							$modelLocalFolder->save();
-						}
+								
+							$finalPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
+							$localFolderPath = $modelESData->path . (!emtpy($modelESData->file))?'/'.$modelESData->file:'';
+							$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
+							
+							$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
+					
+							if(!isset($modelLocalFolderDB))
+							{
+								if(self::saveByImdb($modelPeliFile))
+								{
+									$modelLocalFolder = new LocalFolder();
+									$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
+									$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
+									$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
+									$modelLocalFolder->Id_lote = $modelLote->Id;
+									$modelLocalFolder->path = $localFolderPath;
+									$modelLocalFolder->save();
+								}
+							}
+					
+						} //end if null
+						
 					}
-	
-				} //end if null
-			}
-			$modelLote->description = 'Successfull';
+					$modelLote->description = 'Successfull';
+					$modelLote->save();
+					return true;
+				}
+				$modelLote->description = 'Error - NO External Storage';
+				$modelLote->save();
+				return false;
+			}			
+			$modelLote->description = 'Error - Model External Storage Data is NULL';
 			$modelLote->save();
-			return true;
+			return false;
 		}
 		catch (Exception $e)
 		{
@@ -357,10 +367,10 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
-	private function generatePeliFilesES($path, $idCurrentES)
+	private function generatePeliFilesES($pathES, $idCurrentES)
 	{
 	
-		$videoIterator = ReadFolderHelper::getVideoDirectoryList($path,true);
+		$videoIterator = ReadFolderHelper::getVideoDirectoryList($pathES,true);
 	
 		if($videoIterator)
 		{
@@ -381,8 +391,9 @@ class FolderCommand extends CConsoleCommand  {
 	
 				$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
 	
-				$modelESData = new ExternalStorageData();
-				$modelESData->path = $file['dirpath'];
+				
+				$modelESData = new ExternalStorageData();					
+				$modelESData->path = str_replace($pathES, '', $file['dirpath']);
 				$modelESData->file = ($file['filename']=='folder')?'':$file['filename'];
 				$modelESData->type = $type;
 				$modelESData->Id_current_external_storage = $idCurrentES;
@@ -405,8 +416,7 @@ class FolderCommand extends CConsoleCommand  {
 					}
 					
 					$modelESData->save();
-				}
-				
+				}				
 				
 			}
 		}
