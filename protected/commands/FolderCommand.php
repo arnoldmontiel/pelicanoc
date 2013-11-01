@@ -381,25 +381,23 @@ class FolderCommand extends CConsoleCommand  {
 	
 				$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
 	
-				$modelESData = new ExternalStorageData();				
+				$modelESData = new ExternalStorageData();
+				$modelESData->path = $file['dirpath'];
+				$modelESData->file = ($file['filename']=='folder')?'':$file['filename'];
 				$modelESData->type = $type;
 				$modelESData->Id_current_external_storage = $idCurrentES;
 												
 				if(!$hasPeliFile)
 					$modelPeliFile = self::buildPeliFileES($folderName, $file['dirpath'], $type);				
+								
 				
-				$shortPath = "";
-				if(isset($modelPeliFile))
-				{
-					$shortPath = self::getShortPath('', $file, $modelPeliFile);
-				}
-				
-				$modelESDataDB = ExternalStorageData::model()->findByAttributes(array('path'=>$shortPath, 'Id_current_external_storage'=>$idCurrentES));
+				$modelESDataDB = ExternalStorageData::model()->findByAttributes(array('path'=>$modelESData->path, 
+																		'file'=>$modelESData->file,
+																		'Id_current_external_storage'=>$idCurrentES));
 				if(!isset($modelESDataDB))
 				{
 					if(isset($modelPeliFile))
-					{
-						$modelESData->path = $shortPath;
+					{						
 						$modelESData->title = $modelPeliFile->name;
 						$modelESData->year = $modelPeliFile->year;
 						$modelESData->poster = $modelPeliFile->poster;
