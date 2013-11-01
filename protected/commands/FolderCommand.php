@@ -176,18 +176,23 @@ class FolderCommand extends CConsoleCommand  {
 					$modelLote->save();
 					return true;
 				}
+				$modelLote = new Lote();
 				$modelLote->description = 'Error - NO External Storage';
 				$modelLote->save();
 				return false;
 			}			
+			$modelLote = new Lote();
 			$modelLote->description = 'Error - Model External Storage Data is NULL';
 			$modelLote->save();
 			return false;
 		}
 		catch (Exception $e)
 		{
-			$modelLote->description = 'Error: ' . $e->getMessage();
-			$modelLote->save();
+			if(isset($modelLote))
+			{
+				$modelLote->description = 'Error: ' . $e->getMessage();
+				$modelLote->save();
+			}
 			return false;
 		}
 	
