@@ -22,12 +22,19 @@ $this->widget('ext.isotope.Isotope',array(
     'id'=>'wall',
 ));
 ?>
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
-
 echo CHtml::openTag('div',array('id'=>'view-details'));
 //place holder
 echo CHtml::closeTag('div'); 
+?>
+</div><!-- /.modal -->
+<?php 
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
 
-$this->endWidget(); ?>
+// echo CHtml::openTag('div',array('id'=>'view-details'));
+// //place holder
+// echo CHtml::closeTag('div'); 
+
+// $this->endWidget(); 
+?>
