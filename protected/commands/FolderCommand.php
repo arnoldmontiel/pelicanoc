@@ -153,7 +153,7 @@ class FolderCommand extends CConsoleCommand  {
 							$localFolderPath = $modelESData->path . (!empty($modelESData->file))?'/'.$modelESData->file:'';
 							$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
 							
-							$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
+							$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
 					
 							if(!isset($modelLocalFolderDB))
 							{
