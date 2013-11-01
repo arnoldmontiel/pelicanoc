@@ -1,119 +1,119 @@
 
-<div class="container" style="margin-top: 90px">
+<div class="container" id="mainControl">
 <div class="controlContainer">
-  <div class="row-fluid">
-    <div class="span3">
+  <div class="row">
+    <div class="col-md-4">
     <div class="controlAfiche">
-<img class="peliAfiche" src="<?php echo "images/".$big_poster?>" border="0"> 
+<img class="aficheImg" src="<?php echo "images/".$big_poster?>" border="0"> 
 </div>   
 </div>
-    <!-- /span3 -->
-    <div class="span9">
-      <div class="row-fluid">
-    <div class="span12">
+    <!-- /col-md-3 -->
+    <div class="col-md-8">
+      <div class="row">
+    <div class="col-md-12">
     <div class="controlTitle"><?php echo $model->original_title?></div>
     </div>
-    <!-- /span12 -->
+    <!-- /col-md-8 -->
  </div>
   <!-- /row interna -->
-      <div class="row-fluid">
-    <div class="span6">
+      <div class="row">
+    <div class="col-md-5">
     <div class="controlAudioSub">
-<button type="button" class="btn btn-large btn-primary"id="subtButton">Cambiar Subt&iacute;tulos</button>
+<button type="button" class="btn btn-large btn-primary" id="subtButton">Cambiar Subt&iacute;tulos</button>
 <button type="button" class="btn btn-large btn-primary noMargin" id="audioButton">Cambiar Audio</button>
 </div>
 <?php if($sourceType > 10):?>
 <div class="controlBookmark">
-<button type="button" class="btn btn-large btn-primary"id="bookmarkButton"><i class="icon-bookmark"></i></button>
+<button type="button" class="btn btn-large btn-primary" id="bookmarkButton"><i class="fa fa-bookmark fa-2x"></i></button>
 </div>
 <?php endif;?>
     </div>
-    <!-- /span6 -->
-    <div class="span6">
-    <div class="controlFlechas"style="float:right; margin-right:15%;">
+    <!-- /col-md-5 -->
+    <div class="col-md-7">
+    <div class="controlFlechas pull-right">
     <div class="flechasArriba">
-<button type="button" class="btn btn-large btn-primary btn-warning" id="upButton"><i class="icon-chevron-up icon-white icon-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-warning" id="upButton"><i class="fa fa-chevron-up fa-2x"></i></button>
 </div>
     <div class="flechasCentro">
-<button type="button" class="btn btn-large btn-primary btn-warning" id="leftButton"><i class="icon-chevron-left icon-white icon-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-warning" id="enterButton"><i class="icon-ok-sign icon-white icon-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-warning" id="rightButton"><i class="icon-chevron-right icon-white icon-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-warning" id="leftButton"><i class="fa fa-chevron-left fa-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-warning" id="enterButton"><i class="fa fa-check fa-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-warning" id="rightButton"><i class="fa fa-chevron-right fa-2x"></i></button>
 </div>
     <div class="flechasAbajo">
-<button type="button" class="btn btn-large btn-primary btn-warning" id="downButton"><i class="icon-chevron-down icon-white icon-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-warning" id="downButton"><i class="fa fa-chevron-down fa-2x"></i></button>
 </div>
 </div>
     </div>
-    <!-- /span6 -->
+    <!-- /col-md-7 -->
  </div>
   <!-- /row interna -->
     </div>
-    <!-- /span9 -->
+    <!-- /col-md-9 -->
   </div>
   <!-- /row -->
   
-  <div class="row-fluid controlBackground">
-    <div class="span6">
+  <div class="row controlBackground">
+    <div class="col-md-6">
     <div class="controlNavegacion">
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="prevButton"><i class="icon-step-backward icon-white icon-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="rewButton"><i class="icon-backward icon-white icon-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="playButton"><i class="icon-play icon-white icon-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="stopButton"><i class="icon-stop icon-white icon-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="fwButton"><i class="icon-forward icon-white icon-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="nextButton"><i class="icon-step-forward icon-white icon-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="prevButton"><i class="fa fa-step-backward fa-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="rewButton"><i class="fa fa-backward fa-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="playButton"><i class="fa fa-play fa-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="stopButton"><i class="fa fa-stop fa-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="fwButton"><i class="fa fa-forward fa-2x"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="nextButton"><i class="fa fa-step-forward fa-2x"></i></button>
 </div>
     </div>
-    <!-- /span6 -->
-    <div class="span6">
-    <div class="row-fluid">
-    <div class="span8">
+    <!-- /col-md-6 -->
+    <div class=col-md-6>
+    <div class="row">
+    <div class="col-md-7">
     <div class="controlProgress">
     <div class="progress">
-  <div class="bar" id="progressBar" style="width: 1%;"></div>
-</div>
+        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
     </div>
     </div>
-    <!-- /span8 -->
-    <div class="span4">
+    </div>
+    <!-- /col-md-7 -->
+    <div class="col-md-5">
     <div class="controlLenght">
     <span id="currentTime"></span> / 
     <span id="totalTime"></span>
     </div>
     </div>
-    <!-- /span4 -->
+    <!-- /col-md-5 -->
     </div>
     <!-- /row interna -->
     </div>
-    <!-- /span6 -->
+    <!-- /col-md-6 -->
     </div>
   <!-- /row -->
-    <div class="row-fluid">
-    <div class="span9">
+    <div class="row">
+    <div class="col-md-9">
         <div class="controlNumeros">
-<button type="button" class="btn" id="button0">0</button>
-<button type="button" class="btn" id="button1">1</button>
-<button type="button" class="btn" id="button2">2</button>
-<button type="button" class="btn" id="button3">3</button>
-<button type="button" class="btn" id="button4">4</button>
-<button type="button" class="btn" id="button5">5</button>
-<button type="button" class="btn" id="button6">6</button>
-<button type="button" class="btn" id="button7">7</button>
-<button type="button" class="btn" id="button8">8</button>
-<button type="button" class="btn" id="button9">9</button>
+<button type="button" class="btn btn-default" id="button0">0</button>
+<button type="button" class="btn btn-default" id="button1">1</button>
+<button type="button" class="btn btn-default" id="button2">2</button>
+<button type="button" class="btn btn-default" id="button3">3</button>
+<button type="button" class="btn btn-default" id="button4">4</button>
+<button type="button" class="btn btn-default" id="button5">5</button>
+<button type="button" class="btn btn-default" id="button6">6</button>
+<button type="button" class="btn btn-default" id="button7">7</button>
+<button type="button" class="btn btn-default" id="button8">8</button>
+<button type="button" class="btn btn-default" id="button9">9</button>
 </div>
     </div>
-    <!-- /span9 -->
-    <div class="span3">   
+    <!-- /col-md-9 -->
+    <div class="col-md-3">   
     <div class="controlConfig">
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="popUpMenuButton"><i class="icon-cog icon-white icon-large"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="returnButton"><i class="icon-reply icon-white icon-large"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="popUpMenuButton"><i class="fa fa-cog fa-lg"></i></button>
+<button type="button" class="btn btn-large btn-primary btn-inverse" id="returnButton"><i class="fa fa-reply fa-lg"></i></button>
 </div>
     </div>
-    <!-- /span3 -->
+    <!-- /col-md-3 -->
     </div>
-    </div>
-  <!-- /row -->
-  </div>
+    </div>  <!-- /row -->
+  </div><!-- /controlContainer -->
+</div><!-- /container -->
   <input type="hidden" name="hidden-end-value" id="hidden-end-value">
   	
 <?php 

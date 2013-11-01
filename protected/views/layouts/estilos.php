@@ -4,12 +4,78 @@
  *
  * Copyright 2013 
  */
+ 
+ @font-face {
+font-family: 'GudeaRegular';
+src: url('fonts/Gudea-Regular.otf');
+font-weight: normal;
+font-style: normal;
+}
+ @font-face {
+font-family: 'GudeaItalic';
+src: url('fonts/Gudea-Italic.otf');
+font-weight: normal;
+font-style: normal;
+}
+ @font-face {
+font-family: 'GudeaBold';
+src: url('fonts/Gudea-Bold.otf');
+font-weight: normal;
+font-style: normal;
+}
+ @font-face {
+font-family: 'LatoRegular';
+src: url('fonts/Lato-Reg.otf');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'EntypoRegular';
+src: url('fonts/entypo-webfont.eot');
+src: url('fonts/entypo-webfont.eot?#iefix') format('embedded-opentype'),
+     url('fonts/entypo-webfont.woff') format('woff'),
+     url('fonts/entypo-webfont.ttf') format('truetype'),
+     url('fonts/entypo-webfont.svg#EntypoRegular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+a {
+  outline: 0 none !important;
+}
+
+a:hover, a:active, a:focus {
+	  outline: 0 none !important;
+}
+
+i {
+  outline: 0 none !important;
+}
+button {
+  outline: 0 none !important;
+}
+
+.noMargin{ margin:0px !important;}
+
+.align-left{ text-align:left;}
+.align-center{ text-align:center;}
+.align-right{ text-align:right;}
+
+body{
+	font-family: 'GudeaRegular', Arial, sans-serif; 
+	font-size:15px;
+	cursor:default;
+	line-height:inherit;
+	color:#333;
+	 }
+ 
 
 body#screenHome {
   padding-top: 125px;
 }
 body#screenSeries {
-  padding-top: 105px;
+  padding-top: 80px;
 }
 
 body#screenMarketplace{
@@ -20,42 +86,63 @@ body#screenMarketplace{
   padding-top: 80px;
   }
   
-  body#screenControl{
+#mainControl{
   padding-top: 80px;
   }
   
 body#screenMarketplace #content{
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   }
   
   body#screenDescargas #content{
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   }
 
 body{ background-color:darkgrey;}
 
-#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #9d9d00;}
-#MenuLogo{ margin-left:0px;}
+/* hack to avoid backround from scrolling when modal open */
 
-#Menu .navbar-search{ margin-right:10px;}
+body.modal-open {
+    overflow: hidden;
+    overflow'x: hidden;
+    overflow'y: hidden;
+}
 
-#Menu #loginInfo{ width:100px; height:35px; padding-top:5px; background-color:#ebebeb;  background-image:url(img/userIcon.png); background-repeat:no-repeat; background-position:10px 12px; padding-left:35px; padding-right:10px; line-height:16px;color:#333; }
+/* end of hack */
+
+/* ------ MAIN MENU / NAV BAR ------- */
+.navbar{ min-height:45px;}
+
+#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #9d9d00; height:55px;}
+#MenuLogo{
+	margin-left: 0px;
+font-family: 'LatoRegular', sans-serif;
+font-size: 18px;
+text-transform: uppercase;
+letter-spacing: 1px;
+padding: 0px 15px;
+line-height:48px;
+	}
+
+#Menu .navbar-collapse{ padding-right:0px;}
+#Menu .navbar-nav>li>a{padding: 2px 15px;line-height: 45px;}
+
+#Menu #loginInfo{ width:135px;height: 50px;padding-top: 9px; background-color:#ebebeb;  background-image:url(img/userIcon.png); background-repeat:no-repeat; background-position:10px 16px; padding-left:35px; padding-right:10px; line-height:16px;color:#333; }
+#Menu .points{ font-size:14px; color:#000; font-family: 'GudeaBold'; }
 
 #Menu #newDisc{
-display:none;
-width: 61px;
-height: 35px;
-padding-top: 5px;
+width: 105px;
+height: 50px;
+padding-top: 9px;
 background-color: #ebebeb;
 background-image: url(img/discIcon.png);
 background-repeat: no-repeat;
-background-position: 10px 12px;
+background-position: 10px 16px;
 padding-left: 33px;
 padding-right: 10px;
 line-height: 15px;
 color: #333;
 border-right: 1px solid #ccc;
-cursor: pointer;
 }
 #Menu #externalStorage{
 display:none;
@@ -89,21 +176,39 @@ border-right: 1px solid #ccc;
 cursor: pointer;
 }
 
-.points{ font-size:11px; color:#000; font-weight:bold;}
+#Menu .badgeDone{	background-color:#9d9d00; margin-left:10px;}
 
 
-#filtroEdad{ margin-right:10px;}
+/* ------ SECOND MENU / NAV BAR ------- */
 
-.navbarSecond{ top:55px; margin-right:10px; margin-left:10px;}
-.btn-group{ margin-top:0px !important;}
-.modal{ color:#333;}
+#menuSecond{ top:65px; margin-right:10px; margin-left:10px; height:50px;}
+#menuSecond .navbar-collapse{ padding:0px;}
+#menuSecond .navbar-nav>li>a{padding: 2px 15px;line-height: 45px;}
+.navbar a{ font-size:1.15em;}
 
-#myModalLabel{ font-size:1.5em;}
+#filtroGeneroMob{ display:none;}
 
-#content{ margin-left:0px;}
+#menuSecond #search-query-filter { height:auto;}
+	
+/* ------ END MENU ------- */
+
+/* ------ BTN INITIAL FONT SIZES ------- */
+.btn{ font-size:15px;}
+.btn-large{ font-size:17.5px;}
+/* ------ END BTN SIZES ------- */
+
+/* ------ BODY / MAIN LAYOUT ------- */
+#content {
+	/* this line is needed fot center aligning isotope*/
+   margin: 0 auto !important;
+   margin-left:0px;
+}
+
+.container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
+
 .element{
-	width:165px;
-	height:250px;
+	width:180px;
+	height:290px;
 	background-color:none !important;
 	background:none !important;
 	border-radius:0px !important;
@@ -111,197 +216,59 @@ cursor: pointer;
 	.element *{
 position:relative !important;
 	}
-	.peliIcon{ 
-position:absolute !important;
-}
+	
 .peliTitulo {  
 	color:#333333 !important;
 	background-color:#ccc;
-	padding-left:5px;
-	white-space: nowrap;
-	overflow: hidden;
-	height: 20px;
+	padding:5px; margin-top:-5px;
   }
-
   
- #screenMarketplace .peliTitulo {  
-    visibility:visible;
-	color:#333333 !important;
-	background-color:#ccc;
-	padding-left: 5px;
-	color:black; margin-top:5px;
-
-  }
-
-
-.peliPlay{
-top:165px !important;
-left:50px !important;
-	font-size: 105px;
-}
-.peliDetail{
-top:5px !important;
-left:130px !important;
-	font-size: 50px;
-}
-
-.peliAfiche{ width:165px; height:220px;
+  .peliAfiche{ width:180px; height:260px;
 -moz-box-shadow: 0px 0px 15px #000;
 -webkit-box-shadow: 0px 0px 15px #000;
 box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 
+/*afiche small usado en descargas*/
 .peliAficheSmall{ width:130px; height:174px;
 -moz-box-shadow: 0px 0px 15px #000;
 -webkit-box-shadow: 0px 0px 15px #000;
 box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 
-	.peliTitulo{ color:#ccc; margin-top:-5px;}
-	.pagination{ margin:5px 0px;}
+/* ------ BODY / MAIN LAYOUT ------- */
 
-/*	.navbar-inner{ border:1px solid magenta !important; padding-left:10px !important;}
-*/	.navbar a{ font-size:1.15em;}
-
-.nav-tabs { margin-bottom:0px !important;}
-#carousel-image-and-text {
-	width: 97% !important;
-	height: 260px;
-	margin: 0 auto;	
-	top: 0px;
-	margin-bottom:20px;
-}	
-
-.sliderSubtitle{ color:white; font-size:19px;  margin-left:20px; padding:0px;; margin-right:20px; }
-  @media only screen and (max-width: 767px) {  
-   .mobile-two .span2 { width: 50% !important; float: left; padding: 0 15px; }
-
-}
-/* Large desktop */
-@media (min-width: 1200px) {
-	.element{
-	width:165px;
-	height:250px;
-	background-color:none !important;
-	background:none !important;
-	}
-/*	.navbar-inner{  border:1px solid orange !important;}
-*/
-.peliAfiche{ width:165px; height:220px;}
-
-	}
- 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 980px) and (max-width: 1199px) { 
-
-/*.navbar-inner{  border:1px solid magenta !important;}
-*/.element{
-	width:180px;
-	height:260px;
-	background-color:none !important;
-	background:none !important;
-	}
-.peliAfiche{ width:180px; height:240px;}
-
-	}
-
-	#filtroGeneroMob{ display:none;}
-	#filtroEdadMob{ display:none;}
 	
-	
-	#filtroGenero .menuItem{ display:list-item;}
-	#filtroEdad .menuItem{ display:list-item;}
+/* ------ MARKETPLACE ------- */
+ #screenMarketplace .peliTitulo {  
+	margin-top:0px;
+  }
+/* ------ END MARKETPLACE ------- */
 
-	}
- 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { 
+  
+/* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
+.modal-title{ font-size:1.5em; color:#666; font-family: 'GudeaBold';}
+.modal-header {padding: 9px 15px;}
+.modal-header .close{padding: 0px; margin-top:0px; line-height:34px;}
+.modal-footer {padding: 9px 15px;}
+.modal-body{ overflow:hidden;}
 
-/*.navbar-inner{  border:1px solid red !important;}
-*/
+.nav-tabs { margin-bottom:0px !important ;margin-left:0px !important;}
 
-.element{
-	width:165px;
-	height:240px;
-	background-color:none !important;
-	background:none !important;
-	}
-.peliAfiche{ width:165px; height:220px;}
+.modalDetail{ width:85%;}
 
-	}
-/* Landscape phone to portrait tablet */
-@media (max-width: 768px) { 
-/*.navbar-inner{  border:1px solid blue!important;}
-*/input.search-query{ width:185px;}
-.peliAfiche{ width:170px; height:228px;}
-.element{
-	width:170px;
-	height:248px;
-	background-color:none !important;
-	background:none !important;
-	}
-}
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) { 
-.navbar-inner{  border:1px solid yellow !important;}
-.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container{ width:100% !important;}
+.modalDetail table button{ margin-top:-3px;}
+.modalDetail .table tbody>tr>td{ padding:0px 8px; line-height:45px;}
 
+.modalDetail .table thead>tr>th, .modalDetail .table tbody>tr>th, .modalDetail .table tfoot>tr>th, .modalDetail .table thead>tr>td, .modalDetail .table tfoot>tr>td{ padding:0px 8px; line-height:38px; font-family:'GudeaBold';}
 
-.element{
-	width:170px; 
-	height:248px;
-	background-color:none !important;
-	background:none !important;
-	}
-.peliAfiche{ width:170px; height:228px;}
+.modalDetail .modal-body .row{ line-height:26px;}
+.modalDetail .modal-body .row.detailSummary{ line-height:20px;}
 
-	}
- 
-/* Landscape phones and down */
-@media (max-width: 480px) { 
-.element{
-	width:120px; 
-	height:230px;
-	background-color:none !important;
-	background:none !important;
-	}
-.peliAfiche{ width:165px; height:221px;}
-
-	}
-	
-	@font-face {
-font-family: 'EntypoRegular';
-src: url('fonts/entypo-webfont.eot');
-src: url('fonts/entypo-webfont.eot?#iefix') format('embedded-opentype'),
-     url('fonts/entypo-webfont.woff') format('woff'),
-     url('fonts/entypo-webfont.ttf') format('truetype'),
-     url('fonts/entypo-webfont.svg#EntypoRegular') format('svg');
-font-weight: normal;
-font-style: normal;
-}
-
-.iconFontButton{
-		font-family: 'EntypoRegular';
-		margin:0;
-		border:0;
-		padding:0;
-}
-.iconClose{
-		font-size:50px;
-		0 -1px 0 rgba(0, 0, 0, 0.25)
-}
-.iconPlay{
-		font-size:40px;
-		line-height:10px;
-		vertical-align:top;
-}
-
-.modalDetail{ width:85%;
-margin-left:0px; left:7%;}
-.modal-backdrop{ /*background-image:url(images/01back.jpg);*/}
-/*.aficheDetail{ height:380px !important; width:282px !important;}*/
 .aficheDetail{ height:100% !important; width:100% !important;}
+
 .detailMainGroup{
 	border-bottom:1px solid #ccc; color:#666;}
-.detailMain { font-size:120%;  border-left:1px solid #ccc;#ccc; padding-top:3px;}
+.detailMain { font-size:120%;  border-left:1px solid #ccc;#ccc; padding-top:3px;height: 35px;
+line-height: 30px;}
 .detailMainFirst{ border-left:none;}
 
 .detailSecondGroup{
@@ -309,38 +276,41 @@ margin-left:0px; left:7%;}
 .detailSecond { font-size:100%; border-left:1px solid #ccc;#ccc; padding-top:4px; padding-left:5px;}
 .detailSecondFirst{ border-left:none;}
 
-.container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
-
-
 .tableInfo{
-	max-height: 380px;
-overflow-y: scroll;}
+	max-height: 390px;
+overflow-y: auto;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;}
 
-.modal-body{ overflow:hidden;}
+.tableInfo .row{ margin-left:0px !important; margin-right:0px !important;}
 
-#myModalSerie{ padding-bottom:30px;}
-.tableInfoSeries{
-	max-height: 350px;
-overflow-y: scroll;}
 
-.tableInfoBookmark{
-	max-height: 350px;
-overflow-y: scroll;}
+/* ------ END MODAL DETAIL ------- */
+
+/* ------ POPUP REPRODUCIENDO ------- */
+
+.peliReroduciendo{ position:fixed; bottom:10px; left:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333; color:white;}
+
+.peliReroduciendo .rep{text-align:left;}
+
+.peliReroduciendo .tituloRep{ font-size:1.6em; margin-bottom:10px; border-bottom:1px dotted #393939; padding-bottom:10px;}
+
+
+/* ------ END POPUP REPRODUCIENDO ------- */
+
 
 /*-------- CONTROL REMOTO --------------*/
 
 body#screenControl .container{ text-align:center;}
 
-body#screenControl{ background-color:black; overflow:hidden; padding-bottom: 0px;}
+body#screenControl{ background-color:black; background-position:center top;    background-size: cover; overflow:hidden;
+}
 
-
-.controlContainer{ width:100%;
+.controlContainer{
 margin:auto;
 }
 
-
-.controlContainer .controlAfiche{ padding-top:10px; text-align:right;}
-
+.controlContainer .controlAfiche{ padding-top:10px; text-align:center;}
 
 .controlTitle{font-size: 2em;
 font-weight: normal;
@@ -352,13 +322,12 @@ padding-bottom:10px;
 margin-bottom:20px;
 border-bottom:1px solid #ccc;}
 
-.controlBookmark{ text-align:right;width:30%;float:right;display: inline-block;}
-.controlBookmark button{ width:100px; height:60px; margin-top:10px; margin-bottom:20px; display:block;}
+.controlAudioSub{ text-align:left;}
+.controlAudioSub button{ width:200px; height:60px; 
+margin-top: 35px;
+margin-bottom: 30px; display:block;}
 
-.controlAudioSub{ text-align:left;width:50%;display: inline-block;}
-.controlAudioSub button{ width:200px; height:60px; margin-top:10px; margin-bottom:20px; display:block;}
-
-.controlFlechas{ width:165px; margin-bottom:20px;}
+.controlFlechas{ width:235px; margin-bottom:20px; margin-right:}
 
 .flechasArriba{ margin-bottom:5px;}
 
@@ -367,7 +336,6 @@ border-bottom:1px solid #ccc;}
 .flechasAbajo{ margin-top:5px;}
 
 .controlBackground{
-	/*background-color:rgba(31,81,139,0.2);*/
 	background-color:rgba(89,117,139,0.2);
 	-webkit-border-radius: 10px;
 -moz-border-radius: 10px;
@@ -381,19 +349,21 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 .controlProgress{height: 60px;
 padding-top: 40px;}
 .controlLenght{height: 60px;
-padding-top: 37px; padding-right:15px; font-size:1em;}
+padding-top: 37px; padding-right:15px; 
+font-size: 1.3em;
+font-weight: bold;}
 
-body#screenControl .controlContainer .btn-warning{ width:50px; height:50px;}
-body#screenControl .controlContainer .controlNavegacion .btn-inverse{ width:70px; height:70px;}
+body#screenControl .controlContainer .btn-warning{ width:70px; height:70px;}
+body#screenControl .controlContainer .controlNavegacion .btn{ width:70px; height:70px;}
 
 .controlNumeros{ text-align:left; padding:20px 15px;}
-.controlNumeros .btn{ width:50px; height:50px; font-size:2em; margin-right:5px;}
+.controlNumeros .btn{ width:60px; height:60px; font-size:2em; margin-right:5px;}
 
 .controlConfig{ text-align:left; padding:20px 15px; text-align:right;}
-.controlConfig .btn{ width:50px; height:50px; font-size:2em; margin-left:5px;}
+.controlConfig .btn{ width:60px; height:60px; font-size:2em; margin-left:5px;}
 
 
-body#screenControl .controlConfig .btn-inverse{ height:50px; width:50px; }
+body#screenControl .controlConfig .btn{ height:60px; width:60px; }
 
 body#screenControl .btn-large{ padding:0px;}
 
@@ -402,28 +372,34 @@ width: 200px;
 height: 280px;
 }
 
+/*-------- END CONTROL REMOTO --------------*/
+
+/* ----- MARKETPLACE --------*/
+
+h2.marketplaceSliderTitle{ 
+font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1px 0 #ccc; line-height:28px; width:90%; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';
+margin-left:30px; width:120px; float:left; margin-bottom:0px; margin-top:2px;}
+
+#screenMarketplace .nav-pills { margin-bottom:10px;}
+
+
+.nav-pills{ font-size:17px;}
+#screenMarketplace .nav-pills>.active>a, .nav-pills>.active>a:hover {
+color: #ffffff;
+background-color: #9d9d00;
+}
+#screenMarketplace .nav-pills a {
+	color: #333;
+	line-height:17px;
+}
+#screenMarketplace .flex-next:active{ background-color:transparent;}
+
+.botonTodas{ float:right; margin-right:30px;}
+
+/* ----- END MARKETPLACE --------*/
+
 /*-------- DESCARGAS --------------*/
-
-.descDone{ display:inline-block; color:white;
-font-size:0.8em; text-align:center;
-font-weight:normal;
-background-image:url(img/iconGreen.png);
-background-repeat:no-repeat;
-background-position:-1px;
-margin-left:5px;padding:0px 10px;
-line-height:10px;
-line-height:17px;}
-.descIP{display:inline-block; color:white;
-font-size:0.8em; text-align:center;
-font-weight:normal;
-background-image:url(img/iconGrey.png);
-background-repeat:no-repeat;
-background-position:-1px;
-margin-left:5px;
-padding:0px 10px;
-line-height:10px;
-line-height:17px;}
-
+h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1px 0 #ccc; line-height:28px; width:90%; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';}
 
 .pelisFinalizadas{ padding:10px 40px; margin-bottom:20px;}
 .peliFinalizada{ width:140px; text-align:center; display:inline-block; margin-bottom:10px;}
@@ -440,55 +416,62 @@ line-height:17px;}
 .progress{ margin-bottom:0px !important; height:15px;}
 .progress .bar{ text-align:right; line-height:16px;}
 
-/*-------- SLIDER --------------*/
-h2.sliderTitle{ font-size:1.7em; font-weight:normal;  color:#666; text-shadow:0 1px 0 #ccc; line-height:25px; width:90%; margin:auto; margin-bottom:10px;}
+/*-------- END DESCARGAS --------------*/
 
-h2.sliderTitle.modified{ margin-left:75px; width:120px; float:left; margin-bottom:0px; margin-top:2px;}
 
-.marketTitle { width:88%; margin:auto;}
-.marketTitle .nav { margin-bottom:10px;}
-.marketTitle h2.sliderTitle{ float:left; width:120px; margin-bottom:0px; margin-top:2px;}
+/*---------- FLEXSLIDER STYLE OVERRIDE -------*/
 
-.nav-pills>.active>a, .nav-pills>.active>a:hover {
-color: #ffffff;
-background-color: #9d9d00;
-}
-.nav-pills a {
-	color: #333;
+.flexslider{width: 97%; margin: 0 auto; margin-bottom: 30px;}
 
-}
+.flex-direction-nav a:active { background: url(img/bg_direction_nav.png) no-repeat 0 0;}
 
-.botonTodas{ float:right; margin-right:70px;}
+.flex-direction-nav .flex-next {right: -36px; }
+.flex-direction-nav .flex-prev {left: -36px;}
 
-#MenuSecond{ top:55px; margin-left: 10px; margin-right:10px; font-size:0.95em;}
+.flex-direction-nav .flex-next { right: 0 !important; margin-right: -35px; 
+   opacity: 1; filter:alpha(opacity=100);}
+ .flex-direction-nav .flex-next:active { background-position: 100% 0; right: 0 !important; margin-right: -35px; 
+   opacity: 1; filter:alpha(opacity=100);}
 
-#filtroGenero.nav { margin-right:0px;}
+.flex-direction-nav .flex-prev { left: 0 !important; 
+   margin-left: -35px;opacity: 1; filter:alpha(opacity=100); }
+.flex-direction-nav .flex-prev:active { left: 0 !important; 
+   margin-left: -35px;opacity: 1; filter:alpha(opacity=100); }
+   
+.flex-direction-nav .flex-disabled { background-color:transparent; cursor: default;}
+.flex-direction-nav .flex-disabled:active { background-color:transparent; cursor: default;opacity: .3!important; filter:alpha(opacity=30);}
+ 
+ .flex-control-nav{bottom: -30px;}
 
-#filtroGenero li a{ padding-right: 20px;padding-left: 20px;}
+ 
+@media (max-width: 1024px) {
+	.flex-control-paging li a {width: 15px; height: 15px; }
+	.flexslider { margin-bottom:40px;}
+}  
+   
+/*---------- END FLEXSLIDER STYLE OVERRIDE -------*/
 
-#filtroEdad{ border-right:1px solid #ccc;border-left:1px solid #ccc;}
-.search-query{ margin-right:10px;}
+/*---------- BOOKMARKS -------------*/
+.tableInfoBookmark{
+	max-height: 350px;
+overflow-y: scroll;}
 
-.noMargin{ margin:0px !important;}
+.controlBookmark{ text-align:right;width:30%;float:right;display: inline-block;}
+.controlBookmark button{ width:100px; height:60px; margin-top:10px; margin-bottom:20px; display:block;}
 
-.peliReroduciendo{ display: none; position:fixed; bottom:10px; left:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333;}
+.tableInfoBookmark{
+	max-height: 350px;
+overflow-y: scroll;}
 
-.peliReroduciendo .rep{text-align:left;}
+/*---------- END BOOKMARKS -------------*/
 
-.peliReroduciendo .tituloRep{ font-size:1.3em; margin-bottom:10px; border-bottom:1px dotted #393939; padding-bottom:10px;}
-
-.peliReroduciendo button{ margin:auto;}
-
-i.pointer
-{
-cursor: pointer;
-}
-
+/*---------- TEXTO MARQUESINA -------------*/
 p.slide-text26 {
 position:relative;
 animation:mymove26 2s infinite;
 -webkit-animation:mymove26 2s infinite; /*Safari and Chrome*/
 width: auto;
+white-space:nowrap;
 }
 
 p.slide-text30 {
@@ -496,6 +479,7 @@ position:relative;
 animation:mymove30 5s infinite;
 -webkit-animation:mymove30 5s infinite; /*Safari and Chrome*/
 width: auto;
+white-space:nowrap;
 }
 
 p.slide-text35 {
@@ -503,6 +487,7 @@ position:relative;
 animation:mymove35 5s infinite;
 -webkit-animation:mymove35 5s infinite; /*Safari and Chrome*/
 width: auto;
+white-space:nowrap;
 }
 
 p.slide-text40 {
@@ -510,6 +495,7 @@ position:relative;
 animation:mymove40 5s infinite;
 -webkit-animation:mymove40 5s infinite; /*Safari and Chrome*/
 width: auto;
+white-space:nowrap;
 }
 
 p.slide-text41 {
@@ -517,6 +503,7 @@ position:relative;
 animation:mymove41 5s infinite;
 -webkit-animation:mymove41 5s infinite; /*Safari and Chrome*/
 width: auto;
+white-space:nowrap;
 }
 
 @keyframes mymove26
@@ -578,5 +565,98 @@ to {right:150px;}
 from {right:0px;}
 to {right:150px;}
 }
-.peliReroduciendo button{ margin:auto;}
+/*-------------- END TEXTO MARQUESINA -------------- */
+
+/*-------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------*/
+/*------------------------   Estilos RESPONSIVE    ----------------------------*/
+/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+
+
+/* Large desktop */
+@media (min-width: 1024px) {
+	.element{
+	width:180px;
+	height:290px;
+	background-color:none !important;
+	background:none !important;
+	}
+	.peliAfiche{ width:180px; height:260px;}
+	
+	.controlContainer{
+		width:70%;
+	}
+}
+/*IPAD LANDSCAPE*/
+@media (min-width: 768px) and (min-width: 1024px) {
+	.controlContainer{
+		width:100%;
+	}
+	
+	.element{
+	width:180px;
+	height:290px;
+	background-color:none !important;
+	background:none !important;
+	}
+	
+	.peliAfiche{ width:180px; height:260px;}
+	
+
+}
+
+/*IPAD PORTRAIT*/
+@media (max-width: 768px) { 
+	.navbar .nav>li>a{
+		padding:10px 10px 10px;
+	}
+		
+	.element{
+	width:165px;
+	height:270px;
+	background-color:none !important;
+	background:none !important;
+	}
+	
+	.peliAfiche{ width:165px; height:240px;}
+
+	.controlContainer{
+		width:100%;
+	}
+	
+	.controlContainer .span6{
+		width:100%;
+	}
+	.controlNavegacion{
+		width:680px;
+		margin:auto;
+	}
+	.controlContainer .controlNavegacion .btn {
+	width: 70px;
+	height: 70px;
+	}
+	.controlProgress{
+	width: 90%;
+	margin: auto;
+	}
+	
+	.controlNumeros .btn{
+		margin-right: 25px;
+		margin-bottom: 15px;
+	}
+	
+	#filtroGenero li.menuItem{ display:none;}
+	#filtroGenero li.dropdown{ display:inline-block;}
+	#filtroEdad li.menuItem{ display:none;}
+	#filtroEdad li.dropdown{ display:inline-block;}
+}
+
+
+  @media only screen and (max-width: 767px) {  
+  /*esto arma el menu mobile*/
+  /* .mobile-two .span2 { width: 50% !important; float: left; padding: 0 15px; }*/
+
+}
+
 </style>
