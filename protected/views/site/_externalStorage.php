@@ -1,5 +1,5 @@
  <!--  <div id="myModalExternalStorage" class="modal noPlaying">-->   
-   <div id="myModalExternalStorage" class="modal hide fade noPlaying in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+    <!--    <div id="myModalExternalStorage" class="modal hide fade noPlaying in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
     <div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
     	<h3 id="myModalLabel">Unidades Externas</h3>
@@ -23,7 +23,7 @@
     <div class="modal-footer">
     	<button id="btn-cancel" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Cancelar</button>
     </div>
-  </div>
+ <!--      </div>-->
   <script>
 	
 	$('#btn-cancel').click(function(){

@@ -1,5 +1,5 @@
  <!--  <div id="myModalDiscIn" class="modal modalDetail">-->   
-   <div id="myModalDiscIn" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+   <!--     <div id="myModalDiscIn" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
     <div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
     	<h3 id="myModalLabel">Nuevo disco</h3>
@@ -27,7 +27,7 @@
     
     <div class="modal-footer">
     </div>
-  </div>
+ <!--      </div>-->
   <script>
 	$('#btn-play').click(function(){
 		window.location = <?php echo '"'. SiteController::createUrl('site/Ajaxstart',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    

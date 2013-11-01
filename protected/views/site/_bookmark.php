@@ -1,5 +1,5 @@
  <!--  <div id="myModal" class="modal modalDetail">-->   
-   <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+  <!--      <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
       <h3 id="myModalLabel">Bookmark</h3>
@@ -91,7 +91,7 @@
     </div>
     <div class="modal-footer">    
     </div>
-  </div>
+   <!--    </div>-->
  
  <script>
  	$('#btn-scene-cancel').click();

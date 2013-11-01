@@ -297,21 +297,28 @@ $(document).ready(function(){
   <!-- /row -->
 </div>
 <!-- /container -->
+<div id="myModalExternalStorage" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+<div id="myModalDiscIn" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+<div id="myModalESExplorer" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+
+ <?php 
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
+
+// echo CHtml::openTag('div',array('id'=>'view-external-storage'));
+// echo $this->renderPartial('../site/_externalStorage');
+// echo CHtml::closeTag('div'); 
+
+// $this->endWidget(); ?>
 <?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
 
-echo CHtml::openTag('div',array('id'=>'view-external-storage'));
-echo $this->renderPartial('../site/_externalStorage');
-echo CHtml::closeTag('div'); 
+// echo CHtml::openTag('div',array('id'=>'view-disc-in'));
+// echo CHtml::closeTag('div'); 
 
-$this->endWidget(); ?>
-<?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
-
-echo CHtml::openTag('div',array('id'=>'view-disc-in'));
-echo CHtml::closeTag('div'); 
-
-$this->endWidget(); ?>
+// $this->endWidget(); ?>
 
 <!-- floating DIV para Peliculas en Reproduccion -->
 <div id="playback" class="peliReroduciendo">

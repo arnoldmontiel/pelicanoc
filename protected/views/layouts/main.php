@@ -383,9 +383,15 @@ $(document).ready(function(){
 </div>
 <!-- /container -->
 <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
-<!-- ACA VA LO QUE ESTA EN _movieDetails.php -->
 </div>
-   <?php
+<div id="myModalExternalStorage" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+<?php echo $this->renderPartial('../site/_externalStorage');?>
+</div>
+<div id="myModalDiscIn" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+<div id="myModalESExplorer" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+</div>
+<?php
  
 /*
 echo CHtml::openTag('div',array('id'=>'myModal'));
