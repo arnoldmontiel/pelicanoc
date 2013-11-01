@@ -101,7 +101,7 @@ class FolderCommand extends CConsoleCommand  {
 				$setting = Setting::getInstance();
 				$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';
 				
-				$localFolderPath = $modelESData->path . (!emtpy($modelESData->file))?'/'.$modelESData->file:'';
+				$localFolderPath = $modelESData->path . (!empty($modelESData->file))?'/'.$modelESData->file:'';
 				$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
 				
 				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
@@ -150,7 +150,7 @@ class FolderCommand extends CConsoleCommand  {
 						{
 								
 							$finalPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
-							$localFolderPath = $modelESData->path . (!emtpy($modelESData->file))?'/'.$modelESData->file:'';
+							$localFolderPath = $modelESData->path . (!empty($modelESData->file))?'/'.$modelESData->file:'';
 							$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
 							
 							$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
