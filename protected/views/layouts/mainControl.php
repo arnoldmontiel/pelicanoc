@@ -9,7 +9,7 @@
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- isotope -->
 <link href="css/isotope.css" rel="stylesheet" media="screen">
 <!--<link href="css/pelicano.css" rel="stylesheet" media="screen">
