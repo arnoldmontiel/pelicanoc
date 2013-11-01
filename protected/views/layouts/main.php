@@ -2,15 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-<!-- Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<script src="js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/font-awesome.min.css">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!-- isotope -->
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<!-- Isotope -->
 <link href="css/isotope.css" rel="stylesheet" media="screen">
 <!-- Flexslider -->
 <script defer src="js/jquery.flexslider.js"></script>
@@ -381,8 +382,7 @@ $(document).ready(function(){
   <!-- /row -->
 </div>
 <!-- /container -->
-
-<div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">
+<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
 <!-- ACA VA LO QUE ESTA EN _movieDetails.php -->
 </div>
    <?php
@@ -423,7 +423,7 @@ echo CHtml::closeTag('div');
 Reproduciendo:
 <div id="playback-title" class="tituloRep"></div>
 </div>
-<a class="btn" id="btn-dune-control"><i class="fa fa-keyboard"></i> Control Remoto</a>
+ <a type="button" id="btn-dune-control" class="btn btn-default"><i class="fa fa-keyboard-o"></i> Control Remoto</a>
 </div>
 <!-- /cierre floating -->
 </body>
