@@ -121,13 +121,14 @@ foreach($dataProvider->getData() as $record)
 
 </div>
 <?php 
-$this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
 
-echo CHtml::openTag('div',array('id'=>'view-details'));
-//place holder
-echo CHtml::closeTag('div'); 
+// echo CHtml::openTag('div',array('id'=>'myModal'));
+// //place holder
+// echo CHtml::closeTag('div'); 
 
-$this->endWidget(); ?>
+// $this->endWidget(); 
+?>
 <script>
 	$('#btn-cancel').click(function(){
 		$('#btn-cancel').attr("disabled", "disabled");		

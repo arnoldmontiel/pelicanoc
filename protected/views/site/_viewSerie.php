@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view_serie'.$data->Id,
 	   		data: param,
 	 	}).success(function(data)
 	 	{	 	
-			$('#view-details').html(data);
+			$('#myModal').html(data);
 		}
 	 	);	
 		
