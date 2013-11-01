@@ -236,7 +236,8 @@
     
     </div><!--/.modal-body -->
     <div class="modal-footer">
-    <button id="btn-play" type="button" class="btn btn-default btn-large"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
+    <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cerrar</button>
+    <button id="btn-play" type="button" class="btn btn-primary btn-large"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
