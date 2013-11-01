@@ -155,13 +155,29 @@
 	
     <div class="row detailSecondGroup">
     <div class="col-md-3 align-left detailSecond detailSecondFirst">
-    TMDB
+    Imagenes
 	</div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
 	<i id="btn-tmdb" class="fa fa-pencil fa-lg"></i>
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
-    </div><!--/.tab-pane#2 -->
+    <div class="row detailSecondGroup">
+    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    Cambiar pelicula
+	</div><!--/.col-md-3 -->
+    <div class="col-md-9 align-left detailSecond">
+	<i id="btn-tmdb-movie" class="fa fa-pencil fa-lg"></i>
+	</div><!--/.col-md-9 -->
+	</div><!--/.row -->
+	    <div class="row detailSecondGroup">
+    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    Editar manualmente
+	</div><!--/.col-md-3 -->
+    <div class="col-md-9 align-left detailSecond">
+	<i id="btn-edit-my-movie" class="fa fa-pencil fa-lg"></i>
+	</div><!--/.col-md-9 -->
+	</div><!--/.row -->
+	</div><!--/.tab-pane#2 -->
     
     <div class="tab-pane" id="tab3"><!--/.bookmarks -->
     <div class="row detailMainGroup">
@@ -190,7 +206,7 @@
     <div class="btn-group open" style="float: right; margin-right: 30px;">
 					<a class="btn btn-default" href="#"><i class="icon-heart"></i> Agregar a...</a>
 					<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
-					<span class="icon-caret-down"></span></a>
+		    					<span class="icon-caret-down"></span></a>
 					<ul class="dropdown-menu">
 						<?php 
 						$playLists = Playlist::model()->findAll();
@@ -277,5 +293,9 @@
 		window.location = <?php echo '"'. SiteController::createUrl('site/tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
 		return false;
 	});
+	$('#btn-edit-my-movie').click(function(){		
+		window.location = <?php echo '"'. SiteController::createUrl('site/updateMyMovieInfo',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
+		return false;
+	});	
 	
 	</script>
