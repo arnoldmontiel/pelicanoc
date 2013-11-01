@@ -30,19 +30,20 @@ echo "<br>";
   <script>
 	$('#btn_search').click(function(){
 		$(this).attr("disabled", "disabled");
+		$('#searchMoviesResult').html("Buscando...");
 		$.post("<?php echo SiteController::createUrl('AjaxShearMovieTMDB'); ?>",
 			{title: $('#txt_search').val()}
 		).success(
 			function(data) 
 			{									
-				$('#btn_search').attr("disabled", "");
+				$('#btn_search').removeAttr("disabled");
 				$('#searchMoviesResult').html(data);
 				return false;
 			}
 		).error(
 			function(data) 
 			{									
-				$('#btn_search').attr("disabled", "");
+				$('#btn_search').removeAttr("disabled");
 				$('#searchMoviesResult').html("");
 				return false;
 			}
