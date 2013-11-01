@@ -11,24 +11,40 @@
 		</thead>
 		<tbody id="bookmark-table">
 			<?php
-			echo CHtml::openTag('tr',array('class'=>'bookmark-row'));
-			echo CHtml::closeTag('tr');
-			foreach($modelESDataDBs as $item)
+			
+			$path = $setting->path_shared. $setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';
+			
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES))
 			{
-				echo CHtml::openTag('tr',array('class'=>'bookmark-row', 'id'=>'id_'.$item->Id));
-					echo CHtml::openTag('td');
-						echo $item->title;
-					echo CHtml::closeTag('td');
-					echo CHtml::openTag('td');
-						echo $item->year;
-					echo CHtml::closeTag('td');
-					echo CHtml::openTag('td');
-						echo $item->path;
-					echo CHtml::closeTag('td');								
-					echo CHtml::openTag('td');
-						echo "<button idrecord='".$item->Id."' class='btn-download-handler btn btn-primary btn-medium '>Descargar</button>";
-					echo CHtml::closeTag('td');
+				$setting = Setting::getInstance();
+				echo CHtml::openTag('tr',array('class'=>'bookmark-row'));
 				echo CHtml::closeTag('tr');
+				foreach($modelESDataDBs as $item)
+				{
+					$localFolderPath = str_replace($modelCurrentES->path,'',$item->path);
+					$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
+										
+					$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+					
+					echo CHtml::openTag('tr',array('class'=>'bookmark-row', 'id'=>'id_'.$item->Id));
+						echo CHtml::openTag('td');
+							echo $item->title;
+						echo CHtml::closeTag('td');
+						echo CHtml::openTag('td');
+							echo $item->year;
+						echo CHtml::closeTag('td');
+						echo CHtml::openTag('td');
+							echo $item->path;
+						echo CHtml::closeTag('td');								
+						echo CHtml::openTag('td');
+							if(isset($modelLocalFolder))
+								echo "<button idrecord='".$item->Id."' class='btn btn-primary btn-medium '>Sobreescribir</button>";
+							else
+								echo "<button idrecord='".$item->Id."' class='btn btn-primary btn-medium '>Descargar</button>";
+						echo CHtml::closeTag('td');
+					echo CHtml::closeTag('tr');
+				}
 			}
 			?>
 		</tbody>
