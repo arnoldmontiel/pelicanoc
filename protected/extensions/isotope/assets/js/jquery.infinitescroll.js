@@ -432,8 +432,10 @@
 		        	   		data: param,
 		        	 	}).success(function(data)
 		        	 	{
-		        			$('#view-details').html(data);
-		        			
+		        			$('#myModal').html(data);
+		        	   		$('#myModal').modal({
+		          				show: true
+		        			})		        			
 		        		}
 		        	 	);			        		
 	        		}

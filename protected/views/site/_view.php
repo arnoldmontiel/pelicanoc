@@ -42,10 +42,13 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	 	}).success(function(data)
 	 	{
 	 	
-			$('#myModal').html(data);
-			
+			$('#myModal').html(data);	
+	   		$('#myModal').modal({
+  				show: true
+			})		
 		}
-	 	);	
+	 	);
+	   	return false;	
 		
 });
 
@@ -55,7 +58,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
         
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
-	<a id="link-movie-<?php echo $model->Id;?>-<?php echo $data->Id;?>-<?php echo $data->source_type;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
+	<a id="link-movie-<?php echo $model->Id;?>-<?php echo $data->Id;?>-<?php echo $data->source_type;?>" style="position:relative;" href="#myModal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
