@@ -35,17 +35,44 @@ class ReadFolderHelper
 		}
 	}
 	
+	static public function generatePeliFilesES($idCurrentES)
+	{
+		try {
+	
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES) && $modelCurrentES->state != 4 &&
+			$modelCurrentES->is_scanned == 0) // nunca fue escaneado y el estado no es escaneando
+			{
+				//grabo estado escaneando..
+				$modelCurrentES->state = 4;
+				$modelCurrentES->save();
+	
+				$sys = strtoupper(PHP_OS);
+	
+	
+				if(substr($sys,0,3) == "WIN")
+				{
+					$WshShell = new COM('WScript.Shell');
+					$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/generatePeliFilesES -idCurrentEs '. $idCurrentES, 0, false);
+				}
+				else
+				{
+					exec(dirname(__FILE__).'/../commands/shell/generatePeliFilesES.sh '.$idCurrentES.' >/dev/null&');
+				}
+			}
+		} catch (Exception $e) {
+	
+		}
+	
+	}
+	
 	static public function scanExternalStorage($idCurrentES)
 	{		
 		try {			
 
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
-			if(isset($modelCurrentES) && $modelCurrentES->state != 4 &&  
-				$modelCurrentES->is_scanned == 0) // nunca fue escaneado y el estado no es escaneando
+			if(isset($modelCurrentES)) 
 			{
-				//grabo estado escaneando..
-				$modelCurrentES->state = 4;
-				$modelCurrentES->save();
 				
 				$sys = strtoupper(PHP_OS);
 	
