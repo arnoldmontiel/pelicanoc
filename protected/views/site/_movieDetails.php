@@ -1,7 +1,4 @@
- <!--  <div id="myModal" class="modal modalDetail">-->   
- <!--   <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"> -->
- <!--  <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"  style="display: none;">--> 
-   <div class="modal-dialog modalDetail">
+ <div class="modal-dialog modalDetail">
         <div class="modal-content">
    <?php 
    		$idResource = "";		
@@ -240,9 +237,7 @@
     <button id="btn-play" type="button" class="btn btn-primary btn-large"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
-    </div><!--/.modal-dialog -->
-   <!-- </div>/.modal -->
-	
+    </div><!--/.modal-dialog -->	
   <script>
 
 	$(".check-playlist").click(function(){
