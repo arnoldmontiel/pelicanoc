@@ -1296,7 +1296,6 @@ class SiteController extends Controller
 			}
 			$path = explode("/",$localFolder->path);
 			$path = $path[count($path)-1];
-			echo $path; 
 			$db = TMDBApi::getInstance();
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
