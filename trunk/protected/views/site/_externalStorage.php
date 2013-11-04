@@ -1,29 +1,30 @@
- <!--  <div id="myModalExternalStorage" class="modal noPlaying">-->   
-    <!--    <div id="myModalExternalStorage" class="modal hide fade noPlaying in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
-    <div class="modal-header">
-    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
-    	<h3 id="myModalLabel">Unidades Externas</h3>
+ <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
+            	<h3 id="myModalLabel">Unidades Externas</h3>
     </div>
     <div class="modal-body"> 
-	    <div class="row-fluid">
-		    <div class="span3 pagination-centered">
+	    <div class="row">
+		    <div class="col-md-3 pagination-centered">
 		   		<img class="aficheDetail" src="img/discIn.jpg" width="100%" height="100%" border="0">
-		    </div><!--/.span3PRINCIPAL -->
+		    </div><!--/.col-md-3PRINCIPAL -->
 	    
     		<input type="hidden" id="hidden-unit" value="0">
     		<input type="hidden" id="hidden-working" value="0">
-			<div class="span9">
+			<div class="col-md-9">
 				<div id="external-unit"></div>
 				<div id="explorer-unit"></div>
-		    </div><!--/.span9PRINCIPAL -->
+		    </div><!--/.col-md-9PRINCIPAL -->
 		    
 		</div><!--/.rowPRINCIPAL -->
     </div>
-    
-    <div class="modal-footer">
-    	<button id="btn-cancel" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Cancelar</button>
-    </div>
- <!--      </div>-->
+      <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cerrar</button>
+    </div><!--/.modal-footer -->
+  </div><!--/.modal-content -->
+    </div><!--/.modal-dialog -->
+ 
   <script>
 	
 	$('#btn-cancel').click(function(){

@@ -1,33 +1,35 @@
- <!--  <div id="myModalDiscIn" class="modal modalDetail">-->   
-   <!--     <div id="myModalDiscIn" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
-    <div class="modal-header">
-    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
-    	<h3 id="myModalLabel">Nuevo disco</h3>
+ <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
+            	<h3 id="myModalLabel">Nuevo disco</h3>
     </div>
     <div class="modal-body"> 
-	    <div class="row-fluid">
-		    <div class="span3 pagination-centered">
+	    <div class="row">
+		    <div class="col-md-3 pagination-centered">
 		   		<img class="aficheDetail" src="img/discIn.jpg" width="100%" height="100%" border="0">
-		    </div><!--/.span3PRINCIPAL -->
+		    </div><!--/.col-md-3PRINCIPAL -->
 	    
     
-			<div class="span9">			    
-			    	<div class="span4 pagination-centered detailMain detailMainFirst">
+			<div class="col-md-9">			    
+			    	<div class="col-md-4 pagination-centered detailMain detailMainFirst">
 			    		<button id="btn-play" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Reproducir</button>
-			    	</div><!--/.span4 -->
-			    	<div class="span4 pagination-centered detailMain">
+			    	</div><!--/.col-md-4 -->
+			    	<div class="col-md-4 pagination-centered detailMain">
 						<button id="btn-play-ripp" class="btn btn-primary btn-large"><span class="iconFontButton iconPlay"></span> Rippear</button>    		
-			    	</div><!--/.span4 -->
-			    	<div class="span4 pagination-centered detailMain" id="ripp-area">
-			    	</div><!--/.span4 -->
-		    </div><!--/.span9PRINCIPAL -->
+			    	</div><!--/.col-md-4 -->
+			    	<div class="col-md-4 pagination-centered detailMain" id="ripp-area">
+			    	</div><!--/.col-md-4 -->
+		    </div><!--/.col-md-9PRINCIPAL -->
 		    
 		</div><!--/.rowPRINCIPAL -->
     </div>
     
-    <div class="modal-footer">
-    </div>
- <!--      </div>-->
+   <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cerrar</button>
+    </div><!--/.modal-footer -->
+  </div><!--/.modal-content -->
+    </div><!--/.modal-dialog -->
   <script>
 	$('#btn-play').click(function(){
 		window.location = <?php echo '"'. SiteController::createUrl('site/Ajaxstart',array('id'=>$model->Id,'sourceType'=>$sourceType)) . '"'; ?>;    

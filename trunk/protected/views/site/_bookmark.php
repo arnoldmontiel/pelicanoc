@@ -1,19 +1,19 @@
- <!--  <div id="myModal" class="modal modalDetail">-->   
-  <!--      <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
-      <h3 id="myModalLabel">Bookmark</h3>
+ <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
+              <h3 id="myModalLabel">Bookmark</h3>
     </div>
-    <div class="modal-body"> 
-    <div class="row-fluid">    
+    <div class="modal-body">  
+    <div class="row">    
     
-    <div class="span9">
+    <div class="col-md-9">
     
-    <div class="row-fluid detailMainGroup">
+    <div class="row detailMainGroup">
     Lista de bookmarks
     </div><!--/.row -->
     
-    <div class="row-fluid detailSecondGroup tableInfoBookmark">
+    <div class="row detailSecondGroup tableInfoBookmark">
 		<table class="table table-striped">
               <thead>
                 <tr>
@@ -53,10 +53,10 @@
             </table>         
      </div>  
     
-    </div><!--/.span9PRINCIPAL -->
+    </div><!--/.col-md-9PRINCIPAL -->
     
-    <div class="span3 pagination-centered">
-	    <div class="row-fluid detailSecondGroup">	    
+    <div class="col-md-3 pagination-centered">
+	    <div class="row detailSecondGroup">	    
 	    	Crear Bookmark	    
 	    </div><!--/.row -->
 	    
@@ -81,7 +81,7 @@
 		<button id="btn-scene-save" disabled="disabled" class='btn btn-primary btn-medium'>Guardar</button>
 		<button id="btn-scene-cancel" class='btn btn-primary btn-medium'>Cancelar</button>
 		
-	</div><!--/.span3PRINCIPAL -->
+	</div><!--/.col-md-3PRINCIPAL -->
     
    
     
@@ -89,9 +89,11 @@
     
     
     </div>
-    <div class="modal-footer">    
-    </div>
-   <!--    </div>-->
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cerrar</button>
+    </div><!--/.modal-footer -->
+  </div><!--/.modal-content -->
+    </div><!--/.modal-dialog -->
  
  <script>
  	$('#btn-scene-cancel').click();

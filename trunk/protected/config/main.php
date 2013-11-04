@@ -83,7 +83,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=pelicanoc',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'admin',
+			'password' => 'root',
 			'charset' => 'utf8',
 		),
 

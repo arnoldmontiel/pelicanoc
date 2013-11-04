@@ -1,13 +1,13 @@
- <!--  <div id="myModal" class="modal modalDetail">-->   
-  <!--      <div id="myModal" class="modal hide fade modalDetail in" style="display: block;" aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1">-->
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="icon-remove-sign icon-large"></i></button>
+ <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
       <h3 id="myModalLabel">Playlists</h3>
     </div>
     <div class="modal-body"> 
-    <div class="row-fluid">
-    <div class="span3 pagination-centered">
-    <span class="span4">
+    <div class="row">
+    <div class="col-md-3 pagination-centered">
+    <span class="col-md-4">
   		<div class="tabs-left">
 	    <ul class="nav nav-tabs">
 	    <?php
@@ -22,6 +22,14 @@
 		<div class="tab-pane active" id="tab1">
 		</div>
 		</div>
-	    </div><!--/.span3PRINCIPAL -->
+	    </div><!--/.col-md-3PRINCIPAL -->
 	</span>
-    </div><!--/.span3PRINCIPAL -->
+    </div><!--/.col-md-3PRINCIPAL -->
+    
+    </div><!--/.row -->    
+    </div><!--/.modal-body -->
+       <div class="modal-footer">
+    	<button id="btn-eject" class="btn btn-primary btn-large"><i class="fa fa-eject fa-lg"></i></button>
+         </div><!--/.modal-footer -->
+  </div><!--/.modal-content -->
+    </div><!--/.modal-dialog -->
