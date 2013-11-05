@@ -209,6 +209,8 @@ cursor: pointer;
    margin-left:0px;
 }
 
+#wall{ text-align:center;}
+.items{ margin: 0 auto !important;}
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
 
 .element{
