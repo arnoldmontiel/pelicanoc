@@ -19,6 +19,9 @@
 <!-- Modernizr -->
 <script src="js/modernizr.js"></script>
 
+<link href="js/select2-3.4.4/select2.css" rel="stylesheet"/>
+<script src="js/select2-3.4.4/select2.js"></script>
+
 	<?php include('estilos.php');?>
 
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/tools.js");?>
