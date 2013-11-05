@@ -103,6 +103,7 @@ class MyMovieNzb extends CActiveRecord
 			'myMovieDiscNzbs' => array(self::HAS_MANY, 'MyMovieDiscNzb', 'Id_my_movie_nzb'),
 			'myMovieSerieHeader' => array(self::BELONGS_TO, 'MyMovieSerieHeader', 'Id_my_movie_serie_header'),
 			'parentalControl' => array(self::BELONGS_TO, 'ParentalControl', 'Id_parental_control'),
+			'persons' => array(self::MANY_MANY, 'Person', 'my_movie_nzb_person(Id_my_movie_nzb, Id_person)'),
 		);
 	}
 
