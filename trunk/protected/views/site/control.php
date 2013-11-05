@@ -1,5 +1,5 @@
 
-<div class="container" id="mainControl">
+<div class="container" id="screenControl">
 <div class="controlContainer">
   <div class="row">
     <div class="col-md-4">
@@ -110,7 +110,6 @@
 </div>
     </div>
     <!-- /col-md-3 -->
-    </div>
     </div>  <!-- /row -->
   </div><!-- /controlContainer -->
 </div><!-- /container -->
@@ -391,6 +390,8 @@ $('#button9').click(function(){
 		
 ");
 ?>
+
+
 	
 	
 	

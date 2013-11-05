@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container" id="screenDevices">
   <div class="row">
     <div class="col-md-12">
     <h1 class="pageTitle">Dispositivos Conectados</h1>
@@ -12,7 +12,7 @@
         <li><a href="#">Blue Ray</a><a type="button" class="ejectBTN btn btn-default"><i class="fa fa-eject"></i></a></li>
       </ul>
     </div> <!-- /col-md-3 -->
-    <!-- ACA EMPIEZA PASO !
+    <!-- ACA EMPIEZA PASO 1
     <div class="col-md-9" id="wizardDispositivos">
         <h3>USB 1 (Kingston)</h2>
         Indique si alguno de estos archivos es un video personal, luego proceda a analizar el disco para encontrar las peliculas.       

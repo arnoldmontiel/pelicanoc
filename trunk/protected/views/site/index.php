@@ -1,4 +1,6 @@
-
+<div class="container" id="screenHome" >
+   <div class="row">
+    <div class="col-md-12">
 <?php
 
 // $hola = ReadFolderHelper::process_dir('/srv/storage', true);
@@ -32,3 +34,7 @@ $this->widget('ext.isotope.Isotope',array(
 
 // $this->endWidget(); 
 ?>
+
+    </div> <!-- /col-md-12 -->
+  </div><!-- /row -->
+</div><!-- /container -->

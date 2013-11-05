@@ -71,22 +71,26 @@ body{
 	 }
  
 
-body#screenHome {
+body #screenHome {
   padding-top: 125px;
 }
-body#screenSeries {
+body #screenSeries {
   padding-top: 80px;
 }
 
-body#screenMarketplace{
+body #screenMarketplace{
   padding-top: 80px;
   }
   
-  body#screenDescargas{
+  body #screenDescargas{
   padding-top: 80px;
   }
   
-#mainControl{
+    body #screenDevices{
+  padding-top: 80px;
+  }
+  
+body #screenControl{
   padding-top: 80px;
   }
   
@@ -260,11 +264,13 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 
   
 /* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
+.modal{z-index:1070;}
 .modal-title{ font-size:1.5em; color:#666; font-family: 'GudeaBold';}
 .modal-header {padding: 9px 15px;}
 .modal-header .close{padding: 0px; margin-top:0px; line-height:34px;}
 .modal-footer {padding: 9px 15px;}
 .modal-body{ overflow:hidden;}
+.modal-backdrop{z-index:1065;}
 
 .nav-tabs { margin-bottom:0px !important ;margin-left:0px !important;}
 
@@ -304,7 +310,7 @@ overflow-x: auto;
 
 /* ------ POPUP REPRODUCIENDO ------- */
 
-.peliReroduciendo{ position:fixed; bottom:10px; left:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:9000; padding:10px; text-align:center; border:1px dotted #333; color:white;}
+.peliReroduciendo{ position:fixed; bottom:10px; left:10px; width:210px;  background-color:rgba(0,0,0,0.9); z-index:1030; padding:10px; text-align:center; border:1px dotted #333; color:white;}
 
 .peliReroduciendo .rep{text-align:left;}
 

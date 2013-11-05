@@ -218,24 +218,8 @@ $(document).ready(function(){
   </div>
   <!-- /row -->
  
- 
- <?php
- //$descargar='no'; 
- //include('movieDetails.php'); 
- //include('serieDetails.php'); ?>
+	<?php echo $content; ?>        
 
-  <div class="row-fluid">
-    <div class="span12">
-    
-      	<?php echo $content; ?>        
-    
-      <!-- /content -->
-    </div>
-    <!-- /span12 -->
-  </div>
-  <!-- /row -->
-</div>
-<!-- /container -->
 <div id="myModalDiscIn" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
 </div>
 <div id="myModalESExplorer" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
