@@ -110,10 +110,11 @@ body.modal-open {
 
 /* end of hack */
 
+
 /* ------ MAIN MENU / NAV BAR ------- */
 .navbar{ min-height:45px;}
 
-#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #9d9d00; height:55px;}
+#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #9d9d00; height:55px;z-index:1060;}
 #MenuLogo{
 	margin-left: 0px;
 font-family: 'LatoRegular', sans-serif;
@@ -178,6 +179,10 @@ cursor: pointer;
 
 #Menu .badgeDone{	background-color:#9d9d00; margin-left:10px;}
 
+#popover-dispositivos{ width:300px; display:block; top:45px; left:50%; margin-left:-150px; text-align:center;}
+#popover-dispositivos .popoverDisTitle{font-size:20px;}
+#popover-dispositivos .popoverDisButtons{ border-top:1px dotted #ccc; margin-top:10px; padding-top:10px;}
+#popover-dispositivos .popoverDisButtons button{  width:110px; margin-right:10px;}
 
 /* ------ SECOND MENU / NAV BAR ------- */
 
