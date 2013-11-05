@@ -114,6 +114,8 @@ body.modal-open {
 /* ------ MAIN MENU / NAV BAR ------- */
 .navbar{ min-height:45px;}
 
+ul.nav{ margin-left:0px;}
+
 #Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #9d9d00; height:55px;z-index:1060;}
 #MenuLogo{
 	margin-left: 0px;
@@ -208,6 +210,12 @@ cursor: pointer;
    margin: 0 auto !important;
    margin-left:0px;
 }
+
+.pageTitle{font-size: 28px;
+font-weight: normal;
+color: #666;
+text-shadow: 0 1px 0 #ccc;
+font-family: 'GudeaRegular';}
 
 #wall{ text-align:center;}
 .items{ margin: 0 auto !important;}
@@ -404,6 +412,14 @@ background-color: #9d9d00;
 .botonTodas{ float:right; margin-right:30px;}
 
 /* ----- END MARKETPLACE --------*/
+
+/* ----- DISPOSITIVOS --------*/
+.tablaIndividual{ margin-bottom:20px;}
+.nav-pills.nav-stacked>li>a{border-radius:18px;}
+.nav>li>a.ejectBTN{ width:35px; height:35px; padding:6px; position:absolute; top:3px; right:3px; color: #428bca;
+background-color: #fff;}
+/* ----- END DISPOSITIVOS --------*/
+
 
 /*-------- DESCARGAS --------------*/
 h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1px 0 #ccc; line-height:28px; width:90%; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';}
