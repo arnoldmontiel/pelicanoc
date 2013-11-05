@@ -300,7 +300,7 @@ $(document).ready(function(){
 
 });
    
-    
+$('#popover-dispositivos').popover(options);
 </script>
 </head>
 
@@ -320,7 +320,11 @@ $(document).ready(function(){
             <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
           <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('site/marketplace') ?>">Marketplace</a></li>
-		  <li id="li-download"><a href="<?php echo RippedMovieController::createUrl('site/downloads') ?>">Descargas</a></li>          
+		  <li id="li-download"><a href="<?php echo RippedMovieController::createUrl('site/downloads') ?>">Descargas</a></li>   
+		  <li><a href="#">Dispositivos <span class="badge">2</span></a>
+		  <div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button>
+		  </div></div></div></div>
+		  </li>          
         </ul>
           <?php 
 			 	$customer = Setting::getInstance()->getCustomer();
