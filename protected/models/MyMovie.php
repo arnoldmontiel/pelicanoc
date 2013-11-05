@@ -99,6 +99,7 @@ class MyMovie extends CActiveRecord
 			'myMovieSerieHeader' => array(self::BELONGS_TO, 'MyMovieSerieHeader', 'Id_my_movie_serie_header'),
 			'audioTracks' => array(self::MANY_MANY, 'AudioTrack', 'my_movie_audio_track(Id_my_movie, Id_audio_track)'),
 			'subtitles' => array(self::MANY_MANY, 'Subtitle', 'my_movie_subtitle(Id_my_movie, Id_subtitle)'),
+			'persons' => array(self::MANY_MANY, 'Person', 'my_movie_person(Id_my_movie, Id_person)'),
 			'rippedMovies' => array(self::HAS_MANY, 'RippedMovie', 'Id_my_movie'),
 		);
 	}
