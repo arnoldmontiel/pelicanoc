@@ -166,7 +166,7 @@
 	<i id="btn-tmdb-movie" class="fa fa-pencil fa-lg"></i>
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
-	    <div class="row detailSecondGroup">
+	<div class="row detailSecondGroup">
     <div class="col-md-3 align-left detailSecond detailSecondFirst">
     Editar manualmente
 	</div><!--/.col-md-3 -->
@@ -174,6 +174,16 @@
 	<i id="btn-edit-my-movie" class="fa fa-pencil fa-lg"></i>
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
+
+	<div class="row detailSecondGroup">
+    	<div class="col-md-3 align-left detailSecond detailSecondFirst">
+    		Editar
+		</div><!--/.col-md-3 -->
+    	<div class="col-md-9 align-left detailSecond">
+			<i id="btn-edit" class="fa fa-pencil fa-lg"></i>
+		</div><!--/.col-md-9 -->
+	</div><!--/.row -->
+	
 	</div><!--/.tab-pane#2 -->
     
     <div class="tab-pane" id="tab3"><!--/.bookmarks -->
@@ -291,6 +301,10 @@
 	});
 	$('#btn-edit-my-movie').click(function(){		
 		window.location = <?php echo '"'. SiteController::createUrl('site/updateMyMovieInfo',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
+		return false;
+	});	
+	$('#btn-edit').click(function(){		
+		window.location = <?php echo '"'. SiteController::createUrl('site/editMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
 		return false;
 	});	
 	
