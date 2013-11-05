@@ -22,6 +22,7 @@
 <link href="js/select2-3.4.4/select2.css" rel="stylesheet"/>
 <script src="js/select2-3.4.4/select2.js"></script>
 
+	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 	<?php include('estilos.php');?>
 
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/tools.js");?>
@@ -125,43 +126,6 @@ function getCurrentState()
 	return false;
 }
 
-function getExternalUnit()
-{
-	if($('#myModalExternalStorage').is(':visible'))
-	{
-		$.post("<?php echo SiteController::createUrl('AjaxGetExternalStorage'); ?>"
-		).success(
-			function(data){
-				$('#external-unit').html(data);
-		});
-	}
-}
-
-function getUnitExplorer()
-{
-	if($('#myModalExternalStorage').is(':visible'))
-	{
-		if($('#hidden-working').val() != 0)
-		{
-			$.post("<?php echo SiteController::createUrl('AjaxGetUnitContent'); ?>",
-					{
-						id:$('#hidden-unit').val()			    
-					}
-			).success(
-				function(data){
-					if(data != 0)
-					{
-						$('#explorer-unit').html(data);
-						$('#hidden-working').val(0);
-					}
-					else
-					{
-						$('#explorer-unit').html("<p>La unidad se esta escaneando...</p>");
-					}
-			});	
-		}		
-	}
-}
 
 $(document).ready(function(){
 	getCurrentState();
@@ -173,9 +137,7 @@ $(document).ready(function(){
 	});
 
 	
-	setInterval(function() {
-		getExternalUnit();
-		getUnitExplorer();
+	setInterval(function() {		
 		getCurrentState();
 	}, 5000);	
 	
