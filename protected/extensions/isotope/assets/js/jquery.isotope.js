@@ -615,7 +615,8 @@
 
       // set the size of the container
       if ( this.options.resizesContainer ) {
-        var containerStyle = this[ '_' +  layoutMode + 'GetContainerSize' ]();
+        var containerStyle = this[ '_' +  layoutMode + 'GetContainerSize' ]();        
+        //this.element.parent().parent().width(containerStyle.width);
         this.styleQueue.push({ $el: this.element, style: containerStyle });
       }
 
@@ -916,7 +917,8 @@
       // layout-specific props
       this.masonry = {};
       // FIXME shouldn't have to call this again
-      this._getSegments();
+      //this._getSegments();
+      this._getCenteredMasonryColumns();
       var i = this.masonry.cols;
       this.masonry.colYs = [];
       while (i--) {
@@ -987,14 +989,52 @@
     },
 
     _masonryGetContainerSize : function() {
-      var containerHeight = Math.max.apply( Math, this.masonry.colYs );
-      return { height: containerHeight };
+//      var containerHeight = Math.max.apply( Math, this.masonry.colYs );
+//      return { height: containerHeight };
+    	var unusedCols = 0,
+        i = this.masonry.cols;
+    // count unused columns
+    while ( --i ) {
+      if ( this.masonry.colYs[i] !== 0 ) {
+        break;
+      }
+      unusedCols++;
+    }
+    return {
+        height : Math.max.apply( Math, this.masonry.colYs ),
+        // fit container to columns that have been used;
+        width : (this.masonry.cols) * this.masonry.columnWidth,
+      };
+      
     },
 
     _masonryResizeChanged : function() {
-      return this._checkIfSegmentsChanged();
+    	var prevColCount = this.masonry.cols;
+        // get updated colCount
+        this._getCenteredMasonryColumns();
+        return ( this.masonry.cols !== prevColCount );
     },
 
+    _getCenteredMasonryColumns : function() {
+        this.width = this.element.width();
+        
+        var parentWidth = this.element.parent().width();
+        
+                      // i.e. options.masonry && options.masonry.columnWidth
+        var colW = this.options.masonry && this.options.masonry.columnWidth ||
+                      // or use the size of the first item
+                      this.$filteredAtoms.outerWidth(true) ||
+                      // if there's no items, use size of container
+                      parentWidth;
+        
+        var cols = Math.floor( parentWidth / colW );
+        cols = Math.max( cols, 1 );
+
+        // i.e. this.masonry.cols = ....
+        this.masonry.cols = cols;
+        // i.e. this.masonry.columnWidth = ...
+        this.masonry.columnWidth = colW;
+      },
     // ====================== fitRows ======================
 
     _fitRowsReset : function() {
