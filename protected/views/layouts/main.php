@@ -182,6 +182,8 @@ $(document).ready(function(){
 		$('#li-serie').addClass('active');
 	else if(document.URL.indexOf('marketplace') > 0)
 		$('#li-marketplace').addClass('active');
+	else if(document.URL.indexOf('devices') > 0)
+		$('#li-devices').addClass('active');
 	else if(document.URL.indexOf('download') > 0)
 		$('#li-download').addClass('active');
 	else 
@@ -319,9 +321,9 @@ $('#popover-dispositivos').popover(options);
           <ul class="nav navbar-nav">
             <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
           <li id="li-serie"><a href="#">Mis Series</a></li>
-		  <li id="li-marketplace"><a href="<?php echo RippedMovieController::createUrl('site/marketplace') ?>">Marketplace</a></li>
-		  <li id="li-download"><a href="<?php echo RippedMovieController::createUrl('site/downloads') ?>">Descargas</a></li>   
-		  <li><a href="#">Dispositivos <span class="badge">2</span></a>
+		  <li id="li-marketplace"><a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
+		  <li id="li-download"><a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargas</a></li>   
+		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>">Dispositivos <span class="badge">2</span></a></li>		  
 		  <div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button>
 		  </div></div></div></div>
 		  </li>          

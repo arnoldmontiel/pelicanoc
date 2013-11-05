@@ -64,6 +64,11 @@ class SiteController extends Controller
 		));
 	}
 	
+	public function actionDevices()
+	{
+		$this->render('devices');
+	}
+	
 	public function actionDownloads()
 	{
 		$this->showFilter = false;
