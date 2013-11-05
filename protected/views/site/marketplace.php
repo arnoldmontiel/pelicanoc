@@ -1,3 +1,7 @@
+<div class="container" id="screenMarketplace" >
+   <div class="row">
+    <div class="col-md-12">
+
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
 	$('.aficheClick').click(function(){
@@ -22,8 +26,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
 ");
 
 ?>
-	<div class="row-fluid">
-    	<div class="span8">
+	<div class="row">
+    	<div class="col-md-8">
 			<h2 class="sliderTitle modified">Pel&iacute;culas</h2> 
 			<ul class="nav nav-pills">
   				<li class="active"><a data-toggle="tab" href="#">Estrenos</a></li>
@@ -31,7 +35,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
   				<li><a href="#" data-toggle="tab">&Uacute;ltimas Agregadas</a></li>
 			</ul>
 		</div>
-    	<div class="span4">  
+    	<div class="col-md-4">  
     		<div class="botonTodas">
     			<a class="btn" ><i class="icon-th"></i> Todas las Pel&iacute;culas</a>
     		</div>
@@ -97,3 +101,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
 // echo CHtml::closeTag('div'); 
 
 // $this->endWidget(); ?>
+
+    </div> <!-- /col-md-12 -->
+  </div><!-- /row -->
+</div><!-- /container -->

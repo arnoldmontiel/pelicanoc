@@ -1,4 +1,8 @@
-<?php
+<div class="container" id="screenDescargas" >
+   <div class="row">
+    <div class="col-md-12">
+    
+    <?php
 
 Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 
@@ -138,3 +142,8 @@ foreach($dataProvider->getData() as $record)
 		});
 	});
 </script>
+
+
+    </div> <!-- /col-md-12 -->
+  </div><!-- /row -->
+</div><!-- /container -->

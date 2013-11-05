@@ -325,7 +325,7 @@ $('#popover-dispositivos').popover(options);
 		  <li id="li-download"><a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargas</a></li>   
 		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>">Dispositivos <span class="badge">2</span></a></li>		  
 		  <div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button>
-		  </div></div></div></div>
+		  </div></div></div>
 		  </li>          
         </ul>
           <?php 
@@ -369,25 +369,10 @@ $('#popover-dispositivos').popover(options);
       </nav>
 
 <?php endif; ?>
-<div class="container" style=" margin-top:110px;" >
- 
- <?php
- //$descargar='no'; 
- //include('movieDetails.php'); 
- //include('serieDetails.php'); ?>
 
-  <div class="row">
-    <div class="col-md-12">
-	
-   	<?php echo $content; ?>        
+	<?php echo $content; ?>        
     
-      <!-- /content -->
-    </div>
-    <!-- /col-md-12 -->
-  </div>
-  <!-- /row -->
-</div>
-<!-- /container -->
+      
 <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
 </div>
 <div id="myModalExternalStorage" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">

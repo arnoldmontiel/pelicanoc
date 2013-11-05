@@ -1,4 +1,6 @@
-<?php 
+<div class="container" id="screenSeries" >
+   <div class="row">
+    <div class="col-md-12"><?php 
 
 $this->widget('ext.isotope.Isotope',array(
     'dataProvider'=>$dataProvider,
@@ -21,3 +23,7 @@ $this->widget('ext.isotope.Isotope',array(
 // echo CHtml::closeTag('div'); 
 
 // $this->endWidget(); ?>
+
+    </div> <!-- /col-md-12 -->
+  </div><!-- /row -->
+</div><!-- /container -->
