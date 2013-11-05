@@ -1529,5 +1529,28 @@ class SiteController extends Controller
 		}		
 		echo json_encode (explode(',',$myMovie->genre));
 	}
+	public function actionEditMovie()
+	{
+		$idResource = $_GET['idResource'];
+		$sourceType = $_GET['sourceType'];
+			
+		if($sourceType == 1)
+		{
+			$modelNzb = Nzb::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+		}
+		else if($sourceType == 2)
+		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		else
+		{
+			$localFolder = LocalFolder::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		
+		$this->render('_formEditMovie',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType));		
+	}
 	
 }
