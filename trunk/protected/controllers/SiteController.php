@@ -66,7 +66,10 @@ class SiteController extends Controller
 	
 	public function actionDevices()
 	{
-		$this->render('devices');
+		$this->showFilter = false;
+		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
+		
+		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs));
 	}
 	
 	public function actionDownloads()
@@ -127,10 +130,11 @@ class SiteController extends Controller
 		$this->renderPartial('_downloadDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
 	}
 	
-	public function actionAjaxGetExternalStorage()
+	public function actionAjaxGetDevices()
 	{
-		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
-		$this->renderPartial('_externalStorageAccess',array('modelCurrentESs'=>$modelCurrentESs));
+		$id = $_POST['id'];
+		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));		
+		$this->renderPartial('_devicesUnit',array('modelCurrentESs'=>$modelCurrentESs,'idSelected'=>$id));
 	}
 	
 	public function actionAjaxMarketShowDetail()
@@ -224,15 +228,44 @@ class SiteController extends Controller
 			ReadFolderHelper::processExternalStorage($idCurrentES);
 	}
 	
-	public function actionAjaxGetUnitContent()
+	public function actionAjaxSetAllAsPersonal()
+	{
+		$idCurrentES = (isset($_POST['idCurrentES']))?$_POST['idCurrentES']:null;
+		$isPersonal = (isset($_POST['isPersonal']))?$_POST['isPersonal']:0;
+	
+		if(isset($idCurrentES))
+		{
+			ExternalStorageData::model()->updateAll(array('is_personal'=>1),'Id_current_external_storage = '.$idCurrentES);			
+		}
+	
+	}
+	
+	public function actionAjaxSetAsPersonal()
+	{
+		$idESData = (isset($_POST['id']))?$_POST['id']:null;
+		$isPersonal = (isset($_POST['isPersonal']))?$_POST['isPersonal']:0;
+		
+		if(isset($idESData))
+		{
+			$modelESData = ExternalStorageData::model()->findByPk($idESData);
+			if(isset($modelESData))
+			{
+				$modelESData->is_personal = (int)$isPersonal;
+				$modelESData->save();
+			}
+		}
+		
+	}
+	
+	public function actionAjaxGetFirstScan()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$modelCurrentES = null;
-		$ready = false;		
+		$ready = false;				
 		if(isset($idCurrentES))
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
-																					'is_scanned'=>1));
+																					'soft_scan_ready'=>1));
 			
 			if(isset($modelCurrentES))
 			{
@@ -242,7 +275,7 @@ class SiteController extends Controller
 		}
 				
 		if($ready)
-			$this->renderPartial('_externalStorageExplorer',array('modelESDataDBs'=>$modelESDataDBs, 
+			$this->renderPartial('_devicesStep1',array('modelESDataDBs'=>$modelESDataDBs, 
 																	'ready'=>$ready,
 																	'idCurrentES'=>$idCurrentES));
 		else
