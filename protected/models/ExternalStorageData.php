@@ -16,6 +16,7 @@
  * @property string $imdb
  * @property string $type
  * @property string $file
+ * @property integer $is_personal
  *
  * The followings are the available model relations:
  * @property CurrentExternalStorage $idCurrentExternalStorage
@@ -39,13 +40,13 @@ class ExternalStorageData extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_current_external_storage', 'required'),
-			array('Id_current_external_storage, copy, status', 'numerical', 'integerOnly'=>true),
+			array('Id_current_external_storage, copy, status, is_personal', 'numerical', 'integerOnly'=>true),
 			array('path, poster, description, file', 'length', 'max'=>255),
 			array('title', 'length', 'max'=>100),
 			array('year, imdb, type', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Id_current_external_storage, path, title, year, poster, copy, status, description, imdb, type, file', 'safe', 'on'=>'search'),
+			array('Id, Id_current_external_storage, path, title, year, poster, copy, status, description, imdb, type, file, is_personal', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,6 +80,7 @@ class ExternalStorageData extends CActiveRecord
 			'imdb' => 'Imdb',
 			'type' => 'Type',
 			'file' => 'File',
+			'is_personal' => 'Is Personal',
 		);
 	}
 
@@ -112,6 +114,7 @@ class ExternalStorageData extends CActiveRecord
 		$criteria->compare('imdb',$this->imdb,true);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('file',$this->file,true);
+		$criteria->compare('is_personal',$this->is_personal);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
