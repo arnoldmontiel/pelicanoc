@@ -1310,9 +1310,208 @@ class SiteController extends Controller
 	}
 	public function actionUpdateMyMovieInfo()
 	{
-		$idResource = $_GET['idResource'];
-		$sourceType = $_GET['sourceType'];
-		
+		if(isset($_POST['id_my_movie']))
+		{
+			$idResource = $_POST['idResource'];
+			$sourceType = $_POST['sourceType'];
+			$idMyMovie = $_POST['id_my_movie'];
+			$actors = explode(',',$_POST['input_actors']);
+			$directors = explode(',',$_POST['input_directors']);
+			$myMovieDisc = "MyMovieDisc";
+			$myMovieDiscField = "Id_my_movie_disc";
+			$relation = "MyMoviePerson";
+			$Id_relation = "Id_my_movie";
+			$newClass = "MyMovie";
+			
+			if($sourceType == 1)
+			{
+				$myMovieDiscField = "Id_my_movie_disc_nzb";
+				$myMovieDisc = "MyMovieDiscNzb";
+				$newClass = "MyMovieNzb";
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$disc = $localFolder->myMovieDiscNzb;
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$relation = "MyMovieNzbPerson";
+				$Id_relation = "Id_my_movie_nzb";
+				$modelNzb->myMovieDiscNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$disc = $localFolder->myMovieDisc;
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$disc = $localFolder->myMovieDisc;
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			$myMovie = $newClass::model()->findByPk($idMyMovie);
+			if(!$myMovie->is_custom)
+			{
+				$newMyMovie = new $newClass;
+				$myMovie->Id=uniqid ("cust_");
+				$newMyMovie->attributes =$myMovie->attributes;
+				$persons = $myMovie->persons;				
+				$myMovie = $newMyMovie;
+			}
+			$transaction = Yii::app()->db->beginTransaction();
+			try {
+				$myMovie->is_custom = true;
+				$myMovie->attributes = $_POST[$newClass];
+				$myMovie->save();
+				
+				$disc->$Id_relation = $myMovie->Id;
+				$disc->save();
+				if(isset($persons))
+				{
+					foreach ($persons as $person){
+						$relationDB = new $relation;
+						$relationDB->Id_person = $person->Id;
+						$relationDB->$Id_relation =$myMovie->Id;
+						$relationDB->save();						
+					}
+				}
+				$persons = $myMovie->persons;
+// 				var_dump($disc);
+// 				var_dump($persons);
+				foreach ($persons as $person){
+					if($person->type!='Actor' && $person->type!='Director') continue;
+					//$selectedActors[]=$person->Id;
+					if(!in_array($person->Id,$actors)&&!in_array($person->Id,$directors))
+					{
+						$relation::model()->deleteByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$person->Id));
+						$person->delete();
+					}
+				}
+				foreach ($actors as $actor){
+					if($actor=="") continue;
+					$actorInDB = Person::model()->findByPk($actor);
+					if(!isset($actorInDB))
+					{
+						$actorInDB = new Person();
+						$actorInDB->name = $actor;
+						$actorInDB->type = "Actor";
+						$actorInDB->save();
+						$newRelation = new $relation;
+						$newRelation->Id_person = $actorInDB->Id;
+						$newRelation->$Id_relation = $myMovie->Id;
+						$newRelation->save();
+					}
+					$relationDB = $relation::model()->findByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$actorInDB->Id));
+					if(!isset($relationDB))
+					{
+						$relationDB = new $relation;
+						$relationDB->Id_person = $actorInDB->Id;
+						$relationDB->$Id_relation =$myMovie->Id;
+						$relationDB->save();
+					}
+				}
+				foreach ($directors as $director){
+					if($director=="") continue;
+					$directorInDB = Person::model()->findByPk($director);
+					if(!isset($directorInDB))
+					{
+						$directorInDB = new Person();
+						$directorInDB->name = $director;
+						$directorInDB->type = "Director";
+						$directorInDB->save();
+						$newRelation = new $relation;
+						$newRelation->Id_person = $directorInDB->Id;
+						$newRelation->$Id_relation = $myMovie->Id;
+						$newRelation->save();
+					}
+					$relationDB = $relation::model()->findByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$directorInDB->Id));
+					if(!isset($relationDB))
+					{
+						$relationDB = new $relation;
+						$relationDB->Id_person = $directorInDB->Id;
+						$relationDB->$Id_relation =$myMovie->Id;
+						$relationDB->save();
+					}
+				}
+				$transaction->commit();
+				$this->redirect(Yii::app()->homeUrl);				
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
+				
+			
+		}else 
+		{
+			$idResource = $_GET['idResource'];
+			$sourceType = $_GET['sourceType'];
+			
+			if($sourceType == 1)
+			{
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			$this->render('_formMyMovie',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType));				
+		}
+	}
+	public function actionAjaxShearMovieTMDB()
+	{
+		if(isset($_POST['title']))
+		{
+			$title = $_POST['title'];
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+			//$db->debug = true;
+			$results = $db->search('movie', array('query'=>$title));			
+			$this->renderPartial('_searchMoviesResult',array('movies'=>$results));				
+		}
+	}
+	public function getPersons($idResource,$sourceType,$type)
+	{
+		if($sourceType == 1)
+		{
+			$modelNzb = Nzb::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+		}
+		else if($sourceType == 2)
+		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		else
+		{
+			$localFolder = LocalFolder::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		return $myMovie->persons;
+	}
+	public function actionAjaxGetPersons()
+	{
+		$type = $_POST['type'];
+		$persons = $this->getPersons($_POST['idResource'],$_POST['sourceType'],$type);
+		$actor = array();
+		$names = array();
+		foreach ($persons as $person){
+			if($person->type!=$type) continue;
+			$actor['id']=$person->Id;
+			$actor['text']=$person->name;
+			$names[] =	$actor;
+		}
+		echo json_encode ($names);
+	}
+	public function actionAjaxGenres()
+	{
+		$type = $_POST['type'];
+		$idResource = $_POST['idResource'];
+		$sourceType = $_POST['sourceType'];
 		if($sourceType == 1)
 		{
 			$modelNzb = Nzb::model()->findByPk($idResource);
@@ -1328,21 +1527,7 @@ class SiteController extends Controller
 			$localFolder = LocalFolder::model()->findByPk($idResource);
 			$myMovie = $localFolder->myMovieDisc->myMovie;
 		}		
-		$this->render('_formMyMovie',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType));				
+		echo json_encode (explode(',',$myMovie->genre));
 	}
-	public function actionAjaxShearMovieTMDB()
-	{
-		if(isset($_POST['title']))
-		{
-			$title = $_POST['title'];
-			$db = TMDBApi::getInstance();
-			$db->adult = true;  // return adult content
-			$db->paged = false; // merges all paged results into a single result automatically
-			//$db->debug = true;
-			$results = $db->search('movie', array('query'=>$title));			
-			$this->renderPartial('_searchMoviesResult',array('movies'=>$results));				
-		}
-	}
-	
 	
 }
