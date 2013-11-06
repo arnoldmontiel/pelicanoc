@@ -1,13 +1,20 @@
 <?php
 $modelTMDB =  $modelResource->TMDBData;
-if(isset($modelTMDB))
+if(isset($modelTMDB)&&$modelTMDB->big_poster!="")
 {
 	$moviePoster = $modelTMDB->big_poster;
-	$backdrop = $modelTMDB->backdrop;
 }
 else
 {
 	$moviePoster = $model->big_poster;
+}
+
+if(isset($modelTMDB)&&$modelTMDB->backdrop!="")
+{
+	$backdrop = $modelTMDB->backdrop;
+}
+else
+{
 	$backdrop = $model->backdrop;
 }
 
