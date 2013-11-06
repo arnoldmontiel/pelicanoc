@@ -55,41 +55,6 @@ function getCurrentState()
 
     			if(obj.currentUSB != null)
     			{
-    				if(obj.currentUSB.is_in == 1)
-					{
-						$('#externalStorage').show();
-						$('#popover-disp').popover('show');						
-					}
-					else
-					{
-						$('#externalStorage').hide();
-						$('#popover-disp').popover('hide');
-						
-					}
-
-    				/*
-    				if(obj.currentUSB.state == 1) //stand-by
-					{
-    					$('#externalStorage').css("background-image", "url(img/usb_black.png)");
-    					$('#myModalExternalStorage').find('#btn-process').show();
-						$('#myModalExternalStorage').find('#btn-ripping').hide();
-					}
-					else if(obj.currentUSB.state == 2) //on copy
-					{
-						$('#externalStorage').css("background-image", "url(img/usb_green.png)");
-						$('#myModalExternalStorage').find('#ESModalMsg').text('Descargando contenido.');
-						$('#myModalExternalStorage').find('#btn-process').hide();
-						$('#myModalExternalStorage').find('#btn-ripping').show();
-					}
-					else // finish copy
-					{
-						$('#externalStorage').css("background-image", "url(img/usb_red.png)");
-						$('#myModalExternalStorage').find('#ESModalMsg').text('Contenido descargado con �xito.');
-						$('#myModalExternalStorage').find('#btn-process').hide();						
-						$('#myModalExternalStorage').find('#btn-ripping').hide();
-						$('#myModalExternalStorage').find('#btn-cancel').html('Cerrar');
-					}					
-    				 */
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
     				{    					        				
