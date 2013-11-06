@@ -30,9 +30,26 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 			$('#myModalCambiarAfiche').html(data);
 			$('#myModalCambiarAfiche').modal('show');	   						   				
 		}
+	 	);
+	   		return false;	   				
+		}
+		);
+		$('#open-change-backdrop').click(function()
+		{
+		$.ajax({
+	   		type: 'POST',
+	   		url: '". SiteController::createUrl('ajaxFillMovieBackdropSelector') . "',
+	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource."},
+	 	}).success(function(data)
+	 	{	
+			$('#myModalCambiarAfiche').html(data);
+			$('#myModalCambiarAfiche').modal('show');	   						   				
+		}
 	 	);			
-		});
-			
+	   		return false;
+		}
+		);
+	   				
 		$('#actors').select2({tags:[],tokenSeparators: [',']});
 		$('#directors').select2({tags:[],tokenSeparators: [',']});
 		$('#genres').select2({tags:[],tokenSeparators: [',']});
@@ -148,8 +165,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 <img class="aficheImg" src="images/<?php echo $moviePoster;?>" border="0">
 </div>
 <div class="editImagesButtons">   
-<a id="open-change-poster" data-toggle="modal" data-target="#myModalCambiarAfiche" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</a>
-<a data-toggle="modal" data-target="#myModalCambiarAfiche" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Fondo</a>
+<a id="open-change-poster" data-toggle="modal"  class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</a>
+<a id="open-change-backdrop" data-toggle="modal" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Fondo</a>
 </div>
 </div>
     <!-- /col-md-3 -->
