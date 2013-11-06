@@ -7,15 +7,14 @@
 <img class="aficheImg" src="<?php echo "images/".$big_poster?>" border="0"> 
 </div>   
 </div>
-    <!-- /col-md-3 -->
+    <!-- /col-md-4 -->
     <div class="col-md-8">
       <div class="row">
     <div class="col-md-12">
     <div class="controlTitle"><?php echo $model->original_title?></div>
     </div>
     <!-- /col-md-8 -->
- </div>
-  <!-- /row interna -->
+ </div><!-- /row interna -->
       <div class="row">
     <div class="col-md-5">
     <div class="controlAudioSub">
