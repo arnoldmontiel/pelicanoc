@@ -92,11 +92,8 @@ function getCurrentState()
     				 */
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
-    				{    					
-    					if(!$('#myModalExternalStorage').is(':visible'))
-						{							
-							$('#myModalExternalStorage').modal('show');							
-						}
+    				{    					        				
+    					$('#popover-disp').popover('show');
     				}    				
     			}    			
     			
@@ -132,9 +129,23 @@ function getCurrentState()
 	return false;
 }
 
+function markPopoverAsRead()
+{
+	$.post("<?php echo SiteController::createUrl('AjaxMarkCurrentESRead'); ?>"
+	).success(
+		function(data){
+			$('#popover-disp').popover('hide');
+	});
+}
+
+
+function closePopover()
+{
+	markPopoverAsRead();	
+}
 
 $(document).ready(function(){
-	var elem ='Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button></div></div>';
+	var elem ='Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" onclick="closePopover()" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button></div></div>';
 	$('#popover-disp').popover({
         placement: 'bottom',
         content:elem,
@@ -244,12 +255,6 @@ $(document).ready(function(){
 				$('#myModal').modal('show'); 
 			});
     });
-    $('#externalStorage').click(function(){
-    	if(!$('#myModalExternalStorage').is(':visible'))
-		{							
-			$('#myModalExternalStorage').modal('show');							
-		}
-    });
     $('#playlist').click(function(){
     	$.post("<?php echo SiteController::createUrl('AjaxPlaylistsShow'); ?>"
 		).success(
@@ -309,8 +314,7 @@ $(document).ready(function(){
 		?>
           <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?>  points</span></div>
           <!--  <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>-->
-          <div id="newDisc" class="pull-right">Examinar Disco</div>
-          <div id="externalStorage" class="pull-right">Disco Externo</div>
+          <div id="newDisc" class="pull-right">Examinar Disco</div>          
         </div><!-- /.navbar-collapse -->
       </nav>
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
@@ -352,9 +356,6 @@ $(document).ready(function(){
 </div>
 <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
 </div>
-<div id="myModalExternalStorage" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
-<?php echo $this->renderPartial('../site/_externalStorage');?>
-</div>
 <div id="myModalDiscIn" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
 </div>
 <div id="myModalESExplorer" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
@@ -367,14 +368,6 @@ echo CHtml::openTag('div',array('id'=>'myModal'));
 echo CHtml::closeTag('div'); 
 */?>
 
-<?php 
-// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalExternalStorage')); 
-
-// echo CHtml::openTag('div',array('id'=>'view-external-storage'));
-// echo $this->renderPartial('../site/_externalStorage');
-// echo CHtml::closeTag('div'); 
-
-// $this->endWidget(); ?>
 <?php 
 // $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
 
