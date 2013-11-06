@@ -18,6 +18,9 @@
 <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 <!-- Modernizr -->
 <script src="js/modernizr.js"></script>
+<!-- Image Picker -->
+<link href="css/image-picker.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="js/image-picker.min.js"></script>
 
 <link href="js/select2-3.4.4/select2.css" rel="stylesheet"/>
 <script src="js/select2-3.4.4/select2.js"></script>

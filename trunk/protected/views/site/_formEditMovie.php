@@ -117,8 +117,8 @@ else
 <img class="aficheImg" src="images/<?php echo $moviePoster;?>" border="0">
 </div>
 <div class="editImagesButtons">   
-<button type="button" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</button>
-<button type="button" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Fondo</button>
+<a data-toggle="modal" data-target="#myModalCambiarAfiche" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</a>
+<a data-toggle="modal" data-target="#myModalCambiarAfiche" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Fondo</a>
 </div>
 </div>
     <!-- /col-md-3 -->
@@ -256,7 +256,111 @@ else
     </div>
     <!-- /col-md-9 -->
  </div><!-- /row interna -->
- 
- 
-    </div> <!-- /container -->  
-  
+ </div> <!-- /container -->  
+    
+    
+    <div id="myModalCambiarAfiche" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
+     <div class="modal-dialog ">
+        <div class="modal-content"> <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
+    <h4 class="modal-title">Cambiar Afiche</h4>
+    </div>
+    <div class="modal-body"> 
+    <div class="modal-scroll">
+    <input type="file" id="selectedFile" style="display: none;" />
+    <a onclick="document.getElementById('selectedFile').click();">Selecciona una imagen ..</a>
+    <select class="image-picker">
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="1"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="2"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="3"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="4"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="5"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="6"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="7"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="8"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="9"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="10"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="11"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="12"></option>
+      </select>
+      </div>
+    <!-- <div class="row">
+    <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive active">
+        </a>
+    </div>
+     <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+     <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+     <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+     <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+     <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+     <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+     <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+    <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+    <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+    <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+    <div class="col-lg-2 col-sm-3 col-xs-4">
+        <a href="#">
+             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
+                </a>
+    </div>
+  </div>--><!--/.rowPRINCIPAL -->
+    
+    
+    </div><!--/.modal-body -->
+    <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cancelar</button>
+    <button id="btn-play" type="button" class="btn btn-primary btn-large"> Aceptar</button>
+    </div><!--/.modal-footer -->
+  </div><!--/.modal-content -->
+    </div><!--/.modal-dialog -->	
+    </div><!--/.modal -->
+  <script type="text/javascript">
+
+    jQuery("select.image-picker").imagepicker({
+      hide_select:  true,
+    });
+
+
+  </script>
