@@ -68,8 +68,11 @@ class SiteController extends Controller
 	{
 		$this->showFilter = false;
 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
+		$idSelected = 0;
+		if(count($modelCurrentESs)>0)
+			$idSelected = $modelCurrentESs[0]->Id;
 
-		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs));
+		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
 	}
 
 	public function actionDownloads()
@@ -257,6 +260,50 @@ class SiteController extends Controller
 
 	}
 
+	public function actionAjaxGetSecondScan()
+	{
+		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		$finishScan = 0;
+		$modelFinishESDataArray = array();
+		if(isset($idCurrentES))
+		{
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
+																								'hard_scan_ready'=>1));
+			
+			if(isset($modelCurrentES))
+				$finishScan = 1;
+			
+			//Traigo los registros que terminaron el escaneo
+			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,
+																	'status'=>7));
+			$setting = Setting::getInstance();
+			foreach($modelESDatas as $modelESData)
+			{
+				$localFolderPath = str_replace($modelCurrentES->path,'',$modelESData->path);
+				$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
+				if(!empty($modelESData->file))
+					$localFolderPath = $localFolderPath.'/'.$modelESData->file;
+					
+				$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+				$alreadyExists = 0;
+				if(isset($modelLocalFolder))
+					$alreadyExists = 1;
+				
+				$isUnknown = 0;
+				if($modelESData->imdb == 'tt0000000')
+					$isUnknown = 1;
+				
+				$modelFinishESDataArray[] = array('id'=>$modelESData->Id, 'alreadyExists'=>$alreadyExists, 'isUnknown'=>$isUnknown);
+			}
+			
+		}
+				
+		$response = array('finishScan'=>$finishScan,
+									'modelFinishESDataArray'=>$modelFinishESDataArray);
+		
+		echo json_encode($response);
+	}
+
 	public function actionAjaxGetFirstScan()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
@@ -290,6 +337,26 @@ class SiteController extends Controller
 			ExternalStorageData::model()->updateAll(array('copy'=>1),'Id_current_external_storage = '.$idCurrentES);
 			ReadFolderHelper::processExternalStorage($idCurrentES);
 		}
+	}
+
+	public function actionAjaxHardScanES()
+	{
+		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		$modelESDatas = null;
+		$modelESDataPersonals = null;
+		if(isset($idCurrentES))
+		{
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES))
+			{
+				$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,'is_personal'=>0));
+				$modelESDataPersonals = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,'is_personal'=>1));
+				if($modelCurrentES->hard_scan_ready == 0)
+					ReadFolderHelper::generatePeliFilesES($idCurrentES);
+			}
+		}
+		$this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
+													'modelESDataPersonals'=>$modelESDataPersonals));
 	}
 
 	public function actionAjaxExploreExternalStorage()
