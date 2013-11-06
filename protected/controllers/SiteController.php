@@ -65,6 +65,12 @@ class SiteController extends Controller
 	}
 
 	public function actionDevices()
+	{	
+		$this->showFilter = false;
+		$this->render('devices');
+	}
+	
+	public function actionDevices2()
 	{
 		$this->showFilter = false;
 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
