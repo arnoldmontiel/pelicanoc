@@ -55,10 +55,16 @@ function getCurrentState()
 
     			if(obj.currentUSB != null)
     			{
+    				if(obj.currentUSB.devicesQty > 1)
+    					$('#devicesQty').html(obj.currentUSB.devicesQty);
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
-    				{    					        				
-    					$('#popover-disp').popover('show');
+    				{    			        					
+    					if(!$('#popover-dispositivos').is(":visible"))
+    					{			
+    						$('#popover-disp').popover('show');
+    						$('#btnGoToDevice').attr('iddevice',obj.currentUSB.idUnread);
+    					}    					
     				}    				
     			}    			
     			
@@ -109,8 +115,16 @@ function closePopover()
 	markPopoverAsRead();	
 }
 
+function goToDevices()
+{
+	var id = $("#btnGoToDevice").attr('iddevice');
+	$('#popover-disp').popover('hide');
+	window.location = <?php echo '"'. SiteController::createUrl('site/GoToDevices') . '"'; ?> + "&idSelected="+id;    
+	return false;
+}
+
 $(document).ready(function(){
-	var elem ='Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" onclick="closePopover()" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button></div></div>';
+	var elem ='Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" onclick="closePopover()" class="btn btn-default">Cerrar</button><button type="button" onclick="goToDevices()" id="btnGoToDevice" class="btn btn-primary noMargin">Examinar</button></div></div>';
 	$('#popover-disp').popover({
         placement: 'bottom',
         content:elem,
@@ -270,7 +284,7 @@ $(document).ready(function(){
           <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 		  <li id="li-download"><a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargas</a></li>   
-		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>" id="popover-disp">Dispositivos <span class="badge">2</span></a></li>		  
+		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>" id="popover-disp">Dispositivos <span id="devicesQty" class="badge">0</span></a></li>		  
 		  <!--  <div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button></div></div></div></li>-->		  
         </ul>
           <?php 
