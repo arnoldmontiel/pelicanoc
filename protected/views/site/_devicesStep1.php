@@ -27,7 +27,15 @@
 	        			echo $index;
 	        		echo CHtml::closeTag("td");
 	        		echo CHtml::openTag("td");
-	        			echo $modelESDataDB->file;
+	        			if(empty($modelESDataDB->file))
+	        			{
+	        				$paths = explode('/', $modelESDataDB->path);
+	        				$size = count($paths);
+	        				if($size>0)
+	        					echo $paths[$size-1];
+	        			}
+	        			else
+	        				echo $modelESDataDB->file;
 	        		echo CHtml::closeTag("td");
 	        		echo CHtml::openTag("td");
 	        			echo $modelESDataDB->path;
@@ -49,7 +57,7 @@
 		</tbody>
 	</table>
     <div class="buttonGroup">
-    	<button type="button" class="btn btn-primary">Analizar Disco</button>
+    	<button type="button" id="btnScanDisc" class="btn btn-primary">Analizar Disco</button>
     </div>
     </div>
     
@@ -93,5 +101,20 @@
 				function(data){	
 			});
 	});
+
+	$('#btnScanDisc').unbind('click');
+	$('#btnScanDisc').click(function(){		
+		var id = $('#hidden-unit').val();
+		
+		$.post("<?php echo SiteController::createUrl('AjaxHardScanES'); ?>",
+				{
+					id:id
+				}
+			).success(
+				function(data){	
+					$('#wizardDispositivos').html(data);
+					$('#hidden-second-scan-working').val(1);	
+			});
+	});	
 
   </script>  
