@@ -525,7 +525,7 @@ height: 280px; margin-bottom:10px;
 .buttonGroup button{ margin-right:10px;}
 #myModalCambiarAfiche .modal-dialog{ width:80%;}
 
-#myModalCambiarAfiche ul.thumbnails.image_picker_selector li{width: 165px;
+#myModalCambiarAfiche ul.thumbnails.image_picker_selector li{width: 165px; height:240px;
 cursor:pointer;}
 
 .modal-scroll{ max-height:500px; overflow-y:auto;}
