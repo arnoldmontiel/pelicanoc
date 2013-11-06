@@ -70,6 +70,15 @@ class SiteController extends Controller
 		$this->render('devices');
 	}
 	
+	public function actionGoToDevices($idSelected)
+	{
+		$this->showFilter = false;
+		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));		
+		CurrentExternalStorage::model()->updateAll(array('read'=>1));
+			
+		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
+	}
+	
 	public function actionDevices2()
 	{
 		$this->showFilter = false;
@@ -1061,21 +1070,30 @@ class SiteController extends Controller
 
 		$isDiscIN = 0;
 		$read = 1;
-		$state = 1;
-		if(count($modelCurrentUSBs)>0)
+		$devicesQty = 0;
+		$idUnread = 0;
+		$nameUnread = '';
+		
+		$devicesQty = count($modelCurrentUSBs);
+		if($devicesQty>0)
 		{
 			$isDiscIN = 1;
 			foreach($modelCurrentUSBs as $modelCurrentUSB)
-			{
+			{				
 				if($modelCurrentUSB->read == 0)
 				{
+					$idUnread = $modelCurrentUSB->Id; 
 					$read = 0;
 					break;
 				}
 			}
 		}
 
-		$currentUSB = array('is_in'=>$isDiscIN,'read'=>$read, 'state'=>$state);
+		$currentUSB = array('is_in'=>$isDiscIN,
+							'read'=>$read, 
+							'devicesQty'=>$devicesQty,
+							'idUnread'=>$idUnread,
+							'nameUnread'=>$nameUnread);
 
 		$response = array('playBack'=>$this->getPlayback(),
 				'currentDisc'=>$currentDisc,
