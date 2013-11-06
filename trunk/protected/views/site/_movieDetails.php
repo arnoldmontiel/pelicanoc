@@ -170,14 +170,6 @@
 	<i id="btn-tmdb-movie" class="fa fa-pencil fa-lg"></i>
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
-	<div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
-    Editar manualmente
-	</div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
-	<i id="btn-edit-my-movie" class="fa fa-pencil fa-lg"></i>
-	</div><!--/.col-md-9 -->
-	</div><!--/.row -->
 
 	<div class="row detailSecondGroup">
     	<div class="col-md-3 align-left detailSecond detailSecondFirst">
