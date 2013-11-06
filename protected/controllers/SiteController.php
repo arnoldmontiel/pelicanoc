@@ -8,16 +8,16 @@ class SiteController extends Controller
 	public function actions()
 	{
 		return array(
-			// captcha action renders the CAPTCHA image displayed on the contact page
-			'captcha'=>array(
-				'class'=>'CCaptchaAction',
-				'backColor'=>0xFFFFFF,
-			),
-			// page action renders "static" pages stored under 'protected/views/site/pages'
-			// They can be accessed via: index.php?r=site/page&view=FileName
-			'page'=>array(
-				'class'=>'CViewAction',
-			),
+				// captcha action renders the CAPTCHA image displayed on the contact page
+				'captcha'=>array(
+						'class'=>'CCaptchaAction',
+						'backColor'=>0xFFFFFF,
+				),
+				// page action renders "static" pages stored under 'protected/views/site/pages'
+				// They can be accessed via: index.php?r=site/page&view=FileName
+				'page'=>array(
+						'class'=>'CViewAction',
+				),
 		);
 	}
 
@@ -27,156 +27,156 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		
+
 		$modelMovies = new Movies();
 		$dataProvider= $modelMovies->search();
 		$dataProvider->pagination->pageSize= 250;
-		
+
 		$this->render('index',array(
-					'dataProvider'=>$dataProvider,
+				'dataProvider'=>$dataProvider,
 		));
-		
+
 	}
-	
+
 	public function actionIndexSerie()
 	{
-	
+
 		$modelSeries = new Series();
 		$dataProvider= $modelSeries->search();
 		$dataProvider->pagination->pageSize= 14;
-	
+
 		$this->render('indexSerie',array(
-						'dataProvider'=>$dataProvider,
+				'dataProvider'=>$dataProvider,
 		));
-	
+
 	}
-	
+
 	public function actionMarketplace()
 	{
 		$this->layout='//layouts/column4';
 		$this->showFilter = false;
 		$modelNzb = new Nzb();
 		$dataProvider = $modelNzb->searchMarketplace();
-		
-		
+
+
 		$this->render('marketplace',array(
-								'dataProvider'=>$dataProvider,
+				'dataProvider'=>$dataProvider,
 		));
 	}
-	
+
 	public function actionDevices()
 	{
 		$this->showFilter = false;
 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
-		
+
 		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs));
 	}
-	
+
 	public function actionDownloads()
 	{
 		$this->showFilter = false;
 		$sABnzbdStatus= new SABnzbdStatus();
 		$sABnzbdStatus->getStatus();
-		
+
 		$modelNzb = new Nzb();
 		$dataProvider = $modelNzb->searchDownloads();
-	
+
 		$criteria=new CDbCriteria;
-		$criteria->join = 'INNER JOIN my_movie_disc mmd ON (mmd.Id_my_movie = t.Id) 
-							INNER JOIN current_disc cd ON (cd.Id_my_movie_disc = mmd.Id)';
+		$criteria->join = 'INNER JOIN my_movie_disc mmd ON (mmd.Id_my_movie = t.Id)
+				INNER JOIN current_disc cd ON (cd.Id_my_movie_disc = mmd.Id)';
 		$criteria->addCondition('cd.Id_current_disc_state <> 1');
 		$criteria->addCondition('cd.command =  2'); //ripping
 		$modelMyMovie = MyMovie::model()->find($criteria);
-	
+
 		$this->render('downloads',array(
-									'dataProvider'=>$dataProvider,
-									'sABnzbdStatus'=>$sABnzbdStatus,
-									'modelMyMovie'=>$modelMyMovie,
+				'dataProvider'=>$dataProvider,
+				'sABnzbdStatus'=>$sABnzbdStatus,
+				'modelMyMovie'=>$modelMyMovie,
 		));
 	}
-	
+
 	public function actionAjaxRefreshSabNzbStatus()
 	{
 		$sABnzbdStatus= new SABnzbdStatus();
 		$sABnzbdStatus->getStatus();
 		echo CJSON::encode($sABnzbdStatus->jobs);
 	}
-	
+
 	public function actionAjaxDiscIn()
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-		
+
 		$this->renderPartial('_discIn',array('model'=>$modelCurrentDisc));
 	}
-		
+
 	public function actionAjaxDownloadShowDetail()
 	{
 		$id = $_POST['id'];
 		$idNzb = $_POST['idNzb'];
-	
+
 		$modelNzb = Nzb::model()->findByPk($idNzb);
-	
+
 		$criteria=new CDbCriteria;
-	
+
 		$model = MyMovieNzb::model()->findByPk($id);
 		$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
 		$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
 		$criteria->order = 't.Id ASC';
-	
+
 		$casting = $this->getCasting($criteria);
-	
+
 		$this->renderPartial('_downloadDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
 	}
-	
+
 	public function actionAjaxGetDevices()
 	{
 		$id = $_POST['id'];
-		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));		
+		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
 		$this->renderPartial('_devicesUnit',array('modelCurrentESs'=>$modelCurrentESs,'idSelected'=>$id));
 	}
-	
+
 	public function actionAjaxMarketShowDetail()
 	{
 		$id = $_POST['id'];
 		$idNzb = $_POST['idNzb'];
-	
+
 		$modelNzb = Nzb::model()->findByPk($idNzb);
-		
+
 		$criteria=new CDbCriteria;
-	
+
 		$model = MyMovieNzb::model()->findByPk($id);
 		$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
 		$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
 		$criteria->order = 't.Id ASC';
-	
+
 		$casting = $this->getCasting($criteria);
-	
+
 		$this->renderPartial('_marketDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
 	}
-	
+
 	public function actionAjaxStartDownload()
 	{
 		if(isset($_POST['Id_nzb']))
 		{
 			PelicanoHelper::startDownload($_POST['Id_nzb']);
 		}
-	}		
+	}
 	public function actionAjaxPlaylistsShow()
 	{
 		$models = Playlist::model()->findAll();
 		$this->renderPartial('_playlist',array('models'=>$models));
-		
+
 	}
 	public function actionAjaxMovieShowDetail()
 	{
 		$id_resource = $_POST['idresource'];
 		$id = $_POST['id'];
 		$sourceType = $_POST['sourcetype'];
-		
+
 		$criteria=new CDbCriteria;
-		
+
 		$modelNzb = null;
 		$modelRippedMovie = null;
 		$localFolder = null;
@@ -187,8 +187,8 @@ class SiteController extends Controller
 			$modelNzb = Nzb::model()->findByPk($id_resource);
 			$model = MyMovieNzb::model()->findByPk($id);
 			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
-			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');			
-			$criteria->order = 't.Id ASC';			
+			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
 			$bookmarks = $modelNzb->bookmarks;
 		}
 		else if($sourceType == 2)
@@ -198,7 +198,7 @@ class SiteController extends Controller
 			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
 			$criteria->order = 't.Id ASC';
-			$bookmarks = $modelRippedMovie->bookmarks;				
+			$bookmarks = $modelRippedMovie->bookmarks;
 		}
 		else
 		{
@@ -206,45 +206,45 @@ class SiteController extends Controller
 			$model = MyMovie::model()->findByPk($id);
 			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
-			$criteria->order = 't.Id ASC';				
-			$bookmarks = $localFolder->bookmarks;				
+			$criteria->order = 't.Id ASC';
+			$bookmarks = $localFolder->bookmarks;
 		}
 		$casting = $this->getCasting($criteria);
-		$this->renderPartial('_movieDetails',array('model'=>$model, 
-													'casting'=>$casting, 
-													'sourceType'=>$sourceType,
-													'modelNzb'=>$modelNzb,
-													'modelRippedMovie'=>$modelRippedMovie,
-													'modelLocalFolder'=>$localFolder,
-													'modelCurrentDisc'=>$modelCurrentDisc,
-													'modelBookmarks'=>$bookmarks,
+		$this->renderPartial('_movieDetails',array('model'=>$model,
+				'casting'=>$casting,
+				'sourceType'=>$sourceType,
+				'modelNzb'=>$modelNzb,
+				'modelRippedMovie'=>$modelRippedMovie,
+				'modelLocalFolder'=>$localFolder,
+				'modelCurrentDisc'=>$modelCurrentDisc,
+				'modelBookmarks'=>$bookmarks,
 		));
 	}
-	
+
 	public function actionAjaxProcessExternalStorage()
-	{		
+	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		if(isset($idCurrentES))
 			ReadFolderHelper::processExternalStorage($idCurrentES);
 	}
-	
+
 	public function actionAjaxSetAllAsPersonal()
 	{
 		$idCurrentES = (isset($_POST['idCurrentES']))?$_POST['idCurrentES']:null;
 		$isPersonal = (isset($_POST['isPersonal']))?$_POST['isPersonal']:0;
-	
+
 		if(isset($idCurrentES))
 		{
-			ExternalStorageData::model()->updateAll(array('is_personal'=>1),'Id_current_external_storage = '.$idCurrentES);			
+			ExternalStorageData::model()->updateAll(array('is_personal'=>1),'Id_current_external_storage = '.$idCurrentES);
 		}
-	
+
 	}
-	
+
 	public function actionAjaxSetAsPersonal()
 	{
 		$idESData = (isset($_POST['id']))?$_POST['id']:null;
 		$isPersonal = (isset($_POST['isPersonal']))?$_POST['isPersonal']:0;
-		
+
 		if(isset($idESData))
 		{
 			$modelESData = ExternalStorageData::model()->findByPk($idESData);
@@ -254,34 +254,34 @@ class SiteController extends Controller
 				$modelESData->save();
 			}
 		}
-		
+
 	}
-	
+
 	public function actionAjaxGetFirstScan()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$modelCurrentES = null;
-		$ready = false;				
+		$ready = false;
 		if(isset($idCurrentES))
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
-																					'soft_scan_ready'=>1));
-			
+					'soft_scan_ready'=>1));
+
 			if(isset($modelCurrentES))
 			{
-					$modelESDataDBs = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES));
-					$ready = true;
-			}			
+				$modelESDataDBs = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES));
+				$ready = true;
+			}
 		}
-				
+
 		if($ready)
-			$this->renderPartial('_devicesStep1',array('modelESDataDBs'=>$modelESDataDBs, 
-																	'ready'=>$ready,
-																	'idCurrentES'=>$idCurrentES));
+			$this->renderPartial('_devicesStep1',array('modelESDataDBs'=>$modelESDataDBs,
+					'ready'=>$ready,
+					'idCurrentES'=>$idCurrentES));
 		else
 			echo "0";
 	}
-	
+
 	public function actionAjaxDownloadAllES()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
@@ -291,33 +291,33 @@ class SiteController extends Controller
 			ReadFolderHelper::processExternalStorage($idCurrentES);
 		}
 	}
-	
+
 	public function actionAjaxExploreExternalStorage()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		if(isset($idCurrentES))
 			ReadFolderHelper::scanExternalStorage($idCurrentES);
-		
+
 		echo "<p>La unidad se esta escaneando...</p>";
 	}
-	
+
 	public function actionAjaxMarkCurrentESRead()
-	{		
-		CurrentExternalStorage::model()->updateAll(array('read'=>1));		
+	{
+		CurrentExternalStorage::model()->updateAll(array('read'=>1));
 	}
-	
+
 	public function actionAjaxMarkCurrentDiscRead()
-	{		
+	{
 		self::markCurrentDiscRead();
 	}
-	
+
 	private function markCurrentDiscRead()
 	{
 		$idCurrentDisc = 0;
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('Id_current_disc_state <> 1');
 		$criteria->addCondition('t.read = 0');
-		
+
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		if(isset($modelCurrentDisc))
 		{
@@ -325,56 +325,56 @@ class SiteController extends Controller
 			$modelCurrentDisc->read = 1;
 			$modelCurrentDisc->save();
 		}
-		
+
 		return $idCurrentDisc;
 	}
-	
+
 	public function actionAjaxCurrentDiscShowDetail()
 	{
-				
+
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
-		
+
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-		
+
 		$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
-		
+
 		if(isset($modelMyMovieDisc))
 		{
 			$id = $modelMyMovieDisc->Id_my_movie;
-			
+
 			$model = MyMovie::model()->findByPk($id);
-			
+
 			$criteria=new CDbCriteria;
 			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
 			$criteria->order = 't.Id ASC';
-			
-		
+
+
 			$casting = $this->getCasting($criteria);
-			
-			$this->renderPartial('_onlineDetails',array('model'=>$model, 
-														'casting'=>$casting, 
-														'modelCurrentDisc'=>$modelCurrentDisc));
+
+			$this->renderPartial('_onlineDetails',array('model'=>$model,
+					'casting'=>$casting,
+					'modelCurrentDisc'=>$modelCurrentDisc));
 		}
-		else 
+		else
 		{
 			$this->renderPartial('_onlineNoDetails');
 		}
 	}
-	
+
 	public function actionAjaxRipp()
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
-		
+
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		$modelCurrentDisc->command = 2; //ripp
 		$modelCurrentDisc->read = 1;
 		$modelCurrentDisc->save();
 
 	}
-	
+
 	public function actionAjaxAddOrRemovePlaylist()
 	{
 		$idBookmark = (isset($_POST['idBookmark']))?$_POST['idBookmark']:null;
@@ -391,7 +391,7 @@ class SiteController extends Controller
 				$playListBookmarks = new PlaylistBookmark();
 				$playListBookmarks->Id_bookmark=$idBookmark;
 				$playListBookmarks->Id_playlist=$idPlaylist;
-				$playListBookmarks->save();				
+				$playListBookmarks->save();
 			}
 		}
 	}
@@ -402,8 +402,8 @@ class SiteController extends Controller
 		if(isset($id))
 		{
 			$model = Bookmark::model()->findByPk($id);
-				
-	
+
+
 			if(isset($model))
 			{
 				PlaylistBookmark::model()->deleteAllByAttributes(array('Id_bookmark'=>$id));
@@ -411,18 +411,18 @@ class SiteController extends Controller
 					$success = "1";
 			}
 		}
-	
+
 		echo $success;
 	}
-	
+
 	public function actionAjaxRemoveMovie()
 	{
 		$idResource = (isset($_POST['idResource']))?$_POST['idResource']:null;
 		$sourceType = (isset($_POST['sourceType']))?$_POST['sourceType']:null;
 		if(isset($idResource) && isset($sourceType))
 		{
-			$modelResource = null;			
-			
+			$modelResource = null;
+
 			switch ($sourceType) {
 				case 1:
 					$modelResource = Nzb::model()->findByPk($idResource);
@@ -432,45 +432,45 @@ class SiteController extends Controller
 					break;
 				case 3:
 					$modelResource = LocalFolder::model()->findByPk($idResource);
-					break;				
+					break;
 			}
-			
+
 			if(isset($modelResource))
 				if(PelicanoHelper::eraseResource($modelResource->path))
-					$modelResource->delete();
+				$modelResource->delete();
 		}
 	}
-	
+
 	public function actionAjaxEject()
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
-	
+
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		$modelCurrentDisc->command = 3; //eject
 		$modelCurrentDisc->read = 1;
 		$modelCurrentDisc->save();
-	
+
 	}
-	
+
 	public function actionAjaxCancelRipp()
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
-	
+
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
 		$modelCurrentDisc->command = 1; //cancel ripp
 		$modelCurrentDisc->save();
-	
+
 	}
-	
+
 	public function actionAjaxSerieShowDetail()
 	{
 		$id = $_POST['id'];
 		$sourceType = $_POST['sourceType'];
-	
+
 		$criteria=new CDbCriteria;
-	
+
 		if($sourceType == 1)
 		{
 			$model = MyMovieNzb::model()->findByPk($id);
@@ -485,17 +485,17 @@ class SiteController extends Controller
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
 			$criteria->order = 't.Id ASC';
 		}
-	
+
 		$casting = $this->getCasting($criteria);
-		
+
 		$this->renderPartial('_serieDetails',array('model'=>$model, 'casting'=>$casting));
 	}
-	
+
 	private function getCasting($criteria)
 	{
 		$casting = array();
 		$persons = Person::model()->findAll($criteria);
-		
+
 		$actors = "";
 		$director = "";
 		$actorCount = 0;
@@ -506,76 +506,76 @@ class SiteController extends Controller
 				$actors = $actors . $person->name . ' / ';
 				$actorCount++;
 			}
-		
+
 			if($person->type == 'Director')
-			$director = $person->name;
+				$director = $person->name;
 		}
-		
+
 		$actors = rtrim($actors, " / ");
-		
+
 		$casting['actors'] = $actors;
 		$casting['director'] = $director;
-		
+
 		return $casting;
 	}
-	
+
 	public function actionAjaxGetFilesFromPath()
 	{
 		if(isset($_POST['path']))
 		{
 			ReadFolderHelper::scanDirectory($_POST['path']);
 		}
-		
+
 	}
-	
+
 	public function actionAjaxDeleteScan($id)
 	{
 		$modelLocalFolder = LocalFolder::model()->findByPk($id);
 		if(isset($modelLocalFolder))
 			$modelLocalFolder->delete();
 	}
-	
+
 	public function actionAjaxGetScanStatus()
 	{
-		$_COMMAND_NAME = "scanDirectory";		
-		
+		$_COMMAND_NAME = "scanDirectory";
+
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-		
+
 		if($modelCommandStatus->busy)
 			echo 1;
-		else 
-			echo 0; 
-		
+		else
+			echo 0;
+
 	}
-	
+
 	public function actionLocalFolderAdmin()
 	{
 		$model = new LocalFolder('search');
 		$model->unsetAttributes();  // clear any default values
-		
+
 		if(isset($_GET['LocalFolder']))
 			$model->attributes=$_GET['LocalFolder'];
-		
+
 		$this->render('adminLocalFolder',array(
-					'model'=>$model,
+				'model'=>$model,
 		));
 	}
-	
+
 	public function actionStart($id, $sourceType, $idResource)
 	{
 		$this->layout='//layouts/column3';
 		$this->showFilter = false;
-		
+
 		$play = false;
-		$idResourceCurrentPlay = 0; 		
+		$idResourceCurrentPlay = 0;
 		switch ($sourceType) {
-			case 1:				 				
+			case 1:
 				$nzbModel = Nzb::model()->findByPk($idResource);
 				$TMDBData =$nzbModel->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$nzbModel->file_name);
 				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
-				
+
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
 			case 2:
@@ -591,21 +591,21 @@ class SiteController extends Controller
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
 				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
-				
+
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 4:
 				$idCurrentDisc = self::markCurrentDiscRead();
 				$idResourceCurrentPlay = $idCurrentDisc;
 				DuneHelper::playDuneOnline($id);
-			
+					
 				$model = MyMovie::model()->findByPk($id);
 				break;
-		}		
+		}
 		if(isset($TMDBData))
 		{
-			$backdrop = $TMDBData->backdrop;				
-			$poster = $TMDBData->big_poster;				
+			$backdrop = $TMDBData->backdrop;
+			$poster = $TMDBData->big_poster;
 		}
 		else
 		{
@@ -613,7 +613,7 @@ class SiteController extends Controller
 			$poster = $model->big_poster;
 		}
 		self::saveCurrentPlay($idResourceCurrentPlay, $sourceType);
-		
+
 		$this->render('control',array(
 				'model'=>$model,
 				'backdrop'=>$backdrop,
@@ -622,15 +622,15 @@ class SiteController extends Controller
 				'sourceType'=>$sourceType,
 		));
 	}
-	
+
 	private function saveCurrentPlay($id, $sourceType)
 	{
 		if($id > 0)
 		{
 			CurrentPlay::model()->updateAll(array('is_playing'=>0));
-			
+
 			$modelCurrentPlay = new CurrentPlay();
-			
+
 			switch ($sourceType) {
 				case 1:
 					$modelCurrentPlay->Id_nzb = $id;
@@ -645,46 +645,46 @@ class SiteController extends Controller
 					$modelCurrentPlay->Id_current_disc = $id;
 					break;
 			}
-			
+
 			$modelCurrentPlay->Id_player = 1;
 			$modelCurrentPlay->save();
 		}
 	}
-	
+
 	public function actionAjaxGetProgressBar()
-	{		
+	{
 		echo json_encode(DuneHelper::getProgressBar());
 	}
-	
+
 	public function actionAjaxShowBookmark()
 	{
 		$id = $_POST['id'];
 		$sourceType = $_POST['sourceType'];
-		
+
 		$criteria = new CDbCriteria();
-		
+
 		switch ($sourceType) {
-			case 1:		
+			case 1:
 				$criteria->addCondition('t.Id_nzb = '. $id);
 				break;
-			case 2:				
+			case 2:
 				$criteria->addCondition('t.Id_ripped_movie = '. $id);
 				break;
 			case 3:
 				$criteria->addCondition('t.Id_local_folder = '. $id);
-				break;			
+				break;
 		}
 		$criteria->order = 'Id desc';
-		
+
 		$bookmarks = Bookmark::model()->findAll($criteria);
 
-		
+
 		$this->renderPartial('_bookmark',array('bookmarks'=>$bookmarks,
-												'idResource'=>$id,
-												'sourceType'=>$sourceType));		
-		
+				'idResource'=>$id,
+				'sourceType'=>$sourceType));
+
 	}
-	
+
 	public function actionAjaxGetDunePosition()
 	{
 		$modelDune = DuneHelper::getState();
@@ -695,40 +695,40 @@ class SiteController extends Controller
 		}
 		echo $position;
 	}
-	
+
 	public function actionAjaxPauseDune()
 	{
-		DuneHelper::pause();		
+		DuneHelper::pause();
 	}
-	
+
 	public function actionAjaxPlayFromPosition()
 	{
 		$id = (isset($_POST['id']))?$_POST['id']:null;
 		$end = 0;
-		
+
 		if(isset($id))
 		{
 			$model = Bookmark::model()->findByPk($id);
-				
+
 			if(isset($model))
-			{				
+			{
 				DuneHelper::playFromPosition($model->start);
-				$end = $model->end; 
+				$end = $model->end;
 			}
 		}
 		echo $end;
 	}
-	
+
 	public function actionAjaxSaveScene()
-	{	
+	{
 		$idResource = (isset($_POST['idResource']))?$_POST['idResource']:null;
 		$sourceType = (isset($_POST['sourceType']))?$_POST['sourceType']:null;
 		$sceneStart = (isset($_POST['sceneStart']))?$_POST['sceneStart']:null;
 		$sceneEnd = (isset($_POST['sceneEnd']))?$_POST['sceneEnd']:null;
 		$sceneText = (isset($_POST['sceneText']))?$_POST['sceneText']:null;
-		
+
 		if(isset($idResource) && isset($sourceType) &&
-			isset($sceneStart) && isset($sceneEnd) && isset($sceneText))
+				isset($sceneStart) && isset($sceneEnd) && isset($sceneText))
 		{
 			$model = new Bookmark();
 			switch ($sourceType) {
@@ -742,14 +742,14 @@ class SiteController extends Controller
 					$model->Id_local_folder = $idResource;
 					break;
 			}
-			
+
 			$model->start = $sceneStart;
 			$model->end = $sceneEnd;
 			$model->time_start = gmdate("H:i:s", $sceneStart);
-			$model->time_end = gmdate("H:i:s", $sceneEnd);			
+			$model->time_end = gmdate("H:i:s", $sceneEnd);
 			$model->description = $sceneText;
 			$model->save();
-			
+
 			$newRow = CHtml::openTag('tr',array('class'=>'bookmark-row','id'=>'id_'.$model->Id));
 			$newRow .= CHtml::openTag('td');
 			$newRow .= $model->description;
@@ -769,15 +769,15 @@ class SiteController extends Controller
 			$newRow .= CHtml::closeTag('tr');
 			echo $newRow;
 		}
-		
+
 	}
-	
+
 	public function actionOpenDuneControl($id, $type,$id_resource)
 	{
 		$this->layout='//layouts/column3';
-		
+
 		$this->showFilter = false;
-		
+
 		if($type == 1)
 		{
 			$model = MyMovieNzb::model()->findByPk($id);
@@ -787,7 +787,7 @@ class SiteController extends Controller
 		else if($type == 2)
 		{
 			$modelRipped = RippedMovie::model()->findByPk($id_resource);
-			$TMDBData = $modelRipped->TMDBData;				
+			$TMDBData = $modelRipped->TMDBData;
 			$model = MyMovie::model()->findByPk($id);
 		}
 		else if($type == 3)
@@ -796,17 +796,17 @@ class SiteController extends Controller
 			$TMDBData = $modelLocal->TMDBData;
 			$model = MyMovie::model()->findByPk($id);
 		}
-			if(isset($TMDBData))
+		if(isset($TMDBData))
 		{
-			$backdrop = $TMDBData->backdrop;				
-			$poster = $TMDBData->big_poster;				
+			$backdrop = $TMDBData->backdrop;
+			$poster = $TMDBData->big_poster;
 		}
 		else
 		{
 			$backdrop = $model->backdrop;
 			$poster = $model->big_poster;
 		}
-				
+
 		$this->render('control',array(
 				'model'=>$model,
 				'big_poster'=>$poster,
@@ -815,37 +815,37 @@ class SiteController extends Controller
 				'sourceType'=>$type,
 		));
 	}
-	
+
 	public function actionAjaxUseRemote()
 	{
-		DuneHelper::useRemote($_GET['ir_code']);		
+		DuneHelper::useRemote($_GET['ir_code']);
 	}
-	
+
 	public function actionAjaxStop()
 	{
 		DuneHelper::setBlackScreen();
 	}
-	
+
 	public function actionAjaxGetPlayback()
 	{
 		$response = $this->getPlayback();
-		
+
 		echo json_encode($response);
 	}
-	
+
 	public function actionAjaxGetRipp()
 	{
 		$response = array('id'=>0, 'poster'=>'','originalTitle'=>'', 'percentage'=>0);
-		
+
 		$criteria=new CDbCriteria;
 		$criteria->select = 'cd.percentage, t.original_title, t.poster, t.Id';
-		$criteria->join = 'INNER JOIN my_movie_disc mmd ON (mmd.Id_my_movie = t.Id) 
-							INNER JOIN current_disc cd ON (cd.Id_my_movie_disc = mmd.Id)';
+		$criteria->join = 'INNER JOIN my_movie_disc mmd ON (mmd.Id_my_movie = t.Id)
+				INNER JOIN current_disc cd ON (cd.Id_my_movie_disc = mmd.Id)';
 		$criteria->addCondition('cd.Id_current_disc_state <> 1');
 		$criteria->addCondition('cd.command =  2'); //ripping
-		
+
 		$modelMyMovie = MyMovie::model()->find($criteria);
-		
+
 		if(isset($modelMyMovie))
 		{
 			$response['originalTitle'] = $modelMyMovie->original_title;
@@ -855,7 +855,7 @@ class SiteController extends Controller
 		}
 		echo json_encode($response);
 	}
-	
+
 	private function getPlayback()
 	{
 		//type = 1 = nzb
@@ -863,11 +863,11 @@ class SiteController extends Controller
 		//type = 3 = localFolder
 		//type = 4 = online
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
-		//return $response; 
+		//return $response;
 		if(DuneHelper::isPlaying())
 		{
 			$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1));
-			
+
 			if(isset($modelCurrentPlaying))
 			{
 				if(isset($modelCurrentPlaying->Id_nzb))
@@ -899,33 +899,33 @@ class SiteController extends Controller
 				}
 			}
 		}
-		
+
 		return $response;
 
 	}
 	/**
-	* This is the default 'music' action that is invoked
-	* when an action is not explicitly requested by users.
-	*/
+	 * This is the default 'music' action that is invoked
+	 * when an action is not explicitly requested by users.
+	 */
 	public function actionMusic()
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('building');
 	}
-	
+
 	/**
 	 * This is the action to handle external exceptions.
 	 */
 	public function actionError()
 	{
-	    if($error=Yii::app()->errorHandler->error)
-	    {
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
-	    	else
-	        	$this->render('error', $error);
-	    }
+		if($error=Yii::app()->errorHandler->error)
+		{
+			if(Yii::app()->request->isAjaxRequest)
+				echo $error['message'];
+			else
+				$this->render('error', $error);
+		}
 	}
 
 	/**
@@ -953,7 +953,7 @@ class SiteController extends Controller
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-		
+
 		$isDiscIN = 0;
 		$read = 1;
 		if(isset($modelCurrentDisc))
@@ -961,17 +961,17 @@ class SiteController extends Controller
 			$isDiscIN = 1;
 			$read = $modelCurrentDisc->read;
 		}
-		
+
 		$currentDisc = array('is_in'=>$isDiscIN,'read'=>$read);
-		echo CJSON::encode($currentDisc);		
+		echo CJSON::encode($currentDisc);
 	}
-	
+
 	public function actionAjaxGetCurrentState()
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-		
+
 		$isDiscIN = 0;
 		$read = 1;
 		if(isset($modelCurrentDisc))
@@ -979,18 +979,18 @@ class SiteController extends Controller
 			$isDiscIN = 1;
 			$read = $modelCurrentDisc->read;
 		}
-		
+
 		$currentDisc = array('is_in'=>$isDiscIN,'read'=>$read);
-		
+
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'is_in = 1';
 		$modelCurrentUSBs = CurrentExternalStorage::model()->findAll($criteria);
-		
+
 		$isDiscIN = 0;
 		$read = 1;
 		$state = 1;
 		if(count($modelCurrentUSBs)>0)
-		{			
+		{
 			$isDiscIN = 1;
 			foreach($modelCurrentUSBs as $modelCurrentUSB)
 			{
@@ -999,24 +999,24 @@ class SiteController extends Controller
 					$read = 0;
 					break;
 				}
-			}			
+			}
 		}
-		
+
 		$currentUSB = array('is_in'=>$isDiscIN,'read'=>$read, 'state'=>$state);
-		
+
 		$response = array('playBack'=>$this->getPlayback(),
-							'currentDisc'=>$currentDisc,
-							'currentUSB'=>$currentUSB);
-		
+				'currentDisc'=>$currentDisc,
+				'currentUSB'=>$currentUSB);
+
 		echo json_encode($response);
 	}
-	
+
 	public function actionUseDisc($action)
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'Id_current_disc_state <> 1';
 		$modelCurrentDisc = CurrentDisc::model()->find($criteria);
-		
+
 		if(isset($modelCurrentDisc))
 		{
 			if($modelCurrentDisc->Id_current_disc_state == 3) //Widh data
@@ -1024,30 +1024,30 @@ class SiteController extends Controller
 				if($action == 'play')
 				{
 					$this->showFilter = false;
-					$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc)); 
+					$modelMyMovieDisc = MyMovieDisc::model()->findByAttributes(array('Id'=>$modelCurrentDisc->Id_my_movie_disc));
 					$model = MyMovie::model()->findByPk($modelMyMovieDisc->Id_my_movie);
-					
+
 					$this->render('start',array(
-											'model'=>$model,
+							'model'=>$model,
 					));
 				}
 				else
 				{
-					
+
 				}
 			}
-			else 
+			else
 			{
 				$rawData = array();
 				$rawData = RipperHelper::searchTitlesByDiscId($modelCurrentDisc->Id_my_movie_disc,'');
 				$arrayDataProvider=new CArrayDataProvider($rawData, array(
-										    'id'=>'id',
-										 	'sort'=>array(
-												'attributes'=>array('year', 'type', 'country'),
-				),
-				
-										          'pagination'=>array('pageSize'=>10),
-				
+						'id'=>'id',
+						'sort'=>array(
+								'attributes'=>array('year', 'type', 'country'),
+						),
+
+						'pagination'=>array('pageSize'=>10),
+
 				));
 				//$this->render('currentDisc',array('arrayDataProvider'=>$arrayDataProvider,));
 				$this->renderPartial('currentDisc',array('arrayDataProvider'=>$arrayDataProvider));
@@ -1056,16 +1056,16 @@ class SiteController extends Controller
 		else
 			$this->redirect('index');
 	}
-	
+
 	/**
 	 * Displays the login page
 	 */
 	public function actionLogin()
 	{
 		$this->layout='//layouts/login';
-		
+
 		$model=new LoginForm;
-		
+
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 		{
@@ -1078,7 +1078,7 @@ class SiteController extends Controller
 		{
 			//get info user from server
 			//User::sincronizeFromServer();
-			
+
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
@@ -1101,7 +1101,7 @@ class SiteController extends Controller
 		$idResource = $_GET['idResource'];
 		$sourceType = $_GET['sourceType'];
 		if(isset($_POST['TMDBData']['TMDB_id']))
-		{ 
+		{
 			$idResource = $_POST['idResource'];
 			$sourceType = $_POST['sourceType'];
 			$TMDBId = $_POST['TMDBData']['TMDB_id'];
@@ -1111,7 +1111,7 @@ class SiteController extends Controller
 			$backdrop = isset($_POST['backdrop'])?$_POST['backdrop']:"";
 			$backdrop = str_replace ( "w300" , "original" , $backdrop );
 			TMDBHelper::downloadAndLinkImages($TMDBId,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
-			$this->redirect(Yii::app()->homeUrl);				
+			$this->redirect(Yii::app()->homeUrl);
 		}
 		else {
 			if($sourceType == 1)
@@ -1135,7 +1135,7 @@ class SiteController extends Controller
 			$db = TMDBApi::getInstance();
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
-			
+
 			$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
 			if(empty($results))
 			{
@@ -1150,15 +1150,15 @@ class SiteController extends Controller
 				$model->TMDB_id =$movie->id;
 			}
 			$this->render('_tmdb',array('idResource'=>$idResource,'sourceType'=>$sourceType, 'model'=>$model,'myMovie'=>$myMovie,'movie'=>$movie,'images'=>$images,'bds'=>$bds));
-				
+
 		}
 	}
 	public function actionTmdbChangeMovie()
-	{		
+	{
 		if(isset($_POST['movie']))
-		{ 
+		{
 			$transaction=Yii::app()->db->beginTransaction();
-			try 
+			try
 			{
 				$idResource = $_POST['idResource'];
 				$sourceType = $_POST['sourceType'];
@@ -1193,13 +1193,13 @@ class SiteController extends Controller
 				$db = TMDBApi::getInstance();
 				$db->adult = true;  // return adult content
 				$db->paged = false; // merges all paged results into a single result automatically
-				
+
 				$movie = new TMDBMovie($_POST['movie']);
 				$persons = $movie->casts();
 				$poster = $movie->poster('154');
 				$bigPoster = $movie->poster('500');
 				$backdrop = $movie->backdrop('original');
-				
+
 				TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
 				if(!$myMovie->is_custom)
 				{
@@ -1234,7 +1234,7 @@ class SiteController extends Controller
 						$myMovie->genre = $myMovie->genre.", ".$genre->name;
 					}
 				}
-				
+
 				$companies = $movie->production_companies;
 				$myMovie->studio = "";
 				$first = true;
@@ -1253,7 +1253,7 @@ class SiteController extends Controller
 				if($myMovie->save())
 				{
 					$casts =$persons['cast'];
-			
+
 					$relations = $personRelation::model()->findAllByAttributes(array($idRelation=>$myMovie->Id));
 					$personsToDelete = array();
 					foreach ($relations as $relation)
@@ -1299,7 +1299,7 @@ class SiteController extends Controller
 					}
 					if(isset($disc->Id_my_movie))	$disc->Id_my_movie=$myMovie->Id;
 					else $disc->Id_my_movie_nzb=$myMovie->Id;
-						
+
 					if($disc->save())
 					{
 						$transaction->commit();
@@ -1309,14 +1309,14 @@ class SiteController extends Controller
 			}
 			catch (Exception $e) {
 				var_dump($e);
-				$transaction->rollBack();				
+				$transaction->rollBack();
 			}
 		}
-		else 
+		else
 		{
 			$idResource = $_GET['idResource'];
 			$sourceType = $_GET['sourceType'];
-				
+
 			if($sourceType == 1)
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
@@ -1338,7 +1338,7 @@ class SiteController extends Controller
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
 			$results = $db->search('movie', array('query'=>$myMovie->original_title));
-			$this->render('_tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));				
+			$this->render('_tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));
 		}
 	}
 	public function actionUpdateMyMovieInfo()
@@ -1356,7 +1356,7 @@ class SiteController extends Controller
 			$relation = "MyMoviePerson";
 			$Id_relation = "Id_my_movie";
 			$newClass = "MyMovie";
-			
+
 			if($sourceType == 1)
 			{
 				$myMovieDiscField = "Id_my_movie_disc_nzb";
@@ -1387,7 +1387,7 @@ class SiteController extends Controller
 				$newMyMovie = new $newClass;
 				$myMovie->Id=uniqid ("cust_");
 				$newMyMovie->attributes =$myMovie->attributes;
-				$persons = $myMovie->persons;				
+				$persons = $myMovie->persons;
 				$myMovie = $newMyMovie;
 			}
 			$transaction = Yii::app()->db->beginTransaction();
@@ -1408,9 +1408,9 @@ class SiteController extends Controller
 						$myMovie->genre = $myMovie->genre.", ".$genre;
 					}
 				}
-				
+
 				$myMovie->save();
-				
+
 				$disc->$Id_relation = $myMovie->Id;
 				$disc->save();
 				if(isset($persons))
@@ -1419,7 +1419,7 @@ class SiteController extends Controller
 						$relationDB = new $relation;
 						$relationDB->Id_person = $person->Id;
 						$relationDB->$Id_relation =$myMovie->Id;
-						$relationDB->save();						
+						$relationDB->save();
 					}
 				}
 				$persons = $myMovie->persons;
@@ -1479,17 +1479,15 @@ class SiteController extends Controller
 					}
 				}
 				$transaction->commit();
-				$this->redirect(Yii::app()->homeUrl);				
+				$this->redirect(Yii::app()->homeUrl);
 			} catch (Exception $e) {
 				$transaction->rollback();
 			}
-				
-			
-		}else 
+		}else
 		{
 			$idResource = $_GET['idResource'];
 			$sourceType = $_GET['sourceType'];
-			
+
 			if($sourceType == 1)
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
@@ -1505,7 +1503,7 @@ class SiteController extends Controller
 				$localFolder = LocalFolder::model()->findByPk($idResource);
 				$myMovie = $localFolder->myMovieDisc->myMovie;
 			}
-			$this->render('_formMyMovie',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType));				
+			$this->render('_formMyMovie',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType));
 		}
 	}
 	public function actionAjaxShearMovieTMDB()
@@ -1517,8 +1515,8 @@ class SiteController extends Controller
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
 			//$db->debug = true;
-			$results = $db->search('movie', array('query'=>$title));			
-			$this->renderPartial('_searchMoviesResult',array('movies'=>$results));				
+			$results = $db->search('movie', array('query'=>$title));
+			$this->renderPartial('_searchMoviesResult',array('movies'=>$results));
 		}
 	}
 	public function getPersons($idResource,$sourceType,$type)
@@ -1573,31 +1571,178 @@ class SiteController extends Controller
 		{
 			$localFolder = LocalFolder::model()->findByPk($idResource);
 			$myMovie = $localFolder->myMovieDisc->myMovie;
-		}		
+		}
 		echo json_encode (explode(',',$myMovie->genre));
 	}
 	public function actionEditMovie()
 	{
-		$idResource = $_GET['idResource'];
-		$sourceType = $_GET['sourceType'];
+		if(isset($_POST['id_my_movie']))
+		{
+					$idResource = $_POST['idResource'];
+			$sourceType = $_POST['sourceType'];
+			$idMyMovie = $_POST['id_my_movie'];
+			$actors = explode(',',$_POST['input_actors']);
+			$directors = explode(',',$_POST['input_directors']);
+			$genres = explode(',',$_POST['input_genres']);
+			$myMovieDisc = "MyMovieDisc";
+			$myMovieDiscField = "Id_my_movie_disc";
+			$relation = "MyMoviePerson";
+			$Id_relation = "Id_my_movie";
+			$newClass = "MyMovie";
+
+			if($sourceType == 1)
+			{
+				$myMovieDiscField = "Id_my_movie_disc_nzb";
+				$myMovieDisc = "MyMovieDiscNzb";
+				$newClass = "MyMovieNzb";
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$disc = $localFolder->myMovieDiscNzb;
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$relation = "MyMovieNzbPerson";
+				$Id_relation = "Id_my_movie_nzb";
+				$modelNzb->myMovieDiscNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$disc = $localFolder->myMovieDisc;
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$disc = $localFolder->myMovieDisc;
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			$myMovie = $newClass::model()->findByPk($idMyMovie);
+			if(!$myMovie->is_custom)
+			{
+				$newMyMovie = new $newClass;
+				$myMovie->Id=uniqid ("cust_");
+				$newMyMovie->attributes =$myMovie->attributes;
+				$persons = $myMovie->persons;
+				$myMovie = $newMyMovie;
+			}
+			$transaction = Yii::app()->db->beginTransaction();
+			try {
+				$myMovie->is_custom = true;
+				$myMovie->attributes = $_POST[$newClass];
+				$myMovie->genre= "";
+				$first = true;
+				foreach($genres as $genre)
+				{
+					if($first)
+					{
+						$first = false;
+						$myMovie->genre = $genre;
+					}
+					else
+					{
+						$myMovie->genre = $myMovie->genre.", ".$genre;
+					}
+				}
+
+				$myMovie->save();
+
+				$disc->$Id_relation = $myMovie->Id;
+				$disc->save();
+				if(isset($persons))
+				{
+					foreach ($persons as $person){
+						$relationDB = new $relation;
+						$relationDB->Id_person = $person->Id;
+						$relationDB->$Id_relation =$myMovie->Id;
+						$relationDB->save();
+					}
+				}
+				$persons = $myMovie->persons;
+				foreach ($persons as $person){
+					if($person->type!='Actor' && $person->type!='Director') continue;
+					//$selectedActors[]=$person->Id;
+					if(!in_array($person->Id,$actors)&&!in_array($person->Id,$directors))
+					{
+						$relation::model()->deleteByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$person->Id));
+						$person->delete();
+					}
+				}
+				foreach ($actors as $actor){
+					if($actor=="") continue;
+					$actorInDB = Person::model()->findByPk($actor);
+					if(!isset($actorInDB))
+					{
+						$actorInDB = new Person();
+						$actorInDB->name = $actor;
+						$actorInDB->type = "Actor";
+						$actorInDB->save();
+						$newRelation = new $relation;
+						$newRelation->Id_person = $actorInDB->Id;
+						$newRelation->$Id_relation = $myMovie->Id;
+						$newRelation->save();
+					}
+					$relationDB = $relation::model()->findByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$actorInDB->Id));
+					if(!isset($relationDB))
+					{
+						$relationDB = new $relation;
+						$relationDB->Id_person = $actorInDB->Id;
+						$relationDB->$Id_relation =$myMovie->Id;
+						$relationDB->save();
+					}
+				}
+				foreach ($directors as $director){
+					if($director=="") continue;
+					$directorInDB = Person::model()->findByPk($director);
+					if(!isset($directorInDB))
+					{
+						$directorInDB = new Person();
+						$directorInDB->name = $director;
+						$directorInDB->type = "Director";
+						$directorInDB->save();
+						$newRelation = new $relation;
+						$newRelation->Id_person = $directorInDB->Id;
+						$newRelation->$Id_relation = $myMovie->Id;
+						$newRelation->save();
+					}
+					$relationDB = $relation::model()->findByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$directorInDB->Id));
+					if(!isset($relationDB))
+					{
+						$relationDB = new $relation;
+						$relationDB->Id_person = $directorInDB->Id;
+						$relationDB->$Id_relation =$myMovie->Id;
+						$relationDB->save();
+					}
+				}
+				$transaction->commit();
+				$this->redirect(Yii::app()->homeUrl);
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
+		}
+		else {
+			$this->showFilter = false;
+			$idResource = $_GET['idResource'];
+			$sourceType = $_GET['sourceType'];
+			$modelResource = null;
+			if($sourceType == 1)
+			{
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$modelResource =$modelNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$modelResource = $modelRippedMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$modelResource = $localFolder;
+			}
 			
-		if($sourceType == 1)
-		{
-			$modelNzb = Nzb::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			$this->render('_formEditMovie',array('model'=>$myMovie,'modelResource'=>$modelResource,'idResource'=>$idResource,'sourceType'=>$sourceType));				
 		}
-		else if($sourceType == 2)
-		{
-			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
-		}
-		else
-		{
-			$localFolder = LocalFolder::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
-		}
-		
-		$this->render('_formEditMovie',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType));		
 	}
-	
+
 }
