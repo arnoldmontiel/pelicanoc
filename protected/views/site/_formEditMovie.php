@@ -269,9 +269,20 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     </div>
     <div class="modal-body"> 
     <div class="modal-scroll">
-    <input type="file" id="selectedFile" style="display: none;" />
-    <a onclick="document.getElementById('selectedFile').click();">Selecciona una imagen ..</a>
-    <select class="image-picker">
+    
+        <div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+    <div>Sube tu imagen</div>
+    <input type="file" id="selectedFile"  />
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+    o Elije una de la lista
+    
+       <select class="image-picker">
         <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="1"></option>
         <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="2"></option>
         <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="3"></option>
@@ -285,71 +296,9 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
         <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="11"></option>
         <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="12"></option>
       </select>
+  </label>
+</div>
       </div>
-    <!-- <div class="row">
-    <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive active">
-        </a>
-    </div>
-     <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-     <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-     <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-     <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-     <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-     <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-     <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-    <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-    <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-    <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-    <div class="col-lg-2 col-sm-3 col-xs-4">
-        <a href="#">
-             <img src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" class="thumbnail img-responsive">
-                </a>
-    </div>
-  </div>--><!--/.rowPRINCIPAL -->
-    
-    
     </div><!--/.modal-body -->
     <div class="modal-footer">
     <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cancelar</button>
