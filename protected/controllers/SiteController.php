@@ -1350,6 +1350,7 @@ class SiteController extends Controller
 			$idMyMovie = $_POST['id_my_movie'];
 			$actors = explode(',',$_POST['input_actors']);
 			$directors = explode(',',$_POST['input_directors']);
+			$genres = explode(',',$_POST['input_genres']);
 			$myMovieDisc = "MyMovieDisc";
 			$myMovieDiscField = "Id_my_movie_disc";
 			$relation = "MyMoviePerson";
@@ -1393,6 +1394,21 @@ class SiteController extends Controller
 			try {
 				$myMovie->is_custom = true;
 				$myMovie->attributes = $_POST[$newClass];
+				$myMovie->genre= "";
+				$first = true;
+				foreach($genres as $genre)
+				{
+					if($first)
+					{
+						$first = false;
+						$myMovie->genre = $genre;
+					}
+					else
+					{
+						$myMovie->genre = $myMovie->genre.", ".$genre;
+					}
+				}
+				
 				$myMovie->save();
 				
 				$disc->$Id_relation = $myMovie->Id;
@@ -1407,8 +1423,6 @@ class SiteController extends Controller
 					}
 				}
 				$persons = $myMovie->persons;
-// 				var_dump($disc);
-// 				var_dump($persons);
 				foreach ($persons as $person){
 					if($person->type!='Actor' && $person->type!='Director') continue;
 					//$selectedActors[]=$person->Id;
