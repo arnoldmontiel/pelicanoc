@@ -5,12 +5,12 @@
     	</div> <!-- /col-md-12 -->
    	</div> <!-- /row -->
 	<div class="row">		
-		<input type="hidden" id="hidden-unit" value="0">
+		<input type="hidden" id="hidden-unit" value="<?php echo $idSelected; ?>">
 		<input type="hidden" id="hidden-first-scan-working" value="0">
 		<input type="hidden" id="hidden-second-scan-working" value="0">
     	<div id="devices" class="col-md-3">    		    		
     		<?php
-    			$this->renderPartial('_devicesUnit',array('modelCurrentESs'=>$modelCurrentESs));
+    			$this->renderPartial('_devicesUnit',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
 			?>        		      		
     	</div> <!-- /col-md-3 -->
     
@@ -110,6 +110,25 @@ setInterval(function() {
 	getFirstScan();
 	getSecondScan();
 }, 5000);	
+
+initPage();
+
+function initPage()
+{
+	var id = $('#hidden-unit').val();
+	if(id > 0 )
+	{
+		$('#hidden-first-scan-working').val(1);		
+		$.post("<?php echo SiteController::createUrl('AjaxExploreExternalStorage'); ?>",
+				{
+					id:id			    
+				}
+			).success(
+				function(data){	
+					$('#wizardDispositivos').html(data);							
+			});
+	}
+}
 
 $('.usb-button-scan').unbind('click');
 $('.usb-button-scan').click(function(){
