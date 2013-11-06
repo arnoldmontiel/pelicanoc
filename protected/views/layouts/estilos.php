@@ -223,7 +223,8 @@ font-weight: normal;
 color: #666;
 text-shadow: 0 1px 0 #ccc;
 font-family: 'GudeaRegular';
-margin:0px;}
+margin:0px;
+line-height:auto; }
 
 h2.pageSubtitle{font-size: 2em;
 font-weight: normal;
@@ -231,6 +232,10 @@ color: #fff;
 text-shadow: 0 1px 0 #666;
 text-align:left;
 padding-top:10px;
+margin:0px;
+line-height:auto;}
+
+.pageSubtitleBorder{
 padding-bottom:10px;
 margin-bottom:20px;
 border-bottom:1px solid #ccc;}
@@ -339,10 +344,6 @@ overflow-x: auto;
 body#screenControl .container{ text-align:center;}
 
 body#screenControl{ background-color:black; background-position:center top;    background-size: cover; overflow:hidden;
-}
-
-.backdrop-on{ -webkit-tap-highlight-color: rgba(0,0,0,0);
-background-position:center top;    background-size: cover; overflow:auto; background-repeat:repeat;
 }
 
 .controlContainer{
@@ -521,12 +522,16 @@ height: 280px; margin-bottom:10px;
 .editImagesButtons .btn{margin:auto; margin-bottom:10px; }
 
 .buttonGroup{ margin-top:10px; padding-top:10px; text-align:right; border-top:1px solid #ccc;}
+.buttonGroup button{ margin-right:10px;}
 #myModalCambiarAfiche .modal-dialog{ width:80%;}
 
 #myModalCambiarAfiche ul.thumbnails.image_picker_selector li{width: 165px;
 cursor:pointer;}
 
 .modal-scroll{ max-height:500px; overflow-y:auto;}
+.backdrop-on{ -webkit-tap-highlight-color: rgba(0,0,0,0);
+background-position:center top;    background-size: cover; overflow:auto; background-repeat:repeat;
+}
 
 /*---------- END EDIT PELICULA -------------*/
 

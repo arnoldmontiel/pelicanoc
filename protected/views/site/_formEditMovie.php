@@ -130,9 +130,18 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
   <div class="row">
     <div class="col-md-12">
     <h1 class="pageTitle">Editar Pelicula</h1>
-        <h2 class="pageSubtitle"><?php echo $model->original_title; ?></h2>
         </div> <!-- /col-md-12 -->
     </div> <!-- /row -->
+    <div class="row pageSubtitleBorder">
+    <div class="col-md-6">
+            <h2 class="pageSubtitle"><?php echo $model->original_title; ?></h2>
+        </div> <!-- /col-md-6 -->
+    <div class="col-md-6 align-right">
+                <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-unlink "></i> Desasociar</button>
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-link "></i> Cambiar Asociacion</button>
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-refresh "></i> Restaurar Asociacion</button>
+        </div> <!-- /col-md-6 -->
+    </div>
     <div class="row">
     <div class="col-md-3">
     <div class="editAfiche">
@@ -271,7 +280,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     </div><!-- /row -->
  <div class="row">
         <div class="col-md-12">
- <div class="buttonGroup"><button type="submit" class="btn btn-primary btn-large"><i class="fa fa-save "></i> Guardar</button></div>
+ <div class="buttonGroup"><button type="submit" class="btn btn-default btn-large">Cancelar</button><button type="submit" class="btn btn-primary btn-large noMargin"><i class="fa fa-save "></i> Guardar</button></div>
     </div><!-- /col-md-12 -->
     </div><!-- /row -->    
 </form>
@@ -279,3 +288,29 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <!-- /col-md-9 -->
  </div><!-- /row interna -->
  </div> <!-- /container -->  
+ 
+ 
+ 
+ <div id="myModalEditarAsoc" class="modal fade in">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
+              <h4 class="modal-title">Cambiar Asociacion</h4>
+      </div>
+      <div class="modal-body">
+<div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>
+<div class="">Elija la opcion correcta:</div>
+<div class="list-group">
+  <a href="#" class="list-group-item active">Monsters University (1955)</a>
+  <a href="#" class="list-group-item">Monstruos Mutantes (1988)</a>
+  <a href="#" class="list-group-item">Mamma Mia (2001)</a>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
