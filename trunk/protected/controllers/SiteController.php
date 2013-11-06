@@ -1817,6 +1817,37 @@ class SiteController extends Controller
 			$this->render('_formEditMovie',array('model'=>$myMovie,'modelResource'=>$modelResource,'idResource'=>$idResource,'sourceType'=>$sourceType));				
 		}
 	}
+	public function actionAjaxSaveSelectedPoster()
+	{
+		if(isset($_POST['poster'])&&isset($_POST['idResource'])&&isset($_POST['sourceType'])&&isset($_POST['TMDB_id']))
+		{
+			$idResource = $_POST['idResource'];
+			$sourceType = $_POST['sourceType'];
+			$TMDBId =$_POST['TMDB_id'];
+			if($sourceType == 1)
+			{
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}			
+			$poster = $_POST['poster'];
+			$bigPoster = $_POST['poster'];
+			$bigPoster = str_replace ( "w342" , "w500" , $bigPoster );
+// 			$backdrop = isset($_POST['backdrop'])?$_POST['backdrop']:"";
+// 			$backdrop = str_replace ( "w300" , "original" , $backdrop );
+			$modelResource = TMDBHelper::downloadAndLinkImages($TMDBId,$idResource,$sourceType,$poster,$bigPoster,"");
+			echo json_encode($modelResource->TMDBData->attributes);
+		}
+	}
 	public function actionAjaxFillMoviePosterSelector()
 	{
 		$idResource = $_POST['idResource'];
@@ -1847,10 +1878,10 @@ class SiteController extends Controller
 			$results = $db->search('movie', array('query'=>$myMovie->original_title));
 		}
 		$movie = reset($results);
-		$images = $movie->posters('300',"");
+		$images = $movie->posters('342',"");
 		//$bds = $movie->backdrops('300',"");
 		
-		$this->renderPartial('_moviePosterSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'posters'=>$images));		
+		$this->renderPartial('_moviePosterSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'posters'=>$images,'movie'=>$movie));		
 	}
 	public function actionAjaxFillMovieBackdropSelector()
 	{

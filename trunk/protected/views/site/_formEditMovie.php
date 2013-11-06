@@ -162,7 +162,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <div class="row">
     <div class="col-md-3">
     <div class="editAfiche">
-<img class="aficheImg" src="images/<?php echo $moviePoster;?>" border="0">
+<img id="poster" class="aficheImg" src="images/<?php echo $moviePoster;?>" border="0">
 </div>
 <div class="editImagesButtons">   
 <a id="open-change-poster" data-toggle="modal"  class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</a>

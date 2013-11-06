@@ -8,14 +8,14 @@
     
         <div class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
     <div>Sube tu imagen</div>
     <input type="file" id="selectedFile"  />
   </label>
 </div>
 <div class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+    <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
     o Elige una de la lista
     
        <select class="image-picker">
@@ -33,15 +33,33 @@
     </div><!--/.modal-body -->
     <div class="modal-footer">
     <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cancelar</button>
-    <button id="btn-play" type="button" class="btn btn-primary btn-large"> Aceptar</button>
+    <button id="btn-acept" type="button" class="btn btn-primary btn-large"> Aceptar</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
       <script type="text/javascript">
 
-    jQuery("select.image-picker").imagepicker({
+    $("select.image-picker").imagepicker({
       hide_select:  true,
     });
+    $("#btn-acept").click(function(){
+    	if($( "input:checked" ).val()=="2")
+    	{
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('ajaxSaveSelectedPoster') ?>',
+	   		data: {idResource:<?php echo $idResource;?>,sourceType:<?php echo $sourceType;?>,TMDB_id:<?php echo $movie->id;?>,poster:$("select.image-picker").val()},
+	   		dataType:'json'
+	 	}).success(function(data)
+	 	{
+		 	var date = new Date;	 	
+	 		$("#poster").attr("src", "images/"+data.big_poster+"?" + date.valueOf());
+			$('#myModalCambiarAfiche').modal('hide');	   						   				
+		}
+	 	);			
+   		}
+       });
+    
 
 
   </script>
