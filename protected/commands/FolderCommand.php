@@ -34,7 +34,7 @@ class FolderCommand extends CConsoleCommand  {
 																							'is_in'=>1));
 	
 			if(isset($modelCurrentES) && $modelCurrentES->state == 4) //solo si esta en modo scan
-			{
+			{		
 				self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);
 				$modelCurrentES->hard_scan_ready = 1;
 				$modelCurrentES->state = 5;
@@ -416,11 +416,15 @@ class FolderCommand extends CConsoleCommand  {
 		
 		foreach($modelESDatas as $modelESData)
 		{
+			//set status SCANING
+			$modelESData->status = 6;
+			$modelESData->save();
+			
 			$modelPeliFile = null;
-			$workingPath = $pathES. $modelESData->data;
+			$workingPath = $pathES. $modelESData->path;
 			$subIterator = ReadFolderHelper::getPeliDirectoryList($workingPath, true);
 			$hasPeliFile = false;
-			$folderName = basename($modelESData->data);
+			$folderName = basename($modelESData->path);
 			
 			foreach ($subIterator as $fileSubIterator)
 			{
@@ -431,9 +435,14 @@ class FolderCommand extends CConsoleCommand  {
 					break;
 				}
 			}
-			
+						
 			if(!$hasPeliFile)
-				$modelPeliFile = self::buildPeliFileES($folderName, $workingPath, $modelESData->type);
+			{
+				if($modelESData->is_personal == 1)
+					$modelPeliFile = self::buildPersonalPeliFileES($folderName, $workingPath, $modelESData->type);
+				else
+					$modelPeliFile = self::buildPeliFileES($folderName, $workingPath, $modelESData->type);
+			}
 			
 			if(isset($modelPeliFile))
 			{
@@ -441,6 +450,7 @@ class FolderCommand extends CConsoleCommand  {
 				$modelESData->year = $modelPeliFile->year;
 				$modelESData->poster = $modelPeliFile->poster;
 				$modelESData->imdb = $modelPeliFile->imdb;
+				$modelESData->status = 7; // FINISH SCANING
 				$modelESData->save();
 			}
 			
@@ -637,6 +647,35 @@ class FolderCommand extends CConsoleCommand  {
 				break;
 			}
 		}
+		return $modelPeliFile;
+	}
+	
+	private function buildPersonalPeliFileES($folderName, $path, $type)
+	{
+		$modelPeliFile = new PeliFile();
+			
+		$modelPeliFile->name = $folderName;
+		$modelPeliFile->imdb = "";
+		$modelPeliFile->year = "";
+		$modelPeliFile->poster = "";
+		try {
+				
+			$fp = @fopen($path.'/pelicano.peli', 'w');
+			if(isset($fp))
+			{
+				$content = 'imdb='.$modelPeliFile->imdb.";\n";
+				$content .= 'type='.$type.";\n";
+				$content .= 'name='.$modelPeliFile->name.';';
+				$content .= 'year='.$modelPeliFile->year.';';
+				$content .= 'poster='.$modelPeliFile->poster.';';
+					
+				@fwrite($fp, $content);
+				@fclose($fp);
+			}
+		} catch (Exception $e) {
+			break;
+		}
+		
 		return $modelPeliFile;
 	}
 	
