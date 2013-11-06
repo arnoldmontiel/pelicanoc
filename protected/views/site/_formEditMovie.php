@@ -27,8 +27,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource."},
 	 	}).success(function(data)
 	 	{	
-			$('#myModal').html(data);
-			$('#myModal').modal('show');	   						   				
+			$('#myModalCambiarAfiche').html(data);
+			$('#myModalCambiarAfiche').modal('show');	   						   				
 		}
 	 	);			
 		});
