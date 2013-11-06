@@ -1811,5 +1811,9 @@ class SiteController extends Controller
 			$this->render('_formEditMovie',array('model'=>$myMovie,'modelResource'=>$modelResource,'idResource'=>$idResource,'sourceType'=>$sourceType));				
 		}
 	}
+	public function actionAjaxFillMoviePosterSelector()
+	{
+		$this->renderPartial('_moviePosterSelector');		
+	}
 
 }
