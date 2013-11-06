@@ -514,9 +514,16 @@ overflow-y: scroll;}
 height: 280px; margin-bottom:10px;
 }
 .editImagesButtons{ text-align:center;}
-.editImagesButtons button{ display:block;margin:auto; margin-bottom:10px; }
+.editImagesButtons .btn{margin:auto; margin-bottom:10px; }
 
 .buttonGroup{ margin-top:10px; padding-top:10px; text-align:right; border-top:1px solid #ccc;}
+#myModalCambiarAfiche .modal-dialog{ width:80%;}
+
+#myModalCambiarAfiche ul.thumbnails.image_picker_selector li{width: 165px;
+cursor:pointer;}
+
+.modal-scroll{ max-height:500px; overflow-y:auto;}
+
 /*---------- END EDIT PELICULA -------------*/
 
 /*---------- TEXTO MARQUESINA -------------*/
