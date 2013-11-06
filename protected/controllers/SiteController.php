@@ -671,8 +671,8 @@ class SiteController extends Controller
 		}
 		if(isset($TMDBData))
 		{
-			$backdrop = $TMDBData->backdrop;
-			$poster = $TMDBData->big_poster;
+			$backdrop = $TMDBData->backdrop!=""?$TMDBData->backdrop:$model->backdrop;
+			$poster = $TMDBData->big_poster!=""?$TMDBData->big_poster:$model->big_poster;
 		}
 		else
 		{
@@ -865,15 +865,15 @@ class SiteController extends Controller
 		}
 		if(isset($TMDBData))
 		{
-			$backdrop = $TMDBData->backdrop;
-			$poster = $TMDBData->big_poster;
+			$backdrop = $TMDBData->backdrop!=""?$TMDBData->backdrop:$model->backdrop;
+			$poster = $TMDBData->big_poster!=""?$TMDBData->big_poster:$model->big_poster;
 		}
 		else
 		{
 			$backdrop = $model->backdrop;
 			$poster = $model->big_poster;
 		}
-
+		
 		$this->render('control',array(
 				'model'=>$model,
 				'big_poster'=>$poster,
@@ -1813,7 +1813,42 @@ class SiteController extends Controller
 	}
 	public function actionAjaxFillMoviePosterSelector()
 	{
-		$this->renderPartial('_moviePosterSelector');		
-	}
+		$idResource = $_POST['idResource'];
+		$sourceType = $_POST['sourceType'];
+		$idMyMovie = $_POST['id'];
+		if($sourceType == 1)
+		{
+			$modelNzb = Nzb::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+		}
+		else if($sourceType == 2)
+		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		else
+		{
+			$localFolder = LocalFolder::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		$db = TMDBApi::getInstance();
+		$db->adult = true;  // return adult content
+		$db->paged = false; // merges all paged results into a single result automatically
 
+		$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
+		if(empty($results))
+		{
+			$results = $db->search('movie', array('query'=>$myMovie->original_title));
+		}
+		$movie = reset($results);
+		$images = $movie->posters('300',"");
+		//$bds = $movie->backdrops('300',"");
+		
+		$this->renderPartial('_moviePosterSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'posters'=>$images));		
+	}
+	public function actionAjaxFillMovieBackdropSelector()
+	{
+		$this->renderPartial('_movieBackdropSelector');
+	}
+	
 }
