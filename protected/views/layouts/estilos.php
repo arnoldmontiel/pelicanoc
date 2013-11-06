@@ -93,6 +93,9 @@ body #screenMarketplace{
 body #screenControl{
   padding-top: 80px;
   }
+  body #screenEditMovie{
+  padding-top: 80px;
+  }
   
 body#screenMarketplace #content{
   padding-bottom: 40px;
@@ -185,7 +188,7 @@ cursor: pointer;
 
 #Menu .badgeDone{	background-color:#9d9d00; margin-left:10px;}
 
-#popover-dispositivos{ width:300px; display:block; top:45px; left:50%; margin-left:-150px; text-align:center;}
+#popover-dispositivos{ width:300px; display:block; top:45px; left:50%; margin-left:-205px; text-align:center;}
 #popover-dispositivos .popoverDisTitle{font-size:20px;}
 #popover-dispositivos .popoverDisButtons{ border-top:1px dotted #ccc; margin-top:10px; padding-top:10px;}
 #popover-dispositivos .popoverDisButtons button{  width:110px; margin-right:10px;}
@@ -215,11 +218,22 @@ cursor: pointer;
    margin-left:0px;
 }
 
-.pageTitle{font-size: 28px;
+h1.pageTitle{font-size: 28px;
 font-weight: normal;
 color: #666;
 text-shadow: 0 1px 0 #ccc;
-font-family: 'GudeaRegular';}
+font-family: 'GudeaRegular';
+margin:0px;}
+
+h2.pageSubtitle{font-size: 2em;
+font-weight: normal;
+color: #fff;
+text-shadow: 0 1px 0 #666;
+text-align:left;
+padding-top:10px;
+padding-bottom:10px;
+margin-bottom:20px;
+border-bottom:1px solid #ccc;}
 
 #wall{ text-align:center;}
 .items{ margin: 0 auto !important;}
@@ -493,6 +507,17 @@ overflow-y: scroll;}
 overflow-y: scroll;}
 
 /*---------- END BOOKMARKS -------------*/
+
+/*---------- EDIT PELICULA -------------*/
+.editAfiche { text-align:center;}
+.editAfiche .aficheImg{width: 200px;
+height: 280px; margin-bottom:10px;
+}
+.editImagesButtons{ text-align:center;}
+.editImagesButtons button{ display:block;margin:auto; margin-bottom:10px; }
+
+.buttonGroup{ margin-top:10px; padding-top:10px; text-align:right; border-top:1px solid #ccc;}
+/*---------- END EDIT PELICULA -------------*/
 
 /*---------- TEXTO MARQUESINA -------------*/
 p.slide-text26 {
