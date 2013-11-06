@@ -19,13 +19,18 @@
     o Elige una de la lista
     
        <select class="image-picker">
-       <?php
-       var_dump($posters); 
-       foreach ($posters as $poster)
-		{
-        	echo "<option data-img-src='".$poster->file_path."' value='".$poster->file_path."'></option>";
-		}
-       ?>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="1"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="2"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="3"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="4"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="5"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="6"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="7"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="8"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="9"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="10"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="11"></option>
+        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="12"></option>
       </select>
   </label>
 </div>
