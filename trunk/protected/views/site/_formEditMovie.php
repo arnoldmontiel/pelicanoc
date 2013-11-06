@@ -1,5 +1,18 @@
-<?php 
+<?php
+$modelTMDB =  $modelResource->TMDBData;
+if(isset($modelTMDB))
+{
+	$moviePoster = $modelTMDB->big_poster;
+	$backdrop = $modelTMDB->backdrop;
+}
+else
+{
+	$moviePoster = $model->big_poster;
+	$backdrop = $model->backdrop;
+}
+
 Yii::app()->clientScript->registerScript('update-my-movie', "
+		
 		$('#actors').select2({tags:[],tokenSeparators: [',']});
 		$('#directors').select2({tags:[],tokenSeparators: [',']});
 		$('#genres').select2({tags:[],tokenSeparators: [',']});
@@ -89,19 +102,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		}
 	 	);
 		$('#directors').on('change',function(e){ $('#input_directors').val(e.val);});
-	   				
+	   	ChangeBG('images/','".$backdrop."');			
 		");
-$modelTMDB =  $modelResource->TMDBData;
-
-if(isset($modelTMDB))
-{
-	$moviePoster = $modelTMDB->big_poster;
-}
-else
-{
-	$moviePoster = $model->big_poster;
-}
-
 ?>
 
 <div class="container" id="screenEditMovie">
