@@ -55,10 +55,13 @@ function getCurrentState()
     				if(obj.currentUSB.is_in == 1)
 					{
 						$('#externalStorage').show();
+						$('#popover-disp').popover('show');						
 					}
 					else
 					{
 						$('#externalStorage').hide();
+						$('#popover-disp').popover('hide');
+						
 					}
 
     				/*
@@ -135,7 +138,6 @@ $(document).ready(function(){
         html:true,
         template:'<div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><div class="popover-content"><div class="popoverDisTitle"></div></div>'
     });
-	$('#popover-disp').popover('show');
 	
 	getCurrentState();
 	$.ajaxSetup({
