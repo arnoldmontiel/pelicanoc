@@ -146,7 +146,11 @@
     BORRAR PEL&Iacute;CULA
 	</div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
-	<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>
+	<!--<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>-->
+	<!--<button id="btn-eraser-popover" class="popover fade bottom in"><i class="fa fa-eraser fa-lg"></i></button>-->
+	
+	<a href="#" id="btn-eraser-popover" class="btn large primary" ><i id="btn-eraser" class="fa fa-eraser fa-lg"></i></a>
+
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
 	
@@ -247,9 +251,52 @@
     <button id="btn-play" type="button" class="btn btn-primary btn-large"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
-    </div><!--/.modal-dialog -->	
+    </div><!--/.modal-dialog -->
+    <div id="popover-borrar" class="popover fade bottom in">
+    	<div class="arrow">
+    		</div>
+    			<h3 class="popover-title" style=""></h3>
+    			<div class="popover-content">Confirmar
+    				<div class="popoverDisTitle">Borrar Pelicula
+    			</div>
+    		<div class="popoverDisButtons">
+    		<button type="button" class="btn btn-default">No</button>
+    		<button type="button" class="btn btn-primary noMargin">Si</button>
+		</div>
+	</div>
+	</div>
+		  	
   <script>
-
+  function borrar()
+  {
+	$.post("<?php echo SiteController::createUrl('AjaxRemoveMovie'); ?>",
+			{
+				idResource:<?php echo $idResource; ?>,
+			    sourceType:<?php echo $sourceType; ?>
+			 }
+			).success(
+				function(data){
+					window.location = <?php echo '"'. SiteController::createUrl('index') . '"'; ?>; 
+			});
+  
+  }
+  function cancelar()
+  {
+	  $('#btn-eraser-popover').popover('hide');
+  }
+  $(function () {
+	  var elem ='<p>¿Seguro desea eliminar esta pelicula?</p><button id="btn-remove-ok" class="btn btn-primary noMargin" type="button" onclick="borrar()">Si</button>'+
+	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="cancelar()">No</button>';
+	  
+	$('#btn-eraser-popover').popover({
+        title: 'Confirmar',
+        content: '¿Desea borrar esta pelicula?',
+        placement: 'right',
+        content:elem,
+        html:true
+    });
+  });										
+	
 	$(".check-playlist").click(function(){
 		var target = this;
 		$.post("<?php echo SiteController::createUrl('AjaxAddOrRemovePlaylist'); ?>",
@@ -274,8 +321,9 @@
 		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
 		return false;
 	});
-
-	$('#btn-eraser').click(function(){		
+	
+	$('#btn-erasera').click(function(){
+		return false;		
 		if (confirm("\u00bfSeguro desea eliminarlo?"))
 		{
 			$.post("<?php echo SiteController::createUrl('AjaxRemoveMovie'); ?>",

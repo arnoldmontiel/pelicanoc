@@ -128,6 +128,15 @@ function getCurrentState()
 
 
 $(document).ready(function(){
+	var elem ='Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button></div></div>';
+	$('#popover-disp').popover({
+        placement: 'bottom',
+        content:elem,
+        html:true,
+        template:'<div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><div class="popover-content"><div class="popoverDisTitle"></div></div>'
+    });
+	$('#popover-disp').popover('show');
+	
 	getCurrentState();
 	$.ajaxSetup({
 	    cache: false,
@@ -266,8 +275,6 @@ $(document).ready(function(){
     
 
 });
-   
-$('#popover-dispositivos').popover(options);
 </script>
 </head>
 
@@ -288,10 +295,8 @@ $('#popover-dispositivos').popover(options);
           <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 		  <li id="li-download"><a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargas</a></li>   
-		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>">Dispositivos <span class="badge">2</span></a></li>		  
-		  <div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button>
-		  </div></div></div>
-		  </li>          
+		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>" id="popover-disp">Dispositivos <span class="badge">2</span></a></li>		  
+		  <!--  <div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button></div></div></div></li>-->		  
         </ul>
           <?php 
 			 	$customer = Setting::getInstance()->getCustomer();

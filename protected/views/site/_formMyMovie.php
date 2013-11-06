@@ -31,7 +31,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 			$('#input_genres').val(vals);	   						   				
 		}
 	 	);
-				
+		$('#genres').on('change',function(e){ $('#input_genres').val(e.val);});
+	   				
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('AjaxGetPersons') . "',
@@ -130,10 +131,18 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		<?php echo $form->labelEx($model,'running_time'); ?>
 		<?php echo $form->textField($model,'running_time',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
-
 	<div class="row">
 		<?php echo CHtml::label('SINÓPSIS',get_class($model).'_description'); ?>
 		<?php echo $form->textArea($model,'description',array('style'=>"width:600px;height:200px")); ?>
+	</div>
+	<div class="row">
+		<?php echo CHtml::label('Parental Control',get_class($model).'_Id_parental_control'); ?>
+		<?php
+		$parentalControl=ParentalControl::model()->findAll();
+		$list= CHtml::listData(
+		$parentalControl, 'Id', 'description');
+		echo $form->dropDownList($model,'Id_parental_control',$list); 
+		?>
 	</div>
 	<div class="row">
 		<?php echo CHtml::label('Director','s2id_directors'); ?>
