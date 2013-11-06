@@ -20,7 +20,6 @@
     
        <select class="image-picker">
        <?php
-       var_dump($posters); 
        foreach ($posters as $poster)
 		{
         	echo "<option data-img-src='".$poster->file_path."' value='".$poster->file_path."'></option>";

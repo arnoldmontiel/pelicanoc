@@ -8,29 +8,23 @@
     
         <div class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
     <div>Sube tu imagen</div>
     <input type="file" id="selectedFile"  />
   </label>
 </div>
 <div class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+    <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
     o Elige una de la lista
     
        <select class="image-picker">
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="1"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="2"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="3"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="4"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="5"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="6"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="7"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="8"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="9"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="10"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="11"></option>
-        <option data-img-src="images/e99a9936-a674-493f-9617-524c33ea1bb9_big.jpg" value="12"></option>
+       <?php
+       foreach ($backdrops as $backdrop)
+		{
+        	echo "<option data-img-src='".$backdrop->file_path."' value='".$backdrop->file_path."'></option>";
+		}
+       ?>
       </select>
   </label>
 </div>
@@ -38,15 +32,33 @@
     </div><!--/.modal-body -->
     <div class="modal-footer">
     <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cancelar</button>
-    <button id="btn-play" type="button" class="btn btn-primary btn-large"> Aceptar</button>
+    <button id="btn-acept" type="button" class="btn btn-primary btn-large"> Aceptar</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
       <script type="text/javascript">
 
-    jQuery("select.image-picker").imagepicker({
+    $("select.image-picker").imagepicker({
       hide_select:  true,
     });
+    $("#btn-acept").click(function(){
+    	if($( "input:checked" ).val()=="2")
+    	{
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('ajaxSaveSelectedBackdrop') ?>',
+	   		data: {idResource:<?php echo $idResource;?>,sourceType:<?php echo $sourceType;?>,TMDB_id:<?php echo $movie->id;?>,backdrop:$("select.image-picker").val()},
+	   		dataType:'json'
+	 	}).success(function(data)
+	 	{
+		 	var date = new Date;	 	
+		 	ChangeBG('images/',data.backdrop+"?" + date.valueOf());
+			$('#myModalCambiarAfiche').modal('hide');	   						   				
+		}
+	 	);			
+   		}
+       });
+    
 
 
   </script>

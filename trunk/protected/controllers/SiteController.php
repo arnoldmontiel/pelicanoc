@@ -1866,6 +1866,35 @@ class SiteController extends Controller
 			echo json_encode($modelResource->TMDBData->attributes);
 		}
 	}
+	public function actionAjaxSaveSelectedBackdrop()
+	{
+		if(isset($_POST['backdrop'])&&isset($_POST['idResource'])&&isset($_POST['sourceType'])&&isset($_POST['TMDB_id']))
+		{
+			$idResource = $_POST['idResource'];
+			$sourceType = $_POST['sourceType'];
+			$TMDBId =$_POST['TMDB_id'];
+			if($sourceType == 1)
+			{
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			$backdrop = isset($_POST['backdrop'])?$_POST['backdrop']:"";
+			$backdrop = str_replace ( "w300" , "original" , $backdrop );
+			$modelResource = TMDBHelper::downloadAndLinkImages($TMDBId,$idResource,$sourceType,"","",$backdrop);
+			echo json_encode($modelResource->TMDBData->attributes);
+		}
+	}
+	
 	public function actionAjaxFillMoviePosterSelector()
 	{
 		$idResource = $_POST['idResource'];
@@ -1903,7 +1932,38 @@ class SiteController extends Controller
 	}
 	public function actionAjaxFillMovieBackdropSelector()
 	{
-		$this->renderPartial('_movieBackdropSelector');
+		$idResource = $_POST['idResource'];
+		$sourceType = $_POST['sourceType'];
+		$idMyMovie = $_POST['id'];
+		if($sourceType == 1)
+		{
+			$modelNzb = Nzb::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+		}
+		else if($sourceType == 2)
+		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		else
+		{
+			$localFolder = LocalFolder::model()->findByPk($idResource);
+			$myMovie = $localFolder->myMovieDisc->myMovie;
+		}
+		$db = TMDBApi::getInstance();
+		$db->adult = true;  // return adult content
+		$db->paged = false; // merges all paged results into a single result automatically
+
+		$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
+		if(empty($results))
+		{
+			$results = $db->search('movie', array('query'=>$myMovie->original_title));
+		}
+		$movie = reset($results);
+		//$images = $movie->posters('342',"");
+		$images = $movie->backdrops('300',"");
+		
+		$this->renderPartial('_movieBackdropSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'backdrops'=>$images,'movie'=>$movie));		
 	}
 	
 }
