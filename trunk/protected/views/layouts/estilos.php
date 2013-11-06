@@ -341,6 +341,10 @@ body#screenControl .container{ text-align:center;}
 body#screenControl{ background-color:black; background-position:center top;    background-size: cover; overflow:hidden;
 }
 
+.backdrop-on{ -webkit-tap-highlight-color: rgba(0,0,0,0);
+background-position:center top;    background-size: cover; overflow:auto; background-repeat:repeat;
+}
+
 .controlContainer{
 margin:auto;
 }
