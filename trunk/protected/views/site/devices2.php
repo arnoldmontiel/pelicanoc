@@ -7,6 +7,7 @@
 	<div class="row">		
 		<input type="hidden" id="hidden-unit" value="0">
 		<input type="hidden" id="hidden-first-scan-working" value="0">
+		<input type="hidden" id="hidden-second-scan-working" value="0">
     	<div id="devices" class="col-md-3">    		    		
     		<?php
     			$this->renderPartial('_devicesUnit',array('modelCurrentESs'=>$modelCurrentESs));
@@ -58,9 +59,56 @@ function getFirstScan()
 	}
 }
 
+function getSecondScan()
+{
+	var working = $('#hidden-second-scan-working').val();
+	if(working == "1")
+	{		
+		$.post("<?php echo SiteController::createUrl('AjaxGetSecondScan'); ?>",
+				{
+					id:$('#hidden-unit').val()			    
+				}
+		).success(
+			function(data){
+
+				var obj = jQuery.parseJSON(data);				
+				if(obj.modelFinishESDataArray != null)
+				{
+					for(var index = 0; index < obj.modelFinishESDataArray.length; index++)
+					{
+						var id = obj.modelFinishESDataArray[index].id;
+						var alreadyExists = obj.modelFinishESDataArray[index].alreadyExists;
+						var isUnknown = obj.modelFinishESDataArray[index].isUnknown;
+						
+						var tr = $('#wizardDispositivos').find('#idTr_' + id);						
+						if(tr.length > 0)
+						{							
+							var tdStatus = tr.find('#idTdStatus_' + id);
+							if(tdStatus.length > 0)
+							{
+								if(alreadyExists == 1)
+									tdStatus.html("<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca");
+								else
+									tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
+							}
+							if(isUnknown == 1)
+							{
+								$('#unknownTable').append(tr);
+							}
+						}						
+					}
+				}
+				
+				if(obj.finishScan == 1)
+					$('#hidden-second-scan-working').val(0);
+		});	
+	}
+}
+
 setInterval(function() {
 	getDevices();
 	getFirstScan();
+	getSecondScan();
 }, 5000);	
 
 $('.usb-button-scan').unbind('click');
