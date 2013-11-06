@@ -247,17 +247,15 @@ else
     </div>
     </div><!-- /col-md-12 -->
     </div><!-- /row -->
- <div class="buttonGroup"><button type="submit" class="btn btn-primary btn-large"><i class="fa fa-save "></i> Guardar</button></div>
-    
-</form>
-    </div>
-    <!-- /col-md-9 -->
- </div><!-- /row interna -->
  <div class="row">
         <div class="col-md-12">
  <div class="buttonGroup"><button type="submit" class="btn btn-primary btn-large"><i class="fa fa-save "></i> Guardar</button></div>
     </div><!-- /col-md-12 -->
-    </div><!-- /row -->
+    </div><!-- /row -->    
+</form>
+    </div>
+    <!-- /col-md-9 -->
+ </div><!-- /row interna -->
  
  
     </div> <!-- /container -->  
