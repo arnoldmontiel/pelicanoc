@@ -10,7 +10,7 @@
               <h4 class="modal-title">Cambiar Asociacion</h4>
       </div>
       <div class="modal-body">
-<div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>
+
 <div class="">Elija la opcion correcta:</div>
 <div class="buscarAsociacion">
           <form class="form-horizontal" role="form">
@@ -18,14 +18,29 @@
         <div class="form-group col-sm-6">
     <label for="fieldSearchName" class="col-sm-3 control-label">Buscar</label>
     <div class="col-sm-9">	
-                            <input id="fieldSearchName" type="text" class="form-control" placeholder="Nombre">
+                            <input id="fieldSearchName" type="text" class="form-control" placeholder="Título">
                             </div>
                   </div>
         <div class="form-group col-sm-5">
-    <label for="fieldAno" class="col-sm-2 control-label">Ano</label>
+    <label for="fieldAno" class="col-sm-2 control-label">Año</label>
     <div class="col-sm-10">
          <select class="form-control" id="fieldAno">
-  <option>Cualquiera</option>
+  <option value="">Cualquiera</option>
+          <?php 
+		$yearNow = date("Y");
+		$yearFrom = $yearNow - 100;
+		$yearTo = $yearNow;
+		$arrYears = array();
+		foreach (range($yearFrom, $yearTo) as $number) {
+			$arrYears[$number] = $number; 
+		}
+		$arrYears = array_reverse($arrYears, true);
+		foreach ($arrYears as $year)
+		{
+			echo "<option value'".$year."'>".$year."</option>";
+		}
+		?>
+  
   <option>1988</option>
   <option>1989</option>
   <option>1990</option>
@@ -34,12 +49,12 @@
                             </div>
 </div>
           <div class="col-sm-1">
-        <button type="submit" class="btn btn-default">Buscar</button>
+        <button id="btn_search" type="button" class="btn btn-default">Buscar</button>
         </div>
         </div>
       </form>
           </div>
-<div class="list-group">
+<div id="list-movies" class="list-group">
 		<?php
 		foreach ($movies as $movie)
 		{
@@ -47,8 +62,7 @@
 			$date = " (".$date['year'].")";
 			echo "<a id='".$movie->id."' href='#' class='list-group-item'>".$movie->original_title.$date."</a>";
 		}
-       ?>
-  
+       ?>  
 </div>
       </div>
       <div class="modal-footer">
@@ -59,18 +73,47 @@
   </div><!-- /.modal-dialog -->
 
   <script>
-	$('.list-group-item').click(function(){
-		if($(this).hasClass('active'))
-		{
-			$('.list-group-item').removeClass('active');
-		}
-		else
-		{
-			$('.list-group-item').removeClass('active');
-			$(this).addClass('active');
-		}		
+  bindActions();
+	$('#btn_search').click(function(){
+		$('#list-movies').html('<div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>');		
+		$(this).attr("disabled", "disabled");
+		$('#searchMoviesResult').html("Buscando...");
+		$.post("<?php echo SiteController::createUrl('AjaxShearMovieTMDB'); ?>",
+			{title: $('#fieldSearchName').val(),
+			year:$('#fieldAno').val()}
+		).success(
+			function(data) 
+			{	
+				$('#btn_search').removeAttr("disabled");
+				$('#list-movies').html(data);
+				bindActions();								
+				return false;
+			}
+		).error(
+			function(data) 
+			{									
+				$('#btn_search').removeAttr("disabled");
+				$('#list-movies').html("");
+				return false;
+			}
+		);
 		return false;
 	});
+  function bindActions()
+  {
+		$('.list-group-item').click(function(){
+			if($(this).hasClass('active'))
+			{
+				$('.list-group-item').removeClass('active');
+			}
+			else
+			{
+				$('.list-group-item').removeClass('active');
+				$(this).addClass('active');
+			}		
+			return false;
+		});		  
+  }
 	$('#btn-save').click(function()
 	{
 		if($('.list-group-item.active').length==1)
