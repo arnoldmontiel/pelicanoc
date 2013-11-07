@@ -37,6 +37,8 @@ class TMDBHelper
 			$model->save();
 			$modelResource->Id_TMDB_data = $model->Id;
 			$modelResource->save();
+			$modelResource->refresh();
+			return $modelResource;
 			
 		} catch (Exception $e) {
 		}
@@ -45,7 +47,12 @@ class TMDBHelper
 	{
 		$validator = new CUrlValidator();
 		$setting = Setting::getInstance();
-	
+		if(strstr ( $original, "_temp" ))
+		{
+			if(rename ( $original , $setting->path_images."/".$newFileName.".jpg" ))
+				return $newFileName.".jpg";
+		}
+		
 		$name = 'no_poster.jpg';
 		if($original!='' && $validator->validateValue($original))
 		{
