@@ -12,6 +12,33 @@
       <div class="modal-body">
 <div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>
 <div class="">Elija la opcion correcta:</div>
+iv class="buscarAsociacion">
+          <form class="form-horizontal" role="form">
+          <div class="row">
+        <div class="form-group col-sm-6">
+    <label for="fieldSearchName" class="col-sm-3 control-label">Buscar</label>
+    <div class="col-sm-9">	
+                            <input id="fieldSearchName" type="text" class="form-control" placeholder="Nombre">
+                            </div>
+                  </div>
+        <div class="form-group col-sm-5">
+    <label for="fieldAno" class="col-sm-2 control-label">Ano</label>
+    <div class="col-sm-10">
+         <select class="form-control" id="fieldAno">
+  <option>Cualquiera</option>
+  <option>1988</option>
+  <option>1989</option>
+  <option>1990</option>
+  <option>1991</option>
+</select>            
+                            </div>
+</div>
+          <div class="col-sm-1">
+        <button type="submit" class="btn btn-default">Buscar</button>
+        </div>
+        </div>
+      </form>
+          </div>
 <div class="list-group">
 		<?php
 		foreach ($movies as $movie)
