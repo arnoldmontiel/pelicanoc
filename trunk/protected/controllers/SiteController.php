@@ -1680,6 +1680,28 @@ class SiteController extends Controller
 		}
 		
 	}		
+	public function actionAjaxFillExternalStorageMovieList()
+	{
+		if(isset($_POST['id_external_storage_data']))
+		{
+			$idExternal = $_POST['id_external_storage_data'];
+				
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+			$results = $db->search('movie', array('query'=>$_POST['title']));
+			$movies = array();
+			foreach ($results as $result)
+			{		
+				$movie = new TMDBMovie($result->id);
+				$movieResult['release_date']=$movie->release_date;
+				$movieResult['imdb_id']=$movie->imdb_id;
+				$movieResult['original_title']=$movie->original_title;
+				$movies[]=$movieResult;				
+			}
+			$this->renderPartial('_externalStorageMovieSelector',array('id_external_storage_data'=>$idExternal,'movies'=>$movies));
+		}	
+	}
 	
 	public function actionUpdateMyMovieInfo()
 	{
