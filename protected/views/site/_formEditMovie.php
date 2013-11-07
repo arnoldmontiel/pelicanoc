@@ -19,33 +19,8 @@ else
 }
 
 Yii::app()->clientScript->registerScript('update-my-movie', "
-		$('#open-movie-list').click(function()
-		{
-		$('#open-movie-list').attr('disabled', 'disabled');
-		$('#open-movie-list i').removeClass();
-		$('#open-movie-list i').addClass('fa fa-spinner fa-spin');
-		$.ajax({
-	   		type: 'POST',
-	   		url: '". SiteController::createUrl('AjaxFillExternalStorageMovieList') . "',
-	   		data: {id_external_storage_data:1,title:'hangover'},
-	 	}).success(function(data)
-	 	{	
-			$('#myModalEditarAsoc').html(data);
-			$('#myModalEditarAsoc').modal('show');	   						   				
-			$('#open-movie-list').removeAttr('disabled');
-	   		$('#open-movie-list i').removeClass();
-			$('#open-movie-list i').addClass('fa fa-link');
-		}
-	 	).error(function(){
-			$('#open-movie-list').removeAttr('disabled');
-			$('#open-movie-list i').removeClass();
-			$('#open-movie-list i').addClass('fa fa-link');
-		});
-	   		return false;	   				
-		}
-		);
 		
-		$('#open-movie-listOld').click(function()
+		$('#open-movie-list').click(function()
 		{
 		$('#open-movie-list').attr('disabled', 'disabled');
 		$('#open-movie-list i').removeClass();
