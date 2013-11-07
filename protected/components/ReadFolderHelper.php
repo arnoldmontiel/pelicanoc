@@ -172,6 +172,31 @@ class ReadFolderHelper
 		}		
 	}
 	
+	static public function rebuildPeliFileES($modelESData)
+	{
+		if(isset($modelESData))
+		{
+			$path = $modelESData->currentExternalStorage->path;
+			$path .= $modelESData->path;
+			try {
+				$fp = @fopen($path.'/pelicano.peli', 'w');
+				if(isset($fp))
+				{
+					$content = 'imdb='.$modelESData->imdb.";\n";
+					$content .= 'type='.$modelESData->type.";\n";
+					$content .= 'name='.$modelESData->title.';';
+					$content .= 'year='.$modelESData->year.';';
+					$content .= 'poster=;';
+			
+					@fwrite($fp, $content);
+					@fclose($fp);
+				}
+			} catch (Exception $e) {
+				
+			}
+		}
+	}
+	
 	static public function getVideoDirectoryList($dir,$recursive = FALSE)
 	{
 		if (is_dir($dir)) {
