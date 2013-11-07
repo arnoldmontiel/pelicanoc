@@ -113,13 +113,14 @@
 			$("#btn-save i").removeClass();
 			$("#btn-save i").addClass("fa fa-spinner fa-spin");
 			var target = $('.list-group-item.active')[0];
+			debugger;			
 			$.ajax({
 		   		type: 'POST',
 		   		url: '<?php echo SiteController::createUrl('ajaxExternalStorageSaveSelectedMovie');?>',
 		   		data: {Id_imdb:target.id,idExternal_storage_data:<?php echo $id_external_storage_data; ?>},
 		 	}).success(function(data)
 		 	{	
-		 		//cerrar modal
+		 		$('#myModalEditarAsoc').modal('hide');
 		 		
 			}
 		 	);
