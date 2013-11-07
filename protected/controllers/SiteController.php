@@ -242,10 +242,41 @@ class SiteController extends Controller
 	public function actionAjaxProcessExternalStorage()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
-		if(isset($idCurrentES))
-			ReadFolderHelper::processExternalStorage($idCurrentES);
+// 		if(isset($idCurrentES))
+// 			ReadFolderHelper::processExternalStorage($idCurrentES);
 	}
 
+	public function actionAjaxOpenChangeName()
+	{
+		$idESData = (isset($_POST['id']))?$_POST['id']:null;
+		if(isset($idESData))
+		{
+			$modelESData = ExternalStorageData::model()->findByPk($idESData);
+			
+			if(isset($modelESData))
+			{
+				$this->renderPartial('_formEditName',array('modelESData'=>$modelESData));
+			}
+		}		
+	}
+	
+	public function actionAjaxSaveChangedName()
+	{
+		$idESData = (isset($_POST['id']))?$_POST['id']:null;
+		$name = (isset($_POST['name']))?$_POST['name']:'';
+		
+		if(isset($idESData))
+		{
+			$modelESData = ExternalStorageData::model()->findByPk($idESData);
+				
+			if(isset($modelESData))
+			{
+				$modelESData->title = $name;
+				$modelESData->save();
+			}
+		}
+	}
+	
 	public function actionAjaxSetAllAsPersonal()
 	{
 		$idCurrentES = (isset($_POST['idCurrentES']))?$_POST['idCurrentES']:null;
@@ -275,6 +306,38 @@ class SiteController extends Controller
 
 	}
 
+	public function actionAjaxGetProcessStatus()
+	{
+		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		$finishCopy = 0;
+		$modelFinishESDataArray = array();
+		if(isset($idCurrentES))
+		{
+			$criteria = new CDbCriteria();
+			$criteria->addCondition("t.state <> 2");
+			$criteria->addCondition("t.Id =".$idCurrentES);
+			
+			$modelCurrentES = CurrentExternalStorage::model()->find($criteria);
+				
+			if(isset($modelCurrentES))
+				$finishCopy = 1;
+				
+			//Traigo los registros que terminaron de copiar
+			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,
+																		'status'=>3));	
+			foreach($modelESDatas as $modelESData)
+			{
+				$modelFinishCopyESDataArray[] = array('id'=>$modelESData->Id);
+			}
+				
+		}
+	
+		$response = array('finishCopy'=>$finishCopy,
+										'modelFinishCopyESDataArray'=>$modelFinishCopyESDataArray);
+	
+		echo json_encode($response);
+	}
+	
 	public function actionAjaxGetSecondScan()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
@@ -380,7 +443,7 @@ class SiteController extends Controller
 		if(isset($idCurrentES))
 			ReadFolderHelper::scanExternalStorage($idCurrentES);
 
-		echo "<p>La unidad se esta escaneando...</p>";
+		echo "<h2>USB 1 (Kingston) <i class='fa fa-spinner fa-spin'></i> Analizando...</h2>";
 	}
 
 	public function actionAjaxMarkCurrentESRead()
