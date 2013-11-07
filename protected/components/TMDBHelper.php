@@ -26,7 +26,7 @@ class TMDBHelper
 			}
 			
 			if($poster!="")
-				$model->poster = self::getImage($poster, $TMDBId);
+				$model->poster = self::getImage($poster, $TMDBId,true);
 			if($bigPoster!="")
 				$model->big_poster = self::getImage($bigPoster, $TMDBId."_big");
 			if($backdrop!="")
@@ -43,17 +43,24 @@ class TMDBHelper
 		} catch (Exception $e) {
 		}
 	}
-	private function getImage($original, $newFileName)
+	private function getImage($original, $newFileName, $copy = false)
 	{
 		$validator = new CUrlValidator();
 		$setting = Setting::getInstance();
+		$name = 'no_poster.jpg';
 		if(strstr ( $original, "_temp" ))
 		{
-			if(rename ( $original , $setting->path_images."/".$newFileName.".jpg" ))
-				return $newFileName.".jpg";
+			if($copy)
+			{				
+				if(copy($original , $setting->path_images."/".$newFileName.".jpg" ))
+					$name = $newFileName.".jpg";
+			}else {
+				if(rename ( $original , $setting->path_images."/".$newFileName.".jpg" ))
+					$name = $newFileName.".jpg";
+			}
+			return $name;
 		}
-		
-		$name = 'no_poster.jpg';
+				
 		if($original!='' && $validator->validateValue($original))
 		{
 			try {

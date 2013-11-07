@@ -8,16 +8,13 @@
     <div class="modal-scroll">
         <div class="radio">
   <label>	
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked="checked" />
     <div>Sube tu imagen</div>
     <input type="file" name="fileUpload1" id="fileUpload1" class="fileUpload" />
   </label>
 </div>
 <div class="radio">
   <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
-    o Elige una de la lista
-    
+    o Elige una de la lista    
        <select class="image-picker">
        <?php
        $urls = array();
@@ -44,32 +41,29 @@
       hide_select:  true,
     });
     $("#btn-acept").click(function(){
-    	if($( "input:checked" ).val()=="1")
+    	if($("select.image-picker").val()!="")
     	{
-        	
-    	}
-    	if($( "input:checked" ).val()=="2")
-    	{
-		$.ajax({
-	   		type: 'POST',
-	   		url: '<?php echo SiteController::createUrl('ajaxSaveSelectedBackdrop') ?>',
-	   		data: {idResource:<?php echo $idResource;?>,sourceType:<?php echo $sourceType;?>,TMDB_id:<?php echo $movie->id;?>,backdrop:$("select.image-picker").val()},
-	   		dataType:'json'
-	 	}).success(function(data)
-	 	{
-		 	var date = new Date;	 	
-		 	ChangeBG('images/',data.backdrop+"?" + date.valueOf());
-			$('#myModalCambiarAfiche').modal('hide');	   						   				
-		}
-	 	);			
-   		}
-       });
+			$.ajax({
+		   		type: 'POST',
+		   		url: '<?php echo SiteController::createUrl('ajaxSaveSelectedBackdrop') ?>',
+		   		data: {idResource:<?php echo $idResource;?>,sourceType:<?php echo $sourceType;?>,TMDB_id:<?php echo $movie->id;?>,backdrop:$("select.image-picker").val()},
+		   		dataType:'json'
+		 	}).success(function(data)
+		 	{
+			 	var date = new Date;	 	
+			 	ChangeBG('images/',data.backdrop+"?" + date.valueOf());
+				$('#myModalCambiarAfiche').modal('hide');	   						   				
+			}
+		 	);
+	 	}			
+        }
+    	);
 	    var urls = <?php echo json_encode($urls);?>;
 		$('.fileUpload').liteUploader(
 			{
 				script: '<?php echo SiteController::createUrl('ajaxUploadImage')?>',
 				allowedFileTypes: 'image/jpeg,image/png,image/gif',
-				maxSizeInBytes: 250000,
+				maxSizeInBytes: 30000000,
 				customParams: {
 					'custom': 'tester',
 					'urls':urls,
