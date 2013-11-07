@@ -174,7 +174,6 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <div class="col-md-6 align-right">
                 <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-unlink "></i> Desasociar</button>
             <button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Cambiar Asociacion</button>
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-refresh "></i> Restaurar Asociacion</button>
         </div> <!-- /col-md-6 -->
     </div>
     <div class="row">
