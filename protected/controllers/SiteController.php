@@ -1287,7 +1287,7 @@ class SiteController extends Controller
 		
 				$movie = new TMDBMovie($_POST['Id_movie']);
 				$persons = $movie->casts();
-				$poster = $movie->poster('154');
+				$poster = $movie->poster('342');
 				$bigPoster = $movie->poster('500');
 				$backdrop = $movie->backdrop('original');
 		
