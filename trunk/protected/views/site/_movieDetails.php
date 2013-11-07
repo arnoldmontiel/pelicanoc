@@ -156,14 +156,6 @@
 	
     <div class="row detailSecondGroup">
     <div class="col-md-3 align-left detailSecond detailSecondFirst">
-    Imagenes
-	</div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
-	<i id="btn-tmdb" class="fa fa-pencil fa-lg"></i>
-	</div><!--/.col-md-9 -->
-	</div><!--/.row -->
-    <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
     Cambiar pelicula
 	</div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
