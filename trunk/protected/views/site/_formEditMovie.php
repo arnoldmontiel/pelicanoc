@@ -59,8 +59,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource."},
 	 	}).success(function(data)
 	 	{	
-			$('#myModalCambiarAfiche').html(data);
-			$('#myModalCambiarAfiche').modal('show');	   						   				
+			$('#myModalCambiarBackdrop').html(data);
+			$('#myModalCambiarBackdrop').modal('show');	   						   				
 		}
 	 	);			
 	   		return false;
