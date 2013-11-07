@@ -168,7 +168,9 @@ function cancelCopy(id)
 			tdButton.children().text('Importar');
 		else
 			tdButton.children().text('Sobreescribir');
-		
+
+		tdButton.children().removeClass('btn-danger');
+		tdButton.children().addClass('btn-primary');
 		tdButton.children().attr('onclick','copyVideo('+id+')');
 
 		tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
@@ -200,6 +202,8 @@ function copyVideo(id)
 			if(tdButton.length > 0)
 			{	
 				tdButton.children().text('Cancelar');
+				tdButton.children().removeClass('btn-primary');
+				tdButton.children().addClass('btn-danger');				
 				tdButton.children().attr('onclick','cancelCopy('+id+')');				
 			}			
 	});
@@ -220,6 +224,28 @@ function changeName(id){
 		});
 		
 }
+
+function changeAsoc(id)
+{
+	$.ajax({
+   		type: 'POST',
+   		url: "<?php echo SiteController::createUrl('AjaxFillExternalStorageMovieList'); ?>",
+   		data: {id_external_storage_data:id},
+ 	}).success(function(data)
+ 	{	
+		$('#myModalEditarAsoc').html(data);
+		$('#myModalEditarAsoc').modal('show');	   						   				
+//		$('#open-movie-list').removeAttr('disabled');
+//   	$('#open-movie-list i').removeClass();
+//		$('#open-movie-list i').addClass('fa fa-link');
+	}
+ 	).error(function(){
+//		$('#open-movie-list').removeAttr('disabled');
+//		$('#open-movie-list i').removeClass();
+//		$('#open-movie-list i').addClass('fa fa-link');
+	});
+}
+
 setInterval(function() {
 	getDevices();
 	getFirstScan();
