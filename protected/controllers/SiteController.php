@@ -1688,15 +1688,11 @@ class SiteController extends Controller
 			$modelESData = ExternalStorageData::model()->findByPk($idESData);	
 			
 			if(isset($modelESData))
-			{
-				$name = $modelESData->title;
-				if(!empty($modelESData->year))
-					$name .= ' ('.$modelESData->year.')';
-				
+			{				
 				$db = TMDBApi::getInstance();
 				$db->adult = true;  // return adult content
 				$db->paged = false; // merges all paged results into a single result automatically
-				$results = $db->search('movie', array('query'=>$name));
+				$results = $db->search('movie', array('query'=>$modelESData->title, 'year'=>$modelESData->year));
 				$movies = array();
 				foreach ($results as $result)
 				{		
