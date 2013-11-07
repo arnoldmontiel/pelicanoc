@@ -1696,7 +1696,10 @@ class SiteController extends Controller
 				$modelESData->title = $movie->original_title;
 				$date = date_parse($movie->release_date);				
 				$modelESData->year = $date['year'];
-				$modelESData->save();
+				if($modelESData->save())
+				{
+					ReadFolderHelper::rebuildPeliFileES($modelESData);
+				}
 			}
 		}
 		
