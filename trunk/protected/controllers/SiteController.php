@@ -1965,5 +1965,43 @@ class SiteController extends Controller
 		
 		$this->renderPartial('_movieBackdropSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'backdrops'=>$images,'movie'=>$movie));		
 	}
+	public function actionAjaxUploadImage()
+	{
+		$urls = array();
+
+		if (isset($_POST['liteUploader_id']) && $_POST['liteUploader_id'] == 'fileUpload1')
+		{
+			foreach ($_FILES['fileUpload1']['error'] as $key => $error)
+			{
+			    if ($error == UPLOAD_ERR_OK)
+				{
+					$uploadedUrl = 'images/' . $_FILES['fileUpload1']['name'][$key];
+					if(isset($_POST['id_tmdbdata']))
+					{
+						$extension = explode(".",$_FILES['fileUpload1']['name'][$key]);
+						if(count($extension)>1){
+							$uploadedUrl = 'images/' . $_POST['id_tmdbdata']."_temp.".$extension[1];
+						}						
+					}
+					
+			        move_uploaded_file( $_FILES['fileUpload1']['tmp_name'][$key], $uploadedUrl);
+			        $urls[] = $uploadedUrl;
+			    }
+			}
+		
+			$message = 'Successfully Uploaded File(s) From First Upload Input';
+		}
+		$originalUrls = array();
+		if(isset($_POST['urls']))
+		{
+			$originalUrls = explode(',',$_POST['urls']);				
+		}
+		echo json_encode(
+			array(
+				'message' => $message,
+				'urls' => array_merge($urls,$originalUrls)
+			)
+		);
+	}
 	
 }
