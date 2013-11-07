@@ -64,7 +64,7 @@ class SiteController extends Controller
 		));
 	}
 
-	public function actionDevices()
+	public function actionDevices2()
 	{	
 		$this->showFilter = false;
 		$this->render('devices');
@@ -79,7 +79,7 @@ class SiteController extends Controller
 		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
 	}
 	
-	public function actionDevices2()
+	public function actionDevices()
 	{
 		$this->showFilter = false;
 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
@@ -1684,22 +1684,30 @@ class SiteController extends Controller
 	{
 		if(isset($_POST['id_external_storage_data']))
 		{
-			$idExternal = $_POST['id_external_storage_data'];
+			$idESData = $_POST['id_external_storage_data'];
+			$modelESData = ExternalStorageData::model()->findByPk($idESData);	
+			
+			if(isset($modelESData))
+			{
+				$name = $modelESData->title;
+				if(!empty($modelESData->year))
+					$name .= ' ('.$modelESData->year.')';
 				
-			$db = TMDBApi::getInstance();
-			$db->adult = true;  // return adult content
-			$db->paged = false; // merges all paged results into a single result automatically
-			$results = $db->search('movie', array('query'=>$_POST['title']));
-			$movies = array();
-			foreach ($results as $result)
-			{		
-				$movie = new TMDBMovie($result->id);
-				$movieResult['release_date']=$movie->release_date;
-				$movieResult['imdb_id']=$movie->imdb_id;
-				$movieResult['original_title']=$movie->original_title;
-				$movies[]=$movieResult;				
+				$db = TMDBApi::getInstance();
+				$db->adult = true;  // return adult content
+				$db->paged = false; // merges all paged results into a single result automatically
+				$results = $db->search('movie', array('query'=>$name));
+				$movies = array();
+				foreach ($results as $result)
+				{		
+					$movie = new TMDBMovie($result->id);
+					$movieResult['release_date']=$movie->release_date;
+					$movieResult['imdb_id']=$movie->imdb_id;
+					$movieResult['original_title']=$movie->original_title;
+					$movies[]=$movieResult;				
+				}
+				$this->renderPartial('_externalStorageMovieSelector',array('id_external_storage_data'=>$idESData,'movies'=>$movies));
 			}
-			$this->renderPartial('_externalStorageMovieSelector',array('id_external_storage_data'=>$idExternal,'movies'=>$movies));
 		}	
 	}
 	
