@@ -22,6 +22,9 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		
 		$('#open-movie-list').click(function()
 		{
+		$('#open-movie-list').attr('disabled', 'disabled');
+		$('#open-movie-list i').removeClass();
+		$('#open-movie-list i').addClass('fa fa-spinner fa-spin');
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('ajaxFillMovieList') . "',
@@ -30,14 +33,25 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	 	{	
 			$('#myModalEditarAsoc').html(data);
 			$('#myModalEditarAsoc').modal('show');	   						   				
+			$('#open-movie-list').removeAttr('disabled');
+	   		$('#open-movie-list i').removeClass();
+			$('#open-movie-list i').addClass('fa fa-link');
 		}
-	 	);
+	 	).error(function(){
+			$('#open-movie-list').removeAttr('disabled');
+			$('#open-movie-list i').removeClass();
+			$('#open-movie-list i').addClass('fa fa-link');
+		});
 	   		return false;	   				
 		}
 		);
 		
 		$('#open-change-poster').click(function()
 		{
+		$('#open-change-poster').attr('disabled', 'disabled');
+		$('#open-change-poster i').removeClass();
+		$('#open-change-poster i').addClass('fa fa-spinner fa-spin');
+	   				
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('ajaxFillMoviePosterSelector') . "',
@@ -46,13 +60,25 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	 	{	
 			$('#myModalCambiarAfiche').html(data);
 			$('#myModalCambiarAfiche').modal('show');	   						   				
+			$('#open-change-poster').removeAttr('disabled');
+	   		$('#open-change-poster i').removeClass();
+			$('#open-change-poster i').addClass('fa fa-pencil');
 		}
-	 	);
+	 	).error(function(){
+			$('#open-change-poster').removeAttr('disabled');
+	   		$('#open-change-poster i').removeClass();
+			$('#pen-change-poster i').addClass('fa fa-pencil');
+	   				
+	   				});
 	   		return false;	   				
 		}
 		);
 		$('#open-change-backdrop').click(function()
 		{
+		$('#open-change-backdrop').attr('disabled', 'disabled');
+		$('#open-change-backdrop i').removeClass();
+		$('#open-change-backdrop i').addClass('fa fa-spinner fa-spin');
+	   				
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('ajaxFillMovieBackdropSelector') . "',
@@ -61,8 +87,15 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	 	{	
 			$('#myModalCambiarBackdrop').html(data);
 			$('#myModalCambiarBackdrop').modal('show');	   						   				
-		}
-	 	);			
+			$('#open-change-backdrop').removeAttr('disabled');
+	   		$('#open-change-backdrop i').removeClass();
+			$('#open-change-backdrop i').addClass('fa fa-pencil');
+	   	}
+	 	).error(function(){
+			$('#open-change-backdrop').removeAttr('disabled');
+	   		$('#open-change-backdrop i').removeClass();
+			$('#open-change-backdrop i').addClass('fa fa-pencil');	   				
+		});			
 	   		return false;
 		}
 		);
