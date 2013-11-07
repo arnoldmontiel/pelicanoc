@@ -25,8 +25,8 @@
 </div>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-      <button id ="btn-save" type="button" class="btn btn-primary"><i class="fa fa-save "></i>Guardar</button>
+      <button id="btn-cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      <button id ="btn-save" type="button" class="btn btn-primary"><i class="fa fa-save "></i> Guardar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -48,6 +48,10 @@
 	{
 		if($('.list-group-item.active').length==1)
 		{
+			$("#btn-save").attr("disabled", "disabled");
+			$("#btn-cancel").attr("disabled", "disabled");
+			$("#btn-save i").removeClass();
+			$("#btn-save i").addClass("fa fa-spinner fa-spin");
 			var target = $('.list-group-item.active')[0];
 			$.ajax({
 		   		type: 'POST',
