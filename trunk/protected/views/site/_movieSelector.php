@@ -1,3 +1,8 @@
+<?php
+	Yii::app()->clientScript->registerScript('select-my-movie', "
+		
+	",CClientScript::POS_READY);
+?> 
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -21,6 +26,38 @@
       </div>
       <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      <button id ="btn-save" type="button" class="btn btn-primary"><i class="fa fa-save "></i>Guardar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
+
+  <script>
+	$('.list-group-item').click(function(){
+		if($(this).hasClass('active'))
+		{
+			$('.list-group-item').removeClass('active');
+		}
+		else
+		{
+			$('.list-group-item').removeClass('active');
+			$(this).addClass('active');
+		}		
+		return false;
+	});
+	$('#btn-save').click(function()
+	{
+		if($('.list-group-item.active').length==1)
+		{
+			var target = $('.list-group-item.active')[0];
+			$.ajax({
+		   		type: 'POST',
+		   		url: '<?php echo SiteController::createUrl('ajaxSaveSelectedMovie');?>',
+		   		data: {Id_movie:target.id,sourceType:<?php echo $sourceType; ?>,idResource:'<?php echo $idResource; ?>'},
+		 	}).success(function(data)
+		 	{	
+		 		location.reload();
+			}
+		 	);
+		 }
+	});
+  </script>
