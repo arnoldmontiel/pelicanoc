@@ -22,31 +22,6 @@
 	</div> <!-- /row -->
 </div> <!-- /container -->
 
-<div id="myModalEditarNombre" class="modal fade in">
-	<div class="modal-dialog">
-    	<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
-				<h4 class="modal-title">Editar Nombre</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal" role="form">
-  					<div class="form-group">
-    					<label for="fieldNombre" class="col-sm-2 control-label">Nombre</label>
-    					<div class="col-sm-10">
-      						<input type="email" class="form-control" id="fieldNombre" placeholder="Nombre" value="Cumple Daniela 2013">
-    					</div>
-  					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-        		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-save "></i> Guardar</button>
-      		</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 <script>
 function getDevices()
 {	
@@ -230,6 +205,21 @@ function copyVideo(id)
 	});
 }
 
+function changeName(id){	
+	$.post("<?php echo SiteController::createUrl('AjaxOpenChangeName'); ?>",
+			{
+				id:id			    
+			}
+		).success(
+			function(data){
+				if(data != null)
+				{	
+					$('#myModalEditName').html(data);
+					$('#myModalEditName').modal('show');
+				}							
+		});
+		
+}
 setInterval(function() {
 	getDevices();
 	getFirstScan();
@@ -274,6 +264,5 @@ $('.usb-button-scan').click(function(){
 			
 	return false;
 });
-
 
   </script>
