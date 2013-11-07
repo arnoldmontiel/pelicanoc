@@ -1792,7 +1792,14 @@ class SiteController extends Controller
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
 			//$db->debug = true;
-			$results = $db->search('movie', array('query'=>$title));
+			if(isset($_POST['year'])&&$_POST['year']!="")
+			{
+				$results = $db->search('movie', array('query'=>$title,'year'=>$_POST['year']));				
+			}
+			else
+			{
+				$results = $db->search('movie', array('query'=>$title));				
+			}
 			$this->renderPartial('_searchMoviesResult',array('movies'=>$results));
 		}
 	}
