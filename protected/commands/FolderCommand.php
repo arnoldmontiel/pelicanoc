@@ -17,8 +17,16 @@ class FolderCommand extends CConsoleCommand  {
 		
 		if(isset($modelCommandStatus))
 		{
-			self::processES($idCurrentES);
-			$modelCommandStatus->setBusy(false);
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
+																						'state'=>2,
+																						'is_in'=>1));
+			if(isset($modelCurrentES)) //solo si esta en modo copiando
+			{
+				self::processES($idCurrentES);
+				$modelCommandStatus->setBusy(false);
+				$modelCurrentES->state = 3; //finish scan
+				$modelCurrentES->save();
+			}
 		}
 	}
 	
@@ -30,10 +38,11 @@ class FolderCommand extends CConsoleCommand  {
 		try
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
+																							'state'=>4,
 																							'hard_scan_ready'=>0, 
 																							'is_in'=>1));
 	
-			if(isset($modelCurrentES) && $modelCurrentES->state == 4) //solo si esta en modo scan
+			if(isset($modelCurrentES)) //solo si esta en modo scan
 			{		
 				self::generatePeliFilesES($modelCurrentES->path, $modelCurrentES->Id);
 				$modelCurrentES->hard_scan_ready = 1;
@@ -498,6 +507,8 @@ class FolderCommand extends CConsoleCommand  {
 						$modelESData->year = $modelPeliFile->year;
 						$modelESData->poster = $modelPeliFile->poster;
 						$modelESData->imdb = $modelPeliFile->imdb;
+						if(empty($modelESData->imdb))
+							$modelESData->is_personal = 1;
 					}
 					
 					$modelESData->save();
