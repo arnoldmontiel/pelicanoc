@@ -136,7 +136,7 @@
             <tr>
               <td>1</td>
               <td>Casamiento</td>
-              <th> <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i> Nombre</button></th>
+              <th><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditarNombre"><i class="fa fa-pencil"></i> Nombre</button></th>
               <td>D://otros/casamiento.avi</td>
               <td><i class="fa fa-check"></i> Importado</td>
               <td><button type="button" class="btn btn-primary" disabled="disabled">Finalizado</button></td>
@@ -144,8 +144,8 @@
             <tr>
               <td>2</td>
               <td>V800098</td>
-              <th> <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i> Nombre</button></th>
-              <td>D://otros/V800098.avi</td>
+              <th><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditarNombre"><i class="fa fa-pencil"></i> Nombre</button></th>
+              <td>D://otros/V800098888888888.avi</td>
               <td><i class="fa fa-smile-o"></i> Disponible</td>
               <td><button type="button" class="btn btn-primary">Importar</button></td>
             </tr>
@@ -167,7 +167,7 @@
             <tr>
               <td>1</td>
               <td>saaaaaaaaaaaaaaaa</td>
-              <th> <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i> Nombre</button></th>
+              <th><button type="button" class="btn btn-primary"><i class="fa fa-link"></i> Asociacion</button></th>
               <td>D://otros/saaaaaaaaaaaaaaaaa.avi</td>
               <td><i class="fa fa-smile-o"></i> Disponible</td>
               <td><button type="button" class="btn btn-primary">Importar</button></td>
@@ -181,3 +181,29 @@
     
     </div> <!-- /row -->
 </div> <!-- /container -->
+        
+        
+        <div id="myModalEditarNombre" class="modal fade in">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
+              <h4 class="modal-title">Editar Nombre</h4>
+      </div>
+      <div class="modal-body">
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="fieldNombre" class="col-sm-2 control-label">Nombre</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="fieldNombre" placeholder="Nombre" value="Cumple Daniela 2013">
+    </div>
+  </div>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-save "></i> Guardar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
