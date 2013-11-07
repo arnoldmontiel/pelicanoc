@@ -1680,6 +1680,28 @@ class SiteController extends Controller
 		}
 		
 	}		
+	
+	public function actionAjaxExternalStorageSaveSelectedMovie()
+	{
+		$idApi = (isset($_POST['id']))?$_POST['id']:null;
+		$idESData = (isset($_POST['idExternal_storage_data']))?$_POST['idExternal_storage_data']:null;
+		
+		if(isset($idApi) && isset($idESData))
+		{
+			$movie = new TMDBMovie($idApi);
+			$modelESData = ExternalStorageData::model()->findByPk($idESData);
+			if(isset($movie) && isset($modelESData))
+			{
+				$modelESData->imdb = $movie->imdb_id;
+				$modelESData->title = $movie->original_title;
+				$date = date_parse($movie->release_date);				
+				$modelESData->year = $date['year'];
+				$modelESData->save();
+			}
+		}
+		
+	}
+	
 	public function actionAjaxFillExternalStorageMovieList()
 	{
 		if(isset($_POST['id_external_storage_data']))

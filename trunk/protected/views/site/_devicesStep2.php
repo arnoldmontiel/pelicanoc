@@ -35,7 +35,7 @@
         						echo $index;
         					echo CHtml::closeTag("td");
         					
-	        				echo CHtml::openTag("td");
+	        				echo CHtml::openTag("td",array('id'=>'idTdName_'.$modelESData->Id));
 	        					echo $name;
 	        				echo CHtml::closeTag("td");
 	        				
@@ -85,15 +85,15 @@
         					echo CHtml::closeTag("td");
         					
 	        				echo CHtml::openTag("td",array('id'=>'idTdName_'.$modelESDataPersonal->Id));
-	        				if(empty($modelESDataPersonal->file))
-	        				{
-	        					$paths = explode('/', $modelESDataPersonal->path);
-	        					$size = count($paths);
-	        					if($size>0)
-	        						echo $paths[$size-1];
-	        				}
-	        				else
-	        					echo $modelESDataPersonal->file;
+		        				if(empty($modelESDataPersonal->file))
+		        				{
+		        					$paths = explode('/', $modelESDataPersonal->path);
+		        					$size = count($paths);
+		        					if($size>0)
+		        						echo $paths[$size-1];
+		        				}
+		        				else
+		        					echo $modelESDataPersonal->file;
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td");
