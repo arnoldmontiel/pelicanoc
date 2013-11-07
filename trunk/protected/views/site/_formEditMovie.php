@@ -19,6 +19,23 @@ else
 }
 
 Yii::app()->clientScript->registerScript('update-my-movie', "
+		
+		$('#open-movie-list').click(function()
+		{
+		$.ajax({
+	   		type: 'POST',
+	   		url: '". SiteController::createUrl('ajaxFillMovieList') . "',
+	   		data: {sourceType:".$sourceType.",idResource:".$idResource."},
+	 	}).success(function(data)
+	 	{	
+			$('#myModalEditarAsoc').html(data);
+			$('#myModalEditarAsoc').modal('show');	   						   				
+		}
+	 	);
+	   		return false;	   				
+		}
+		);
+		
 		$('#open-change-poster').click(function()
 		{
 		$.ajax({
@@ -155,7 +172,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
         </div> <!-- /col-md-6 -->
     <div class="col-md-6 align-right">
                 <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-unlink "></i> Desasociar</button>
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-link "></i> Cambiar Asociacion</button>
+            <button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Cambiar Asociacion</button>
             <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-refresh "></i> Restaurar Asociacion</button>
         </div> <!-- /col-md-6 -->
     </div>
@@ -305,29 +322,3 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <!-- /col-md-9 -->
  </div><!-- /row interna -->
  </div> <!-- /container -->  
- 
- 
- 
- <div id="myModalEditarAsoc" class="modal fade in">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
-              <h4 class="modal-title">Cambiar Asociacion</h4>
-      </div>
-      <div class="modal-body">
-<div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>
-<div class="">Elija la opcion correcta:</div>
-<div class="list-group">
-  <a href="#" class="list-group-item active">Monsters University (1955)</a>
-  <a href="#" class="list-group-item">Monstruos Mutantes (1988)</a>
-  <a href="#" class="list-group-item">Mamma Mia (2001)</a>
-</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

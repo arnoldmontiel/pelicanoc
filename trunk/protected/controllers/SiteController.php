@@ -1372,10 +1372,8 @@ class SiteController extends Controller
 						}
 					}
 					$crews =isset($persons['crew'])?$persons['crew']:array();
-					//var_dump($persons);
 					foreach($crews as $crew)
 					{
-						//var_dump($crew);
 						$person = new Person();
 						$person->name= $crew->name;
 						$person->type = $crew->job;
@@ -1432,6 +1430,40 @@ class SiteController extends Controller
 			$this->render('_tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));
 		}
 	}
+	
+	public function actionAjaxFillMovieList()
+	{
+		if(isset($_POST['idResource'])&&isset($_POST['sourceType']))
+		{
+			$idResource = $_POST['idResource'];
+			$sourceType = $_POST['sourceType'];
+			
+			if($sourceType == 1)
+			{
+				$modelNzb = Nzb::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			}
+			else if($sourceType == 2)
+			{
+				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+			}
+			$path = explode("/",$localFolder->path);
+			$path = $path[count($path)-1];
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+			$results = $db->search('movie', array('query'=>$myMovie->original_title));
+			$this->renderPartial('_movieSelector',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));				
+		}
+		
+	}		
+	
 	public function actionUpdateMyMovieInfo()
 	{
 		if(isset($_POST['id_my_movie']))
