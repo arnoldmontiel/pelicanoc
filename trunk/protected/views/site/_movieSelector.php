@@ -12,7 +12,7 @@
       <div class="modal-body">
 <div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>
 <div class="">Elija la opcion correcta:</div>
-iv class="buscarAsociacion">
+<div class="buscarAsociacion">
           <form class="form-horizontal" role="form">
           <div class="row">
         <div class="form-group col-sm-6">
