@@ -1244,6 +1244,162 @@ class SiteController extends Controller
 
 		}
 	}
+	public function actionAjaxSaveSelectedMovie()
+	{
+		if(isset($_POST['Id_movie']))
+		{
+			$transaction=Yii::app()->db->beginTransaction();
+			try
+			{
+				$idResource = $_POST['idResource'];
+				$sourceType = $_POST['sourceType'];
+				$personRelation ="";
+				if($sourceType == 1)
+				{
+					$personRelation ="MyMovieNzbPerson";
+					$idRelation = "Id_my_movie_nzb";
+					$model = Nzb::model()->findByPk($idResource);
+					$myMovie = $model->myMovieDiscNzb->myMovieNzb;
+					$disc = $model->myMovieDiscNzb;
+					$newMyMovie = new MyMovieNzb();
+				}
+				else if($sourceType == 2)
+				{
+					$personRelation ="MyMoviePerson";
+					$idRelation = "Id_my_movie";
+					$model = RippedMovie::model()->findByPk($idResource);
+					$myMovie = $model->myMovieDisc->myMovie;
+					$disc = $model->myMovieDisc;
+					$newMyMovie = new MyMovie();
+				}
+				else
+				{
+					$personRelation ="MyMoviePerson";
+					$idRelation = "Id_my_movie";
+					$model = LocalFolder::model()->findByPk($idResource);
+					$myMovie = $model->myMovieDisc->myMovie;
+					$disc = $model->myMovieDisc;
+					$newMyMovie = new MyMovie();
+				}
+				$db = TMDBApi::getInstance();
+				$db->adult = true;  // return adult content
+				$db->paged = false; // merges all paged results into a single result automatically
+		
+				$movie = new TMDBMovie($_POST['Id_movie']);
+				$persons = $movie->casts();
+				$poster = $movie->poster('154');
+				$bigPoster = $movie->poster('500');
+				$backdrop = $movie->backdrop('original');
+		
+				TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
+				if(!$myMovie->is_custom)
+				{
+					$myMovie->Id=uniqid ("cust_");
+					$newMyMovie->attributes =$myMovie->attributes;
+					$myMovie = $newMyMovie;
+				}
+				$myMovie->original_title = $movie->original_title;
+				$myMovie->adult = $movie->adult?1:0;
+				$myMovie->release_date = $movie->release_date;
+				$date =date_parse($movie->release_date);
+				$myMovie->production_year = $date['year'];
+				$myMovie->running_time = $movie->runtime;
+				$myMovie->description = $movie->overview;
+				$myMovie->local_title = $movie->title;
+				$myMovie->sort_title= $movie->title;
+				$myMovie->imdb= $movie->imdb_id;
+				$myMovie->rating= (int)$movie->vote_average;
+				$myMovie->is_custom = true;
+				$genres = $movie->genres;
+				$myMovie->genre="";
+				$first = true;
+				foreach($genres as $genre)
+				{
+					if($first)
+					{
+						$first = false;
+						$myMovie->genre = $genre->name;
+					}
+					else
+					{
+						$myMovie->genre = $myMovie->genre.", ".$genre->name;
+					}
+				}
+		
+				$companies = $movie->production_companies;
+				$myMovie->studio = "";
+				$first = true;
+				foreach($companies as $companie)
+				{
+					if($first)
+					{
+						$first = false;
+						$myMovie->studio = $companie->name;
+					}
+					else
+					{
+						$myMovie->studio = $myMovie->studio.", ".$companie->name;
+					}
+				}
+				if($myMovie->save())
+				{
+					$casts =isset($persons['cast'])?$persons['cast']:array();
+		
+					$relations = $personRelation::model()->findAllByAttributes(array($idRelation=>$myMovie->Id));
+					$personsToDelete = array();
+					foreach ($relations as $relation)
+					{
+						$personsToDelete[] = $relation->person;
+					}
+					$personRelation::model()->deleteAllByAttributes(array($idRelation=>$myMovie->Id));
+					foreach ($personsToDelete as $toDelete)
+					{
+						$toDelete->delete();
+					}
+					foreach($casts as $cast)
+					{
+						$person = new Person();
+						$person->name= $cast->name;
+						$person->type = "Actor";
+						$person->role = $cast->character;
+						$person->photo_original = $cast->profile();
+						if($person->save())
+						{
+							$myMoviePerson =  new $personRelation();
+							$myMoviePerson->$idRelation = $myMovie->Id;
+							$myMoviePerson->Id_person =$person->Id;
+							$myMoviePerson->save();
+						}
+					}
+					$crews =isset($persons['crew'])?$persons['crew']:array();
+					foreach($crews as $crew)
+					{
+						$person = new Person();
+						$person->name= $crew->name;
+						$person->type = $crew->job;
+						$person->photo_original = $crew->profile();
+						if($person->save())
+						{
+							$myMoviePerson =  new $personRelation();
+							$myMoviePerson->$idRelation = $myMovie->Id;
+							$myMoviePerson->Id_person =$person->Id;
+							$myMoviePerson->save();
+						}
+					}
+					if(isset($disc->Id_my_movie))	$disc->Id_my_movie=$myMovie->Id;
+					else $disc->Id_my_movie_nzb=$myMovie->Id;
+		
+					if($disc->save())
+					{
+						$transaction->commit();
+					}
+				}
+			}
+			catch (Exception $e) {
+				$transaction->rollBack();
+			}
+		}		
+	}
 	public function actionTmdbChangeMovie()
 	{
 		if(isset($_POST['movie']))
@@ -1453,8 +1609,6 @@ class SiteController extends Controller
 				$localFolder = LocalFolder::model()->findByPk($idResource);
 				$myMovie = $localFolder->myMovieDisc->myMovie;
 			}
-			$path = explode("/",$localFolder->path);
-			$path = $path[count($path)-1];
 			$db = TMDBApi::getInstance();
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
