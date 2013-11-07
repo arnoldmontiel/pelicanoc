@@ -4,7 +4,7 @@
  *
  * Copyright 2013 
  */
- 
+
  @font-face {
 font-family: 'GudeaRegular';
 src: url('fonts/Gudea-Regular.otf');
@@ -528,7 +528,10 @@ height: 280px; margin-bottom:10px;
 #myModalCambiarAfiche ul.thumbnails.image_picker_selector li{width: 165px; height:240px;
 cursor:pointer;}
 
-.modal-scroll{ max-height:500px; overflow-y:auto;}
+#myModalCambiarBackdrop ul.thumbnails.image_picker_selector li {width:240px; height:155px;cursor:pointer;}
+#myModalCambiarBackdrop .modal-dialog{ width:80%;}
+
+.modal-scroll{ max-height:430px; overflow-y:auto;}
 .backdrop-on{ -webkit-tap-highlight-color: rgba(0,0,0,0);
 background-position:center top;    background-size: cover; overflow:auto; background-repeat:repeat;
 }
