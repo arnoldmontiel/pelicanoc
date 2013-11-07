@@ -70,7 +70,7 @@
   <script>
   bindActions();
 	$('#btn_search').click(function(){
-		$('#list-movies').html('<div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>');		
+		$('#list-movies').html('<div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Buscando opciones..</div>');		
 		$(this).attr("disabled", "disabled");
 		$('#searchMoviesResult').html("Buscando...");
 		$.post("<?php echo SiteController::createUrl('AjaxShearMovieTMDB'); ?>",
