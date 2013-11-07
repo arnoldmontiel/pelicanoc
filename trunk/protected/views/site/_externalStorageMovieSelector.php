@@ -116,7 +116,7 @@
 					
 			$.ajax({
 		   		type: 'POST',
-		   		url: '<?php echo SiteController::createUrl('ajaxExternalStorageSaveSelectedMovie');?>',
+		   		url: '<?php echo SiteController::createUrl('AjaxExternalStorageSaveSelectedMovie');?>',
 		   		data: {id:target.id,idExternal_storage_data:<?php echo $id_external_storage_data; ?>},
 		 	}).success(function(data)
 		 	{	
