@@ -242,7 +242,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		$to = 10;
 		$ratings = array();
 		foreach (range($from, $to) as $number) {
-			$ratings[$number] = $number/2; 
+			$ratings[$number] = $number; 
 		}
 		echo CHtml::dropDownList(get_class($model).'[rating]', $model->rating, $ratings);
 		?>
