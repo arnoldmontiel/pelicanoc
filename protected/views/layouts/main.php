@@ -332,6 +332,8 @@ $(document).ready(function(){
 
 	<?php echo $content; ?>        
     
+<div id="myModalEditName" class="modal fade in">
+</div>    
 <div id="myModalEditarAsoc" class="modal fade in">
 </div>	
 <div id="myModalCambiarBackdrop" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
