@@ -57,7 +57,7 @@ function getCurrentState()
 
     			if(obj.currentUSB != null)
     			{
-    				if(obj.currentUSB.devicesQty > 1)
+    				if(obj.currentUSB.devicesQty >= 1)
     					$('#devicesQty').html(obj.currentUSB.devicesQty);
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
