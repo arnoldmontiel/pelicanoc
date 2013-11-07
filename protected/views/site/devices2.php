@@ -97,6 +97,11 @@ function getSecondScan()
 								else
 									tdButton.html("<button type='button' alreadyexists="+alreadyExists+" onclick='copyVideo("+id+")' class='btn btn-primary'>Importar</button>");
 							}
+							var tdAsoc = tr.find('#idTdAsoc_' + id);
+							if(tdAsoc.length > 0)
+							{
+								tdAsoc.children().removeAttr('disabled');
+							}
 							if(isUnknown == 1)
 							{
 								$('#unknownTable').append(tr);
