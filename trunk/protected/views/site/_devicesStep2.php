@@ -39,8 +39,8 @@
 	        					echo $name;
 	        				echo CHtml::closeTag("td");
 	        				
-	        				echo CHtml::openTag("td");
-	        					echo "<button type='button' class='btn btn-primary'><i class='fa fa-link'></i> Asociacion</button>";
+	        				echo CHtml::openTag("td");	        					
+	        					echo "<button type='button' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-primary'><i class='fa fa-link'></i> Asociacion</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
