@@ -84,7 +84,7 @@
         						echo $index;
         					echo CHtml::closeTag("td");
         					
-	        				echo CHtml::openTag("td");
+	        				echo CHtml::openTag("td",array('id'=>'idTdName_'.$modelESDataPersonal->Id));
 	        				if(empty($modelESDataPersonal->file))
 	        				{
 	        					$paths = explode('/', $modelESDataPersonal->path);
@@ -97,7 +97,7 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td");
-	        					echo "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModalEditarNombre'><i class='fa fa-pencil'></i> Nombre</button>";
+	        					echo "<button type='button' onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
