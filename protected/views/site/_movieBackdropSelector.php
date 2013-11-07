@@ -2,7 +2,7 @@
 <div class="modal-dialog ">
         <div class="modal-content"> <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
-    <h4 class="modal-title">Cambiar Afiche</h4>
+    <h4 class="modal-title">Cambiar Fondo</h4>
     </div>
     <div class="modal-body"> 
     <div class="modal-scroll">
@@ -52,7 +52,7 @@
 		 	{
 			 	var date = new Date;	 	
 			 	ChangeBG('images/',data.backdrop+"?" + date.valueOf());
-				$('#myModalCambiarAfiche').modal('hide');	   						   				
+				$('#myModalCambiarBackdrop').modal('hide');	   						   				
 			}
 		 	);
 	 	}			
