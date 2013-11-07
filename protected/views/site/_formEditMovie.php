@@ -156,7 +156,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		}
 	 	);
 		$('#directors').on('change',function(e){ $('#input_directors').val(e.val);});
-	   	ChangeBG('images/','".$backdrop."');			
+	 	var date = new Date;	 	
+	   	ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
 		");
 ?>
 
