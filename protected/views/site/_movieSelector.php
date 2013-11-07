@@ -8,11 +8,19 @@
 <div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Cargando opciones..</div>
 <div class="">Elija la opcion correcta:</div>
 <div class="list-group">
-  <a href="#" class="list-group-item active">Monsters University (1955)</a>
+		<?php
+		foreach ($movies as $movie)
+		{
+       		$date = date_parse($movie->release_date);
+			$date = " (".$date['year'].")";
+			echo "<a id='".$movie->id."' href='#' class='list-group-item'>".$movie->original_title.$date."</a>";
+		}
+       ?>
+  
 </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
