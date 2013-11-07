@@ -1,5 +1,6 @@
 
-<h2>USB 1 (Kingston) <i class="fa fa-spinner fa-spin"></i> Analizando...</h2>
+<div id="scaningLabel"><h2>USB 1 (Kingston) <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
+<div id="NoScaningLabel" style="display:none"><h2>USB 1 (Kingston) </h2></div>
 	Lista de videos detectados:       
     <div class="table-responsive">
     	<h3>Peliculas</h3>
@@ -20,6 +21,14 @@
         			foreach($modelESDatas as $modelESData)
         			{
         				$index++;
+        				$name = $modelESData->title;
+        				if(!empty($modelESData->year))
+        					$name .= ' ('.$modelESData->year.')';
+        				
+        				$path = $modelESData->path;
+        				if(!empty($modelESData->file))
+        					$path .= '/'.$modelESData->file;
+        				
         				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESData->Id));
         				
         					echo CHtml::openTag("td");
@@ -27,15 +36,7 @@
         					echo CHtml::closeTag("td");
         					
 	        				echo CHtml::openTag("td");
-	        				if(empty($modelESData->file))
-	        				{
-	        					$paths = explode('/', $modelESData->path);
-	        					$size = count($paths);
-	        					if($size>0)
-	        						echo $paths[$size-1];
-	        				}
-	        				else
-	        					echo $modelESData->file;
+	        					echo $name;
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td");
@@ -43,15 +44,15 @@
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
-	        					echo $modelESData->path;
+	        					echo $path;
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESData->Id));
 	        					echo "<i class='fa fa-spinner fa-spin'></i> Analizando...";
 	        				echo CHtml::closeTag("td");
 
-	        				echo CHtml::openTag("td");
-	        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Importar</button>";
+	        				echo CHtml::openTag("td",array('id'=>'idTdButton_'.$modelESData->Id));
+	        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
 	        				echo CHtml::closeTag("td");
 	        				
 	        			echo CHtml::closeTag("tr");
@@ -96,7 +97,7 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td");
-	        					echo "<button type='button' class='btn btn-primary'><i class='fa fa-link'></i> Asociacion</button>";
+	        					echo "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModalEditarNombre'><i class='fa fa-pencil'></i> Nombre</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
@@ -107,8 +108,8 @@
 	        					echo "<i class='fa fa-spinner fa-spin'></i> Analizando...";
 	        				echo CHtml::closeTag("td");
 
-	        				echo CHtml::openTag("td");
-	        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Importar</button>";
+	        				echo CHtml::openTag("td",array('id'=>'idTdButton_'.$modelESDataPersonal->Id));
+	        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
 	        				echo CHtml::closeTag("td");
 	        				
 	        			echo CHtml::closeTag("tr");
