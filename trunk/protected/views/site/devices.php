@@ -115,7 +115,7 @@ function getSecondScan()
 										tdButton.html("<button type='button' alreadyexists="+alreadyExists+" onclick='copyVideo("+id+")' class='btn btn-primary'>Importar</button>");
 								}
 								else
-									tdButton.html("<button type='button' onclick='playVideo("+$id+")' class='btn btn-primary'>Ver</button>");
+									tdButton.html("<button type='button' onclick='playVideo("+id+")' class='btn btn-primary'>Ver</button>");
 							}
 							var tdAsoc = tr.find('#idTdAsoc_' + id);
 							if(tdAsoc.length > 0)
