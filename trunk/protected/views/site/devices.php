@@ -120,7 +120,8 @@ function getSecondScan()
 							var tdAsoc = tr.find('#idTdAsoc_' + id);
 							if(tdAsoc.length > 0)
 							{
-								tdAsoc.children().removeAttr('disabled');
+								if(status == 7)								
+									tdAsoc.children().removeAttr('disabled');
 							}
 							if(isUnknown == 1)
 							{
