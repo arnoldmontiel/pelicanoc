@@ -28,13 +28,10 @@
  		if(!empty($path))
  			$size = PelicanoHelper::getDirectorySize($path);
 
- 		if(isset($modelTMDB))
+ 		$moviePoster = $model->big_poster;
+ 		if(isset($modelTMDB)&&$modelTMDB->big_poster!="")
  		{
  			$moviePoster = $modelTMDB->big_poster;
- 		}
- 		else
- 		{
- 			$moviePoster = $model->big_poster;
  		}
  			
 		?>	    

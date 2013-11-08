@@ -19,6 +19,9 @@ else
 }
 
 Yii::app()->clientScript->registerScript('update-my-movie', "
+	 	var date = new Date;	 	
+	   	if('".$backdrop."'!='')			
+	   		ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
 		
 		$('#open-movie-list').click(function()
 		{
@@ -189,9 +192,6 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		}
 	 	);
 		$('#directors').on('change',function(e){ $('#input_directors').val(e.val);});
-	 	var date = new Date;	 	
-	   	if('".$backdrop."'!='')			
-	   		ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
 		");
 ?>
 <div class="container" id="screenEditMovie">
