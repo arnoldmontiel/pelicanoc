@@ -205,8 +205,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
             <h2 class="pageSubtitle"><?php echo $model->original_title; ?></h2>
         </div> <!-- /col-md-6 -->
     <div class="col-md-6 align-right">
-                <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#myModalEditarAsoc"><i class="fa fa-unlink "></i> Desasociar</button>
-            <button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Cambiar Asociacion</button>
+		<button id="unlink-source" type="button" class="btn btn-danger"><i class="fa fa-unlink "></i> Desasociar</button>
+		<button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Cambiar Asociacion</button>
         </div> <!-- /col-md-6 -->
     </div>
     <div class="row">
@@ -355,3 +355,36 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <!-- /col-md-9 -->
  </div><!-- /row interna -->
  </div> <!-- /container -->  
+<script>
+function unlink()
+{
+	$.post("<?php echo SiteController::createUrl('AjaxUnlinkMovie'); ?>",
+			{
+				idResource:<?php echo $idResource; ?>,
+			    sourceType:<?php echo $sourceType; ?>
+			 }
+			).success(
+				function(data){
+					location.reload(); 
+			}).error(function(data){
+					location.reload(); 
+			});
+
+}
+function cancelar()
+{
+	  $('#unlink-source').popover('hide');
+}
+$(function () {
+	  var elem ='<p>¿Seguro desea desasociar este contenido?</p><button id="btn-remove-ok" class="btn btn-primary noMargin" type="button" onclick="unlink()">Si</button>'+
+	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="cancelar()">No</button>';
+	  
+	  $('#unlink-source').popover({
+      title: 'Confirmar',
+      placement: 'bottom',
+      content:elem,
+      html:true
+  });
+});										
+		
+</script>

@@ -1986,11 +1986,110 @@ class SiteController extends Controller
 		}
 		echo json_encode (explode(',',$myMovie->genre));
 	}
+	public function actionAjaxUnlinkMovie()
+	{
+		if(isset($_POST['idResource'])&&isset($_POST['sourceType']))
+		{
+			$idResource = $_POST['idResource'];
+			$sourceType = $_POST['sourceType'];
+
+			$myMovieDisc = "MyMovieDisc";
+			$myMovieDiscField = "Id_my_movie_disc";
+			$relation = "MyMoviePerson";
+			$Id_relation = "Id_my_movie";
+			$newClass = "MyMovie";
+			$path ="";	
+			$source = null;
+			if($sourceType == 1)
+			{
+				$myMovieDiscField = "Id_my_movie_disc_nzb";
+				$myMovieDisc = "MyMovieDiscNzb";
+				$newClass = "MyMovieNzb";
+				$source = $modelNzb = Nzb::model()->findByPk($idResource);
+				$disc = $modelNzb->myMovieDiscNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
+				$relation = "MyMovieNzbPerson";
+				$Id_relation = "Id_my_movie_nzb";
+				$modelNzb->myMovieDiscNzb;				
+			}
+			else if($sourceType == 2)
+			{
+				$source = $modelRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$disc = $modelRippedMovie->myMovieDisc;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
+			}
+			else
+			{
+				$source = $localFolder = LocalFolder::model()->findByPk($idResource);
+				$disc = $localFolder->myMovieDisc;
+				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$path = explode("/",$localFolder->path);
+				$path = $path[count($path)-1];				
+			}
+			if(!$myMovie->is_custom)
+			{
+				$newMyMovie = new $newClass;
+				$myMovie->Id=uniqid ("cust_");
+				$newMyMovie->attributes =$myMovie->attributes;
+				$persons = $myMovie->persons;
+				$myMovie = $newMyMovie;
+			}
+			$transaction = Yii::app()->db->beginTransaction();
+			try {
+				$myMovie->is_custom = true;
+				$myMovie->genre= "";
+				$myMovie->poster="noImage.jpg";
+				$myMovie->big_poster="noImage.jpg";
+				$myMovie->backdrop="";
+				$myMovie->bar_code="";
+				$myMovie->country="";
+				$myMovie->local_title=$path;
+				$myMovie->original_title=$path;
+				$myMovie->sort_title=$path;
+				$myMovie->aspect_ratio="";
+				$myMovie->video_standard="";
+				$myMovie->production_year="";
+				$myMovie->release_date="";
+				$myMovie->running_time="";
+				$myMovie->description="";
+				$myMovie->extra_features="";
+				$myMovie->parental_rating_desc="";
+				$myMovie->imdb="";
+				$myMovie->rating="0";
+				$myMovie->data_changed="";
+				$myMovie->covers_changed="";
+				$myMovie->studio="";
+				$myMovie->media_type="";				
+				$myMovie->Id_parental_control=1;
+				
+				$myMovie->save();
+				$tmdb=$source->TMDBData;
+				$source->Id_TMDB_data = null;
+				$source->save();
+				if(isset($tmdb))
+				{
+					$tmdb->delete();
+				}
+			
+				$disc->$Id_relation = $myMovie->Id;
+				$disc->save();
+				$persons = $myMovie->persons;
+				foreach ($persons as $person){
+					$relation::model()->deleteByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$person->Id));
+					$person->delete();
+				}
+				$transaction->commit();
+			} catch (Exception $e) {
+				$transaction->rollback();
+				var_dump($e);
+			}				
+		}		
+	}
 	public function actionEditMovie()
 	{
 		if(isset($_POST['id_my_movie']))
 		{
-					$idResource = $_POST['idResource'];
+			$idResource = $_POST['idResource'];
 			$sourceType = $_POST['sourceType'];
 			$idMyMovie = $_POST['id_my_movie'];
 			$actors = explode(',',$_POST['input_actors']);
@@ -2008,8 +2107,8 @@ class SiteController extends Controller
 				$myMovieDisc = "MyMovieDiscNzb";
 				$newClass = "MyMovieNzb";
 				$modelNzb = Nzb::model()->findByPk($idResource);
-				$disc = $localFolder->myMovieDiscNzb;
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$disc = $modelNzb->myMovieDiscNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 				$relation = "MyMovieNzbPerson";
 				$Id_relation = "Id_my_movie_nzb";
 				$modelNzb->myMovieDiscNzb;
@@ -2017,8 +2116,8 @@ class SiteController extends Controller
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$disc = $localFolder->myMovieDisc;
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$disc = $modelRippedMovie->myMovieDisc;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 			}
 			else
 			{
