@@ -189,7 +189,22 @@ function getProcessStatus()
 
 function playVideo(id)
 {
-	alert('play ' + id);
+	$.post("<?php echo SiteController::createUrl('AjaxGetPlayES'); ?>",
+			{
+				id:id			    
+			}
+		).success(
+			function(data){
+				if(data != null)
+				{	
+					var obj = jQuery.parseJSON(data);
+					if(obj.playArray != null)
+					{
+						alert(obj.playArray.id +' | ' + obj.playArray.idResource);
+					}
+				}							
+		});
+		
 }
 
 function cancelCopy(id)
