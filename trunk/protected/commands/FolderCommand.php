@@ -692,7 +692,29 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function saveByImdb($modelPeliFile)
 	{
-		if(!empty($modelPeliFile->imdb) &&  $modelPeliFile->imdb != 'tt0000000') //me fijo si no es personal y no tt0000000
+		if(empty($modelPeliFile->imdb) ||  $modelPeliFile->imdb == 'tt0000000') //me fijo si es personal o  tt0000000
+		{
+			if(empty($modelPeliFile->imdb))
+				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($modelPeliFile->name);
+			else
+				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData("Desconocido");
+				
+			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
+				
+			if(!isset($modelMyMovieDiscDB))
+			{
+				$modelMyMovieDiscDB = new MyMovieDisc();
+				$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+				$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
+				$modelMyMovieDiscDB->name = $modelPeliFile->name;
+				if($modelMyMovieDiscDB->save())
+				{
+			
+					return true;
+				}
+			}			
+		}
+		else 
 		{
 			$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb, 'type'=>'Blu-ray'));
 			
@@ -753,28 +775,6 @@ class FolderCommand extends CConsoleCommand  {
 						
 						return true;
 					}
-				}
-			}
-		}
-		else
-		{
-			if(empty($modelPeliFile->imdb))
-				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($modelPeliFile->name);
-			else
-				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData("Desconocido");
-			
-			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
-			
-			if(!isset($modelMyMovieDiscDB))
-			{
-				$modelMyMovieDiscDB = new MyMovieDisc();
-				$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
-				$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
-				$modelMyMovieDiscDB->name = $modelPeliFile->name;
-				if($modelMyMovieDiscDB->save())
-				{
-						
-					return true;
 				}
 			}
 		}
