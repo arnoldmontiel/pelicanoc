@@ -27,7 +27,20 @@
 	        			echo $index;
 	        		echo CHtml::closeTag("td");
 	        		echo CHtml::openTag("td");
-	        			echo $modelESDataDB->title;	        			
+	        			if(empty($modelESDataDB->title))
+	        			{
+	        				if(empty($modelESDataDB->file))
+	        				{
+	        					$paths = explode('/', $modelESDataDB->path);
+	        					$size = count($paths);
+	        					if($size>0)
+	        						echo $paths[$size-1];
+	        				}
+	        				else
+	        					echo $modelESDataDB->file;
+	        			}
+	        			else
+	        				echo $modelESDataDB->title;	        			
 	        		echo CHtml::closeTag("td");
 	        		echo CHtml::openTag("td");
 	        			echo $modelESDataDB->path;
