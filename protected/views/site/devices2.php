@@ -157,6 +157,11 @@ function getProcessStatus()
 								tdButton.children().text('Ver');
 								tdButton.children().attr('onclick','playVideo('+id+')');	
 							}
+							var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);
+							if(tdAsoc.length > 0)
+							{
+								tdAsoc.children().addAttr('disabled','disabled');
+							}
 						}
 					}
 					if(obj.finishCopy == 1)
