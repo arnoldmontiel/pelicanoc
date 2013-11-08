@@ -219,11 +219,11 @@ class FolderCommand extends CConsoleCommand  {
 							{
 								if(self::saveByImdb($modelPeliFile))
 								{
-									$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
-									$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
-									$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
-									$modelLocalFolder->Id_lote = $modelLote->Id;									
-									$modelLocalFolder->save();
+									$modelLocalFolderDB->Id_my_movie_disc = $modelPeliFile->idDisc;
+									$modelLocalFolderDB->Id_file_type = self::getFileType($modelPeliFile->type);
+									$modelLocalFolderDB->Id_source_type = self::getSoruceType($modelPeliFile->source);
+									$modelLocalFolderDB->Id_lote = $modelLote->Id;									
+									$modelLocalFolderDB->save();
 								}
 							}
 					
