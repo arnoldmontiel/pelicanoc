@@ -6,8 +6,8 @@
     <div class="modal-body"> 
     <div class="modal-scroll">
         <div>
-    <div>Sube tu imagen</div>
-    <div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Buscando...</div>
+    <div>Sube tu imagen <div id="loading" class="loadingMessage" style="display: none;"><i class="fa fa-spinner fa-spin"></i> Cargando afiche...</div></div>
+    
     
     <input type="file" name="fileUpload1" id="fileUpload1" class="fileUpload" />
 </div>
@@ -74,6 +74,7 @@
 			},
 			before: function (files)
 			{
+				$('#loading').show();
 				$('#details, #previews').empty();
 				$('#response').html('Uploading ' + files.length + ' file(s)...');
 			},
@@ -95,6 +96,7 @@
 			},
 			success: function (response)
 			{
+				$('#loading').hide();
 				var response = $.parseJSON(response);
 				$.each(response.urls, function(i, url)
 				{
