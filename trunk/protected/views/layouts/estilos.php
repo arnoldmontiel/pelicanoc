@@ -199,8 +199,8 @@ cursor: pointer;
 
 #popover-dispositivos{ width:300px; display:block; top:45px; left:50%; text-align:center;}
 #popover-dispositivos .popoverDisTitle{font-size:20px;}
-#popover-dispositivos .popoverDisButtons{ border-top:1px dotted #ccc; margin-top:10px; padding-top:10px;}
-#popover-dispositivos .popoverDisButtons button{  width:110px; margin-right:10px;}
+.popoverButtons{ border-top:1px dotted #ccc; margin-top:10px; padding-top:10px;}
+.popoverButtons button{  width:110px; margin-right:10px;}
 
 /* ------ SECOND MENU / NAV BAR ------- */
 

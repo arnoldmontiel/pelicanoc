@@ -373,8 +373,8 @@ function cancelar()
 	  $('#unlink-source').popover('hide');
 }
 $(function () {
-	  var elem ='<p>¿Seguro desea desasociar este contenido?</p><button id="btn-remove-ok" class="btn btn-primary noMargin" type="button" onclick="unlink()">Si</button>'+
-	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="cancelar()">No</button>';
+	  var elem ='<p>¿Seguro desea desasociar este contenido?</p><div class="popoverButtons"><button id="btn-remove-cancel" class="btn btn-default" type="button" onclick="cancelar()">No</button>'+
+	  '<button id="btn-remove-ok" class="btn btn-primary  noMargin" type="button" onclick="unlink()">Si</button></div>';
 	  
 	  $('#unlink-source').popover({
       title: 'Confirmar',
