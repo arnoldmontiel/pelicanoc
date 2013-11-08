@@ -141,11 +141,13 @@ function getProcessStatus()
 							var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
 							if(tdStatus.length > 0)
 							{
-								tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
+								tdStatus.html("<i class='fa fa-check'></i> Importado");								
 							}
 							var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
 							if(tdButton.length > 0)
 							{
+								tdButton.children().removeClass('btn-danger');
+								tdButton.children().addClass('btn-primary');
 								tdButton.children().text('Ver');
 								tdButton.children().attr('onclick','playVideo('+id+')');	
 							}
