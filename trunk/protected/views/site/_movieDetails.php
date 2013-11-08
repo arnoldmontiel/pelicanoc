@@ -58,7 +58,7 @@
     GENERO
     </div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
-	<?php echo $model->genre;?>
+	&nbsp;<?php echo $model->genre;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -88,7 +88,7 @@
     A&Ntilde;O
     </div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
-    <?php echo $model->production_year;?>
+    &nbsp;<?php echo $model->production_year;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -97,7 +97,7 @@
     DIRECTOR
     </div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
-    <?php echo $casting['director'];?>
+    &nbsp;<?php echo $casting['director'];?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -106,7 +106,7 @@
     ACTORES
     </div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
-    <?php echo $casting['actors'];?>
+    &nbsp;<?php echo $casting['actors'];?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -124,7 +124,7 @@
     SIN&Oacute;PSIS
     </div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond detailSummary">
-    <?php echo $model->description;?>
+    &nbsp;<?php echo $model->description;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     </div><!--/.tab-pane#1 -->
