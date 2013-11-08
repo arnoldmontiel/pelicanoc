@@ -200,7 +200,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <h2 class="pageSubtitle">Editar Pelicula</h2>
         </div> <!-- /col-md-12 -->
     </div> <!-- /row -->
-    <div class="row pageSubtitleContainer">
+    <div class="row pageTitleContainer">
     <div class="col-md-6">
             <h1 class="pageTitle"><?php echo $model->original_title; ?></h1>
         </div> <!-- /col-md-6 -->
