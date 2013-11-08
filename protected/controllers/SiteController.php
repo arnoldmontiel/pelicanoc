@@ -301,7 +301,8 @@ class SiteController extends Controller
 			if(isset($modelESData))
 			{
 				$modelESData->title = $name;
-				$modelESData->save();
+				if($modelESData->save())
+					ReadFolderHelper::rebuildPeliFileES($modelESData);
 			}
 		}
 	}

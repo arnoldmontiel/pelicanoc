@@ -1,15 +1,15 @@
 <?php
 class MyMovieHelper
 {
-	static public function saveUnknownMyMovieData()
+	static public function saveUnknownMyMovieData($title)
 	{
 		$modelMyMovie = new MyMovie();
 		
 		$modelMyMovie->Id = uniqid();
 		$modelMyMovie->type = "Blu-ray";
-		$modelMyMovie->local_title = "Desconocido";
-		$modelMyMovie->original_title = "Desconocido";
-		$modelMyMovie->sort_title = "Desconocido";
+		$modelMyMovie->local_title = $title;
+		$modelMyMovie->original_title = $title;
+		$modelMyMovie->sort_title = $title;
 		
 		//TODO agregar poster para pelicula desconocida
 		$modelMyMovie->poster = "";

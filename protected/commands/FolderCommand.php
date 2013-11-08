@@ -692,7 +692,7 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function saveByImdb($modelPeliFile)
 	{
-		if($modelPeliFile->imdb != 'tt0000000')
+		if(!empty($modelPeliFile->imdb) ||  $modelPeliFile->imdb != 'tt0000000') //me fijo si no es personal y no tt0000000
 		{
 			$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb, 'type'=>'Blu-ray'));
 			
@@ -758,7 +758,11 @@ class FolderCommand extends CConsoleCommand  {
 		}
 		else
 		{
-			$idMyMovie = MyMovieHelper::saveUnknownMyMovieData();
+			if(empty($modelPeliFile->imdb)
+				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($modelPeliFile->name);
+			else
+				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData("Desconocido");
+			
 			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
 			
 			if(!isset($modelMyMovieDiscDB))
