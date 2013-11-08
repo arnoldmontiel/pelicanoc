@@ -447,6 +447,35 @@ class SiteController extends Controller
 			echo "0";
 	}
 
+	public function actionAjaxGetPlayES()
+	{
+		$idESData = (isset($_POST['id']))?$_POST['id']:null;
+		$playArray = array();
+		
+		$modelESData = ExternalStorageData::model()->findByPk($idESData);
+		
+		$setting = Setting::getInstance();
+		
+		if(isset($modelESData))
+		{
+			$localFolderPath = str_replace($modelESData->currentExternalStorage->path,'',$modelESData->path);
+			$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
+			if(!empty($modelESData->file))
+				$localFolderPath = $localFolderPath.'/'.$modelESData->file;
+			
+			$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+			if(isset($modelLocalFolder))
+			{				
+				$playArray['idResource'] = $modelLocalFolder->Id;
+				$playArray['sourceType'] = 4;
+				$playArray['id'] = $modelLocalFolder->myMovieDisc->Id_my_movie;
+			}
+		}
+		
+		$response = array('playArray'=>$playArray);
+		echo json_encode($response);
+	}
+	
 	public function actionAjaxDownloadAllES()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
