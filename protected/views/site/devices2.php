@@ -138,12 +138,12 @@ function getProcessStatus()
 						for(var index = 0; index < obj.modelFinishCopyESDataArray.length; index++)
 						{
 							var id = obj.modelFinishCopyESDataArray[index].id;
-							var tdStatus = tr.find('#idTdStatus_' + id);
+							var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
 							if(tdStatus.length > 0)
 							{
 								tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
 							}
-							var tdButton = tr.find('#idTdButton_' + id);
+							var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
 							if(tdButton.length > 0)
 							{
 								tdButton.children().text('Ver');
