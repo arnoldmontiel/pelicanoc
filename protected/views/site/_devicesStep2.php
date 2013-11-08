@@ -96,8 +96,8 @@
 		        					echo $modelESDataPersonal->file;
 	        				echo CHtml::closeTag("td");
 	        				
-	        				echo CHtml::openTag("td");
-	        					echo "<button type='button' onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
+	        				echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESDataPersonal->Id));
+	        					echo "<button type='button' disabled='disabled' onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
