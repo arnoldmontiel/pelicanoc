@@ -1530,6 +1530,7 @@ class SiteController extends Controller
 			}
 			catch (Exception $e) {
 				$transaction->rollBack();
+				var_dump($e);
 			}
 		}		
 	}
