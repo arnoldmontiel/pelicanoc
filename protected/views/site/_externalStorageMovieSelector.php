@@ -121,13 +121,23 @@
 		 	}).success(function(data)
 		 	{	
 		 		$('#myModalEditarAsoc').modal('hide');
-		 		var tdName = $('#wizardDispositivos').find('#idTdName_' + <?php echo $id_external_storage_data; ?>);
-				if(tdName.length > 0)
-				{				
-					tdName.html(target.text);				
-				}
-			}
-		 	);
+		 		var tr = $('#wizardDispositivos').find('#idTr_' + <?php echo $id_external_storage_data; ?>);
+		 		if(tr.length > 0)
+		 		{
+		 			var tdName = tr.find('#idTdName_' + <?php echo $id_external_storage_data; ?>);
+		 			if(tdName.length > 0)
+					{				
+						tdName.html(target.text);				
+					}
+
+					if(tr.attr('unknown') == 1)
+					{
+						tr.attr('unknown','0');
+						$('#knownTable').append(tr);
+					}
+			 	}
+		 						
+			});
 		 }
 	});
   </script>

@@ -104,6 +104,7 @@ function getSecondScan()
 							}
 							if(isUnknown == 1)
 							{
+								tr.attr('unknown','1');
 								$('#unknownTable').append(tr);
 							}
 						}						

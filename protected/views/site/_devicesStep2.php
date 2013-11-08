@@ -15,7 +15,7 @@
 	              <th> <button type="button" class="btn btn-default">Importar Todo</button></th>
 	            </tr>
 	          </thead>
-	          <tbody>
+	          <tbody id="knownTable">
 				<?php
         			$index = 0;
         			foreach($modelESDatas as $modelESData)
@@ -29,7 +29,7 @@
         				if(!empty($modelESData->file))
         					$path .= '/'.$modelESData->file;
         				
-        				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESData->Id));
+        				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESData->Id, 'unknown'=>0));
         				
         					echo CHtml::openTag("td");
         						echo $index;
