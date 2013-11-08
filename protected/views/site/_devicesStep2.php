@@ -47,13 +47,26 @@
 	        					echo $path;
 	        				echo CHtml::closeTag("td");
 	        				
-	        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESData->Id));
-	        					echo "<i class='fa fa-spinner fa-spin'></i> Analizando...";
-	        				echo CHtml::closeTag("td");
-
-	        				echo CHtml::openTag("td",array('id'=>'idTdButton_'.$modelESData->Id));
-	        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
-	        				echo CHtml::closeTag("td");
+	        				if($modelESData->status == 3)
+	        				{
+	        					echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESData->Id));
+	        						echo "<i class='fa fa-check'></i> Importado";
+	        					echo CHtml::closeTag("td");
+	        					
+	        					echo CHtml::openTag("td",array('id'=>'idTdButton_'.$modelESData->Id));
+	        						echo "<button type='button' onclick='playVideo(".$modelESData->Id.")' class='btn btn-primary'>Ver</button>";
+	        					echo CHtml::closeTag("td");
+	        				}
+	        				else 
+	        				{
+		        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESData->Id));
+		        					echo "<i class='fa fa-spinner fa-spin'></i> Analizando...";
+		        				echo CHtml::closeTag("td");
+	
+		        				echo CHtml::openTag("td",array('id'=>'idTdButton_'.$modelESData->Id));
+		        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
+		        				echo CHtml::closeTag("td");
+	        				}
 	        				
 	        			echo CHtml::closeTag("tr");
         			}	
