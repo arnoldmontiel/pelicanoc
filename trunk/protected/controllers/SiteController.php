@@ -73,13 +73,13 @@ class SiteController extends Controller
 		$this->render('devices',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
 	}
 	
-	public function actionDevices()
+	public function actionDevices2()
 	{
 		$this->showFilter = false;
-		$this->render('devices2');
+		$this->render('devices');
 	}
 	
-	public function actionDevices2()
+	public function actionDevices()
 	{
 		$this->showFilter = false;
 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
