@@ -1,9 +1,9 @@
 <div class="container" id="screenDevices">
-	<div class="row">
+	<div class="row pageTitleContainer">
     	<div class="col-md-12">
-    		<h1 class="pageTitle">Dispositivos Conectados</h1>
+   	 		<h1 class="pageTitle">Dispositivos Conectados</h1>
     	</div> <!-- /col-md-12 -->
-   	</div> <!-- /row -->
+    </div> <!-- /row -->
 	<div class="row">		
 		<input type="hidden" id="hidden-unit" value="<?php echo $idSelected; ?>">
 		<input type="hidden" id="hidden-first-scan-working" value="0">
