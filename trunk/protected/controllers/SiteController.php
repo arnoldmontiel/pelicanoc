@@ -2096,7 +2096,8 @@ class SiteController extends Controller
 				$persons = $myMovie->persons;
 				foreach ($persons as $person){
 					$relation::model()->deleteByPk(array($Id_relation=>$myMovie->Id,'Id_person'=>$person->Id));
-					$person->delete();
+					if(empty($person->myMovieNzbs)&&empty($person->myMovies))					
+						$person->delete();
 				}
 				$transaction->commit();
 			} catch (Exception $e) {
