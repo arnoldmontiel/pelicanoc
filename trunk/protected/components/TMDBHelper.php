@@ -41,6 +41,7 @@ class TMDBHelper
 			return $modelResource;
 			
 		} catch (Exception $e) {
+			var_dump($e);
 		}
 	}
 	private function getImage($original, $newFileName, $copy = false)

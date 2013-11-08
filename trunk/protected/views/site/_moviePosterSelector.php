@@ -12,8 +12,9 @@
     <input type="file" name="fileUpload1" id="fileUpload1" class="fileUpload" />
 </div>
 <div>
+    <?php if(!$is_personal):?>
     o Elige una de la lista
-    
+	<?php endif?>    
        <select class="image-picker">
        <?php
        $urls = array();        
@@ -55,7 +56,7 @@
 	 	{
 		 	var date = new Date;	 	
 	 		$("#poster").attr("src", "images/"+data.big_poster+"?" + date.valueOf());
-			$('#myModalCambiarAfiche').modal('hide');	   						   				
+			$('#myModalCambiarAfiche').modal('hide');
 		}
 	 	);			
    		}
