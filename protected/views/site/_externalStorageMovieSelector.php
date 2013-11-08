@@ -50,7 +50,7 @@
 		{
        		$date = date_parse($movie['release_date']);
 			$date = " (".$date['year'].")";
-			echo "<a id='".$movie['imdb_id']."' href='#' class='list-group-item'>".$movie['original_title'].$date."</a>";
+			echo "<a id='".$movie['id']."' href='#' class='list-group-item'>".$movie['original_title'].$date."</a>";
 		}
        ?>  
 </div>
