@@ -233,6 +233,27 @@ class SiteController extends Controller
 		));
 	}
 
+	public function actionAjaxCancelCopy()
+	{
+		$idESData = (isset($_POST['id']))?$_POST['id']:null;
+		
+		$response = 0;
+		if(isset($idESData))
+		{
+			$modelESData = ExternalStorageData::model()->findByPk($idESData);
+			if(isset($modelESData))
+			{
+				if($modelESData->status != 2) //si NO esta copiando
+				{
+					$modelESData->copy = 0;
+					if($modelESData->save())
+						$response = 1;
+				}
+			}
+		}
+		echo $response;
+	}
+	
 	public function actionAjaxProcessExternalStorage()
 	{
 		$idESData = (isset($_POST['id']))?$_POST['id']:null;
