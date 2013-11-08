@@ -199,8 +199,10 @@ function playVideo(id)
 				{	
 					var obj = jQuery.parseJSON(data);
 					if(obj.playArray != null)
-					{
-						alert(obj.playArray.id +' | ' + obj.playArray.idResource);
+					{						
+						var params = '&id='+obj.playArray.id+'&sourceType='+obj.playArray.sourceType+'&idResource='+obj.playArray.idResource;
+						window.location = <?php echo '"'. SiteController::createUrl('site/start') .'"'; ?> + params;    
+						return false;
 					}
 				}							
 		});
