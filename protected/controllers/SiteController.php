@@ -2321,32 +2321,47 @@ class SiteController extends Controller
 		$idMyMovie = $_POST['id'];
 		if($sourceType == 1)
 		{
-			$modelNzb = Nzb::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			$modelSource = Nzb::model()->findByPk($idResource);
+			$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
 		}
 		else if($sourceType == 2)
 		{
-			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
+			$modelSource = RippedMovie::model()->findByPk($idResource);
+			$myMovie = $modelSource->myMovieDisc->myMovie;
 		}
 		else
 		{
-			$localFolder = LocalFolder::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
+			$modelSource = LocalFolder::model()->findByPk($idResource);
+			$myMovie = $modelSource->myMovieDisc->myMovie;
 		}
 		$db = TMDBApi::getInstance();
 		$db->adult = true;  // return adult content
 		$db->paged = false; // merges all paged results into a single result automatically
 
 		$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
-		if(empty($results))
-		{
-			$results = $db->search('movie', array('query'=>$myMovie->original_title));
-		}
 		$movie = reset($results);
-		$images = $movie->posters('342',"");
-		//$bds = $movie->backdrops('300',"");
-		
+		$images=array();
+		if(isset($movie)&&$movie!==false){
+			$images = $movie->posters('342',"");
+		}
+		else
+		{
+			$tmdb = $modelSource->TMDBData;
+			$movie = new stdClass;
+			if(isset($tmdb))
+			{
+				$movie->id = $tmdb->TMDB_id;				
+			}
+			else 
+			{
+				$movie->id=date('U');
+				$tmdb = new TMDBData(); 
+				$tmdb->TMDB_id = $movie->id;
+				$tmdb->save();
+				$modelSource->Id_TMDB_data =$tmdb->Id;
+				$modelSource->save();
+			}
+		}
 		$this->renderPartial('_moviePosterSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'posters'=>$images,'movie'=>$movie));		
 	}
 	public function actionAjaxFillMovieBackdropSelector()
@@ -2356,31 +2371,47 @@ class SiteController extends Controller
 		$idMyMovie = $_POST['id'];
 		if($sourceType == 1)
 		{
-			$modelNzb = Nzb::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			$modelSource = Nzb::model()->findByPk($idResource);
+			$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
 		}
 		else if($sourceType == 2)
 		{
-			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
+			$modelSource = RippedMovie::model()->findByPk($idResource);
+			$myMovie = $modelSource->myMovieDisc->myMovie;
 		}
 		else
 		{
-			$localFolder = LocalFolder::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
+			$modelSource = LocalFolder::model()->findByPk($idResource);
+			$myMovie = $modelSource->myMovieDisc->myMovie;
 		}
 		$db = TMDBApi::getInstance();
 		$db->adult = true;  // return adult content
 		$db->paged = false; // merges all paged results into a single result automatically
 
 		$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
-		if(empty($results))
-		{
-			$results = $db->search('movie', array('query'=>$myMovie->original_title));
-		}
 		$movie = reset($results);
-		//$images = $movie->posters('342',"");
-		$images = $movie->backdrops('300',"");
+		$images=array();
+		if(isset($movie)&&$movie!==false){
+			$images = $movie->backdrops('300',"");
+		}
+		else
+		{
+			$tmdb = $modelSource->TMDBData;
+			$movie = new stdClass;
+			if(isset($tmdb))
+			{
+				$movie->id = $tmdb->TMDB_id;				
+			}
+			else 
+			{
+				$movie->id=date('U');
+				$tmdb = new TMDBData(); 
+				$tmdb->TMDB_id = $movie->id;
+				$tmdb->save();
+				$modelSource->Id_TMDB_data =$tmdb->Id;
+				$modelSource->save();
+			}
+		}
 		
 		$this->renderPartial('_movieBackdropSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'backdrops'=>$images,'movie'=>$movie));		
 	}
@@ -2413,7 +2444,8 @@ class SiteController extends Controller
 		$originalUrls = array();
 		if(isset($_POST['urls']))
 		{
-			$originalUrls = explode(',',$_POST['urls']);				
+			if(!empty($_POST['urls']))
+				$originalUrls = explode(',',$_POST['urls']);
 		}
 		echo json_encode(
 			array(
