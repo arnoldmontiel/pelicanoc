@@ -212,9 +212,9 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
         </div> <!-- /col-md-6 -->
     <div class="col-md-6 align-right">
     <?php if(!$modelResource->is_personal):?>
-		<button id="unlink-source" type="button" class="btn btn-danger"><i class="fa fa-unlink "></i> Desasociar</button>
+		<button id="unlink-source" type="button" class="btn btn-danger"><i class="fa fa-unlink "></i> Reset</button>
 	<?php endif?>
-		<button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Cambiar Asociacion</button>
+		<button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Buscar Información</button>
         </div> <!-- /col-md-6 -->
     </div>
     <div class="row superContainer">
