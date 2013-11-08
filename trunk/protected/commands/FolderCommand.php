@@ -150,7 +150,8 @@ class FolderCommand extends CConsoleCommand  {
 				
 				$finalPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
 				
-				$localFolderPath = $finalPath . self::getCopiedPath($modelESData);
+				$copiedPath = self::getCopiedPath($modelESData);
+				$localFolderPath = $finalPath .$copiedPath; 
 				
 				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
 				
@@ -166,7 +167,17 @@ class FolderCommand extends CConsoleCommand  {
 					$destinationPath = str_replace('(', '\(', $destinationPath);
 					$destinationPath = str_replace(')', '\)', $destinationPath);
 					
-					exec("cp -fr ".$source . " " .$destinationPath);
+					$sys = strtoupper(PHP_OS);
+					
+					if(substr($sys,0,3) == "WIN")
+					{
+						$source = str_replace('/','\\',$source);
+						$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied .$copiedPath."\\";
+						$destinationPath = str_replace('/','\\',$destinationPath);							
+						exec('xcopy "'.$source.'" "'.$destinationPath.'" /y/s');
+					}
+					else 
+						exec("cp -fr ".$source . " " .$destinationPath);
 				}
 				
 			}
