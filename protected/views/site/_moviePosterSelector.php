@@ -7,6 +7,8 @@
     <div class="modal-scroll">
         <div>
     <div>Sube tu imagen</div>
+    <div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Buscando...</div>
+    
     <input type="file" name="fileUpload1" id="fileUpload1" class="fileUpload" />
 </div>
 <div>
