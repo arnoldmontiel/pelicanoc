@@ -68,6 +68,17 @@ body{
 	cursor:default;
 	line-height:inherit;
 	color:#333;
+	
+	background: rgb(198,198,198); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  rgba(198,198,198,1) 0%, rgba(89,89,89,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(198,198,198,1)), color-stop(100%,rgba(89,89,89,1))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(198,198,198,1) 0%,rgba(89,89,89,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(198,198,198,1) 0%,rgba(89,89,89,1) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(198,198,198,1) 0%,rgba(89,89,89,1) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(198,198,198,1) 0%,rgba(89,89,89,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	
+	
 	 }
  
 
@@ -94,7 +105,7 @@ body #screenControl{
   padding-top: 80px;
   }
   body #screenEditMovie{
-  padding-top: 80px;
+  padding-top: 70px;
   }
   
 body#screenMarketplace #content{
@@ -104,8 +115,6 @@ body#screenMarketplace #content{
   body#screenDescargas #content{
   padding-bottom: 40px;
   }
-
-body{ background-color:darkgrey;}
 
 /* hack to avoid backround from scrolling when modal open */
 
@@ -229,16 +238,15 @@ line-height:auto; }
 h2.pageSubtitle{font-size: 2em;
 font-weight: normal;
 color: #fff;
-text-shadow: 0 1px 0 #666;
+text-shadow: 0 1px 3px #666;
 text-align:left;
 padding-top:10px;
 margin:0px;
 line-height:auto;}
 
-.pageSubtitleBorder{
+.pageSubtitleContainer{
 padding-bottom:10px;
-margin-bottom:20px;
-border-bottom:1px solid #ccc;}
+margin-bottom:10px;}
 
 #wall{ text-align:center;}
 .items{ margin: 0 auto !important;}
@@ -256,9 +264,8 @@ position:relative !important;
 	}
 	
 .peliTitulo {  
-	color:#333333 !important;
-	background-color:#ccc;
-	padding:5px; margin-top:-5px;
+	color:#fff !important;
+	padding:5px; 
   }
   
   .peliAfiche{ width:180px; height:260px;
@@ -284,7 +291,7 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
   
 /* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
 .modal{z-index:1070;}
-.modal-title{ font-size:1.5em; color:#666; font-family: 'GudeaBold';}
+.modal-title{ font-size:1.6em; color:#666; }
 .modal-header {padding: 9px 15px;}
 .modal-header .close{padding: 0px; margin-top:0px; line-height:34px;}
 .modal-footer {padding: 9px 15px;}
@@ -303,7 +310,11 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 .modalDetail .modal-body .row{ line-height:26px;}
 .modalDetail .modal-body .row.detailSummary{ line-height:20px;}
 
-.aficheDetail{ height:100% !important; width:100% !important;}
+.aficheDetail{ height:100% !important; width:100% !important;
+-moz-box-shadow: 0px 0px 5px #000;
+-webkit-box-shadow: 0px 0px 5px #000;
+box-shadow: 0px 0px 5px rgba(0,0,0,0.8);
+}
 
 .detailMainGroup{
 	border-bottom:1px solid #ccc; color:#666;}
@@ -514,14 +525,18 @@ overflow-y: scroll;}
 /*---------- END BOOKMARKS -------------*/
 
 /*---------- EDIT PELICULA -------------*/
+#screenEditMovie h1.pageTitle{color:#ccc; text-shadow:0 1px 3px #333;}
+
 .editAfiche { text-align:center;}
 .editAfiche .aficheImg{width: 200px;
 height: 280px; margin-bottom:10px;
 }
 .editImagesButtons{ text-align:center;}
-.editImagesButtons .btn{margin:auto; margin-bottom:10px; }
+.editImagesButtons .btn{margin:auto; margin-bottom:10px; 
+display: block;
+width: 199px;}
 
-.buttonGroup{ margin-top:10px; padding-top:10px; text-align:right; border-top:1px solid #ccc;}
+.buttonGroup{ margin-top:10px; text-align:right; }
 .buttonGroup button{ margin-right:10px;}
 #myModalCambiarAfiche .modal-dialog{ width:80%;}
 
@@ -532,9 +547,53 @@ cursor:pointer;}
 #myModalCambiarBackdrop .modal-dialog{ width:80%;}
 
 .modal-scroll{ max-height:430px; overflow-y:auto;}
-.backdrop-on{ -webkit-tap-highlight-color: rgba(0,0,0,0);
-background-position:center top;    background-size: cover; overflow:auto; background-repeat:repeat;
+.backdrop-on{ 	
+background-position:center top;    background-size: auto 100%; overflow:auto; background-repeat:repeat;
+
+background: no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+
+ul.thumbnails.image_picker_selector{overflow:hidden;}
+
+#fieldDuracion{ width:78%; display:inline-block;}
+.form-group { color:white;}
+.form-group input{font-size:16px; }
+.form-group textarea{font-size:16px; }
+.form-group label{font-size:17px; color:white; text-align:right;}
+.modal .form-group label{font-size:17px; color:#333; text-align:right;}
+
+.form-group select, .form-group ul.select2-choices{
+display: block;
+width: 100%;
+height: 34px;
+padding: 6px 12px;
+font-size: 16px;
+line-height: 1.428571429;
+color: #555;
+vertical-align: middle;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.form-group ul.select2-choices{padding:2px;}
+.select2-container-multi .select2-choices .select2-search-choice{
+line-height:20px;}
+
+.select2-search-choice-close{top:6px; width:13px}
+
+.superContainer{-moz-box-shadow: 0px 0px 2px #000;
+-webkit-box-shadow: 0px 0px 2px #000;
+box-shadow: 0px 0px 2px rgba(0,0,0,0.8); background-color:rgba(0,0,0,0.5); padding-top:20px; padding-bottom:20px;}
+
 
 /*---------- END EDIT PELICULA -------------*/
 
@@ -651,7 +710,7 @@ to {right:150px;}
 @media (min-width: 1024px) {
 	.element{
 	width:180px;
-	height:290px;
+	height:295px;
 	background-color:none !important;
 	background:none !important;
 	}
@@ -669,7 +728,7 @@ to {right:150px;}
 	
 	.element{
 	width:180px;
-	height:290px;
+	height:295px;
 	background-color:none !important;
 	background:none !important;
 	}
