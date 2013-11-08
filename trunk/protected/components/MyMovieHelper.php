@@ -11,11 +11,11 @@ class MyMovieHelper
 		$modelMyMovie->original_title = $title;
 		$modelMyMovie->sort_title = $title;
 		$modelMyMovie->Id_parental_control = 1;
-		//TODO agregar poster para pelicula desconocida
-		$modelMyMovie->poster = "";
+		
+		$modelMyMovie->poster = "noImage.jpg";
 		
 		//TODO agregar backdrop para pelicula desconocida
-		$modelMyMovie->backdrop = "";
+		$modelMyMovie->big_poster = "noImage.jpg";
 		
 		$modelMyMovie->save();
 		return $modelMyMovie->Id;
