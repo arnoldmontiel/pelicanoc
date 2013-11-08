@@ -67,9 +67,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	 	).error(function(){
 			$('#open-change-poster').removeAttr('disabled');
 	   		$('#open-change-poster i').removeClass();
-			$('#pen-change-poster i').addClass('fa fa-pencil');
-	   				
-	   				});
+			$('#open-change-poster i').addClass('fa fa-pencil');
+		});
 	   		return false;	   				
 		}
 		);
@@ -100,7 +99,6 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		}
 		);
 	   				
-		$('#actors').select2({tags:[],tokenSeparators: [',']});
 		$('#directors').select2({tags:[],tokenSeparators: [',']});
 		$('#genres').select2({tags:[],tokenSeparators: [',']});
 		
@@ -135,34 +133,6 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('AjaxGetPersons') . "',
-	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource.",type:'Actor'},
-	   		dataType: 'json'
-	 	}).success(function(data)
-	 	{	
-	   		vals = '';
-	   		first = true;
-			for (var i in data) {
-				item = data[i];
-				if(first)
-   				{
-	   				first = false;
-					vals = item.id;
-				}
-	   			else
-	   			{
-	   				vals = vals+','+item.id;
-	   			}
-			} 				
-	   		//alert(data[0].id);
-			$('#actors').select2({tags:data,tokenSeparators: [',']});
-	   		$('#actors').val(vals).trigger('change');
-			$('#input_actors').val(vals);	   						   				
-		}
-	 	);
-		$('#actors').on('change',function(e){ $('#input_actors').val(e.val);});
-		$.ajax({
-	   		type: 'POST',
-	   		url: '". SiteController::createUrl('AjaxGetPersons') . "',
 	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource.",type:'Director'},
 	   		dataType: 'json'
 	 	}).success(function(data)
@@ -193,7 +163,38 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	   	ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
 		");
 ?>
+<script type="text/javascript">
+$('#actors').select2({tags:[],tokenSeparators: [',']});
+$.ajax({
+		type: 'POST',
+		url: '<?php echo SiteController::createUrl('AjaxGetPersons') ?>',
+		data: {id:'<?php echo $model->Id?>',sourceType:<?php echo $sourceType ?>,idResource:<?php echo $idResource ?>,type:'Actor'},
+		dataType: 'json'
+	}).success(function(data)
+	{	
+		vals = '';
+		first = true;
+	for (var i in data) {
+		item = data[i];
+		if(first)
+			{
+				first = false;
+			vals = item.id;
+		}
+			else
+			{
+				vals = vals+','+item.id;
+			}
+	} 				
+		//alert(data[0].id);
+	$('#actors').select2({tags:data,tokenSeparators: [',']});
+	$('#actors').val(vals).trigger('change');
+	$('#input_actors').val(vals);	   						   				
+}
+	);
+$('#actors').on('change',function(e){ $('#input_actors').val(e.val);});
 
+</script>
 <div class="container" id="screenEditMovie">
   <div class="row">
     <div class="col-md-12">

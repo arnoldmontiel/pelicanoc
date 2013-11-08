@@ -47,7 +47,7 @@
 		$("#btn-acept i").removeClass();
 		$("#btn-acept i").addClass("fa fa-spinner fa-spin");
     
-    	if($("select.image-picker").val()!="")
+    	if($("select.image-picker").val()!=""&&$("select.image-picker").val()!=null)
     	{
 		$.ajax({
 	   		type: 'POST',
@@ -61,6 +61,13 @@
 			$('#myModalCambiarAfiche').modal('hide');	   						   				
 		}
 	 	);			
+   		}
+   		else
+   		{
+   			$("#btn-acept").removeAttr("disabled");
+   			$("#btn-cancel").removeAttr("disabled");
+   			$("#btn-acept i").removeClass();
+   			$("#btn-acept i").addClass("fa fa-save");
    		}
        });
     

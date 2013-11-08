@@ -143,7 +143,7 @@
 		    
     <div class="row detailSecondGroup">
     <div class="col-md-3 align-left detailSecond detailSecondFirst">
-    BORRAR PEL&Iacute;CULA
+    BORRAR
 	</div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
 	<!--<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>-->
@@ -156,7 +156,7 @@
 	
 	<div class="row detailSecondGroup">
     	<div class="col-md-3 align-left detailSecond detailSecondFirst">
-    		Editar
+    		EDITAR
 		</div><!--/.col-md-3 -->
     	<div class="col-md-9 align-left detailSecond">
 			<i id="btn-edit" class="fa fa-pencil fa-lg"></i>
