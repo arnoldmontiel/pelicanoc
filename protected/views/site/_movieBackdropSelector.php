@@ -30,8 +30,8 @@
       </div>
     </div><!--/.modal-body -->
     <div class="modal-footer">
-    <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cancelar</button>
-    <button id="btn-acept" type="button" class="btn btn-primary btn-large"> Aceptar</button>
+    <button id="btn-cancel" type="button" data-dismiss="modal" class="btn btn-default btn-large">Cancelar</button>
+    <button id="btn-acept" type="button" class="btn btn-primary btn-large"><i class="fa fa-save "></i> Guardar</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
@@ -41,6 +41,11 @@
       hide_select:  true,
     });
     $("#btn-acept").click(function(){
+		$("#btn-acept").attr("disabled", "disabled");
+		$("#btn-cancel").attr("disabled", "disabled");
+		$("#btn-acept i").removeClass();
+		$("#btn-acept i").addClass("fa fa-spinner fa-spin");
+        
     	if($("select.image-picker").val()!="")
     	{
 			$.ajax({
