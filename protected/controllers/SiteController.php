@@ -364,7 +364,7 @@ class SiteController extends Controller
 			$setting = Setting::getInstance();
 			foreach($modelESDatas as $modelESData)
 			{
-				$localFolderPath = str_replace($modelCurrentES->path,'',$modelESData->path);
+				$localFolderPath = str_replace($modelESData->currentExternalStorage->path,'',$modelESData->path);
 				$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
 				if(!empty($modelESData->file))
 					$localFolderPath = $localFolderPath.'/'.$modelESData->file;
