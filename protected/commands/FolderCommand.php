@@ -694,13 +694,19 @@ class FolderCommand extends CConsoleCommand  {
 	{
 		if(empty($modelPeliFile->imdb) ||  $modelPeliFile->imdb == 'tt0000000') //me fijo si es personal o  tt0000000
 		{
+			$name = "Desconocido";
 			if(empty($modelPeliFile->imdb))
-				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($modelPeliFile->name);
-			else
-				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData("Desconocido");
+				$name = $modelPeliFile->name;			
 							
-			$modelMyMovieDiscDB = new MyMovieDisc();
-			$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+			$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($name);
+			
+			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
+			if(!isset($modelMyMovieDiscDB))
+			{
+				$modelMyMovieDiscDB = new MyMovieDisc();
+				$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+			}
+			
 			$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
 			$modelMyMovieDiscDB->name = $modelPeliFile->name;
 			if($modelMyMovieDiscDB->save())
