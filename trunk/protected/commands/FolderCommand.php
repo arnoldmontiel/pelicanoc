@@ -698,21 +698,16 @@ class FolderCommand extends CConsoleCommand  {
 				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($modelPeliFile->name);
 			else
 				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData("Desconocido");
-				
-			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
-				
-			if(!isset($modelMyMovieDiscDB))
+							
+			$modelMyMovieDiscDB = new MyMovieDisc();
+			$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+			$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
+			$modelMyMovieDiscDB->name = $modelPeliFile->name;
+			if($modelMyMovieDiscDB->save())
 			{
-				$modelMyMovieDiscDB = new MyMovieDisc();
-				$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
-				$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
-				$modelMyMovieDiscDB->name = $modelPeliFile->name;
-				if($modelMyMovieDiscDB->save())
-				{
-			
-					return true;
-				}
-			}			
+		
+				return true;
+			}
 		}
 		else 
 		{
