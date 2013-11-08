@@ -160,7 +160,7 @@ function getProcessStatus()
 							var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);
 							if(tdAsoc.length > 0)
 							{
-								tdAsoc.children().addAttr('disabled','disabled');
+								tdAsoc.children().attr('disabled','disabled');
 							}
 						}
 					}
