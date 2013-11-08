@@ -1723,7 +1723,7 @@ class SiteController extends Controller
 				{		
 					$movie = new TMDBMovie($result->id);
 					$movieResult['release_date']=$movie->release_date;
-					$movieResult['imdb_id']=$movie->imdb_id;
+					$movieResult['id']=$movie->id;
 					$movieResult['original_title']=$movie->original_title;
 					$movies[]=$movieResult;				
 				}
