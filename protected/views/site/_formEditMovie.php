@@ -19,7 +19,13 @@ else
 }
 
 Yii::app()->clientScript->registerScript('update-my-movie', "
-	 	var date = new Date;	 	
+		$('#myModalCambiarAfiche').on('hidden.bs.modal', function () {
+  			$(this).html('');
+		})
+		$('#myModalCambiarBackdrop').on('hidden.bs.modal', function () {
+  			$(this).html('');
+		})
+		var date = new Date;	 	
 	   	if('".$backdrop."'!='')			
 	   		ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
 		
@@ -205,7 +211,9 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
             <h1 class="pageTitle"><?php echo $model->original_title; ?></h1>
         </div> <!-- /col-md-6 -->
     <div class="col-md-6 align-right">
+    <?php if(!$modelResource->is_personal):?>
 		<button id="unlink-source" type="button" class="btn btn-danger"><i class="fa fa-unlink "></i> Desasociar</button>
+	<?php endif?>
 		<button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Cambiar Asociacion</button>
         </div> <!-- /col-md-6 -->
     </div>

@@ -1414,6 +1414,9 @@ class SiteController extends Controller
 					$disc = $model->myMovieDisc;
 					$newMyMovie = new MyMovie();
 				}
+				$model->is_personal = 0;
+				$model->save();
+				
 				$db = TMDBApi::getInstance();
 				$db->adult = true;  // return adult content
 				$db->paged = false; // merges all paged results into a single result automatically
@@ -1424,7 +1427,7 @@ class SiteController extends Controller
 				$bigPoster = $movie->poster('500');
 				$backdrop = $movie->backdrop('original');
 		
-				TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
+				var_dump(TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop));
 				if(!$myMovie->is_custom)
 				{
 					$myMovie->Id=uniqid ("cust_");
@@ -2122,6 +2125,7 @@ class SiteController extends Controller
 				$myMovie->save();
 				$tmdb=$source->TMDBData;
 				$source->Id_TMDB_data = null;
+				$source->is_personal = 1;
 				$source->save();
 				if(isset($tmdb))
 				{
@@ -2393,35 +2397,56 @@ class SiteController extends Controller
 			$modelSource = LocalFolder::model()->findByPk($idResource);
 			$myMovie = $modelSource->myMovieDisc->myMovie;
 		}
-		$db = TMDBApi::getInstance();
-		$db->adult = true;  // return adult content
-		$db->paged = false; // merges all paged results into a single result automatically
-
-		$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
-		$movie = reset($results);
 		$images=array();
-		if(isset($movie)&&$movie!==false){
-			$images = $movie->posters('342',"");
-		}
-		else
+		if(!$modelSource->is_personal)
+		{
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+			
+			$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
+			$movie = reset($results);
+			if(isset($movie)&&$movie!==false){
+				$images = $movie->posters('342',"");
+			}
+			else
+			{
+				$tmdb = $modelSource->TMDBData;
+				$movie = new stdClass;
+				if(isset($tmdb))
+				{
+					$movie->id = $tmdb->TMDB_id;
+				}
+				else
+				{
+					$movie->id=date('U');
+					$tmdb = new TMDBData();
+					$tmdb->TMDB_id = $movie->id;
+					$tmdb->save();
+					$modelSource->Id_TMDB_data =$tmdb->Id;
+					$modelSource->save();
+				}
+			}				
+		}else
 		{
 			$tmdb = $modelSource->TMDBData;
 			$movie = new stdClass;
 			if(isset($tmdb))
 			{
-				$movie->id = $tmdb->TMDB_id;				
+				$movie->id = $tmdb->TMDB_id;
 			}
-			else 
+			else
 			{
 				$movie->id=date('U');
-				$tmdb = new TMDBData(); 
+				$tmdb = new TMDBData();
 				$tmdb->TMDB_id = $movie->id;
 				$tmdb->save();
 				$modelSource->Id_TMDB_data =$tmdb->Id;
 				$modelSource->save();
 			}
+				
 		}
-		$this->renderPartial('_moviePosterSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'posters'=>$images,'movie'=>$movie));		
+		$this->renderPartial('_moviePosterSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'posters'=>$images,'movie'=>$movie,"is_personal"=>$modelSource->is_personal));		
 	}
 	public function actionAjaxFillMovieBackdropSelector()
 	{
@@ -2443,15 +2468,36 @@ class SiteController extends Controller
 			$modelSource = LocalFolder::model()->findByPk($idResource);
 			$myMovie = $modelSource->myMovieDisc->myMovie;
 		}
-		$db = TMDBApi::getInstance();
-		$db->adult = true;  // return adult content
-		$db->paged = false; // merges all paged results into a single result automatically
-
-		$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
-		$movie = reset($results);
 		$images=array();
-		if(isset($movie)&&$movie!==false){
-			$images = $movie->backdrops('300',"");
+		if(!$modelSource->is_personal)
+		{
+			$db = TMDBApi::getInstance();
+			$db->adult = true;  // return adult content
+			$db->paged = false; // merges all paged results into a single result automatically
+	
+			$results = $db->search('movie', array('query'=>$myMovie->original_title, 'year'=>$myMovie->production_year));
+			$movie = reset($results);
+			if(isset($movie)&&$movie!==false){
+				$images = $movie->backdrops('300',"");
+			}
+			else
+			{
+				$tmdb = $modelSource->TMDBData;
+				$movie = new stdClass;
+				if(isset($tmdb))
+				{
+					$movie->id = $tmdb->TMDB_id;				
+				}
+				else 
+				{
+					$movie->id=date('U');
+					$tmdb = new TMDBData(); 
+					$tmdb->TMDB_id = $movie->id;
+					$tmdb->save();
+					$modelSource->Id_TMDB_data =$tmdb->Id;
+					$modelSource->save();
+				}
+			}
 		}
 		else
 		{
@@ -2459,20 +2505,21 @@ class SiteController extends Controller
 			$movie = new stdClass;
 			if(isset($tmdb))
 			{
-				$movie->id = $tmdb->TMDB_id;				
+				$movie->id = $tmdb->TMDB_id;
 			}
-			else 
+			else
 			{
 				$movie->id=date('U');
-				$tmdb = new TMDBData(); 
+				$tmdb = new TMDBData();
 				$tmdb->TMDB_id = $movie->id;
 				$tmdb->save();
 				$modelSource->Id_TMDB_data =$tmdb->Id;
 				$modelSource->save();
 			}
+		
 		}
 		
-		$this->renderPartial('_movieBackdropSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'backdrops'=>$images,'movie'=>$movie));		
+		$this->renderPartial('_movieBackdropSelector',array('model'=>$myMovie,'idResource'=>$idResource,'sourceType'=>$sourceType,'backdrops'=>$images,'movie'=>$movie,"is_personal"=>$modelSource->is_personal));		
 	}
 	public function actionAjaxUploadImage()
 	{

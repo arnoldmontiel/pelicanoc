@@ -11,7 +11,9 @@
     <input type="file" name="fileUpload1" id="fileUpload1" class="fileUpload" />
 </div>
 <div>
-    o Elige una de la lista    
+    <?php if(!$is_personal):?>
+    o Elige una de la lista
+    <?php endif?>    
        <select class="image-picker">
        <?php
        $urls = array();
