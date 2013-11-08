@@ -242,8 +242,8 @@ class SiteController extends Controller
 	public function actionAjaxProcessExternalStorage()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
-// 		if(isset($idCurrentES))
-// 			ReadFolderHelper::processExternalStorage($idCurrentES);
+ 		if(isset($idCurrentES))
+ 			ReadFolderHelper::processExternalStorage($idCurrentES);
 	}
 
 	public function actionAjaxOpenChangeName()
