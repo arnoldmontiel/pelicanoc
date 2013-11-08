@@ -199,23 +199,17 @@ class FolderCommand extends CConsoleCommand  {
 								
 							$finalPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
 							$localFolderPath = $finalPath . self::getCopiedPath($modelESData);							
-							
-							$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
-					
-							if(!isset($modelLocalFolderDB))
+
+							if(self::saveByImdb($modelPeliFile))
 							{
-								if(self::saveByImdb($modelPeliFile))
-								{
-									$modelLocalFolder = new LocalFolder();
-									$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
-									$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
-									$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
-									$modelLocalFolder->Id_lote = $modelLote->Id;
-									$modelLocalFolder->path = $localFolderPath;
-									$modelLocalFolder->save();
-								}
+								$modelLocalFolder = new LocalFolder();
+								$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
+								$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
+								$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
+								$modelLocalFolder->Id_lote = $modelLote->Id;
+								$modelLocalFolder->path = $localFolderPath;
+								$modelLocalFolder->save();
 							}
-					
 						} //end if null
 						
 					}
