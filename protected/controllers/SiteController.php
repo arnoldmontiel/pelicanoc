@@ -310,7 +310,7 @@ class SiteController extends Controller
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$finishCopy = 0;
-		$modelFinishESDataArray = array();
+		$modelFinishCopyESDataArray = array();
 		if(isset($idCurrentES))
 		{
 			$criteria = new CDbCriteria();
@@ -330,8 +330,7 @@ class SiteController extends Controller
 				$modelFinishCopyESDataArray[] = array('id'=>$modelESData->Id);
 			}
 				
-		}
-	
+		}		
 		$response = array('finishCopy'=>$finishCopy,
 										'modelFinishCopyESDataArray'=>$modelFinishCopyESDataArray);
 	
