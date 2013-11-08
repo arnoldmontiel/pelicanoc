@@ -297,7 +297,7 @@ function changeAsoc(id)
  	}).success(function(data)
  	{	
 		$('#myModalEditarAsoc').html(data);
-		$('#myModalEditarAsoc').modal('show');	   						   				
+		$('#myModalEditarAsoc').modal('show');										
 //		$('#open-movie-list').removeAttr('disabled');
 //   	$('#open-movie-list i').removeClass();
 //		$('#open-movie-list i').addClass('fa fa-link');
