@@ -758,7 +758,7 @@ class FolderCommand extends CConsoleCommand  {
 		}
 		else
 		{
-			if(empty($modelPeliFile->imdb)
+			if(empty($modelPeliFile->imdb))
 				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($modelPeliFile->name);
 			else
 				$idMyMovie = MyMovieHelper::saveUnknownMyMovieData("Desconocido");
