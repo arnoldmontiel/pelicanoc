@@ -98,7 +98,7 @@ body #screenMarketplace{
   }
   
     body #screenDevices{
-  padding-top: 80px;
+  padding-top: 70px;
   }
   
 body #screenControl{
@@ -227,20 +227,21 @@ cursor: pointer;
    margin-left:0px;
 }
 
-h1.pageTitle{font-size: 28px;
+h2.pageSubtitle{font-size: 28px;
 font-weight: normal;
-color: #666;
-text-shadow: 0 1px 0 #ccc;
+color: #ccc;
+text-shadow: 0 1px 0 #333;
 font-family: 'GudeaRegular';
 margin:0px;
-line-height:auto; }
+line-height:auto;
+padding-bottom:10px;
+ }
 
-h2.pageSubtitle{font-size: 2em;
+h1.pageTitle{font-size: 2em;
 font-weight: normal;
 color: #fff;
 text-shadow: 0 1px 3px #666;
 text-align:left;
-padding-top:10px;
 margin:0px;
 line-height:auto;}
 
@@ -525,7 +526,6 @@ overflow-y: scroll;}
 /*---------- END BOOKMARKS -------------*/
 
 /*---------- EDIT PELICULA -------------*/
-#screenEditMovie h1.pageTitle{color:#ccc; text-shadow:0 1px 3px #333;}
 
 .editAfiche { text-align:center;}
 .editAfiche .aficheImg{width: 200px;

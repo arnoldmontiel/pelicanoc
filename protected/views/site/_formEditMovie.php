@@ -196,12 +196,12 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 <div class="container" id="screenEditMovie">
   <div class="row">
     <div class="col-md-12">
-    <h1 class="pageTitle">Editar Pelicula</h1>
+    <h2 class="pageSubtitle">Editar Pelicula</h2>
         </div> <!-- /col-md-12 -->
     </div> <!-- /row -->
     <div class="row pageSubtitleContainer">
     <div class="col-md-6">
-            <h2 class="pageSubtitle"><?php echo $model->original_title; ?></h2>
+            <h1 class="pageTitle"><?php echo $model->original_title; ?></h1>
         </div> <!-- /col-md-6 -->
     <div class="col-md-6 align-right">
 		<button id="unlink-source" type="button" class="btn btn-danger"><i class="fa fa-unlink "></i> Desasociar</button>
