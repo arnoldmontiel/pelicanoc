@@ -63,12 +63,6 @@ class SiteController extends Controller
 				'dataProvider'=>$dataProvider,
 		));
 	}
-
-	public function actionDevices2()
-	{	
-		$this->showFilter = false;
-		$this->render('devices');
-	}
 	
 	public function actionGoToDevices($idSelected)
 	{
@@ -76,7 +70,7 @@ class SiteController extends Controller
 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));		
 		CurrentExternalStorage::model()->updateAll(array('read'=>1));
 			
-		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
+		$this->render('devices',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
 	}
 	
 	public function actionDevices()
@@ -87,7 +81,7 @@ class SiteController extends Controller
 		if(count($modelCurrentESs)>0)
 			$idSelected = $modelCurrentESs[0]->Id;
 
-		$this->render('devices2',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
+		$this->render('devices',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
 	}
 
 	public function actionDownloads()
@@ -358,9 +352,13 @@ class SiteController extends Controller
 			if(isset($modelCurrentES))
 				$finishScan = 1;
 			
-			//Traigo los registros que terminaron el escaneo
-			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,
-																	'status'=>7));
+			//Traigo los registros que terminaron el escaneo y que ya fueron copiados
+			$criteria = new CDbCriteria();
+			$criteria->addCondition('t.status = 7 OR t.status = 3');
+			$criteria->addCondition('t.Id_current_external_storage = '.$idCurrentES);
+			
+			$modelESDatas = ExternalStorageData::model()->findAll($criteria);
+			
 			$setting = Setting::getInstance();
 			foreach($modelESDatas as $modelESData)
 			{
@@ -385,6 +383,7 @@ class SiteController extends Controller
 				$modelFinishESDataArray[] = array('id'=>$modelESData->Id, 
 													'alreadyExists'=>$alreadyExists, 
 													'isUnknown'=>$isUnknown,
+													'status'=>$modelESData->status,
 													'name'=>$name);
 			}
 			
