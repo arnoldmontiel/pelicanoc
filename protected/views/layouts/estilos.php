@@ -78,7 +78,6 @@ background: -ms-radial-gradient(center, ellipse cover,  rgba(198,198,198,1) 0%,r
 background: radial-gradient(ellipse at center,  rgba(198,198,198,1) 0%,rgba(89,89,89,1) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	
-	
 	 }
  
 
@@ -197,8 +196,9 @@ cursor: pointer;
 
 #Menu .badgeDone{	background-color:#9d9d00; margin-left:10px;}
 
-#popover-dispositivos{ width:300px; display:block; top:45px; left:50%; text-align:center;}
-#popover-dispositivos .popoverDisTitle{font-size:20px;}
+#popover-dispositivos{ display:block; top:45px; left:50%; text-align:center;}
+.popover{width:300px; max-width:300px;}
+.popoverDisTitle{font-size:20px;}
 .popoverButtons{ border-top:1px dotted #ccc; margin-top:10px; padding-top:10px;}
 .popoverButtons button{  width:110px; margin-right:10px;}
 
@@ -230,7 +230,7 @@ cursor: pointer;
 h2.pageSubtitle{font-size: 28px;
 font-weight: normal;
 color: #ccc;
-text-shadow: 0 1px 0 #333;
+text-shadow: 0 1px 3px #333;
 font-family: 'GudeaRegular';
 margin:0px;
 line-height:auto;
@@ -245,7 +245,7 @@ text-align:left;
 margin:0px;
 line-height:auto;}
 
-.pageSubtitleContainer{
+.pageTitleContainer{
 padding-bottom:10px;
 margin-bottom:10px;}
 
@@ -451,10 +451,17 @@ background-color: #9d9d00;
 /* ----- END MARKETPLACE --------*/
 
 /* ----- DISPOSITIVOS --------*/
-.tablaIndividual{ margin-bottom:20px;}
-.nav-pills.nav-stacked>li>a{border-radius:18px;}
+.tablaIndividual{ margin-bottom:20px; background-color:rgba(255,255,255,0.5); border-color:#ccc; color:#444;}
+.nav-pills.nav-stacked>li>a{border-radius:18px; color:white;}
+.nav-pills.nav-stacked>li.active>a{background-color:#eee;color:#333;}
+.nav-pills.nav-stacked>li>a:hover{ background-color:#428bca;color:white;}
 .nav>li>a.ejectBTN{ width:35px; height:35px; padding:6px; position:absolute; top:3px; right:3px; color: #428bca;
 background-color: #fff;}
+
+.table.tablaIndividual th{ font-family:'GudeaBold'; font-weight:bold; font-size:16px; color:#555;}
+.table.tablaIndividual thead>tr>th, .table.tablaIndividual tbody>tr>th, .table.tablaIndividual tfoot>tr>th, .table.tablaIndividual thead>tr>td, .table.tablaIndividual tbody>tr>td, .table.tablaIndividual tfoot>tr>td{vertical-align:middle;}
+
+
 /* ----- END DISPOSITIVOS --------*/
 
 
@@ -548,7 +555,6 @@ cursor:pointer;}
 
 .modal-scroll{ max-height:430px; overflow-y:auto;}
 .backdrop-on{ 	
-background-position:center top;    background-size: auto 100%; overflow:auto; background-repeat:repeat;
 
 background: no-repeat center center fixed; 
   -webkit-background-size: cover;
