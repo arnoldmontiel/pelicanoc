@@ -194,28 +194,40 @@ function playVideo(id)
 
 function cancelCopy(id)
 {	
-	var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
-	if(tdButton.length > 0)
-	{	
-		var alreadyexists = tdButton.children().attr('alreadyexists');
-		if(alreadyexists == 0)
-			tdButton.children().text('Importar');
-		else
-			tdButton.children().text('Sobreescribir');
-
-		tdButton.children().removeClass('btn-danger');
-		tdButton.children().addClass('btn-primary');
-		tdButton.children().attr('onclick','copyVideo('+id+')');
-
-		tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
-		if(tdStatus.length > 0)
+	$.post("<?php echo SiteController::createUrl('AjaxCancelCopy'); ?>",
 		{
-			if(alreadyexists == 1)
-				tdStatus.html("<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca");
-			else
-				tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
-		}				
-	}
+				id:id			    
+		}
+		).success(
+			function(data){
+				if(data != 0)
+				{	
+					var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
+					if(tdButton.length > 0)
+					{	
+						var alreadyexists = tdButton.children().attr('alreadyexists');
+						if(alreadyexists == 0)
+							tdButton.children().text('Importar');
+						else
+							tdButton.children().text('Sobreescribir');
+
+						tdButton.children().removeClass('btn-danger');
+						tdButton.children().addClass('btn-primary');
+						tdButton.children().attr('onclick','copyVideo('+id+')');
+
+						tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
+						if(tdStatus.length > 0)
+						{
+							if(alreadyexists == 1)
+								tdStatus.html("<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca");
+							else
+								tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
+						}				
+					}
+				}							
+	});
+	
+	
 }
 
 function copyVideo(id)
