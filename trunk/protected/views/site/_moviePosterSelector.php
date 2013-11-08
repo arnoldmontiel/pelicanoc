@@ -107,8 +107,9 @@
 					}
 					//$('.image_picker_selector').append('<li><div class="thumbnail selected"><img class="image_picker_image" src="'+url+'"></div></li>');
 					//$('.image_picker_selector').append('<option data-img-src='+url+' value='+url+'></option>');
-					$('select.image-picker').append('<option data-img-src='+url+' value='+url+'></option>');
-										
+					var date = new Date;	 	
+					$('select.image-picker').append('<option data-img-src='+url+ '?' +date.valueOf()+' value='+url+'></option>');
+															
 				});
 				$("select.image-picker").imagepicker({
 				      hide_select:  true,
