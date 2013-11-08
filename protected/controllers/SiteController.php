@@ -241,9 +241,17 @@ class SiteController extends Controller
 
 	public function actionAjaxProcessExternalStorage()
 	{
-		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
- 		if(isset($idCurrentES))
- 			ReadFolderHelper::processExternalStorage($idCurrentES);
+		$idESData = (isset($_POST['id']))?$_POST['id']:null;
+ 		if(isset($idESData))
+ 		{
+ 			$modelESData = ExternalStorageData::model()->findByPk($idESData);
+ 			if(isset($modelESData))
+ 			{
+ 				$modelESData->copy = 1;
+ 				if($modelESData->save())
+ 					ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);
+ 			}
+ 		}
 	}
 
 	public function actionAjaxOpenChangeName()
