@@ -77,10 +77,16 @@ function getSecondScan()
 						var id = obj.modelFinishESDataArray[index].id;
 						var alreadyExists = obj.modelFinishESDataArray[index].alreadyExists;
 						var isUnknown = obj.modelFinishESDataArray[index].isUnknown;
-						
+						var name = obj.modelFinishESDataArray[index].name;
 						var tr = $('#wizardDispositivos').find('#idTr_' + id);						
 						if(tr.length > 0)
-						{							
+						{			
+							var tdName = tr.find('#idTdName_' + id);
+							if(tdName.length > 0)
+							{
+								tdName.html(name);
+							}
+											
 							var tdStatus = tr.find('#idTdStatus_' + id);
 							if(tdStatus.length > 0)
 							{

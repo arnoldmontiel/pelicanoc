@@ -378,7 +378,14 @@ class SiteController extends Controller
 				if($modelESData->imdb == 'tt0000000')
 					$isUnknown = 1;
 				
-				$modelFinishESDataArray[] = array('id'=>$modelESData->Id, 'alreadyExists'=>$alreadyExists, 'isUnknown'=>$isUnknown);
+				$name = $modelESData->title;
+				if(!empty($modelESData->year))
+					$name .= ' ('.$modelESData->year.')';
+				
+				$modelFinishESDataArray[] = array('id'=>$modelESData->Id, 
+													'alreadyExists'=>$alreadyExists, 
+													'isUnknown'=>$isUnknown,
+													'name'=>$name);
 			}
 			
 		}
