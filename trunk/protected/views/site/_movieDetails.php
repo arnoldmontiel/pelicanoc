@@ -56,19 +56,34 @@
     </ul>
 	<div class="tab-content tableInfo">
     <div class="tab-pane active" id="tab1">
-    <div class="row detailMainGroup">
-    <div class="col-md-4 align-center detailMain detailMainFirst">
+    <div class="row detailSecondGroup">
+    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    GENERO
+    </div><!--/.col-md-3 -->
+    <div class="col-md-9 align-left detailSecond">
 	<?php echo $model->genre;?>
-    </div><!--/.col-md-4 -->
-    <div class="col-md-4 align-center detailMain">
+    </div><!--/.col-md-9 -->
+    </div><!--/.row -->
+    
+    <div class="row detailSecondGroup">
+    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    PUBLICO
+    </div><!--/.col-md-3 -->
+    <div class="col-md-9 align-left detailSecond">
     <?php echo $model->parentalControl->description;?>
-    </div><!--/.col-md-4 -->
-    <div class="col-md-4 align-center detailMain">
- 	<?php    	
+    </div><!--/.col-md-9 -->
+    </div><!--/.row -->
+    
+    <div class="row detailSecondGroup">
+    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    RATING
+    </div><!--/.col-md-3 -->
+    <div class="col-md-9 align-left detailSecond">
+    <?php    	
 	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';    	
 	?>
 	<img src="images/<?php echo $image;?>" width="100" height="20" border="0">
-    </div><!--/.col-md-4 -->
+    </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
@@ -118,20 +133,7 @@
     </div><!--/.tab-pane#1 -->
     
 	<div class="tab-pane" id="tab2">
-    <div class="row detailMainGroup">
-    <div class="col-md-4 align-center detailMain detailMainFirst">
-	<?php echo $model->genre;?>
-    </div><!--/.col-md-4 -->
-    <div class="col-md-4 align-center detailMain">
-    <?php echo $model->parentalControl->description;?>
-    </div><!--/.col-md-4 -->
-    <div class="col-md-4 align-center detailMain">
- 	<?php    	
-	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';    	
-	?>
-	<img src="images/<?php echo $image;?>" width="100" height="20" border="0">
-    </div><!--/.col-md-4 -->
-    </div><!--/.row -->
+    
     <div class="row detailSecondGroup">
     <div class="col-md-3 align-left detailSecond detailSecondFirst">
     TAMA&Ntilde;O EN DISCO
@@ -143,7 +145,7 @@
 		    
     <div class="row detailSecondGroup">
     <div class="col-md-3 align-left detailSecond detailSecondFirst">
-    BORRAR
+    BORRAR PEL&Iacute;CULA
 	</div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
 	<!--<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>-->
@@ -154,9 +156,18 @@
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
 	
+    <div class="row detailSecondGroup">
+    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    Cambiar pelicula
+	</div><!--/.col-md-3 -->
+    <div class="col-md-9 align-left detailSecond">
+	<i id="btn-tmdb-movie" class="fa fa-pencil fa-lg"></i>
+	</div><!--/.col-md-9 -->
+	</div><!--/.row -->
+
 	<div class="row detailSecondGroup">
     	<div class="col-md-3 align-left detailSecond detailSecondFirst">
-    		EDITAR
+    		Editar
 		</div><!--/.col-md-3 -->
     	<div class="col-md-9 align-left detailSecond">
 			<i id="btn-edit" class="fa fa-pencil fa-lg"></i>
@@ -166,20 +177,6 @@
 	</div><!--/.tab-pane#2 -->
     
     <div class="tab-pane" id="tab3"><!--/.bookmarks -->
-    <div class="row detailMainGroup">
-    <div class="col-md-4 align-center detailMain detailMainFirst">
-	<?php echo $model->genre;?>
-    </div><!--/.col-md-4 -->
-    <div class="col-md-4 align-center detailMain">
-    <?php echo $model->parentalControl->description;?>
-    </div><!--/.col-md-4 -->
-    <div class="col-md-4 align-center detailMain">
- 	<?php    	
-	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';    	
-	?>
-	<img src="images/<?php echo $image;?>" width="100" height="20" border="0">
-    </div><!--/.col-md-4 -->
-    </div><!--/.row -->
     
     <?php foreach ($modelBookmarks as $bookmark){?>
 	<div class="row detailSecondGroup">
