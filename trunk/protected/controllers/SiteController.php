@@ -381,7 +381,7 @@ class SiteController extends Controller
 			if(isset($modelCurrentES))
 			{
 				$finishScan = 1;
-				if($modelCurrentES->satate == 2)
+				if($modelCurrentES->state == 2)
 					$inProcess = 1;
 			}
 			
