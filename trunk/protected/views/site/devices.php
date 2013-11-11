@@ -155,6 +155,9 @@ function getSecondScan()
 					$('#scaningLabel').hide();
 					$('#NoScaningLabel').show();					
 					$('#hidden-second-scan-working').val(0);
+					$('#copy-all-known').removeAttr('disabled');
+					$('#copy-all-personal').removeAttr('disabled');
+					$('#copy-all-unknown').removeAttr('disabled');
 				}
 		});	
 	}

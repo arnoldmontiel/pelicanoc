@@ -12,7 +12,7 @@
 	              <th>Editar</th>
 	              <th>Ruta</th>
 	              <th>Estado</th>
-	              <th> <button type="button" onclick="copyAll('knownTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
+	              <th> <button type="button" id="copy-all-known" onclick="copyAll('knownTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
 	            </tr>
 	          </thead>
 	          <tbody id="knownTable">
@@ -69,7 +69,7 @@
               <th>Editar</th>
               <th>Ruta</th>
               <td>Estado</td>
-              <th> <button type="button" onclick="copyAll('personalTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
+              <th> <button type="button" id="copy-all-personal" onclick="copyAll('personalTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
             </tr>
           </thead>
           <tbody id="personalTable">
@@ -127,7 +127,7 @@
               <th>Editar</th>
               <th>Ruta</th>
               <td>Estado</td>
-              <th> <button type="button" onclick="copyAll('unknownTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
+              <th> <button type="button" id="copy-all-unknown" onclick="copyAll('unknownTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
             </tr>
           </thead>
           <tbody id="unknownTable">           
