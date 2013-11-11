@@ -211,7 +211,7 @@ function getProcessStatus()
 function copyAll(idTable)
 {
 	var id = $('#hidden-unit').val();
-	$.post("<?php echo SiteController::createUrl('AjaxGetPlayES'); ?>",
+	$.post("<?php echo SiteController::createUrl('AjaxProcessAllExternalStorage'); ?>",
 			{
 				id:id,
 				idTable:idTable
