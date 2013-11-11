@@ -299,15 +299,15 @@ class SiteController extends Controller
 			$criteria = new CDbCriteria();
 			$criteria->addCondition($condition);
 			
-			$modelESDatas = ExternalStorageData::model()->findAll($criteria);								
+			$modelESDatas = ExternalStorageData::model()->findAll($criteria);
+						
 			foreach($modelESDatas as $modelESData)
 			{
 				$onCopyModels[] = array('id'=>$modelESData->Id);
 			}
 			
 			ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
-			
-			ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);		
+			ReadFolderHelper::processExternalStorage($id);
 		}
 		
 		$response = array('onCopyModels'=>$onCopyModels);
