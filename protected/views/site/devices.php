@@ -79,7 +79,7 @@ function getSecondScan()
 						var isUnknown = obj.modelFinishESDataArray[index].isUnknown;
 						var name = obj.modelFinishESDataArray[index].name;
 						var status = obj.modelFinishESDataArray[index].status;
-						
+						var copy = obj.modelFinishESDataArray[index].copy;
 						var tr = $('#wizardDispositivos').find('#idTr_' + id);
 												
 						if(tr.length > 0)
@@ -92,7 +92,7 @@ function getSecondScan()
 											
 							var tdStatus = tr.find('#idTdStatus_' + id);
 							if(tdStatus.length > 0)
-							{
+							{								
 								if(status == 7)
 								{
 									if(alreadyExists == 1)
@@ -106,6 +106,11 @@ function getSecondScan()
 								}
 								else
 									tdStatus.html("<i class='fa fa-check'></i> Importado");
+
+								if(copy == 1)
+								{
+									tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");
+								}
 									
 							}
 							var tdButton = tr.find('#idTdButton_' + id);
@@ -127,6 +132,14 @@ function getSecondScan()
 								}
 								else
 									tdButton.html("<button type='button' onclick='playVideo("+id+")' class='btn btn-primary'>Ver</button>");
+
+								if(copy == 1)
+								{
+									tdButton.children().text('Cancelar');
+									tdButton.children().removeClass('btn-primary');
+									tdButton.children().addClass('btn-danger');				
+									tdButton.children().attr('onclick','cancelCopy('+id+')');
+								}
 							}
 							var tdAsoc = tr.find('#idTdAsoc_' + id);
 							if(tdAsoc.length > 0)
