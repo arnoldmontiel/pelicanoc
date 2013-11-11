@@ -152,6 +152,9 @@ function getSecondScan()
 								tr.attr('unknown','1');
 								$('#unknownTable').append(tr);
 							}
+
+							if(copy == 1)
+								$('#hidden-process-working').val(1);
 						}						
 					}
 				}
