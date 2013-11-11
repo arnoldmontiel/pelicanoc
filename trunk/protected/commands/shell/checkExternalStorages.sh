@@ -13,14 +13,14 @@ then
       #echo $ID_FS_LABEL>>/home/arnold/usb_arnold.txt
       if [ "$USBPATH" != "" ]
       then
-	/var/www/pelicano/protected/yiic folder CheckExternalStorage --label=$ID_FS_LABEL --path=$USBPATH
+	/var/www/pelicano/protected/yiic folder AddedExternalStorage --label=$ID_FS_LABEL --path=$USBPATH
       fi
     fi
 fi
 
 if [ "$ACTION" = "remove" ]
 then
-  printenv>>/home/arnold/usb_arnold.txt
+  /var/www/pelicano/protected/yiic folder RemovedExternalStorage
 fi
 
 
