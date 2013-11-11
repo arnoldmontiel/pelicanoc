@@ -14,7 +14,7 @@ class FolderCommand extends CConsoleCommand  {
 	function actionRemovedExternalStorage()
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-		ReadFolderHelper::addedExternalStorage($label,$path);
+		ReadFolderHelper::removedExternalStorage();
 	}
 	
 	function actionProcessExternalStorage($idCurrentES)
