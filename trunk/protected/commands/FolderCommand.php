@@ -6,6 +6,16 @@ class FolderCommand extends CConsoleCommand  {
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		ReadFolderHelper::checkExternalStorage();
 	}
+	function actionAddedExternalStorage($label,$path)
+	{
+		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		ReadFolderHelper::addedExternalStorage($label,$path);
+	}
+	function actionRemovedExternalStorage()
+	{
+		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		ReadFolderHelper::addedExternalStorage($label,$path);
+	}
 	
 	function actionProcessExternalStorage($idCurrentES)
 	{
