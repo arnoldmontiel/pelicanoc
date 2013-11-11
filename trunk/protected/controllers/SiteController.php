@@ -280,28 +280,29 @@ class SiteController extends Controller
 		$idTable = (isset($_POST['idTable']))?$_POST['idTable']:null;		
 		$id = (isset($_POST['id']))?$_POST['id']:null;
 		
-		if(isset($idESData) && isset($id))
-		{
-			$modelESData = ExternalStorageData::model()->findByPk($idESData);
-			if(isset($modelESData))
-			{
-				$condition = "";
-				switch ($idTable) {
-					case "knownTable":
-						$condition = 'is_personal = 0 AND imdb <> "tt0000000" AND Id_current_external_storage = '.$idCurrentES
-						break;
-					case "personalTable":
-						$condition = 'is_personal = 1 AND Id_current_external_storage = '.$idCurrentES
-						break;
-					case "unknownTable":
-						$condition = 'is_personal = 0 AND imdb = "tt0000000" AND Id_current_external_storage = '.$idCurrentES
-						break;
-				}
-				ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
+// 		if(isset($idESData) && isset($id))
+// 		{
+// 			$modelESData = ExternalStorageData::model()->findByPk($idESData);
+// 			if(isset($modelESData))
+// 			{
+// 				$condition = "";
+// 				switch ($idTable) 
+// 				{
+// 					case "knownTable":
+// 						$condition = 'is_personal = 0 AND imdb <> "tt0000000" AND Id_current_external_storage = '.$idCurrentES
+// 						break;
+// 					case "personalTable":
+// 						$condition = 'is_personal = 1 AND Id_current_external_storage = '.$idCurrentES
+// 						break;
+// 					case "unknownTable":
+// 						$condition = 'is_personal = 0 AND imdb = "tt0000000" AND Id_current_external_storage = '.$idCurrentES
+// 						break;
+// 				}
+// 				ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
 				
-				//ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);
-			}			
-		}
+// 				//ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);
+// 			}			
+// 		}
 	}
 	
 	public function actionAjaxOpenChangeName()
