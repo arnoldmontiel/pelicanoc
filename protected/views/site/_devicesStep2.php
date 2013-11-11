@@ -12,7 +12,7 @@
 	              <th>Editar</th>
 	              <th>Ruta</th>
 	              <th>Estado</th>
-	              <th> <button type="button" class="btn btn-default">Importar Todo</button></th>
+	              <th> <button type="button" onclick="copyAll('knownTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
 	            </tr>
 	          </thead>
 	          <tbody id="knownTable">
@@ -29,7 +29,7 @@
         				if(!empty($modelESData->file))
         					$path .= '/'.$modelESData->file;
         				
-        				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESData->Id, 'unknown'=>0));
+        				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESData->Id, 'iddata'=>$modelESData->Id, 'unknown'=>0));
         				
         					echo CHtml::openTag("td");
         						echo $index;
@@ -69,16 +69,16 @@
               <th>Editar</th>
               <th>Ruta</th>
               <td>Estado</td>
-              <th> <button type="button" class="btn btn-default">Importar Todo</button></th>
+              <th> <button type="button" onclick="copyAll('personalTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="personalTable">
            <?php
         			$index = 0;
         			foreach($modelESDataPersonals as $modelESDataPersonal)
         			{
         				$index++;        				
-        				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESDataPersonal->Id));
+        				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESDataPersonal->Id, 'iddata'=>$modelESDataPersonal->Id));
         				
         					echo CHtml::openTag("td");
         						echo $index;
@@ -127,7 +127,7 @@
               <th>Editar</th>
               <th>Ruta</th>
               <td>Estado</td>
-              <th> <button type="button" class="btn btn-default">Importar Todo</button></th>
+              <th> <button type="button" onclick="copyAll('unknownTable')" disabled="disabled" class="btn btn-default">Importar Todo</button></th>
             </tr>
           </thead>
           <tbody id="unknownTable">           

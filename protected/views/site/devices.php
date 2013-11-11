@@ -205,6 +205,36 @@ function getProcessStatus()
 	}
 }
 
+function copyAll(idTable)
+{
+	var id = $('#hidden-unit').val();
+	$.post("<?php echo SiteController::createUrl('AjaxGetPlayES'); ?>",
+			{
+				id:id,
+				idTable:idTable
+			}
+		).success(
+			function(data){
+				$('#hidden-process-working').val(1);		
+				$('#'+idTable).find('tr').each(function(i) {
+			        var iddata = $(this).attr('iddata');
+			        var tdStatus = $(this).find('#idTdStatus_' + iddata);
+			        if(tdStatus.length > 0)
+					{				
+						tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");				
+					}
+			        var tdButton = $(this).find('#idTdButton_' + iddata);						
+					if(tdButton.length > 0)
+					{	
+						tdButton.children().text('Cancelar');
+						tdButton.children().removeClass('btn-primary');
+						tdButton.children().addClass('btn-danger');				
+						tdButton.children().attr('onclick','cancelCopy('+iddata+')');				
+					}					
+			    });							
+		});
+}
+
 function playVideo(id)
 {
 	$.post("<?php echo SiteController::createUrl('AjaxGetPlayES'); ?>",
