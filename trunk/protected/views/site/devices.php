@@ -100,14 +100,10 @@ function getSecondScan()
 									else
 										tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
 								}
-								else if(status == 2)
-								{
-									tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");
-								}
 								else
 									tdStatus.html("<i class='fa fa-check'></i> Importado");
 
-								if(copy == 1)
+								if(copy == 1 obj.inProcess == 1)
 								{
 									tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");
 								}
@@ -123,17 +119,10 @@ function getSecondScan()
 									else
 										tdButton.html("<button type='button' alreadyexists="+alreadyExists+" onclick='copyVideo("+id+")' class='btn btn-primary'>Importar</button>");
 								}
-								else if(status == 2)
-								{
-									tdButton.children().text('Cancelar');
-									tdButton.children().removeClass('btn-primary');
-									tdButton.children().addClass('btn-danger');				
-									tdButton.children().attr('onclick','cancelCopy('+id+')');
-								}
 								else
 									tdButton.html("<button type='button' onclick='playVideo("+id+")' class='btn btn-primary'>Ver</button>");
 
-								if(copy == 1)
+								if(copy == 1 && obj.inProcess == 1)
 								{
 									tdButton.children().text('Cancelar');
 									tdButton.children().removeClass('btn-primary');
