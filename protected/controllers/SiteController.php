@@ -315,9 +315,7 @@ class SiteController extends Controller
 			}			
 		}
 		
-		$response = array(
-		'condition'=>$condition,
-		'onCopyModels'=>$onCopyModels);
+		$response = array('onCopyModels'=>$onCopyModels);
 		
 		echo json_encode($response);
 	}
