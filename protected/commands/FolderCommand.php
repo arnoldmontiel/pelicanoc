@@ -171,10 +171,11 @@ class FolderCommand extends CConsoleCommand  {
 					
 					if(substr($sys,0,3) == "WIN")
 					{
+						$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied .$modelESData->path."\\";
+						$destinationPath = str_replace('/','\\',$destinationPath);	
+						$source = $externalStoragePath . $modelESData->path;
 						$source = str_replace('/','\\',$source);
-						$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied .$copiedPath."\\";
-						$destinationPath = str_replace('/','\\',$destinationPath);							
-						exec('xcopy "'.$source.'" "'.$destinationPath.'" /y/s');
+						exec('xcopy "'.$source.'" "'.$destinationPath.'" /y/s/r');
 					}
 					else 
 						exec("cp -fr ".$source . " " .$destinationPath);
@@ -193,53 +194,45 @@ class FolderCommand extends CConsoleCommand  {
 				$externalStoragePath = (isset($modelESData->currentExternalStorage))?$modelESData->currentExternalStorage->path:null;
 				if(isset($externalStoragePath))
 				{
-					$setting = Setting::getInstance();
-					$pelicanoCopiedPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied;
+					$setting = Setting::getInstance();					
 					$modelLote = new Lote();
-					$iterator = ReadFolderHelper::getPeliDirectoryList($pelicanoCopiedPath.$modelESData->path,true);
-					$chunksize = 1*(1024*1024); // how many bytes per chunk
 					
 					//genero un nuevo lote
 					$modelLote->save();
-					foreach ($iterator as $file)
-					{
-							
-						$modelPeliFile = self::getPeliFile($file);
-						if(isset($modelPeliFile))
-						{
-								
-							$finalPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
-							$localFolderPath = $finalPath . self::getCopiedPath($modelESData);							
-							
-							$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
 					
-							if(!isset($modelLocalFolderDB))
-							{
-								if(self::saveByImdb($modelPeliFile))
-								{
-									$modelLocalFolder = new LocalFolder();
-									$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
-									$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
-									$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
-									$modelLocalFolder->Id_lote = $modelLote->Id;
-									$modelLocalFolder->path = $localFolderPath;
-									$modelLocalFolder->save();
-								}
-							}
-							else
-							{
-								if(self::saveByImdb($modelPeliFile))
-								{
-									$modelLocalFolderDB->Id_my_movie_disc = $modelPeliFile->idDisc;
-									$modelLocalFolderDB->Id_file_type = self::getFileType($modelPeliFile->type);
-									$modelLocalFolderDB->Id_source_type = self::getSoruceType($modelPeliFile->source);
-									$modelLocalFolderDB->Id_lote = $modelLote->Id;									
-									$modelLocalFolderDB->save();
-								}
-							}
-					
-						} //end if null
+					$modelPeliFile = new PeliFile();
+					$modelPeliFile->idDisc = uniqid();
+					$modelPeliFile->imdb = $modelESData->imdb;
+					$modelPeliFile->type = $modelESData->type;
+
+					$finalPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
+					$localFolderPath = $finalPath . self::getCopiedPath($modelESData);
 						
+					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+					
+					if(!isset($modelLocalFolderDB))
+					{
+						if(self::saveByImdb($modelPeliFile))
+						{
+							$modelLocalFolder = new LocalFolder();
+							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
+							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
+							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
+							$modelLocalFolder->Id_lote = $modelLote->Id;
+							$modelLocalFolder->path = $localFolderPath;
+							$modelLocalFolder->save();
+						}
+					}
+					else
+					{
+						if(self::saveByImdb($modelPeliFile))
+						{
+							$modelLocalFolderDB->Id_my_movie_disc = $modelPeliFile->idDisc;
+							$modelLocalFolderDB->Id_file_type = self::getFileType($modelPeliFile->type);
+							$modelLocalFolderDB->Id_source_type = self::getSoruceType($modelPeliFile->source);
+							$modelLocalFolderDB->Id_lote = $modelLote->Id;
+							$modelLocalFolderDB->save();
+						}
 					}
 					$modelLote->description = 'Successfull';
 					$modelLote->save();
@@ -755,10 +748,10 @@ class FolderCommand extends CConsoleCommand  {
 						if((string)$title['type'] == "Blu-ray")
 							break;				
 					}
-				    		
+					  		 
 					if(MyMovieHelper::saveMyMovieData($idMyMovie))
 					{					
-						
+
 						$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
 						
 						if(!isset($modelMyMovieDiscDB))
