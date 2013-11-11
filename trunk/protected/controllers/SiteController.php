@@ -371,6 +371,7 @@ class SiteController extends Controller
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$finishScan = 0;
+		$inProcess = 0;
 		$modelFinishESDataArray = array();
 		if(isset($idCurrentES))
 		{
@@ -378,7 +379,11 @@ class SiteController extends Controller
 																								'hard_scan_ready'=>1));
 			
 			if(isset($modelCurrentES))
+			{
 				$finishScan = 1;
+				if($modelCurrentES->satate == 2)
+					$inProcess = 1;
+			}
 			
 			//Traigo los registros que no estan escaneandose
 			$criteria = new CDbCriteria();
@@ -419,6 +424,7 @@ class SiteController extends Controller
 		}
 				
 		$response = array('finishScan'=>$finishScan,
+									'inProcess'=>$inProcess,
 									'modelFinishESDataArray'=>$modelFinishESDataArray);
 		
 		echo json_encode($response);
