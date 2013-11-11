@@ -290,13 +290,13 @@ class SiteController extends Controller
 				switch ($idTable) 
 				{
 					case "knownTable":
-						$condition = 'copy = 0 AND is_personal = 0 AND imdb <> "tt0000000" AND Id_current_external_storage = '.$idCurrentES;
+						$condition = 'copy = 0 AND is_personal = 0 AND imdb <> "tt0000000" AND Id_current_external_storage = '.$id;
 						break;
 					case "personalTable":
-						$condition = 'copy = 0 AND is_personal = 1 AND Id_current_external_storage = '.$idCurrentES;
+						$condition = 'copy = 0 AND is_personal = 1 AND Id_current_external_storage = '.$id;
 						break;
 					case "unknownTable":
-						$condition = 'copy = 0 AND is_personal = 0 AND imdb = "tt0000000" AND Id_current_external_storage = '.$idCurrentES;
+						$condition = 'copy = 0 AND is_personal = 0 AND imdb = "tt0000000" AND Id_current_external_storage = '.$id;
 						break;
 				}
 				$criteria = new CDbCriteria();
