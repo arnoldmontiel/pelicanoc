@@ -380,9 +380,9 @@ class SiteController extends Controller
 			if(isset($modelCurrentES))
 				$finishScan = 1;
 			
-			//Traigo los registros que terminaron el escaneo y que ya fueron copiados
+			//Traigo los registros que no estan escaneandose
 			$criteria = new CDbCriteria();
-			$criteria->addCondition('t.status = 7 OR t.status = 3');
+			$criteria->addCondition('t.status <> 6');
 			$criteria->addCondition('t.Id_current_external_storage = '.$idCurrentES);
 			
 			$modelESDatas = ExternalStorageData::model()->findAll($criteria);
@@ -412,6 +412,7 @@ class SiteController extends Controller
 													'alreadyExists'=>$alreadyExists, 
 													'isUnknown'=>$isUnknown,
 													'status'=>$modelESData->status,
+													'copy'=>$modelESData->copy,
 													'name'=>$name);
 			}
 			
