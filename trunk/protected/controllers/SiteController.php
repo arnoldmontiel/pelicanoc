@@ -277,42 +277,37 @@ class SiteController extends Controller
 
 	public function actionAjaxProcessAllExternalStorage()
 	{
-		$idTable = (isset($_POST['idTable']))?$_POST['idTable']:null;		
+		$idTable = (isset($_POST['idTable']))?$_POST['idTable']:'';		
 		$id = (isset($_POST['id']))?$_POST['id']:null;
 		
 		$onCopyModels = array();
-		if(isset($idESData) && isset($id))
+		if(!empty($idTable) && isset($id))
 		{
-			$modelESData = ExternalStorageData::model()->findByPk($idESData);
-			if(isset($modelESData))
+			$condition = "";
+			switch ($idTable) 
 			{
-				$condition = "";
-				switch ($idTable) 
-				{
-					case "knownTable":
-						$condition = "copy = 0 AND is_personal = 0 AND imdb <> 'tt0000000' AND Id_current_external_storage = ".$id;
-						break;
-					case "personalTable":
-						$condition = "copy = 0 AND is_personal = 1 AND Id_current_external_storage = ".$id;
-						break;
-					case "unknownTable":
-						$condition = "copy = 0 AND is_personal = 0 AND imdb = 'tt0000000' AND Id_current_external_storage = ".$id;
-						break;
-				}
-				$criteria = new CDbCriteria();
-				$criteria->addCondition($condition);
-				
-				$modelESDatas = ExternalStorageData::model()->findAll($criteria);				
-
-				foreach($modelESDatas as $modelESData)
-				{
-					$onCopyModels[] = array('id'=>$modelESData->Id);
-				}
-				
-				ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
-				
-				//ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);
-			}			
+				case "knownTable":
+					$condition = "copy = 0 AND is_personal = 0 AND imdb <> 'tt0000000' AND Id_current_external_storage = ".$id;
+					break;
+				case "personalTable":
+					$condition = "copy = 0 AND is_personal = 1 AND Id_current_external_storage = ".$id;
+					break;
+				case "unknownTable":
+					$condition = "copy = 0 AND is_personal = 0 AND imdb = 'tt0000000' AND Id_current_external_storage = ".$id;
+					break;
+			}
+			$criteria = new CDbCriteria();
+			$criteria->addCondition($condition);
+			
+			$modelESDatas = ExternalStorageData::model()->findAll($criteria);								
+			foreach($modelESDatas as $modelESData)
+			{
+				$onCopyModels[] = array('id'=>$modelESData->Id);
+			}
+			
+			ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
+			
+			ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);		
 		}
 		
 		$response = array('onCopyModels'=>$onCopyModels);

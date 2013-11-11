@@ -224,12 +224,12 @@ function copyAll(idTable)
 					for(var index = 0; index < obj.onCopyModels.length; index++)
 					{
 						var iddata = obj.onCopyModels[index].id;
-						var tdStatus = $(this).find('#idTdStatus_' + iddata);
+						var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + iddata);
 				        if(tdStatus.length > 0)
 						{				
 							tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");				
 						}
-				        var tdButton = $(this).find('#idTdButton_' + iddata);						
+				        var tdButton = $('#wizardDispositivos').find('#idTdButton_' + iddata);						
 						if(tdButton.length > 0)
 						{	
 							tdButton.children().text('Cancelar');
@@ -237,6 +237,11 @@ function copyAll(idTable)
 							tdButton.children().addClass('btn-danger');				
 							tdButton.children().attr('onclick','cancelCopy('+iddata+')');				
 						}	
+						var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + iddata);
+						if(tdAsoc.length > 0)
+						{
+							tdAsoc.children().attr('disabled','disabled');
+						}
 					}
 					$('#hidden-process-working').val(1);
 				}
