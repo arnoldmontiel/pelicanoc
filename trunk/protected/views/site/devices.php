@@ -103,7 +103,7 @@ function getSecondScan()
 								else
 									tdStatus.html("<i class='fa fa-check'></i> Importado");
 
-								if(copy == 1 obj.inProcess == 1)
+								if(copy == 1 && obj.inProcess == 1)
 								{
 									tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");
 								}
