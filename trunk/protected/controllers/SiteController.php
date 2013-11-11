@@ -280,6 +280,7 @@ class SiteController extends Controller
 		$idTable = (isset($_POST['idTable']))?$_POST['idTable']:null;		
 		$id = (isset($_POST['id']))?$_POST['id']:null;
 		
+		$onCopyModels = array();
 		if(isset($idESData) && isset($id))
 		{
 			$modelESData = ExternalStorageData::model()->findByPk($idESData);
@@ -289,20 +290,34 @@ class SiteController extends Controller
 				switch ($idTable) 
 				{
 					case "knownTable":
-						$condition = 'is_personal = 0 AND imdb <> "tt0000000" AND Id_current_external_storage = '.$idCurrentES;
+						$condition = 'copy = 0 AND is_personal = 0 AND imdb <> "tt0000000" AND Id_current_external_storage = '.$idCurrentES;
 						break;
 					case "personalTable":
-						$condition = 'is_personal = 1 AND Id_current_external_storage = '.$idCurrentES;
+						$condition = 'copy = 0 AND is_personal = 1 AND Id_current_external_storage = '.$idCurrentES;
 						break;
 					case "unknownTable":
-						$condition = 'is_personal = 0 AND imdb = "tt0000000" AND Id_current_external_storage = '.$idCurrentES;
+						$condition = 'copy = 0 AND is_personal = 0 AND imdb = "tt0000000" AND Id_current_external_storage = '.$idCurrentES;
 						break;
 				}
+				$criteria = new CDbCriteria();
+				$criteria->addCondition($condition);
+				
+				$modelESDatas = ExternalStorageData::model()->findAll($criteria);				
+
+				foreach($modelESDatas as $modelESData)
+				{
+					$onCopyModels[] = array('id'=>$modelESData->Id);
+				}
+				
 				ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
 				
 				//ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);
 			}			
 		}
+		
+		$response = array('onCopyModels'=>$onCopyModels);
+		
+		echo json_encode($response);
 	}
 	
 	public function actionAjaxOpenChangeName()
