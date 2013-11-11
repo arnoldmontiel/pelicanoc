@@ -124,6 +124,9 @@ class FolderCommand extends CConsoleCommand  {
 	
 			if(isset($modelESData))
 			{
+				$modelESData->status = 2; //start copy
+				$modelESData->save();
+				
 				self::copyExternalStorage($modelESData);
 				if(self::processPeliFileES($modelESData))
 				{
