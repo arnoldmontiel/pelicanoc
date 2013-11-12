@@ -205,7 +205,7 @@ $(document).ready(function(){
 		$('#wall .items').infinitescroll('filterText');  
 	});
 
-	$('#nav a').click(function(){		
+	$('#nav a').click(function(){
 		window.location = $(this).attr('href');
 		return false;
 	});
@@ -230,7 +230,11 @@ $(document).ready(function(){
 		  $('#filtroGenero li.active').removeClass('active')
 		  $(this).parent('li').addClass('active');
 		  $("#selectedGenero .selected").text($(this).text());
-		})
+		});
+	
+	$('#popover-disp').click(function(){
+		$('#popover-disp').popover('hide');
+	});
 	
     $('#MenuLogo').click(function(){    	
 	  window.location = <?php echo '"'. SiteController::createUrl('site/index') . '"'; ?>;    	
@@ -245,6 +249,7 @@ $(document).ready(function(){
 				$('#myModal').modal('show'); 
 			});
     });
+    
     $('#playlist').click(function(){
     	$.post("<?php echo SiteController::createUrl('AjaxPlaylistsShow'); ?>"
 		).success(
@@ -295,8 +300,7 @@ $(document).ready(function(){
           <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 		  <li id="li-download"><a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargas</a></li>   
-		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>" id="popover-disp">Dispositivos <span id="devicesQty" class="badge">0</span></a></li>		  
-		  <!--  <div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverDisButtons"><button type="button" class="btn btn-default">Cerrar</button><button type="button" class="btn btn-primary noMargin">Examinar</button></div></div></div></li>-->		  
+		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>" id="popover-disp">Dispositivos <span id="devicesQty" style="display:none" class="badge"></span></a></li>
         </ul>
           <?php 
 			 	$customer = Setting::getInstance()->getCustomer();
