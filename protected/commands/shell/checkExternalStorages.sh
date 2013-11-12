@@ -13,7 +13,12 @@ then
       #echo $ID_FS_LABEL>>/home/arnold/usb_arnold.txt
       if [ "$USBPATH" != "" ]
       then
-	/var/www/pelicano/protected/yiic folder AddedExternalStorage --label=$ID_FS_LABEL --path=$USBPATH
+	if [ "$ID_FS_LABEL" != "" ]
+	then
+	  /var/www/pelicano/protected/yiic folder AddedExternalStorage --label=$ID_FS_LABEL --path=$USBPATH
+	else
+	  /var/www/pelicano/protected/yiic folder AddedExternalStorage --label=$ID_VENDOR --path=$USBPATH
+	fi
       fi
     fi
 fi
