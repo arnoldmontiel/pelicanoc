@@ -142,7 +142,7 @@ class ReadFolderHelper
 		$currentExternalStorage =  new CurrentExternalStorage;
 		$currentExternalStorage->is_in = 1;
 		$currentExternalStorage->path = $path;
-		$currentExternalStorage->label = $label;
+		$currentExternalStorage->label = "USB ".str_replace (  "_", " ", $label);
 		$currentExternalStorage->save();		
 	}
 	static public function removedExternalStorage()
