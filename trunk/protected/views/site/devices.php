@@ -84,18 +84,8 @@ function getSecondScan()
 							var tdName = tr.find('#idTdName_' + id);
 							if(tdName.length > 0)
 								tdName.html(name);
-											
-							var tdStatus = tr.find('#idTdStatus_' + id);
-							if(tdStatus.length > 0)
-								tdStatus.html(getTdStatus(obj.modelFinishESDataArray[index]));
-							
-							var tdButton = tr.find('#idTdButton_' + id);
-							if(tdButton.length > 0)
-								tdButton.html(getTdButton(obj.modelFinishESDataArray[index]));								
-							
-							var tdAsoc = tr.find('#idTdAsoc_' + id);
-							if(tdAsoc.length > 0)
-								getTdAsoc(obj.modelFinishESDataArray[index], tdAsoc);
+
+							updateTds(obj.modelFinishESDataArray[index]);							
 							
 							if(isUnknown == 1)
 							{
@@ -121,6 +111,25 @@ function getSecondScan()
 					$('#copy-all-unknown').removeAttr('disabled');
 				}
 		});	
+	}
+}
+
+function updateTds(obj)
+{
+	if(obj != null)
+	{
+		var id = obj.id;
+		var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
+		if(tdStatus.length > 0)
+			tdStatus.html(getTdStatus(obj));
+	
+		var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
+		if(tdButton.length > 0)
+			tdButton.html(getTdButton(obj));
+		
+		var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);
+		if(tdAsoc.length > 0)
+			getTdAsoc(obj, tdAsoc);
 	}
 }
 
@@ -213,19 +222,7 @@ function getProcessStatus()
 					{
 						for(var index = 0; index < obj.modelFinishCopyESDataArray.length; index++)
 						{
-							var id = obj.modelFinishCopyESDataArray[index].id;
-							
-							var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
-							if(tdStatus.length > 0)
-								tdStatus.html(getTdStatus(obj.modelFinishCopyESDataArray[index]));								
-
-							var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
-							if(tdButton.length > 0)
-								tdButton.html(getTdButton(obj.modelFinishCopyESDataArray[index]));
-							
-							var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);
-							if(tdAsoc.length > 0)
-								getTdAsoc(obj.modelFinishCopyESDataArray[index], tdAsoc);
+							updateTds(obj.modelFinishCopyESDataArray[index]);
 						}
 					}
 					if(obj.finishCopy == 1)
@@ -251,19 +248,7 @@ function copyAll(idTable)
 				{
 					for(var index = 0; index < obj.onCopyModels.length; index++)
 					{
-						var iddata = obj.onCopyModels[index].id;
-						
-						var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + iddata);
-				        if(tdStatus.length > 0)
-							tdStatus.html(getTdStatus(obj.onCopyModels[index]));
-										
-				        var tdButton = $('#wizardDispositivos').find('#idTdButton_' + iddata);						
-						if(tdButton.length > 0)
-							tdButton.html(getTdButton(obj.onCopyModels[index]));
-							
-						var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + iddata);
-						if(tdAsoc.length > 0)
-							getTdAsoc(obj.onCopyModels[index], tdAsoc);
+						updateTds(obj.onCopyModels[index]);
 					}
 					$('#hidden-process-working').val(1);
 				}
@@ -303,17 +288,7 @@ function cancelCopy(id)
 				var obj = jQuery.parseJSON(data);
 				if(obj.canceledModel != null)
 				{	
-					var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
-			        if(tdStatus.length > 0)
-						tdStatus.html(getTdStatus(obj.canceledModel));
-									
-			        var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);						
-					if(tdButton.length > 0)
-						tdButton.html(getTdButton(obj.canceledModel));
-
-					var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);						
-					if(tdAsoc.length > 0)
-						getTdAsoc(obj.canceledModel, tdAsoc);
+					updateTds(obj.canceledModel);
 				}							
 	});
 	
@@ -332,17 +307,7 @@ function copyVideo(id)
 			var obj = jQuery.parseJSON(data);
 			if(obj.processModel != null)
 			{
-				var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
-		        if(tdStatus.length > 0)
-					tdStatus.html(getTdStatus(obj.processModel));
-								
-		        var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);						
-				if(tdButton.length > 0)
-					tdButton.html(getTdButton(obj.processModel));
-
-				var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);						
-				if(tdAsoc.length > 0)
-					getTdAsoc(obj.processModel, tdAsoc);
+				updateTds(obj.processModel);
 			}
 	});
 }
