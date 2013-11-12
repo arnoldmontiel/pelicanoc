@@ -63,7 +63,10 @@ function getCurrentState()
     					$('#devicesQty').html(obj.currentUSB.devicesQty);
         			}
     				else
+    				{
+    					$('#popover-disp').popover('hide');
     					$('#devicesQty').hide();
+    				}
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
     				{    			        					
