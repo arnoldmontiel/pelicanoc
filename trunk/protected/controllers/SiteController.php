@@ -475,6 +475,7 @@ class SiteController extends Controller
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$modelCurrentES = null;
 		$ready = false;
+		$label = "USB";
 		if(isset($idCurrentES))
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
@@ -485,11 +486,17 @@ class SiteController extends Controller
 				$modelESDataDBs = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES));
 				$ready = true;
 			}
+			
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES))
+				$label = $modelCurrentES->label;
+			
 		}
 
 		if($ready)
 			$this->renderPartial('_devicesStep1',array('modelESDataDBs'=>$modelESDataDBs,
 					'ready'=>$ready,
+					'label'=>$label,
 					'idCurrentES'=>$idCurrentES));
 		else
 			echo "0";
@@ -539,11 +546,13 @@ class SiteController extends Controller
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$modelESDatas = null;
 		$modelESDataPersonals = null;
+		$label = "USB";
 		if(isset($idCurrentES))
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
 			if(isset($modelCurrentES))
 			{
+				$label = $modelCurrentES->label;
 				$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,'is_personal'=>0));
 				$modelESDataPersonals = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,'is_personal'=>1));
 				if($modelCurrentES->hard_scan_ready == 0)
@@ -551,16 +560,25 @@ class SiteController extends Controller
 			}
 		}
 		$this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
-													'modelESDataPersonals'=>$modelESDataPersonals));
+													'modelESDataPersonals'=>$modelESDataPersonals,
+													'label'=>$label));
 	}
 
 	public function actionAjaxExploreExternalStorage()
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
+		$name = "USB";
 		if(isset($idCurrentES))
-			ReadFolderHelper::scanExternalStorage($idCurrentES);
+		{
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES))
+			{
+				ReadFolderHelper::scanExternalStorage($idCurrentES);
+				$name = $modelCurrentES->label; 
+			}
+		}
 
-		echo "<h2>USB 1 (Kingston) <i class='fa fa-spinner fa-spin'></i> Analizando...</h2>";
+		echo "<h2>".$name." <i class='fa fa-spinner fa-spin'></i> Analizando...</h2>";
 	}
 
 	public function actionAjaxMarkCurrentESRead()
@@ -1253,7 +1271,7 @@ class SiteController extends Controller
 		$devicesQty = 0;
 		$idUnread = 0;
 		$nameUnread = '';
-		
+		$label = "";
 		$devicesQty = count($modelCurrentUSBs);
 		if($devicesQty>0)
 		{
@@ -1264,6 +1282,7 @@ class SiteController extends Controller
 				{
 					$idUnread = $modelCurrentUSB->Id; 
 					$read = 0;
+					$label = $modelCurrentUSB->label;
 					break;
 				}
 			}
@@ -1273,7 +1292,8 @@ class SiteController extends Controller
 							'read'=>$read, 
 							'devicesQty'=>$devicesQty,
 							'idUnread'=>$idUnread,
-							'nameUnread'=>$nameUnread);
+							'nameUnread'=>$nameUnread,
+							'label'=>$label);
 
 		$response = array('playBack'=>$this->getPlayback(),
 				'currentDisc'=>$currentDisc,

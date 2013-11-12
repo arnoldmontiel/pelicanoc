@@ -58,13 +58,19 @@ function getCurrentState()
     			if(obj.currentUSB != null)
     			{
     				if(obj.currentUSB.devicesQty >= 1)
+        			{
+    					$('#devicesQty').show();
     					$('#devicesQty').html(obj.currentUSB.devicesQty);
+        			}
+    				else
+    					$('#devicesQty').hide();
 					
     				if(obj.currentUSB.is_in == 1 && obj.currentUSB.read == 0)
     				{    			        					
     					if(!$('#popover-dispositivos').is(":visible"))
-    					{			
+    					{        					    						
     						$('#popover-disp').popover('show');
+    						$('#popoverDisTitle').text(obj.currentUSB.label);
     						$('#btnGoToDevice').attr('iddevice',obj.currentUSB.idUnread);
     					}    					
     				}    				
@@ -126,7 +132,7 @@ function goToDevices()
 }
 
 $(document).ready(function(){
-	var elem ='Nuevo Dispositivo conectado<div class="popoverDisTitle">USB (Kingston)</div><div class="popoverButtons"><button type="button" onclick="closePopover()" class="btn btn-default">Cerrar</button><button type="button" onclick="goToDevices()" id="btnGoToDevice" class="btn btn-primary noMargin">Examinar</button></div></div>';
+	var elem ='Nuevo Dispositivo conectado<div id="popoverDisTitle" class="popoverDisTitle">USB (Kingston)</div><div class="popoverButtons"><button type="button" onclick="closePopover()" class="btn btn-default">Cerrar</button><button type="button" onclick="goToDevices()" id="btnGoToDevice" class="btn btn-primary noMargin">Examinar</button></div></div>';
 	$('#popover-disp').popover({
         placement: 'bottom',
         content:elem,

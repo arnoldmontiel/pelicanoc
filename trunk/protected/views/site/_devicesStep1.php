@@ -1,4 +1,4 @@
-<h3>USB 1 (Kingston)</h3>
+<h3><?php echo $label;?></h3>
 	Indique si alguno de estos archivos es un video personal, luego proceda a analizar el disco para encontrar las peliculas.       
 <div class="table-responsive">
 	<table class="table table-bordered">
