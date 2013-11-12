@@ -22,8 +22,12 @@ class WsMonitor
 		ini_set ('soap.wsdl_cache_enabled',0);
 		$model = ExternalWsdl::model()->findByAttributes(array('description'=>'Monitor'));
 		$url = $model->url;
-		$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));
-		$this->token = $this->login($model->username, $model->password);
+		try {
+			$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));				
+			$this->token = $this->login($model->username, $model->password);
+		} catch (Exception $e) {
+			$this->soapClient = null;
+		}
 	}
 
 
