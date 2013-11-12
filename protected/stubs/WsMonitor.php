@@ -23,7 +23,7 @@ class WsMonitor
 		$model = ExternalWsdl::model()->findByAttributes(array('description'=>'Monitor'));
 		$url = $model->url;
 		try {
-			$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exceptions" => true));				
+			$this->soapClient = new SoapClient($url,array("classmap"=>self::$classmap,"trace" => true,"exception" => true));				
 			$this->token = $this->login($model->username, $model->password);
 		} catch (Exception $e) {
 			$this->soapClient = null;
