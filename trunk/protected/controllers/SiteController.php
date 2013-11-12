@@ -242,7 +242,7 @@ class SiteController extends Controller
 	public function actionAjaxCancelCopy()
 	{
 		$idESData = (isset($_POST['id']))?$_POST['id']:null;
-		
+		$canceledModel = array();
 		$response = 0;
 		if(isset($idESData))
 		{
@@ -253,16 +253,28 @@ class SiteController extends Controller
 				{
 					$modelESData->copy = 0;
 					if($modelESData->save())
-						$response = 1;
+					{
+						$canceledModel['id'] = $modelESData->Id;
+						$canceledModel['copy'] = $modelESData->copy;
+						$canceledModel['status'] = $modelESData->status;
+						$exists = ReadFolderHelper::alreadyExists($modelESData);
+						$alreadyExists = ($exists)?1:0; 
+						$canceledModel['alreadyExists'] = $alreadyExists;
+					}
 				}
 			}
 		}
-		echo $response;
+		
+		$response = array('canceledModel'=>$canceledModel);
+		
+		echo json_encode($response);
+		
 	}
 	
 	public function actionAjaxProcessExternalStorage()
 	{
 		$idESData = (isset($_POST['id']))?$_POST['id']:null;
+		$processModel = array();
  		if(isset($idESData))
  		{
  			$modelESData = ExternalStorageData::model()->findByPk($idESData);
@@ -270,9 +282,21 @@ class SiteController extends Controller
  			{
  				$modelESData->copy = 1;
  				if($modelESData->save())
+ 				{
+ 					$processModel['id'] = $modelESData->Id;
+ 					$processModel['copy'] = $modelESData->copy;
+ 					$processModel['status'] = $modelESData->status;
+ 					$exists = ReadFolderHelper::alreadyExists($modelESData);
+ 					$alreadyExists = ($exists)?1:0;
+ 					$processModel['alreadyExists'] = $alreadyExists;
+ 					
  					ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);
+ 				}
  			}
  		}
+ 		$response = array('processModel'=>$processModel);
+ 		
+ 		echo json_encode($response);
 	}
 
 	public function actionAjaxProcessAllExternalStorage()
@@ -303,7 +327,10 @@ class SiteController extends Controller
 						
 			foreach($modelESDatas as $modelESData)
 			{
-				$onCopyModels[] = array('id'=>$modelESData->Id);
+				$onCopyModels[] = array('id'=>$modelESData->Id,				
+										'status'=>$modelESData->status,
+										'copy'=>1,
+										'alreadyExists'=>1);
 			}
 			
 			ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
@@ -397,7 +424,10 @@ class SiteController extends Controller
 																		'status'=>3));	
 			foreach($modelESDatas as $modelESData)
 			{
-				$modelFinishCopyESDataArray[] = array('id'=>$modelESData->Id);
+				$modelFinishCopyESDataArray[] = array('id'=>$modelESData->Id, 
+														'status'=>$modelESData->status,
+														'copy'=>$modelESData->copy,
+														'alreadyExists'=>1);
 			}
 				
 		}		

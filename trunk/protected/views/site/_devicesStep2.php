@@ -48,11 +48,11 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESData->Id));
-	        					echo "<i class='fa fa-spinner fa-spin'></i> Analizando...";
+	        					echo ReadFolderHelper::getTdStatus($modelESData);	        				
 	        				echo CHtml::closeTag("td");
 
 	        				echo CHtml::openTag("td",array('id'=>'idTdButton_'.$modelESData->Id));
-	        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
+	        					echo ReadFolderHelper::getTdButton($modelESData);
 	        				echo CHtml::closeTag("td");
 	        				
 	        			echo CHtml::closeTag("tr");
@@ -105,11 +105,11 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESDataPersonal->Id));
-	        					echo "<i class='fa fa-spinner fa-spin'></i> Analizando...";
+	        					echo ReadFolderHelper::getTdStatus($modelESDataPersonal);
 	        				echo CHtml::closeTag("td");
 
 	        				echo CHtml::openTag("td",array('id'=>'idTdButton_'.$modelESDataPersonal->Id));
-	        					echo "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
+	        					echo ReadFolderHelper::getTdButton($modelESDataPersonal);
 	        				echo CHtml::closeTag("td");
 	        				
 	        			echo CHtml::closeTag("tr");
