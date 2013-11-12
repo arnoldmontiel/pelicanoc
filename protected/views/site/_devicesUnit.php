@@ -4,12 +4,7 @@
 		{
 			foreach($modelCurrentESs as $modelCurrentES)
 			{
-// 				$paths = explode('/', $modelCurrentES->path);
-// 				$size = count($paths);
-// 				$nameES = "";
-// 				if($size>0)
-// 					$nameES = $paths[$size-1];
-				$nameES = "USB 2";
+				$nameES = $modelCurrentES->label;
 				if($idSelected == $modelCurrentES->Id)
 					echo "<li id=".$modelCurrentES->Id." class='usb-button-scan active'><a href='#'>".$nameES."</a><a type='button' class='ejectBTN btn btn-default'><i class='fa fa-eject'></i></a></li>";
 				else							

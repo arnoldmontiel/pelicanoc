@@ -1,6 +1,6 @@
 
-<div id="scaningLabel"><h2>USB 1 (Kingston) <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
-<div id="NoScaningLabel" style="display:none"><h2>USB 1 (Kingston) </h2></div>
+<div id="scaningLabel"><h2><?php echo $label;?> <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
+<div id="NoScaningLabel" style="display:none"><h2><?php echo $label;?> </h2></div>
 	Lista de videos detectados:       
     <div class="table-responsive">
     	<h3>Peliculas</h3>

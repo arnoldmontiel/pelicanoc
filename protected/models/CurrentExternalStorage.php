@@ -13,6 +13,7 @@
  * @property integer $state
  * @property integer $soft_scan_ready
  * @property integer $hard_scan_ready
+ * @property string $label
  *
  * The followings are the available model relations:
  * @property ExternalStorageData[] $externalStorageDatas
@@ -37,10 +38,11 @@ class CurrentExternalStorage extends CActiveRecord
 		return array(
 			array('is_in, read, state, soft_scan_ready, hard_scan_ready', 'numerical', 'integerOnly'=>true),
 			array('path', 'length', 'max'=>200),
+			array('label', 'length', 'max'=>256),
 			array('in_date, out_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, in_date, out_date, is_in, read, path, state, soft_scan_ready, hard_scan_ready', 'safe', 'on'=>'search'),
+			array('Id, in_date, out_date, is_in, read, path, state, soft_scan_ready, hard_scan_ready, label', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +73,7 @@ class CurrentExternalStorage extends CActiveRecord
 			'state' => 'State',
 			'soft_scan_ready' => 'Soft Scan Ready',
 			'hard_scan_ready' => 'Hard Scan Ready',
+			'label' => 'Label',
 		);
 	}
 
@@ -101,6 +104,7 @@ class CurrentExternalStorage extends CActiveRecord
 		$criteria->compare('state',$this->state);
 		$criteria->compare('soft_scan_ready',$this->soft_scan_ready);
 		$criteria->compare('hard_scan_ready',$this->hard_scan_ready);
+		$criteria->compare('label',$this->label,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
