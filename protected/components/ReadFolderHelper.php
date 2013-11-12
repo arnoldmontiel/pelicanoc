@@ -289,4 +289,77 @@ class ReadFolderHelper
 		else
 		return FALSE;
 	}
+	
+	static public function alreadyExists($modelESData)
+	{
+		$exists = false;
+		
+		$setting = Setting::getInstance();
+		$localFolderPath = str_replace($modelESData->currentExternalStorage->path,'',$modelESData->path);
+		$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
+		
+		if(!empty($modelESData->file))
+			$localFolderPath = $localFolderPath.'/'.$modelESData->file;
+			
+		$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));		
+		
+		if(isset($modelLocalFolder))
+			$exists = true;
+		
+		return $exists;
+	}
+	
+	static public function getTdStatus($modelESData)
+	{		
+		$td = "<i class='fa fa-spinner fa-spin'></i> Analizando...";
+		if(isset($modelESData))
+		{
+			if($modelESData->status != 6 && $modelESData->status != 1) //si no esta escaneando puedo saber el estado
+			{
+				if($modelESData->copy == 1)
+				{
+					if($modelESData->status == 3) //ya esta copiado listo para ver
+						$td = "<i class='fa fa-check'></i> Importado";
+					else
+						$td = "<i class='fa fa-spinner fa-spin'></i> Importando...";
+				}
+				else 
+				{
+					if(self::alreadyExists($modelESData))
+						$td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
+					else
+						$td = "<i class='fa fa-smile-o'></i> Disponible";
+				}
+			}			
+		}
+		return $td;
+	}
+	
+	static public function getTdButton($modelESData)
+	{
+		$td = "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
+		if(isset($modelESData))
+		{
+			if($modelESData->status != 6 && $modelESData->status != 1) //si no esta escaneando puedo saber el estado
+			{
+				if($modelESData->copy == 1)
+				{
+					if($modelESData->status == 3) //ya esta copiado listo para ver
+						$td = "<button type='button' onclick='playVideo(".$modelESData->Id.")' class='btn btn-primary'>Ver</button>";
+					else
+						$td = "<button type='button' onclick='cancelCopy(".$modelESData->Id.")' class='btn btn-danger'>Cancelar</button>";					
+				}
+				else
+				{
+					$exists = self::alreadyExists($modelESData);
+					$alreadyExists = ($exists)?1:0; 
+					if($exists)
+						$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Sobreescribir</button>";
+					else
+						$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Importar</button>";
+				}
+			}
+		}
+		return $td;
+	}
 }

@@ -74,68 +74,29 @@ function getSecondScan()
 				{
 					for(var index = 0; index < obj.modelFinishESDataArray.length; index++)
 					{
-						var id = obj.modelFinishESDataArray[index].id;
-						var alreadyExists = obj.modelFinishESDataArray[index].alreadyExists;
+						var id = obj.modelFinishESDataArray[index].id;						
 						var isUnknown = obj.modelFinishESDataArray[index].isUnknown;
 						var name = obj.modelFinishESDataArray[index].name;
-						var status = obj.modelFinishESDataArray[index].status;
-						var copy = obj.modelFinishESDataArray[index].copy;
 						var tr = $('#wizardDispositivos').find('#idTr_' + id);
 												
 						if(tr.length > 0)
 						{			
 							var tdName = tr.find('#idTdName_' + id);
 							if(tdName.length > 0)
-							{
 								tdName.html(name);
-							}
 											
 							var tdStatus = tr.find('#idTdStatus_' + id);
 							if(tdStatus.length > 0)
-							{								
-								if(status == 7)
-								{
-									if(alreadyExists == 1)
-										tdStatus.html("<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca");
-									else
-										tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
-								}
-								else
-									tdStatus.html("<i class='fa fa-check'></i> Importado");
-
-								if(copy == 1 && obj.inProcess == 1)
-								{
-									tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");
-								}
-									
-							}
+								tdStatus.html(getTdStatus(obj.modelFinishESDataArray[index]));
+							
 							var tdButton = tr.find('#idTdButton_' + id);
 							if(tdButton.length > 0)
-							{
-								if(status == 7)
-								{
-									if(alreadyExists == 1)
-										tdButton.html("<button type='button' alreadyexists="+alreadyExists+" onclick='copyVideo("+id+")' class='btn btn-primary'>Sobreescribir</button>");
-									else
-										tdButton.html("<button type='button' alreadyexists="+alreadyExists+" onclick='copyVideo("+id+")' class='btn btn-primary'>Importar</button>");
-								}
-								else
-									tdButton.html("<button type='button' onclick='playVideo("+id+")' class='btn btn-primary'>Ver</button>");
-
-								if(copy == 1 && obj.inProcess == 1)
-								{
-									tdButton.children().text('Cancelar');
-									tdButton.children().removeClass('btn-primary');
-									tdButton.children().addClass('btn-danger');				
-									tdButton.children().attr('onclick','cancelCopy('+id+')');
-								}
-							}
+								tdButton.html(getTdButton(obj.modelFinishESDataArray[index]));								
+							
 							var tdAsoc = tr.find('#idTdAsoc_' + id);
 							if(tdAsoc.length > 0)
-							{
-								if(status == 7)								
-									tdAsoc.children().removeAttr('disabled');
-							}
+								getTdAsoc(obj.modelFinishESDataArray[index], tdAsoc);
+							
 							if(isUnknown == 1)
 							{
 								tr.attr('unknown','1');
@@ -163,6 +124,79 @@ function getSecondScan()
 	}
 }
 
+function getTdAsoc(obj, td)
+{
+	td.children().attr('disabled','disabled');
+	if(obj != null)
+	{
+		if(obj.status != 6 && obj.status != 1) //si no esta escaneando puedo saber el estado
+		{
+			if(obj.copy == 1)
+			{
+				td.children().attr('disabled','disabled');
+			}
+			else 
+			{
+				td.children().removeAttr('disabled');
+			}
+		}			
+	}
+}
+
+function getTdButton(obj)
+{
+	var td = "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
+	if(obj != null)
+	{
+		if(obj.status != 6 && obj.status != 1) //si no esta escaneando puedo saber el estado
+		{
+			if(obj.copy == 1)
+			{
+				if(obj.status == 3) //ya esta copiado listo para ver
+					td = "<button type='button' onclick='playVideo("+obj.id+")' class='btn btn-primary'>Ver</button>";
+				else
+					td = "<button type='button' onclick='cancelCopy("+obj.id+")' class='btn btn-danger'>Cancelar</button>";
+			}
+			else 
+			{
+				if(obj.alreadyExists == 1)
+					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Sobreescribir</button>";
+				else
+					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Importar</button>";
+			}
+		}			
+	}
+
+	return td;
+}
+
+function getTdStatus(obj)
+{
+	var td = "<i class='fa fa-spinner fa-spin'></i> Analizando...";
+	if(obj != null)
+	{
+		if(obj.status != 6 && obj.status != 1) //si no esta escaneando puedo saber el estado
+		{
+			if(obj.copy == 1)
+			{
+				if(obj.status == 3) //ya esta copiado listo para ver
+					td = "<i class='fa fa-check'></i> Importado";
+				else
+					td = "<i class='fa fa-spinner fa-spin'></i> Importando...";
+			}
+			else 
+			{
+				if(obj.alreadyExists == 1)
+					td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
+				else
+					td = "<i class='fa fa-smile-o'></i> Disponible";
+			}
+		}			
+	}
+
+	return td;
+}
+
 function getProcessStatus()
 {
 	var working = $('#hidden-process-working').val();
@@ -180,24 +214,18 @@ function getProcessStatus()
 						for(var index = 0; index < obj.modelFinishCopyESDataArray.length; index++)
 						{
 							var id = obj.modelFinishCopyESDataArray[index].id;
+							
 							var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
 							if(tdStatus.length > 0)
-							{
-								tdStatus.html("<i class='fa fa-check'></i> Importado");								
-							}
+								tdStatus.html(getTdStatus(obj.modelFinishCopyESDataArray[index]));								
+
 							var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
 							if(tdButton.length > 0)
-							{
-								tdButton.children().removeClass('btn-danger');
-								tdButton.children().addClass('btn-primary');
-								tdButton.children().text('Ver');
-								tdButton.children().attr('onclick','playVideo('+id+')');	
-							}
+								tdButton.html(getTdButton(obj.modelFinishCopyESDataArray[index]));
+							
 							var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);
 							if(tdAsoc.length > 0)
-							{
-								tdAsoc.children().attr('disabled','disabled');
-							}
+								getTdAsoc(obj.modelFinishCopyESDataArray[index], tdAsoc);
 						}
 					}
 					if(obj.finishCopy == 1)
@@ -224,24 +252,18 @@ function copyAll(idTable)
 					for(var index = 0; index < obj.onCopyModels.length; index++)
 					{
 						var iddata = obj.onCopyModels[index].id;
+						
 						var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + iddata);
 				        if(tdStatus.length > 0)
-						{				
-							tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");				
-						}
+							tdStatus.html(getTdStatus(obj.onCopyModels[index]));
+										
 				        var tdButton = $('#wizardDispositivos').find('#idTdButton_' + iddata);						
 						if(tdButton.length > 0)
-						{	
-							tdButton.children().text('Cancelar');
-							tdButton.children().removeClass('btn-primary');
-							tdButton.children().addClass('btn-danger');				
-							tdButton.children().attr('onclick','cancelCopy('+iddata+')');				
-						}	
+							tdButton.html(getTdButton(obj.onCopyModels[index]));
+							
 						var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + iddata);
 						if(tdAsoc.length > 0)
-						{
-							tdAsoc.children().attr('disabled','disabled');
-						}
+							getTdAsoc(obj.onCopyModels[index], tdAsoc);
 					}
 					$('#hidden-process-working').val(1);
 				}
@@ -278,30 +300,20 @@ function cancelCopy(id)
 		}
 		).success(
 			function(data){
-				if(data != 0)
+				var obj = jQuery.parseJSON(data);
+				if(obj.canceledModel != null)
 				{	
-					var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);
+					var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
+			        if(tdStatus.length > 0)
+						tdStatus.html(getTdStatus(obj.canceledModel));
+									
+			        var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);						
 					if(tdButton.length > 0)
-					{	
-						var alreadyexists = tdButton.children().attr('alreadyexists');
-						if(alreadyexists == 0)
-							tdButton.children().text('Importar');
-						else
-							tdButton.children().text('Sobreescribir');
+						tdButton.html(getTdButton(obj.canceledModel));
 
-						tdButton.children().removeClass('btn-danger');
-						tdButton.children().addClass('btn-primary');
-						tdButton.children().attr('onclick','copyVideo('+id+')');
-
-						tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
-						if(tdStatus.length > 0)
-						{
-							if(alreadyexists == 1)
-								tdStatus.html("<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca");
-							else
-								tdStatus.html("<i class='fa fa-smile-o'></i> Disponible");
-						}				
-					}
+					var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);						
+					if(tdAsoc.length > 0)
+						getTdAsoc(obj.canceledModel, tdAsoc);
 				}							
 	});
 	
@@ -316,20 +328,22 @@ function copyVideo(id)
 		}
 	).success(
 		function(data){	
-			$('#hidden-process-working').val(1);		
-			var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
-			if(tdStatus.length > 0)
-			{				
-				tdStatus.html("<i class='fa fa-spinner fa-spin'></i> Importando...");				
+			$('#hidden-process-working').val(1);					
+			var obj = jQuery.parseJSON(data);
+			if(obj.processModel != null)
+			{
+				var tdStatus = $('#wizardDispositivos').find('#idTdStatus_' + id);
+		        if(tdStatus.length > 0)
+					tdStatus.html(getTdStatus(obj.processModel));
+								
+		        var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);						
+				if(tdButton.length > 0)
+					tdButton.html(getTdButton(obj.processModel));
+
+				var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);						
+				if(tdAsoc.length > 0)
+					getTdAsoc(obj.processModel, tdAsoc);
 			}
-			var tdButton = $('#wizardDispositivos').find('#idTdButton_' + id);						
-			if(tdButton.length > 0)
-			{	
-				tdButton.children().text('Cancelar');
-				tdButton.children().removeClass('btn-primary');
-				tdButton.children().addClass('btn-danger');				
-				tdButton.children().attr('onclick','cancelCopy('+id+')');				
-			}			
 	});
 }
 
@@ -359,14 +373,8 @@ function changeAsoc(id)
  	{	
 		$('#myModalEditarAsoc').html(data);
 		$('#myModalEditarAsoc').modal('show');										
-//		$('#open-movie-list').removeAttr('disabled');
-//   	$('#open-movie-list i').removeClass();
-//		$('#open-movie-list i').addClass('fa fa-link');
 	}
  	).error(function(){
-//		$('#open-movie-list').removeAttr('disabled');
-//		$('#open-movie-list i').removeClass();
-//		$('#open-movie-list i').addClass('fa fa-link');
 	});
 }
 
