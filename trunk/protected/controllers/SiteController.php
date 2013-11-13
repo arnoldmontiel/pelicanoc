@@ -752,8 +752,13 @@ class SiteController extends Controller
 			}
 
 			if(isset($modelResource))
+			{
 				if(PelicanoHelper::eraseResource($modelResource->path))
-				$modelResource->delete();
+				{
+					PelicanoHelper::onDeleteCheckES($modelResource, $sourceType);
+					$modelResource->delete();
+				}
+			}
 		}
 	}
 

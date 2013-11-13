@@ -3,6 +3,39 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function onDeleteCheckES($model, $sourceType)
+	{
+		if($sourceType == 3)
+		{
+			if(!empty($model->path_original))
+			{
+				$criteria = new CDbCriteria();
+				$criteria->join = 'INNER JOIN current_external_storage ces on (t.Id_current_external_storage = ces.Id)';
+				$criteria->addCondition('ces.is_in = 1');
+				$criteria->addCondition('ces.soft_scan_ready = 1');
+				$criteria->addCondition('ces.hard_scan_ready = 1');
+				
+				$setting = Setting::getInstance();
+				
+				$modelESDatas = ExternalStorageData::model()->findAll($criteria);
+				foreach($modelESDatas as $modelESData)
+				{
+					$path = $setting->path_shared_pelicano_root.$setting->path_shared_copied;
+					$path .= $modelESData->path;					
+					if(!empty($modelESData->file))
+						$path .= '/'.$modelESData->file;
+					
+					if($path == $model->path_original )
+					{
+						$modelESData->copy = 0;
+						$modelESData->status = 7;
+						$modelESData->save();
+					}
+				}
+			}
+		}
+	}
+	
 	static public function getDirectorySize($path)
 	{
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
