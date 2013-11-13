@@ -144,7 +144,7 @@ class FolderCommand extends CConsoleCommand  {
 					self::copyExternalStorage($modelESData);
 					
 					$modelLocalFolder->ready = 1;
-					$modelLocalFolder->save()
+					$modelLocalFolder->save();
 					
 					$modelESData->status = 3; //finish copy
 					$modelESData->save();
