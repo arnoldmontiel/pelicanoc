@@ -41,13 +41,13 @@ class LocalFolder extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_file_type, Id_my_movie_disc, Id_lote', 'required'),
-			array('Id_file_type, Id_source_type, Id_lote, Id_TMDB_data', 'numerical', 'integerOnly'=>true),
+			array('Id_file_type, Id_source_type, Id_lote, Id_TMDB_data, is_personal, ready', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc', 'length', 'max'=>200),
-			array('path', 'length', 'max'=>255),
+			array('path, path_original', 'length', 'max'=>255),
 			array('read_date, Id_TMDB_data', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Id_file_type, Id_my_movie_disc, Id_source_type, read_date, path, Id_lote, sourceType_description, fileType_description, title', 'safe', 'on'=>'search'),
+			array('Id, Id_file_type, Id_my_movie_disc, Id_source_type, read_date, path, Id_lote, sourceType_description, fileType_description, title, is_personal, ready, path_original', 'safe', 'on'=>'search'),
 		);
 	}
 

@@ -166,33 +166,30 @@ class FolderCommand extends CConsoleCommand  {
 				$copiedPath = self::getCopiedPath($modelESData);
 				$localFolderPath = $finalPath .$copiedPath; 
 				
-				$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
 				
-				if(!isset($modelLocalFolderDB))
+				$source = $externalStoragePath . $modelESData->path;
+				
+				$source = str_replace(' ', '\ ', $source);
+				$source = str_replace('(', '\(', $source);
+				$source = str_replace(')', '\)', $source);
+					
+				$destinationPath = str_replace(' ', '\ ', $destinationPath);
+				$destinationPath = str_replace('(', '\(', $destinationPath);
+				$destinationPath = str_replace(')', '\)', $destinationPath);
+				
+				$sys = strtoupper(PHP_OS);
+				
+				if(substr($sys,0,3) == "WIN")
 				{
+					$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied .$modelESData->path."\\";
+					$destinationPath = str_replace('/','\\',$destinationPath);	
 					$source = $externalStoragePath . $modelESData->path;
-					
-					$source = str_replace(' ', '\ ', $source);
-					$source = str_replace('(', '\(', $source);
-					$source = str_replace(')', '\)', $source);
-						
-					$destinationPath = str_replace(' ', '\ ', $destinationPath);
-					$destinationPath = str_replace('(', '\(', $destinationPath);
-					$destinationPath = str_replace(')', '\)', $destinationPath);
-					
-					$sys = strtoupper(PHP_OS);
-					
-					if(substr($sys,0,3) == "WIN")
-					{
-						$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied .$modelESData->path."\\";
-						$destinationPath = str_replace('/','\\',$destinationPath);	
-						$source = $externalStoragePath . $modelESData->path;
-						$source = str_replace('/','\\',$source);
-						exec('xcopy "'.$source.'" "'.$destinationPath.'" /y/s/r');
-					}
-					else 
-						exec("cp -fr ".$source . " " .$destinationPath);
+					$source = str_replace('/','\\',$source);
+					exec('xcopy "'.$source.'" "'.$destinationPath.'" /y/s/r');
 				}
+				else 
+					exec("cp -fr ".$source . " " .$destinationPath);
+				
 				
 			}
 		}
@@ -221,18 +218,22 @@ class FolderCommand extends CConsoleCommand  {
 					$finalPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied;
 					$localFolderPath = $finalPath . self::getCopiedPath($modelESData);
 						
-					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path_original'=>$localFolderPath));
 					
 					if(!isset($modelLocalFolderDB))
 					{
 						if(self::saveByImdb($modelPeliFile))
 						{
+							$paths = explode('/',$modelESData->path); 
+							$newPath = $paths[size($paths)-1];
+							
 							$modelLocalFolder = new LocalFolder();
 							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
 							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
 							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
-							$modelLocalFolder->Id_lote = $modelLote->Id;
-							$modelLocalFolder->path = $localFolderPath;
+							$modelLocalFolder->Id_lote = $modelLote->Id;							
+							$modelLocalFolder->path = $newPath;
+							$modelLocalFolder->path_original = $localFolderPath;
 							$modelLocalFolder->save();
 						}
 					}
