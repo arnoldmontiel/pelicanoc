@@ -139,11 +139,16 @@ class ReadFolderHelper
 	
 	static public function addedExternalStorage($label,$path)
 	{
-		$currentExternalStorage =  new CurrentExternalStorage;
-		$currentExternalStorage->is_in = 1;
-		$currentExternalStorage->path = $path;
-		$currentExternalStorage->label = "USB ".str_replace (  "_", " ", $label);
-		$currentExternalStorage->save();		
+		try {
+			$currentExternalStorage =  new CurrentExternalStorage;
+			$currentExternalStorage->is_in = 1;
+			$currentExternalStorage->path = $path;
+			$currentExternalStorage->label = "USB ".str_replace ("_"," ", $label);
+			$currentExternalStorage->save();
+				
+		} catch (Exception $e) {
+			var_dump($e);
+		}
 	}
 	static public function removedExternalStorage()
 	{
