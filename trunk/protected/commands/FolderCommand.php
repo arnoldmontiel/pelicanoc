@@ -225,7 +225,7 @@ class FolderCommand extends CConsoleCommand  {
 						if(self::saveByImdb($modelPeliFile))
 						{
 							$paths = explode('/',$modelESData->path); 
-							$newPath = $paths[size($paths)-1];
+							$newPath = $paths[count($paths)-1];
 							
 							$modelLocalFolder = new LocalFolder();
 							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
