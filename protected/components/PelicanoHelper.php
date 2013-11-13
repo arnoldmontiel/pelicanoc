@@ -340,6 +340,7 @@ class PelicanoHelper
 		$heartBeat->Id_device_type = 1;
 		
 		$wsMonitor = new WsMonitor();
+		
 		return $wsMonitor->setHeartBeat($heartBeat);
 	}
 	static public function updateNzbDataFromServer()
