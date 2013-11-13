@@ -326,10 +326,8 @@ class ReadFolderHelper
 			{
 				if($modelESData->copy == 1)
 				{
-					if($modelESData->status == 3 && $exists) //ya esta copiado listo para ver
+					if($modelESData->status == 3) //ya esta copiado listo para ver
 						$td = "<i class='fa fa-check'></i> Importado";
-					else if($modelESData->status == 3 && !$exists)
-						$td = "<i class='fa fa-smile-o'></i> Disponible";
 					else
 						$td = "<i class='fa fa-spinner fa-spin'></i> Importando...";
 				}
@@ -357,10 +355,8 @@ class ReadFolderHelper
 			{
 				if($modelESData->copy == 1)
 				{
-					if($modelESData->status == 3 && $exists) //ya esta copiado listo para ver
+					if($modelESData->status == 3) //ya esta copiado listo para ver
 						$td = "<button type='button' onclick='playVideo(".$modelESData->Id.")' class='btn btn-primary'>Ver</button>";
-					else if($modelESData->status == 3 && !$exists)
-						$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Importar</button>";
 					else
 						$td = "<button type='button' onclick='cancelCopy(".$modelESData->Id.")' class='btn btn-danger'>Cancelar</button>";					
 				}
