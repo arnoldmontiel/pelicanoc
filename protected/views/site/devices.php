@@ -161,8 +161,10 @@ function getTdButton(obj)
 		{
 			if(obj.copy == 1)
 			{
-				if(obj.status == 3) //ya esta copiado listo para ver
+				if(obj.status == 3 && obj.alreadyExists == 1) //ya esta copiado listo para ver
 					td = "<button type='button' onclick='playVideo("+obj.id+")' class='btn btn-primary'>Ver</button>";
+				else if(obj.status == 3 && obj.alreadyExists != 1)
+					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Importar</button>";
 				else
 					td = "<button type='button' onclick='cancelCopy("+obj.id+")' class='btn btn-danger'>Cancelar</button>";
 			}
@@ -188,9 +190,11 @@ function getTdStatus(obj)
 		{
 			if(obj.copy == 1)
 			{
-				if(obj.status == 3) //ya esta copiado listo para ver
-					td = "<i class='fa fa-check'></i> Importado";
-				else
+				if(obj.status == 3 && obj.alreadyExists == 1) //ya esta copiado listo para ver
+					td = "<i class='fa fa-check'></i> Importado";				
+				else if(obj.status == 3 && obj.alreadyExists != 1)
+					td = "<i class='fa fa-smile-o'></i> Disponible";
+				else	
 					td = "<i class='fa fa-spinner fa-spin'></i> Importando...";
 			}
 			else 
