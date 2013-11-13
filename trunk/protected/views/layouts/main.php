@@ -295,7 +295,7 @@ $(document).ready(function(){
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex5-collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" id="nav">
             <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
           <li id="li-serie"><a href="#">Mis Series</a></li>
 		  <li id="li-marketplace"><a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
