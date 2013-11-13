@@ -232,7 +232,7 @@ class FolderCommand extends CConsoleCommand  {
 							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
 							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
 							$modelLocalFolder->Id_lote = $modelLote->Id;							
-							$modelLocalFolder->path = $newPath;
+							$modelLocalFolder->path = $finalPath.'/'.$newPath;
 							$modelLocalFolder->path_original = $localFolderPath;
 							$modelLocalFolder->save();
 						}
