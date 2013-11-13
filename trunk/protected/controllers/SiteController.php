@@ -327,10 +327,13 @@ class SiteController extends Controller
 						
 			foreach($modelESDatas as $modelESData)
 			{
+				$exists = ReadFolderHelper::alreadyExists($modelESData);
+				$alreadyExists = ($exists)?1:0;
+				
 				$onCopyModels[] = array('id'=>$modelESData->Id,				
 										'status'=>$modelESData->status,
 										'copy'=>1,
-										'alreadyExists'=>1);
+										'alreadyExists'=>$alreadyExists);
 			}
 			
 			ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
@@ -424,10 +427,13 @@ class SiteController extends Controller
 																		'status'=>3));	
 			foreach($modelESDatas as $modelESData)
 			{
+				$exists = ReadFolderHelper::alreadyExists($modelESData);
+				$alreadyExists = ($exists)?1:0;
+				
 				$modelFinishCopyESDataArray[] = array('id'=>$modelESData->Id, 
 														'status'=>$modelESData->status,
 														'copy'=>$modelESData->copy,
-														'alreadyExists'=>1);
+														'alreadyExists'=>$alreadyExists);
 			}
 				
 		}		
