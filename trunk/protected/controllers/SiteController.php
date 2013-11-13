@@ -470,7 +470,7 @@ class SiteController extends Controller
 				if(!empty($modelESData->file))
 					$localFolderPath = $localFolderPath.'/'.$modelESData->file;
 					
-				$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+				$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path_original'=>$localFolderPath));
 				$alreadyExists = 0;
 				if(isset($modelLocalFolder))
 					$alreadyExists = 1;
