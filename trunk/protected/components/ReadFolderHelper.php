@@ -319,18 +319,21 @@ class ReadFolderHelper
 		$td = "<i class='fa fa-spinner fa-spin'></i> Analizando...";
 		if(isset($modelESData))
 		{
+			$exists = self::alreadyExists($modelESData);
+			$alreadyExists = ($exists)?1:0;
+			
 			if($modelESData->status != 6 && $modelESData->status != 1) //si no esta escaneando puedo saber el estado
 			{
 				if($modelESData->copy == 1)
 				{
-					if($modelESData->status == 3) //ya esta copiado listo para ver
+					if($modelESData->status == 3 && $exists) //ya esta copiado listo para ver
 						$td = "<i class='fa fa-check'></i> Importado";
 					else
 						$td = "<i class='fa fa-spinner fa-spin'></i> Importando...";
 				}
 				else 
 				{
-					if(self::alreadyExists($modelESData))
+					if($exists)
 						$td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
 					else
 						$td = "<i class='fa fa-smile-o'></i> Disponible";
@@ -345,19 +348,20 @@ class ReadFolderHelper
 		$td = "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
 		if(isset($modelESData))
 		{
+			$exists = self::alreadyExists($modelESData);
+			$alreadyExists = ($exists)?1:0;
+			
 			if($modelESData->status != 6 && $modelESData->status != 1) //si no esta escaneando puedo saber el estado
 			{
 				if($modelESData->copy == 1)
 				{
-					if($modelESData->status == 3) //ya esta copiado listo para ver
+					if($modelESData->status == 3 && $exists) //ya esta copiado listo para ver
 						$td = "<button type='button' onclick='playVideo(".$modelESData->Id.")' class='btn btn-primary'>Ver</button>";
 					else
 						$td = "<button type='button' onclick='cancelCopy(".$modelESData->Id.")' class='btn btn-danger'>Cancelar</button>";					
 				}
 				else
-				{
-					$exists = self::alreadyExists($modelESData);
-					$alreadyExists = ($exists)?1:0; 
+				{					
 					if($exists)
 						$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Sobreescribir</button>";
 					else
