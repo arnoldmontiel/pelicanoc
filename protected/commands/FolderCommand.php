@@ -136,10 +136,16 @@ class FolderCommand extends CConsoleCommand  {
 			{
 				$modelESData->status = 2; //start copy
 				$modelESData->save();
-				
-				self::copyExternalStorage($modelESData);
-				if(self::processPeliFileES($modelESData))
+								
+				$idLocalFolder = self::processPeliFileES($modelESData);
+				$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
+				if(isset($modelLocalFolder))
 				{
+					self::copyExternalStorage($modelESData);
+					
+					$modelLocalFolder->ready = 1;
+					$modelLocalFolder->save()
+					
 					$modelESData->status = 3; //finish copy
 					$modelESData->save();
 						
@@ -197,6 +203,7 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function processPeliFileES($modelESData)
 	{
+		$idLocalFolder = 0;
 		try
 		{
 			if(isset($modelESData))
@@ -232,9 +239,11 @@ class FolderCommand extends CConsoleCommand  {
 							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
 							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
 							$modelLocalFolder->Id_lote = $modelLote->Id;							
+							$modelLocalFolder->ready = 0;
 							$modelLocalFolder->path = $finalPath.'/'.$newPath;
 							$modelLocalFolder->path_original = $localFolderPath;
-							$modelLocalFolder->save();
+							if($modelLocalFolder->save())
+								$idLocalFolder = $modelLocalFolder->Id;
 						}
 					}
 					else
@@ -245,22 +254,24 @@ class FolderCommand extends CConsoleCommand  {
 							$modelLocalFolderDB->Id_file_type = self::getFileType($modelPeliFile->type);
 							$modelLocalFolderDB->Id_source_type = self::getSoruceType($modelPeliFile->source);
 							$modelLocalFolderDB->Id_lote = $modelLote->Id;
-							$modelLocalFolderDB->save();
+							$modelLocalFolderDB->ready = 0;
+							if($modelLocalFolderDB->save())
+								$idLocalFolder = $modelLocalFolderDB->Id; 
 						}
 					}
 					$modelLote->description = 'Successfull';
 					$modelLote->save();
-					return true;
+					return $idLocalFolder;
 				}
 				$modelLote = new Lote();
 				$modelLote->description = 'Error - NO External Storage';
 				$modelLote->save();
-				return false;
+				return 0;
 			}			
 			$modelLote = new Lote();
 			$modelLote->description = 'Error - Model External Storage Data is NULL';
 			$modelLote->save();
-			return false;
+			return 0;
 		}
 		catch (Exception $e)
 		{
@@ -269,10 +280,10 @@ class FolderCommand extends CConsoleCommand  {
 				$modelLote->description = 'Error: ' . $e->getMessage();
 				$modelLote->save();
 			}
-			return false;
+			return 0;
 		}
 	
-		return true;
+		return $idLocalFolder;
 	
 	}
 	
