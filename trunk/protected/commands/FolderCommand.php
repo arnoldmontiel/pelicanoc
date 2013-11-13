@@ -545,8 +545,8 @@ class FolderCommand extends CConsoleCommand  {
 					{
 						$basePath = $modelESDataDB->currentExternalStorage->path;
 						$basePath .= $modelESDataDB->path;
-						$sizeDB = self::getFileSize($basePath.$modelESDataDB->file);
-						$sizeNew = self::getFileSize($basePath.$modelESData->file);
+						$sizeDB = self::getFileSize($basePath.'/'.$modelESDataDB->file);
+						$sizeNew = self::getFileSize($basePath.'/'.$modelESData->file);
 						
 						if($sizeNew > $sizeDB)
 						{
