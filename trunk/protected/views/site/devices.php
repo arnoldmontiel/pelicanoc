@@ -142,7 +142,12 @@ function getTdAsoc(obj, td)
 		{
 			if(obj.copy == 1)
 			{
-				td.children().attr('disabled','disabled');
+				if(obj.status == 3 && obj.alreadyExists == 1) //ya esta copiado listo para ver
+					td.children().attr('disabled','disabled');
+				else if(obj.status == 3 && obj.alreadyExists != 1)
+					td.children().removeAttr('disabled');
+				else
+					td.children().attr('disabled','disabled');
 			}
 			else 
 			{
