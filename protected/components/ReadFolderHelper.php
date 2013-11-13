@@ -328,6 +328,8 @@ class ReadFolderHelper
 				{
 					if($modelESData->status == 3 && $exists) //ya esta copiado listo para ver
 						$td = "<i class='fa fa-check'></i> Importado";
+					else if($modelESData->status == 3 && !$exists)
+						$td = "<i class='fa fa-smile-o'></i> Disponible";
 					else
 						$td = "<i class='fa fa-spinner fa-spin'></i> Importando...";
 				}
