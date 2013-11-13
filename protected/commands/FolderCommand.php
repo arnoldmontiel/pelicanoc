@@ -516,8 +516,7 @@ class FolderCommand extends CConsoleCommand  {
 				}
 	
 				$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
-	
-				
+					
 				$modelESData = new ExternalStorageData();					
 				$modelESData->path = str_replace($pathES, '', $file['dirpath']);
 				$modelESData->file = ($file['filename']=='folder')?'':$file['filename'];
@@ -525,7 +524,6 @@ class FolderCommand extends CConsoleCommand  {
 				$modelESData->Id_current_external_storage = $idCurrentES;
 												
 				$modelESDataDB = ExternalStorageData::model()->findByAttributes(array('path'=>$modelESData->path, 
-																		'file'=>$modelESData->file,
 																		'Id_current_external_storage'=>$idCurrentES));
 				if(!isset($modelESDataDB))
 				{
@@ -541,9 +539,39 @@ class FolderCommand extends CConsoleCommand  {
 					
 					$modelESData->save();
 				}				
+				else //si ya existe en la base ese path tengo q fijarme cual archivo es mas grande
+				{
+					if(!empty($modelESData->file) && !empty($modelESDataDB->file))
+					{
+						$basePath = $modelESDataDB->currentExternalStorage->path;
+						$basePath .= $modelESDataDB->path;
+						$sizeDB = self::getFileSize($basePath.$modelESDataDB->file);
+						$sizeNew = self::getFileSize($basePath.$modelESData->file);
+						
+						if($sizeNew > $sizeDB)
+						{
+							$modelESDataDB->file = $modelESData->file;
+							$modelESDataDB->save();
+						}
+					}
+				}
 				
 			}
 		}
+	}
+	
+	private function getFileSize($path)
+	{
+		$size = 0;
+		
+		$path = str_replace(' ', '\ ', $path);
+		$path = str_replace('(', '\(', $path);
+		$path = str_replace(')', '\)', $path);
+		
+		$output = exec('du -sk ' . $path);
+		
+		$size = trim(str_replace($path, '', $output)) * 1024;
+		return $size;
 	}
 	
 	private function getFileType($type)
