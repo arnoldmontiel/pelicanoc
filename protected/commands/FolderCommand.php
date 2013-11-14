@@ -193,7 +193,8 @@ class FolderCommand extends CConsoleCommand  {
 					$cmd = "cp -fr ".$source . " " .$destinationPath;
 					$process = new Process($cmd);
 					//exec("cp -fr ".$source . " " .$destinationPath);
-					pcntl_waitpid($process->getPid());
+					pcntl_waitpid($process->getPid(),$status);
+					pcntl_wexitstatus($status);
 				}
 				
 				
