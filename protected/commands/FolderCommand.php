@@ -191,8 +191,10 @@ class FolderCommand extends CConsoleCommand  {
 				else
 				{
 					
-					exec("cp -fr ".$source . " " .$destinationPath, $output);
+					exec("cp -fr ".$source . " " .$destinationPath, $output, $return_var);
 					
+					echo $return_var;
+					echo "-----------------------";
 					echo $output;
 // 					$cmd = "cp -fr ".$source . " " .$destinationPath;
 // 					$process = new Process($cmd);
