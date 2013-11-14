@@ -332,10 +332,17 @@ class ReadFolderHelper
 				}
 				else 
 				{
-					if($exists)
-						$td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
+					if($modelESData->status == 4) //en el caso de error en el copiado
+					{
+						$td = "<i class='fa-thumbs-down'></i> Error al copiar";
+					}
 					else
-						$td = "<i class='fa fa-smile-o'></i> Disponible";
+					{
+						if($exists)
+							$td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
+						else
+							$td = "<i class='fa fa-smile-o'></i> Disponible";
+					}
 				}
 			}			
 		}
@@ -361,10 +368,17 @@ class ReadFolderHelper
 				}
 				else
 				{					
-					if($exists)
-						$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Sobreescribir</button>";
-					else
-						$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Importar</button>";
+					if($modelESData->status == 4) //en el caso de error en el copiado
+					{
+							$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-danger'>Reintentar</button>";
+					}
+					else 
+					{
+						if($exists)
+							$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Sobreescribir</button>";
+						else
+							$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Importar</button>";
+					}
 				}
 			}
 		}
