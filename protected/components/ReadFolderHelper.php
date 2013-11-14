@@ -10,32 +10,31 @@ class ReadFolderHelper
 		
 		if(isset($modelCommandStatus))
 		{
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES))
+			{
+				//grabo estado copiando..
+				$modelCurrentES->state = 2;
+				$modelCurrentES->save();
+			}
+			
 			if(!$modelCommandStatus->busy)
 			{
-				try {
-					$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
-					if(isset($modelCurrentES))
+				try 
+				{
+					$modelCommandStatus->setBusy(true);
+					
+					$sys = strtoupper(PHP_OS);
+					if(substr($sys,0,3) == "WIN")
 					{
-						//grabo estado copiando..
-						$modelCurrentES->state = 2;
-						$modelCurrentES->save();
-						
-						$modelCommandStatus->setBusy(true);
-							
-						
-						$sys = strtoupper(PHP_OS);
-							
-							
-						if(substr($sys,0,3) == "WIN")
-						{
-							$WshShell = new COM('WScript.Shell');
-							$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/processExternalStorage -id '. $idCurrentES, 0, false);
-						}
-						else
-						{						
-							exec(dirname(__FILE__).'/../commands/shell/processExternalStorage.sh '.$idCurrentES.' >/dev/null&');
-						}
+						$WshShell = new COM('WScript.Shell');
+						$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/processExternalStorage', 0, false);
 					}
+					else
+					{						
+						exec(dirname(__FILE__).'/../commands/shell/processExternalStorage.sh >/dev/null&');
+					}
+					
 				} catch (Exception $e) {
 					$modelCommandStatus->setBusy(false);
 				}

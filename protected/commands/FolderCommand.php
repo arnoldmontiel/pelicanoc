@@ -17,7 +17,7 @@ class FolderCommand extends CConsoleCommand  {
 		ReadFolderHelper::removedExternalStorage();
 	}
 	
-	function actionProcessExternalStorage($idCurrentES)
+	function actionProcessExternalStorage()
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
 		
@@ -27,12 +27,11 @@ class FolderCommand extends CConsoleCommand  {
 		
 		if(isset($modelCommandStatus))
 		{
-			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
-																						'state'=>2,
+			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('state'=>2,
 																						'is_in'=>1));
-			if(isset($modelCurrentES)) //solo si esta en modo copiando
+			if(isset($modelCurrentES)) //solo si algún CurrentES esta en modo copiando
 			{
-				self::processES($idCurrentES);
+				self::processES();
 				$modelCommandStatus->setBusy(false);
 				$modelCurrentES->state = 3; //finish scan
 				$modelCurrentES->save();
@@ -119,40 +118,36 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
-	private function processES($idCurrentES)
+	private function processES()
 	{
-		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES, 'is_in'=>1));
-	
-		if(isset($modelCurrentES))
+
+		$criteria = new CDbCriteria();
+		$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
+		$criteria->addCondition('t.status <> 3');
+		$criteria->addCondition('t.copy = 1');
+		$criteria->addCondition('ces.is_in = 1');
+			
+		$modelESData = ExternalStorageData::model()->find($criteria);
+
+		if(isset($modelESData))
 		{
-			$criteria = new CDbCriteria();
-			$criteria->addCondition('t.status <> 3');
-			$criteria->addCondition('t.copy = 1');
-			$criteria->addCondition('t.Id_current_external_storage = '.$idCurrentES);
-				
-			$modelESData = ExternalStorageData::model()->find($criteria);
-	
-			if(isset($modelESData))
+			$modelESData->status = 2; //start copy
+			$modelESData->save();
+							
+			$idLocalFolder = self::processPeliFileES($modelESData);
+			$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
+			if(isset($modelLocalFolder))
 			{
-				$modelESData->status = 2; //start copy
+				self::copyExternalStorage($modelESData);
+				
+				$modelLocalFolder->ready = 1;
+				$modelLocalFolder->save();
+				
+				$modelESData->status = 3; //finish copy
 				$modelESData->save();
-								
-				$idLocalFolder = self::processPeliFileES($modelESData);
-				$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
-				if(isset($modelLocalFolder))
-				{
-					self::copyExternalStorage($modelESData);
 					
-					$modelLocalFolder->ready = 1;
-					$modelLocalFolder->save();
-					
-					$modelESData->status = 3; //finish copy
-					$modelESData->save();
-						
-					self::processES($idCurrentES);
-				}
+				self::processES();
 			}
-	
 		}
 	}
 	
