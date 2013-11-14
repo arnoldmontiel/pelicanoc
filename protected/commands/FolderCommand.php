@@ -163,6 +163,7 @@ class FolderCommand extends CConsoleCommand  {
 				else 
 				{
 					$modelESData->status = 4; //error on copy
+					$modelESData->copy = 0;
 					$modelESData->save();
 				}
 					
