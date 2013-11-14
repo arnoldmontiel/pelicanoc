@@ -249,19 +249,21 @@ class SiteController extends Controller
 			$modelESData = ExternalStorageData::model()->findByPk($idESData);
 			if(isset($modelESData))
 			{
-				if($modelESData->status != 2) //si NO esta copiando
+				
+				if($modelESData->status == 2) //si ESTA copiando
+					$modelESData->status = 5; //cancel copy
+				
+				$modelESData->copy = 0;
+				if($modelESData->save())
 				{
-					$modelESData->copy = 0;
-					if($modelESData->save())
-					{
-						$canceledModel['id'] = $modelESData->Id;
-						$canceledModel['copy'] = $modelESData->copy;
-						$canceledModel['status'] = $modelESData->status;
-						$exists = ReadFolderHelper::alreadyExists($modelESData);
-						$alreadyExists = ($exists)?1:0; 
-						$canceledModel['alreadyExists'] = $alreadyExists;
-					}
+					$canceledModel['id'] = $modelESData->Id;
+					$canceledModel['copy'] = $modelESData->copy;
+					$canceledModel['status'] = $modelESData->status;
+					$exists = ReadFolderHelper::alreadyExists($modelESData);
+					$alreadyExists = ($exists)?1:0;
+					$canceledModel['alreadyExists'] = $alreadyExists;
 				}
+				
 			}
 		}
 		
