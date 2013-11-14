@@ -190,10 +190,13 @@ class FolderCommand extends CConsoleCommand  {
 				}
 				else
 				{
-					$cmd = "cp -fr ".$source . " " .$destinationPath;
-					$process = new Process($cmd);
-					//exec("cp -fr ".$source . " " .$destinationPath);
-					pcntl_waitpid($process->getPid(),$status);
+					
+					exec("cp -fr ".$source . " " .$destinationPath, $output);
+					
+					echo $output;
+// 					$cmd = "cp -fr ".$source . " " .$destinationPath;
+// 					$process = new Process($cmd);
+// 					pcntl_waitpid($process->getPid(),$status);
 				}
 				
 				
