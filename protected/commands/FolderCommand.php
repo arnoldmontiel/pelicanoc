@@ -188,8 +188,13 @@ class FolderCommand extends CConsoleCommand  {
 					$source = str_replace('/','\\',$source);
 					exec('xcopy "'.$source.'" "'.$destinationPath.'" /y/s/r');
 				}
-				else 
-					exec("cp -fr ".$source . " " .$destinationPath);
+				else
+				{
+					$cmd = "cp -fr ".$source . " " .$destinationPath;
+					$process = new Process($cmd);
+					//exec("cp -fr ".$source . " " .$destinationPath);
+					pcntl_waitpid($process->getPid());
+				}
 				
 				
 			}
