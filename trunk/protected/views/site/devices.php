@@ -168,10 +168,17 @@ function getTdButton(obj)
 			}
 			else 
 			{
-				if(obj.alreadyExists == 1)
-					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Sobreescribir</button>";
+				if(obj.status == 4) //en el caso de error en el copiado
+				{
+					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-danger'>Reintentar</button>";
+				}
 				else
-					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Importar</button>";
+				{
+					if(obj.alreadyExists == 1)
+						td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Sobreescribir</button>";
+					else
+						td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Importar</button>";
+				}
 			}
 		}			
 	}
@@ -195,10 +202,17 @@ function getTdStatus(obj)
 			}
 			else 
 			{
-				if(obj.alreadyExists == 1)
-					td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
+				if(obj.status == 4) //en el caso de error en el copiado
+				{
+					td = "<i class='fa-thumbs-down'></i> Error al copiar";
+				}
 				else
-					td = "<i class='fa fa-smile-o'></i> Disponible";
+				{
+					if(obj.alreadyExists == 1)
+						td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
+					else
+						td = "<i class='fa fa-smile-o'></i> Disponible";
+				}
 			}
 		}			
 	}
