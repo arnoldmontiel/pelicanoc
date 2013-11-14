@@ -76,7 +76,12 @@ function getCurrentState()
     						$('#popoverDisTitle').text(obj.currentUSB.label);
     						$('#btnGoToDevice').attr('iddevice',obj.currentUSB.idUnread);
     					}    					
-    				}    				
+    				}
+    				if(obj.currentUSB.is_in == 0)
+    				{
+        				if($('#wizardDispositivos').length > 0)
+    						$('#wizardDispositivos').html('');
+    				}
     			}    			
     			
 				if(obj.currentDisc != null)
