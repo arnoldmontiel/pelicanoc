@@ -20,6 +20,7 @@ class FolderCommand extends CConsoleCommand  {
 	function actionProcessExternalStorage()
 	{
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		include dirname(__FILE__).'../../components/PelicanoHelper.php';
 		
 		$_COMMAND_NAME = "processExternalStorage";
 		
@@ -138,13 +139,32 @@ class FolderCommand extends CConsoleCommand  {
 			$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
 			if(isset($modelLocalFolder))
 			{
-				self::copyExternalStorage($modelESData);
-				
-				$modelLocalFolder->ready = 1;
-				$modelLocalFolder->save();
-				
-				$modelESData->status = 3; //finish copy
-				$modelESData->save();
+				if(self::copyExternalStorage($modelESData))
+				{
+					$modelESDataDB = ExternalStorageData::model()->findByPk($modelESData->Id);
+					if(isset($modelESDataDB))
+					{
+						if($modelESDataDB->status == 5) //canceled copy
+						{
+							PelicanoHelper::eraseResource($modelLocalFolder->path);
+							$modelESData->status = 7;
+							$modelESData->save();
+						}
+						else 
+						{
+							$modelLocalFolder->ready = 1;
+							$modelLocalFolder->save();
+						
+							$modelESData->status = 3; //finish copy
+							$modelESData->save();
+						}
+					}
+				}
+				else 
+				{
+					$modelESData->status = 4; //error on copy
+					$modelESData->save();
+				}
 					
 				self::processES();
 			}
@@ -153,6 +173,7 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function copyExternalStorage($modelESData)
 	{		
+		$success = false;
 		if(isset($modelESData))
 		{
 			$externalStoragePath = (isset($modelESData->currentExternalStorage))?$modelESData->currentExternalStorage->path:null;
@@ -187,23 +208,19 @@ class FolderCommand extends CConsoleCommand  {
 					$source = $externalStoragePath . $modelESData->path;
 					$source = str_replace('/','\\',$source);
 					exec('xcopy "'.$source.'" "'.$destinationPath.'" /y/s/r');
+					$success = true;
 				}
 				else
 				{
-					
 					exec("cp -fr ".$source . " " .$destinationPath, $output, $return_var);
-					
-					echo $return_var;
-					echo "-----------------------";
-					echo $output;
-// 					$cmd = "cp -fr ".$source . " " .$destinationPath;
-// 					$process = new Process($cmd);
-// 					pcntl_waitpid($process->getPid(),$status);
+					if($return_var == 0)
+						$success = true;
 				}
 				
 				
 			}
 		}
+		return $success;
 	}
 	
 	private function processPeliFileES($modelESData)
