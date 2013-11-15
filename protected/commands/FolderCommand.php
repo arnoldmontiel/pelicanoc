@@ -569,14 +569,18 @@ class FolderCommand extends CConsoleCommand  {
 						$modelESData->year = $modelPeliFile->year;
 						$modelESData->poster = $modelPeliFile->poster;
 						$modelESData->imdb = $modelPeliFile->imdb;
-						$exists = ReadFolderHelper::alreadyExists($modelESData);
-						$alreadyExists = ($exists)?1:0;
-						$modelESData->already_exists = $alreadyExists;
+						
 						if(empty($modelESData->imdb))
 							$modelESData->is_personal = 1;
 					}
 					
-					$modelESData->save();
+					if($modelESData->save())
+					{
+						$exists = ReadFolderHelper::alreadyExists($modelESData);
+						$alreadyExists = ($exists)?1:0;
+						$modelESData->already_exists = $alreadyExists;
+						$modelESData->save();
+					}
 				}				
 				else //si ya existe en la base ese path tengo q fijarme cual archivo es mas grande
 				{
