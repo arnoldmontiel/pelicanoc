@@ -379,4 +379,15 @@ class ReadFolderHelper
 		}
 		return $td;
 	}
+	
+	static public function scapePath($path)
+	{
+		$scappedPath = str_replace(' ', '\ ', $path);
+		$scappedPath = str_replace('(', '\(', $scappedPath);
+		$scappedPath = str_replace(')', '\)', $scappedPath);
+		$scappedPath = str_replace("'", "\'", $scappedPath);
+		$scappedPath = str_replace(",", "\,", $scappedPath);
+		
+		return $scappedPath;
+	}
 }
