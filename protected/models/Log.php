@@ -37,6 +37,14 @@ class Log extends CActiveRecord
 		$model->save();
 	}
 	
+	public static function log($description)
+	{
+		$model = new Log();
+		$model->description = $description;
+		$model->Id_log_type = 1;		
+		$model->save();
+	}
+	
 	public static function sendLog()
 	{
 		$requests = array();
