@@ -138,7 +138,7 @@ class FolderCommand extends CConsoleCommand  {
 							
 			$idLocalFolder = self::processPeliFileES($modelESData);
 			$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
-			Log::logger("idLocalFolder:".$idLocalFolder);
+
 			if(isset($modelLocalFolder))
 			{
 				if(self::copyExternalStorage($modelESData))
@@ -206,10 +206,12 @@ class FolderCommand extends CConsoleCommand  {
 				$source = str_replace(' ', '\ ', $source);
 				$source = str_replace('(', '\(', $source);
 				$source = str_replace(')', '\)', $source);
+				$source = str_replace("'", "\'", $source);
 					
 				$destinationPath = str_replace(' ', '\ ', $destinationPath);
 				$destinationPath = str_replace('(', '\(', $destinationPath);
 				$destinationPath = str_replace(')', '\)', $destinationPath);
+				$destinationPath = str_replace("'", "\'", $destinationPath);
 				
 				$sys = strtoupper(PHP_OS);
 				
