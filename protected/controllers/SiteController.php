@@ -417,9 +417,12 @@ class SiteController extends Controller
 			if(isset($modelCurrentES))
 				$finishCopy = 1;
 				
-			//Traigo los registros que terminaron de copiar
-			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,
-																		'status'=>3));	
+			//Traigo los registros que terminaron de copiar y los que dieron error
+			$criteria = new CDbCriteria();
+			$criteria->addCondition("t.status = 3 OR t.status = 4");
+			$criteria->addCondition("t.Id_current_external_storage =".$idCurrentES);
+			$modelESDatas = ExternalStorageData::model()->findAll($criteria);
+				
 			foreach($modelESDatas as $modelESData)
 			{				
 				$modelFinishCopyESDataArray[] = array('id'=>$modelESData->Id, 
