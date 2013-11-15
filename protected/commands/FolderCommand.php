@@ -32,7 +32,11 @@ class FolderCommand extends CConsoleCommand  {
 																						'is_in'=>1));
 			if(isset($modelCurrentES)) //solo si algún CurrentES esta en modo copiando
 			{
-				self::processES();
+				try {
+					self::processES();
+				} catch (Exception $e) {
+					Log::logger("ERROR processES(): ".$e->getMessage());
+				}				
 				$modelCommandStatus->setBusy(false);
 				$modelCurrentES->state = 3; //finish scan
 				$modelCurrentES->save();
@@ -132,8 +136,8 @@ class FolderCommand extends CConsoleCommand  {
 
 		if(isset($modelESData))
 		{
-			Log::logger("processES() Id:".$modelESData->Id. " Status: ". $modelESData->status. " Copy: ".$modelESData->copy);
 			$modelESData->status = 2; //start copy
+			$modelESData->Id_current_external_storage = null;
 			$modelESData->save();
 							
 			$idLocalFolder = self::processPeliFileES($modelESData);
