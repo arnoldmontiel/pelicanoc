@@ -62,7 +62,7 @@ class FolderCommand extends CConsoleCommand  {
 		}
 		catch (Exception $e)
 		{
-	
+			Log::logger("ERROR GeneratePeliFilesES: ".$e->getMessage());
 		}
 	
 	}
@@ -87,7 +87,7 @@ class FolderCommand extends CConsoleCommand  {
 		}
 		catch (Exception $e)
 		{
-		
+			Log::logger("ERROR ScanExternalStorage: ".$e->getMessage());
 		}
 		
 	}	
@@ -160,7 +160,7 @@ class FolderCommand extends CConsoleCommand  {
 							$modelESData->copy = 0;
 							$modelESData->save();
 						}
-						else 
+						else //termino todo bien!
 						{
 							$modelLocalFolder->ready = 1;
 							$modelLocalFolder->save();
@@ -721,8 +721,13 @@ class FolderCommand extends CConsoleCommand  {
 				try {
 					
 				
-					$fp = @fopen($path.'/pelicano.peli', 'w');
-					if(isset($fp))
+					$handle = @fopen($path.'/pelicano.peli', 'w');
+					if($handle === false)
+					{
+						//error opening
+						$modelPeliFile = null;
+					}
+					else
 					{
 						$content = 'imdb='.$idImdb.";\n";
 						$content .= 'type='.$type.";\n";
@@ -730,10 +735,16 @@ class FolderCommand extends CConsoleCommand  {
 						$content .= 'year='.$year.';';
 						$content .= 'poster='.$poster.';';
 						
-						@fwrite($fp, $content);
-						@fclose($fp);
+						if (@fwrite($handle, $content) === FALSE) {
+							$modelPeliFile = null;
+						}
+						
+						@fclose($handle);
+						
 					}
+					
 				} catch (Exception $e) {
+					$modelPeliFile = null;
 					break;
 				}
 				break;
@@ -747,20 +758,29 @@ class FolderCommand extends CConsoleCommand  {
 			$modelPeliFile->poster = "";
 			try {
 					
-			
-				$fp = @fopen($path.'/pelicano.peli', 'w');
-				if(isset($fp))
+				$handle = @fopen($path.'/pelicano.peli', 'w');
+				if($handle === false)
+				{
+					//error opening
+					$modelPeliFile = null;
+				}
+				else
 				{
 					$content = 'imdb='.$modelPeliFile->imdb.";\n";
 					$content .= 'type='.$type.";\n";
 					$content .= 'name='.$modelPeliFile->name.';';
 					$content .= 'year='.$modelPeliFile->year.';';
 					$content .= 'poster='.$modelPeliFile->poster.';';
-			
-					@fwrite($fp, $content);
-					@fclose($fp);
+					
+					if (@fwrite($handle, $content) === FALSE) {
+						$modelPeliFile = null;
+					}
+					
+					@fclose($handle);
 				}
+				
 			} catch (Exception $e) {
+				$modelPeliFile = null;
 				break;
 			}
 		}
@@ -777,20 +797,29 @@ class FolderCommand extends CConsoleCommand  {
 		$modelPeliFile->poster = "";
 		try {
 				
-			$fp = @fopen($path.'/pelicano.peli', 'w');
-			if(isset($fp))
+			$handle = @fopen($path.'/pelicano.peli', 'w');
+			if($handle === false)
+			{
+				//error opening
+				$modelPeliFile = null;
+			}
+			else 
 			{
 				$content = 'imdb='.$modelPeliFile->imdb.";\n";
 				$content .= 'type='.$type.";\n";
 				$content .= 'name='.$modelPeliFile->name.';';
 				$content .= 'year='.$modelPeliFile->year.';';
 				$content .= 'poster='.$modelPeliFile->poster.';';
-					
-				@fwrite($fp, $content);
-				@fclose($fp);
+									
+				
+				if (@fwrite($handle, $content) === FALSE) {
+					$modelPeliFile = null;
+				}
+				
+				@fclose($handle);
 			}
 		} catch (Exception $e) {
-			break;
+			$modelPeliFile = null;
 		}
 		
 		return $modelPeliFile;
