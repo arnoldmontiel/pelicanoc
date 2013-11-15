@@ -305,7 +305,7 @@ class ReadFolderHelper
 		if(!empty($modelESData->file))
 			$localFolderPath = $localFolderPath.'/'.$modelESData->file;
 			
-		$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path_original'=>$localFolderPath));		
+		$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path_original'=>$localFolderPath, 'ready'=>1));		
 		
 		if(isset($modelLocalFolder))
 			$exists = true;
