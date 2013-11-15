@@ -140,9 +140,11 @@ class FolderCommand extends CConsoleCommand  {
 			if(isset($modelESData))
 			{
 				$modelESData->status = 2; //start copy
-				$modelESData->Id_current_external_storage = null;
 				$modelESData->save();
 								
+				$a = new ExternalStorageData();
+				$b = $a->currentExternalStorage->path;
+				
 				$idLocalFolder = self::processPeliFileES($modelESData);
 				$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
 	
