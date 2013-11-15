@@ -28,6 +28,7 @@ class PelicanoHelper
 					if($path == $model->path_original )
 					{
 						$modelESData->copy = 0;
+						$modelESData->already_exists = 0;
 						$modelESData->status = 7;
 						$modelESData->save();
 					}

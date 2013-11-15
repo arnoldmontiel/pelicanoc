@@ -318,9 +318,6 @@ class ReadFolderHelper
 		$td = "<i class='fa fa-spinner fa-spin'></i> Analizando...";
 		if(isset($modelESData))
 		{
-			$exists = self::alreadyExists($modelESData);
-			$alreadyExists = ($exists)?1:0;
-			
 			if($modelESData->status != 6 && $modelESData->status != 1) //si no esta escaneando puedo saber el estado
 			{
 				if($modelESData->copy == 1)
@@ -338,7 +335,7 @@ class ReadFolderHelper
 					}
 					else
 					{
-						if($exists)
+						if($modelESData->already_exists == 1)
 							$td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
 						else
 							$td = "<i class='fa fa-smile-o'></i> Disponible";
@@ -354,8 +351,6 @@ class ReadFolderHelper
 		$td = "<button type='button' class='btn btn-primary' disabled='disabled'>Analizando...</button>";
 		if(isset($modelESData))
 		{
-			$exists = self::alreadyExists($modelESData);
-			$alreadyExists = ($exists)?1:0;
 			
 			if($modelESData->status != 6 && $modelESData->status != 1) //si no esta escaneando puedo saber el estado
 			{
@@ -370,14 +365,14 @@ class ReadFolderHelper
 				{					
 					if($modelESData->status == 4) //en el caso de error en el copiado
 					{
-							$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-danger'>Reintentar</button>";
+							$td = "<button type='button' alreadyexists=".$modelESData->already_exists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-danger'>Reintentar</button>";
 					}
 					else 
 					{
-						if($exists)
-							$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Sobreescribir</button>";
+						if($modelESData->already_exists == 1)
+							$td = "<button type='button' alreadyexists=".$modelESData->already_exists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Sobreescribir</button>";
 						else
-							$td = "<button type='button' alreadyexists=".$alreadyExists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Importar</button>";
+							$td = "<button type='button' alreadyexists=".$modelESData->already_exists." onclick='copyVideo(".$modelESData->Id.")' class='btn btn-primary'>Importar</button>";
 					}
 				}
 			}
