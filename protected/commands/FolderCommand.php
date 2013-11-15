@@ -126,64 +126,70 @@ class FolderCommand extends CConsoleCommand  {
 	private function processES()
 	{
 
-		$criteria = new CDbCriteria();
-		$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
-		$criteria->addCondition('t.status <> 3');
-		$criteria->addCondition('t.copy = 1');
-		$criteria->addCondition('ces.is_in = 1');
-		
-		$modelESData = ExternalStorageData::model()->find($criteria);
-
-		if(isset($modelESData))
+		try 
 		{
-			$modelESData->status = 2; //start copy
-			$modelESData->Id_current_external_storage = null;
-			$modelESData->save();
-							
-			$idLocalFolder = self::processPeliFileES($modelESData);
-			$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
-
-			if(isset($modelLocalFolder))
+					
+			$criteria = new CDbCriteria();
+			$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
+			$criteria->addCondition('t.status <> 3');
+			$criteria->addCondition('t.copy = 1');
+			$criteria->addCondition('ces.is_in = 1');
+			
+			$modelESData = ExternalStorageData::model()->find($criteria);
+	
+			if(isset($modelESData))
 			{
-				if(self::copyExternalStorage($modelESData))
+				$modelESData->status = 2; //start copy
+				$modelESData->Id_current_external_storage = null;
+				$modelESData->save();
+								
+				$idLocalFolder = self::processPeliFileES($modelESData);
+				$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
+	
+				if(isset($modelLocalFolder))
 				{
-					$modelESDataDB = ExternalStorageData::model()->findByPk($modelESData->Id);
-					if(isset($modelESDataDB))
+					if(self::copyExternalStorage($modelESData))
 					{
-						if($modelESDataDB->status == 5) //canceled copy
+						$modelESDataDB = ExternalStorageData::model()->findByPk($modelESData->Id);
+						if(isset($modelESDataDB))
 						{
-							if($modelESDataDB->already_exists == 1)
+							if($modelESDataDB->status == 5) //canceled copy
+							{
+								if($modelESDataDB->already_exists == 1)
+								{
+									$modelLocalFolder->ready = 1;
+									$modelLocalFolder->save();
+								}
+								else
+									PelicanoHelper::eraseResource($modelLocalFolder->path);
+								
+								
+								$modelESData->status = 7;
+								$modelESData->copy = 0;
+								$modelESData->save();
+							}
+							else 
 							{
 								$modelLocalFolder->ready = 1;
 								$modelLocalFolder->save();
+							
+								$modelESData->status = 3; //finish copy
+								$modelESData->save();
 							}
-							else
-								PelicanoHelper::eraseResource($modelLocalFolder->path);
-							
-							
-							$modelESData->status = 7;
-							$modelESData->copy = 0;
-							$modelESData->save();
-						}
-						else 
-						{
-							$modelLocalFolder->ready = 1;
-							$modelLocalFolder->save();
-						
-							$modelESData->status = 3; //finish copy
-							$modelESData->save();
 						}
 					}
+					else 
+					{
+						$modelESData->status = 4; //error on copy
+						$modelESData->copy = 0;
+						$modelESData->save();
+					}
+						
+					self::processES();
 				}
-				else 
-				{
-					$modelESData->status = 4; //error on copy
-					$modelESData->copy = 0;
-					$modelESData->save();
-				}
-					
-				self::processES();
 			}
+		} catch (Exception $e) {
+			throw $e;
 		}
 	}
 	
