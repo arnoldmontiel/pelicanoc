@@ -259,9 +259,7 @@ class SiteController extends Controller
 					$canceledModel['id'] = $modelESData->Id;
 					$canceledModel['copy'] = $modelESData->copy;
 					$canceledModel['status'] = $modelESData->status;
-					$exists = ReadFolderHelper::alreadyExists($modelESData);
-					$alreadyExists = ($exists)?1:0;
-					$canceledModel['alreadyExists'] = $alreadyExists;
+					$canceledModel['alreadyExists'] = $modelESData->already_exists;
 				}
 				
 			}
@@ -288,9 +286,7 @@ class SiteController extends Controller
  					$processModel['id'] = $modelESData->Id;
  					$processModel['copy'] = $modelESData->copy;
  					$processModel['status'] = $modelESData->status;
- 					$exists = ReadFolderHelper::alreadyExists($modelESData);
- 					$alreadyExists = ($exists)?1:0;
- 					$processModel['alreadyExists'] = $alreadyExists;
+ 					$processModel['alreadyExists'] = $modelESData->already_exists;;
  					
  					ReadFolderHelper::processExternalStorage($modelESData->Id_current_external_storage);
  				}
@@ -328,14 +324,11 @@ class SiteController extends Controller
 			$modelESDatas = ExternalStorageData::model()->findAll($criteria);
 						
 			foreach($modelESDatas as $modelESData)
-			{
-				$exists = ReadFolderHelper::alreadyExists($modelESData);
-				$alreadyExists = ($exists)?1:0;
-				
+			{				
 				$onCopyModels[] = array('id'=>$modelESData->Id,				
 										'status'=>$modelESData->status,
 										'copy'=>1,
-										'alreadyExists'=>$alreadyExists);
+										'alreadyExists'=>$modelESData->already_exists;);
 			}
 			
 			ExternalStorageData::model()->updateAll(array('copy'=>1),$condition);
@@ -428,14 +421,11 @@ class SiteController extends Controller
 			$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,
 																		'status'=>3));	
 			foreach($modelESDatas as $modelESData)
-			{
-				$exists = ReadFolderHelper::alreadyExists($modelESData);
-				$alreadyExists = ($exists)?1:0;
-				
+			{				
 				$modelFinishCopyESDataArray[] = array('id'=>$modelESData->Id, 
 														'status'=>$modelESData->status,
 														'copy'=>$modelESData->copy,
-														'alreadyExists'=>$alreadyExists);
+														'alreadyExists'=>$modelESData->already_exists;);
 			}
 				
 		}		
@@ -473,15 +463,6 @@ class SiteController extends Controller
 			$setting = Setting::getInstance();
 			foreach($modelESDatas as $modelESData)
 			{
-				$localFolderPath = str_replace($modelESData->currentExternalStorage->path,'',$modelESData->path);
-				$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
-				if(!empty($modelESData->file))
-					$localFolderPath = $localFolderPath.'/'.$modelESData->file;
-					
-				$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path_original'=>$localFolderPath));
-				$alreadyExists = 0;
-				if(isset($modelLocalFolder))
-					$alreadyExists = 1;
 				
 				$isUnknown = 0;
 				if($modelESData->imdb == 'tt0000000')
@@ -492,7 +473,7 @@ class SiteController extends Controller
 					$name .= ' ('.$modelESData->year.')';
 				
 				$modelFinishESDataArray[] = array('id'=>$modelESData->Id, 
-													'alreadyExists'=>$alreadyExists, 
+													'alreadyExists'=>$modelESData->already_exists;, 
 													'isUnknown'=>$isUnknown,
 													'status'=>$modelESData->status,
 													'copy'=>$modelESData->copy,
