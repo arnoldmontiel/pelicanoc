@@ -569,6 +569,9 @@ class FolderCommand extends CConsoleCommand  {
 						$modelESData->year = $modelPeliFile->year;
 						$modelESData->poster = $modelPeliFile->poster;
 						$modelESData->imdb = $modelPeliFile->imdb;
+						$exists = ReadFolderHelper::alreadyExists($modelESData);
+						$alreadyExists = ($exists)?1:0;
+						$modelESData->already_exists = $alreadyExists;
 						if(empty($modelESData->imdb))
 							$modelESData->is_personal = 1;
 					}
