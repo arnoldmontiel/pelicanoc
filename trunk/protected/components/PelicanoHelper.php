@@ -88,9 +88,7 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
 		
-		$path = str_replace(' ', '\ ', $path);
-		$path = str_replace('(', '\(', $path);
-		$path = str_replace(')', '\)', $path);
+		$path = ReadFolderHelper::scapePath($path);
 		
 		$output = exec('du -sk ' . $path);
 		
