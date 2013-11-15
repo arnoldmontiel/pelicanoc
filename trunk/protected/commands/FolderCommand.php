@@ -148,6 +148,7 @@ class FolderCommand extends CConsoleCommand  {
 						{
 							PelicanoHelper::eraseResource($modelLocalFolder->path);
 							$modelESData->status = 7;
+							$modelESData->copy = 0;
 							$modelESData->save();
 						}
 						else 
