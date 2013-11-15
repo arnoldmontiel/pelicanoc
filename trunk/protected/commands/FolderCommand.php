@@ -127,11 +127,12 @@ class FolderCommand extends CConsoleCommand  {
 		$criteria->addCondition('t.status <> 3');
 		$criteria->addCondition('t.copy = 1');
 		$criteria->addCondition('ces.is_in = 1');
-			
+		
 		$modelESData = ExternalStorageData::model()->find($criteria);
 
 		if(isset($modelESData))
 		{
+			Log::logger("processES() Id:".$modelESData->Id. " Status: ". $modelESData->status. " Copy: ".$modelESData->copy);
 			$modelESData->status = 2; //start copy
 			$modelESData->save();
 							
