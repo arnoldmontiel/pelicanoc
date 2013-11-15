@@ -32,11 +32,7 @@ class FolderCommand extends CConsoleCommand  {
 																						'is_in'=>1));
 			if(isset($modelCurrentES)) //solo si algún CurrentES esta en modo copiando
 			{
-				try {
-					self::processES();
-				} catch (Exception $e) {
-					Log::logger("ERROR processES(): ".$e->getMessage());
-				}				
+				self::processES();
 				$modelCommandStatus->setBusy(false);
 				$modelCurrentES->state = 3; //finish scan
 				$modelCurrentES->save();
@@ -125,73 +121,64 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function processES()
 	{
+		
+		$criteria = new CDbCriteria();
+		$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
+		$criteria->addCondition('t.status <> 3');
+		$criteria->addCondition('t.copy = 1');
+		$criteria->addCondition('ces.is_in = 1');
+		
+		$modelESData = ExternalStorageData::model()->find($criteria);
 
-		try 
+		if(isset($modelESData))
 		{
-					
-			$criteria = new CDbCriteria();
-			$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
-			$criteria->addCondition('t.status <> 3');
-			$criteria->addCondition('t.copy = 1');
-			$criteria->addCondition('ces.is_in = 1');
+			$modelESData->status = 2; //start copy
+			$modelESData->save();
 			
-			$modelESData = ExternalStorageData::model()->find($criteria);
-	
-			if(isset($modelESData))
+			$idLocalFolder = self::processPeliFileES($modelESData);
+			$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
+
+			if(isset($modelLocalFolder))
 			{
-				$modelESData->status = 2; //start copy
-				$modelESData->save();
-								
-				$a = new ExternalStorageData();
-				$b = $a->currentExternalStorage->path;
-				
-				$idLocalFolder = self::processPeliFileES($modelESData);
-				$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
-	
-				if(isset($modelLocalFolder))
+				if(self::copyExternalStorage($modelESData))
 				{
-					if(self::copyExternalStorage($modelESData))
+					$modelESDataDB = ExternalStorageData::model()->findByPk($modelESData->Id);
+					if(isset($modelESDataDB))
 					{
-						$modelESDataDB = ExternalStorageData::model()->findByPk($modelESData->Id);
-						if(isset($modelESDataDB))
+						if($modelESDataDB->status == 5) //canceled copy
 						{
-							if($modelESDataDB->status == 5) //canceled copy
-							{
-								if($modelESDataDB->already_exists == 1)
-								{
-									$modelLocalFolder->ready = 1;
-									$modelLocalFolder->save();
-								}
-								else
-									PelicanoHelper::eraseResource($modelLocalFolder->path);
-								
-								
-								$modelESData->status = 7;
-								$modelESData->copy = 0;
-								$modelESData->save();
-							}
-							else 
+							if($modelESDataDB->already_exists == 1)
 							{
 								$modelLocalFolder->ready = 1;
 								$modelLocalFolder->save();
-							
-								$modelESData->status = 3; //finish copy
-								$modelESData->save();
 							}
+							else
+								PelicanoHelper::eraseResource($modelLocalFolder->path);
+							
+							
+							$modelESData->status = 7;
+							$modelESData->copy = 0;
+							$modelESData->save();
+						}
+						else 
+						{
+							$modelLocalFolder->ready = 1;
+							$modelLocalFolder->save();
+						
+							$modelESData->status = 3; //finish copy
+							$modelESData->save();
 						}
 					}
-					else 
-					{
-						$modelESData->status = 4; //error on copy
-						$modelESData->copy = 0;
-						$modelESData->save();
-					}
-						
-					self::processES();
 				}
+				else 
+				{
+					$modelESData->status = 4; //error on copy
+					$modelESData->copy = 0;
+					$modelESData->save();
+				}
+					
+				self::processES();
 			}
-		} catch (Exception $e) {
-			throw $e;
 		}
 	}
 	
