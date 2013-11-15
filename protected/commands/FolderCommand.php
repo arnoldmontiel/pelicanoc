@@ -146,7 +146,9 @@ class FolderCommand extends CConsoleCommand  {
 					{
 						if($modelESDataDB->status == 5) //canceled copy
 						{
-							PelicanoHelper::eraseResource($modelLocalFolder->path);
+							if($modelESDataDB->already_exists == 0)
+								PelicanoHelper::eraseResource($modelLocalFolder->path);
+							
 							$modelESData->status = 7;
 							$modelESData->copy = 0;
 							$modelESData->save();
