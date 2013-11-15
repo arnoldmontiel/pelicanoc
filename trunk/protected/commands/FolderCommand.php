@@ -597,7 +597,7 @@ class FolderCommand extends CConsoleCommand  {
 							$exists = ReadFolderHelper::alreadyExists($modelESData);
 							$alreadyExists = ($exists)?1:0;
 							
-							$modelESData->already_exists = $alreadyExists;							
+							$modelESDataDB->already_exists = $alreadyExists;							
 							$modelESDataDB->file = $modelESData->file;
 							$modelESDataDB->save();
 						}
