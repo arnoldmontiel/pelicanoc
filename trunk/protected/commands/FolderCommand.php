@@ -203,15 +203,8 @@ class FolderCommand extends CConsoleCommand  {
 				
 				$source = $externalStoragePath . $modelESData->path;
 				
-				$source = str_replace(' ', '\ ', $source);
-				$source = str_replace('(', '\(', $source);
-				$source = str_replace(')', '\)', $source);
-				$source = str_replace("'", "\'", $source);
-					
-				$destinationPath = str_replace(' ', '\ ', $destinationPath);
-				$destinationPath = str_replace('(', '\(', $destinationPath);
-				$destinationPath = str_replace(')', '\)', $destinationPath);
-				$destinationPath = str_replace("'", "\'", $destinationPath);
+				$source = ReadFolderHelper::scapePath($source);
+				$destinationPath = ReadFolderHelper::scapePath($destinationPath);
 				
 				$sys = strtoupper(PHP_OS);
 				
