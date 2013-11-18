@@ -80,7 +80,9 @@ function getCurrentState()
     				if(obj.currentUSB.is_in == 0)
     				{
         				if($('#wizardDispositivos').length > 0)
+        				{
     						$('#wizardDispositivos').html('');
+        				}
     				}
     			}    			
     			
