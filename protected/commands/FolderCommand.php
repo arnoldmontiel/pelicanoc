@@ -208,9 +208,8 @@ class FolderCommand extends CConsoleCommand  {
 					$modelESData->copy = 0;
 					$modelESData->save();
 				}
-					
-				self::processES();
 			}
+			self::processES();
 		}
 	}
 	
