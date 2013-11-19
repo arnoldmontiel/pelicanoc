@@ -10,12 +10,24 @@ class ReadFolderHelper
 		
 		if(isset($modelCommandStatus))
 		{
+			$sys = strtoupper(PHP_OS);
+			
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
 			if(isset($modelCurrentES))
 			{
 				//grabo estado copiando..
 				$modelCurrentES->state = 2;
 				$modelCurrentES->save();
+				
+				if(substr($sys,0,3) == "WIN")
+				{
+					$WshShell = new COM('WScript.Shell');
+					$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/processPeliFileES -idCurrentEs '. $idCurrentES, 0, false);
+				}
+				else
+				{
+					exec(dirname(__FILE__).'/../commands/shell/processPeliFileES.sh '.$idCurrentES.' >/dev/null&');
+				}
 			}
 			
 			if(!$modelCommandStatus->busy)
@@ -24,7 +36,6 @@ class ReadFolderHelper
 				{
 					$modelCommandStatus->setBusy(true);
 					
-					$sys = strtoupper(PHP_OS);
 					if(substr($sys,0,3) == "WIN")
 					{
 						$WshShell = new COM('WScript.Shell');

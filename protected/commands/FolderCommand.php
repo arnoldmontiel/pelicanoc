@@ -40,6 +40,31 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
+	function actionProcessPeliFileES($idCurrentES)
+	{
+		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
+		include dirname(__FILE__).'../../components/PelicanoHelper.php';
+			
+		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('state'=>2,
+																					'Id'=>$idCurrentES,
+																						'is_in'=>1));
+		if(isset($modelCurrentES)) //solo si algún CurrentES esta en modo copiando
+		{
+			$criteria = new CDbCriteria();
+			$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
+			$criteria->addCondition('t.status <> 3');
+			$criteria->addCondition('t.copy = 1');
+			$criteria->addCondition('t.Id_local_folder is null');
+			$criteria->addCondition('ces.Id = '.$idCurrentES);
+			$criteria->addCondition('ces.is_in = 1');
+			
+			$modelESDatas = ExternalStorageData::model()->findAll($criteria);
+			
+			foreach($modelESDatas as $modelESData)
+				self::processPeliFileES($modelESData);			
+		}
+	}
+	
 	function actionGeneratePeliFilesES($idCurrentES)
 	{
 	
@@ -135,7 +160,7 @@ class FolderCommand extends CConsoleCommand  {
 			$modelESData->status = 2; //start copy
 			$modelESData->save();
 			
-			$idLocalFolder = self::processPeliFileES($modelESData);
+			$idLocalFolder = $modelESData->Id_local_folder;
 			$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
 
 			if(isset($modelLocalFolder))
