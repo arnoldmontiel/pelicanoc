@@ -28,12 +28,18 @@ class SABnzbdStatus extends CModel
 	
 	public function getStatus()
 	{
-		$jsonData = file_get_contents($this->urlJson);
-		$this->_attributes = CJSON::decode($jsonData,true);
-		foreach ($this->_attributes as $job)
-		{
-			$this->_jobs[]=$job;
-		}		
+		try {
+			$jsonData = @file_get_contents($this->urlJson);
+			$this->_attributes = CJSON::decode($jsonData,true);
+			if(isset($this->_attributes)&&is_array($this->_attributes))
+			{
+				foreach ($this->_attributes as $job)
+				{
+					$this->_jobs[]=$job;
+				}				
+			}
+		} catch (Exception $e) {
+		}
 	}
 	/**
 	* Returns the static model of the specified AR class.

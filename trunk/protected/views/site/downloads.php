@@ -66,6 +66,23 @@ setInterval(function() {
 }, 5000)
 ");
 ?>
+<?php
+//Finalizada recientemente
+$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+?>
+<?php
+//desde marketplace 
+$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+?>
+<?php
+//desde USB 
+$this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$externalStorageDataCopying));
+?>
+<?php
+//desde Discos Opticos 
+$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+?>
+
 <h2 class="sliderTitle">Descargando</h2>
 <div class="pelisDescargadas">
 <!--      empieza peli finalizada-->
@@ -77,21 +94,22 @@ foreach($dataProvider->getData() as $record)
 	$percentage = 0;	
 	$fileName = explode('.',$record->file_name);
 	$fileName = $fileName[0];
-	
-	foreach($sABnzbdStatus->jobs as $job)
+	if(isset($sABnzbdStatus->jobs))
 	{
-		if(strpos($job['filename'], $fileName) !== false)
-		{			
-			$total = round($job['mb']);
-			$current = round($job["mb"]-$job["mbleft"]);
-			
-			if($total > 0)
-				$percentage = round(($current * 100) / $total);
-			
-			break;
+		foreach($sABnzbdStatus->jobs as $job)
+		{
+			if(strpos($job['filename'], $fileName) !== false)
+			{
+				$total = round($job['mb']);
+				$current = round($job["mb"]-$job["mbleft"]);
+					
+				if($total > 0)
+					$percentage = round(($current * 100) / $total);
+					
+				break;
+			}
 		}		
 	}	
-	
 	
  ?>
 	<div class="peliDescargando"><img class="peliAfiche" src="<?php echo 'images/'. $data->poster ?>" border="0">
@@ -104,6 +122,7 @@ foreach($dataProvider->getData() as $record)
 <?php } ?>
 <!--      termina peli finalizada-->
 </div>
+
 <div id="ripping-area">
 	<h2 class="sliderTitle">Copiando</h2>
 	<div class="peliDescargando">
@@ -124,15 +143,6 @@ foreach($dataProvider->getData() as $record)
 	</div>
 
 </div>
-<?php 
-// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
-
-// echo CHtml::openTag('div',array('id'=>'myModal'));
-// //place holder
-// echo CHtml::closeTag('div'); 
-
-// $this->endWidget(); 
-?>
 <script>
 	$('#btn-cancel').click(function(){
 		$('#btn-cancel').attr("disabled", "disabled");		
@@ -141,6 +151,31 @@ foreach($dataProvider->getData() as $record)
 				function(data){
 		});
 	});
+    $("a.aficheClickFinished").click(
+    		function()
+    		{
+    			var sourceType = $(this).attr("sourceType");
+    			var id = $(this).attr("idMovie");
+    			var idResource = $(this).attr("idResource");		
+    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
+    			$.ajax({
+    		   		type: 'POST',
+    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowDetail') ?>',
+    		   		data: param,
+    		 	}).success(function(data)
+    		 	{
+    		 	
+    				$('#myModal').html(data);	
+    		   		$('#myModal').modal({
+    	  				show: true
+    				});		
+    			}
+    		 	);
+    		   	return false;	
+    			
+    		}
+       );
+    	
 </script>
 
 

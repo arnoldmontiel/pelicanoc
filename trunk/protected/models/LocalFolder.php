@@ -65,6 +65,7 @@ class LocalFolder extends CActiveRecord
 			'sourceType' => array(self::BELONGS_TO, 'SourceType', 'Id_source_type'),
 			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_local_folder'),
 			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),				
+			'externalStorageDatas' => array(self::HAS_MANY, 'ExternalStorageData', 'Id_local_folder'),
 		);
 	}
 

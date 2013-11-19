@@ -13,7 +13,7 @@ else
 
 //$modelTMDB =  $data->TMDBData;
 $modelTMDB =  TMDBData::model()->findByPk($data->Id_TMDB_data);;
-	$moviePoster = $model->poster;	
+$moviePoster = $model->poster;	
 if(isset($modelTMDB)&&$modelTMDB->poster!="")
 {
 	$moviePoster = $modelTMDB->poster;
