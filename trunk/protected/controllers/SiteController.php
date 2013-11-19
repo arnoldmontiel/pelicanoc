@@ -544,7 +544,7 @@ class SiteController extends Controller
 			if(isset($modelLocalFolder))
 			{				
 				$playArray['idResource'] = $modelLocalFolder->Id;
-				$playArray['sourceType'] = 4;
+				$playArray['sourceType'] = 3; //localfolder
 				$playArray['id'] = $modelLocalFolder->myMovieDisc->Id_my_movie;
 			}
 		}
