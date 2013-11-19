@@ -7,7 +7,7 @@
 		</div>
     </div>
 <?php if(!empty($externalStorageDataCopying)):?>
-	<div class="flexsliderLocal carousel">
+	<div class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
     			foreach($externalStorageDataCopying as $externalStorageData)
@@ -56,7 +56,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
     $(window).load(function(){
-      $('.flexsliderLocal').flexslider({
+      $('.flexslider').flexslider({
         animation: "slide",
         animationLoop: false,
         itemWidth: 165,
