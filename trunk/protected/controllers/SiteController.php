@@ -870,7 +870,6 @@ class SiteController extends Controller
 
 	public function actionStart($id, $sourceType, $idResource)
 	{
-		$this->layout='//layouts/column3';
 		$this->showFilter = false;
 
 		$play = false;
@@ -1081,8 +1080,6 @@ class SiteController extends Controller
 
 	public function actionOpenDuneControl($id, $type,$id_resource)
 	{
-		$this->layout='//layouts/column3';
-
 		$this->showFilter = false;
 
 		if($type == 1)
