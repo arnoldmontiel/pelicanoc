@@ -83,8 +83,7 @@ $this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$ex
 //$this->renderPartial("_downloadFinished",array("movies"=>$movies));
 ?>
 
-<h2 class="sliderTitle">Descargando</h2>
-<div class="pelisDescargadas">
+<div class="pelisDescargadas" style="display:none">
 <!--      empieza peli finalizada-->
 <?php
 foreach($dataProvider->getData() as $record) 
