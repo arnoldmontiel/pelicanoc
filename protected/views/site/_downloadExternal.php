@@ -13,6 +13,7 @@
     			foreach($externalStorageDataCopying as $externalStorageData)
     			{
 					$modelSource = $externalStorageData->localFolder;
+					if(!isset($modelSource->myMovieDisc)) continue;
 					$myMovie = $modelSource->myMovieDisc->myMovie;
 					$modelTMDB =  $modelSource->TMDBData;
 					$moviePoster = $myMovie->poster;
