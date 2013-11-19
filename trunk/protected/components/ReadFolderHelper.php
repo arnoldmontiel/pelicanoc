@@ -176,7 +176,8 @@ class ReadFolderHelper
 					if(isset($current))
 					{
 						//TODO falta eliminar los registros de external_storage_data
-						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');						
+						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
+						LocalFolder::model()->deleteAllByAttributes(array('ready'=>0));						
 					}
 				}				
 			}
