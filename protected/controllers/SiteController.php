@@ -113,19 +113,18 @@ class SiteController extends Controller
 		$movies = Movies::model()->findAll($criteriaMovies);
 
 		$criteriaExternal=new CDbCriteria;
-		$criteriaExternal->addCondition('hide = 0');
-		$criteriaExternal->addCondition('ready = 0');
-		$criteriaExternal->limit=30;
-		$criteriaExternal->order="read_date DESC";
+		$criteriaExternal->addCondition('status = 2');
+		//$criteriaExternal->limit=30;
+		//$criteriaExternal->order="read_date DESC";
 		
-		$localFolderCopying = LocalFolder::model()->findAll($criteriaExternal);
+		$externalStorageDataCopying = ExternalStorageData::model()->findAll($criteriaExternal);
 		
 		$this->render('downloads',array(
 				'dataProvider'=>$dataProvider,
 				'sABnzbdStatus'=>$sABnzbdStatus,
 				'modelMyMovie'=>$modelMyMovie,
 				'movies'=>$movies,
-				'localFolderCopying'=>$localFolderCopying
+				'externalStorageDataCopying'=>$externalStorageDataCopying
 		));
 	}
 
