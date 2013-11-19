@@ -10,8 +10,8 @@
 		</div>
     </div>
 
-	<div class="flexslider ">
-		<ul class="slides ">
+	<div class="flexslider carousel">
+		<ul class="slides superScroll">
 		    <?php
     			foreach($movies as $movie)
     			{
