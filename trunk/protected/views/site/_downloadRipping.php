@@ -1,41 +1,19 @@
 	<div class="row">
     	<div class="col-md-8">
-			<h2 class="sliderTitle modified">Finalizadas recientemente</h2> 
+			<h2 class="sliderTitle modified">Descargando desde Disco</h2> 
 			<ul class="nav nav-pills">
-  				<li class="active"><a id="pill-filter-all" data-toggle="tab" href="#">Todas</a></li>
-  				<li><a id="pill-filter-market" href="#" data-toggle="tab">Marketplace</a></li>
-  				<li><a id="pill-filter-usb" href="#" data-toggle="tab">USB</a></li>
-  				<li><a id="pill-filter-disco" href="#" data-toggle="tab">Disco</a></li>
+  				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
   			</ul>
 		</div>
     </div>
-
+<?php if(!empty($modelMyMovie)):?>
+    
 	<div class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
-    			foreach($movies as $movie)
+    			foreach($modelMyMovie as $myMovie)
     			{
-					if($movie->source_type == 1)
-					{
-						$modelSource = Nzb::model()->findByPk($movie->Id);
-						$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
-					}
-					else if($movie->source_type == 2)
-					{
-						$modelSource = RippedMovie::model()->findByPk($movie->Id);
-						$myMovie = $modelSource->myMovieDisc->myMovie;
-					}
-					else
-					{
-						$modelSource = LocalFolder::model()->findByPk($movie->Id);
-						$myMovie = $modelSource->myMovieDisc->myMovie;
-					}
-					$modelTMDB =  $modelSource->TMDBData;
 					$moviePoster = $myMovie->poster;
-					if(isset($modelTMDB)&&$modelTMDB->poster!="")
-					{
-						$moviePoster = $modelTMDB->poster;
-					}
 						
     				echo CHtml::openTag('li');
     				echo CHtml::link(
@@ -44,9 +22,8 @@
     								"width"=>"162", "height"=>"215", "border"=>"0",
     								)),
     				
-    				'',array("class"=>"peliAfiche aficheClickFinished","idMovie"=>$myMovie->Id,
-    								"idResource"=>$movie->Id,
-    								"sourceType"=>$movie->source_type));
+    				'',array("class"=>"peliAfiche aficheClickCurrentDisc","idMovie"=>$myMovie->Id,
+    								"sourceType"=>2));    			
     					
 //     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
 //     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
@@ -62,6 +39,8 @@
     		?>        	
 		</ul>
 	</div>
+<?php endif?>
+	
 <!-- /content -->
 
 <!-- Le javascript
@@ -69,9 +48,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
     $(window).load(function(){
-    	$("#pill-filter-market").click(function()
-    	    	{
-    	    	});
       $('.flexslider').flexslider({
         animation: "slide",
         animationLoop: false,
@@ -94,3 +70,4 @@
 // echo CHtml::closeTag('div'); 
 
 // $this->endWidget(); ?>
+

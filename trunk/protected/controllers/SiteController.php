@@ -127,7 +127,7 @@ class SiteController extends Controller
 		//$criteriaExternal->order="read_date DESC";
 		
 		$nzbDownloading = Nzb::model()->findAll($criteriaNzb);
-		
+				
 		$this->render('downloads',array(
 				'dataProvider'=>$dataProvider,
 				'sABnzbdStatus'=>$sABnzbdStatus,
