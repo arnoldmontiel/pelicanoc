@@ -18,8 +18,10 @@
  * @property string $file
  * @property integer $is_personal
  * @property integer $already_exists
+ * @property integer $Id_local_folder
  *
  * The followings are the available model relations:
+ * @property LocalFolder $idLocalFolder
  * @property CurrentExternalStorage $idCurrentExternalStorage
  */
 class ExternalStorageData extends CActiveRecord
@@ -41,13 +43,13 @@ class ExternalStorageData extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_current_external_storage', 'required'),
-			array('Id_current_external_storage, copy, status, is_personal, already_exists', 'numerical', 'integerOnly'=>true),
+			array('Id_current_external_storage, copy, status, is_personal, already_exists, Id_local_folder', 'numerical', 'integerOnly'=>true),
 			array('path, poster, description, file', 'length', 'max'=>255),
 			array('title', 'length', 'max'=>100),
 			array('year, imdb, type', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Id_current_external_storage, path, title, year, poster, copy, status, description, imdb, type, file, is_personal, already_exists', 'safe', 'on'=>'search'),
+			array('Id, Id_current_external_storage, path, title, year, poster, copy, status, description, imdb, type, file, is_personal, already_exists, Id_local_folder', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +61,7 @@ class ExternalStorageData extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'localFolder' => array(self::BELONGS_TO, 'LocalFolder', 'Id_local_folder'),
 			'currentExternalStorage' => array(self::BELONGS_TO, 'CurrentExternalStorage', 'Id_current_external_storage'),
 		);
 	}
@@ -83,6 +86,7 @@ class ExternalStorageData extends CActiveRecord
 			'file' => 'File',
 			'is_personal' => 'Is Personal',
 			'already_exists' => 'Already Exists',
+			'Id_local_folder' => 'Id Local Folder',
 		);
 	}
 
@@ -118,6 +122,7 @@ class ExternalStorageData extends CActiveRecord
 		$criteria->compare('file',$this->file,true);
 		$criteria->compare('is_personal',$this->is_personal);
 		$criteria->compare('already_exists',$this->already_exists);
+		$criteria->compare('Id_local_folder',$this->Id_local_folder);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
