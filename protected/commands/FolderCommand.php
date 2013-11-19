@@ -153,7 +153,10 @@ class FolderCommand extends CConsoleCommand  {
 								$modelLocalFolder->save();
 							}
 							else
+							{
 								PelicanoHelper::eraseResource($modelLocalFolder->path);
+								LocalFolder::model()->deleteByPk($modelLocalFolder->Id);
+							}
 							
 							
 							$modelESData->status = 7;
@@ -172,6 +175,9 @@ class FolderCommand extends CConsoleCommand  {
 				}
 				else 
 				{
+					PelicanoHelper::eraseResource($modelLocalFolder->path);
+					LocalFolder::model()->deleteByPk($modelLocalFolder->Id);
+					
 					$modelESData->status = 4; //error on copy
 					$modelESData->copy = 0;
 					$modelESData->save();
