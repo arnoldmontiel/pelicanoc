@@ -80,7 +80,7 @@ $this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$ex
 ?>
 <?php
 //desde Discos Opticos 
-//$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+$this->renderPartial("_downloadRipping",array("modelMyMovie"=>$modelMyMovie));
 ?>
 
 <div class="pelisDescargadas" style="display:none">
