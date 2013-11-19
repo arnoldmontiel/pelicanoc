@@ -531,20 +531,13 @@ class SiteController extends Controller
 		
 		$modelESData = ExternalStorageData::model()->findByPk($idESData);
 		
-		$setting = Setting::getInstance();
-		
 		if(isset($modelESData))
 		{
-			$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $modelESData->path;
-			if(!empty($modelESData->file))
-				$localFolderPath = $localFolderPath.'/'.$modelESData->file;
-			
-			$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path_original'=>$localFolderPath));
-			if(isset($modelLocalFolder))
-			{				
-				$playArray['idResource'] = $modelLocalFolder->Id;
+			if(isset($modelESData->localFolder))
+			{
+				$playArray['idResource'] = $modelESData->Id_local_folder;
 				$playArray['sourceType'] = 3; //localfolder
-				$playArray['id'] = $modelLocalFolder->myMovieDisc->Id_my_movie;
+				$playArray['id'] = $modelESData->localFolder->myMovieDisc->Id_my_movie;
 			}
 		}
 		
