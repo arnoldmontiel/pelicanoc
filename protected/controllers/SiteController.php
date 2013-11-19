@@ -535,12 +535,11 @@ class SiteController extends Controller
 		
 		if(isset($modelESData))
 		{
-			$localFolderPath = str_replace($modelESData->currentExternalStorage->path,'',$modelESData->path);
-			$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $localFolderPath;
+			$localFolderPath = $setting->path_shared_pelicano_root. $setting->path_shared_copied. $modelESData->path;
 			if(!empty($modelESData->file))
 				$localFolderPath = $localFolderPath.'/'.$modelESData->file;
 			
-			$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
+			$modelLocalFolder = LocalFolder::model()->findByAttributes(array('path_original'=>$localFolderPath));
 			if(isset($modelLocalFolder))
 			{				
 				$playArray['idResource'] = $modelLocalFolder->Id;
