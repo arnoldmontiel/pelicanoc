@@ -1,20 +1,21 @@
 	<div class="row">
     	<div class="col-md-8">
-			<h2 class="sliderTitle modified">Descargando desde USB</h2> 
+			<h2 class="sliderTitle modified">Descargando desde Market</h2> 
 			<ul class="nav nav-pills">
   				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
   			</ul>
 		</div>
     </div>
-<?php if(!empty($externalStorageDataCopying)):?>
-	<div class="flexsliderLocal carousel">
+<?php if(!empty($nzbDownloading)):?>
+    
+	<div class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
-    			foreach($externalStorageDataCopying as $externalStorageData)
+    			foreach($nzbDownloading as $nzb)
     			{
-					$modelSource = $externalStorageData->localFolder;
-					if(!isset($modelSource->myMovieDisc)) continue;
-					$myMovie = $modelSource->myMovieDisc->myMovie;
+					$modelSource = $nzb;
+					if(!isset($modelSource->myMovieDiscNzb)) continue;
+					$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
 					$modelTMDB =  $modelSource->TMDBData;
 					$moviePoster = $myMovie->poster;
 					if(isset($modelTMDB)&&$modelTMDB->poster!="")
@@ -29,9 +30,9 @@
     								"width"=>"162", "height"=>"215", "border"=>"0",
     								)),
     				
-    				'',array("class"=>"peliAfiche aficheClickLocalFolder","idMovie"=>$myMovie->Id,
+    				'',array("class"=>"peliAfiche aficheClickNzb","idMovie"=>$myMovie->Id,
     								"idResource"=>$modelSource->Id,
-    								"sourceType"=>4));    			
+    								"sourceType"=>1));    			
     					
 //     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
 //     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
@@ -56,7 +57,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
     $(window).load(function(){
-      $('.flexsliderLocal').flexslider({
+      $('.flexslider').flexslider({
         animation: "slide",
         animationLoop: false,
         itemWidth: 165,
@@ -78,3 +79,4 @@
 // echo CHtml::closeTag('div'); 
 
 // $this->endWidget(); ?>
+

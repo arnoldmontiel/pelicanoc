@@ -10,8 +10,8 @@
 		</div>
     </div>
 
-	<div class="flexslider carousel">
-		<ul class="slides superScroll">
+	<div class="flexslider ">
+		<ul class="slides ">
 		    <?php
     			foreach($movies as $movie)
     			{
@@ -91,6 +91,3 @@
 // echo CHtml::closeTag('div'); 
 
 // $this->endWidget(); ?>
-
-    </div> <!-- /col-md-12 -->
-  </div><!-- /row -->

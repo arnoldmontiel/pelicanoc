@@ -72,7 +72,7 @@ $this->renderPartial("_downloadFinished",array("movies"=>$movies));
 ?>
 <?php
 //desde marketplace 
-$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading));
 ?>
 <?php
 //desde USB 
@@ -80,7 +80,7 @@ $this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$ex
 ?>
 <?php
 //desde Discos Opticos 
-$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+//$this->renderPartial("_downloadFinished",array("movies"=>$movies));
 ?>
 
 <h2 class="sliderTitle">Descargando</h2>
