@@ -113,8 +113,8 @@ class SiteController extends Controller
 		$movies = Movies::model()->findAll($criteriaMovies);
 
 		$criteriaExternal=new CDbCriteria;
-		$criteriaExternal->addCondition('status = 2 OR status = 7');
-		$criteriaExternal->addCondition('copy = 1');
+		$criteriaExternal->addCondition('(status = 2 OR status = 7)');
+		$criteriaExternal->addCondition('copya = 1');
 		//$criteriaExternal->limit=30;
 		//$criteriaExternal->order="read_date DESC";
 		
