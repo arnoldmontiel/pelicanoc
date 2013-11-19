@@ -26,7 +26,7 @@ class ReadFolderHelper
 				}
 				else
 				{
-					exec(dirname(__FILE__).'/../commands/shell/processPeliFileES.sh '.$idCurrentES.' >/dev/null&');
+					exec(dirname(__FILE__).'/../commands/shell/processPeliFileES.sh '.$idCurrentES);
 				}
 			}
 			
