@@ -120,12 +120,21 @@ class SiteController extends Controller
 		
 		$externalStorageDataCopying = ExternalStorageData::model()->findAll($criteriaExternal);
 		
+		$criteriaNzb=new CDbCriteria;
+		$criteriaNzb->addCondition('Id_nzb_state = 2');
+		$criteriaNzb->addCondition('downloading = 1');
+		//$criteriaExternal->limit=30;
+		//$criteriaExternal->order="read_date DESC";
+		
+		$nzbDownloading = Nzb::model()->findAll($criteriaNzb);
+		
 		$this->render('downloads',array(
 				'dataProvider'=>$dataProvider,
 				'sABnzbdStatus'=>$sABnzbdStatus,
 				'modelMyMovie'=>$modelMyMovie,
 				'movies'=>$movies,
-				'externalStorageDataCopying'=>$externalStorageDataCopying
+				'externalStorageDataCopying'=>$externalStorageDataCopying,
+				'nzbDownloading'=>$nzbDownloading
 		));
 	}
 
