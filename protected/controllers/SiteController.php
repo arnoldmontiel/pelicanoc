@@ -268,6 +268,11 @@ class SiteController extends Controller
 				
 				if($modelESData->status == 2) //si ESTA copiando
 					$modelESData->status = 5; //cancel copy
+				else
+				{
+					if(isset($modelESData->localFolder))
+						LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
+				}
 				
 				$modelESData->copy = 0;
 				if($modelESData->save())
