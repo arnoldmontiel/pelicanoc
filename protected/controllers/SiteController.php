@@ -105,11 +105,27 @@ class SiteController extends Controller
 		$criteria->addCondition('cd.Id_current_disc_state <> 1');
 		$criteria->addCondition('cd.command =  2'); //ripping
 		$modelMyMovie = MyMovie::model()->find($criteria);
+		
+		$criteriaMovies=new CDbCriteria;
+		$criteriaMovies->limit=30;
+		$criteriaMovies->order="date DESC";
+		
+		$movies = Movies::model()->findAll($criteriaMovies);
 
+		$criteriaExternal=new CDbCriteria;
+		$criteriaExternal->addCondition('hide = 0');
+		$criteriaExternal->addCondition('ready = 0');
+		$criteriaExternal->limit=30;
+		$criteriaExternal->order="read_date DESC";
+		
+		$localFolderCopying = LocalFolder::model()->findAll($criteriaExternal);
+		
 		$this->render('downloads',array(
 				'dataProvider'=>$dataProvider,
 				'sABnzbdStatus'=>$sABnzbdStatus,
 				'modelMyMovie'=>$modelMyMovie,
+				'movies'=>$movies,
+				'localFolderCopying'=>$localFolderCopying
 		));
 	}
 
