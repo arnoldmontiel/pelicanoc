@@ -293,8 +293,16 @@ class FolderCommand extends CConsoleCommand  {
 								$idLocalFolder = $modelLocalFolderDB->Id; 
 						}
 					}
+					
+					if($idLocalFolder != 0)
+					{
+						$modelESData->Id_local_folder = $idLocalFolder;
+						$modelESData->save();
+					}
+					
 					$modelLote->description = 'Successfull';
 					$modelLote->save();
+					
 					return $idLocalFolder;
 				}
 				$modelLote = new Lote();
