@@ -271,7 +271,10 @@ class SiteController extends Controller
 				else
 				{
 					if(isset($modelESData->localFolder))
+					{
 						LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
+						$modelESData->Id_local_folder = null;
+					}
 				}
 				
 				$modelESData->copy = 0;
