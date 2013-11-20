@@ -640,19 +640,28 @@ class SiteController extends Controller
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$name = "USB";
+		$workingFirstScan = 0;
 		if(isset($idCurrentES))
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
 			if(isset($modelCurrentES))
 			{
 				if($modelCurrentES->soft_scan_ready == 0)
+				{
 					ReadFolderHelper::scanExternalStorage($idCurrentES);
+					$workingFirstScan = 1;
+				}
 				
 				$name = $modelCurrentES->label; 
 			}
 		}
 
-		echo "<h2>".$name." <i class='fa fa-spinner fa-spin'></i> Analizando...</h2>";
+		$h2msg = "<h2>".$name." <i class='fa fa-spinner fa-spin'></i> Analizando...</h2>";
+		
+		$response = array('msg'=>$h2msg,
+						'workingFirstScan'=>$workingFirstScan);
+			
+		echo json_encode($response);
 	}
 
 	public function actionAjaxMarkCurrentESRead()
