@@ -671,7 +671,9 @@ class SiteController extends Controller
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
 			if(isset($modelCurrentES))
 			{
-				ReadFolderHelper::scanExternalStorage($idCurrentES);
+				if($modelCurrentES->soft_scan_ready == 0)
+					ReadFolderHelper::scanExternalStorage($idCurrentES);
+				
 				$name = $modelCurrentES->label; 
 			}
 		}
