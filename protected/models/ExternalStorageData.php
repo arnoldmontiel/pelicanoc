@@ -19,7 +19,7 @@
  * @property integer $is_personal
  * @property integer $already_exists
  * @property integer $Id_local_folder
- * @property integer $size
+ * @property string $size
  *
  * The followings are the available model relations:
  * @property CurrentExternalStorage $idCurrentExternalStorage
@@ -44,10 +44,11 @@ class ExternalStorageData extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_current_external_storage', 'required'),
-			array('Id_current_external_storage, copy, status, is_personal, already_exists, Id_local_folder, size', 'numerical', 'integerOnly'=>true),
+			array('Id_current_external_storage, copy, status, is_personal, already_exists, Id_local_folder', 'numerical', 'integerOnly'=>true),
 			array('path, poster, description, file', 'length', 'max'=>255),
 			array('title', 'length', 'max'=>100),
 			array('year, imdb, type', 'length', 'max'=>45),
+			array('size', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('Id, Id_current_external_storage, path, title, year, poster, copy, status, description, imdb, type, file, is_personal, already_exists, Id_local_folder, size', 'safe', 'on'=>'search'),
@@ -125,7 +126,7 @@ class ExternalStorageData extends CActiveRecord
 		$criteria->compare('is_personal',$this->is_personal);
 		$criteria->compare('already_exists',$this->already_exists);
 		$criteria->compare('Id_local_folder',$this->Id_local_folder);
-		$criteria->compare('size',$this->size);
+		$criteria->compare('size',$this->size,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
