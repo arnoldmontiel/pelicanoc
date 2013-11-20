@@ -67,25 +67,21 @@
 <!-- Le javascript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-	    <?php
-
-Yii::app()->clientScript->registerScript('_download-finish', "
-  $('.flexslider').flexslider({
-      animation: 'slide',
-      animationLoop: false,
-      itemWidth: 165,
-      itemMargin: 5,
-		slideshow: false,
-		touch: true,
-      start: function(slider){
-        $('body').removeClass('loading');
-      }
-    });
-					
-	");?>
   <script type="text/javascript">
   
 	$(window).load(function(){
+		  $('.flexslider').flexslider({
+		      animation: 'slide',
+		      animationLoop: false,
+		      itemWidth: 165,
+		      itemMargin: 5,
+				slideshow: false,
+				touch: true,
+		      start: function(slider){
+		        $('body').removeClass('loading');
+		      }
+		    });
+				
     	$("#pill-filter-market").click(function()
     	{
 		});
