@@ -68,6 +68,13 @@ class FolderCommand extends CConsoleCommand  {
 					$modelESData->copy = 0;
 					$modelESData->save();
 				}
+				else
+				{
+					$modelCurrentESDB = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$modelESData->Id_current_external_storage,
+																								'is_in'=>0));
+					if(isset($modelCurrentESDB))
+						LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
+				}
 			}			
 		}
 	}
