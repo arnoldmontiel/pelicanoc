@@ -200,7 +200,7 @@ class ReadFolderHelper
 						if(count($modelCurrentESs) == 0) //si no hay ningun disco externo copiando, actualizo la tabla de comandos trabajando
 						{
 							$_COMMAND_NAME = "processExternalStorage";
-							CurrentExternalStorage::model()->update(array('busy'=>0),'command_name'=>$_COMMAND_NAME);
+							CurrentExternalStorage::model()->update(array('busy'=>0),'command_name = "'.$_COMMAND_NAME.'"');
 						}
 					}
 				}				
