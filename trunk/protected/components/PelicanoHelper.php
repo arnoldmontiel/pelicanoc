@@ -37,14 +37,20 @@ class PelicanoHelper
 		}
 	}
 	
-	static public function getDirectorySize($path)
+	static public function getDirectorySize($path, $formatBytes = true)
 	{
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			//This is a server using Windows
-			$output = self::format_bytes(self::getWinDirSize($path));
+			if($formatBytes)
+				$output = self::getWinDirSize($path);
+			else
+				$output = self::format_bytes(self::getWinDirSize($path));
 		} else {
 			//This is a server not using Windows
-			$output = self::format_bytes(self::getNixDirSize($path));
+			if($formatBytes)
+				$output = self::getNixDirSize($path);
+			else
+				$output = self::format_bytes(self::getNixDirSize($path));
 		}
 		return $output;
 	}
