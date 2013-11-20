@@ -181,7 +181,7 @@ foreach($dataProvider->getData() as $record)
     			var id = $(this).attr("idMovie");
     			var idExternalStorage = $(this).attr("idExternalStorage");
     			var idResource = $(this).attr("idResource");		
-    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource+'&idExternalStorage='+idExternalStorage; 
+    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource+'&idExternalStorageData='+idExternalStorage; 
     			$.ajax({
     		   		type: 'POST',
     		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowExternalStorageDownloadDetail') ?>',
