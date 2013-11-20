@@ -175,6 +175,7 @@ class ReadFolderHelper
 					$current = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1,'path'=>$folder));
 					if(isset($current))
 					{
+						Log::logger("PATALALA: ".$current->Id);
 						//TODO falta eliminar los registros de external_storage_data
 						$criteria = new CDbCriteria();
 						$criteria->condition('t.Id_current_external_storage = '. $current->Id);
