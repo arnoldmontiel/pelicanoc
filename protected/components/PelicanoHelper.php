@@ -42,15 +42,15 @@ class PelicanoHelper
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			//This is a server using Windows
 			if($formatBytes)
-				$output = self::getWinDirSize($path);
-			else
 				$output = self::format_bytes(self::getWinDirSize($path));
+			else
+				$output = self::getWinDirSize($path);
 		} else {
 			//This is a server not using Windows
 			if($formatBytes)
-				$output = self::getNixDirSize($path);
-			else
 				$output = self::format_bytes(self::getNixDirSize($path));
+			else
+				$output = self::getNixDirSize($path);
 		}
 		return $output;
 	}
