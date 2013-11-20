@@ -174,7 +174,31 @@ foreach($dataProvider->getData() as $record)
     			
     		}
        );
-    	
+    $("a.aficheClickLocalFolder").click(
+    		function()
+    		{
+    			var sourceType = $(this).attr("sourceType");
+    			var id = $(this).attr("idMovie");
+    			var idResource = $(this).attr("idResource");		
+    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
+    			$.ajax({
+    		   		type: 'POST',
+    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowDownloadDetail') ?>',
+    		   		data: param,
+    		 	}).success(function(data)
+    		 	{
+    		 	
+    				$('#myModal').html(data);	
+    		   		$('#myModal').modal({
+    	  				show: true
+    				});		
+    			}
+    		 	);
+    		   	return false;	
+    			
+    		}
+       );
+    
 </script>
 
 
