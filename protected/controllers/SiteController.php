@@ -304,7 +304,7 @@ class SiteController extends Controller
 			$bookmarks = $localFolder->bookmarks;
 		}
 		$casting = $this->getCasting($criteria);
-		$this->renderPartial('_movieDetails',array('model'=>$model,
+		$this->renderPartial('_movieDownloadDetails',array('model'=>$model,
 				'casting'=>$casting,
 				'sourceType'=>$sourceType,
 				'modelNzb'=>$modelNzb,
