@@ -9,11 +9,13 @@ Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 getRipp();
 getNzbStatus();
 
+   		
 setInterval(function() {
+	getNzbStatus();	
 	//getRipp();
    	updateFinished();
 }, 5000)
-	functionupdateFinished()
+	function updateFinished()
 	{
    		if(!$('#myModal').is(':visible'))
    		{
@@ -73,9 +75,6 @@ function getNzbStatus()
 		}
 	);
 }
-setInterval(function() {
-	getNzbStatus();
-}, 5000)
 ");
 ?>
 <div id="finished-area">
