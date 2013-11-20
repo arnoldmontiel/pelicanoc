@@ -189,7 +189,13 @@ class ReadFolderHelper
 							foreach($modelESDatas as $modelESData)
 							{
 								if($modelESData->localFolder->ready == 0)
+								{
 									LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
+									$modelESData->Id_local_folder = null;
+								}
+								$modelESData->status = 4; //error on copy
+								$modelESData->copy = 0;
+								$modelESData->save();
 							}
 						}
 						
@@ -203,6 +209,8 @@ class ReadFolderHelper
 							if(isset($modelCommandStatus))
 								$modelCommandStatus->setBusy(false);
 						}
+						else
+							exec(dirname(__FILE__).'/../commands/shell/processPeliFileES.sh '.$modelCurrentESs[0]->Id.' >/dev/null&');
 					}
 				}				
 			}
