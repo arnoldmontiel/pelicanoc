@@ -178,8 +178,8 @@ foreach($dataProvider->getData() as $record)
     		function()
     		{
     			var sourceType = $(this).attr("sourceType");
-    			var id = $(this).attr("idMyMovie");
-    			var idExternalStorage = $(this).attr("id");
+    			var id = $(this).attr("idMovie");
+    			var idExternalStorage = $(this).attr("idExternalStorage");
     			var idResource = $(this).attr("idResource");		
     			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource+'&idExternalStorage='+idExternalStorage; 
     			$.ajax({
