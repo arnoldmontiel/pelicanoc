@@ -91,8 +91,6 @@ class PelicanoHelper
 	
 	private function getNixDirSize($path) {
 		$size = 0;
-		$setting = Setting::getInstance();
-		$path = $setting->path_shared . $path;
 		
 		$path = ReadFolderHelper::scapePath($path);
 		

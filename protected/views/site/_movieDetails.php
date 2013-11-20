@@ -26,7 +26,12 @@
 		}
 		
  		if(!empty($path))
+ 		{
+ 			$setting = Setting::getInstance();
+ 			$path = $setting->path_shared . $path;
+ 			
  			$size = PelicanoHelper::getDirectorySize($path);
+ 		}
 
  		$moviePoster = $model->big_poster;
  		if(isset($modelTMDB)&&$modelTMDB->big_poster!="")
