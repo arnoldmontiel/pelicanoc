@@ -14,7 +14,7 @@ setInterval(function() {
 // 	getNzbStatus();	
 	//getRipp();
    	updateFinished();
-}, 5000)
+}, 1000*30)
 	function updateFinished()
 	{
    		if(!$('#myModal').is(':visible'))
