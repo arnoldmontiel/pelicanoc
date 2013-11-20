@@ -6,12 +6,12 @@
 
 Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 
-getRipp();
-getNzbStatus();
+// getRipp();
+// getNzbStatus();
 
    		
 setInterval(function() {
-	getNzbStatus();	
+// 	getNzbStatus();	
 	//getRipp();
    	updateFinished();
 }, 5000)
