@@ -175,21 +175,20 @@ class ReadFolderHelper
 					$current = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1,'path'=>$folder));
 					if(isset($current))
 					{
-						Log::logger("PATALALA: ".$current->Id);
 						//TODO falta eliminar los registros de external_storage_data
-// 						$criteria = new CDbCriteria();
-// 						$criteria->condition('t.Id_current_external_storage = '. $current->Id);
-// 						$criteria->condition('t.Id_local_folder is not null');
+						$criteria = new CDbCriteria();
+						$criteria->join = "INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)";
+						$criteria->condition('t.Id_current_external_storage = '. $current->Id);
+						$criteria->condition('ces.is_in = 1');
+						$criteria->condition('t.Id_local_folder is not null');
 						
-// 						$modelESDatas = ExternalStorageData::model()->findAll($criteria);
-// 						Log::logger("antes del foreach: ".$current->Id);
-// 						foreach($modelESDatas as $modelESData)
-// 						{
-// 							Log::logger("en el for: ".$modelESData->Id);
-// 							if($modelESData->localFolder->ready == 0)
-// 								LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
-// 						}
-// 						Log::logger("despues del foreach");
+						$modelESDatas = ExternalStorageData::model()->findAll($criteria);
+						
+						foreach($modelESDatas as $modelESData)
+						{
+							if($modelESData->localFolder->ready == 0)
+								LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
+						}
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
 					}
 				}				
