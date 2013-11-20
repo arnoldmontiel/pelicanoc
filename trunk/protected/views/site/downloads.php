@@ -27,7 +27,7 @@ function getRipp()
 	    				$('#ripp-image').attr('src', src);
 	    				$('#percentage-bar').width(obj.percentage+'%');
 						$('#percentage-bar').html(obj.percentage+'%');
-						$('#btn-cancel').removeAttr('disabled');	
+						$('#btn-cancelRipp').removeAttr('disabled');	
 						$('#ripping-area').show();
 					}
 	    			else
@@ -135,7 +135,7 @@ foreach($dataProvider->getData() as $record)
 				<div id="percentage-bar" class="bar" style="width:0%;">0%</div>				
 			</div>
 		</div>
-		<a id="btn-cancel" class="btn">
+		<a id="btn-cancelRipp" class="btn">
 			<i class="icon-th"></i>
 				Cancelar
 		</a>
@@ -143,8 +143,8 @@ foreach($dataProvider->getData() as $record)
 
 </div>
 <script>
-	$('#btn-cancel').click(function(){
-		$('#btn-cancel').attr("disabled", "disabled");		
+	$('#btn-cancelRipp').click(function(){
+		$('#btn-cancelRipp').attr("disabled", "disabled");		
 		$.post("<?php echo SiteController::createUrl('AjaxCancelRipp'); ?>"
 			).success(
 				function(data){
