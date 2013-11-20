@@ -10,9 +10,21 @@ getRipp();
 getNzbStatus();
 
 setInterval(function() {
-	getRipp();
+	//getRipp();
+   	updateFinished();
 }, 5000)
-		
+	functionupdateFinished()
+	{
+   		if(!$('#myModal').is(':visible'))
+   		{
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "'
+			).success(
+			function(data){
+   				$('#finished-area').html(data);		
+			});   		
+   		
+   		}
+	}	
 function getRipp()
 {
 	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'
@@ -66,23 +78,30 @@ setInterval(function() {
 }, 5000)
 ");
 ?>
+<div id="finished-area">
 <?php
 //Finalizada recientemente
 $this->renderPartial("_downloadFinished",array("movies"=>$movies));
 ?>
+</div>
+<div id="market-area">
 <?php
 //desde marketplace 
 $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading));
 ?>
+</div>
+<div id="external-area">
 <?php
 //desde USB 
 $this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$externalStorageDataCopying));
 ?>
+</div>
+<div id="ripping-area">
 <?php
 //desde Discos Opticos 
 $this->renderPartial("_downloadRipping",array("modelMyMovie"=>$modelMyMovie));
 ?>
-
+</div>
 <div class="pelisDescargadas" style="display:none">
 <!--      empieza peli finalizada-->
 <?php
