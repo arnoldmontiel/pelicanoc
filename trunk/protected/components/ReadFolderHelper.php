@@ -186,6 +186,7 @@ class ReadFolderHelper
 						
 						foreach($modelESDatas as $modelESData)
 						{
+							Log::logger("foreach : ". $modelESData->Id);
 							if($modelESData->localFolder->ready == 0)
 								LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
 						}
