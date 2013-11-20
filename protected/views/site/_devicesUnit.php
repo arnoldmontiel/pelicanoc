@@ -22,14 +22,32 @@
 		$(this).parent().find('.usb-button-scan').removeClass('active');
 		$(this).addClass('active');
 		$('#hidden-unit').val(id);
-		$('#hidden-first-scan-working').val(1);		
 		$.post("<?php echo SiteController::createUrl('AjaxExploreExternalStorage'); ?>",
 			{
 				id:id			    
 			}
 		).success(
-			function(data){	
-				$('#wizardDispositivos').html(data);							
+				function(data){						
+					var obj = jQuery.parseJSON(data);					
+					if(obj.workingFirstScan == 1)
+					{
+						if(obj.msg != null)
+							$('#wizardDispositivos').html(obj.msg);
+						
+						$('#hidden-first-scan-working').val(1);
+					}
+					else
+					{
+						$.post("<?php echo SiteController::createUrl('AjaxHardScanES'); ?>",
+								{
+									id:id
+								}
+							).success(
+								function(data){	
+									$('#wizardDispositivos').html(data);
+									$('#hidden-second-scan-working').val(1);	
+							});
+					}							
 		});
 				
 		return false;
