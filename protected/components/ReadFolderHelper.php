@@ -184,7 +184,7 @@ class ReadFolderHelper
 						foreach($modelESDatas as $modelESData)
 						{
 							if($modelESData->localFolder->ready == 0)
-								$modelESData->localFolder->delete();
+								LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
 						}
 						
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
