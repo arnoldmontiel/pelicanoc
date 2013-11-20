@@ -178,9 +178,9 @@ class ReadFolderHelper
 						//TODO falta eliminar los registros de external_storage_data
 						$criteria = new CDbCriteria();
 						$criteria->join = "INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)";
-						$criteria->condition('t.Id_current_external_storage = '. $current->Id);
-						$criteria->condition('ces.is_in = 1');
-						$criteria->condition('t.Id_local_folder is not null');
+						$criteria->addCondition('t.Id_current_external_storage = '. $current->Id);
+						$criteria->addCondition('ces.is_in = 1');
+						$criteria->addCondition('t.Id_local_folder is not null');
 						
 						$modelESDatas = ExternalStorageData::model()->findAll($criteria);
 						
