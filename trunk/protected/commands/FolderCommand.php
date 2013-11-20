@@ -34,8 +34,9 @@ class FolderCommand extends CConsoleCommand  {
 			{
 				self::processES();
 				$modelCommandStatus->setBusy(false);
-				$modelCurrentES->state = 3; //finish scan
-				$modelCurrentES->save();
+				
+				//finish scan
+				CurrentExternalStorage::model()->updateAll(array('state'=>3),'is_in=1 and state=2');
 			}
 		}
 	}
