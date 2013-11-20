@@ -184,14 +184,24 @@ class ReadFolderHelper
 						$criteria->addCondition('t.Id_local_folder is not null');
 						
 						$modelESDatas = ExternalStorageData::model()->findAll($criteria);
-						
-						foreach($modelESDatas as $modelESData)
+						if(count($modelESDatas)>0)
 						{
-							Log::logger("foreach a: ". $modelESData->Id);
-							if($modelESData->localFolder->ready == 0)
-								LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
+							foreach($modelESDatas as $modelESData)
+							{
+								Log::logger("foreach a: ". $modelESData->Id);
+								if($modelESData->localFolder->ready == 0)
+									LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
+							}
 						}
+						
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
+						
+						$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1,'state'=>2)); 						
+						if(count($modelCurrentESs) == 0) //si no hay ningun disco externo copiando, actualizo la tabla de comandos trabajando
+						{
+							$_COMMAND_NAME = "processExternalStorage";
+							CurrentExternalStorage::model()->update(array('busy'=>0),'command_name'=>$_COMMAND_NAME);
+						}
 					}
 				}				
 			}
