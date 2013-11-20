@@ -579,7 +579,7 @@ class FolderCommand extends CConsoleCommand  {
 			
 			if(isset($modelPeliFile))
 			{
-				$modelESData->size = PelicanoHelper::getDirectorySize($workingPath,false);
+				$modelESData->size = PelicanoHelper::getDirectorySize($modelESData->path,false);
 				$modelESData->title = $modelPeliFile->name;
 				$modelESData->year = $modelPeliFile->year;
 				$modelESData->poster = $modelPeliFile->poster;
