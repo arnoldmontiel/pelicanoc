@@ -61,7 +61,14 @@ class FolderCommand extends CConsoleCommand  {
 			$modelESDatas = ExternalStorageData::model()->findAll($criteria);
 			
 			foreach($modelESDatas as $modelESData)
-				self::processPeliFileES($modelESData);			
+			{
+				if(self::processPeliFileES($modelESData) == 0)
+				{
+					$modelESData->status = 4; //error on getting information
+					$modelESData->copy = 0;
+					$modelESData->save();
+				}
+			}			
 		}
 	}
 	
