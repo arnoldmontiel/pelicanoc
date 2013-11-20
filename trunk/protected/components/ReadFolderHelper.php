@@ -181,12 +181,14 @@ class ReadFolderHelper
 						$criteria->condition('t.Id_local_folder is not null');
 						
 						$modelESDatas = ExternalStorageData::model()->findAll($criteria);
+						Log::logger("antes del foreach: ".$current->Id);
 						foreach($modelESDatas as $modelESData)
 						{
+							Log::logger("en el for: ".$modelESData->Id);
 							if($modelESData->localFolder->ready == 0)
 								LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
 						}
-						
+						Log::logger("despues del foreach");
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
 					}
 				}				
