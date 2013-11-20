@@ -263,6 +263,18 @@ class SiteController extends Controller
 				'modelBookmarks'=>$bookmarks,
 		));
 	}
+	
+	public function actionAjaxUpdateDownloadFinished()
+	{
+		
+		$criteriaMovies=new CDbCriteria;
+		$criteriaMovies->limit=30;
+		$criteriaMovies->order="date DESC";
+		
+		$movies = Movies::model()->findAll($criteriaMovies);
+				
+		$this->renderPartial("_downloadFinished",array("movies"=>$movies));		
+	}
 	public function actionAjaxMovieShowExternalStorageDownloadDetail()
 	{
 		$id_resource = $_POST['idresource'];
