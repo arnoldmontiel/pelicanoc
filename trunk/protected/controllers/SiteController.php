@@ -263,7 +263,7 @@ class SiteController extends Controller
 				'modelBookmarks'=>$bookmarks,
 		));
 	}
-	public function actionAjaxMovieShowExternalStorageDetail()
+	public function actionAjaxMovieShowExternalStorageDownloadDetail()
 	{
 		$id_resource = $_POST['idresource'];
 		$id = $_POST['id'];
