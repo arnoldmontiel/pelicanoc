@@ -371,14 +371,21 @@ function initPage()
 	var id = $('#hidden-unit').val();
 	if(id > 0 )
 	{
-		$('#hidden-first-scan-working').val(1);		
 		$.post("<?php echo SiteController::createUrl('AjaxExploreExternalStorage'); ?>",
 				{
 					id:id			    
 				}
 			).success(
-				function(data){	
-					$('#wizardDispositivos').html(data);							
+				function(data){						
+					var obj = jQuery.parseJSON(data);
+					if(obj.msg != null)
+						$('#wizardDispositivos').html(obj.msg);
+
+					if(obj.workingFirstScan == 1)
+						$('#hidden-first-scan-working').val(1);
+					else
+						$('#hidden-second-scan-working').val(1);
+					
 			});
 	}
 }
