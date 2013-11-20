@@ -30,6 +30,7 @@
     								)),
     				
     				'',array("class"=>"peliAfiche aficheClickLocalFolder","idMovie"=>$myMovie->Id,
+    								"idExternalStorage"=>$externalStorageData->Id,
     								"idResource"=>$modelSource->Id,
     								"sourceType"=>4));    			
     					

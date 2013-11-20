@@ -178,12 +178,13 @@ foreach($dataProvider->getData() as $record)
     		function()
     		{
     			var sourceType = $(this).attr("sourceType");
-    			var id = $(this).attr("idMovie");
+    			var id = $(this).attr("idMyMovie");
+    			var idExternalStorage = $(this).attr("id");
     			var idResource = $(this).attr("idResource");		
-    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
+    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource+'&idExternalStorage='+idExternalStorage; 
     			$.ajax({
     		   		type: 'POST',
-    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowDownloadDetail') ?>',
+    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowExternalStorageDownloadDetail') ?>',
     		   		data: param,
     		 	}).success(function(data)
     		 	{

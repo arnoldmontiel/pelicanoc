@@ -283,43 +283,15 @@
 	});
 	$('#btn-cancel').click(function(){
 		$('#btn-cancel').attr("disabled", "disabled");
-		 
-		//window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
-		return false;
-	});
-	
-	$('#btn-erasera').click(function(){
-		return false;		
-		if (confirm("\u00bfSeguro desea eliminarlo?"))
-		{
-			$.post("<?php echo SiteController::createUrl('AjaxRemoveMovie'); ?>",
+			$.post("<?php echo SiteController::createUrl('AjaxCancelCopy'); ?>",
 			{
-				idResource:<?php echo $idResource; ?>,
-			    sourceType:<?php echo $sourceType; ?>
+				id:<?php echo $modelExternalStorageData->Id; ?>,
 			 }
 			).success(
 				function(data){
-					window.location = <?php echo '"'. SiteController::createUrl('index') . '"'; ?>; 
+					 location.reload(); 
 			});
-		}
 		return false;
 	});
-	
-	$('#btn-tmdb').click(function(){		
-		window.location = <?php echo '"'. SiteController::createUrl('site/tmdb',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
-		return false;
-	});
-	$('#btn-tmdb-movie').click(function(){		
-		window.location = <?php echo '"'. SiteController::createUrl('site/tmdbChangeMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
-		return false;
-	});
-	$('#btn-edit-my-movie').click(function(){		
-		window.location = <?php echo '"'. SiteController::createUrl('site/updateMyMovieInfo',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
-		return false;
-	});	
-	$('#btn-edit').click(function(){		
-		window.location = <?php echo '"'. SiteController::createUrl('site/editMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType)) . '"'; ?>; 
-		return false;
-	});	
-	
+			
 	</script>
