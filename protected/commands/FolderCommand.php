@@ -888,7 +888,7 @@ class FolderCommand extends CConsoleCommand  {
 				$name = $modelPeliFile->name;			
 							
 			$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($name);
-			
+			Log::logger("ES PERSONAL: ".$name);
 			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
 			if(!isset($modelMyMovieDiscDB))
 			{
@@ -908,6 +908,7 @@ class FolderCommand extends CConsoleCommand  {
 		{
 			$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb, 'type'=>'Blu-ray'));
 			
+			Log::logger("NO ES PERSONAL: ".$modelPeliFile->imdb);
 			if(!isset($modelMyMovieDB))
 			{
 				$myMoviesAPI = new MyMoviesAPI();
@@ -923,6 +924,7 @@ class FolderCommand extends CConsoleCommand  {
 							break;				
 					}
 					  		 
+					Log::logger("DENTROO DE PERSONAL: ".$idMyMovie);
 					if(MyMovieHelper::saveMyMovieData($idMyMovie))
 					{					
 
