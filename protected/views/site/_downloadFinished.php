@@ -69,18 +69,18 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
   
-	$(window).load(function(){
-		  $('.flexslider').flexslider({
-		      animation: 'slide',
-		      animationLoop: false,
-		      itemWidth: 165,
-		      itemMargin: 5,
-				slideshow: false,
-				touch: true,
-		      start: function(slider){
-		        $('body').removeClass('loading');
-		      }
-		    });
+  $('.flexslider').flexslider({
+      animation: 'slide',
+      animationLoop: false,
+      itemWidth: 165,
+      itemMargin: 5,
+		slideshow: false,
+		touch: true,
+      start: function(slider){
+        $('body').removeClass('loading');
+      }
+    });
+    		$(window).load(function(){
 				
     	$("#pill-filter-market").click(function()
     	{
