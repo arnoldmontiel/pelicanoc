@@ -99,6 +99,9 @@ class PelicanoHelper
 		$output = exec('du -sk ' . $path);
 		
 		$size = trim(str_replace($path, '', $output)) * 1024;
+		
+		Log::logger("getNixDirSize: du -sk " . $path);
+		Log::logger("output: " . $output);
 		return $size;
 	}
 	
