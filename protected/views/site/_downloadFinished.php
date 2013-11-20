@@ -68,7 +68,7 @@
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
-  $('.flexslider').flexslider({
+  jQuery('.flexslider').flexslider({
       animation: "slide",
       animationLoop: false,
       itemWidth: 165,
@@ -79,10 +79,11 @@
         $('body').removeClass('loading');
       }
     });
-    		$(window).load(function(){
+  
+	$(window).load(function(){
     	$("#pill-filter-market").click(function()
-    	    	{
-    	    	});
+    	{
+		});
     });
   </script>
 
