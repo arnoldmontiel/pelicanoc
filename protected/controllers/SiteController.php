@@ -273,7 +273,19 @@ class SiteController extends Controller
 		
 		$movies = Movies::model()->findAll($criteriaMovies);
 				
-		$this->renderPartial("_downloadFinished",array("movies"=>$movies));		
+		$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+		echo CHtml::script("$('.flexslider').flexslider({
+				animation: 'slide',
+				animationLoop: false,
+				itemWidth: 165,
+				itemMargin: 5,
+				slideshow: false,
+				touch: true,
+				start: function(slider){
+					$('body').removeClass('loading');
+				}
+			});");			
+		
 	}
 	public function actionAjaxMovieShowExternalStorageDownloadDetail()
 	{
