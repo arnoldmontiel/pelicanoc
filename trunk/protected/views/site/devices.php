@@ -377,12 +377,14 @@ function initPage()
 				}
 			).success(
 				function(data){						
-					var obj = jQuery.parseJSON(data);
-					if(obj.msg != null)
-						$('#wizardDispositivos').html(obj.msg);
-
+					var obj = jQuery.parseJSON(data);					
 					if(obj.workingFirstScan == 1)
+					{
+						if(obj.msg != null)
+							$('#wizardDispositivos').html(obj.msg);
+						
 						$('#hidden-first-scan-working').val(1);
+					}
 					else
 					{
 						$.post("<?php echo SiteController::createUrl('AjaxHardScanES'); ?>",
