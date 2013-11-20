@@ -384,7 +384,17 @@ function initPage()
 					if(obj.workingFirstScan == 1)
 						$('#hidden-first-scan-working').val(1);
 					else
-						$('#hidden-second-scan-working').val(1);
+					{
+						$.post("<?php echo SiteController::createUrl('AjaxHardScanES'); ?>",
+								{
+									id:id
+								}
+							).success(
+								function(data){	
+									$('#wizardDispositivos').html(data);
+									$('#hidden-second-scan-working').val(1);	
+							});
+					}
 					
 			});
 	}
