@@ -186,6 +186,7 @@ class ReadFolderHelper
 						$modelESDatas = ExternalStorageData::model()->findAll($criteria);
 						if(count($modelESDatas)>0)
 						{
+							Log::logger("Nuevo foreach....");
 							foreach($modelESDatas as $modelESData)
 							{
 								Log::logger("foreach a: ". $modelESData->Id);
@@ -196,7 +197,8 @@ class ReadFolderHelper
 						
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
 						
-						$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1,'state'=>2)); 						
+						$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1,'state'=>2)); 		
+						Log::logger("Cantidad de CES: ". count($modelCurrentESs));
 						if(count($modelCurrentESs) == 0) //si no hay ningun disco externo copiando, actualizo la tabla de comandos trabajando
 						{
 							$_COMMAND_NAME = "processExternalStorage";
