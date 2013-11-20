@@ -18,6 +18,12 @@ else
 	$backdrop = $model->backdrop;
 }
 
+Yii::app()->clientScript->registerScript('update-my-movie-post-head', "
+		var date = new Date;	 	
+		if('".$backdrop."'!='')			
+	   		ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
+",CClientScript::POS_BEGIN);
+
 Yii::app()->clientScript->registerScript('update-my-movie', "
 		$('#myModalCambiarAfiche').on('hidden.bs.modal', function () {
   			$(this).html('');
@@ -25,9 +31,6 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		$('#myModalCambiarBackdrop').on('hidden.bs.modal', function () {
   			$(this).html('');
 		})
-		var date = new Date;	 	
-	   	if('".$backdrop."'!='')			
-	   		ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
 		
 		$('#open-movie-list').click(function()
 		{
