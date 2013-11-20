@@ -84,7 +84,8 @@ class FolderCommand extends CConsoleCommand  {
 	{
 	
 		include dirname(__FILE__).'../../components/ReadFolderHelper.php';
-	
+		include dirname(__FILE__).'../../components/PelicanoHelper.php';
+		
 		try
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('Id'=>$idCurrentES,
@@ -578,6 +579,7 @@ class FolderCommand extends CConsoleCommand  {
 			
 			if(isset($modelPeliFile))
 			{
+				$modelESData->size = PelicanoHelper::getDirectorySize($workingPath,false);
 				$modelESData->title = $modelPeliFile->name;
 				$modelESData->year = $modelPeliFile->year;
 				$modelESData->poster = $modelPeliFile->poster;
