@@ -284,7 +284,31 @@ class SiteController extends Controller
 				start: function(slider){
 					$('body').removeClass('loading');
 				}
-			});");			
+			});
+    	$('a.aficheClickFinished').click(
+    		function()
+    		{
+    			var sourceType = $(this).attr('sourceType');
+    			var id = $(this).attr('idMovie');
+    			var idResource = $(this).attr('idResource');		
+    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
+    			$.ajax({
+    		   		type: 'POST',
+    		   		url: '".SiteController::createUrl('AjaxMovieShowDetail')."',
+    		   		data: param,
+    		 	}).success(function(data)
+    		 	{
+    		 	
+    				$('#myModal').html(data);	
+    		   		$('#myModal').modal({
+    	  				show: true
+    				});		
+    			}
+    		 	);
+    		   	return false;	
+    			
+    		}
+       );");			
 		
 	}
 	public function actionAjaxMovieShowExternalStorageDownloadDetail()
