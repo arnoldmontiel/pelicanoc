@@ -220,6 +220,7 @@ class FolderCommand extends CConsoleCommand  {
 				{
 					PelicanoHelper::eraseResource($modelLocalFolder->path);
 					LocalFolder::model()->deleteByPk($modelLocalFolder->Id);
+					$modelESData->Id_local_folder = null;
 					
 					$modelESData->status = 4; //error on copy
 					$modelESData->copy = 0;
