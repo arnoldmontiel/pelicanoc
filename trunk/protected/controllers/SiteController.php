@@ -113,6 +113,7 @@ class SiteController extends Controller
 
 		$criteriaExternal=new CDbCriteria;
 		$criteriaExternal->addCondition('(status = 2 OR status = 7)');
+		$criteriaExternal->addCondition('Id_local_folder IS NOT NULL');		
 		$criteriaExternal->addCondition('copy = 1');
 		//$criteriaExternal->limit=30;
 		//$criteriaExternal->order="read_date DESC";
