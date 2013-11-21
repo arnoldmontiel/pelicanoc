@@ -13,14 +13,18 @@ Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 setInterval(function() {
 // 	getNzbStatus();	
 	//getRipp();
-   	updateFinished();
+   	updateFinished($('ul.nav-pills li.active a').attr('id'));
    	updateExternal();
 }, 1000*30)
-	function updateFinished()
+   		$('ul.nav-pills li a').click(function(){
+		updateFinished($(this).attr('id'));
+		});
+   		
+	function updateFinished(filter)
 	{
    		if(!$('#myModal').is(':visible'))
    		{
-   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{idFilter:$('ul.nav-pills li.active a').attr('id')}
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{idFilter:filter}
 			).success(
 			function(data){
    				$('#finished-area').html(data);		

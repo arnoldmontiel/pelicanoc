@@ -304,6 +304,22 @@ class SiteController extends Controller
 					$('body').removeClass('loading');
 				}
 			});
+		$('ul.nav-pills li a').click(function(){
+			updateFinished($(this).attr('id'));
+		});
+					function updateFinished(filter)
+	{
+   		if(!$('#myModal').is(':visible'))
+   		{
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{idFilter:filter}
+			).success(
+			function(data){
+   				$('#finished-area').html(data);		
+			});   		
+   		
+   		}
+	}	
+				
     	$('a.aficheClickFinished').click(
     		function()
     		{
