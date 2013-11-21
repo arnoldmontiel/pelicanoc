@@ -562,23 +562,30 @@ class FolderCommand extends CConsoleCommand  {
 			$hasPeliFile = false;
 			$folderName = basename($modelESData->path);
 			
-			if($modelESData->is_personal == 0) //solo si No es personal
+			
+			foreach ($subIterator as $fileSubIterator)
 			{
-				foreach ($subIterator as $fileSubIterator)
+				if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
 				{
-					if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
-					{
-						$modelPeliFile = self::getPeliFile($fileSubIterator);
+					$modelPeliFile = self::getPeliFile($fileSubIterator);
+					if($modelESData->is_personal == 0)// lo hago para que vuelva a generar el peli si es personal
 						$hasPeliFile = true;
-						break;
-					}
+					
+					break;
 				}
 			}
+			
 						
 			if(!$hasPeliFile)
 			{
 				if($modelESData->is_personal == 1)
-					$modelPeliFile = self::buildPersonalPeliFileES($folderName, $workingPath, $modelESData->type);
+				{
+					$name = $folderName;
+					if(isset($modelPeliFile))
+						$name = $modelPeliFile->name;
+					
+					$modelPeliFile = self::buildPersonalPeliFileES($name, $workingPath, $modelESData->type);
+				}
 				else
 					$modelPeliFile = self::buildPeliFileES($folderName, $workingPath, $modelESData->type);
 			}
@@ -850,11 +857,11 @@ class FolderCommand extends CConsoleCommand  {
 		return $modelPeliFile;
 	}
 	
-	private function buildPersonalPeliFileES($folderName, $path, $type)
+	private function buildPersonalPeliFileES($name, $path, $type)
 	{
 		$modelPeliFile = new PeliFile();
 			
-		$modelPeliFile->name = $folderName;
+		$modelPeliFile->name = $name;
 		$modelPeliFile->imdb = "";
 		$modelPeliFile->year = "";
 		$modelPeliFile->poster = "";
