@@ -77,7 +77,15 @@
         			$index = 0;
         			foreach($modelESDataPersonals as $modelESDataPersonal)
         			{
-        				$index++;        				
+        				$index++;       
+        				$name = $modelESDataPersonal->title;
+        				if(!empty($modelESDataPersonal->year))
+        					$name .= ' ('.$modelESDataPersonal->year.')';
+        				
+        				$path = $modelESDataPersonal->path;
+        				if(!empty($modelESDataPersonal->file))
+        					$path .= '/'.$modelESDataPersonal->file;
+        				
         				echo CHtml::openTag("tr",array('id'=>'idTr_'.$modelESDataPersonal->Id, 'iddata'=>$modelESDataPersonal->Id));
         				
         					echo CHtml::openTag("td");
@@ -85,15 +93,7 @@
         					echo CHtml::closeTag("td");
         					
 	        				echo CHtml::openTag("td",array('id'=>'idTdName_'.$modelESDataPersonal->Id));
-		        				if(empty($modelESDataPersonal->file))
-		        				{
-		        					$paths = explode('/', $modelESDataPersonal->path);
-		        					$size = count($paths);
-		        					if($size>0)
-		        						echo $paths[$size-1];
-		        				}
-		        				else
-		        					echo $modelESDataPersonal->file;
+		        				echo $name;
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESDataPersonal->Id));
@@ -101,7 +101,7 @@
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
-	        					echo $modelESDataPersonal->path;
+	        					echo $path;
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESDataPersonal->Id));
