@@ -467,7 +467,7 @@ class MyMovieHelper
 				// an error happened
 			}
 		}
-	
+		Log::logger("Grabando Imagen: ".$name);
 		return $name;
 	
 	}
