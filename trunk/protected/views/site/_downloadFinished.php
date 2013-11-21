@@ -9,7 +9,8 @@
   			</ul>
 		</div>
     </div>
-
+<?php if(!empty($movies)):?>
+    
 	<div class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
@@ -62,6 +63,13 @@
     		?>        	
 		</ul>
 	</div>
+	<?php else:?>
+	<div class="row">
+    	<div class="col-md-8">
+			<h3 class="sliderTitle modified">Sin contenido</h3> 
+		</div>
+    </div>	
+	<?php endif?>
 <!-- /content -->
 
 <!-- Le javascript

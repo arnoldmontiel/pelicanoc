@@ -1,10 +1,12 @@
 	<div class="row">
     	<div class="col-md-8">
 			<h2 class="sliderTitle modified">Descargando desde Market</h2> 
+			<?php if(!empty($nzbDownloading)):?>
 			<ul class="nav nav-pills">
   				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
   			</ul>
-		</div>
+			<?php endif?>
+  		</div>
     </div>
 <?php if(!empty($nzbDownloading)):?>
     
@@ -48,6 +50,13 @@
     		?>        	
 		</ul>
 	</div>
+<?php else:?>
+	<div class="row">
+    	<div class="col-md-8">
+			<h3 class="sliderTitle modified">Sin contenido</h3> 
+		</div>
+    </div>
+
 <?php endif?>
 	
 <!-- /content -->
