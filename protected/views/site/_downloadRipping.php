@@ -3,7 +3,7 @@
 			<h2 class="sliderTitle modified">Descargando desde Disco</h2> 
 			<?php if(!empty($modelMyMovie)):?>
 			<ul class="nav nav-pills">
-  				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
+  				<!-- <li class="active"><a data-toggle="tab" href="#">Todas</a></li> -->
   			</ul>
 			<?php endif?>
   		</div>

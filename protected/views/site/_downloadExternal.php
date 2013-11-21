@@ -4,7 +4,7 @@
 			<?php if(!empty($externalStorageDataCopying)):?>
 			 
 			<ul class="nav nav-pills">
-  				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
+  				<!-- <li class="active"><a data-toggle="tab" href="#">Todas</a></li> -->
   			</ul>
 			<?php endif?>
   		</div>
