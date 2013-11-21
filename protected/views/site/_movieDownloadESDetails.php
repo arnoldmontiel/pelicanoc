@@ -145,7 +145,7 @@
 // 	echo "size:".$size;
 // 	echo "= modelExternalStorageData->size:".$modelExternalStorageData->size;
 	if($size!=0)
-		echo round($modelExternalStorageData->size/$size*100)." %";
+		echo round($size/$modelExternalStorageData->size*100)." %";
 	else 
 		echo "0 %";
 	?>
