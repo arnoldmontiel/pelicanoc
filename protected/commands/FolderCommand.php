@@ -317,6 +317,7 @@ class FolderCommand extends CConsoleCommand  {
 							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
 							$modelLocalFolder->Id_lote = $modelLote->Id;							
 							$modelLocalFolder->ready = 0;
+							$modelLocalFolder->is_personal = $modelESData->is_personal;
 							$modelLocalFolder->path = $finalPath.'/'.$newPath;
 							$modelLocalFolder->path_original = $localFolderPath;
 							if($modelLocalFolder->save())
@@ -332,6 +333,7 @@ class FolderCommand extends CConsoleCommand  {
 							$modelLocalFolderDB->Id_source_type = self::getSoruceType($modelPeliFile->source);
 							$modelLocalFolderDB->Id_lote = $modelLote->Id;
 							$modelLocalFolderDB->ready = 0;
+							$modelLocalFolderDB->is_personal = $modelESData->is_personal;
 							if($modelLocalFolderDB->save())
 								$idLocalFolder = $modelLocalFolderDB->Id; 
 						}
