@@ -568,9 +568,12 @@ class FolderCommand extends CConsoleCommand  {
 				if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
 				{
 					$modelPeliFile = self::getPeliFile($fileSubIterator);
-					if($modelESData->is_personal == 0)// lo hago para que vuelva a generar el peli si es personal
-						$hasPeliFile = true;
-					
+					if(isset($modelPeliFile))
+					{
+						// lo hago para que vuelva a generar el peli si es personal y si esta vacio el imdb
+						if($modelESData->is_personal == 0 && !empty($modelPeliFile->imdb))
+							$hasPeliFile = true;
+					}
 					break;
 				}
 			}
