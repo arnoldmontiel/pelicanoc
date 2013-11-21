@@ -183,9 +183,11 @@ class ReadFolderHelper
 						$criteria->addCondition('t.copy = 1');
 						$criteria->addCondition('t.Id_local_folder is not null');
 						
+						Log::logger("Aca esta pasando algo: ".$current->Id);
 						$modelESDatas = ExternalStorageData::model()->findAll($criteria);
 						if(count($modelESDatas)>0)
 						{
+							Log::logger("Adentro");
 							foreach($modelESDatas as $modelESData)
 							{
 								if($modelESData->localFolder->ready == 0)
@@ -201,6 +203,7 @@ class ReadFolderHelper
 						
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
 						
+						Log::logger("count(modelESDatas)".count($modelESDatas));
 						$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1,'state'=>2)); 		
 						if(count($modelCurrentESs) == 0) //si no hay ningun disco externo copiando, actualizo la tabla de comandos trabajando
 						{
@@ -211,6 +214,7 @@ class ReadFolderHelper
 						}
 						else
 						{
+							Log::logger("count y id: ".count($modelCurrentESs).'  -- '. $modelCurrentESs[0]->Id  );
 							$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1,'state'=>2));
 							if(isset($modelCurrentES))
 								exec(dirname(__FILE__).'/../commands/shell/processPeliFileES.sh '.$modelCurrentES->Id.' >/dev/null&');
