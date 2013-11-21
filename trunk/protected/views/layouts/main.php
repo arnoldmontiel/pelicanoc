@@ -169,7 +169,7 @@ $(document).ready(function(){
 		$('#li-serie').addClass('active');
 	else if(document.URL.indexOf('marketplace') > 0)
 		$('#li-marketplace').addClass('active');
-	else if(document.URL.indexOf('devices') > 0 || document.URL.indexOf('Devices') > 0)
+	else if(document.URL.toUpperCase().indexOf('DEVICES') > 0)
 		$('#li-devices').addClass('active');
 	else if(document.URL.indexOf('download') > 0)
 		$('#li-download').addClass('active');
