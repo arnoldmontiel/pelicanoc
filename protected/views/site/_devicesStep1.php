@@ -6,6 +6,7 @@
         	<tr>
               <th>#</th>
               <th>Nombre de Archivo</th>
+              <th>Titulo</th>
               <th>Ruta</th>
               <th>Es Video personal? 
               	<div class="checkbox">
@@ -27,20 +28,18 @@
 	        			echo $index;
 	        		echo CHtml::closeTag("td");
 	        		echo CHtml::openTag("td");
-	        			if(empty($modelESDataDB->title))
-	        			{
-	        				if(empty($modelESDataDB->file))
-	        				{
-	        					$paths = explode('/', $modelESDataDB->path);
-	        					$size = count($paths);
-	        					if($size>0)
-	        						echo $paths[$size-1];
-	        				}
-	        				else
-	        					echo $modelESDataDB->file;
-	        			}
-	        			else
-	        				echo $modelESDataDB->title;	        			
+        				if(empty($modelESDataDB->file))
+        				{
+        					$paths = explode('/', $modelESDataDB->path);
+        					$size = count($paths);
+        					if($size>0)
+        						echo $paths[$size-1];
+        				}
+        				else
+        					echo $modelESDataDB->file;
+	        		echo CHtml::closeTag("td");
+	        		echo CHtml::openTag("td");
+	        			echo $modelESDataDB->title;
 	        		echo CHtml::closeTag("td");
 	        		echo CHtml::openTag("td");
 	        			echo $modelESDataDB->path;
