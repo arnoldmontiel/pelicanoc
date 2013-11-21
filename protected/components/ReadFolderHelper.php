@@ -201,16 +201,16 @@ class ReadFolderHelper
 						
 						CurrentExternalStorage::model()->updateAll(array('is_in'=>0,'out_date'=>new CDbExpression('NOW()')),'is_in=1 and path="'.$folder.'"');
 						
-						$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1,'state'=>2)); 		
-						if(count($modelCurrentESs) == 0) //si no hay ningun disco externo copiando, actualizo la tabla de comandos trabajando
-						{
-							$_COMMAND_NAME = "processExternalStorage";
-							$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-							if(isset($modelCommandStatus))
-								$modelCommandStatus->setBusy(false);
-						}
-						else
-							exec(dirname(__FILE__).'/../commands/shell/processExternalStorage.sh >/dev/null&');
+						
+						$_COMMAND_NAME = "processExternalStorage";
+						$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
+						if(isset($modelCommandStatus))
+							$modelCommandStatus->setBusy(false);
+												
+						$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1,'state'=>2));
+						 		
+						if(count($modelCurrentESs) > 0) //si quedan cosas x procesar en otro usb, lo vuelvo a correr
+							self::processExternalStorage($modelCurrentESs[0]->Id);
 					}
 				}				
 			}
