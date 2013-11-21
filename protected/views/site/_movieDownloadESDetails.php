@@ -141,7 +141,12 @@
     Progreso
 	</div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
-	<?php echo $modelExternalStorageData->size/$size*100;?>
+	<?php 
+	echo "size:".$size;
+	echo "= modelExternalStorageData->size:".$modelExternalStorageData->size;
+	if($size!=0)
+		echo $modelExternalStorageData->size/$size*100;
+	?>
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
 		    		
