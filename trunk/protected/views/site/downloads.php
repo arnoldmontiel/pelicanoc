@@ -14,6 +14,7 @@ setInterval(function() {
 // 	getNzbStatus();	
 	//getRipp();
    	updateFinished();
+   	updateExternal();
 }, 1000*30)
 	function updateFinished()
 	{
@@ -27,6 +28,18 @@ setInterval(function() {
    		
    		}
 	}	
+	function updateExternal()
+	{
+   		if(!$('#myModal').is(':visible'))
+   		{
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadExternal'). "'
+			).success(
+			function(data){
+   				$('#external-area').html(data);		
+			});   		
+   		}
+	}	
+   				
 function getRipp()
 {
 	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'
