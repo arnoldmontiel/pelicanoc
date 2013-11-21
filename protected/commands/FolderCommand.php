@@ -560,13 +560,16 @@ class FolderCommand extends CConsoleCommand  {
 			$hasPeliFile = false;
 			$folderName = basename($modelESData->path);
 			
-			foreach ($subIterator as $fileSubIterator)
+			if($modelESData->is_personal == 0) //solo si No es personal
 			{
-				if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
+				foreach ($subIterator as $fileSubIterator)
 				{
-					$modelPeliFile = self::getPeliFile($fileSubIterator);
-					$hasPeliFile = true;
-					break;
+					if(pathinfo($fileSubIterator['dirpath'].$fileSubIterator['filename'], PATHINFO_EXTENSION) == 'peli')
+					{
+						$modelPeliFile = self::getPeliFile($fileSubIterator);
+						$hasPeliFile = true;
+						break;
+					}
 				}
 			}
 						
