@@ -138,35 +138,13 @@
     
     <div class="row detailSecondGroup">
     <div class="col-md-3 align-left detailSecond detailSecondFirst">
-    TAMA&Ntilde;O EN DISCO
+    Progreso
 	</div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
-	<?php echo $size;?>
+	<?php echo $modelExternalStorageData->size/$size*100;?>
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
-		    
-    <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
-    BORRAR
-	</div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
-	<!--<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>-->
-	<!--<button id="btn-eraser-popover" class="popover fade bottom in"><i class="fa fa-eraser fa-lg"></i></button>-->
-	
-	<a href="#" id="btn-eraser-popover" class="" ><i id="btn-eraser" class="fa fa-eraser fa-lg"></i></a>
-
-	</div><!--/.col-md-9 -->
-	</div><!--/.row -->
-	
-	<div class="row detailSecondGroup">
-    	<div class="col-md-3 align-left detailSecond detailSecondFirst">
-    		EDITAR
-		</div><!--/.col-md-3 -->
-    	<div class="col-md-9 align-left detailSecond">
-		<a id="btn-edit" href="#" id="btn-eraser-popover" class="" ><i  class="fa fa-pencil fa-lg pointer"></i></a>    	
-		</div><!--/.col-md-9 -->
-	</div><!--/.row -->
-	
+		    		
 	</div><!--/.tab-pane#2 -->
     
     <div class="tab-pane" id="tab3"><!--/.bookmarks -->
