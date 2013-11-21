@@ -140,7 +140,7 @@ foreach($dataProvider->getData() as $record)
 <!--      termina peli finalizada-->
 </div>
 
-<div id="ripping-area">
+<div id="ripping-area" style="display:none">
 	<h2 class="sliderTitle">Copiando</h2>
 	<div class="peliDescargando">
 	<?php if(isset($modelMyMovie)): ?>
