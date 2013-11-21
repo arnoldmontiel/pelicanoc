@@ -32,7 +32,6 @@ class ReadFolderHelper
 			
 			if(!$modelCommandStatus->busy)
 			{
-				Log::logger("ejecutando de nuevo processExternalStorage");
 				try 
 				{
 					$modelCommandStatus->setBusy(true);
@@ -212,7 +211,6 @@ class ReadFolderHelper
 						 		
 						if(count($modelCurrentESs) > 0) //si quedan cosas x procesar en otro usb, lo vuelvo a correr
 						{
-							Log::logger("LLamando... ".$modelCurrentESs[0]->Id);
 							self::processExternalStorage($modelCurrentESs[0]->Id);
 						}
 					}
