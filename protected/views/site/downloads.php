@@ -20,7 +20,7 @@ setInterval(function() {
 	{
    		if(!$('#myModal').is(':visible'))
    		{
-   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "'
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{idFilter:$('ul.nav-pills li.active a').attr('id')}
 			).success(
 			function(data){
    				$('#finished-area').html(data);		
@@ -93,7 +93,7 @@ function getNzbStatus()
 <div id="finished-area">
 <?php
 //Finalizada recientemente
-$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+$this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter));
 ?>
 </div>
 <div id="market-area">
