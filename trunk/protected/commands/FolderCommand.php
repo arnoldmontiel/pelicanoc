@@ -208,6 +208,7 @@ class FolderCommand extends CConsoleCommand  {
 						else //termino todo bien!
 						{
 							$modelLocalFolder->ready = 1;
+							$modelLocalFolder->read_date = new CDbExpression('NOW()');
 							$modelLocalFolder->save();
 						
 							$modelESData->status = 3; //finish copy
