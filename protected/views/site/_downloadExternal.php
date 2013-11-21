@@ -12,7 +12,6 @@
 		    <?php
     			foreach($externalStorageDataCopying as $externalStorageData)
     			{
-					var_dump($externalStorageData->localFolder);
     				if(!isset($externalStorageData->localFolder)) continue;
     				$modelSource = $externalStorageData->localFolder;
 					if(!isset($modelSource->myMovieDisc)) continue;
