@@ -53,7 +53,6 @@ class SiteController extends Controller
 
 	public function actionMarketplace()
 	{
-		$this->layout='//layouts/column4';
 		$this->showFilter = false;
 		$modelNzb = new Nzb();
 		$dataProvider = $modelNzb->searchMarketplace();
