@@ -266,9 +266,15 @@ class FolderCommand extends CConsoleCommand  {
 				}
 				else
 				{
-					exec("cp -fr ".$source . " " .$destinationPath, $output, $return_var);
-					if($return_var == 0)
-						$success = true;
+					try {
+						exec("cp -fr ".$source . " " .$destinationPath, $output, $return_var);
+						if($return_var == 0)
+							$success = true;
+					} catch (Exception $e) {
+						Log::logger("error cp: ". $e->getMessage());
+					}
+					
+					
 				}
 				
 				
