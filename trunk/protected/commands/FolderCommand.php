@@ -31,8 +31,21 @@ class FolderCommand extends CConsoleCommand  {
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('state'=>2,
 																						'is_in'=>1));
 			if(isset($modelCurrentES)) //solo si algún CurrentES esta en modo copiando
-			{
-				self::processES();
+			{					
+				$criteria = new CDbCriteria();
+				$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
+				$criteria->addCondition('t.status <> 3');
+				$criteria->addCondition('t.copy = 1');
+				$criteria->addCondition('ces.is_in = 1');
+				
+				$modelESData = ExternalStorageData::model()->find($criteria);
+				
+				while(isset($modelESData))
+				{
+					self::processES($modelESData);
+					$modelESData = ExternalStorageData::model()->find($criteria);
+				}
+				
 				$modelCommandStatus->setBusy(false);
 				
 				//finish scan
@@ -160,17 +173,8 @@ class FolderCommand extends CConsoleCommand  {
 		}
 	}
 	
-	private function processES()
+	private function processES($modelESData)
 	{
-		
-		$criteria = new CDbCriteria();
-		$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
-		$criteria->addCondition('t.status <> 3');
-		$criteria->addCondition('t.copy = 1');
-		$criteria->addCondition('ces.is_in = 1');
-		
-		$modelESData = ExternalStorageData::model()->find($criteria);
-
 		if(isset($modelESData))
 		{
 			$modelESData->status = 2; //start copy
@@ -227,7 +231,6 @@ class FolderCommand extends CConsoleCommand  {
 					$modelESData->save();
 				}
 			}
-			self::processES();
 		}
 	}
 	
