@@ -265,6 +265,57 @@ class SiteController extends Controller
 				'modelBookmarks'=>$bookmarks,
 		));
 	}
+	public function actionAjaxMovieShowFinishedDetail()
+	{
+		$id_resource = $_POST['idresource'];
+		$id = $_POST['id'];
+		$sourceType = $_POST['sourcetype'];
+	
+		$criteria=new CDbCriteria;
+	
+		$modelNzb = null;
+		$modelRippedMovie = null;
+		$localFolder = null;
+		$bookmarks = null;
+		$modelCurrentDisc = null;
+		if($sourceType == 1)
+		{
+			$modelNzb = Nzb::model()->findByPk($id_resource);
+			$model = MyMovieNzb::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			$bookmarks = $modelNzb->bookmarks;
+		}
+		else if($sourceType == 2)
+		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($id_resource);
+			$model = MyMovie::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			$bookmarks = $modelRippedMovie->bookmarks;
+		}
+		else
+		{
+			$localFolder = LocalFolder::model()->findByPk($id_resource);
+			$model = MyMovie::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			$bookmarks = $localFolder->bookmarks;
+		}
+		$casting = $this->getCasting($criteria);
+		$this->renderPartial('_movieFinishedDetails',array('model'=>$model,
+				'casting'=>$casting,
+				'sourceType'=>$sourceType,
+				'modelNzb'=>$modelNzb,
+				'modelRippedMovie'=>$modelRippedMovie,
+				'modelLocalFolder'=>$localFolder,
+				'modelCurrentDisc'=>$modelCurrentDisc,
+				'modelBookmarks'=>$bookmarks,
+		));
+	}
 	
 	public function actionAjaxUpdateDownloadFinished()
 	{
@@ -329,7 +380,7 @@ class SiteController extends Controller
     			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
     			$.ajax({
     		   		type: 'POST',
-    		   		url: '".SiteController::createUrl('AjaxMovieShowDetail')."',
+    		   		url: '".SiteController::createUrl('AjaxMovieShowFinishedDetail')."',
     		   		data: param,
     		 	}).success(function(data)
     		 	{

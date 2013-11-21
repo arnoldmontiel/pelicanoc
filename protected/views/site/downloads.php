@@ -194,7 +194,7 @@ foreach($dataProvider->getData() as $record)
     			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
     			$.ajax({
     		   		type: 'POST',
-    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowDetail') ?>',
+    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowFinishedDetail') ?>',
     		   		data: param,
     		 	}).success(function(data)
     		 	{
