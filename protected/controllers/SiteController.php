@@ -335,6 +335,7 @@ class SiteController extends Controller
 			{
 				$criteriaMovies->addCondition('source_type = 3');
 				$criteriaMovies->join = 'INNER JOIN external_storage_data esd on (esd.Id_local_folder = t.Id)';
+				$criteriaMovies->addCondition("esd.status =3");
 			}
 			elseif ($filter=="pill-filter-disco")
 			{
