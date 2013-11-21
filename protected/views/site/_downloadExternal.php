@@ -1,13 +1,16 @@
 	<div class="row">
     	<div class="col-md-8">
-			<h2 class="sliderTitle modified">Descargando desde USB</h2> 
+			<h2 class="sliderTitle modified">Descargando desde USB</h2>
+			<?php if(!empty($externalStorageDataCopying)):?>
+			 
 			<ul class="nav nav-pills">
   				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
   			</ul>
-		</div>
+			<?php endif?>
+  		</div>
     </div>
 <?php if(!empty($externalStorageDataCopying)):?>
-	<div class="flexslider carousel">
+	<div class="flexslider carousel" id="flexsliderExternal">
 		<ul class="slides superScroll">
 		    <?php
     			foreach($externalStorageDataCopying as $externalStorageData)
@@ -49,8 +52,15 @@
     		?>        	
 		</ul>
 	</div>
+<?php else:?>
+	<div class="row">
+    	<div class="col-md-8">
+			<h3 class="sliderTitle modified">Sin contenido</h3> 
+		</div>
+    </div>
+
 <?php endif?>
-	
+
 <!-- /content -->
 
 <!-- Le javascript
@@ -58,7 +68,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
     $(window).load(function(){
-      $('.flexslider').flexslider({
+      $('#flexsliderExternal').flexslider({
         animation: "slide",
         animationLoop: false,
         itemWidth: 165,

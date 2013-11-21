@@ -1,10 +1,12 @@
 	<div class="row">
     	<div class="col-md-8">
 			<h2 class="sliderTitle modified">Descargando desde Disco</h2> 
+			<?php if(!empty($modelMyMovie)):?>
 			<ul class="nav nav-pills">
   				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
   			</ul>
-		</div>
+			<?php endif?>
+  		</div>
     </div>
 <?php if(!empty($modelMyMovie)):?>
     
@@ -39,8 +41,15 @@
     		?>        	
 		</ul>
 	</div>
+<?php else:?>
+	<div class="row">
+    	<div class="col-md-8">
+			<h3 class="sliderTitle modified">Sin contenido</h3> 
+		</div>
+    </div>
+
 <?php endif?>
-	
+		
 <!-- /content -->
 
 <!-- Le javascript
