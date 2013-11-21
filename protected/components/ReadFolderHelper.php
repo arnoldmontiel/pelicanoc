@@ -204,17 +204,7 @@ class ReadFolderHelper
 					}
 				}				
 			}
-		}	
-		
-// 		$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1,'state'=>2));
-			
-// 		if(count($modelCurrentESs) == 0) //si no quedan mas cosas que copiar libero el comando
-// 		{
-// 			$_COMMAND_NAME = "processExternalStorage";
-// 			$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
-// 			if(isset($modelCommandStatus))
-// 				$modelCommandStatus->setBusy(false);			
-// 		}		
+		}		
 		
 	}
 	static public function checkExternalStorage()
