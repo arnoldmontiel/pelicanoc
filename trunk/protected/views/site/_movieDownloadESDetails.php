@@ -30,7 +30,7 @@
  			$setting = Setting::getInstance();
  			$path = $setting->path_shared . $path;
  			
- 			$size = PelicanoHelper::getDirectorySize($path);
+ 			$size = PelicanoHelper::getDirectorySize($path,false);
  		}
 
  		$moviePoster = $model->big_poster;
