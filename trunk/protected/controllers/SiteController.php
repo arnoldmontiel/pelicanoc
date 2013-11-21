@@ -108,6 +108,7 @@ class SiteController extends Controller
 		$criteriaMovies=new CDbCriteria;
 		$criteriaMovies->limit=30;
 		$criteriaMovies->order="date DESC";
+		$filter="pill-filter-all";
 		
 		$movies = Movies::model()->findAll($criteriaMovies);
 
@@ -134,7 +135,8 @@ class SiteController extends Controller
 				'modelMyMovie'=>$modelMyMovie,
 				'movies'=>$movies,
 				'externalStorageDataCopying'=>$externalStorageDataCopying,
-				'nzbDownloading'=>$nzbDownloading
+				'nzbDownloading'=>$nzbDownloading,
+				'filter'=>$filter
 		));
 	}
 
@@ -270,10 +272,27 @@ class SiteController extends Controller
 		$criteriaMovies=new CDbCriteria;
 		$criteriaMovies->limit=30;
 		$criteriaMovies->order="date DESC";
-		
+		$filter="";
+		if(isset($_POST['idFilter']))
+		{
+			$filter = $_POST['idFilter'];
+			if($filter=="pill-filter-market")
+			{
+				$criteriaMovies->addCondition('source_type = 1');				
+			}
+			elseif ($filter=="pill-filter-usb")
+			{
+				$criteriaMovies->addCondition('source_type = 3');
+				$criteriaMovies->join = 'INNER JOIN external_storage_data esd on (esd.Id_local_folder = t.Id)';
+			}
+			elseif ($filter=="pill-filter-disco")
+			{
+				$criteriaMovies->addCondition('source_type = 2');				
+			}
+		}
 		$movies = Movies::model()->findAll($criteriaMovies);
 				
-		$this->renderPartial("_downloadFinished",array("movies"=>$movies));
+		$this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter));
 		echo CHtml::script("$('.flexslider').flexslider({
 				animation: 'slide',
 				animationLoop: false,
