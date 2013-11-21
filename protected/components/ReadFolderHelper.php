@@ -210,7 +210,11 @@ class ReadFolderHelper
 								$modelCommandStatus->setBusy(false);
 						}
 						else
-							exec(dirname(__FILE__).'/../commands/shell/processPeliFileES.sh '.$modelCurrentESs[0]->Id.' >/dev/null&');
+						{
+							$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('is_in'=>1,'state'=>2));
+							if(isset($modelCurrentES))
+								exec(dirname(__FILE__).'/../commands/shell/processPeliFileES.sh '.$modelCurrentES->Id.' >/dev/null&');
+						}
 					}
 				}				
 			}
