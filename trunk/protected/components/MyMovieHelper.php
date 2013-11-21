@@ -452,9 +452,10 @@ class MyMovieHelper
 				$content = @file_get_contents($original);
 				if ($content !== false) {
 					$file = fopen($setting->path_images."/".$newFileName.".jpg", 'w');
-					fwrite($file,$content);
+					if (@fwrite($file, $content) !== FALSE) {
+						$name = $newFileName.".jpg";
+					}
 					fclose($file);
-					$name = $newFileName.".jpg";
 				} else {
 					// an error happened
 				}
