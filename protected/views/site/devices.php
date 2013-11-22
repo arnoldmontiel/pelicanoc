@@ -404,8 +404,13 @@ function initPage()
 								}
 							).success(
 								function(data){	
-									$('#wizardDispositivos').html(data);
-									$('#hidden-second-scan-working').val(1);	
+									var obj = jQuery.parseJSON(data);
+									if(obj != null)
+									{
+										$('#wizardDispositivos').html(obj.data);
+										if(obj.hardScanReady == 0)										
+											$('#hidden-second-scan-working').val(1);
+									}	
 							});
 					}
 					
@@ -441,8 +446,13 @@ $('.usb-button-scan').click(function(){
 							}
 						).success(
 							function(data){	
-								$('#wizardDispositivos').html(data);
-								$('#hidden-second-scan-working').val(1);	
+								var obj = jQuery.parseJSON(data);
+								if(obj != null)
+								{
+									$('#wizardDispositivos').html(obj.data);
+									if(obj.hardScanReady == 0)										
+										$('#hidden-second-scan-working').val(1);
+								}
 						});
 				}									
 		});
