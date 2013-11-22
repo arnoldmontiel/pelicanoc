@@ -265,6 +265,19 @@ class SiteController extends Controller
 				'modelBookmarks'=>$bookmarks,
 		));
 	}
+	public function actionAjaxGetLocalFolderCurrentSize()
+	{
+		if(isset($_POST['id']))
+		{
+			$setting = Setting::getInstance();
+			$externalStorageData = ExternalStorageData::model()->findByPk($_POST['id']);
+			$path = $setting->path_shared . $externalStorageData->localFolder->path;
+			
+			$size = PelicanoHelper::getDirectorySize($path,false);
+			
+			echo round($size/$modelExternalStorageData->size*100)." %";				
+		}
+	}
 	public function actionAjaxMovieShowFinishedDetail()
 	{
 		$id_resource = $_POST['idresource'];
