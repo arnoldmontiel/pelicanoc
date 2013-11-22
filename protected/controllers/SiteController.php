@@ -563,6 +563,7 @@ class SiteController extends Controller
  			$modelESData = ExternalStorageData::model()->findByPk($idESData);
  			if(isset($modelESData))
  			{
+ 				$modelESData->status = 7;
  				$modelESData->copy = 1;
  				if($modelESData->save())
  				{
