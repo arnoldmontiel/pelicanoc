@@ -361,7 +361,15 @@ class SiteController extends Controller
 			}
 		}
 		$movies = Movies::model()->findAll($criteriaMovies);
-				
+		
+		if(isset($_POST['ids']))
+		{
+			if(count($movies)==count($_POST['ids']))
+			{
+				return;
+			}			
+		}
+		
 		$this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter));
 		echo CHtml::script("$('#flexsliderFinished').flexslider({
 				animation: 'slide',
