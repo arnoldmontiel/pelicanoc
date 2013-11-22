@@ -24,10 +24,15 @@ setInterval(function() {
 	{
    		if(!$('#myModal').is(':visible'))
    		{
-   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{idFilter:filter}
+   			var currentIds = new Array;
+   			$.each($('li a.aficheClickFinished'),function(){
+   				currentIds.push({ sourcetype:$(this).attr('sourcetype'),idresource:$(this).attr('idresource'),idmovie:$(this).attr('idmovie')});
+			});
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{ids:currentIds,idFilter:filter}
 			).success(
 			function(data){
-   				$('#finished-area').html(data);
+				if(data.trim()!='')
+   					$('#finished-area').html(data);
 			});   		
    		
    		}
@@ -39,7 +44,8 @@ setInterval(function() {
    			$.post('" .SiteController::createUrl('AjaxUpdateDownloadExternal'). "'
 			).success(
 			function(data){
-   				$('#external-area').html(data);		
+   				if(data.trim()!='')
+   					$('#external-area').html(data);   				   						
 			});   		
    		}
 	}	
