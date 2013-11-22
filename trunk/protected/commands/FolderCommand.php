@@ -272,6 +272,7 @@ class FolderCommand extends CConsoleCommand  {
 				{
 					try {
 						exec("cp -fr ".$source . " " .$destinationPath, $output, $return_var);
+						Log::logger("cp -fr ".$source . " " .$destinationPath);
 						Log::logger("cp: ". var_dump($output));
 						if($return_var == 0)
 							$success = true;
