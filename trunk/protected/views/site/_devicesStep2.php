@@ -1,7 +1,7 @@
 <?php 
 	$disabled = '';
 	if($hardScanReady == 0)
-		$disabled = 'disabled="disabled"';
+		$disabled = "disabled='disabled'";
 ?>
 <?php if($hardScanReady == 0):?>
 <div id="scaningLabel"><h2><?php echo $label;?> <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
