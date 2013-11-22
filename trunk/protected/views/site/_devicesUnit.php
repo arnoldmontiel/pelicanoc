@@ -45,7 +45,6 @@
 							).success(
 								function(data){	
 									$('#wizardDispositivos').html(data);
-									$('#hidden-second-scan-working').val(1);	
 							});
 					}							
 		});

@@ -840,14 +840,12 @@ class SiteController extends Controller
 					ReadFolderHelper::generatePeliFilesES($idCurrentES);
 			}
 		}
-		$data = $this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
+		$this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
 													'modelESDataPersonals'=>$modelESDataPersonals,
 													'hardScanReady'=>$hardScanReady,
-													'label'=>$label),true,true);
-		$response = array('data'=>$data,
-								'hardScanReady'=>$hardScanReady);
-			
-		echo json_encode($response);
+													'label'=>$label));
+		if($hardScanReady == 0)
+			echo CHtml::script("$('#hidden-second-scan-working').val(1);");
 	}
 
 	public function actionAjaxExploreExternalStorage()
