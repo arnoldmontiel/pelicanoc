@@ -346,7 +346,7 @@ class SiteController extends Controller
 		$movies = Movies::model()->findAll($criteriaMovies);
 				
 		$this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter));
-		echo CHtml::script("$('.flexslider').flexslider({
+		echo CHtml::script("$('#flexsliderFinished').flexslider({
 				animation: 'slide',
 				animationLoop: false,
 				itemWidth: 165,
@@ -360,7 +360,7 @@ class SiteController extends Controller
 		$('ul.nav-pills li a').click(function(){
 			updateFinished($(this).attr('id'));
 		});
-					function updateFinished(filter)
+	function updateFinished(filter)
 	{
    		if(!$('#myModal').is(':visible'))
    		{
@@ -372,7 +372,6 @@ class SiteController extends Controller
    		
    		}
 	}	
-				
     	$('a.aficheClickFinished').click(
     		function()
     		{
@@ -411,7 +410,7 @@ class SiteController extends Controller
 		$externalStorageDataCopying = ExternalStorageData::model()->findAll($criteriaExternal);
 	
 		$this->renderPartial("_downloadExternal",array('externalStorageDataCopying'=>$externalStorageDataCopying,));
-		echo CHtml::script("$('.flexslider').flexslider({
+		echo CHtml::script("$('#flexsliderExternal').flexslider({
 				animation: 'slide',
 				animationLoop: false,
 				itemWidth: 165,
