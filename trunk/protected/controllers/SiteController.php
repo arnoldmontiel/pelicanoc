@@ -434,7 +434,14 @@ class SiteController extends Controller
 		//$criteriaExternal->order="read_date DESC";
 		
 		$externalStorageDataCopying = ExternalStorageData::model()->findAll($criteriaExternal);
-	
+		if(isset($_POST['ids']))
+		{
+			if(count($externalStorageDataCopying)==count($_POST['ids']))
+			{
+				return;
+			}
+		}
+		
 		$this->renderPartial("_downloadExternal",array('externalStorageDataCopying'=>$externalStorageDataCopying,));
 		echo CHtml::script("$('#flexsliderExternal').flexslider({
 				animation: 'slide',
