@@ -1,3 +1,4 @@
+
 <div class="container" id="screenDescargas" >
    <div class="row">
     <div class="col-md-12">
@@ -11,14 +12,13 @@ Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 
    		
 setInterval(function() {
-// 	getNzbStatus();	
-	//getRipp();
    	updateFinished($('ul.nav-pills li.active a').attr('id'));
    	updateExternal();
-}, 1000*30)
-   		$('ul.nav-pills li a').click(function(){
+}, 1000*60)
+
+	$('ul.nav-pills li a').click(function(){
 		updateFinished($(this).attr('id'));
-		});
+	});
    		
 	function updateFinished(filter)
 	{
@@ -27,7 +27,7 @@ setInterval(function() {
    			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{idFilter:filter}
 			).success(
 			function(data){
-   				$('#finished-area').html(data);		
+   				$('#finished-area').html(data);
 			});   		
    		
    		}
@@ -100,6 +100,7 @@ function getNzbStatus()
 $this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter));
 ?>
 </div>
+
 <div id="market-area">
 <?php
 //desde marketplace 

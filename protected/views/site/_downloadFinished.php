@@ -11,7 +11,7 @@
     </div>
 <?php if(!empty($movies)):?>
     
-	<div class="flexslider carousel">
+	<div id="flexsliderFinished" class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
     			foreach($movies as $movie)
@@ -77,7 +77,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
   		$(window).load(function(){
-  			$('.flexslider').flexslider({
+  			$('#flexsliderFinished').flexslider({
   		      animation: 'slide',
   		      animationLoop: false,
   		      itemWidth: 165,

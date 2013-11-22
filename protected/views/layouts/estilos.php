@@ -488,7 +488,7 @@ h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1
 
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
 
-.flexslider{width: 97%; margin: 0 auto; margin-bottom: 30px;}
+.flexslider{width: 97%; margin: 0 auto; margin-bottom: 30px; height:223px;background:none repeat scroll 0 0;border:none;padding: 4px;box-shadow:none;}
 
 .flex-direction-nav a:active { background: url(img/bg_direction_nav.png) no-repeat 0 0;}
 

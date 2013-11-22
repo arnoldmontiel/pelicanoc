@@ -10,7 +10,7 @@
     </div>
 <?php if(!empty($nzbDownloading)):?>
     
-	<div class="flexslider carousel">
+	<div id="flexsliderMarket" class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
     			foreach($nzbDownloading as $nzb)
@@ -66,7 +66,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
     $(window).load(function(){
-      $('.flexslider').flexslider({
+      $('#flexsliderMarket').flexslider({
         animation: "slide",
         animationLoop: false,
         itemWidth: 165,

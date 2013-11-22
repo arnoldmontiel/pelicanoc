@@ -10,7 +10,7 @@
     </div>
 <?php if(!empty($modelMyMovie)):?>
     
-	<div class="flexslider carousel">
+	<div id="flexsliderRipping" class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
     			foreach($modelMyMovie as $myMovie)
@@ -57,7 +57,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
     $(window).load(function(){
-      $('.flexslider').flexslider({
+      $('#flexsliderRipping').flexslider({
         animation: "slide",
         animationLoop: false,
         itemWidth: 165,
