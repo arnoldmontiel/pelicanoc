@@ -490,7 +490,7 @@ h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1
 
 .flexslider{width: 97%; margin: 0 auto; margin-bottom: 30px; height:223px;background:none repeat scroll 0 0;border:none;padding: 4px;box-shadow:none;}
 
-.flex-direction-nav a:active { background: url(img/bg_direction_nav.png) no-repeat 0 0;}
+/*.flex-direction-nav a:active { background: url(img/bg_direction_nav.png) no-repeat 0 0;}
 
 .flex-direction-nav .flex-next {right: -36px; }
 .flex-direction-nav .flex-prev {left: -36px;}
@@ -509,13 +509,13 @@ h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1
 .flex-direction-nav .flex-disabled:active { background-color:transparent; cursor: default;opacity: .3!important; filter:alpha(opacity=30);}
  
  .flex-control-nav{bottom: -30px;}
-
- 
+*/ 
 @media (max-width: 1024px) {
 	.flex-control-paging li a {width: 15px; height: 15px; }
 	.flexslider { margin-bottom:40px;}
 }  
-   
+
+
 /*---------- END FLEXSLIDER STYLE OVERRIDE -------*/
 
 /*---------- BOOKMARKS -------------*/
