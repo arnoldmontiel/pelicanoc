@@ -95,7 +95,7 @@ class PelicanoHelper
 	private function getNixDirSize($path) {
 		$size = 0;
 		
-		$path = ReadFolderHelper::scapePath($path);
+		$path = escapeshellcmd($path);
 		
 		$output = exec('du -sk ' . $path);
 		
