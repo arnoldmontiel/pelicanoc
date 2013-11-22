@@ -434,11 +434,22 @@ class SiteController extends Controller
 		//$criteriaExternal->order="read_date DESC";
 		
 		$externalStorageDataCopying = ExternalStorageData::model()->findAll($criteriaExternal);
+		$newItem = false;
 		if(isset($_POST['ids']))
 		{
 			if(count($externalStorageDataCopying)==count($_POST['ids']))
 			{
-				return;
+				$ids = $_POST['ids'];
+				foreach ($externalStorageDataCopying as $esd)
+				{
+					if(!in_array( $esd->Id , $ids, true ))
+					{
+						$newItem = true;
+						break;
+					} 
+				}
+				if(!$newItem)
+					return;
 			}
 		}
 		
