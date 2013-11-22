@@ -41,7 +41,12 @@ setInterval(function() {
 	{
    		if(!$('#myModal').is(':visible'))
    		{
-   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadExternal'). "'
+   			var currentIds = new Array;
+   			$.each($('li a.aficheClickLocalFolder'),function(){
+   				currentIds.push({ idexternalstorage:$(this).attr('sourcetype'),sourcetype:$(this).attr('sourcetype'),idresource:$(this).attr('idresource'),idmovie:$(this).attr('idmovie')});
+			});
+   				
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadExternal'). "',{ids:currentIds}
 			).success(
 			function(data){
    				if(data.trim()!='')
