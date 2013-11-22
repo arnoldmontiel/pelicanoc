@@ -649,9 +649,14 @@ class SiteController extends Controller
 	{
 		$idCurrentES = (isset($_POST['id']))?$_POST['id']:null;
 		$finishCopy = 0;
+		$currentESIn = 0;
 		$modelFinishCopyESDataArray = array();
 		if(isset($idCurrentES))
 		{
+			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
+			if(isset($modelCurrentES))
+				$currentESIn = $modelCurrentES->is_in;
+			
 			$criteria = new CDbCriteria();
 			$criteria->addCondition("t.state <> 2");
 			$criteria->addCondition("t.Id =".$idCurrentES);
@@ -677,6 +682,7 @@ class SiteController extends Controller
 				
 		}		
 		$response = array('finishCopy'=>$finishCopy,
+							'currentESIn'=>$currentESIn,
 										'modelFinishCopyESDataArray'=>$modelFinishCopyESDataArray);
 	
 		echo json_encode($response);
