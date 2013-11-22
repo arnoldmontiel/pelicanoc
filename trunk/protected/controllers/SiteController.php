@@ -510,7 +510,10 @@ class SiteController extends Controller
 					if(isset($modelESData->localFolder))
 					{
 						if($modelESData->already_exists == 1)
+						{
 							PelicanoHelper::eraseResource($modelESData->localFolder->path);
+							$modelESData->already_exists = 0;
+						}
 						
 						LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
 						$modelESData->Id_local_folder = null;
