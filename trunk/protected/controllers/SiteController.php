@@ -811,6 +811,7 @@ class SiteController extends Controller
 		$modelESDatas = null;
 		$modelESDataPersonals = null;
 		$label = "USB";
+		$hardScanReady = 0;
 		if(isset($idCurrentES))
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByPk($idCurrentES);
@@ -819,13 +820,18 @@ class SiteController extends Controller
 				$label = $modelCurrentES->label;
 				$modelESDatas = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,'is_personal'=>0));
 				$modelESDataPersonals = ExternalStorageData::model()->findAllByAttributes(array('Id_current_external_storage'=>$idCurrentES,'is_personal'=>1));
+				$hardScanReady = $modelCurrentES->hard_scan_ready;
 				if($modelCurrentES->hard_scan_ready == 0)
 					ReadFolderHelper::generatePeliFilesES($idCurrentES);
 			}
 		}
-		$this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
+		$data = $this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
 													'modelESDataPersonals'=>$modelESDataPersonals,
 													'label'=>$label));
+		$response = array('data'=>$data,
+								'hardScanReady'=>$hardScanReady);
+			
+		echo json_encode($response);
 	}
 
 	public function actionAjaxExploreExternalStorage()
