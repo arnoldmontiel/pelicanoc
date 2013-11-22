@@ -517,9 +517,12 @@ class SiteController extends Controller
 				$modelESData->copy = 0;
 				if($modelESData->save())
 				{
-					$countOnCopy = ExternalStorageData::model()->countByAttributes(array(
-													'Id_current_external_storage'=>$modelESData->Id_current_external_storage,
-													'copy'=>1));
+					$criteria = new CDbCriteria();
+					$criteria->addCondition('t.status <> 3');
+					$criteria->addCondition('t.copy = 1');
+					$criteria->addCondition('t.Id_current_external_storage = '.$modelESData->Id_current_external_storage);
+					
+					$countOnCopy = ExternalStorageData::model()->count($criteria);
 					if($countOnCopy == 0)
 					{
 						$modelCurrentES = CurrentExternalStorage::model()->findByPk($modelESData->Id_current_external_storage);
