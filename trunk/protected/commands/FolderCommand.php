@@ -254,8 +254,8 @@ class FolderCommand extends CConsoleCommand  {
 				
 				$source = $externalStoragePath . $modelESData->path;
 				
-				$source = ReadFolderHelper::scapePath($source);
-				$destinationPath = ReadFolderHelper::scapePath($destinationPath);
+				$source = escapeshellcmd($source);
+				$destinationPath = escapeshellcmd($destinationPath);
 				
 				$sys = strtoupper(PHP_OS);
 				
