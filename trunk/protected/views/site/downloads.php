@@ -43,7 +43,8 @@ setInterval(function() {
    		{
    			var currentIds = new Array;
    			$.each($('li a.aficheClickLocalFolder'),function(){
-   				currentIds.push({ idexternalstorage:$(this).attr('sourcetype'),sourcetype:$(this).attr('sourcetype'),idresource:$(this).attr('idresource'),idmovie:$(this).attr('idmovie')});
+   				//currentIds.push({ idexternalstorage:$(this).attr('idexternalstorage'),sourcetype:$(this).attr('sourcetype'),idresource:$(this).attr('idresource'),idmovie:$(this).attr('idmovie')});
+				currentIds.push($(this).attr('idexternalstorage'));
 			});
    				
    			$.post('" .SiteController::createUrl('AjaxUpdateDownloadExternal'). "',{ids:currentIds}
