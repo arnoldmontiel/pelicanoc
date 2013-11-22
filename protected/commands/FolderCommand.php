@@ -268,7 +268,7 @@ class FolderCommand extends CConsoleCommand  {
 				else
 				{
 					try {
-						exec(escapeshellcmd("cp -fr ".$source . " " .$destinationPath), $output, $return_var);
+						exec(escapeshellcmd("cp -fr ".escapeshellarg($source) . " " .escapeshellarg($destinationPath)), $output, $return_var);
 						Log::logger("cp -fr ".$source . " " .$destinationPath);
 						Log::logger("cp return_var: ". $return_var);
 						if($return_var == 0)
