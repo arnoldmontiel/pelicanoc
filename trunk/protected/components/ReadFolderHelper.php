@@ -349,6 +349,26 @@ class ReadFolderHelper
 		return $exists;
 	}
 	
+	static public function getTdAsocEnabled($modelESData)
+	{
+		$disabled = "disabled='disabled'";
+		if(isset($modelESData))
+		{
+			if($modelESData->status != 6 && $modelESData->status != 1) //si no esta escaneando puedo saber el estado
+			{
+				if($modelESData->copy == 1)
+				{
+					$disabled = "disabled='disabled'";
+				}
+				else
+				{
+					$disabled = "";
+				}
+			}
+		}
+		return $disabled;
+	}
+	
 	static public function getTdStatus($modelESData)
 	{		
 		$td = "<i class='fa fa-spinner fa-spin'></i> Analizando...";

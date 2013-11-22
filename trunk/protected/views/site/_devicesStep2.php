@@ -47,7 +47,7 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESData->Id));
-	        					echo "<button type='button' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-primary' " .$disabled."><i class='fa fa-link'></i> Asociacion</button>";
+	        					echo "<button type='button' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-primary' " .ReadFolderHelper::getTdAsocEnabled($modelESData)."><i class='fa fa-link'></i> Asociacion</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
@@ -104,7 +104,7 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESDataPersonal->Id));
-	        					echo "<button type='button' ".$disabled." onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
+	        					echo "<button type='button' ".ReadFolderHelper::getTdAsocEnabled($modelESDataPersonal)." onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
