@@ -217,10 +217,13 @@
 	</div>
 		  	
   <script>
-  setInterval(function() {
+  var timer = setInterval(function() {
 	   	updateSize();
 	}, 1000*15);
 
+  $('#myModal').on('hidden.bs.modal', function () {
+	  clearInterval(timer);
+	});
 	function updateSize()
 	{
 		$.post("<?php echo SiteController::createUrl('AjaxGetLocalFolderCurrentSize'); ?>",
