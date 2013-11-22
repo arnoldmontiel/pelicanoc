@@ -190,6 +190,7 @@ class ReadFolderHelper
 							{
 								if($modelESData->localFolder->ready == 0)
 								{
+									PelicanoHelper::eraseResource($modelESData->localFolder->path);
 									LocalFolder::model()->deleteByPk($modelESData->Id_local_folder);
 									$modelESData->Id_local_folder = null;
 								}

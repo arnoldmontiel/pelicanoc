@@ -254,9 +254,6 @@ class FolderCommand extends CConsoleCommand  {
 				
 				$source = $externalStoragePath . $modelESData->path;
 				
-				$source = escapeshellcmd($source);
-				$destinationPath = escapeshellcmd($destinationPath);
-				
 				$sys = strtoupper(PHP_OS);
 				
 				if(substr($sys,0,3) == "WIN")
@@ -271,7 +268,7 @@ class FolderCommand extends CConsoleCommand  {
 				else
 				{
 					try {
-						exec("cp -fr ".$source . " " .$destinationPath, $output, $return_var);
+						exec(escapeshellcmd("cp -fr ".$source . " " .$destinationPath), $output, $return_var);
 						Log::logger("cp -fr ".$source . " " .$destinationPath);
 						Log::logger("cp return_var: ". $return_var);
 						if($return_var == 0)
