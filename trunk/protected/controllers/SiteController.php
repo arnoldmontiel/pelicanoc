@@ -370,7 +370,7 @@ class SiteController extends Controller
 				$isThere = false;
 				foreach ($ids as $id)
 				{
-					if($movie->Id==$id['idresource']&&$movie->source_type==$id['sourceType'])
+					if($movie->Id==$id['idresource']&&$movie->source_type==$id['sourcetype'])
 					{
 						$isThere = true;
 						break;
