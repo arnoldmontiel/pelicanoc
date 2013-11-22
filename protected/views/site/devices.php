@@ -231,17 +231,28 @@ function getProcessStatus()
 				}
 			).success(
 				function(data){	
-					var obj = jQuery.parseJSON(data);				
-					if(obj.modelFinishCopyESDataArray != null)
-					{
-						for(var index = 0; index < obj.modelFinishCopyESDataArray.length; index++)
+					var obj = jQuery.parseJSON(data);
+					if(obj != null)
+					{			
+						if(obj.currentESIn == 1)
 						{
-							updateTds(obj.modelFinishCopyESDataArray[index]);
+							if(obj.modelFinishCopyESDataArray != null)
+							{
+								for(var index = 0; index < obj.modelFinishCopyESDataArray.length; index++)
+								{
+									updateTds(obj.modelFinishCopyESDataArray[index]);
+								}
+							}
+							if(obj.finishCopy == 1)
+							{
+								$('#hidden-process-working').val(0);
+							}
 						}
-					}
-					if(obj.finishCopy == 1)
-					{
-						$('#hidden-process-working').val(0);
+						else
+						{
+							$('#hidden-process-working').val(0);
+							$('#wizardDispositivos').html('');
+						}
 					}
 			});
 	}
