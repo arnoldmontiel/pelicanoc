@@ -517,6 +517,19 @@ class SiteController extends Controller
 				$modelESData->copy = 0;
 				if($modelESData->save())
 				{
+					$countOnCopy = ExternalStorageData::model()->countByAttributes(array(
+													'Id_current_external_storage'=>$modelESData->Id_current_external_storage,
+													'copy'=>0));
+					if($countOnCopy == 0)
+					{
+						$modelCurrentES = CurrentExternalStorage::model->findByPk($modelESData->Id_current_external_storage);
+						if(isset($modelCurrentES))
+						{
+							$modelCurrentES->state = 3;
+							$modelCurrentES->save();
+						}
+					}
+					
 					$canceledModel['id'] = $modelESData->Id;
 					$canceledModel['copy'] = $modelESData->copy;
 					$canceledModel['status'] = $modelESData->status;
