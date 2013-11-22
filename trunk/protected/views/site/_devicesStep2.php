@@ -1,7 +1,7 @@
 <?php 
-	$disabled = 'none';
+	$disabled = '';
 	if($hardScanReady == 0)
-		$disabled = "disabled";
+		$disabled = "disabled='disabled'";
 ?>
 <?php if($hardScanReady == 0):?>
 <div id="scaningLabel"><h2><?php echo $label;?> <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
@@ -19,7 +19,7 @@
 	              <th>Editar</th>
 	              <th>Ruta</th>
 	              <th>Estado</th>
-	              <th> <button type="button" id="copy-all-known" onclick="copyAll('knownTable')" disabled="<?php echo $disabled;?>" class="btn btn-default">Importar Todo</button></th>
+	              <th> <button type="button" id="copy-all-known" onclick="copyAll('knownTable')" <?php echo $disabled;?> class="btn btn-default">Importar Todo</button></th>
 	            </tr>
 	          </thead>
 	          <tbody id="knownTable">
@@ -47,7 +47,7 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESData->Id));
-	        					echo "<button type='button' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-primary' disabled='" .$disabled."'><i class='fa fa-link'></i> Asociacion</button>";
+	        					echo "<button type='button' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-primary' " .$disabled."><i class='fa fa-link'></i> Asociacion</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
@@ -76,7 +76,7 @@
               <th>Editar</th>
               <th>Ruta</th>
               <td>Estado</td>
-              <th> <button type="button" id="copy-all-personal" onclick="copyAll('personalTable')" disabled="<?php echo $disabled;?>" class="btn btn-default">Importar Todo</button></th>
+              <th> <button type="button" id="copy-all-personal" onclick="copyAll('personalTable')" <?php echo $disabled;?> class="btn btn-default">Importar Todo</button></th>
             </tr>
           </thead>
           <tbody id="personalTable">
@@ -104,7 +104,7 @@
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESDataPersonal->Id));
-	        					echo "<button type='button' disabled='".$disabled."' onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
+	        					echo "<button type='button' ".$disabled." onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
 	        				echo CHtml::closeTag("td");
 	        					
 	        				echo CHtml::openTag("td");
@@ -134,7 +134,7 @@
               <th>Editar</th>
               <th>Ruta</th>
               <td>Estado</td>
-              <th> <button type="button" id="copy-all-unknown" onclick="copyAll('unknownTable')" disabled="<?php echo $disabled;?>" class="btn btn-default">Importar Todo</button></th>
+              <th> <button type="button" id="copy-all-unknown" onclick="copyAll('unknownTable')" <?php echo $disabled;?> class="btn btn-default">Importar Todo</button></th>
             </tr>
           </thead>
           <tbody id="unknownTable">           
