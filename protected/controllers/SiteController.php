@@ -522,7 +522,7 @@ class SiteController extends Controller
 													'copy'=>0));
 					if($countOnCopy == 0)
 					{
-						$modelCurrentES = CurrentExternalStorage::model->findByPk($modelESData->Id_current_external_storage);
+						$modelCurrentES = CurrentExternalStorage::model()->findByPk($modelESData->Id_current_external_storage);
 						if(isset($modelCurrentES))
 						{
 							$modelCurrentES->state = 3;
