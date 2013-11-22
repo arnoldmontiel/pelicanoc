@@ -269,13 +269,16 @@ class SiteController extends Controller
 	{
 		if(isset($_POST['id']))
 		{
-			$setting = Setting::getInstance();
 			$externalStorageData = ExternalStorageData::model()->findByPk($_POST['id']);
-			$path = $setting->path_shared . $externalStorageData->localFolder->path;
-			
-			$size = PelicanoHelper::getDirectorySize($path,false);
-			
-			echo round($size/$modelExternalStorageData->size*100)." %";				
+			if(isset($externalStorageData))
+			{
+				$setting = Setting::getInstance();
+				$path = $setting->path_shared . $externalStorageData->localFolder->path;
+					
+				$size = PelicanoHelper::getDirectorySize($path,false);
+					
+				echo round($size/$externalStorageData->size*100)." %";				
+			}
 		}
 	}
 	public function actionAjaxMovieShowFinishedDetail()
