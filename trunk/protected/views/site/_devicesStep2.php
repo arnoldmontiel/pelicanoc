@@ -1,5 +1,5 @@
 <?php 
-	$disabled = '';
+	$disabled = 'none';
 	if($hardScanReady == 0)
 		$disabled = "disabled";
 ?>
