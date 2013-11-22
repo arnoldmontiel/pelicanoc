@@ -14,7 +14,7 @@ Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 setInterval(function() {
    	updateFinished($('ul.nav-pills li.active a').attr('id'));
    	updateExternal();
-}, 1000*60)
+}, 1000*15)
 
 	$('ul.nav-pills li a').click(function(){
 		updateFinished($(this).attr('id'));
