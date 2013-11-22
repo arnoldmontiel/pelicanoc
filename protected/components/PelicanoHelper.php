@@ -57,11 +57,12 @@ class PelicanoHelper
 	
 	static public function eraseResource($path)
 	{
-		if(!file_exists($path))
-			return true;
 		
 		$setting = Setting::getInstance();
 		$path = $setting->path_shared . $path;
+
+		if(!file_exists($path))
+			return true;
 		
 		if(!is_dir($path))
 			$path = (dirname($path) != $setting->path_shared)?dirname($path):$path;
