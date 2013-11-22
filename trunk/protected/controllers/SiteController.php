@@ -827,6 +827,7 @@ class SiteController extends Controller
 		}
 		$data = $this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
 													'modelESDataPersonals'=>$modelESDataPersonals,
+													'hardScanReady'=>$hardScanReady,
 													'label'=>$label),true,true);
 		$response = array('data'=>$data,
 								'hardScanReady'=>$hardScanReady);
