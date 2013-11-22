@@ -63,9 +63,11 @@ class PelicanoHelper
 		if(!is_dir($path))
 			$path = (dirname($path) != $setting->path_shared)?dirname($path):$path;
 		
-		if(!file_exists($path))
+		Log::logger("antes de checkear: ". $path);
+		if(!file_exists($path))				
 			return true;
 		
+		Log::logger("existe: ". $path);
  		return self::deleteTree($path);		
 	}
 	
