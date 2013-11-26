@@ -362,6 +362,9 @@ class SiteController extends Controller
 		}
 		$movies = Movies::model()->findAll($criteriaMovies);
 		$newItem = false;
+		$ids = array();
+		if(isset($_POST['ids']))
+			$ids = $_POST['ids'];
 		if(count($movies)==count($_POST['ids']))
 		{
 			$ids = $_POST['ids'];
