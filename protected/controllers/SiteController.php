@@ -367,6 +367,8 @@ class SiteController extends Controller
 			$ids = $_POST['ids'];
 		if(count($movies)==count($ids))
 		{
+			echo "count movies: ".count($movies);
+			echo " count ids: ".count($ids);
 			$ids = $ids;
 			foreach ($movies as $movie)
 			{
