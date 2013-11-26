@@ -555,7 +555,10 @@ class SiteController extends Controller
 			{
 				
 				if($modelESData->status == 2) //si ESTA copiando
+				{
 					$modelESData->status = 5; //cancel copy
+					ReadFolderHelper::cancelCopy($modelESData);
+				}
 				else
 				{
 					if(isset($modelESData->localFolder))
