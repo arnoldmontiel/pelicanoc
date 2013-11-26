@@ -82,12 +82,21 @@ class PelicanoHelper
 				self::deleteTree(realpath($path) . '/' . $file);
 			}
 	
-			return rmdir($path);
+			try {
+				return rmdir($path);
+			} catch (Exception $e) {
+				Log::logger("Error en rmdir:" . $e->getMessage());
+			}
+			
 		}
 	
 		else if (is_file($path) === true)
 		{
-			return unlink($path);
+			try {
+				return unlink($path);
+			} catch (Exception $e) {
+				Log::logger("Error en unlink:" . $e->getMessage());
+			}
 		}
 	
 		return false;
