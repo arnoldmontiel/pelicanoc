@@ -9,8 +9,7 @@ class ReadFolderHelper
 			$externalStoragePath = (isset($modelESData->currentExternalStorage))?$modelESData->currentExternalStorage->path:null;
 			if(isset($externalStoragePath))
 			{
-				$source = $externalStoragePath . $modelESData->path;
-				$source = escapeshellarg($source);
+				$source = escapeshellarg($externalStoragePath);
 
 				$sys = strtoupper(PHP_OS);
 				if(substr($sys,0,3) == "WIN")
