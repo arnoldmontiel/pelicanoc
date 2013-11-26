@@ -226,7 +226,7 @@ class FolderCommand extends CConsoleCommand  {
 					LocalFolder::model()->deleteByPk($modelLocalFolder->Id);
 					$modelESData->Id_local_folder = null;
 					
-					if($modelESDataDB->status == 5) //canceled copy
+					if($modelESData->status == 5) //canceled copy
 						$modelESData->status = 7; // lo dejo para que vuelva a importar
 					else					
 						$modelESData->status = 4; //error on copy
