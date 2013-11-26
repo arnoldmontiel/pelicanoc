@@ -81,7 +81,7 @@ class PelicanoHelper
 			{
 				self::deleteTree(realpath($path) . '/' . $file);
 			}
-	
+			return true;
 			try {
 				return rmdir($path);
 			} catch (Exception $e) {
@@ -92,6 +92,7 @@ class PelicanoHelper
 	
 		else if (is_file($path) === true)
 		{
+			return true;
 			try {
 				return unlink($path);
 			} catch (Exception $e) {
