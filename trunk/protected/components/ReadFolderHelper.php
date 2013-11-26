@@ -2,6 +2,30 @@
 class ReadFolderHelper
 {
 
+	static public function cancelCopy($modelESData)
+	{
+		if(isset($modelESData))
+		{
+			$externalStoragePath = (isset($modelESData->currentExternalStorage))?$modelESData->currentExternalStorage->path:null;
+			if(isset($externalStoragePath))
+			{
+				$source = $externalStoragePath . $modelESData->path;
+				$source = escapeshellarg($source)
+
+				$sys = strtoupper(PHP_OS);
+				if(substr($sys,0,3) == "WIN")
+				{
+					$WshShell = new COM('WScript.Shell');
+					$oExec = $WshShell->Run(dirname(__FILE__).'/../commands/shell/cancelCopying '. $source, 0, false);
+				}
+				else
+				{
+					exec(dirname(__FILE__).'/../commands/shell/cancelCopying.sh '.$source.' >/dev/null&');
+				}
+			}
+		}
+	}
+	
 	static public function processExternalStorage($idCurrentES)
 	{
 		$_COMMAND_NAME = "processExternalStorage";
