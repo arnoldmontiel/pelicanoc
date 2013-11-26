@@ -365,9 +365,9 @@ class SiteController extends Controller
 		$ids = array();
 		if(isset($_POST['ids']))
 			$ids = $_POST['ids'];
-		if(count($movies)==count($_POST['ids']))
+		if(count($movies)==count($ids))
 		{
-			$ids = $_POST['ids'];
+			$ids = $ids;
 			foreach ($movies as $movie)
 			{
 				$isThere = false;
