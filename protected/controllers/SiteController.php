@@ -576,8 +576,8 @@ class SiteController extends Controller
 				$modelESData->copy = 0;
 				if($modelESData->save())
 				{
-					if($modelESData->status == 5)//cancel copy
-						ReadFolderHelper::cancelCopy($modelESData);
+// 					if($modelESData->status == 5)//cancel copy
+// 						ReadFolderHelper::cancelCopy($modelESData);
 					
 					$criteria = new CDbCriteria();
 					$criteria->addCondition('t.status <> 3');
