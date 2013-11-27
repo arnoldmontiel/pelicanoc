@@ -83,7 +83,7 @@ class PelicanoHelper
 			}
 			
 			try {
-				return rmdir($path);
+				return @rmdir($path);
 			} catch (Exception $e) {
 				Log::logger("Error en rmdir:" . $e->getMessage());
 			}
