@@ -226,18 +226,17 @@ class FolderCommand extends CConsoleCommand  {
 					LocalFolder::model()->deleteByPk($modelLocalFolder->Id);
 					$modelESData->Id_local_folder = null;
 					
-// 					$modelESDataDB = ExternalStorageData::model()->findByPk($modelESData->Id);
-// 					if(isset($modelESDataDB))
-// 					{
-// 						if($modelESDataDB->status == 5) //canceled copy
-// 							$modelESData->status = 7; // lo dejo para que vuelva a importar
-// 						else
-// 							$modelESData->status = 4; //error on copy
-// 					}
-// 					else
-// 						$modelESData->status = 4; //error on copy
+					$modelESDataDB = ExternalStorageData::model()->findByPk($modelESData->Id);
+					if(isset($modelESDataDB))
+					{
+						if($modelESDataDB->status == 5) //canceled copy
+							$modelESData->status = 7; // lo dejo para que vuelva a importar
+						else
+							$modelESData->status = 4; //error on copy
+					}
+					else
+						$modelESData->status = 4; //error on copy
 					
-					$modelESData->status = 4; //error on copy
 					$modelESData->copy = 0;
 					$modelESData->save();
 				}
