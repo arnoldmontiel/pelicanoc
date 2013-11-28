@@ -9,7 +9,7 @@
     <ul class="nav nav-pills nav-stacked" >
         <li class="active"><a href="#">USB1</a><a type="button" class="ejectBTN btn btn-default"><i class="fa fa-eject"></i></a></li>
         <li><a href="#">USB 2</a><a type="button" class="ejectBTN btn btn-default"><i class="fa fa-eject"></i></a></li>
-        <li><a href="#">Blue Ray</a><a type="button" class="ejectBTN btn btn-default"><i class="fa fa-eject"></i></a></li>
+        <li><a href="#">Bluray</a><a type="button" class="ejectBTN btn btn-default"><i class="fa fa-eject"></i></a></li>
       </ul>
     </div> <!-- /col-md-3 -->
     <!-- ACA EMPIEZA PASO 1
