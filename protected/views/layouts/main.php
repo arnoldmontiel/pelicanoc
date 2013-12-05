@@ -396,7 +396,7 @@ echo CHtml::closeTag('div');
 Reproduciendo:
 <div id="playback-title" class="tituloRep"></div>
 </div>
- <a type="button" id="btn-dune-control" class="btn btn-default"><i class="fa fa-keyboard-o"></i> Control Remoto</a>
+ <a type="button" id="btn-dune-control" class="btn btn-primary"><i class="fa fa-keyboard-o"></i> Control Remoto</a>
 </div>
 <!-- /cierre floating -->
 </body>
