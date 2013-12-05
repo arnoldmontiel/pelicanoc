@@ -102,7 +102,7 @@ class PelicanoHelper
 		return false;
 	}
 	
-	static function getNixDirSize($path) {
+	static public function getNixDirSize($path) {
 		$size = 0;
 		
 		$output = exec('du -sk ' . escapeshellarg($path));
@@ -136,7 +136,7 @@ class PelicanoHelper
 		return $size;
 	}
 	
-	private function format_bytes($a_bytes) {
+	static public function format_bytes($a_bytes) {
 		if ($a_bytes < 1024) {
 			return $a_bytes .' B';
 		} elseif ($a_bytes < 1048576) {
