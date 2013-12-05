@@ -129,6 +129,35 @@ body#screenMarketplace #content{
   padding-bottom: 40px;
   }
 
+  /* ----- NEW BUTTONS ------*/
+  .btn-primary{
+  color: #ffffff;
+background-color: #26ada1;
+border-color: #21988e;
+}
+    .btn-default{
+  color: #26ada1;
+background-color: #eee;
+border-color: #ddd;
+}
+
+    .btn-danger{
+  color: #d9534f;
+background-color: #eee;
+border-color: #ddd;
+}
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+color: #ffffff;
+background-color: #1f8c82;
+border-color: #16665f;}
+
+
+.btn-default.disabled, .btn-default[disabled], fieldset[disabled] .btn-default, .btn-default.disabled:hover, .btn-default[disabled]:hover, fieldset[disabled] .btn-default:hover, .btn-default.disabled:focus, .btn-default[disabled]:focus, fieldset[disabled] .btn-default:focus, .btn-default.disabled:active, .btn-default[disabled]:active, fieldset[disabled] .btn-default:active, .btn-default.disabled.active, .btn-default[disabled].active, fieldset[disabled] .btn-default.active {
+background-color:#ebebeb;
+border-color: #ccc;
+color:#ccc;
+}
+
 /* hack to avoid backround from scrolling when modal open */
 
 body.modal-open {
@@ -145,7 +174,7 @@ body.modal-open {
 
 ul.nav{ margin-left:0px;}
 
-#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #9d9d00; height:55px;z-index:1060;}
+#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #26ada1; height:55px;z-index:1060;}
 #MenuLogo{
 	margin-left: 0px;
 font-family: 'LatoRegular', sans-serif;
@@ -511,6 +540,9 @@ font-family: 'GudeaRegular', Arial, sans-serif;}
 #wizardDispositivos .nav-tabs>li.active>a{color:#333;}
 
 #wizardDispositivos  .nav-tabs>li>a:hover{ color:#666;}
+
+
+#wizardDispositivos button{min-width:120px;}
 
 .nav-tabs .dropdown-menu{ font-size:20px;}
 /* ----- END DISPOSITIVOS --------*/
