@@ -55,6 +55,7 @@
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
               <!-- <li class=""><a href="#tab3" data-toggle="tab">Bookmarks</a></li>--> 
+              <li class="pull-right"><button  id="btn-edit" type="button" class="btn btn-primary"><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button></li>
     </ul>
 	<div class="tab-content tableInfo">
     <div class="tab-pane active" id="tab1">

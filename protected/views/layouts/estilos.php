@@ -43,6 +43,20 @@ font-style: normal;
 
 a {
   outline: 0 none !important;
+  color:#333 ;
+}
+
+a:hover {
+  color:#666 ;
+}
+
+a:active {
+  color:#666 ;
+  background-color:none;
+}
+a:focus {
+  color:#666 ;
+  background-color:none;
 }
 
 a:hover, a:active, a:focus {
@@ -227,7 +241,7 @@ cursor: pointer;
    margin-left:0px;
 }
 
-h2.pageSubtitle{font-size: 28px;
+h2{font-size: 28px;
 font-weight: normal;
 color: #ccc;
 text-shadow: 0 1px 3px #333;
@@ -243,7 +257,17 @@ color: #fff;
 text-shadow: 0 1px 3px #666;
 text-align:left;
 margin:0px;
-line-height:auto;}
+line-height:auto;text-shadow: 0 1px 3px #333;}
+
+h3{font-size: 24px;
+font-weight: 100;
+color: #ddd;
+margin-bottom:10px; margin-top:10px;text-shadow: 0 1px 3px #000;
+font-family:'GudeaRegular', Arial, sans-serif;
+}
+
+h3.tableTitle{ color: #666; text-shadow:none; background-color:#eee; padding:10px; margin-bottom:0px;}
+.tableTitle span{ font-size:15px; margin-left:10px; line-height:25px;}
 
 .pageTitleContainer{
 padding-bottom:10px;
@@ -451,17 +475,44 @@ background-color: #9d9d00;
 /* ----- END MARKETPLACE --------*/
 
 /* ----- DISPOSITIVOS --------*/
-.tablaIndividual{ margin-bottom:20px; background-color:rgba(255,255,255,0.5); border-color:#ccc; color:#444;}
+.tablaIndividual{ margin-bottom:20px; background-color:rgba(255,255,255,1); max-height:100px; overflow:auto;}
+
+.devicesSelector{ padding-bottom:10px; margin-bottom:10px;}
+
+#wizardDispositivos h3{ /*margin-top:10px;*/ margin-top:0px;}
 .nav-pills.nav-stacked>li>a{border-radius:18px; color:white;}
 .nav-pills.nav-stacked>li.active>a{background-color:#eee;color:#333;}
 .nav-pills.nav-stacked>li>a:hover{ background-color:#428bca;color:white;}
 .nav>li>a.ejectBTN{ width:35px; height:35px; padding:6px; position:absolute; top:3px; right:3px; color: #428bca;
 background-color: #fff;}
 
-.table.tablaIndividual th{ font-family:'GudeaBold'; font-weight:bold; font-size:16px; color:#555;}
-.table.tablaIndividual thead>tr>th, .table.tablaIndividual tbody>tr>th, .table.tablaIndividual tfoot>tr>th, .table.tablaIndividual thead>tr>td, .table.tablaIndividual tbody>tr>td, .table.tablaIndividual tfoot>tr>td{vertical-align:middle;}
+.table.tablaIndividual { margin-bottom:30px;}
+.tablaIndividual .tdPath{font-size:14px;}
+.tablePeliTitle{ font-family:'GudeaBold';  font-size:18px;}
+.tablaIndividual td button{ margin:5px; margin-left:0px; vertical-align:middle;}
+.table.tablaIndividual th{ font-family:'GudeaBold';  font-size:16px; color:#555;}
+.table.tablaIndividual thead>tr>th, .table.tablaIndividual tbody>tr>th, .table.tablaIndividual tfoot>tr>th, .table.tablaIndividual thead>tr>td, .table.tablaIndividual tbody>tr>td, .table.tablaIndividual tfoot>tr>td{vertical-align:middle; padding:5px;}
+
+.deviceDropdownName{border:0px none !important; font-size: 24px;padding:5px; border:0px none; 
+font-weight: 100;
+color: #ddd;
+margin:0px;
+text-shadow: 0 1px 3px #000;
+font-family: 'GudeaRegular', Arial, sans-serif;}
+.deviceDropdown i{ margin-left:10px; margin-right:5px;}
+.deviceDropdown:hover .deviceDropdownName{}
 
 
+.deviceDropdownName:hover{background-color:#fff !important;border:0px none; color:#666; text-shadow:none;}
+.deviceDropdownName:focus{background-color:#fff !important;border:0px none; color:#666 !important; text-shadow:none;}
+
+#wizardDispositivos .nav-tabs .pull-right{margin-top:10px;}
+#wizardDispositivos .nav-tabs>li>a{color:white;}
+#wizardDispositivos .nav-tabs>li.active>a{color:#333;}
+
+#wizardDispositivos  .nav-tabs>li>a:hover{ color:#666;}
+
+.nav-tabs .dropdown-menu{ font-size:20px;}
 /* ----- END DISPOSITIVOS --------*/
 
 
@@ -727,7 +778,7 @@ to {right:150px;}
 	}
 }
 /*IPAD LANDSCAPE*/
-@media (min-width: 768px) and (min-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
 	.controlContainer{
 		width:100%;
 	}
