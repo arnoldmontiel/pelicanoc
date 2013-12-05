@@ -1,3 +1,5 @@
+
+
 <div class="container" id="screenDevices">
 	<div class="row pageTitleContainer">
     	<div class="col-md-12">
@@ -5,23 +7,35 @@
     	</div> <!-- /col-md-12 -->
     </div> <!-- /row -->
 	<div class="row">		
+	<div  class="col-md-12">
 		<input type="hidden" id="hidden-unit" value="<?php echo $idSelected; ?>">
 		<input type="hidden" id="hidden-first-scan-working" value="0">
 		<input type="hidden" id="hidden-second-scan-working" value="0">
 		<input type="hidden" id="hidden-process-working" value="0">
-    	<div id="devices" class="col-md-3">    		    		
+    	<!-- <div class="devicesSelector" id="devices"> -->    		    		
     		<?php
-    			$this->renderPartial('_devicesUnit',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
+    			//$this->renderPartial('_devicesUnit',array('modelCurrentESs'=>$modelCurrentESs, 'idSelected'=>$idSelected));
 			?>        		      		
-    	</div> <!-- /col-md-3 -->
-    
+    	<!-- </div> -->
+    <!-- Single button 
+<div class="btn-group">
+  <button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown">
+    USB 1 Pablito <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">USB 1</a></li>
+    <li><a href="#">USB 2</a></li>
+    <li><a href="#">USB 3</a></li>
+    <li><a href="#">USB 4</a></li>
+  </ul>
+</div>-->
     	<!-- ACA VAN LOS PASOS ! --><!-- /col-md-9 -->
-    	<div class="col-md-9" id="wizardDispositivos">
+    	<div id="wizardDispositivos">
     	</div> 
     
+    </div> <!-- /col-md-12 -->
 	</div> <!-- /row -->
 </div> <!-- /container -->
-
 <script>
 function getDevices()
 {	
@@ -162,7 +176,7 @@ function getTdButton(obj)
 			if(obj.copy == 1)
 			{
 				if(obj.status == 3) //ya esta copiado listo para ver
-					td = "<button type='button' onclick='playVideo("+obj.id+")' class='btn btn-primary'>Ver</button>";				
+					td = "<button type='button' onclick='playVideo("+obj.id+")' class='btn btn-primary'><i class='fa fa-play'></i> Ver Pel&iacute;</button>";				
 				else
 					td = "<button type='button' onclick='cancelCopy("+obj.id+")' class='btn btn-danger'>Cancelar</button>";
 			}
