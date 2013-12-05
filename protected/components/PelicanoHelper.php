@@ -102,7 +102,7 @@ class PelicanoHelper
 		return false;
 	}
 	
-	private function getNixDirSize($path) {
+	static function getNixDirSize($path) {
 		$size = 0;
 		
 		$output = exec('du -sk ' . escapeshellarg($path));
