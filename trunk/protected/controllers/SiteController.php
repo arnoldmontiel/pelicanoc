@@ -1896,7 +1896,7 @@ class SiteController extends Controller
 				$myMovie->sort_title= $movie->title;
 				$myMovie->imdb= $movie->imdb_id;
 				$myMovie->rating= (int)$movie->vote_average;
-				$myMovie->is_custom = true;
+				$myMovie->is_custom = 1;
 				$genres = $movie->genres;
 				$myMovie->genre="";
 				$first = true;
@@ -2053,7 +2053,7 @@ class SiteController extends Controller
 				$myMovie->sort_title= $movie->title;
 				$myMovie->imdb= $movie->imdb_id;
 				$myMovie->rating= (int)$movie->vote_average;
-				$myMovie->is_custom = true;
+				$myMovie->is_custom = 1;
 				$genres = $movie->genres;
 				$myMovie->genre="";
 				$first = true;
@@ -2308,7 +2308,7 @@ class SiteController extends Controller
 			}
 			$transaction = Yii::app()->db->beginTransaction();
 			try {
-				$myMovie->is_custom = true;
+				$myMovie->is_custom = 1;
 				$myMovie->attributes = $_POST[$newClass];
 				$myMovie->genre= "";
 				$first = true;
@@ -2547,7 +2547,7 @@ class SiteController extends Controller
 			}
 			$transaction = Yii::app()->db->beginTransaction();
 			try {
-				$myMovie->is_custom = true;
+				$myMovie->is_custom = 1;
 				$myMovie->genre= "";
 				$myMovie->poster="noImage.jpg";
 				$myMovie->big_poster="noImage.jpg";
@@ -2649,7 +2649,7 @@ class SiteController extends Controller
 			}
 			$transaction = Yii::app()->db->beginTransaction();
 			try {
-				$myMovie->is_custom = true;
+				$myMovie->is_custom = 1;
 				$myMovie->attributes = $_POST[$newClass];
 				$myMovie->genre= "";
 				$first = true;
