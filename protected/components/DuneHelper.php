@@ -129,7 +129,7 @@ class DuneHelper
 	{
 		$setting = Setting::getInstance();		
 		//echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=black_screen');
-		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code=BF19E600');
+		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code=E619BF00');
 	}
 	
 	
