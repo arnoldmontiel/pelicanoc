@@ -62,6 +62,7 @@ class DuneHelper
 		$cmd = 'launch_media_url';
 		//$path = str_replace(' ', '%20', $model->path);
 		$path = str_replace(' ', '%20', $path);
+		$path = str_replace('&', '%26', $path);
 		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
 		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path .$path;
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
