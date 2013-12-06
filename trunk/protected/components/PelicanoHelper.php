@@ -71,7 +71,7 @@ class PelicanoHelper
 	}
 	
 	
-	private function deleteTree($path)
+	static public function deleteTree($path)
 	{
 		if (is_dir($path) === true)
 		{
@@ -112,7 +112,7 @@ class PelicanoHelper
 		return $size;
 	}
 	
-	private function getWinDirSize($path) 
+	static public function getWinDirSize($path) 
 	{
 		$size = 0;
 		$setting = Setting::getInstance();
