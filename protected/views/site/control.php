@@ -133,7 +133,7 @@ setInterval(function() {
 function getProgressBar()
 {
  	
- 	$.post('".RippedMovieController::createUrl('AjaxGetProgressBar')."'	
+ 	$.post('".SiteController::createUrl('AjaxGetProgressBar')."'	
 		).success(
 		function(data){	
 			var obj = jQuery.parseJSON(data);
