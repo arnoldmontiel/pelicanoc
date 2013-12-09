@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
 ?>
 	<div class="row">
     	<div class="col-md-9">
-<h2 class="marketplaceSliderTitle">Pel&iacute;culas</h2> 
+<h2 class="sliderTitle">Pel&iacute;culas</h2> 
     					<ul class="nav nav-pills">
   				<li class="active"><a data-toggle="tab" href="#">Estrenos</a></li>
   				<li><a href="#" data-toggle="tab">M&aacute;s Vistas</a></li>
@@ -50,7 +50,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
     				echo CHtml::link(
     				
     				CHtml::image("images/".$modelMyMovieNzb->poster,'',array("class"=>"peliAfiche aficheClick",
-    								"width"=>"162", "height"=>"215", "border"=>"0",
+    								"width"=>"180", "height"=>"260", "border"=>"0",
     								"idMovie"=>$modelMyMovieNzb->Id,
     								"idResource"=>$data->Id)),
     				
@@ -79,7 +79,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
       $('.flexslider').flexslider({
         animation: "slide",
         animationLoop: false,
-        itemWidth: 165,
+        itemWidth: 180,
         itemMargin: 5,
 		slideshow: false,
 		touch: true,

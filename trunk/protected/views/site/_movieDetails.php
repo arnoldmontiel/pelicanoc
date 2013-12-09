@@ -242,19 +242,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
-    <div id="popover-borrar" class="popover fade bottom in">
-    	<div class="arrow">
-    		</div>
-    			<h3 class="popover-title" style=""></h3>
-    			<div class="popover-content">Confirmar
-    				<div class="popoverDisTitle">Borrar Pelicula
-    			</div>
-    		<div class="popoverDisButtons">
-    		<button type="button" class="btn btn-default">No</button>
-    		<button type="button" class="btn btn-primary noMargin">Si</button>
-		</div>
-	</div>
-	</div>
+
 		  	
   <script>
   function borrar()
@@ -275,8 +263,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	  $('#btn-eraser-popover').popover('hide');
   }
   $(function () {
-	  var elem ='<p>¿Seguro desea eliminar esta pelicula?</p><button id="btn-remove-ok" class="btn btn-primary noMargin" type="button" onclick="borrar()">Si</button>'+
-	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="cancelar()">No</button>';
+	  var elem ='¿Seguro desea eliminar esta pelicula?<div class="popoverButtons"><button id="btn-remove-ok" class="btn btn-default" type="button" onclick="borrar()">Si</button>'+
+	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="cancelar()">No</button></div>';
 	  
 	$('#btn-eraser-popover').popover({
         title: 'Confirmar',

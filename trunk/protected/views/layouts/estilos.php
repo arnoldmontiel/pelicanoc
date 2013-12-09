@@ -138,7 +138,7 @@ border-color: #21988e;
 
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
 color: #ffffff;
-background-color: #1f8c82;
+background-color: #027871;
 border-color: #16665f;}
 
 .btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
@@ -147,19 +147,19 @@ background-color: #26ada1;
 border-color: #21988e;
 }
     .btn-default{
-  color: #26ada1;
-background-color: #eee;
-border-color: #ddd;
+  color: #027871;
+background-color: #D0E6DF;
+border-color: #C8E6DB;
 }
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
 color: #fff;
-background-color: #00C9B8;
-border-color: #00A395;
+background-color: #038C79;
+border-color: #007064;
 }
     .btn-danger{
   color: #d9534f;
-background-color: #eee;
-border-color: #ddd;
+background-color: #FFE4E3;
+border-color: #FFDEDC;
 }
 
 
@@ -309,6 +309,13 @@ line-height:auto;
 padding-bottom:10px;
  }
 
+ h2.sliderTitle{ 
+font-size:28px; font-weight:normal;
+color: #fff;
+text-shadow: 0 1px 3px #333;
+ line-height:34px; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';
+margin-left:30px; min-width:120px; display:inline-block; margin-right:10px; margin-bottom:0px; margin-top:2px;}
+ 
 h1.pageTitle{font-size: 2em;
 font-weight: normal;
 color: #fff;
@@ -325,6 +332,24 @@ font-family:'GudeaRegular', Arial, sans-serif;
 }
 
 h3.tableTitle{ color: #666; text-shadow:none; background-color:#eee; padding:10px; margin-bottom:0px;}
+
+h3.popover-title {
+padding: 8px 14px;
+margin: 0;
+font-size: 20px;
+font-weight: normal;
+line-height: 20px;
+background-color: #f7f7f7;
+border-bottom: 1px solid #ebebeb;
+border-radius: 5px 5px 0 0;
+text-shadow:none;
+color:#666;
+}
+
+.popover{width:300px; max-width:300px;}
+.popoverButtons{ border-top:1px dotted #ccc; margin-top:10px; padding-top:10px;}
+.popoverButtons button{  width:129px; margin-right:10px;}
+
 .tableTitle span{ font-size:15px; margin-left:10px; line-height:25px;}
 
 .pageTitleContainer{
@@ -381,7 +406,6 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 .modal-body{ overflow:hidden;}
 .modal-backdrop{z-index:1065;}
 
-
 .ratingStars{ color:orange; display:inline-block;}
 .ratingStars i{ margin-left:1px; font-size:16px;}
 
@@ -414,11 +438,17 @@ line-height: 30px;}
 .detailSecond { font-size:100%; border-left:1px solid #ccc;#ccc; padding-top:4px; padding-left:5px;}
 .detailSecondFirst{ border-left:none;}
 
-.tableInfo{
-	max-height: 390px;
+.tableInfo{}
+
+#tab1 {
+max-height: 390px;
 overflow-y: auto;
 overflow-x: auto;
 -webkit-overflow-scrolling: touch;}
+
+#tab2 {
+overflow-y: visible;
+overflow-x: visible;}
 
 .tableInfo .row{ margin-left:0px !important; margin-right:0px !important;}
 
@@ -519,14 +549,6 @@ height: 280px;
 
 /* ----- MARKETPLACE --------*/
 
-h2.marketplaceSliderTitle{ 
-font-size:28px; font-weight:normal;
-color: #fff;
-text-shadow: 0 1px 3px #333;
- line-height:34px; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';
-margin-left:30px; min-width:120px; display:inline-block; margin-right:10px; margin-bottom:0px; margin-top:2px;}
-
-
 
 #screenMarketplace .nav-pills { margin-bottom:10px; display:inline-block; height:20px;}
 
@@ -584,7 +606,6 @@ font-family: 'GudeaRegular', Arial, sans-serif;}
 
 
 /*-------- DESCARGAS --------------*/
-h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1px 0 #ccc; line-height:28px; width:90%; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';}
 
 .pelisFinalizadas{ padding:10px 40px; margin-bottom:20px;}
 .peliFinalizada{ width:140px; text-align:center; display:inline-block; margin-bottom:10px;}
@@ -601,17 +622,25 @@ h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1
 .progress{ margin-bottom:0px !important; height:15px;}
 .progress .bar{ text-align:right; line-height:16px;}
 
+#screenDescargas .nav-pills { margin-bottom:10px; display:inline-block; height:20px;}
+
+.noSliderResults{background-color:rgba(255,255,255,0.1); color:#fff; text-shadow:0 1px 1px #666; font-size:18px; width:97%; margin:auto;  height:268px; text-align:center; line-height:180px; text-transform:uppercase;margin-bottom: 30px; padding:4px;} 
+
+
 /*-------- END DESCARGAS --------------*/
 
 
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
 
-.flexslider{width: 97%; margin: 0 auto; margin-bottom: 30px; background:none repeat scroll 0 0;border:none;padding: 4px;box-shadow:none;}
-.flex-direction-nav a{opacity:1; margin:0px;}
+.flexslider{height:295px;width: 97%; margin: 0 auto; margin-bottom: 30px; background:none repeat scroll 0 0;background-color:rgba(255,255,255,0.1); border:none;padding: 4px;box-shadow:none;}
+.flex-direction-nav a{opacity:1;}
 
+#screenDescargas .flexslider{height:268px;}
 
 .flexslider:hover .flex-next {right: -36px; }
 .flexslider:hover .flex-prev {left: -36px; }
+
+.flex-control-nav {margin-bottom:-10px;}
 
 @media (max-width: 1024px) {
 	.flex-control-paging li a {width: 15px; height: 15px; }
