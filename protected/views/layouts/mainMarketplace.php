@@ -285,14 +285,14 @@ $(document).ready(function(){
 
 <div class="container" >
 
-  <div class="row-fluid">
-    <div class="span12">
+  <div class="row">
+    <div class="col-md-12">
 	
    	<?php echo $content; ?>        
     
       <!-- /content -->
     </div>
-    <!-- /span12 -->
+    <!-- /col-md-12 -->
   </div>
   <!-- /row -->
 </div>
