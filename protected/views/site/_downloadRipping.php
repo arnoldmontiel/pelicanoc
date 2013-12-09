@@ -1,6 +1,6 @@
 	<div class="row">
-    	<div class="col-md-8">
-			<h2 class="sliderTitle modified">Descargando desde Disco</h2> 
+    	<div class="col-md-12">
+			<h2 class="sliderTitle modified">Descargando desde Disco &Oacute;ptico</h2> 
 			<?php if(!empty($modelMyMovie)):?>
 			<ul class="nav nav-pills">
   				<!-- <li class="active"><a data-toggle="tab" href="#">Todas</a></li> -->
@@ -21,7 +21,7 @@
     				echo CHtml::link(
     				
     				CHtml::image("images/".$moviePoster,'',array(
-    								"width"=>"162", "height"=>"215", "border"=>"0",
+    								"width"=>"180", "height"=>"260", "border"=>"0",
     								)),
     				
     				'',array("class"=>"peliAfiche aficheClickCurrentDisc","idMovie"=>$myMovie->Id,
@@ -43,9 +43,9 @@
 	</div>
 <?php else:?>
 	<div class="row">
-    	<div class="col-md-8">
-			<h3 class="sliderTitle modified">Sin contenido</h3> 
-		</div>
+    	<div class="col-md-12">
+			<div class="noSliderResults">NO HAY DESCARGAS EN CURSO</div> 
+    	    			</div>
     </div>
 
 <?php endif?>
@@ -60,7 +60,7 @@
       $('#flexsliderRipping').flexslider({
         animation: "slide",
         animationLoop: false,
-        itemWidth: 165,
+        itemWidth: 180,
         itemMargin: 5,
 		slideshow: false,
 		touch: true,

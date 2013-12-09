@@ -25,7 +25,13 @@
 <link href="js/select2-3.4.4/select2.css" rel="stylesheet"/>
 <script src="js/select2-3.4.4/select2.js"></script>
 <script src="js/lite-uploader-master/jquery.liteuploader.js"></script>
-
+<!-- FastClick -->
+<script src="js/fastclick.js"></script>
+<script>
+$(function() {
+    FastClick.attach(document.body);
+});
+</script>
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 	<?php include('estilos.php');?>
