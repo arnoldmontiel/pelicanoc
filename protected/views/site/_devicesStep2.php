@@ -23,14 +23,14 @@
         </li>
   <li class="pull-right"><a href="#tdesconocidos" data-toggle="tab">Desconocidos <span class="badge">0</span></a></li>
   <li class="pull-right"><a href="#tvpersonales" data-toggle="tab">Videos Personales <span class="badge">2</span></a></li>
-  <li class="active pull-right"><a href="#tpeliculas" data-toggle="tab">Peliculas <span class="badge">2</span></a></li>
+  <li class="active pull-right"><a href="#tpeliculas" data-toggle="tab">Pel&iacute;culas <span class="badge">2</span></a></li>
 </ul>
 
 <div class="tab-content">
   <div class="tab-pane active" id="tpeliculas">
 
     <div class="table-responsive">
-    	<h3 class="tableTitle">Peliculas <span class="pull-right">Finalizadas 3 de 10</span><span class="pull-right">  &bull; </span><span class="pull-right">Importando 10 de 30</span></h3>
+    	<h3 class="tableTitle">Pel&iacute;culas <span class="pull-right">Finalizadas 3 de 10</span><span class="pull-right">  &bull; </span><span class="pull-right">Importando 10 de 30</span></h3>
 	        <table class="table tablaIndividual" id="tablaDevicesPeliculas" width="100%">
 	          <thead>
 	            <tr>
