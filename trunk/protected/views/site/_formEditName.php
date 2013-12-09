@@ -15,8 +15,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-        		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        		<button type="button" id="btn-save-name" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-save "></i> Guardar</button>
+        		<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+        		<button type="button" id="btn-save-name" class="btn btn-primary btn-lg" data-dismiss="modal"><i class="fa fa-save "></i> Guardar</button>
       		</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

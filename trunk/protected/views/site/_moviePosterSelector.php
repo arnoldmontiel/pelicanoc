@@ -6,15 +6,15 @@
     <div class="modal-body"> 
     <div class="modal-scroll">
         <div>
-    <div>Sube tu imagen <div id="loading" class="loadingMessage" style="display: none;"><i class="fa fa-spinner fa-spin"></i> Cargando afiche...</div></div>
+    <div><div class="modalSubtitulo">Sube tu imagen </div><div id="loading" class="loadingMessage" style="display: none;"><i class="fa fa-spinner fa-spin"></i> Cargando afiche...</div></div>
     
     
     <input type="file" name="fileUpload1" id="fileUpload1" class="fileUpload" />
 </div>
 <div>
     <?php if(!$is_personal):?>
-    o Elige una de la lista
-	<?php endif?>    
+    <div class="modalSubtitulo topDotted">o Elige una de la lista </div>
+    	<?php endif?>    
        <select class="image-picker">
        <?php
        $urls = array();        
@@ -29,8 +29,8 @@
       </div>
     </div><!--/.modal-body -->
     <div class="modal-footer">
-    <button id="btn-cancel" type="button" data-dismiss="modal" class="btn btn-default btn-large">Cancelar</button>
-    <button id="btn-acept" type="button" class="btn btn-primary btn-large"><i class="fa fa-save "></i> Guardar</button>
+    <button id="btn-cancel" type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cancelar</button>
+    <button id="btn-acept" type="button" class="btn btn-primary btn-lg"><i class="fa fa-save "></i> Guardar</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->

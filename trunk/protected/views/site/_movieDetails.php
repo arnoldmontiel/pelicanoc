@@ -55,7 +55,7 @@
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
               <!-- <li class=""><a href="#tab3" data-toggle="tab">Bookmarks</a></li>--> 
-              <li class="pull-right"><button  id="btn-edit" type="button" class="btn btn-primary"><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button></li>
+              <li class="pull-right"><button  id="btn-edit" type="button" class="btn btn-default"><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button></li>
     </ul>
 	<div class="tab-content tableInfo">
     <div class="tab-pane active" id="tab1">
@@ -82,10 +82,34 @@
     RATING
     </div><!--/.col-md-3 -->
     <div class="col-md-9 align-left detailSecond">
+    <div class="ratingStars">
     <?php    	
-	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';    	
+	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';
+	if ($model->rating == 1  ){
+echo '<i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 2  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 3  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 4  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 5  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 6  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 7  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 8  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>';
+}	else if ($model->rating == 9  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>';
+}	else if ($model->rating == 10  ){
+echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
+}	
 	?>
-	<img src="images/<?php echo $image;?>" width="100" height="20" border="0">
+	</div>	
+	
+	<!--<img src="images/<?php //echo $image;?>" width="100" height="20" border="0"> -->
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -213,8 +237,8 @@
     
     </div><!--/.modal-body -->
     <div class="modal-footer">
-    <button type="button" data-dismiss="modal" class="btn btn-default btn-large">Cerrar</button>
-    <button id="btn-play" type="button" class="btn btn-primary btn-large"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
+    <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
+    <button id="btn-play" type="button" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->

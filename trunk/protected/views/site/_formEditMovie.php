@@ -356,7 +356,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     </div><!-- /row -->
  <div class="row">
         <div class="col-md-12">
- <div class="buttonGroup"><button type="submit" class="btn btn-default btn-large">Cancelar</button><button type="submit" class="btn btn-primary btn-large noMargin"><i class="fa fa-save "></i> Guardar</button></div>
+ <div class="buttonGroup"><button type="submit" class="btn btn-default btn-lg"><i class="fa fa-arrow-left "></i> Volver</button><button type="submit" class="btn btn-primary btn-lg noMargin"><i class="fa fa-save "></i> Guardar</button></div>
     </div><!-- /col-md-12 -->
     </div><!-- /row -->    
 </form>

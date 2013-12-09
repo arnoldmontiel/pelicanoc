@@ -6,14 +6,13 @@
       </div>
       <div class="modal-body">
 
-<div class="">Elija la opcion correcta:</div>
 <div class="buscarAsociacion">
           <form class="form-horizontal" role="form">
           <div class="row">
         <div class="form-group col-sm-6">
     <label for="fieldSearchName" class="col-sm-3 control-label">Buscar</label>
     <div class="col-sm-9">	
-                            <input id="fieldSearchName" type="text" class="form-control" placeholder="Título">
+                            <input id="fieldSearchName" type="text" class="form-control" placeholder="Título de la película">
                             </div>
                   </div>
         <div class="form-group col-sm-5">
@@ -44,7 +43,7 @@
         </div>
       </form>
           </div>
-<div id="list-movies" class="list-group">
+<div id="list-movies" class="list-group scrollable-list">
 		<?php
 		foreach ($movies as $movie)
 		{
@@ -56,8 +55,8 @@
 </div>
       </div>
       <div class="modal-footer">
-      <button id="btn-cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-      <button id ="btn-save" type="button" class="btn btn-primary"><i class="fa fa-save "></i> Guardar</button>
+      <button id="btn-cancel" type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+      <button id ="btn-save" type="button" class="btn btn-primary btn-lg"><i class="fa fa-save "></i> Guardar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

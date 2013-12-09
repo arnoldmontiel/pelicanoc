@@ -18,8 +18,8 @@
       <div class="row">
     <div class="col-md-5">
     <div class="controlAudioSub">
-<button type="button" class="btn btn-large btn-primary" id="subtButton">Cambiar Subt&iacute;tulos</button>
-<button type="button" class="btn btn-large btn-primary noMargin" id="audioButton">Cambiar Audio</button>
+<button type="button" class="btn btn-lg btn-primary" id="subtButton">Cambiar Subt&iacute;tulos</button>
+<button type="button" class="btn btn-lg btn-primary noMargin" id="audioButton">Cambiar Audio</button>
 </div>
 <?php if($sourceType > 10):?>
 <div class="controlBookmark">
@@ -31,15 +31,15 @@
     <div class="col-md-7">
     <div class="controlFlechas pull-right">
     <div class="flechasArriba">
-<button type="button" class="btn btn-large btn-primary btn-warning" id="upButton"><i class="fa fa-chevron-up fa-2x"></i></button>
+<button type="button" class="btn btn-lg  btn-warning" id="upButton"><i class="fa fa-chevron-up fa-2x"></i></button>
 </div>
     <div class="flechasCentro">
-<button type="button" class="btn btn-large btn-primary btn-warning" id="leftButton"><i class="fa fa-chevron-left fa-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-warning" id="enterButton"><i class="fa fa-check fa-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-warning" id="rightButton"><i class="fa fa-chevron-right fa-2x"></i></button>
+<button type="button" class="btn btn-lg  btn-warning" id="leftButton"><i class="fa fa-chevron-left fa-2x"></i></button>
+<button type="button" class="btn btn-lg  btn-warning" id="enterButton"><i class="fa fa-check fa-2x"></i></button>
+<button type="button" class="btn btn-lg  btn-warning" id="rightButton"><i class="fa fa-chevron-right fa-2x"></i></button>
 </div>
     <div class="flechasAbajo">
-<button type="button" class="btn btn-large btn-primary btn-warning" id="downButton"><i class="fa fa-chevron-down fa-2x"></i></button>
+<button type="button" class="btn btn-lg  btn-warning" id="downButton"><i class="fa fa-chevron-down fa-2x"></i></button>
 </div>
 </div>
     </div>
@@ -54,12 +54,12 @@
   <div class="row controlBackground">
     <div class="col-md-6">
     <div class="controlNavegacion">
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="prevButton"><i class="fa fa-step-backward fa-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="rewButton"><i class="fa fa-backward fa-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="playButton"><i class="fa fa-play fa-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="stopButton"><i class="fa fa-stop fa-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="fwButton"><i class="fa fa-forward fa-2x"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="nextButton"><i class="fa fa-step-forward fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="prevButton"><i class="fa fa-step-backward fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="rewButton"><i class="fa fa-backward fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="playButton"><i class="fa fa-play fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="stopButton"><i class="fa fa-stop fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="fwButton"><i class="fa fa-forward fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="nextButton"><i class="fa fa-step-forward fa-2x"></i></button>
 </div>
     </div>
     <!-- /col-md-6 -->
@@ -104,8 +104,8 @@
     <!-- /col-md-9 -->
     <div class="col-md-3">   
     <div class="controlConfig">
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="popUpMenuButton"><i class="fa fa-cog fa-lg"></i></button>
-<button type="button" class="btn btn-large btn-primary btn-inverse" id="returnButton"><i class="fa fa-reply fa-lg"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="popUpMenuButton"><i class="fa fa-cog fa-lg"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="returnButton"><i class="fa fa-reply fa-lg"></i></button>
 </div>
     </div>
     <!-- /col-md-3 -->
