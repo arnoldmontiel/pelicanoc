@@ -99,15 +99,15 @@ body #screenHome {
   padding-top: 125px;
 }
 body #screenSeries {
-  padding-top: 80px;
+  padding-top: 70px;
 }
 
 body #screenMarketplace{
-  padding-top: 80px;
+  padding-top: 70px;
   }
   
   body #screenDescargas{
-  padding-top: 80px;
+  padding-top: 70px;
   }
   
     body #screenDevices{
@@ -121,11 +121,11 @@ body #screenControl{
   padding-top: 70px;
   }
   
-body#screenMarketplace #content{
+body #screenMarketplace #content{
   padding-bottom: 40px;
   }
   
-  body#screenDescargas #content{
+  body #screenDescargas #content{
   padding-bottom: 40px;
   }
 
@@ -135,27 +135,56 @@ body#screenMarketplace #content{
 background-color: #26ada1;
 border-color: #21988e;
 }
-    .btn-default{
-  color: #26ada1;
-background-color: #eee;
-border-color: #ddd;
-}
 
-    .btn-danger{
-  color: #d9534f;
-background-color: #eee;
-border-color: #ddd;
-}
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
 color: #ffffff;
 background-color: #1f8c82;
 border-color: #16665f;}
 
+.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
+color:#eee;
+background-color: #26ada1;
+border-color: #21988e;
+}
+    .btn-default{
+  color: #26ada1;
+background-color: #eee;
+border-color: #ddd;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+color: #fff;
+background-color: #00C9B8;
+border-color: #00A395;
+}
+    .btn-danger{
+  color: #d9534f;
+background-color: #eee;
+border-color: #ddd;
+}
+
 
 .btn-default.disabled, .btn-default[disabled], fieldset[disabled] .btn-default, .btn-default.disabled:hover, .btn-default[disabled]:hover, fieldset[disabled] .btn-default:hover, .btn-default.disabled:focus, .btn-default[disabled]:focus, fieldset[disabled] .btn-default:focus, .btn-default.disabled:active, .btn-default[disabled]:active, fieldset[disabled] .btn-default:active, .btn-default.disabled.active, .btn-default[disabled].active, fieldset[disabled] .btn-default.active {
 background-color:#ebebeb;
 border-color: #ccc;
-color:#ccc;
+color:#888;
+}
+
+
+.scrollable-list{ max-height:320px; overflow-y:auto; overflow-x:hidden;}
+
+
+.nav-pills{ font-size:17px;}
+
+.nav-pills a{ color:white;}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+color: #fff;
+background-color: #26ada1;}
+
+.nav>li>a:hover, .nav>li>a:focus {
+text-decoration: none;
+background-color: #eee;
+color:#666;
 }
 
 /* hack to avoid backround from scrolling when modal open */
@@ -260,7 +289,7 @@ cursor: pointer;
 
 /* ------ BTN INITIAL FONT SIZES ------- */
 .btn{ font-size:15px;}
-.btn-large{ font-size:17.5px;}
+.btn-lg{ font-size:18px;}
 /* ------ END BTN SIZES ------- */
 
 /* ------ BODY / MAIN LAYOUT ------- */
@@ -283,10 +312,10 @@ padding-bottom:10px;
 h1.pageTitle{font-size: 2em;
 font-weight: normal;
 color: #fff;
-text-shadow: 0 1px 3px #666;
+text-shadow: 0 1px 3px #333;
 text-align:left;
 margin:0px;
-line-height:auto;text-shadow: 0 1px 3px #333;}
+line-height:auto;}
 
 h3{font-size: 24px;
 font-weight: 100;
@@ -352,6 +381,10 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 .modal-body{ overflow:hidden;}
 .modal-backdrop{z-index:1065;}
 
+
+.ratingStars{ color:orange; display:inline-block;}
+.ratingStars i{ margin-left:1px; font-size:16px;}
+
 .nav-tabs { margin-bottom:0px !important ;margin-left:0px !important;}
 
 .modalDetail{ width:85%;}
@@ -389,7 +422,9 @@ overflow-x: auto;
 
 .tableInfo .row{ margin-left:0px !important; margin-right:0px !important;}
 
+.modalSubtitulo{padding:10px; padding-left:0px; font-size:18px;}
 
+.topDotted{ border-top:1px dotted #ccc; margin-top:15px;}
 /* ------ END MODAL DETAIL ------- */
 
 /* ------ POPUP REPRODUCIENDO ------- */
@@ -406,9 +441,9 @@ overflow-x: auto;
 
 /*-------- CONTROL REMOTO --------------*/
 
-body#screenControl .container{ text-align:center;}
+#screenControl.container{ text-align:center;}
 
-body#screenControl{ background-color:black; background-position:center top;    background-size: cover; overflow:hidden;
+#screenControl{ background-position:center top;    background-size: cover; overflow:hidden;
 }
 
 .controlContainer{
@@ -420,7 +455,7 @@ margin:auto;
 .controlTitle{font-size: 2em;
 font-weight: normal;
 color: #fff;
-text-shadow: 0 1px 0 #666;
+text-shadow: 0 1px 3px #333;
 text-align:left;
 padding-top:20px;
 padding-bottom:10px;
@@ -453,13 +488,16 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
 .controlProgress{height: 60px;
 padding-top: 40px;}
+
+.progress-bar{ background-color:#1f8c82;}
+
 .controlLenght{height: 60px;
 padding-top: 37px; padding-right:15px; 
 font-size: 1.3em;
 font-weight: bold;}
 
-body#screenControl .controlContainer .btn-warning{ width:70px; height:70px;}
-body#screenControl .controlContainer .controlNavegacion .btn{ width:70px; height:70px;}
+#screenControl .controlContainer .btn-warning{ width:70px; height:70px;}
+#screenControl .controlContainer .controlNavegacion .btn{ width:70px; height:70px;}
 
 .controlNumeros{ text-align:left; padding:20px 15px;}
 .controlNumeros .btn{ width:60px; height:60px; font-size:2em; margin-right:5px;}
@@ -468,9 +506,9 @@ body#screenControl .controlContainer .controlNavegacion .btn{ width:70px; height
 .controlConfig .btn{ width:60px; height:60px; font-size:2em; margin-left:5px;}
 
 
-body#screenControl .controlConfig .btn{ height:60px; width:60px; }
+#screenControl .controlConfig .btn{ height:60px; width:60px; }
 
-body#screenControl .btn-large{ padding:0px;}
+#screenControl .btn-lg{ padding:0px; }
 
 .controlContainer .aficheImg {
 width: 200px;
@@ -482,24 +520,21 @@ height: 280px;
 /* ----- MARKETPLACE --------*/
 
 h2.marketplaceSliderTitle{ 
-font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1px 0 #ccc; line-height:28px; width:90%; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';
-margin-left:30px; width:120px; float:left; margin-bottom:0px; margin-top:2px;}
+font-size:28px; font-weight:normal;
+color: #fff;
+text-shadow: 0 1px 3px #333;
+ line-height:34px; margin:auto; margin-bottom:10px; font-family:'GudeaRegular';
+margin-left:30px; min-width:120px; display:inline-block; margin-right:10px; margin-bottom:0px; margin-top:2px;}
 
-#screenMarketplace .nav-pills { margin-bottom:10px;}
 
 
-.nav-pills{ font-size:17px;}
-#screenMarketplace .nav-pills>.active>a, .nav-pills>.active>a:hover {
-color: #ffffff;
-background-color: #9d9d00;
-}
-#screenMarketplace .nav-pills a {
-	color: #333;
-	line-height:17px;
-}
+#screenMarketplace .nav-pills { margin-bottom:10px; display:inline-block; height:20px;}
+
+
 #screenMarketplace .flex-next:active{ background-color:transparent;}
 
 .botonTodas{ float:right; margin-right:30px;}
+.botonTodas .btn-lg{font-size:15px;}
 
 /* ----- END MARKETPLACE --------*/
 
@@ -537,9 +572,9 @@ font-family: 'GudeaRegular', Arial, sans-serif;}
 
 #wizardDispositivos .nav-tabs .pull-right{margin-top:10px;}
 #wizardDispositivos .nav-tabs>li>a{color:white;}
-#wizardDispositivos .nav-tabs>li.active>a{color:#333;}
-
-#wizardDispositivos  .nav-tabs>li>a:hover{ color:#666;}
+.nav-tabs>li>a{color:#999 ;}
+.nav-tabs>li.active>a{color:#333 !important;}
+.nav-tabs>li>a:hover{ color:#666 !important;}
 
 
 #wizardDispositivos button{min-width:120px;}
@@ -571,28 +606,13 @@ h2.sliderTitle{ font-size:28px; font-weight:normal;  color:#666; text-shadow:0 1
 
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
 
-.flexslider{width: 97%; margin: 0 auto; margin-bottom: 30px; height:223px;background:none repeat scroll 0 0;border:none;padding: 4px;box-shadow:none;}
+.flexslider{width: 97%; margin: 0 auto; margin-bottom: 30px; background:none repeat scroll 0 0;border:none;padding: 4px;box-shadow:none;}
+.flex-direction-nav a{opacity:1; margin:0px;}
 
-/*.flex-direction-nav a:active { background: url(img/bg_direction_nav.png) no-repeat 0 0;}
 
-.flex-direction-nav .flex-next {right: -36px; }
-.flex-direction-nav .flex-prev {left: -36px;}
+.flexslider:hover .flex-next {right: -36px; }
+.flexslider:hover .flex-prev {left: -36px; }
 
-.flex-direction-nav .flex-next { right: 0 !important; margin-right: -35px; 
-   opacity: 1; filter:alpha(opacity=100);}
- .flex-direction-nav .flex-next:active { background-position: 100% 0; right: 0 !important; margin-right: -35px; 
-   opacity: 1; filter:alpha(opacity=100);}
-
-.flex-direction-nav .flex-prev { left: 0 !important; 
-   margin-left: -35px;opacity: 1; filter:alpha(opacity=100); }
-.flex-direction-nav .flex-prev:active { left: 0 !important; 
-   margin-left: -35px;opacity: 1; filter:alpha(opacity=100); }
-   
-.flex-direction-nav .flex-disabled { background-color:transparent; cursor: default;}
-.flex-direction-nav .flex-disabled:active { background-color:transparent; cursor: default;opacity: .3!important; filter:alpha(opacity=30);}
- 
- .flex-control-nav{bottom: -30px;}
-*/ 
 @media (max-width: 1024px) {
 	.flex-control-paging li a {width: 15px; height: 15px; }
 	.flexslider { margin-bottom:40px;}
@@ -806,7 +826,7 @@ to {right:150px;}
 	.peliAfiche{ width:180px; height:260px;}
 	
 	.controlContainer{
-		width:70%;
+		/*width:70%;*/
 	}
 }
 /*IPAD LANDSCAPE*/
