@@ -365,21 +365,80 @@ margin-bottom:10px;}
 	height:290px;
 	background-color:none !important;
 	background:none !important;
-	border-radius:0px !important;
+	position:relative;
+	overflow:visible;
+	border-top-right-radius:none !important;
 	}
 	.element *{
 position:relative !important;
 	}
 	
+	
+	
+.ribbon {
+  -webkit-transform: rotate(-45deg); 
+     -moz-transform: rotate(-45deg); 
+      -ms-transform: rotate(-45deg); 
+       -o-transform: rotate(-45deg); 
+          transform: rotate(-45deg); 
+    border: 25px solid transparent;
+    border-top: 25px solid red;
+    position: absolute;
+    bottom: 79px;
+	right: -102px;
+    padding: 0 10px;
+    width: 120px;
+    color: white;
+    font-family: sans-serif;
+    size: 11px;
+}
+
+.flex-viewport{padding-bottom:5px;}
+.flexslider .ribbon{right:-42px; bottom:8px; width:150px; }	
+
+.ribbon .ribbonTxt{
+position:absolute;
+top:-20px;
+font-size:12px;
+letter-spacing:1px;
+}
+
+.progressCont{ background-color:white; height:10px; width:140px;display:inline-block;}
+.progressBar{ background-color:#26ada1; height:10px;}
+.progressNum{ color:white; display:inline-block; width:35px; text-align:right; margin-left:5px; font-size:14px; line-height:10px;}
+
+
+.ribbonHor {
+    position: relative;
+    background: rgba(255,255,255,1);
+    text-align:center;
+    width: 184px;    
+    left: -2px;
+    bottom:50px;
+    padding:8px;
+    -webkit-box-shadow: 0px 0px 2px #000;
+    -moz-box-shadow: 0px 0px 2px #000;
+    box-shadow: 0px 0px 2px #000;
+    border-bottom: 1px solid #000;
+}
+
+
+
+
 .peliTitulo {  
 	color:#fff !important;
-	padding:5px; 
+	padding:5px;
+	overflow:hidden; 
   }
   
   .peliAfiche{ width:180px; height:260px;
--moz-box-shadow: 0px 0px 15px #000;
--webkit-box-shadow: 0px 0px 15px #000;
-box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
+-moz-box-shadow: 0 1px 4px #333;
+-webkit-box-shadow: 0 1px 4px #333;
+box-shadow: 0 1px 4px #333;
+}
+
+
+
 
 /*afiche small usado en descargas*/
 .peliAficheSmall{ width:130px; height:174px;
@@ -514,7 +573,7 @@ box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 	}
 
-.controlNavegacion{padding:15px;}
+.controlNavegacion{padding:15px 0px;}
 
 .controlProgress{height: 60px;
 padding-top: 40px;}
@@ -529,7 +588,7 @@ font-weight: bold;}
 #screenControl .controlContainer .btn-warning{ width:70px; height:70px;}
 #screenControl .controlContainer .controlNavegacion .btn{ width:70px; height:70px;}
 
-.controlNumeros{ text-align:left; padding:20px 15px;}
+.controlNumeros{ text-align:left; padding:20px 0px;}
 .controlNumeros .btn{ width:60px; height:60px; font-size:2em; margin-right:5px;}
 
 .controlConfig{ text-align:left; padding:20px 15px; text-align:right;}
@@ -634,6 +693,8 @@ font-family: 'GudeaRegular', Arial, sans-serif;}
 
 .flexslider{height:295px;width: 97%; margin: 0 auto; margin-bottom: 30px; background:none repeat scroll 0 0;background-color:rgba(255,255,255,0.1); border:none;padding: 4px;box-shadow:none;}
 .flex-direction-nav a{opacity:1;}
+
+.flexslider .slides > li{position:relative;}
 
 #screenDescargas .flexslider{height:268px;}
 
