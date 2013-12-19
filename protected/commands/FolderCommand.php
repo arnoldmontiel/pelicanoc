@@ -30,7 +30,7 @@ class FolderCommand extends CConsoleCommand  {
 		{
 			$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('state'=>2,
 																						'is_in'=>1));
-			if(isset($modelCurrentES)) //solo si algún CurrentES esta en modo copiando
+			if(isset($modelCurrentES)) //solo si algï¿½n CurrentES esta en modo copiando
 			{					
 				$criteria = new CDbCriteria();
 				$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
@@ -62,7 +62,7 @@ class FolderCommand extends CConsoleCommand  {
 		$modelCurrentES = CurrentExternalStorage::model()->findByAttributes(array('state'=>2,
 																					'Id'=>$idCurrentES,
 																						'is_in'=>1));
-		if(isset($modelCurrentES)) //solo si algún CurrentES esta en modo copiando
+		if(isset($modelCurrentES)) //solo si algï¿½n CurrentES esta en modo copiando
 		{
 			$criteria = new CDbCriteria();
 			$criteria->join = 'INNER JOIN current_external_storage ces ON (ces.Id = t.Id_current_external_storage)';
@@ -246,12 +246,17 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function copyExternalStorage($modelESData)
 	{		
+		Log::logger("copyExternalStorage");
 		$success = false;
 		if(isset($modelESData))
 		{
+			Log::logger("modelESData is valid. Id[".$modelESData->Id."]");
+				
 			$externalStoragePath = (isset($modelESData->currentExternalStorage))?$modelESData->currentExternalStorage->path:null;
+			Log::logger("externalStoragePath: [".$externalStoragePath."]");
 			if(isset($externalStoragePath))
 			{
+				Log::logger(" externalStoragePath is valid");
 				
 				$setting = Setting::getInstance();
 				$destinationPath = $setting->path_shared.$setting->path_shared_pelicano_root. $setting->path_shared_copied.'/';
@@ -278,6 +283,7 @@ class FolderCommand extends CConsoleCommand  {
 				else
 				{
 					try {
+						Log::logger("starting cp -fr ".$source . " " .$destinationPath);
 						exec("cp -fr ".escapeshellarg($source) . " " .escapeshellarg($destinationPath), $output, $return_var);
 						Log::logger("cp -fr ".$source . " " .$destinationPath);
 						Log::logger("cp return_var: ". $return_var);
@@ -289,8 +295,6 @@ class FolderCommand extends CConsoleCommand  {
 					
 					
 				}
-				
-				
 			}
 		}
 		return $success;
