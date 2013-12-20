@@ -220,7 +220,7 @@ class NzbCommand extends CConsoleCommand  {
 // 				$nzbMovieState->Id_movie_state = 3;				
 // 				$nzbMovieState->save();
 //				TODO: reemplazar "/srv/storage/" por un valor en settings
-				$params = $fileName." ".$setting->path_shared.$fileName.' '. $setting->sabnzb_pwd_file_path;
+				$params = $fileName." ".$setting->path_sabnzbd_complete.$fileName.' '. $setting->sabnzb_pwd_file_path;
 				exec(dirname(__FILE__).'/../commands/shell/finishDownload.sh '.$params,$output,$return);
 				//TODO: $return verificar el resultado de esta variable para continuar
 				$pelicanoCliente = new Pelicano;
