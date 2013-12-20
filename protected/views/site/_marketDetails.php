@@ -126,7 +126,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
         
     <div class="modal-footer">
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
-    <button id="btn-play" type="button" class="btn btn-primary btn-lg"><i class="fa fa-download"></i> Descargar</button>
+    <button id="btn-download" type="button" class="btn btn-primary btn-lg"><i class="fa fa-download"></i> Descargar</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
