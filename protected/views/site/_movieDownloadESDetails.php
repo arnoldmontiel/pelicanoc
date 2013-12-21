@@ -28,8 +28,15 @@
  		if(!empty($path))
  		{
  			$setting = Setting::getInstance();
- 			$path = $setting->path_shared . $path;
- 			
+			if(isset($modelNzb))
+			{
+				$path = $setting->path_sabnzb_download . $path;				
+			}
+			else
+			{
+				$path = $setting->path_shared . $path;
+				
+			}
  			$size = PelicanoHelper::getDirectorySize($path,false);
  		}
 
