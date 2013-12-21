@@ -7,7 +7,7 @@
 		
 		if(isset($modelNzb)){
 			$idResource = $modelNzb->Id;			
-			$folderPath = explode('.',$nzbModel->file_name);
+			$folderPath = explode('.',$modelNzb->file_name);
 			$path = $folderPath[0];
 			$modelTMDB =  $modelNzb->TMDBData;
 				
