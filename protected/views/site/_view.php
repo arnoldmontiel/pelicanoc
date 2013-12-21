@@ -25,7 +25,7 @@ $genre = preg_replace('/\W/', ' ',strtolower($model->genre));
 $title = preg_replace('/\W/', '-',strtolower($model->original_title));
 
 
-Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
+Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data->Id.$data->source_type, "
 	$('#link-movie-$model->Id-$data->Id-$data->source_type').click(function(){
 		var target = $(this).attr('href');
 		var sourceType = '$data->source_type';
