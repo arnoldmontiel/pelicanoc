@@ -30,7 +30,7 @@
  			$setting = Setting::getInstance();
  			if(isset($modelNzb))
  			{
- 				$path = $setting->path_sabnzb_download . $path;
+ 				$path = $setting->path_sabnzbd_download . $path;
  			}
  			else
  			{
