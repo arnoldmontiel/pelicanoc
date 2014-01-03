@@ -223,7 +223,8 @@ class PelicanoHelper
 		{
 			$setting->ip_v4 = $dyndns[1];
 			$setting->ip_v4 = trim($setting->ip_v4);
-			$setting->ip_v4 = substr($setting->ip_v4, 0,13);
+			$dyndns = explode(" ", $setting->ip_v4);
+			$setting->ip_v4 = $dyndns[0];
 			$setting->save();
 		}
 		if ($ip !== false)
