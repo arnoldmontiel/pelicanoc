@@ -26,6 +26,8 @@
 <link href="js/select2-3.4.4/select2.css" rel="stylesheet"/>
 <script src="js/select2-3.4.4/select2.js"></script>
 <script src="js/lite-uploader-master/jquery.liteuploader.js"></script>
+<!-- Circular progress bar -->
+<script src="js/jquery.knob.js"></script>
 <!-- FastClick -->
 <script src="js/fastclick.js"></script>
 <script>
