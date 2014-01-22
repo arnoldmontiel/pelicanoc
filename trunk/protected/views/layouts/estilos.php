@@ -188,11 +188,15 @@ color:#666;
 }
 
 /* hack to avoid backround from scrolling when modal open */
+/**/
+html.modal-open  {
+}
 
 body.modal-open {
     overflow: hidden;
-    overflow'x: hidden;
-    overflow'y: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position:absolute;
 }
 
 /* end of hack */
@@ -441,7 +445,7 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 .modal-header {padding: 9px 15px;}
 .modal-header .close{padding: 0px; margin-top:0px; line-height:34px;}
 .modal-footer {padding: 9px 15px;}
-.modal-body{ overflow:hidden;}
+.modal-body{ /*overflow:hidden;*/  }
 .modal-backdrop{z-index:1065;}
 
 .ratingStars{ color:orange; display:inline-block;}
@@ -459,7 +463,7 @@ box-shadow: 0px 0px 15px rgba(0,0,0,0.8);}
 .modalDetail .modal-body .row{ line-height:26px;}
 .modalDetail .modal-body .row.detailSummary{ line-height:20px;}
 
-.aficheDetail{ height:100% !important; width:100% !important;
+.aficheDetail{ /*height:100% !important;*/ height:auto !important; width:100% !important;
 -moz-box-shadow: 0px 0px 5px #000;
 -webkit-box-shadow: 0px 0px 5px #000;
 box-shadow: 0px 0px 5px rgba(0,0,0,0.8);
