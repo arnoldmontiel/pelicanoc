@@ -52,11 +52,11 @@
     </div>
     <div class="modal-body"> 
     <div class="row">
-    <div class="col-md-3 align-center">
+    <div class="col-md-3 col-sm-3 align-center">
     <img class="aficheDetail" src="images/<?php echo $moviePoster;?>" width="100%" height="100%" border="0">
     </div><!--/.col-md-3PRINCIPAL -->
         
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-9">
     <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
@@ -66,28 +66,28 @@
 	<div class="tab-content tableInfo">
     <div class="tab-pane active" id="tab1">
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     GENERO
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
 	&nbsp;<?php echo $model->genre;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     PUBLICO
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
     <?php echo $model->parentalControl->description;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     RATING
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
     <div class="ratingStars">
     <?php    	
 	$image = 'rate'.str_pad($model->rating, 2, "0", STR_PAD_LEFT).'.png';
@@ -120,46 +120,46 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     A&Ntilde;O
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
     &nbsp;<?php echo $model->production_year;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     DIRECTOR
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
     &nbsp;<?php echo $casting['director'];?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     ACTORES
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
     &nbsp;<?php echo $casting['actors'];?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     DURACI&Oacute;N
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
     <?php echo $model->running_time;?>mm
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     SIN&Oacute;PSIS
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond detailSummary">
+    <div class="col-md-9 col-sm-9 align-left detailSecond detailSummary">
     &nbsp;<?php echo $model->description;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
@@ -168,19 +168,19 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	<div class="tab-pane" id="tab2">
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     TAMA&Ntilde;O EN DISCO
 	</div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
 	<?php echo $size;?>
 	</div><!--/.col-md-9 -->
 	</div><!--/.row -->
 		    
     <div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     BORRAR
 	</div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
 	<!--<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>-->
 	<!--<button id="btn-eraser-popover" class="popover fade bottom in"><i class="fa fa-eraser fa-lg"></i></button>-->
 	
@@ -190,10 +190,10 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	</div><!--/.row -->
 	
 	<div class="row detailSecondGroup">
-    	<div class="col-md-3 align-left detailSecond detailSecondFirst">
+    	<div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     		EDITAR
 		</div><!--/.col-md-3 -->
-    	<div class="col-md-9 align-left detailSecond">
+    	<div class="col-md-9 col-sm-9 align-left detailSecond">
 		<a id="btn-edit" href="#" id="btn-eraser-popover" class="" ><i  class="fa fa-pencil fa-lg pointer"></i></a>    	
 		</div><!--/.col-md-9 -->
 	</div><!--/.row -->
@@ -204,10 +204,10 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     <?php foreach ($modelBookmarks as $bookmark){?>
 	<div class="row detailSecondGroup">
-    <div class="col-md-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
 	<?php echo $bookmark->description; ?>
     </div><!--/.col-md-3 -->
-    <div class="col-md-9 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
 	<?php echo $bookmark->time_start." - ".$bookmark->time_end;?>
 	<button id="btn-play-bookmark-<?php echo $bookmark->Id;?>" class="btn btn-default" style="float: right; margin-right: 30px;"><i class="fa fa-play fa-lg"></i></button>
     <div class="btn-group open" style="float: right; margin-right: 30px;">
@@ -242,9 +242,9 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     
     </div><!--/.modal-body -->
-    <div class="modal-footer">
+    <div class="modal-footer dropup">
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
-    <button id="btn-play" type="button" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
+    <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
