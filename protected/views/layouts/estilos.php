@@ -362,7 +362,7 @@ margin-bottom:10px;}
 
 .element{
 	width:180px;
-	height:290px;
+	height:295px;
 	background-color:none !important;
 	background:none !important;
 	position:relative;
@@ -373,19 +373,19 @@ margin-bottom:10px;}
 position:relative !important;
 	}
 	
-	
-	
-.ribbon {
+	.knob{ position:absolute; top:50%; margin-top:-45px; left:50%; margin-left:-45px;}
+
+	.ribbon {
   -webkit-transform: rotate(-45deg); 
      -moz-transform: rotate(-45deg); 
       -ms-transform: rotate(-45deg); 
        -o-transform: rotate(-45deg); 
           transform: rotate(-45deg); 
     border: 25px solid transparent;
-    border-top: 25px solid red;
+    border-top: 25px solid #26ada1;
     position: absolute;
     bottom: 79px;
-	right: -102px;
+	right: -103px;
     padding: 0 10px;
     width: 120px;
     color: white;
@@ -394,7 +394,7 @@ position:relative !important;
 }
 
 .flex-viewport{padding-bottom:5px;}
-.flexslider .ribbon{right:-42px; bottom:8px; width:150px; }	
+.flexslider .ribbon{right:-42px; top:202px; width:150px; }	
 
 .ribbon .ribbonTxt{
 position:absolute;
@@ -402,27 +402,6 @@ top:-20px;
 font-size:12px;
 letter-spacing:1px;
 }
-
-.progressCont{ background-color:white; height:10px; width:140px;display:inline-block;}
-.progressBar{ background-color:#26ada1; height:10px;}
-.progressNum{ color:white; display:inline-block; width:35px; text-align:right; margin-left:5px; font-size:14px; line-height:10px;}
-
-
-.ribbonHor {
-    position: relative;
-    background: rgba(255,255,255,1);
-    text-align:center;
-    width: 184px;    
-    left: -2px;
-    bottom:50px;
-    padding:8px;
-    -webkit-box-shadow: 0px 0px 2px #000;
-    -moz-box-shadow: 0px 0px 2px #000;
-    box-shadow: 0px 0px 2px #000;
-    border-bottom: 1px solid #000;
-}
-
-
 
 
 .peliTitulo {  
@@ -437,7 +416,7 @@ letter-spacing:1px;
 box-shadow: 0 1px 4px #333;
 }
 
-
+.peliDesc img{opacity:0.5;}
 
 
 /*afiche small usado en descargas*/
@@ -696,7 +675,6 @@ font-family: 'GudeaRegular', Arial, sans-serif;}
 
 .flexslider .slides > li{position:relative;}
 
-#screenDescargas .flexslider{height:268px;}
 
 .flexslider:hover .flex-next {right: -36px; }
 .flexslider:hover .flex-prev {left: -36px; }
@@ -934,6 +912,10 @@ to {right:150px;}
 	
 	.peliAfiche{ width:180px; height:260px;}
 	
+	
+	.ribbon{
+	right: -103px;
+	bottom: 84px;}
 
 }
 
@@ -944,13 +926,17 @@ to {right:150px;}
 	}
 		
 	.element{
-	width:165px;
-	height:270px;
+	width:220px;
+	height:355px;
 	background-color:none !important;
 	background:none !important;
 	}
 	
-	.peliAfiche{ width:165px; height:240px;}
+	.peliAfiche{ width:220px; height:320px;}
+	
+	.ribbon{
+	right: -143px;
+	bottom: 83px;}
 
 	.controlContainer{
 		width:100%;
@@ -981,6 +967,9 @@ to {right:150px;}
 	#filtroGenero li.dropdown{ display:inline-block;}
 	#filtroEdad li.menuItem{ display:none;}
 	#filtroEdad li.dropdown{ display:inline-block;}
+	
+	#tab1{ max-height:650px;}
+	.modalDetail{width:95%;}
 }
 
 
