@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `pelicanoc` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `pelicanoc`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (x86_64)
 --
--- Host: dhcppc2    Database: pelicanoc
+-- Host: localhost    Database: pelicanoc
 -- ------------------------------------------------------
--- Server version	5.5.24-0ubuntu0.12.04.1
+-- Server version	5.5.35-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +14,32 @@ USE `pelicanoc`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `TMDB_data`
+--
+
+DROP TABLE IF EXISTS `TMDB_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `TMDB_data` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `poster` varchar(255) DEFAULT NULL,
+  `big_poster` varchar(255) DEFAULT NULL,
+  `backdrop` varchar(255) DEFAULT NULL,
+  `TMDB_id` int(11) DEFAULT NULL COMMENT 'Este campo es el ID de la API\n',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `TMDB_data`
+--
+
+LOCK TABLES `TMDB_data` WRITE;
+/*!40000 ALTER TABLE `TMDB_data` DISABLE KEYS */;
+/*!40000 ALTER TABLE `TMDB_data` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `anydvd_version`
@@ -97,6 +121,42 @@ INSERT INTO `audio_track` VALUES (1,'English','Dolby TrueHD','7.1'),(2,'Arabic',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `bookmark`
+--
+
+DROP TABLE IF EXISTS `bookmark`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bookmark` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `start` int(11) DEFAULT NULL,
+  `end` int(11) DEFAULT NULL,
+  `Id_nzb` int(11) DEFAULT NULL,
+  `Id_local_folder` int(11) DEFAULT NULL,
+  `Id_ripped_movie` int(11) DEFAULT NULL,
+  `time_start` varchar(45) DEFAULT NULL,
+  `time_end` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `fk_bookmark_nzb1_idx` (`Id_nzb`),
+  KEY `fk_bookmark_local_folder1_idx` (`Id_local_folder`),
+  KEY `fk_bookmark_ripped_movie1_idx` (`Id_ripped_movie`),
+  CONSTRAINT `fk_bookmark_nzb1` FOREIGN KEY (`Id_nzb`) REFERENCES `nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bookmark_local_folder1` FOREIGN KEY (`Id_local_folder`) REFERENCES `local_folder` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_bookmark_ripped_movie1` FOREIGN KEY (`Id_ripped_movie`) REFERENCES `ripped_movie` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bookmark`
+--
+
+LOCK TABLES `bookmark` WRITE;
+/*!40000 ALTER TABLE `bookmark` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bookmark` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `command_status`
 --
 
@@ -107,6 +167,7 @@ CREATE TABLE `command_status` (
   `Id` int(11) NOT NULL,
   `command_name` varchar(45) DEFAULT NULL,
   `busy` tinyint(4) DEFAULT '0',
+  `pid` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -117,7 +178,7 @@ CREATE TABLE `command_status` (
 
 LOCK TABLES `command_status` WRITE;
 /*!40000 ALTER TABLE `command_status` DISABLE KEYS */;
-INSERT INTO `command_status` VALUES (1,'downloadNzbFiles',0),(2,'scanDirectory',0),(3,'downloadAnydvdUpdate',0);
+INSERT INTO `command_status` VALUES (1,'downloadNzbFiles',0,NULL),(2,'scanDirectory',0,NULL),(3,'downloadAnydvdUpdate',0,NULL);
 /*!40000 ALTER TABLE `command_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,6 +195,9 @@ CREATE TABLE `current_disc` (
   `Id_my_movie_disc` varchar(200) DEFAULT NULL,
   `in_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `out_date` timestamp NULL DEFAULT NULL,
+  `command` int(11) DEFAULT '0' COMMENT '0-> stand by\n1-> stop\n2-> ripp\n3-> eject',
+  `read` tinyint(4) DEFAULT '0' COMMENT '0 -> no fue leido aun\n1 -> ya fue leido una vez',
+  `percentage` int(11) DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `fk_current_disc_current_disc_state1_idx` (`Id_current_disc_state`),
   CONSTRAINT `fk_current_disc_current_disc_state1` FOREIGN KEY (`Id_current_disc_state`) REFERENCES `current_disc_state` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -171,6 +235,76 @@ LOCK TABLES `current_disc_state` WRITE;
 /*!40000 ALTER TABLE `current_disc_state` DISABLE KEYS */;
 INSERT INTO `current_disc_state` VALUES (1,'Disc Out'),(2,'Pending Data'),(3,'With Data');
 /*!40000 ALTER TABLE `current_disc_state` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `current_external_storage`
+--
+
+DROP TABLE IF EXISTS `current_external_storage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `current_external_storage` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `in_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `out_date` timestamp NULL DEFAULT NULL,
+  `is_in` tinyint(4) DEFAULT '1',
+  `read` tinyint(4) DEFAULT '0',
+  `path` varchar(200) DEFAULT NULL,
+  `state` int(11) DEFAULT '1' COMMENT 'States:\n1 -> stand-By\n2 -> on copy\n3 -> finish copy\n4 -> on scan\n5 -> finish scan',
+  `soft_scan_ready` tinyint(4) DEFAULT '0' COMMENT 'Solo recorro las carpetas y creo registros en external_storage_data',
+  `hard_scan_ready` tinyint(4) DEFAULT '0' COMMENT 'Recorro las carpetas con contenido de video y voy generando el .peli',
+  `label` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `current_external_storage`
+--
+
+LOCK TABLES `current_external_storage` WRITE;
+/*!40000 ALTER TABLE `current_external_storage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `current_external_storage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `current_play`
+--
+
+DROP TABLE IF EXISTS `current_play`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `current_play` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_player` int(11) NOT NULL,
+  `Id_local_folder` int(11) DEFAULT NULL,
+  `Id_ripped_movie` int(11) DEFAULT NULL,
+  `Id_nzb` int(11) DEFAULT NULL,
+  `Id_current_disc` int(11) DEFAULT NULL,
+  `is_playing` tinyint(4) DEFAULT '1' COMMENT '0 -> NO PLAYING\n1 -> PLAYING',
+  `creation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`),
+  KEY `fk_current_play_player1_idx` (`Id_player`),
+  KEY `fk_current_play_local_folder1_idx` (`Id_local_folder`),
+  KEY `fk_current_play_ripped_movie1_idx` (`Id_ripped_movie`),
+  KEY `fk_current_play_nzb1_idx` (`Id_nzb`),
+  KEY `fk_current_play_current_disc1_idx` (`Id_current_disc`),
+  CONSTRAINT `fk_current_play_player1` FOREIGN KEY (`Id_player`) REFERENCES `player` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_current_play_local_folder1` FOREIGN KEY (`Id_local_folder`) REFERENCES `local_folder` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_current_play_ripped_movie1` FOREIGN KEY (`Id_ripped_movie`) REFERENCES `ripped_movie` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_current_play_nzb1` FOREIGN KEY (`Id_nzb`) REFERENCES `nzb` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_current_play_current_disc1` FOREIGN KEY (`Id_current_disc`) REFERENCES `current_disc` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `current_play`
+--
+
+LOCK TABLES `current_play` WRITE;
+/*!40000 ALTER TABLE `current_play` DISABLE KEYS */;
+/*!40000 ALTER TABLE `current_play` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -291,6 +425,47 @@ LOCK TABLES `disc_episode_nzb` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `external_storage_data`
+--
+
+DROP TABLE IF EXISTS `external_storage_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `external_storage_data` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_current_external_storage` int(11) NOT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `year` varchar(45) DEFAULT NULL,
+  `poster` varchar(255) DEFAULT NULL,
+  `copy` tinyint(4) DEFAULT '0',
+  `status` int(11) DEFAULT '1' COMMENT '1 -> stand by\n2 -> copiying\n3 -> finish copy\n4 -> error on copy\n5 -> cancel copy\n6 -> scaning\n7 -> finish scaning',
+  `description` varchar(255) DEFAULT NULL,
+  `imdb` varchar(45) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `file` varchar(255) DEFAULT NULL,
+  `is_personal` tinyint(4) DEFAULT '0',
+  `already_exists` tinyint(4) DEFAULT '0',
+  `Id_local_folder` int(11) DEFAULT NULL,
+  `size` bigint(20) DEFAULT '0',
+  PRIMARY KEY (`Id`),
+  KEY `fk_external_storage_data_current_external_storage1_idx` (`Id_current_external_storage`),
+  KEY `fk_external_storage_data_local_folder1_idx` (`Id_local_folder`),
+  CONSTRAINT `fk_external_storage_data_current_external_storage1` FOREIGN KEY (`Id_current_external_storage`) REFERENCES `current_external_storage` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_external_storage_data_local_folder1` FOREIGN KEY (`Id_local_folder`) REFERENCES `local_folder` (`Id`) ON DELETE SET NULL ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `external_storage_data`
+--
+
+LOCK TABLES `external_storage_data` WRITE;
+/*!40000 ALTER TABLE `external_storage_data` DISABLE KEYS */;
+/*!40000 ALTER TABLE `external_storage_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `external_wsdl`
 --
 
@@ -362,7 +537,7 @@ CREATE TABLE `itemchildren` (
 
 LOCK TABLES `itemchildren` WRITE;
 /*!40000 ALTER TABLE `itemchildren` DISABLE KEYS */;
-INSERT INTO `itemchildren` VALUES ('Administrator','ImdbdataManage'),('Administrator','ImdbdataTvManage'),('Administrator','NzbManage'),('Administrator','RippedMovieManage'),('Administrator','SabnzbdManage'),('Administrator','SiteManage'),('Administrator','UserManage'),('Customer','ImdbdataManage'),('Customer','ImdbdataTvManage'),('Customer','NzbManage'),('Customer','RippedMovieManage'),('Customer','SabnzbdManage'),('Customer','SiteManage'),('CustomerManage','CustomerCreate'),('CustomerManage','CustomerIndex'),('CustomerManage','CustomerUpdate'),('CustomerManage','CustomerUseCustomer'),('ImdbdataManage','ImdbdataIndex'),('ImdbdataManage','ImdbdataView'),('ImdbdataTvManage','ImdbdataTvIndex'),('ImdbdataTvManage','ImdbdataTvView'),('ImdbdataTvManage','ImdbdataTvViewEpisode'),('Installer','CustomerManage'),('Installer','SettingManager'),('Installer','SiteManage'),('NzbManage','MyMovieMovieIndex'),('NzbManage','MyMovieMovieView'),('NzbManage','NzbRequested'),('NzbManage','NzbViewRequested'),('RippedMovieManage','RippedMovieIndex'),('RippedMovieManage','RippedMovieIndexAdult'),('RippedMovieManage','RippedMovieIndexSerie'),('RippedMovieManage','RippedMovieView'),('RippedMovieManage','RippedMovieViewSerie'),('SabnzbdManage','SabnzbdIndex'),('SettingManager','SettingIndex'),('SettingManager','SettingStartInstallation'),('SettingManager','SettingUpdate'),('SiteManage','SiteDownloads'),('SiteManage','SiteIndex'),('SiteManage','SiteMarketplace'),('SiteManage','SiteLocalFolderAdmin'),('UserManage','UserAdmin'),('UserManage','UserCreate'),('UserManage','UserDelete'),('UserManage','UserIndex'),('UserManage','UserUpdate'),('UserManage','UserView');
+INSERT INTO `itemchildren` VALUES ('Administrator','ImdbdataManage'),('Administrator','ImdbdataTvManage'),('Administrator','NzbManage'),('Administrator','RippedMovieManage'),('Administrator','SabnzbdManage'),('Administrator','SiteManage'),('Administrator','UserManage'),('Customer','ImdbdataManage'),('Customer','ImdbdataTvManage'),('Customer','NzbManage'),('Customer','RippedMovieManage'),('Customer','SabnzbdManage'),('Customer','SiteManage'),('CustomerManage','CustomerCreate'),('CustomerManage','CustomerIndex'),('CustomerManage','CustomerUpdate'),('CustomerManage','CustomerUseCustomer'),('ImdbdataManage','ImdbdataIndex'),('ImdbdataManage','ImdbdataView'),('ImdbdataTvManage','ImdbdataTvIndex'),('ImdbdataTvManage','ImdbdataTvView'),('ImdbdataTvManage','ImdbdataTvViewEpisode'),('Installer','CustomerManage'),('Installer','SettingManager'),('Installer','SiteManage'),('NzbManage','MyMovieMovieIndex'),('NzbManage','MyMovieMovieView'),('NzbManage','NzbRequested'),('NzbManage','NzbViewRequested'),('RippedMovieManage','RippedMovieIndex'),('RippedMovieManage','RippedMovieIndexAdult'),('RippedMovieManage','RippedMovieIndexSerie'),('RippedMovieManage','RippedMovieView'),('RippedMovieManage','RippedMovieViewSerie'),('SabnzbdManage','SabnzbdIndex'),('SettingManager','SettingIndex'),('SettingManager','SettingStartInstallation'),('SettingManager','SettingUpdate'),('SiteManage','SiteDownloads'),('SiteManage','SiteIndex'),('SiteManage','SiteLocalFolderAdmin'),('SiteManage','SiteMarketplace'),('UserManage','UserAdmin'),('UserManage','UserCreate'),('UserManage','UserDelete'),('UserManage','UserIndex'),('UserManage','UserUpdate'),('UserManage','UserView');
 /*!40000 ALTER TABLE `itemchildren` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,11 +583,18 @@ CREATE TABLE `local_folder` (
   `Id_source_type` int(11) DEFAULT NULL,
   `read_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `path` varchar(255) DEFAULT NULL,
+  `hide` tinyint(4) DEFAULT '0',
+  `Id_TMDB_data` int(11) DEFAULT NULL,
+  `is_personal` tinyint(4) DEFAULT '0',
+  `path_original` varchar(255) DEFAULT NULL,
+  `ready` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`Id`),
   KEY `fk_local_folder_my_movie_disc1_idx` (`Id_my_movie_disc`),
   KEY `fk_local_folder_file_type1_idx` (`Id_file_type`),
   KEY `fk_local_folder_source_type1_idx` (`Id_source_type`),
   KEY `fk_local_folder_lote1_idx` (`Id_lote`),
+  KEY `fk_local_folder_TMDB_data1_idx` (`Id_TMDB_data`),
+  CONSTRAINT `fk_local_folder_TMDB_data1` FOREIGN KEY (`Id_TMDB_data`) REFERENCES `TMDB_data` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_local_folder_file_type1` FOREIGN KEY (`Id_file_type`) REFERENCES `file_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_local_folder_lote1` FOREIGN KEY (`Id_lote`) REFERENCES `lote` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_local_folder_my_movie_disc1` FOREIGN KEY (`Id_my_movie_disc`) REFERENCES `my_movie_disc` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -515,11 +697,13 @@ DROP TABLE IF EXISTS `movies`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `movies` (
-  `Id` int(11),
-  `Id_my_movie_disc_nzb` varchar(200),
-  `Id_my_movie_disc` varchar(200),
-  `source_type` bigint(20),
-  `date` timestamp
+  `Id` tinyint NOT NULL,
+  `Id_my_movie_disc_nzb` tinyint NOT NULL,
+  `Id_my_movie_disc` tinyint NOT NULL,
+  `source_type` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `title` tinyint NOT NULL,
+  `Id_TMDB_data` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -562,11 +746,12 @@ CREATE TABLE `my_movie` (
   `media_type` varchar(45) DEFAULT NULL,
   `big_poster` varchar(255) DEFAULT NULL,
   `big_poster_original` varchar(255) DEFAULT NULL,
+  `is_custom` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `fk_my_movie_parental_control1` (`Id_parental_control`),
   KEY `fk_my_movie_my_movie_serie_header1` (`Id_my_movie_serie_header`),
-  CONSTRAINT `fk_my_movie_parental_control1` FOREIGN KEY (`Id_parental_control`) REFERENCES `parental_control` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_my_movie_my_movie_serie_header1` FOREIGN KEY (`Id_my_movie_serie_header`) REFERENCES `my_movie_serie_header` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_my_movie_my_movie_serie_header1` FOREIGN KEY (`Id_my_movie_serie_header`) REFERENCES `my_movie_serie_header` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_my_movie_parental_control1` FOREIGN KEY (`Id_parental_control`) REFERENCES `parental_control` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -726,6 +911,7 @@ CREATE TABLE `my_movie_nzb` (
   `Id_parental_control` int(11) NOT NULL,
   `big_poster` varchar(255) DEFAULT NULL,
   `big_poster_original` varchar(255) DEFAULT NULL,
+  `is_custom` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `fk_my_movie_nzb_my_movie_serie_header1` (`Id_my_movie_serie_header`),
   KEY `fk_my_movie_nzb_parental_control1` (`Id_parental_control`),
@@ -966,10 +1152,14 @@ CREATE TABLE `nzb` (
   `sent` tinyint(4) DEFAULT '0',
   `final_content_path` varchar(255) DEFAULT NULL,
   `Id_resource_type` int(11) NOT NULL DEFAULT '1',
+  `Id_TMDB_data` int(11) DEFAULT NULL,
+  `is_personal` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `fk_nzb_my_movie_disc_nzb1` (`Id_my_movie_disc_nzb`),
   KEY `fk_nzb_nzb_state1` (`Id_nzb_state`),
   KEY `fk_nzb_resource_type1` (`Id_resource_type`),
+  KEY `fk_nzb_TMDB_data1_idx` (`Id_TMDB_data`),
+  CONSTRAINT `fk_nzb_TMDB_data1` FOREIGN KEY (`Id_TMDB_data`) REFERENCES `TMDB_data` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_nzb_my_movie_disc_nzb1` FOREIGN KEY (`Id_my_movie_disc_nzb`) REFERENCES `my_movie_disc_nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_nzb_nzb_state1` FOREIGN KEY (`Id_nzb_state`) REFERENCES `nzb_state` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_nzb_resource_type1` FOREIGN KEY (`Id_resource_type`) REFERENCES `resource_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -1093,6 +1283,58 @@ INSERT INTO `player` VALUES (1,'http://192.168.100.104/','Principal','smb',1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `playlist`
+--
+
+DROP TABLE IF EXISTS `playlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `playlist` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(45) DEFAULT NULL,
+  `creation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `playlist`
+--
+
+LOCK TABLES `playlist` WRITE;
+/*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `playlist_bookmark`
+--
+
+DROP TABLE IF EXISTS `playlist_bookmark`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `playlist_bookmark` (
+  `Id_playlist` int(11) NOT NULL,
+  `Id_bookmark` int(11) NOT NULL,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id_playlist`,`Id_bookmark`),
+  KEY `fk_playlist_has_bookmark_bookmark1_idx` (`Id_bookmark`),
+  KEY `fk_playlist_has_bookmark_playlist1_idx` (`Id_playlist`),
+  CONSTRAINT `fk_playlist_has_bookmark_playlist1` FOREIGN KEY (`Id_playlist`) REFERENCES `playlist` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_playlist_has_bookmark_bookmark1` FOREIGN KEY (`Id_bookmark`) REFERENCES `bookmark` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `playlist_bookmark`
+--
+
+LOCK TABLES `playlist_bookmark` WRITE;
+/*!40000 ALTER TABLE `playlist_bookmark` DISABLE KEYS */;
+/*!40000 ALTER TABLE `playlist_bookmark` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `resource_type`
 --
 
@@ -1130,8 +1372,12 @@ CREATE TABLE `ripped_movie` (
   `creation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `parental_control` tinyint(4) DEFAULT '0' COMMENT 'Si esta en true, significa que es para mayores',
   `was_sent` tinyint(4) DEFAULT '0' COMMENT 'Indica si fue o no recibida por el servidor',
+  `Id_TMDB_data` int(11) DEFAULT NULL,
+  `is_personal` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `fk_ripped_movie_my_movie_disc1` (`Id_my_movie_disc`),
+  KEY `fk_ripped_movie_TMDB_data1_idx` (`Id_TMDB_data`),
+  CONSTRAINT `fk_ripped_movie_TMDB_data1` FOREIGN KEY (`Id_TMDB_data`) REFERENCES `TMDB_data` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ripped_movie_my_movie_disc1` FOREIGN KEY (`Id_my_movie_disc`) REFERENCES `my_movie_disc` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1203,11 +1449,11 @@ DROP TABLE IF EXISTS `series`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `series` (
-  `Id` int(11),
-  `Id_my_movie_disc_nzb` varchar(200),
-  `Id_my_movie_disc` varchar(200),
-  `source_type` bigint(20),
-  `date` timestamp
+  `Id` tinyint NOT NULL,
+  `Id_my_movie_disc_nzb` tinyint NOT NULL,
+  `Id_my_movie_disc` tinyint NOT NULL,
+  `source_type` tinyint NOT NULL,
+  `date` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1243,6 +1489,11 @@ CREATE TABLE `setting` (
   `host_file_server` varchar(255) DEFAULT NULL,
   `host_file_server_path` varchar(255) DEFAULT NULL,
   `sabnzb_pwd_file_path` varchar(255) DEFAULT NULL,
+  `shared_online_path` varchar(255) DEFAULT NULL,
+  `path_shared_pelicano_root` varchar(255) DEFAULT NULL,
+  `path_shared_copied` varchar(255) DEFAULT NULL,
+  `path_shared_ripped` varchar(255) DEFAULT NULL,
+  `path_sabnzbd_download` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1253,7 +1504,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://localhost','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords');
+INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://localhost','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1335,6 +1586,30 @@ LOCK TABLES `subtitle` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tmdb`
+--
+
+DROP TABLE IF EXISTS `tmdb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmdb` (
+  `Id` int(11) NOT NULL,
+  `api_key` varchar(255) DEFAULT NULL,
+  `lang` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tmdb`
+--
+
+LOCK TABLES `tmdb` WRITE;
+/*!40000 ALTER TABLE `tmdb` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tmdb` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `transaction_type`
 --
 
@@ -1401,8 +1676,8 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `movies` AS select `nzb`.`Id` AS `Id`,`nzb`.`Id_my_movie_disc_nzb` AS `Id_my_movie_disc_nzb`,NULL AS `Id_my_movie_disc`,1 AS `source_type`,`nzb`.`date` AS `date` from ((`nzb` join `my_movie_disc_nzb` `mdn` on((`mdn`.`Id` = `nzb`.`Id_my_movie_disc_nzb`))) join `my_movie_nzb` `mn` on((`mn`.`Id` = `mdn`.`Id_my_movie_nzb`))) where ((`nzb`.`downloaded` = 1) and (`nzb`.`ready` = 1) and isnull(`mn`.`Id_my_movie_serie_header`)) union select `ripped_movie`.`Id` AS `Id`,NULL AS `Id_my_movie_disc_nzb`,`ripped_movie`.`Id_my_movie_disc` AS `Id_my_movie_disc`,2 AS `source_type`,`ripped_movie`.`creation_date` AS `date` from ((`ripped_movie` join `my_movie_disc` `md` on((`md`.`Id` = `ripped_movie`.`Id_my_movie_disc`))) join `my_movie` `m` on((`m`.`Id` = `md`.`Id_my_movie`))) where isnull(`m`.`Id_my_movie_serie_header`) union select `local_folder`.`Id` AS `Id`,NULL AS `Id_my_movie_disc_nzb`,`local_folder`.`Id_my_movie_disc` AS `Id_my_movie_disc`,3 AS `source_type`,`local_folder`.`read_date` AS `date` from ((`local_folder` join `my_movie_disc` `md` on((`md`.`Id` = `local_folder`.`Id_my_movie_disc`))) join `my_movie` `m` on((`m`.`Id` = `md`.`Id_my_movie`))) where isnull(`m`.`Id_my_movie_serie_header`) */;
+/*!50013 DEFINER=`pelicano`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `movies` AS select `nzb`.`Id` AS `Id`,`nzb`.`Id_my_movie_disc_nzb` AS `Id_my_movie_disc_nzb`,NULL AS `Id_my_movie_disc`,1 AS `source_type`,`nzb`.`date` AS `date`,`mn`.`original_title` AS `title`,`nzb`.`Id_TMDB_data` AS `Id_TMDB_data` from ((`nzb` join `my_movie_disc_nzb` `mdn` on((`mdn`.`Id` = `nzb`.`Id_my_movie_disc_nzb`))) join `my_movie_nzb` `mn` on((`mn`.`Id` = `mdn`.`Id_my_movie_nzb`))) where ((`nzb`.`downloaded` = 1) and (`nzb`.`ready` = 1) and isnull(`mn`.`Id_my_movie_serie_header`)) union select `ripped_movie`.`Id` AS `Id`,NULL AS `Id_my_movie_disc_nzb`,`ripped_movie`.`Id_my_movie_disc` AS `Id_my_movie_disc`,2 AS `source_type`,`ripped_movie`.`creation_date` AS `date`,`m`.`original_title` AS `title`,`ripped_movie`.`Id_TMDB_data` AS `Id_TMDB_data` from ((`ripped_movie` join `my_movie_disc` `md` on((`md`.`Id` = `ripped_movie`.`Id_my_movie_disc`))) join `my_movie` `m` on((`m`.`Id` = `md`.`Id_my_movie`))) where isnull(`m`.`Id_my_movie_serie_header`) union select `local_folder`.`Id` AS `Id`,NULL AS `Id_my_movie_disc_nzb`,`local_folder`.`Id_my_movie_disc` AS `Id_my_movie_disc`,3 AS `source_type`,`local_folder`.`read_date` AS `date`,`m`.`original_title` AS `title`,`local_folder`.`Id_TMDB_data` AS `Id_TMDB_data` from ((`local_folder` join `my_movie_disc` `md` on((`md`.`Id` = `local_folder`.`Id_my_movie_disc`))) join `my_movie` `m` on((`m`.`Id` = `md`.`Id_my_movie`))) where (isnull(`m`.`Id_my_movie_serie_header`) and (`local_folder`.`hide` = 0) and (`local_folder`.`ready` = 1)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1420,7 +1695,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`%` SQL SECURITY DEFINER */
+/*!50013 DEFINER=`pelicano`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `series` AS select `nzb`.`Id` AS `Id`,`nzb`.`Id_my_movie_disc_nzb` AS `Id_my_movie_disc_nzb`,NULL AS `Id_my_movie_disc`,1 AS `source_type`,`nzb`.`date` AS `date` from ((`nzb` join `my_movie_disc_nzb` `mdn` on((`mdn`.`Id` = `nzb`.`Id_my_movie_disc_nzb`))) join `my_movie_nzb` `mn` on((`mn`.`Id` = `mdn`.`Id_my_movie_nzb`))) where ((`nzb`.`downloaded` = 1) and (`nzb`.`ready` = 1) and (`mn`.`Id_my_movie_serie_header` is not null)) union select `ripped_movie`.`Id` AS `Id`,NULL AS `Id_my_movie_disc_nzb`,`ripped_movie`.`Id_my_movie_disc` AS `Id_my_movie_disc`,2 AS `source_type`,`ripped_movie`.`creation_date` AS `date` from ((`ripped_movie` join `my_movie_disc` `md` on((`md`.`Id` = `ripped_movie`.`Id_my_movie_disc`))) join `my_movie` `m` on((`m`.`Id` = `md`.`Id_my_movie`))) where (`m`.`Id_my_movie_serie_header` is not null) union select `local_folder`.`Id` AS `Id`,NULL AS `Id_my_movie_disc_nzb`,`local_folder`.`Id_my_movie_disc` AS `Id_my_movie_disc`,3 AS `source_type`,`local_folder`.`read_date` AS `date` from ((`local_folder` join `my_movie_disc` `md` on((`md`.`Id` = `local_folder`.`Id_my_movie_disc`))) join `my_movie` `m` on((`m`.`Id` = `md`.`Id_my_movie`))) where (`m`.`Id_my_movie_serie_header` is not null) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1435,4 +1710,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-16 16:53:11
+-- Dump completed on 2014-01-23 11:16:11
