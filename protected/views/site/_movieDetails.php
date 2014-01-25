@@ -244,7 +244,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     </div><!--/.modal-body -->
     <div class="modal-footer dropup">
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
-    <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
+    <button id="btn-play" type="button" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
