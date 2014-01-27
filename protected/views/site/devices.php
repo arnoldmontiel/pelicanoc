@@ -148,26 +148,26 @@ function updateTds(obj)
 		if(tdButton.length > 0)
 			tdButton.html(getTdButton(obj));
 		
-		var tdAsoc = $('#wizardDispositivos').find('#idTdAsoc_' + id);
-		if(tdAsoc.length > 0)
-			getTdAsoc(obj, tdAsoc);
+		var btnAsoc = $('#wizardDispositivos').find('#idBtnAsoc_' + id);
+		if(btnAsoc.length > 0)
+			getBtnAsoc(obj, btnAsoc);
 	}
 }
 
-function getTdAsoc(obj, td)
+function getBtnAsoc(obj, btn)
 {
-	td.children().attr('disabled','disabled');
+	btn.attr('disabled','disabled');
 	if(obj != null)
 	{
 		if(obj.status != 6 && obj.status != 1) //si no esta escaneando puedo saber el estado
 		{
 			if(obj.copy == 1)
 			{
-				td.children().attr('disabled','disabled');
+				btn.attr('disabled','disabled');
 			}
 			else 
 			{
-				td.children().removeAttr('disabled');
+				btn.removeAttr('disabled');
 			}
 		}			
 	}

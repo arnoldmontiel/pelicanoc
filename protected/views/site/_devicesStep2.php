@@ -70,9 +70,9 @@
         						echo $index;
         					echo CHtml::closeTag("td");
         					
-	        				echo CHtml::openTag("td",array('id'=>'idTdName_'.$modelESData->Id));
-	        					echo "<div class='tablePeliTitle'>".$name."</div>";
-	        					echo "<button type='button' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-default' " .ReadFolderHelper::getTdAsocEnabled($modelESData)."><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button>";
+	        				echo CHtml::openTag("td");
+	        					echo "<div id='idTdName_".$modelESData->Id."' class='tablePeliTitle'>".$name."</div>";
+	        					echo "<button type='button' id='idBtnAsoc_".$modelESData->Id."' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-default' " .ReadFolderHelper::getTdAsocEnabled($modelESData)."><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button>";
 	        				echo CHtml::closeTag("td");
 	        				
 	        				/*echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESData->Id));
@@ -132,9 +132,9 @@
         						echo $index;
         					echo CHtml::closeTag("td");
         					
-	        				echo CHtml::openTag("td",array('id'=>'idTdName_'.$modelESDataPersonal->Id));
-	        					echo "<div class='tablePeliTitle'>".$name."</div>";
-	        					echo "<button type='button' ".ReadFolderHelper::getTdAsocEnabled($modelESDataPersonal)." onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-default open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Editar Nombre</button>";
+	        				echo CHtml::openTag("td");
+	        					echo "<div id='idTdName_".$modelESDataPersonal->Id."' class='tablePeliTitle'>".$name."</div>";
+	        					echo "<button type='button' id='idBtnAsoc_".$modelESDataPersonal->Id."' ".ReadFolderHelper::getTdAsocEnabled($modelESDataPersonal)." onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-default open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Editar Nombre</button>";
 	        				echo CHtml::closeTag("td");
 	        				
 	        				/*echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESDataPersonal->Id));
