@@ -1,5 +1,23 @@
-<h3><?php echo $label;?></h3>
-	Indique si alguno de estos archivos es un video personal, luego proceda a analizar el disco para encontrar las peliculas.       
+<ul class="nav nav-tabs" id="myTab">
+<li class="dropdown deviceDropdown">
+          <a class="deviceDropdownName" id="drop" role="button" data-toggle="dropdown" href="#"><?php echo $label;?> <i class="fa fa-caret-down"></i></a>
+           <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
+				<?php
+					$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
+			    	if(count($modelCurrentESs)>0)
+					{
+						foreach($modelCurrentESs as $modelCurrentES)
+						{
+							$nameES = $modelCurrentES->label;
+							if($idCurrentES != $modelCurrentES->Id)
+								echo "<li id=".$modelCurrentES->Id." ><a onclick='changeDevice(".$modelCurrentES->Id.")'>".$nameES."</a><a type='button' class='ejectBTN btn btn-default'><i class='fa fa-eject'></i></a></li>";
+						}
+					}
+				?>        		
+		 </ul>
+        </li>
+  <li class="active pull-right"><a href="#tpeliculas" data-toggle="tab">Indique si alguno de estos archivos es un video personal, luego proceda a analizar el disco para encontrar las peliculas</a></li>
+</ul>  
 <div class="table-responsive">
 	<table class="table table-bordered">
     	<thead>
