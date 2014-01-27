@@ -37,6 +37,13 @@
 	</div> <!-- /row -->
 </div> <!-- /container -->
 <script>
+function changeDevice(id)
+{
+	var params = "&idSelected="+id;
+	window.location = "<?php echo SiteController::createUrl("GoToDevices")?>" + params; 
+	return false;
+}
+
 function getDevices()
 {	
 	var id = $('#hidden-unit').val();
@@ -176,22 +183,22 @@ function getTdButton(obj)
 			if(obj.copy == 1)
 			{
 				if(obj.status == 3) //ya esta copiado listo para ver
-					td = "<button type='button' onclick='playVideo("+obj.id+")' class='btn btn-primary'><i class='fa fa-play'></i> Ver Pel&iacute;</button>";				
+					td = "<button type='button' onclick='playVideo("+obj.id+")' class='btn btn-primary'><i class='fa fa-play fa-fw'></i> Ver Pel&iacute;cula</button>";
 				else
-					td = "<button type='button' onclick='cancelCopy("+obj.id+")' class='btn btn-danger'>Cancelar</button>";
+					td = "<button type='button' onclick='cancelCopy("+obj.id+")' class='btn btn-danger'><i class='fa fa-minus-circle fa-fw'></i> Cancelar</button>";
 			}
 			else 
 			{
 				if(obj.status == 4) //en el caso de error en el copiado
 				{
-					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-danger'>Reintentar</button>";
+					td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-default'><i class='fa fa-refresh fa-fw'></i> Reintentar</button>";
 				}
 				else
 				{
 					if(obj.alreadyExists == 1)
 						td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Sobreescribir</button>";
 					else
-						td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'>Importar</button>";
+						td = "<button type='button' alreadyexists="+obj.alreadyExists+" onclick='copyVideo("+obj.id+")' class='btn btn-primary'><i class='fa fa-download fa-fw'></i> Importar</button>";
 				}
 			}
 		}			
@@ -210,22 +217,22 @@ function getTdStatus(obj)
 			if(obj.copy == 1)
 			{
 				if(obj.status == 3) //ya esta copiado listo para ver
-					td = "<i class='fa fa-check'></i> Importado";
+					td = "<i class='fa fa-check  fa-fw '></i> Importado";
 				else	
-					td = "<i class='fa fa-spinner fa-spin'></i> Importando...";
+					td = "<i class='fa fa-spinner fa-spin  fa-fw'></i> Importando...";
 			}
 			else 
 			{
 				if(obj.status == 4) //en el caso de error en el copiado
 				{
-					td = "<i class='fa-thumbs-down'></i> Error al copiar";
+					td = "<i class='fa fa-ban fa-fw'></i> Error al copiar";
 				}
 				else
 				{
 					if(obj.alreadyExists == 1)
-						td = "<i class='fa fa-warning'></i> El archivo ya existe en la biblioteca";
+						td = "<i class='fa fa-exclamation  fa-fw'></i> El archivo ya existe";
 					else
-						td = "<i class='fa fa-smile-o'></i> Disponible";
+						td = "<i class='fa fa-circle-o  fa-fw'></i> Disponible";
 				}
 			}
 		}			

@@ -926,6 +926,7 @@ class SiteController extends Controller
 		}
 		$this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
 													'modelESDataPersonals'=>$modelESDataPersonals,
+													'idCurrentES'=>$idCurrentES,
 													'hardScanReady'=>$hardScanReady,
 													'label'=>$label));
 		if($hardScanReady == 0)

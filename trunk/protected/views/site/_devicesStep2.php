@@ -5,25 +5,33 @@
 		$disabled = "disabled='disabled'";
 ?>
 <?php if($hardScanReady == 0):?>
-<div id="scaningLabel"><h2><?php// echo $label;?> <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
+<div id="scaningLabel"><h2><?php // echo $label;?> <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
 <div id="NoScaningLabel" style="display:none"><h2><?php // echo $label;?> </h2></div>
 <?php else:?>
 <div id="scaningLabel" style="display:none"><h2><?php // echo $label;?> <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
 <div id="NoScaningLabel"><h2><?php // echo $label;?> </h2></div>
-<?php endif;?>
-
+<?php endif;?> 
 <ul class="nav nav-tabs" id="myTab">
 <li class="dropdown deviceDropdown">
           <a class="deviceDropdownName" id="drop" role="button" data-toggle="dropdown" href="#"><?php echo $label;?> <i class="fa fa-caret-down"></i></a>
-          <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
-            <li><a role="menuitem">USB 2</a></li>
-            <li><a role="menuitem">USB 3</a></li>
-            <li><a role="menuitem">USB 4</a></li>
-             </ul>
+           <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
+				<?php
+					$modelCurrentESs = CurrentExternalStorage::model()->findAllByAttributes(array('is_in'=>1));
+			    	if(count($modelCurrentESs)>0)
+					{
+						foreach($modelCurrentESs as $modelCurrentES)
+						{
+							$nameES = $modelCurrentES->label;
+							if($idCurrentES != $modelCurrentES->Id)
+								echo "<li id=".$modelCurrentES->Id." ><a onclick='changeDevice(".$modelCurrentES->Id.")'>".$nameES."</a><a type='button' class='ejectBTN btn btn-default'><i class='fa fa-eject'></i></a></li>";
+						}
+					}
+				?>        		
+		 </ul>
         </li>
   <li class="pull-right"><a href="#tdesconocidos" data-toggle="tab">Desconocidos <span class="badge">0</span></a></li>
-  <li class="pull-right"><a href="#tvpersonales" data-toggle="tab">Videos Personales <span class="badge">2</span></a></li>
-  <li class="active pull-right"><a href="#tpeliculas" data-toggle="tab">Pel&iacute;culas <span class="badge">2</span></a></li>
+  <li class="pull-right"><a href="#tvpersonales" data-toggle="tab">Videos Personales <span class="badge"><?php echo count($modelESDataPersonals); ?></span></a></li>
+  <li class="active pull-right"><a href="#tpeliculas" data-toggle="tab">Pel&iacute;culas <span class="badge"><?php echo count($modelESDatas); ?></span></a></li>
 </ul>
 
 <div class="tab-content">
@@ -173,8 +181,7 @@
         </div><!-- cierre panel Tab  -->
 </div><!-- cierre grupo Tabs  -->
         
-        
-      </div>
+
 <script>
 
 </script> 
