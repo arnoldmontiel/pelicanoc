@@ -242,7 +242,18 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     
     </div><!--/.modal-body -->
-    <div class="modal-footer dropup">
+    <div class="modal-footer">
+  <!-- Single button -->
+<div class="btn-group pull-left">
+ <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    archivopelicula grande.mkv 80GB <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu bottom-up" role="menu">
+    <li><a href="#">archivonotanGrande.mkv 10GB</a></li>
+    <li class="divider"></li>
+    <li><a href="#">archivonotanMediano.mkv 1GB</a></li>
+  </ul>
+</div>
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
     <button id="btn-play" type="button" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->

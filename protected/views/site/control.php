@@ -16,7 +16,18 @@
     <!-- /col-md-8 -->
  </div><!-- /row interna -->
       <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-5" style="text-align:left;">
+     <!-- Single button -->
+<div class="btn-group">
+ <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    archivopelicula grande.mkv 80GB <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">archivonotanGrande.mkv 10GB</a></li>
+    <li class="divider"></li>
+    <li><a href="#">archivonotanMediano.mkv 1GB</a></li>
+  </ul>
+</div>
     <div class="controlAudioSub">
 <button type="button" class="btn btn-lg btn-primary" id="subtButton">Cambiar Subt&iacute;tulos</button>
 <button type="button" class="btn btn-lg btn-primary noMargin" id="audioButton">Cambiar Audio</button>
