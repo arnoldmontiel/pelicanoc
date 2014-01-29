@@ -91,7 +91,7 @@ background: -o-radial-gradient(center, ellipse cover,  rgba(198,198,198,1) 0%,rg
 background: -ms-radial-gradient(center, ellipse cover,  rgba(198,198,198,1) 0%,rgba(89,89,89,1) 100%); /* IE10+ */
 background: radial-gradient(ellipse at center,  rgba(198,198,198,1) 0%,rgba(89,89,89,1) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-	
+
 	 }
  
 
@@ -188,17 +188,22 @@ color:#666;
 }
 
 /* hack to avoid backround from scrolling when modal open */
-/**/
-html.modal-open  {
+/*
+#wall.modal-openw  {
+    overflow: hidden;
+}
+.superWrapper.modal-opens  {
+    overflow: hidden;
+    position:fixed;
+}
+html.modal-openh  {
+ooverflow:hidden;
 }
 
 body.modal-open {
-    overflow: hidden;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    position:absolute;
+position:relative !important	;
 }
-
+*/
 /* end of hack */
 
 
@@ -207,7 +212,7 @@ body.modal-open {
 
 ul.nav{ margin-left:0px;}
 
-#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #26ada1; height:55px;z-index:1060;}
+#Menu{ margin-top: 10px; margin-left:10px; margin-right:10px; border-top: 5px solid #26ada1; height:55px;z-index:1060; }
 #MenuLogo{
 	margin-left: 0px;
 font-family: 'LatoRegular', sans-serif;
@@ -221,7 +226,8 @@ line-height:48px;
 #Menu .navbar-collapse{ padding-right:0px;}
 #Menu .navbar-nav>li>a{padding: 2px 15px;line-height: 45px;}
 
-#Menu #loginInfo{ width:135px;height: 50px;padding-top: 9px; background-color:#ebebeb;  background-image:url(img/userIcon.png); background-repeat:no-repeat; background-position:10px 16px; padding-left:35px; padding-right:10px; line-height:16px;color:#333; }
+
+#Menu #loginInfo{ width:135px;height: 50px;padding-top: 9px; /*background-color:#ebebeb;*/  background-image:url(img/userIcon.png); background-repeat:no-repeat; background-position:10px 16px; padding-left:35px; padding-right:10px; line-height:16px;color:#333; color:white; }
 #Menu .points{ font-size:14px; color:#000; font-family: 'GudeaBold'; }
 
 #Menu #newDisc{
@@ -236,7 +242,6 @@ padding-left: 33px;
 padding-right: 10px;
 line-height: 15px;
 color: #333;
-border-right: 1px solid #ccc;
 }
 #Menu #externalStorage{
 display:none;
@@ -497,6 +502,12 @@ overflow-x: visible;}
 .modalSubtitulo{padding:10px; padding-left:0px; font-size:18px;}
 
 .topDotted{ border-top:1px dotted #ccc; margin-top:15px;}
+
+
+.bottom-up {top: auto; bottom: 100%; }
+.dropdown-menu.bottom-up:before { border-bottom: 0px solid transparent !important; border-top: 7px solid rgba(0, 0, 0, 0.2); top: auto !important; bottom: -7px; }
+.dropdown-menu.bottom-up:after  { border-bottom: 0px solid transparent !important; border-top: 6px solid white;              top: auto !important; bottom: -6px; }
+
 /* ------ END MODAL DETAIL ------- */
 
 /* ------ POPUP REPRODUCIENDO ------- */
