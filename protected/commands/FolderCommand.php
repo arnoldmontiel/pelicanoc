@@ -43,6 +43,7 @@ class FolderCommand extends CConsoleCommand  {
 				while(isset($modelESData))
 				{
 					self::processES($modelESData);
+					Log::logger('Saliendo del Copiado: '. $modelESData->path);
 					$modelESData = ExternalStorageData::model()->find($criteria);
 				}
 				
