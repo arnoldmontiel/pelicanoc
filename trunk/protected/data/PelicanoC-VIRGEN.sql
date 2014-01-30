@@ -180,7 +180,7 @@ CREATE TABLE `command_status` (
 
 LOCK TABLES `command_status` WRITE;
 /*!40000 ALTER TABLE `command_status` DISABLE KEYS */;
-INSERT INTO `command_status` VALUES (1,'downloadNzbFiles',0,NULL),(2,'scanDirectory',0,NULL),(3,'downloadAnydvdUpdate',0,NULL);
+INSERT INTO `command_status` VALUES (1,'downloadNzbFiles',0,NULL),(2,'scanDirectory',0,NULL),(3,'downloadAnydvdUpdate',0,NULL),(4,'processExternalStorage',0,NULL),(5,'scanExternalStorage',0,NULL);
 /*!40000 ALTER TABLE `command_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1506,7 +1506,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://localhost','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords',NULL,'/pelicano','/copied','/ripped',NULL);
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
