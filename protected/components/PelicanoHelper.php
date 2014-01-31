@@ -236,13 +236,12 @@ class PelicanoHelper
 	
 	static public function sendPendingNzbStates()
 	{
-		Log::logger('sendPendingNzbStates ADENTRO');
 		$setting= Setting::getInstance();
 		$model = new Nzb;
 		$dataProvider =$model->searchNoSent();
 		$data = $dataProvider->data;
 		$requests = array();
-		Log::logger('sendPendingNzbStates QTY: '. count($data));
+		
 		foreach ($data as $item)
 		{
 			$request= new NzbStateRequest;
@@ -252,10 +251,8 @@ class PelicanoHelper
 			$request->change_state_date = strtotime($item->change_state_date);
 			$requests[]=$request;
 		}
-		
 		$pelicanoCliente = new Pelicano;
 		$status = $pelicanoCliente->setNzbState($requests);
-		Log::logger('sendPendingNzbStates ->'. $setting->Id_device . ' status: '. ($status)?'si':'no');
 		if($status)
 		{
 			foreach ($data as $item)
@@ -592,7 +589,7 @@ class PelicanoHelper
 						}
 						else
 						{
-							exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles');
+							exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
 						}
 					}
 					else
