@@ -251,9 +251,10 @@ class PelicanoHelper
 			$request->change_state_date = strtotime($item->change_state_date);
 			$requests[]=$request;
 		}
-		log::logger('sendPendingNzbStates ->'. $setting->Id_device);
+		
 		$pelicanoCliente = new Pelicano;
 		$status = $pelicanoCliente->setNzbState($requests);
+		Log::logger('sendPendingNzbStates ->'. $setting->Id_device);
 		if($status)
 		{
 			foreach ($data as $item)
