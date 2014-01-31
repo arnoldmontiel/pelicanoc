@@ -252,9 +252,11 @@ class PelicanoHelper
 			$requests[]=$request;
 		}
 		$pelicanoCliente = new Pelicano;
+		Log::logger('request QTY: '. count($requests));
 		$status = $pelicanoCliente->setNzbState($requests);
 		if($status)
 		{
+			Log::logger('Dentro del IF');
 			foreach ($data as $item)
 			{
 				$item->sent = 1;
