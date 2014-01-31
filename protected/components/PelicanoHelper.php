@@ -218,7 +218,6 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		//$ip = $_SERVER['SERVER_ADDR'];
 		$ip = @file_get_contents("http://checkip.dyndns.org/");
-		Log::logger($ip);
 		$dyndns = explode(':', $ip);
 		if($dyndns)
 		{
