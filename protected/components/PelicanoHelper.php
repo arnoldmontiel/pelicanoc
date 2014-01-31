@@ -592,7 +592,7 @@ class PelicanoHelper
 						}
 						else
 						{
-							exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles >/dev/null&');
+							exec(dirname(__FILE__).'/../commands/shell/downloadNzbFiles');
 						}
 					}
 					else
