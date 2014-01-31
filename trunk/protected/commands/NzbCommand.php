@@ -11,7 +11,7 @@ class NzbCommand extends CConsoleCommand  {
 		$_COMMAND_NAME = "downloadNzbFiles";
 		
 		include dirname(__FILE__).'../../components/PelicanoHelper.php';
-		Log::logger('downloadNzbFiles CARAMBA');
+		Log::logger('downloadNzbFiles CARAMBA!');
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));
 		
 		if(isset($modelCommandStatus))
@@ -169,7 +169,7 @@ class NzbCommand extends CConsoleCommand  {
 							 
 							}
 						}
-						Log::logger('aaa'.$modelMyMovieNzb->big_poster_original);
+						Log::logger('aaa');
 						$modelMyMovieNzb->save();
 						$modelNzb->ready = 1;
 						$modelNzb->save();
