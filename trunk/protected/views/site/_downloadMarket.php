@@ -1,4 +1,15 @@
 	<div class="row">
+    	
+    	<script>
+$(function() {
+    $(".dial").knob({
+        'bgColor' : "none",
+        'inputColor' : "white",
+        'font' : "GudeaBold",
+        'fgColor' : "white"
+    });
+});
+</script>
     	<div class="col-md-12">
 			<h2 class="sliderTitle modified">Descargando desde Marketplace</h2> 
 			<?php if(!empty($nzbDownloading)):?>
@@ -25,14 +36,14 @@
 						$moviePoster = $modelTMDB->poster;
 					}
 						
-    				echo CHtml::openTag('li');
-    				echo CHtml::link(
+    				echo CHtml::openTag("li",array("class"=>"liSlider"));
+					echo CHtml::link(
     				
     				CHtml::image("images/".$moviePoster,'',array(
     								"width"=>"180", "height"=>"260", "border"=>"0",
     								)),
     				
-    				'',array("class"=>"peliAfiche aficheClickNzb","idMovie"=>$myMovie->Id,
+    				'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
     								"idResource"=>$modelSource->Id,
     								"sourceType"=>1));    			
     					
@@ -41,8 +52,8 @@
 //     							echo $myMovie->original_title;
 //     						echo CHtml::closeTag("p");
 //     					echo CHtml::closeTag("div");
-    					
-    					
+
+    				    					echo '<div class="knob"><input type="text" value="99" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
     				echo CHtml::closeTag("li");
     				
     				

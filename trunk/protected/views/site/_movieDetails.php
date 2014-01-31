@@ -255,7 +255,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
   </ul>
 </div>
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
-    <button id="btn-play" type="button" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
+    <button id="btn-playy" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"
+				data-toggle="modal" data-target="#myModalElegirPlayer"><i class="fa fa-play"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->

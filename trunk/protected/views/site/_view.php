@@ -1,3 +1,4 @@
+
 <?php 
 
 if($data->source_type == 1)
@@ -55,7 +56,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
 
         
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
-	<a id="link-movie-<?php echo $model->Id;?>-<?php echo $data->Id;?>-<?php echo $data->source_type;?>" style="position:relative;" href="#myModal" class="">    
+	<a id="link-movie-<?php echo $model->Id;?>-<?php echo $data->Id;?>-<?php echo $data->source_type;?>" style="position:relative;" href="#myModal" data-toggle="modal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
@@ -68,5 +69,10 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
     	echo $model->original_title;
     	echo CHtml::closeTag("p");
 		?>
+    </div>
+     <div class="ribbon">
+        <div class="ribbonTxt">
+            NUEVO
+        </div>
     </div>
 </div>

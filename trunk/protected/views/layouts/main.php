@@ -4,9 +4,9 @@
 <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -16,24 +16,33 @@
 <link href="css/isotope.css" rel="stylesheet" media="screen">
 <!-- Flexslider -->
 <script defer src="js/jquery.flexslider.js"></script>
-<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/flexslider.css" type="text/css"
+	media="screen" />
 <!-- Modernizr -->
 <script src="js/modernizr.js"></script>
 <!-- Image Picker -->
 <link href="css/image-picker.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="js/image-picker.min.js"></script>
 <!-- JS Select -->
-<link href="js/select2-3.4.4/select2.css" rel="stylesheet"/>
+<link href="js/select2-3.4.4/select2.css" rel="stylesheet" />
 <script src="js/select2-3.4.4/select2.js"></script>
 <script src="js/lite-uploader-master/jquery.liteuploader.js"></script>
 <!-- Circular progress bar -->
 <script src="js/jquery.knob.js"></script>
 <!-- FastClick -->
 <script src="js/fastclick.js"></script>
+<!-- Clickover -->
+<script type="text/javascript" src="js/bootstrapx-clickover.js"></script>
 <script>
 $(function() {
     FastClick.attach(document.body);
 });
+
+// funcion super importante para que no scrollee el fondo en ipad:
+//$(document)
+//.on('show.bs.modal',  '.modal', function () { $("#content").addClass('modal-open') })
+//.on('hidden.bs.modal', '.modal', function () { $("div").removeClass('modal-open') })
+
 </script>
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
@@ -242,7 +251,7 @@ $(document).ready(function(){
 		  return false;
 		});
 
-	$('#filtroGenero li.menuItem a').click(function () {
+	$('#filtroGenero li.generoItem a').click(function () {
 		  $('#filtroGenero li.active').removeClass('active')
 		  $(this).parent('li').addClass('active');
 		  $("#selectedGenero .selected").text($(this).text());
@@ -296,41 +305,71 @@ $(document).ready(function(){
     
 
 });
+
+
 </script>
+
 </head>
 
-<input id="media-type-filter" type="hidden" name="media-type-filter" value="*">
+<input id="media-type-filter" type="hidden" name="media-type-filter"
+	value="*">
 <input id="current-filter" type="hidden" name="current-filter" value="*">
 <input id="search-filter" type="hidden" name="search-filter" value="">
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation"  id="Menu">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#" id="MenuLogo">Pelicano</a>
-        </div>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+		id="Menu">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<a class="navbar-brand visible-lg" href="#" id="MenuLogo">PELICANO</a>
+		</div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex5-collapse">
-          <ul class="nav navbar-nav" id="nav">
-            <li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
-          <li id="li-serie"><a href="#">Mis Series</a></li>
-		  <li id="li-marketplace"><a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
-		  <li id="li-download"><a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargas</a></li>   
-		  <li id="li-devices"><a href="<?php echo SiteController::createUrl('site/devices') ?>" id="popover-disp">Dispositivos <span id="devicesQty" style="display:none" class="badge"></span></a></li>
-        </ul>
-          <?php 
-			 	$customer = Setting::getInstance()->getCustomer();
-			 	$username = (User::getCurrentUser())?User::getCurrentUser()->username : ''; 
-		?>
-          <div id="loginInfo" class="pull-right"><?php echo $username; ?><br/><span class="points"><?php echo isset($customer)?$customer->current_points:'0' ?>  points</span></div>
-          <!--  <div id="playlist" class="pull-right"><i class="icon-bookmark"></i>Playlist</div>-->
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse navbar-ex5-collapse">
+			<ul class="nav navbar-nav" id="nav">
+				<li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
+				<li id="li-serie"><a href="#">Mis Series</a></li>
+				<li id="li-marketplace"><a
+					href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
+				<li id="li-download"><a
+					href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargas</a></li>
+				<li id="li-devices"><a
+					href="<?php echo SiteController::createUrl('site/devices') ?>"
+					id="popover-disp">Dispositivos <span id="devicesQty"
+						style="display: none" class="badge"></span></a></li>
+			</ul>
+          <?php
+										$customer = Setting::getInstance ()->getCustomer ();
+										$username = (User::getCurrentUser ()) ? User::getCurrentUser ()->username : '';
+										?>
+		
+		<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> admin <i
+						class="fa fa-caret-down fa-fw"></i></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
+						<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
+								Consumos</a></li>
+						<li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+					</ul></li>
+			</ul>
+			<button type="button" class="btn btn-default navbar-btn pull-right"
+				data-toggle="modal" data-target="#myModalReproduciendo">
+				Reproduciendo <span class="badge">3</span><i
+					class="fa fa-caret-down fa-fw"></i>
+			</button>
+			<!-- 
+          <div id="loginInfo" class="pull-right"><?php // echo $username; ?><br/><span class="points"><?php // echo isset($customer)?$customer->current_points:'0' ?>  points</span></div>
           <div id="newDisc" class="pull-right">Examinar Disco</div>          
-        </div><!-- /.navbar-collapse -->
-      </nav>
+        </div> -->
+	
+	</nav>
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
 
+
+<!-- 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation"  id="menuSecond">
-        <!-- Collect the nav links, forms, and other content for toggling -->
+     
         <div  id="filtros" class="collapse navbar-collapse navbar-ex5-collapse">
 <ul id="filtroGenero" class="nav navbar-nav clearfix">
         <li class="active menuItem generoTodas"><a href="#" data-filter="*">Todas</a></li>
@@ -354,59 +393,178 @@ $(document).ready(function(){
         <input type="search" id="search-query-filter" class="form-control" placeholder="Buscar Pel&iacute;culas">
       </div>
     </form>
-        </div><!-- /.navbar-collapse -->
+        </div>
       </nav>
-
+ -->
 <?php endif; ?>
 
 	<?php echo $content; ?>        
     
-<div id="myModalEditName" class="modal fade in">
-</div>    
-<div id="myModalEditarAsoc" class="modal fade in">
-</div>	
-<div id="myModalCambiarBackdrop" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
-</div>
-<div id="myModalCambiarAfiche" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
-</div>
-<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
-</div>
-<div id="myModalDiscIn" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
-</div>
-<div id="myModalESExplorer" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
-</div>
-<?php
- 
-/*
-echo CHtml::openTag('div',array('id'=>'myModal'));
-//place holder
-echo CHtml::closeTag('div'); 
-*/?>
+<div id="myModalEditName" class="modal fade in"></div>
+	<div id="myModalEditarAsoc" class="modal fade in"></div>
+	<div id="myModalCambiarBackdrop" class="modal fade in" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
+		style="display: hidden;"></div>
+	<div id="myModalCambiarAfiche" class="modal fade in" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
+		style="display: hidden;"></div>
+	<div id="myModal" class="modal fade in" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="false"
+		style="display: hidden;"></div>
+	<div id="myModalDiscIn" class="modal fade in" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
+		style="display: hidden;"></div>
+	<div id="myModalESExplorer" class="modal fade in" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
+		style="display: hidden;"></div>
 
-<?php 
-// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn')); 
+	<div id="myModalReproduciendo" class="modal fade in"
+		style="display: hidden;" aria-hidden="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">x</button>
+					<h4 class="modal-title">Reproduciendo</h4>
+				</div>
+				<div class="modal-body">
+					<div class="reproTableContainer">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Player</th>
+									<th>Reproduciendo</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Cocina</td>
+									<td>Spiderman</td>
+									<td class="align-right"><button type="button"
+											class="btn btn-primary">
+											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto
+										</button></td>
+								</tr>
+								<tr>
+									<td>Dormitorio Juan</td>
+									<td>Monsters Inc</td>
+									<td class="align-right"><button type="button"
+											class="btn btn-primary">
+											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto
+										</button></td>
+								</tr>
+								<tr>
+									<td>Dormitorio Pedro</td>
+									<td>Rapido y Furioso</td>
+									<td class="align-right"><button type="button"
+											class="btn btn-primary">
+											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto
+										</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-lg"
+						data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div id="myModalElegirPlayer" class="modal fade in"
+		style="display: hidden;" aria-hidden="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">x</button>
+					<h4 class="modal-title">En que lugar desea reproducir?</h4>
+				</div>
+				<div class="modal-body">
+					<div class="reproTableContainer">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Player</th>
+									<th>Reproduciendo</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Cocina</td>
+									<td>Spiderman</td>
+									<td class="align-right"><button type="button"
+											class="btn btn-primary">
+											<i class="fa fa-play-circle fa-fw"></i> Reproducir
+										</button></td>
+								</tr>
+								<tr>
+									<td>Dormitorio Juan</td>
+									<td>-</td>
+									<td class="align-right"><button type="button"
+											class="btn btn-primary">
+											<i class="fa fa-play-circle fa-fw"></i> Reproducir
+																					</button></td>
+								</tr>
+								<tr>
+									<td>Dormitorio Pedro</td>
+									<td>-</td>
+									<td class="align-right"><button type="button"
+											class="btn btn-primary">
+											<i class="fa fa-play-circle fa-fw"></i> Reproducir
+																					</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-lg"
+						data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+<?php
+
+/*
+ * echo CHtml::openTag('div',array('id'=>'myModal')); //place holder echo CHtml::closeTag('div');
+ */
+?>
+
+<?php
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalDiscIn'));
 
 // echo CHtml::openTag('div',array('id'=>'view-disc-in'));
-// echo CHtml::closeTag('div'); 
+// echo CHtml::closeTag('div');
 
-// $this->endWidget(); ?>
-<?php 
-// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalESExplorer')); 
+// $this->endWidget();?>
+<?php
+// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModalESExplorer'));
 
 // echo CHtml::openTag('div',array('id'=>'view-es-explorer'));
 
-// echo CHtml::closeTag('div'); 
+// echo CHtml::closeTag('div');
 
-// $this->endWidget(); 
+// $this->endWidget();
 ?>
 <!-- floating DIV para Peliculas en Reproduccion -->
-<div id="playback" class="peliReroduciendo">
-<div class="rep">
-Reproduciendo:
-<div id="playback-title" class="tituloRep"></div>
-</div>
- <a type="button" id="btn-dune-control" class="btn btn-primary"><i class="fa fa-keyboard-o"></i> Control Remoto</a>
-</div>
-<!-- /cierre floating -->
+	<div id="playback" class="peliReroduciendo">
+		<div class="rep">
+			Reproduciendo:
+			<div id="playback-title" class="tituloRep"></div>
+		</div>
+		<a type="button" id="btn-dune-control" class="btn btn-primary"><i
+			class="fa fa-keyboard-o"></i> Control Remoto</a>
+	</div>
+	<!-- /cierre floating -->
 </body>
 </html>

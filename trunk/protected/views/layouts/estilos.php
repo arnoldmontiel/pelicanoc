@@ -96,7 +96,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', end
  
 
 body #screenHome {
-  padding-top: 125px;
+  padding-top: 70px;
 }
 body #screenSeries {
   padding-top: 70px;
@@ -156,6 +156,8 @@ color: #fff;
 background-color: #038C79;
 border-color: #007064;
 }
+
+.btn-default .badge{ color:#027871;}
     .btn-danger{
   color: #d9534f;
 background-color: #FFE4E3;
@@ -225,7 +227,7 @@ line-height:48px;
 
 #Menu .navbar-collapse{ padding-right:0px;}
 #Menu .navbar-nav>li>a{padding: 2px 15px;line-height: 45px;}
-
+.navbar-nav.navbar-right:last-child{ margin-right:0px;}
 
 #Menu #loginInfo{ width:135px;height: 50px;padding-top: 9px; /*background-color:#ebebeb;*/  background-image:url(img/userIcon.png); background-repeat:no-repeat; background-position:10px 16px; padding-left:35px; padding-right:10px; line-height:16px;color:#333; color:white; }
 #Menu .points{ font-size:14px; color:#000; font-family: 'GudeaBold'; }
@@ -283,6 +285,10 @@ cursor: pointer;
 .popoverButtons{ border-top:1px dotted #ccc; margin-top:10px; padding-top:10px;}
 .popoverButtons button{  width:110px; margin-right:10px;}
 
+.reproTableContainer{min-width:400px; padding:5px; padding-top:0px;}
+.reproTableContainer .table{margin-bottom:0px;}
+.reproTableContainer .table th{font-family:"GudeaBold";}
+.reproTableContainer .table td{ vertical-align:middle;}
 /* ------ SECOND MENU / NAV BAR ------- */
 
 #menuSecond{ top:65px; margin-right:10px; margin-left:10px; height:50px;}
@@ -365,6 +371,15 @@ color:#666;
 padding-bottom:10px;
 margin-bottom:10px;}
 
+
+.searchMainMovie{ width:250px;}
+
+.searchMainMovie ::-webkit-input-placeholder::before { font-family: FontAwesome; content:'\f002'; }
+.searchMainMovie ::-moz-placeholder::before  { font-family: FontAwesome; content:'\f002'; } /* firefox 19+ */
+.searchMainMovie :-ms-input-placeholder::before  { font-family: FontAwesome; content:'\f002'; } /* ie */
+input.searchMainMovie:-moz-placeholder::before  { font-family: FontAwesome; content:'\f002';  }
+
+
 #wall{ text-align:center;}
 .items{ margin: 0 auto !important;}
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{ width:100% !important; max-width:100% !important; min-width:100% !important;}
@@ -404,6 +419,7 @@ position:relative !important;
 
 .flex-viewport{padding-bottom:5px;}
 .flexslider .ribbon{right:-42px; top:202px; width:150px; }	
+.flexslider .liSlider{width: 180px !important;}
 
 .ribbon .ribbonTxt{
 position:absolute;
@@ -535,15 +551,11 @@ margin:auto;
 
 .controlContainer .controlAfiche{ padding-top:10px; text-align:center;}
 
-.controlTitle{font-size: 2em;
+.controlTitle{font-size: 2.3em;
 font-weight: normal;
 color: #fff;
 text-shadow: 0 1px 3px #333;
-text-align:left;
-padding-top:20px;
-padding-bottom:10px;
-margin-bottom:20px;
-border-bottom:1px solid #ccc;}
+text-align:left;}
 
 .controlAudioSub{ text-align:left;}
 .controlAudioSub button{ width:200px; height:60px; 
@@ -597,6 +609,21 @@ font-weight: bold;}
 width: 200px;
 height: 280px;
 }
+
+#screenControl .dropdown{ text-align:left;
+padding-top:20px;
+padding-bottom:10px;
+margin-bottom:20px;
+border-bottom:1px solid #ccc; }
+
+#screenControl .dropdown a.controlTitle{color:white;}
+#screenControl .dropdown a.controlTitle:hover{color:#fbfbfb; text-decoration:none;}
+#screenControl .dropdown a.controlTitle:active{background-color:transparent !important;}
+#screenControl .dropdown.open a.controlTitle{color:#ccc; text-decoration:none !important;}
+#screenControl .dropdown.open a.controlTitle:hover{color:#ccc; text-decoration:none !important;}
+#screenControl .dropdown.open a.controlTitle:active{background-color:transparent !important;}
+#screenControl .dropdown ul li{font-size:1.3em;}
+
 
 /*-------- END CONTROL REMOTO --------------*/
 
@@ -790,6 +817,8 @@ box-shadow: 0px 0px 2px rgba(0,0,0,0.8); background-color:rgba(0,0,0,0.5); paddi
 /*---------- END EDIT PELICULA -------------*/
 
 /*---------- TEXTO MARQUESINA -------------*/
+
+
 p.slide-text26 {
 position:relative;
 animation:mymove26 2s infinite;

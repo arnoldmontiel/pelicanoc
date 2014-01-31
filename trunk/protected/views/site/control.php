@@ -11,13 +11,20 @@
     <div class="col-md-8">
       <div class="row">
     <div class="col-md-12">
-    <div class="controlTitle"><?php echo $model->original_title?></div>
+    <div class="dropdown ">
+          <a class="controlTitle" id="drop" role="button" data-toggle="dropdown" href="#">Cocina: <?php echo $model->original_title?> <i class="fa fa-caret-down"></i></a>
+           <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
+				<li><a>Dormitorio Juan: Monsters Inc</a></li>        		
+				<li><a>Dormitorio Pedro: Rapido y Furioso</a></li>        		
+		 </ul>
+        </div>
+    <!-- <div class="controlTitle"><?php //echo $model->original_title?></div> -->
     </div>
     <!-- /col-md-8 -->
  </div><!-- /row interna -->
       <div class="row">
     <div class="col-md-5" style="text-align:left;">
-     <!-- Single button -->
+     <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO 
 <div class="btn-group">
  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     archivopelicula grande.mkv 80GB <span class="caret"></span>
@@ -27,7 +34,7 @@
     <li class="divider"></li>
     <li><a href="#">archivonotanMediano.mkv 1GB</a></li>
   </ul>
-</div>
+</div>-->
     <div class="controlAudioSub">
 <button type="button" class="btn btn-lg btn-primary" id="subtButton">Cambiar Subt&iacute;tulos</button>
 <button type="button" class="btn btn-lg btn-primary noMargin" id="audioButton">Cambiar Audio</button>
