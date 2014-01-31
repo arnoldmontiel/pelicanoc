@@ -18,7 +18,7 @@ class NzbCommand extends CConsoleCommand  {
 		{
 			try 
 			{
-				
+				Log::logger('QUEONDA CARAMBA!');
 				$validator = new CUrlValidator();
 				$setting = Setting::getInstance();
 				
@@ -50,9 +50,11 @@ class NzbCommand extends CConsoleCommand  {
 									chgrp($fileName, "www-data");
 								} else {
 									// an error happened
+									Log::logger('ERROR: '. $e->getMessage());
 								}
 							} catch (Exception $e) {
 								// an error happened
+								Log::logger('ERROR: '. $e->getMessage());
 							}
 						}
 						if($modelNzb->subt_url!='' && $validator->validateValue($setting->host_name.$setting->host_path.$modelNzb->subt_url))
@@ -65,6 +67,7 @@ class NzbCommand extends CConsoleCommand  {
 								fclose($file);
 							} else {
 								// an error happened
+								Log::logger('ERROR: '. $e->getMessage());
 							}
 						}
 						if($modelMyMovieNzb->poster_original!='' && $validator->validateValue($modelMyMovieNzb->poster_original))
@@ -78,9 +81,11 @@ class NzbCommand extends CConsoleCommand  {
 									$modelMyMovieNzb->poster = $modelMyMovieNzb->Id.".jpg";
 								} else {
 									// an error happened
+									Log::logger('ERROR: '. $e->getMessage());
 								}
 							} catch (Exception $e) {								
 								// an error happened
+								Log::logger('ERROR: '. $e->getMessage());
 							}
 						}
 						
@@ -95,9 +100,11 @@ class NzbCommand extends CConsoleCommand  {
 									$modelMyMovieNzb->big_poster = $modelMyMovieNzb->Id."_big.jpg";
 								} else {
 									// an error happened
+									Log::logger('ERROR: '. $e->getMessage());
 								}
 							} catch (Exception $e) {
 								// an error happened
+								Log::logger('ERROR: '. $e->getMessage());
 							}
 						}
 						
@@ -112,9 +119,11 @@ class NzbCommand extends CConsoleCommand  {
 									$modelMyMovieNzb->backdrop = $modelMyMovieNzb->Id."_bd.jpg";
 								} else {
 									// an error happened
+									Log::logger('ERROR: '. $e->getMessage());
 								}
 							} catch (Exception $e) {
 								// an error happened
+								Log::logger('ERROR: '. $e->getMessage());
 							}
 						}
 				
@@ -137,9 +146,11 @@ class NzbCommand extends CConsoleCommand  {
 											$modelSerie->save();
 										} else {
 											// an error happened
+											Log::logger('ERROR: '. $e->getMessage());
 										}
 									} catch (Exception $e) {										
 										// an error happened
+										Log::logger('ERROR: '. $e->getMessage());
 									}
 								}
 								
@@ -160,9 +171,11 @@ class NzbCommand extends CConsoleCommand  {
 												$modelSeason->save();
 											} else {
 												// an error happened
+												Log::logger('ERROR: '. $e->getMessage());
 											}
 										} catch (Exception $e) {
 											// an error happened
+											Log::logger('ERROR: '. $e->getMessage());
 										}
 									}
 								}
