@@ -237,12 +237,13 @@ class PelicanoHelper
 	
 	static public function sendPendingNzbStates()
 	{
+		Log::logger('sendPendingNzbStates ADENTRO');
 		$setting= Setting::getInstance();
 		$model = new Nzb;
 		$dataProvider =$model->searchNoSent();
 		$data = $dataProvider->data;
 		$requests = array();
-		
+		Log::logger('sendPendingNzbStates QTY: '. count($data));
 		foreach ($data as $item)
 		{
 			$request= new NzbStateRequest;
