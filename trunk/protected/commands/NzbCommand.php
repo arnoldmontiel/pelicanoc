@@ -29,8 +29,9 @@ class NzbCommand extends CConsoleCommand  {
 				foreach ($arrayNbz as $modelNzb)
 				{
 						
+					Log::logger('ANTES TRANSACCION');
 					$transaction = $modelNzb->dbConnection->beginTransaction();
-						
+					Log::logger('DESPUES TRANSACCION');
 					try {
 						Log::logger('DENTRO TRANSACCION!');
 						$modelMyMovieNzb = MyMovieNzb::model()->findByPk($modelNzb->myMovieDiscNzb->Id_my_movie_nzb);
@@ -191,6 +192,7 @@ class NzbCommand extends CConsoleCommand  {
 						$transaction->commit();
 				
 					} catch (Exception $e) {
+						Log::logger('ERROR: '. $e->getMessage());
 						$transaction->rollback();						
 					}
 				}
