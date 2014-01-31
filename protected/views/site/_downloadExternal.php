@@ -26,8 +26,8 @@
 						$moviePoster = $modelTMDB->poster;
 					}
 						
-    				echo CHtml::openTag('li');
-    				echo CHtml::link(
+    				echo CHtml::openTag("li",array("class"=>"liSlider"));
+					echo CHtml::link(
     				
     				CHtml::image("images/".$moviePoster,'',array(
     								"width"=>"180", "height"=>"260", "border"=>"0",

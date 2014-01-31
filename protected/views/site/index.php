@@ -1,4 +1,27 @@
 <div class="container" id="screenHome" >
+
+<?php if (isset($this->showFilter) && $this->showFilter): ?>
+ <div class="row">
+ <div class="col-md-6">
+ <ul id="filtroGenero" class="nav nav-pills">
+  				<li class="generoItem active"><a data-toggle="tab" href="#" data-filter="*">Todas</a></li>
+  				<li class="generoItem"><a href="#" data-toggle="tab" data-filter="*" data-filter=".comedy">Comedia</a></li>
+  				<li class="generoItem"><a href="#" data-toggle="tab" data-filter="*" data-filter=".drama">Drama</a></li>
+  				<li class="generoItem"><a href="#" data-toggle="tab" data-filter="*" data-filter=".romance">Romance</a></li>
+  				<li class="generoItem"><a href="#" data-toggle="tab" data-filter="*" data-filter=".fantasia">Fantasia</a></li>
+			</ul>
+ </div>
+ <div class="col-md-6"> 
+<div class="searchMainMovie pull-right">
+ <form role="search">
+      <div class="form-group">
+      <input type="text" class="form-control" placeholder=" Buscar Pel&iacute;cula">
+      </div>
+    </form>
+    </div>
+ </div>
+<?php endif; ?>
+
    <div class="row">
     <div class="col-md-12">
 <?php

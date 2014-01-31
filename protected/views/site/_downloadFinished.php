@@ -38,7 +38,7 @@
 						$moviePoster = $modelTMDB->poster;
 					}
 						
-    				echo CHtml::openTag('li');
+    				echo CHtml::openTag("li",array("class"=>"liSlider"));
     				echo CHtml::link(
     				
     				CHtml::image("images/".$moviePoster,'',array(
@@ -49,13 +49,14 @@
     								"idResource"=>$movie->Id,
     								"sourceType"=>$movie->source_type));
     					
-//     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
-//     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
-//     							echo $myMovie->original_title;
-//     						echo CHtml::closeTag("p");
-//     					echo CHtml::closeTag("div");
+     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
+     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
+     							echo $myMovie->original_title;
+     						echo CHtml::closeTag("p");
+     					echo CHtml::closeTag("div");
     					
-    					
+    echo '<div class="ribbon"><div class="ribbonTxt">FINALIZADA</div></div>';		
+
     				echo CHtml::closeTag("li");
     				
     				
