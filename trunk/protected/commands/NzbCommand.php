@@ -28,8 +28,10 @@ class NzbCommand extends CConsoleCommand  {
 				Log::logger('NZB QTY:! '. count($arrayNbz));
 				foreach ($arrayNbz as $modelNzb)
 				{
+					Log::logger('ALGO');
 					$modelMyMovieNzb = MyMovieNzb::model()->findByPk($modelNzb->myMovieDiscNzb->Id_my_movie_nzb);
-			
+					Log::logger('ALGO NO');
+					
 					if($modelNzb->url!='')
 					{
 						try {
