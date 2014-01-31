@@ -255,7 +255,7 @@ class PelicanoHelper
 		
 		$pelicanoCliente = new Pelicano;
 		$status = $pelicanoCliente->setNzbState($requests);
-		Log::logger('sendPendingNzbStates ->'. $setting->Id_device . ' status: '. $status);
+		Log::logger('sendPendingNzbStates ->'. $setting->Id_device . ' status: '. ($status)?'si':'no');
 		if($status)
 		{
 			foreach ($data as $item)
