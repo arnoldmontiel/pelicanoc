@@ -169,7 +169,7 @@ class NzbCommand extends CConsoleCommand  {
 							 
 							}
 						}
-						
+						log::logger('aaa'.$modelMyMovieNzb->big_poster_original);
 						$modelMyMovieNzb->save();
 						$modelNzb->ready = 1;
 						$modelNzb->save();
@@ -186,7 +186,7 @@ class NzbCommand extends CConsoleCommand  {
 			catch (Exception $e) {
 				$modelCommandStatus->setBusy(false);
 			}
-
+			log::logger('sendPendingNzbStates CARAMBA');
 			//envio el estado de los nzb al servidor
 			PelicanoHelper::sendPendingNzbStates();
 		}
