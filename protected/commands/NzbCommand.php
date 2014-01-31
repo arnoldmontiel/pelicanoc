@@ -30,6 +30,11 @@ class NzbCommand extends CConsoleCommand  {
 				{
 						
 					Log::logger('ANTES TRANSACCION');
+					try {
+						$transaction = $modelNzb->dbConnection->beginTransaction();
+					} catch (Exception $e) {
+						Log::logger('ERROR!!!!!' . $e->getMessage());
+					}
 					$transaction = $modelNzb->dbConnection->beginTransaction();
 					Log::logger('DESPUES TRANSACCION');
 					try {
