@@ -25,13 +25,14 @@ class NzbCommand extends CConsoleCommand  {
 				$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0));
 				
 				$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
+				Log::logger('NZB QTY:! '. count($arrayNbz));
 				foreach ($arrayNbz as $modelNzb)
 				{
 						
 					$transaction = $modelNzb->dbConnection->beginTransaction();
 						
 					try {
-				
+						Log::logger('DENTRO TRANSACCION!');
 						$modelMyMovieNzb = MyMovieNzb::model()->findByPk($modelNzb->myMovieDiscNzb->Id_my_movie_nzb);
 				
 						if($modelNzb->url!='')
