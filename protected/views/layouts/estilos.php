@@ -1847,9 +1847,34 @@ to {
 	.modalDetail {
 		width: 95%;
 	}
+	
+	.navbar-header {
+float: left;
 }
+	.navbar-right {
+float: right;
+}
+	.navbar-left {
+float: left;
+}
+.navbar-nav{margin:0px;}
+#menuSecond .navbar-form{padding: 10px 15px;
+padding-top:8px;
+margin-top: 0px;
+margin-right: -15px;
+margin-bottom: 0px;
+margin-left: -15px;
+border-top: 1px solid transparent;
+border-bottom: 1px solid transparent;
+-webkit-box-shadow:none;
+box-shadow: none;
+}}
+}
+
 
 @media only screen and (max-width: 767px) { /*esto arma el menu mobile*/
 	/* .mobile-two .span2 { width: 50% !important; float: left; padding: 0 15px; }*/
 }
+
+
 </style>
