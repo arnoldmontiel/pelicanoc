@@ -924,11 +924,17 @@ class SiteController extends Controller
 					ReadFolderHelper::generatePeliFilesES($idCurrentES);
 			}
 		}
-		$this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
-													'modelESDataPersonals'=>$modelESDataPersonals,
-													'idCurrentES'=>$idCurrentES,
-													'hardScanReady'=>$hardScanReady,
-													'label'=>$label));
+		//@@##$$%%^^&&** ESTO ES SOLO TEMPORAL PARA Q DELFI PONGA LOS ESTILOS
+// 		$this->renderPartial('_devicesStep2',array('modelESDatas'=>$modelESDatas,
+// 													'modelESDataPersonals'=>$modelESDataPersonals,
+// 													'idCurrentES'=>$idCurrentES,
+// 													'hardScanReady'=>$hardScanReady,
+// 													'label'=>$label));
+		$this->renderPartial('_devicesStep1',array('modelESDataDBs'=>$modelESDatas,
+				'ready'=>1,
+				'label'=>$label,
+				'idCurrentES'=>$idCurrentES));
+		
 		if($hardScanReady == 0)
 			echo CHtml::script("$('#hidden-second-scan-working').val(1);");
 		elseif($inProcess == 1)
