@@ -1,5 +1,4 @@
-<ul class="nav nav-tabs" id="myTab">
-<li class="dropdown deviceDropdown">
+<div class="devicesHeader clearfix"><div class="dropdown deviceDropdown pull-left">
           <a class="deviceDropdownName" id="drop" role="button" data-toggle="dropdown" href="#"><?php echo $label;?> <i class="fa fa-caret-down"></i></a>
            <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
 				<?php
@@ -10,26 +9,25 @@
 						{
 							$nameES = $modelCurrentES->label;
 							if($idCurrentES != $modelCurrentES->Id)
-								echo "<li id=".$modelCurrentES->Id." ><a onclick='changeDevice(".$modelCurrentES->Id.")'>".$nameES."</a><a type='button' class='ejectBTN btn btn-default'><i class='fa fa-eject'></i></a></li>";
+								echo "<li id=".$modelCurrentES->Id." ><a onclick='changeDevice(".$modelCurrentES->Id.")'>".$nameES."</a></li>";
 						}
 					}
 				?>        		
 		 </ul>
-        </li>
-  <li class="active pull-right"><a href="#tpeliculas" data-toggle="tab">Indique si alguno de estos archivos es un video personal, luego proceda a analizar el disco para encontrar las peliculas</a></li>
-</ul>  
-<div class="table-responsive">
-	<table class="table table-bordered">
+        </div>
+  <div class="pull-right justtext"><p>Indique si alguno de estos archivos es un video personal, luego proceda a analizar el disco para encontrar las peliculas</p></div>
+        </div>
+  <div class="table-responsive">
+	<table class="table tablaIndividual ">
     	<thead>
         	<tr>
-              <th>#</th>
-              <th>Nombre de Archivo</th>
-              <th>Titulo</th>
-              <th>Ruta</th>
-              <th>Es Video personal? 
+              <th width="5%" class="align-center">#</th>
+              <th>Archivo</th>
+              <th width="35%">T&iacute;tulo</th>
+              <th width="35%">
               	<div class="checkbox">
   					<label>
-    					<input type="checkbox" class="chkAllPersonal" value=""> Marcar Todos
+    					<input type="checkbox" class="chkAllPersonal" value=""> Es Video personal? 
   					</label>
 				</div>
 			  </th>
@@ -42,10 +40,10 @@
         	{
         		$index++;
         		echo CHtml::openTag("tr");
-	        		echo CHtml::openTag("td");
+	        		echo CHtml::openTag("td  class='align-center'");
 	        			echo $index;
 	        		echo CHtml::closeTag("td");
-	        		echo CHtml::openTag("td");
+	        		echo CHtml::openTag("td class='small'");
         				if(empty($modelESDataDB->file))
         				{
         					$paths = explode('/', $modelESDataDB->path);
@@ -56,11 +54,8 @@
         				else
         					echo $modelESDataDB->file;
 	        		echo CHtml::closeTag("td");
-	        		echo CHtml::openTag("td");
+	        		echo CHtml::openTag("td class='bold'");
 	        			echo $modelESDataDB->title;
-	        		echo CHtml::closeTag("td");
-	        		echo CHtml::openTag("td");
-	        			echo $modelESDataDB->path;
 	        		echo CHtml::closeTag("td");
 	        		echo CHtml::openTag("td");
 	        			if($modelESDataDB->is_personal == 1)

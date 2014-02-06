@@ -11,8 +11,7 @@
 <div id="scaningLabel" style="display:none"><h2><?php // echo $label;?> <i class="fa fa-spinner fa-spin"></i> Analizando...</h2></div>
 <div id="NoScaningLabel"><h2><?php // echo $label;?> </h2></div>
 <?php endif;?> 
-<ul class="nav nav-tabs" id="myTab">
-<li class="dropdown deviceDropdown">
+<div class="devicesHeader clearfix"><div class="dropdown deviceDropdown pull-left">
           <a class="deviceDropdownName" id="drop" role="button" data-toggle="dropdown" href="#"><?php echo $label;?> <i class="fa fa-caret-down"></i></a>
            <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
 				<?php
@@ -23,17 +22,17 @@
 						{
 							$nameES = $modelCurrentES->label;
 							if($idCurrentES != $modelCurrentES->Id)
-								echo "<li id=".$modelCurrentES->Id." ><a onclick='changeDevice(".$modelCurrentES->Id.")'>".$nameES."</a><a type='button' class='ejectBTN btn btn-default'><i class='fa fa-eject'></i></a></li>";
+								echo "<li id=".$modelCurrentES->Id." ><a onclick='changeDevice(".$modelCurrentES->Id.")'>".$nameES."</a></li>";
 						}
 					}
 				?>        		
 		 </ul>
-        </li>
-  <li class="pull-right"><a href="#tdesconocidos" data-toggle="tab">Desconocidos <span class="badge">0</span></a></li>
-  <li class="pull-right"><a href="#tvpersonales" data-toggle="tab">Videos Personales <span class="badge"><?php echo count($modelESDataPersonals); ?></span></a></li>
-  <li class="active pull-right"><a href="#tpeliculas" data-toggle="tab">Pel&iacute;culas <span class="badge"><?php echo count($modelESDatas); ?></span></a></li>
-</ul>
-
+        </div>
+<ul class="nav nav-tabs pull-right">
+  <li class="active"><a href="#tpeliculas" data-toggle="tab">Pel&iacute;culas <span class="badge"><?php echo count($modelESDatas); ?></span></a></li>
+  <li><a href="#tvpersonales" data-toggle="tab">Videos Personales <span class="badge"><?php echo count($modelESDataPersonals); ?></span></a></li>
+  <li><a href="#tdesconocidos" data-toggle="tab">Desconocidos <span class="badge">0</span></a></li>
+</ul>        </div>
 <div class="tab-content">
   <div class="tab-pane active" id="tpeliculas">
 
@@ -43,11 +42,9 @@
 	          <thead>
 	            <tr>
 	              <th width="5%" style="text-align:center;">#</th>
-	              <th width="30%" style="text-align:left;">Nombre</th>
-	             <!-- <th width="10%" style="text-align:left;">Editar</th> -->
-	              <th width="35%" style="text-align:left;">Ruta</th>
+	              <th width="55%" style="text-align:left;">Nombre</th>
 	              <th width="20%" style="text-align:left;">Estado</th>
-	              <th width="10%" style="text-align:right;"> <button type="button" id="copy-all-known" onclick="copyAll('knownTable')" <?php echo $disabled;?> class="btn btn-primary"><i class='fa fa-download'></i> Importar Todas</button></th>
+	              <th width="20%" style="text-align:right;"> <button type="button" id="copy-all-known" onclick="copyAll('knownTable')" <?php echo $disabled;?> class="btn btn-primary"><i class='fa fa-download'></i> Importar Todas</button></th>
 	            </tr>
 	          </thead>
 	          <tbody id="knownTable">
@@ -72,15 +69,8 @@
         					
 	        				echo CHtml::openTag("td");
 	        					echo "<div id='idTdName_".$modelESData->Id."' class='tablePeliTitle'>".$name."</div>";
+	        					echo "<div class='small' style='padding-top:5px;'>".$modelESData->file."</div>";
 	        					echo "<button type='button' id='idBtnAsoc_".$modelESData->Id."' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-default' " .ReadFolderHelper::getTdAsocEnabled($modelESData)."><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button>";
-	        				echo CHtml::closeTag("td");
-	        				
-	        				/*echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESData->Id));
-	        					echo "<button type='button' onclick='changeAsoc(".$modelESData->Id.")' class='btn btn-primary' " .ReadFolderHelper::getTdAsocEnabled($modelESData)."><i class='fa fa-link'></i> Asociacion</button>";
-	        				echo CHtml::closeTag("td");
-	        					*/
-	        				echo CHtml::openTag('td class="tdPath"');
-	        					echo $path;
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESData->Id));
@@ -100,14 +90,13 @@
 	        </div><!-- cierre panel Tab  -->
   <div class="tab-pane" id="tvpersonales">
       <div class="table-responsive">
-        <h3 class="tableTitle">Videos Personales</h3>
-        <table class="table tablaIndividual">
+    	<h3 class="tableTitle">Videos Personales <span class="pull-right">Finalizados 3 de 10</span><span class="pull-right">  &bull; </span><span class="pull-right">Importando 10 de 30</span></h3>
+              <table class="table tablaIndividual">
           <thead>
             <tr>
               <th width="5%" style="text-align:center;">#</th>
               <th width="30%" style="text-align:left;">Nombre</th>
-              <!-- <th width="10%" style="text-align:left;">Editar</th> -->
-              <th width="35%" style="text-align:left;">Ruta</th>
+              <th width="35%" style="text-align:left;">Archivo</th>
               <th width="20%" style="text-align:left;">Estado</th>
               <th width="10%" style="text-align:right;"> <button type="button" id="copy-all-personal" onclick="copyAll('personalTable')" <?php echo $disabled;?> class="btn btn-primary"><i class='fa fa-download'></i> Importar Todos</button></th>
             </tr>
@@ -137,12 +126,9 @@
 	        					echo "<button type='button' id='idBtnAsoc_".$modelESDataPersonal->Id."' ".ReadFolderHelper::getTdAsocEnabled($modelESDataPersonal)." onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-default open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Editar Nombre</button>";
 	        				echo CHtml::closeTag("td");
 	        				
-	        				/*echo CHtml::openTag("td",array('id'=>'idTdAsoc_'.$modelESDataPersonal->Id));
-	        					echo "<button type='button' ".ReadFolderHelper::getTdAsocEnabled($modelESDataPersonal)." onclick='changeName(".$modelESDataPersonal->Id.")' class='btn btn-primary open-change-name' data-toggle='modal'><i class='fa fa-pencil'></i> Nombre</button>";
-	        				echo CHtml::closeTag("td");*/
 	        					
 	        				echo CHtml::openTag('td class="tdPath"');
-	        					echo $path;
+	        					echo $modelESData->file;
 	        				echo CHtml::closeTag("td");
 	        				
 	        				echo CHtml::openTag("td",array('id'=>'idTdStatus_'.$modelESDataPersonal->Id));
@@ -162,14 +148,13 @@
         </div><!-- cierre panel Tab  -->
   <div class="tab-pane" id="tdesconocidos">
       <div class="table-responsive">
-        <h3 class="tableTitle">Desconocidos</h3>
-        <table class="table tablaIndividual">
+    	<h3 class="tableTitle">Desconocidos <span class="pull-right">No hay videos desconocidos.</span></h3>
+              <table class="table tablaIndividual">
           <thead>
             <tr>
               <th width="5%" style="text-align:center;">#</th>
               <th width="30%" style="text-align:left;">Nombre</th>
-             <!-- <th width="10%" style="text-align:left;">Editar</th> --> 
-              <th width="35%" style="text-align:left;">Ruta</th>
+              <th width="35%" style="text-align:left;">Archivo</th>
               <th width="20%" style="text-align:left;">Estado</th>
               <th width="10%" style="text-align:right;"> <button type="button" id="copy-all-unknown" onclick="copyAll('unknownTable')" <?php echo $disabled;?> class="btn btn-primary"><i class='fa fa-download'></i> Importar Todos</button></th>
             </tr>

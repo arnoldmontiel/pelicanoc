@@ -43,6 +43,8 @@
 	font-style: normal;
 }
 
+.bold{font-family:'GudeaBold';}
+
 a {
 	outline: 0 none !important;
 	color: #333;
@@ -1245,9 +1247,18 @@ input.searchMainMovie:-moz-placeholder::before {
 }
 
 .table.tablaIndividual th {
-	font-family: 'GudeaBold';
-	font-size: 16px;
-	color: #555;
+font-family: 600;
+font-size: 15px;
+line-height: 15px;
+color: #555;
+background-color: #ddd;
+}
+.table.tablaIndividual td.small{
+font-size:  90% !important;
+}
+
+.table.tablaIndividual th .checkbox label{
+vertical-align:sub;
 }
 
 .table.tablaIndividual thead>tr>th,.table.tablaIndividual tbody>tr>th,.table.tablaIndividual tfoot>tr>th,.table.tablaIndividual thead>tr>td,.table.tablaIndividual tbody>tr>td,.table.tablaIndividual tfoot>tr>td
@@ -1256,29 +1267,49 @@ input.searchMainMovie:-moz-placeholder::before {
 	padding: 5px;
 }
 
+.devicesHeader{color:white; vertical-align:middle; margin-bottom:-1px;}
+.devicesHeader .pull-right{display:flex; min-height:40px; vertical-align:middle;}
+.devicesHeader .pull-right.justtext{ text-align:right; width:420px;}
+.devicesHeader .pull-right p{ vertical-align:middle; margin:auto;}
+.devicesHeader .nav-tabs{margin-top:10px; border-bottom:0px transparent; font-size:16px;}
 .deviceDropdownName {
 	border: 0px none !important;
-	font-size: 24px;
+	font-size: 28px;
 	padding: 5px;
+	margin-bottom:10px;
 	border: 0px none;
 	font-weight: 100;
 	color: #ddd;
 	margin: 0px;
 	text-shadow: 0 1px 3px #000;
 	font-family: 'GudeaRegular', Arial, sans-serif;
+	display:inline-table;
 }
 
+.dropdown-menu li a{cursor:pointer;}
+.deviceDropdown .dropdown-menu>li>a{font-size:16px;}
+.deviceDropdown{	margin-bottom:10px;}
 .deviceDropdown i {
 	margin-left: 10px;
 	margin-right: 5px;
 }
 
+.deviceDropdown:hover {
+text-decoration:none !important;
+background-color:none !important;
+}
+.deviceDropdown.open .deviceDropdownName{
+text-decoration:none !important;
+border-radius:5px;
+}
 .deviceDropdown:hover .deviceDropdownName {
-	
+text-decoration:none;
+background-color:none;
 }
 
 .deviceDropdownName:hover {
 	background-color: #fff !important;
+	border-radius:5px;
 	border: 0px none;
 	color: #666;
 	text-shadow: none;
@@ -1290,6 +1321,7 @@ input.searchMainMovie:-moz-placeholder::before {
 	color: #666 !important;
 	text-shadow: none;
 }
+
 
 #wizardDispositivos .nav-tabs .pull-right {
 	margin-top: 10px;
@@ -1778,9 +1810,35 @@ to {
 		/*width:70%;*/
 		
 	}
+		
 }
+
+/*ALL MOBILE*/
+@media ( max-width : 1024px){
+
+.table.tablaIndividual th {
+font-family: 600;
+font-size: 18px;
+line-height: 18px;
+}
+
+.table.tablaIndividual td {
+font-size: 17px;
+line-height: 17px;
+}
+
+#Menu, #menuSecond{
+font-size:  110% !important;
+}
+
+.deviceDropdown .dropdown-menu>li>a{font-size:18px;}
+
+.justtext{font-size:16px;}
+
+}
+
 /*IPAD LANDSCAPE*/
-@media ( min-width : 768px) and (max-width: 1024px) {
+@media ( min-width : 769px) and (max-width: 1024px) {
 	.controlContainer {
 		width: 100%;
 	}
@@ -1798,6 +1856,8 @@ to {
 		right: -103px;
 		bottom: 84px;
 	}
+		.devicesHeader .nav-tabs{font-size:115%;}
+	
 }
 
 /*IPAD PORTRAIT*/
@@ -1868,7 +1928,11 @@ border-top: 1px solid transparent;
 border-bottom: 1px solid transparent;
 -webkit-box-shadow:none;
 box-shadow: none;
-}}
+}
+
+	.devicesHeader .nav-tabs{font-size:15px;}
+
+
 }
 
 
