@@ -284,8 +284,9 @@ class FolderCommand extends CConsoleCommand  {
 				else
 				{
 					try {
-						Log::logger("starting cp -fr ".$source . " " .$destinationPath);
-						exec("cp -fr ".escapeshellarg($source) . " " .escapeshellarg($destinationPath), $output, $return_var);
+						Log::logger("starting cp -fr ".$source . " " .$destinationPath);						
+						//exec("cp -fr ".escapeshellarg($source) . " " .escapeshellarg($destinationPath), $output, $return_var);
+						exec("rsync -r --exclude \".@__thumb\" ".escapeshellarg($source) . " " .escapeshellarg($destinationPath), $output, $return_var);
 						Log::logger("cp -fr ".$source . " " .$destinationPath);
 						Log::logger("cp return_var: ". $return_var);
 						if($return_var == 0)
