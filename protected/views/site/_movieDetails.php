@@ -46,17 +46,17 @@
  		}
  			
 		?>	    
-    <div class="modal-header">
+     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
     <h4 class="modal-title"><?php echo $model->original_title;?></h4>
     </div>
     <div class="modal-body"> 
     <div class="row">
-    <div class="col-md-3 hidden-sm align-center">
+    <div class="col-md-3 col-sm-3 align-center">
     <img class="aficheDetail" src="images/<?php echo $moviePoster;?>" width="100%" height="100%" border="0">
     </div><!--/.col-md-3PRINCIPAL -->
         
-    <div class="col-md-9 col-sm-12">
+    <div class="col-md-9 col-sm-9">
     <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
@@ -168,34 +168,32 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	<div class="tab-pane" id="tab2">
     
     <div class="row detailSecondGroup">
-    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
     TAMA&Ntilde;O EN DISCO
-	</div><!--/.col-md-3 -->
-    <div class="col-md-9 col-sm-9 align-left detailSecond">
+	</div><!--/.col-md-4 -->
+    <div class="col-md-8 col-sm-8 align-left detailSecond">
 	<?php echo $size;?>
-	</div><!--/.col-md-9 -->
+	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
 		    
     <div class="row detailSecondGroup">
-    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
+    <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
     BORRAR
-	</div><!--/.col-md-3 -->
-    <div class="col-md-9 col-sm-9 align-left detailSecond">
+	</div><!--/.col-md-4 -->
+    <div class="col-md-8 col-sm-8 align-left detailSecond">
 	<!--<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>-->
 	<!--<button id="btn-eraser-popover" class="popover fade bottom in"><i class="fa fa-eraser fa-lg"></i></button>-->
-	
 	<a href="#" id="btn-eraser-popover" class="" ><i id="btn-eraser" class="fa fa-eraser fa-lg"></i></a>
-
-	</div><!--/.col-md-9 -->
+	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
 	
 	<div class="row detailSecondGroup">
-    	<div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
+    	<div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
     		EDITAR
-		</div><!--/.col-md-3 -->
-    	<div class="col-md-9 col-sm-9 align-left detailSecond">
+		</div><!--/.col-md-4 -->
+    	<div class="col-md-8 col-sm-8 align-left detailSecond">
 		<a id="btn-edit" href="#" id="btn-eraser-popover" class="" ><i  class="fa fa-pencil fa-lg pointer"></i></a>    	
-		</div><!--/.col-md-9 -->
+		</div><!--/.col-md-8 -->
 	</div><!--/.row -->
 	
 	</div><!--/.tab-pane#2 -->

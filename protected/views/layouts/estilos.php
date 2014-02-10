@@ -832,7 +832,6 @@ input.searchMainMovie:-moz-placeholder::before {
 .modalDetail {
 	width: 85%;
 }
-
 .modalDetail table button {
 	margin-top: -3px;
 }
@@ -841,8 +840,7 @@ input.searchMainMovie:-moz-placeholder::before {
 	padding: 0px 8px;
 	/*line-height: 45px;*/
 }
-
-.modalDetail .alert{margin:15px; margin-top:0px; margin-bottom:0px;}
+.modalDetail .alert{margin:15px;}
 .modalDetail .table.tablaIndividual{margin-bottom:20px; border-bottom:1px solid #eee;}
 .alert h4{font-size:18px; font-family:'GudeaBold';}
 .alert .fa-ul i{line-height:20px;}
@@ -905,6 +903,21 @@ input.searchMainMovie:-moz-placeholder::before {
 	overflow-y: auto;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
+}
+
+.modalDetail .tab-pane.tabInfo {
+	max-height: auto;
+	height:auto;
+}
+.modalSerie .aficheDetail{margin-top:20px;}
+
+.modalDetail .tab-pane.tabInfo .tabInfoScroll {
+	max-height: 390px;
+	overflow-y: auto;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	padding-top:20px;
+	padding-right:20px;
 }
 
 .tableInfo .row {
@@ -1329,10 +1342,6 @@ background-color:none;
 
 .nav-tabs>li>a {
 	color: #999;
-}
-.nav-tabs>li {
-float: left;
-margin-bottom: 0px;
 }
 
 .nav-tabs>li.active>a {
