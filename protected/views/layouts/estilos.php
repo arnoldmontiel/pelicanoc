@@ -122,15 +122,13 @@ body {
 	
 	}
 
-.wrapper {/*
-	-webkit-overflow-scrolling: touch;*/
+.wrapper {/**/
+	-webkit-overflow-scrolling: touch;
 	overflow: auto;  
 	height: 100%;
 	padding: 20px 20px;
 	}
-	
-.container {
-}
+
 
 body.modal-open {
 	overflow: hidden;
@@ -146,7 +144,7 @@ body #screenHome {
 }
 
 body #screenSeries {
-	padding-top: 70px;
+	padding-top: 120px;
 }
 
 body #screenMarketplace {
@@ -841,15 +839,13 @@ input.searchMainMovie:-moz-placeholder::before {
 
 .modalDetail .table tbody>tr>td {
 	padding: 0px 8px;
-	line-height: 45px;
+	/*line-height: 45px;*/
 }
 
-.modalDetail .table thead>tr>th,.modalDetail .table tbody>tr>th,.modalDetail .table tfoot>tr>th,.modalDetail .table thead>tr>td,.modalDetail .table tfoot>tr>td
-	{
-	padding: 0px 8px;
-	line-height: 38px;
-	font-family: 'GudeaBold';
-}
+.modalDetail .alert{margin:15px; margin-top:0px; margin-bottom:0px;}
+.modalDetail .table.tablaIndividual{margin-bottom:20px; border-bottom:1px solid #eee;}
+.alert h4{font-size:18px; font-family:'GudeaBold';}
+.alert .fa-ul i{line-height:20px;}
 
 .modalDetail .modal-body .row {
 	line-height: 26px;
@@ -904,16 +900,11 @@ input.searchMainMovie:-moz-placeholder::before {
 	
 }
 
-#tab1 {
+.modalDetail .tab-pane {
 	max-height: 390px;
 	overflow-y: auto;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
-}
-
-#tab2 {
-	overflow-y: visible;
-	overflow-x: visible;
 }
 
 .tableInfo .row {
@@ -1247,18 +1238,23 @@ input.searchMainMovie:-moz-placeholder::before {
 }
 
 .table.tablaIndividual th {
-font-family: 600;
+font-weight: 600;
 font-size: 15px;
 line-height: 15px;
 color: #555;
 background-color: #ddd;
 }
+
+.table.tablaIndividual th .radio, .table.tablaIndividual th .checkbox{
+margin:0px;
+}
+
 .table.tablaIndividual td.small{
 font-size:  90% !important;
 }
 
 .table.tablaIndividual th .checkbox label{
-vertical-align:sub;
+vertical-align:middle;
 }
 
 .table.tablaIndividual thead>tr>th,.table.tablaIndividual tbody>tr>th,.table.tablaIndividual tfoot>tr>th,.table.tablaIndividual thead>tr>td,.table.tablaIndividual tbody>tr>td,.table.tablaIndividual tfoot>tr>td
@@ -1333,6 +1329,10 @@ background-color:none;
 
 .nav-tabs>li>a {
 	color: #999;
+}
+.nav-tabs>li {
+float: left;
+margin-bottom: 0px;
 }
 
 .nav-tabs>li.active>a {
