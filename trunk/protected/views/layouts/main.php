@@ -44,6 +44,7 @@ $(function() {
 //.on('hidden.bs.modal', '.modal', function () { $("div").removeClass('modal-open') })
 
 </script>
+
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 	<?php include('estilos.php');?>
 
@@ -184,7 +185,7 @@ $(document).ready(function(){
 	
 	
 	$('#nav li').removeClass('active');
-	if(document.URL.indexOf('Serie') > 0)
+	if(document.URL.indexOf('indexserie') > 0)
 		$('#li-serie').addClass('active');
 	else if(document.URL.indexOf('marketplace') > 0)
 		$('#li-marketplace').addClass('active');
@@ -320,8 +321,9 @@ $(document).ready(function(){
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 		id="pushMain">
 		<div class="cbp-title">Menu</div>
-		<a class="toggle-menu close-menu"> <i class="fa fa-times-circle"></i>
-		</a> <a href="index.php">Mis Peliculas</a> <a href="#">Mis Series</a>
+		<a class="toggle-menu close-menu"> <i class="fa fa-times-circle"></i></a>
+		<a href="index.php">Mis Peliculas</a> 
+		<a href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a>
 		<a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a>
 		<a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a>
 		<a href="<?php echo SiteController::createUrl('site/devices') ?>"
@@ -352,7 +354,7 @@ $(document).ready(function(){
 			<div class="nav navbar-nav navbar-left hidden-sm hidden-xs">
 				<ul class="nav navbar-nav hidden-sm" id="nav">
 					<li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
-					<li id="li-serie"><a href="#">Mis Series</a></li>
+					<li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a></li>
 					<li id="li-marketplace"><a
 						href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 					<li id="li-download"><a
