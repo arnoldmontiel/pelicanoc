@@ -399,8 +399,7 @@ $(document).ready(function(){
 				<button type="button"
 					class="btn btn-default navbar-btn btnReproduciendo"
 					data-toggle="modal" data-target="#myModalReproduciendo">
-					Reproduciendo <span class="badge">3</span><i
-						class="fa fa-caret-down fa-fw"></i>
+					Reproduciendo <span class="badge">3</span><iclass="fa fa-caret-down fa-fw"></i>
 				</button>
 			</div>
 			<!-- /.navbarRproduciendo -->
