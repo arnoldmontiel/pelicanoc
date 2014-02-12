@@ -115,48 +115,57 @@ body {
 		0%, rgba(89, 89, 89, 1) 100%); /* IE10+ */
 	background: radial-gradient(ellipse at center, rgba(198, 198, 198, 1) 0%,
 		rgba(89, 89, 89, 1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6',
-		endColorstr='#595959', GradientType=1);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
 	
 	}
 
-.wrapper {/**/
-	-webkit-overflow-scrolling: touch;
-	overflow: auto;  
-	height: 100%;
-	padding: 20px 20px;
-	}
 
-
-body.modal-open {
-	overflow: hidden;
-	position: fixed;
+/* no ncesesarios?
+body{overflow:hidden; height:100%; width:100%;}
+html{overflow:hidden; height:100%; width:100%;}
+*/
+body #content {
+height:100%;
+position:fixed;
+top:0px; left:0px; right:0px; bottom:0px;
+overflow:hidden;
 }
-body.modal-open .wrapper { 
-	overflow: hidden;
-	position: fixed;
+.modal-open #content {
+height:100%;
+overflow:hidden;
+}
+
+body .container{
+ display: block;
+ height:auto;
+overflow:auto;
+position:absolute;
+top:80px;
+bottom:0px;
+-webkit-overflow-scrolling: touch;
+ }
+.modal-open .container {
+overflow:hidden;
 }
 
 body #screenHome {
-	padding-top: 120px;
+top:130px;
 }
 
 body #screenSeries {
-	padding-top: 120px;
+top:120px;
 }
 
 body #screenMarketplace {
-	padding-top: 70px;
+top:130px;
 }
 
 body #screenDescargas {
-	padding-top: 70px;
 }
 
 body #screenDevices {
-	padding-top: 70px;
 }
 
 body #screenControl {
@@ -164,16 +173,9 @@ body #screenControl {
 }
 
 body #screenEditMovie {
-	padding-top: 70px;
 }
 
-body #screenMarketplace #content {
-	padding-bottom: 40px;
-}
 
-body #screenDescargas #content {
-	padding-bottom: 40px;
-}
 
 /* ----- NEW BUTTONS ------*/
 .btn-primary {
@@ -224,6 +226,24 @@ body #screenDescargas #content {
 	background-color: #ebebeb;
 	border-color: #ccc;
 	color: #888;
+}
+
+.alert-info{
+background-color:#D0E6DF;
+border-color:#D0E6DF;
+color:#027871;
+}
+
+.label-success{
+background-color:#92CD00;
+border-color:#92CD00;
+color:white;
+}
+
+.label-primary{
+background-color:#26ada1;
+border-color:#26ada1;
+color:white;
 }
 
 .scrollable-list {
@@ -433,6 +453,60 @@ ul.nav {
 	vertical-align: middle;
 }
 /* ------ SECOND MENU / NAV BAR ------- */
+
+.secondNavFixedTop{top:80px; width:100%; position:Absolute; z-index:1099;}
+.secondNavFixedTop h2{height:48px;}
+.secondNavFixedTop #filtroGenero{margin-top:0px;}
+.secondNavFixedTop .btn{margin:0px; margin-top:-2px; margin-left:20px;}
+.secondNavFixedTop #toggleMarketplace{margin-top:2px; margin-left:0px;}
+
+
+.changeType {margin-right:30px;}
+
+.searchMain .navbar-form{margin-top:3px;}
+.searchMain input{
+	width: 250px;
+}
+
+.searchMain input::-webkit-input-placeholder::before {
+	font-family: FontAwesome;
+	content: '\f002';
+}
+
+.searchMain input::-moz-placeholder::before {
+	font-family: FontAwesome;
+	content: '\f002';
+} /* firefox 19+ */
+.searchMain input:-ms-input-placeholder::before {
+	font-family: FontAwesome;
+	content: '\f002';
+} /* ie */
+.searchMain input:-moz-placeholder::before {
+	font-family: FontAwesome;
+	content: '\f002';
+}
+
+.pushMenuActive{position:relative;}
+
+.pushMenuActive:before {
+        position:absolute;
+		font-family: FontAwesome;
+        top:0;
+        right:10px;
+        top:50%;
+        margin-top:-8px;
+        content: '\f00c';
+    }
+.cbp-spmenu .pushMenuSuperGroup{height:100%; padding-bottom:50px;overflow:auto; -webkit-overflow-scrolling:touch;}
+.cbp-spmenu .pushMenuGroup{border-bottom:1px solid #ccc;padding-top:10px;}
+.cbp-spmenu .pushMenuGroup .pushMenuGroupTitle{
+padding-left:15px;
+padding-bottom:0px;
+font-size: 16px;
+font-weight: 700;
+color: #bbb;
+text-transform: uppercase;
+letter-spacing: 2px;}
 #menuSecond {
 	top: 65px;
 	margin-right: 20px;
@@ -652,27 +726,6 @@ h3.popover-title {
 	margin-bottom: 10px;
 }
 
-.searchMainMovie {
-	width: 250px;
-}
-
-.searchMainMovie ::-webkit-input-placeholder::before {
-	font-family: FontAwesome;
-	content: '\f002';
-}
-
-.searchMainMovie ::-moz-placeholder::before {
-	font-family: FontAwesome;
-	content: '\f002';
-} /* firefox 19+ */
-.searchMainMovie :-ms-input-placeholder::before {
-	font-family: FontAwesome;
-	content: '\f002';
-} /* ie */
-input.searchMainMovie:-moz-placeholder::before {
-	font-family: FontAwesome;
-	content: '\f002';
-}
 
 #wall {
 	text-align: center;
@@ -778,10 +831,6 @@ input.searchMainMovie:-moz-placeholder::before {
 }
 
 	/* ------ BODY / MAIN LAYOUT ------- */
-	/* ------ MARKETPLACE ------- */ #screenMarketplace .peliTitulo {
-	margin-top: 0px;
-}
-/* ------ END MARKETPLACE ------- */
 
 /* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
 .modal {
@@ -868,7 +917,7 @@ input.searchMainMovie:-moz-placeholder::before {
 
 .detailMain {
 	font-size: 120%;
-	border-left: 1px solid #ccc; # ccc;
+	border-left: 1px solid #ccc; 
 	padding-top: 3px;
 	height: 35px;
 	line-height: 30px;
@@ -885,7 +934,7 @@ input.searchMainMovie:-moz-placeholder::before {
 
 .detailSecond {
 	font-size: 100%;
-	border-left: 1px solid #ccc; # ccc;
+	border-left: 1px solid #ccc;
 	padding-top: 4px;
 	padding-left: 5px;
 }
@@ -1031,7 +1080,6 @@ input.searchMainMovie:-moz-placeholder::before {
 .controlFlechas {
 	width: 235px;
 	margin-bottom: 20px;
-	margin-right:
 }
 
 .flechasArriba {
@@ -1167,6 +1215,10 @@ input.searchMainMovie:-moz-placeholder::before {
 /*-------- END CONTROL REMOTO --------------*/
 
 /* ----- MARKETPLACE --------*/
+#screenMarketplace .peliTitulo {
+	margin-top: 0px;
+}
+
 #screenMarketplace .nav-pills {
 	margin-bottom: 10px;
 	display: inline-block;
@@ -1177,6 +1229,10 @@ input.searchMainMovie:-moz-placeholder::before {
 	background-color: transparent;
 }
 
+
+.scrollItems{
+          display: table-cell; }
+          
 .botonTodas {
 	float: right;
 	margin-right: 30px;
@@ -1655,6 +1711,7 @@ ul.thumbnails.image_picker_selector {
 /*---------- END EDIT PELICULA -------------*/
 
 /*---------- TEXTO MARQUESINA -------------*/
+
 p.slide-text26 {
 	position: relative;
 	animation: mymove26 2s infinite;
@@ -1694,107 +1751,26 @@ p.slide-text41 {
 	width: auto;
 	white-space: nowrap;
 }
-
 @
-keyframes mymove26 {
-	from {right: 0px;
-}
-
-to {
-	right: 18px;
-}
-
-}
+keyframes mymove26 {	from {right: 0px;}  to {right: 18px;} }
 @
--webkit-keyframes mymove26 /*Safari and Chrome*/ {
-	from {right: 0px;
-}
-
-to {
-	right: 18px;
-}
-
-}
+-webkit-keyframes mymove26 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 18px;} }
 @
-keyframes mymove30 {
-	from {right: 0px;
-}
-
-to {
-	right: 70px;
-}
-
-}
+keyframes mymove30  {	from {right: 0px;}  to {right: 70px;} }
 @
--webkit-keyframes mymove30 /*Safari and Chrome*/ {
-	from {right: 0px;
-}
-
-to {
-	right: 70px;
-}
-
-}
+-webkit-keyframes mymove30 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 70px;} }
 @
-keyframes mymove35 {
-	from {right: 0px;
-}
-
-to {
-	right: 80px;
-}
-
-}
+keyframes mymove35  {	from {right: 0px;}  to {right: 80px;} }
 @
--webkit-keyframes mymove35 /*Safari and Chrome*/ {
-	from {right: 0px;
-}
-
-to {
-	right: 80px;
-}
-
-}
+-webkit-keyframes mymove35 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 80px;} }
 @
-keyframes mymove40 {
-	from {right: 0px;
-}
-
-to {
-	right: 100px;
-}
-
-}
+keyframes mymove40  {	from {right: 0px;}  to {right: 100px;} }
 @
--webkit-keyframes mymove40 /*Safari and Chrome*/ {
-	from {right: 0px;
-}
-
-to {
-	right: 100px;
-}
-
-}
+-webkit-keyframes mymove40 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 100px;} }
 @
-keyframes mymove41 {
-	from {right: 0px;
-}
-
-to {
-	right: 150px;
-}
-
-}
+keyframes mymove41  {	from {right: 0px;}  to {right: 150px;} }
 @
--webkit-keyframes mymove41 /*Safari and Chrome*/ {
-	from {right: 0px;
-}
-
-to {
-	right: 150px;
-}
-
-}
+-webkit-keyframes mymove41 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 150px;} }
 /*-------------- END TEXTO MARQUESINA -------------- */
 
 /*-------------------------------------------------------------------------------*/

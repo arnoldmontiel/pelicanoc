@@ -308,7 +308,6 @@ $(document).ready(function(){
 
 });
 
-
 </script>
 
 </head>
@@ -318,6 +317,7 @@ $(document).ready(function(){
 <input id="current-filter" type="hidden" name="current-filter" value="*">
 <input id="search-filter" type="hidden" name="search-filter" value="">
 <body class="cbp-spmenu-push">
+<!-- /////////MENU LATERAL MAIN///////// -->
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 		id="pushMain">
 		<div class="cbp-title">Menu</div>
@@ -330,10 +330,10 @@ $(document).ready(function(){
 			id="popover-disp">Dispositivos <span id="devicesQty"
 			style="display: none" class="badge"></span></a>
 	</nav>
-	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-		id="pushGenero">
+<!-- /////////////////////////////////////// -->
+<!-- /////////MENU LATERAL GENEROS///////// -->
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushGenero">
 		<div class="cbp-title">Filtrar por G&eacute;nero</div>
-		<a class="toggle-menuGenero close-menu"><i class="fa fa-times-circle"></i></a>
 		<div class="list-group">
 			<a href="#" class="list-group-item active">Romance</a> <a href="#"
 				class="list-group-item">Drama</a> <a href="#"
@@ -342,6 +342,40 @@ $(document).ready(function(){
 				class="list-group-item">Thriller</a>
 		</div>
 	</nav>
+<!-- /////////////////////////////////////// -->
+<!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushMarketplace">
+		<div class="cbp-title">Filtrar B&uacute;squeda</div>
+		<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
+		<div class="pushMenuSuperGroup">
+		<div class="pushMenuGroup">
+		<a class="pushMenuActive" href="#">Estrenos</a>
+		<a href="#">Populares</a>
+		<a href="#">Recomendadas</a>
+		</div>
+		<div class="pushMenuGroup">
+		<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
+		<a href="#">Comedia</a>
+		<a href="#">Drama</a>
+		<a href="#">Romance</a>
+		<a href="#">Thriller</a>
+		</div>
+		<div class="pushMenuGroup">
+		<div class="pushMenuGroupTitle">A&Ntilde;O</div>
+		<a href="#">2013</a>
+		<a href="#">2012</a>
+		<a href="#">2010</a>
+		</div>
+		<div class="pushMenuGroup">
+		<div class="pushMenuGroupTitle">IDIOMA</div>
+		<a href="#">Todos</a>
+		<a href="#">Arabe</a>
+		<a href="#">Espa&ntilde;ol</a>
+		<a href="#">Arabe</a>
+		</div>
+		</div>
+	</nav>
+<!-- /////////////////////////////////////// -->
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
 		id="Menu">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -411,7 +445,7 @@ $(document).ready(function(){
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
  
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+<!-- <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
 		id="menuSecond">
 		<div class="container-fluid">
 			<div class="nav navbar-nav navbar-left">
@@ -437,13 +471,40 @@ $(document).ready(function(){
 			</form>
 		</div>
 	</nav>
-	
+	 -->
+	 
+	 <div class="secondNavFixedTop clearfix">
+<h2 class="sliderTitle pull-left">Pel&iacute;culas</h2> 			
+			<div class="pull-left">
+		<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
+					<li class="generoItem active"><a href="#" data-filter="*">Todas</a></li>
+					<li class="generoItem"><a href="#" data-filter=".comedy">Comedia</a></li>
+					<li class="generoItem"><a href="#" data-filter=".drama">Drama</a></li>
+					<li class="generoItem"><a href="#" data-filter=".romance">Romance</a></li>
+					<li class="generoItem"><a href="#" data-filter=".fantasy">Fantasia</a></li>
+				</ul>
+				<button
+					class="toggle-menu menu-left btn btn-default navbar-btn visible-xs visible-sm"
+					id="toggleGenero">
+					<i class="fa fa-filter fa-fw"></i> Genero
+				</button>
+			</div>
+			<div class="searchMain pull-right">
+			<form class="navbar-form navbar-right" role="search">
+				<div class="form-group">
+					<input id="main-search" type="text"
+						class="form-control form-search"
+						placeholder=" Buscar Pel&iacute;cula">
+				</div>
+			</form>
+			</div>
+</div>
 <?php endif; ?>
-<div class="wrapper">
+<!-- <div class="wrapper"> -->
 
 	<?php echo $content; ?>        
-    </div>
-	<!-- end wrapper -->
+   <!-- </div>
+	 end wrapper -->
 	<div id="myModalEditName" class="modal fade in"></div>
 	<div id="myModalEditarAsoc" class="modal fade in" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
@@ -628,6 +689,15 @@ jQuery(document).ready(function($) {
 	$('#toggleGenero.toggle-menu').jPushMenu({
 		closeOnClickOutside:false,
 		menu: '#pushGenero'});
+
+	$('#toggleMarketplace.toggle-menu').jPushMenu({
+		closeOnClickOutside:false,
+		menu: '#pushMarketplace'});
+
+	$( "#pushMarketplace a" ).click(function() {
+		  $( this ).toggleClass( "pushMenuActive" );
+		  		});
+
 });
 </script>
 </body>
