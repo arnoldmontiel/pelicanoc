@@ -334,17 +334,18 @@ $(document).ready(function(){
 <!-- /////////MENU LATERAL GENEROS///////// -->
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushGenero">
 		<div class="cbp-title">Filtrar por G&eacute;nero</div>
-		<div class="list-group">
-			<a href="#" class="list-group-item active">Romance</a> <a href="#"
-				class="list-group-item">Drama</a> <a href="#"
-				class="list-group-item">Accion</a> <a href="#"
-				class="list-group-item">Terror</a> <a href="#"
-				class="list-group-item">Thriller</a>
+		<div class="pushMenuSuperGroup">
+		<div class="pushMenuGroup">
+		<a class="pushMenuActive" href="#" data-filter="*">Todos</a>
+		<a href="#" data-filter=".comedy">Comedia</a>
+		<a href="#" data-filter=".romance">Romance</a>
+		<a href="#" data-filter=".fantasy">Fantas&iacute;a</a>
+		</div>
 		</div>
 	</nav>
 <!-- /////////////////////////////////////// -->
 <!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
-	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushMarketplace">
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="pushMarketplace">
 		<div class="cbp-title">Filtrar B&uacute;squeda</div>
 		<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 		<div class="pushMenuSuperGroup">
@@ -445,7 +446,7 @@ $(document).ready(function(){
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
  
 
-<!-- <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+ <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
 		id="menuSecond">
 		<div class="container-fluid">
 			<div class="nav navbar-nav navbar-left">
@@ -463,7 +464,7 @@ $(document).ready(function(){
 				</button>
 			</div>
 			<form class="navbar-form navbar-right" role="search">
-				<div class="searchMainMovie form-group">
+				<div class="searchMain form-group">
 					<input id="main-search" type="text"
 						class="form-control form-search"
 						placeholder=" Buscar Pel&iacute;cula">
@@ -471,9 +472,8 @@ $(document).ready(function(){
 			</form>
 		</div>
 	</nav>
-	 -->
 	 
-	 <div class="secondNavFixedTop clearfix">
+	<!-- <div class="secondNavFixedTop clearfix">
 <h2 class="sliderTitle pull-left">Pel&iacute;culas</h2> 			
 			<div class="pull-left">
 		<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
@@ -499,6 +499,7 @@ $(document).ready(function(){
 			</form>
 			</div>
 </div>
+	 -->
 <?php endif; ?>
 <!-- <div class="wrapper"> -->
 
@@ -640,8 +641,25 @@ jQuery(document).ready(function($) {
 		closeOnClickOutside:false,
 		menu: '#pushMarketplace'});
 
-	$( "#pushMarketplace a" ).click(function() {
+	$( "#pushMarketplace .pushMenuSuperGroup a" ).click(function() {
 		  $( this ).toggleClass( "pushMenuActive" );
+		  return false;
+		  		});
+	$( "#pushGenero .pushMenuSuperGroup a" ).click(function() {
+		 $(this).addClass('pushMenuActive').siblings().removeClass('pushMenuActive');
+		  //Para marcar mas de uno:
+		  //$( this ).toggleClass( "pushMenuActive" );
+		  var selector = $(this).attr("data-filter");
+		   
+		  $('#media-type-filter').val(selector);
+		  $('#current-filter').val(selector);
+		  
+		  //clean search filter
+		  $('#search-filter').val(null);
+		  $('#index_search').val(null);
+
+		  $('#wall .items').infinitescroll('retrieve');  
+		  $('#wall .items').isotope({ filter: selector });
 		  		});
 
 });

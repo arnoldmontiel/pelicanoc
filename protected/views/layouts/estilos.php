@@ -93,6 +93,7 @@ button {
 }
 
 html {
+padding:0px; margin:0px;
 }
 
 body {
@@ -118,7 +119,6 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
-	
 	}
 
 
@@ -139,11 +139,8 @@ overflow:hidden;
 
 body .container{
  display: block;
- height:auto;
+ height:100%;
 overflow:auto;
-position:absolute;
-top:80px;
-bottom:0px;
 -webkit-overflow-scrolling: touch;
  }
 .modal-open .container {
@@ -151,15 +148,18 @@ overflow:hidden;
 }
 
 body #screenHome {
-top:130px;
+padding-top:130px;
+padding-bottom:20px;
 }
 
 body #screenSeries {
-top:120px;
+padding-top:130px;
+padding-bottom:20px;
 }
 
 body #screenMarketplace {
-top:130px;
+padding-top:130px;
+padding-bottom:20px;
 }
 
 body #screenDescargas {
@@ -271,25 +271,6 @@ color:white;
 	background-color: #eee;
 	color: #666;
 }
-
-/* hack to avoid backround from scrolling when modal open */
-/*
-#wall.modal-openw  {
-    overflow: hidden;
-}
-.superWrapper.modal-opens  {
-    overflow: hidden;
-    position:fixed;
-}
-html.modal-openh  {
-ooverflow:hidden;
-}
-
-body.modal-open {
-position:relative !important	;
-}
-*/
-/* end of hack */
 
 /* ------ MAIN MENU / NAV BAR ------- */
 .cbp-spmenu {
@@ -463,7 +444,10 @@ ul.nav {
 
 .changeType {margin-right:30px;}
 
-.searchMain .navbar-form{margin-top:3px;}
+.searchMain.marketplace{
+	margin-right: 10px;
+}
+
 .searchMain input{
 	width: 250px;
 }
@@ -486,27 +470,7 @@ ul.nav {
 	content: '\f002';
 }
 
-.pushMenuActive{position:relative;}
 
-.pushMenuActive:before {
-        position:absolute;
-		font-family: FontAwesome;
-        top:0;
-        right:10px;
-        top:50%;
-        margin-top:-8px;
-        content: '\f00c';
-    }
-.cbp-spmenu .pushMenuSuperGroup{height:100%; padding-bottom:50px;overflow:auto; -webkit-overflow-scrolling:touch;}
-.cbp-spmenu .pushMenuGroup{border-bottom:1px solid #ccc;padding-top:10px;}
-.cbp-spmenu .pushMenuGroup .pushMenuGroupTitle{
-padding-left:15px;
-padding-bottom:0px;
-font-size: 16px;
-font-weight: 700;
-color: #bbb;
-text-transform: uppercase;
-letter-spacing: 2px;}
 #menuSecond {
 	top: 65px;
 	margin-right: 20px;
@@ -516,7 +480,7 @@ letter-spacing: 2px;}
 	padding-right: 8px;
 	padding-left: 8px;
 	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px; background-color:#e7e7e7;
 }
 
 #menuSecond .navbar-collapse {
@@ -560,6 +524,29 @@ letter-spacing: 2px;}
 /* ------ END MENU ------- */
 
 /* ------ MOBILE MENU ------- */
+
+.pushMenuActive{position:relative;}
+
+.pushMenuActive:before {
+        position:absolute;
+		font-family: FontAwesome;
+        top:0;
+        right:10px;
+        top:50%;
+        margin-top:-8px;
+        content: '\f00c';
+    }
+.cbp-spmenu .pushMenuSuperGroup{height:100%; padding-bottom:50px;overflow:auto; -webkit-overflow-scrolling:touch;}
+.cbp-spmenu .pushMenuGroup{border-bottom:1px solid #ddd;padding-top:10px;}
+.cbp-spmenu .pushMenuGroup .pushMenuGroupTitle{
+padding-left:15px;
+padding-bottom:0px;
+font-size: 16px;
+font-weight: 700;
+color: #bbb;
+text-transform: uppercase;
+letter-spacing: 2px;}
+
 .cbp-spmenu {
 	border-top: 6px solid #26ada1;
 	background-color: #f8f8f8;
@@ -582,13 +569,18 @@ letter-spacing: 2px;}
 	font-size: 25px;
 	padding: 10px;
 	background-color: #fbfbfb;
+	white-space:nowrap;
+	padding-right:40px;
 }
+
+.cbp-spmenu-left, .cbp-spmenu-push-toleft{left:-100%;}
+.cbp-spmenu-right, .cbp-spmenu-push-toright{right:-100%;}
 
 a.close-menu {
 	position: absolute;
-	height: 60px;
+	height: 40px;
 	width: 40px;
-	line-height: 60px;
+	line-height: 40px;
 	text-align: center;
 	top: 5px;
 	right: 5px;
@@ -610,6 +602,9 @@ a.close-menu:hover {
 a.list-group-item {
 	font-size: initial;
 }
+
+.cbp-spmenu{width:auto; min-width:250px;}
+.cbp-spmenu-open{width:auto; min-width:250px;}
 
 /* ------ END MOBILE MENU ------- */
 
@@ -806,7 +801,8 @@ h3.popover-title {
 .peliTitulo {
 	color: #fff !important;
 	padding: 5px;
-	overflow: hidden;
+overflow: hidden;
+white-space: nowrap;
 }
 
 .peliAfiche {
