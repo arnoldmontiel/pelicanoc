@@ -16,6 +16,8 @@
 		$('body').addClass(o.bodyClass);
 		$(this).addClass('jPushMenuBtn');
 		$(this).click(function() {
+			$('<div class="modal-backdrop fade in"></div>').appendTo(document.body);
+
 			var target         = o.menu;
 			push_direction     = '';
 			
@@ -54,6 +56,7 @@
 		var jPushMenu = {
 			close: function (o) {
 				$('.jPushMenuBtn,body,.cbp-spmenu').removeClass('disabled active cbp-spmenu-open cbp-spmenu-push-toleft cbp-spmenu-push-toright');
+				$(".modal-backdrop").remove();
 			}
 		}
 		
