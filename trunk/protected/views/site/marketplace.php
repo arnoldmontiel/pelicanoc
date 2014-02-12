@@ -1,12 +1,6 @@
-<div class="secondNavFixedTop clearfix">
+<!--<div class="secondNavFixedTop clearfix">
 <h2 class="sliderTitle pull-left">Pel&iacute;culas</h2> 			
-		<!-- 	<div class="pull-left">
-		<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
-					<li class="generoItem active"><a href="#" data-filter="*">Todas</a></li>
-					<li class="generoItem"><a href="#" data-filter=".comedy">Estrenos</a></li>
-					<li class="generoItem"><a href="#" data-filter=".romance">Populares</a></li>
-				</ul>
-			</div> -->
+		 	
 			<div class="pull-left">
 				<button
 					class="toggle-menu menu-left btn btn-default" id="toggleMarketplace">
@@ -25,7 +19,32 @@
 				</div>
 			</form>
 			</div>
-</div>
+</div>-->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+		id="menuSecond">
+		<div class="container-fluid">
+			<div class="nav navbar-nav navbar-left">
+		    <ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
+					<li class="generoItem active"><a href="#" data-filter="*">Pel&iacute;culas</a></li>
+					<li class="generoItem"><a href="#" data-filter=".comedy">Series</a></li>
+				</ul>
+			</div>
+			<div class="nav navbar-nav navbar-right">
+				<button
+					class="toggle-menu menu-right btn btn-primary navbar-btn"
+					id="toggleMarketplace">
+					<i class="fa fa-filter fa-fw"></i> Filtro
+				</button>
+			</div>
+			<form class="navbar-form navbar-right" role="search">
+				<div class="searchMain form-group marketplace">
+					<input id="main-search" type="text"
+						class="form-control form-search"
+						placeholder=" Buscar Pel&iacute;cula">
+				</div>
+			</form>
+		</div>
+	</nav>
 <div class="container" id="screenMarketplace" >
 
 <?php 
