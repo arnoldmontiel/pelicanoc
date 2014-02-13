@@ -55,8 +55,12 @@
 
 		var jPushMenu = {
 			close: function (o) {
+
+				if($('.cbp-spmenu').hasClass('cbp-spmenu-open')) {
+					$(".modal-backdrop").remove(); 
+				}
+				
 				$('.jPushMenuBtn,body,.cbp-spmenu').removeClass('disabled active cbp-spmenu-open cbp-spmenu-push-toleft cbp-spmenu-push-toright');
-				$(".modal-backdrop").remove();
 			}
 		}
 		
