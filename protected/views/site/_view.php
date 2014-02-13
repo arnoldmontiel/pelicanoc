@@ -62,10 +62,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
 		?>    
     </a>			
-    <div id="<?php echo $data->Id;?>" class="peliTitulo marquee marqueeH">
+    <div id="<?php echo $data->Id;?>" class="peliTitulo">
 		<?php 
-    	//	echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($model->original_title)));
-		echo CHtml::openTag("p");
+    	echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($model->original_title)));
     	echo $model->original_title;
     	echo CHtml::closeTag("p");
 		?>
