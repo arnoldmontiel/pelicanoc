@@ -37,7 +37,6 @@
 $(function() {
     FastClick.attach(document.body);
 });
-
 // funcion super importante para que no scrollee el fondo en ipad:
 //$(document)
 //.on('show.bs.modal',  '.modal', function () { $("#content").addClass('modal-open') })
@@ -51,9 +50,7 @@ $(function() {
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/tools.js");?>
 
 
-<script type="text/javascript">
-
-
+<script>
 function getCurrentState()
 {
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentState'); ?>"
@@ -236,28 +233,6 @@ $(document).ready(function(){
 		window.location = $(this).attr('href');
 		return false;
 	});
-		
-	$('#filtroGenero li').click(function(){
-		  var selector = $(this).children().attr("data-filter");
-		   
-		  $('#media-type-filter').val(selector);
-		  $('#current-filter').val(selector);
-		  
-		  //clean search filter
-		  $('#search-filter').val(null);
-		  $('#index_search').val(null);
-
-		  $('#wall .items').infinitescroll('retrieve');  
-		  $('#wall .items').isotope({ filter: selector });
-		  //$('#wall .items').isotope('shuffle');
-		  return false;
-		});
-
-	$('#filtroGenero li.generoItem a').click(function () {
-		  $('#filtroGenero li.active').removeClass('active')
-		  $(this).parent('li').addClass('active');
-		  $("#selectedGenero .selected").text($(this).text());
-		});
 	
 	$('#popover-disp').click(function(){
 		$('#popover-disp').popover('hide');
@@ -629,6 +604,7 @@ $(document).ready(function(){
 	<!--call jPushMenu, required-->
 	<script>
 jQuery(document).ready(function($) {
+	
 	$('#toggleMain.toggle-menu').jPushMenu({
 		closeOnClickOutside:false,
 		menu: '#pushMain'});
@@ -645,11 +621,19 @@ jQuery(document).ready(function($) {
 		  $( this ).toggleClass( "pushMenuActive" );
 		  return false;
 		  		});
+
+	//-------------FILTROS GENERO, PILLS Y PUSHMENU --------------
+	
 	$( "#pushGenero .pushMenuSuperGroup a" ).click(function() {
 		 $(this).addClass('pushMenuActive').siblings().removeClass('pushMenuActive');
 		  //Para marcar mas de uno:
 		  //$( this ).toggleClass( "pushMenuActive" );
 		  var selector = $(this).attr("data-filter");
+
+		  //Desmarco todo el menu comun
+		  $("#filtroGenero li").removeClass('active');
+		  //Marco el item correspondiente en menu comun
+		  $("#filtroGenero li a[data-filter='" + selector + "']").parent('li').addClass('active');
 		   
 		  $('#media-type-filter').val(selector);
 		  $('#current-filter').val(selector);
@@ -660,8 +644,36 @@ jQuery(document).ready(function($) {
 
 		  $('#wall .items').infinitescroll('retrieve');  
 		  $('#wall .items').isotope({ filter: selector });
+		  return false;
 		  		});
 
+	$('#filtroGenero li a').click(function(){
+		  var selector = $(this).attr("data-filter");
+
+		  $('#filtroGenero li.active').removeClass('active')
+		  $(this).parent('li').addClass('active');
+		  //CORREGIR
+		  //$("#selectedGenero .selected").text($(this).text());
+
+		  //Desmarco todo el menuMobile
+		  $("#pushGenero .pushMenuSuperGroup a").removeClass('pushMenuActive');
+		  //Marco el item correspondiente en menu mobile
+		  $("#pushGenero .pushMenuSuperGroup a[data-filter='" + selector + "']").addClass('pushMenuActive');
+			   
+		  $('#media-type-filter').val(selector);
+		  $('#current-filter').val(selector);
+		  
+		  //clean search filter
+		  $('#search-filter').val(null);
+		  $('#index_search').val(null);
+
+		  $('#wall .items').infinitescroll('retrieve');  
+		  $('#wall .items').isotope({ filter: selector });
+		  return false;
+		});
+
+	//----------------------------- END--------------------------
+	
 });
 </script>
 </body>
