@@ -163,9 +163,13 @@ padding-bottom:20px;
 }
 
 body #screenDescargas {
+padding-top:80px;
+padding-bottom:20px;
 }
 
 body #screenDevices {
+padding-top:80px;
+padding-bottom:20px;
 }
 
 body #screenControl {
@@ -173,6 +177,8 @@ body #screenControl {
 }
 
 body #screenEditMovie {
+padding-top:80px;
+padding-bottom:20px;
 }
 
 
