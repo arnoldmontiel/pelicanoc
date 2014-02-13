@@ -44,12 +44,11 @@ class DuneHelper
 		return true;
 	}
 	
-	static public function playDune($id,$path)
+	static public function playDune($id,$path,$player)
 	{
 //		$modelMyMovieDiscNzb = MyMovieDiscNzb::model()->findByAttributes(array('Id_my_movie_nzb'=>$id));
 				
 		$setting = Setting::getInstance();
-	
 // 		if($model->isBluray())
 // 		{
 // 			$cmd = 'start_bluray_playback';
@@ -63,21 +62,21 @@ class DuneHelper
 		//$path = str_replace(' ', '%20', $model->path);
 		$path = str_replace(' ', '%20', $path);
 		$path = str_replace('&', '%26', $path);
-		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
+		$url = $player->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$player->file_protocol.':';
 		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path .$path;
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
 		@file_get_contents($url);
 		return true;
 	}
 	
-	static public function playDuneOnline($id)
+	static public function playDuneOnline($id,$player)
 	{
 	
 		$setting = Setting::getInstance();
 	
 		$cmd = 'launch_media_url';
 
-		$url = $setting->players[0]->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$setting->players[0]->file_protocol.':';
+		$url = $player->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$player->file_protocol.':';
 		$url = $url . '//'. $setting->shared_online_path;
 		
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.

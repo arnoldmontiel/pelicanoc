@@ -253,8 +253,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
   </ul>
 </div>
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
-    <button id="btn-playy" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"
-				data-toggle="modal" data-target="#myModalElegirPlayer"><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
+    <button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"
+				data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
@@ -311,8 +311,30 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	});
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");
-		 
-		window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;    
+		<?php
+		$setting = Setting::getInstance();
+		if(count($setting->players)==1)
+		{
+		?>
+			window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;
+		<?php 
+		}else{
+		?>   
+		
+		$.post("<?php echo SiteController::createUrl('AjaxShowPalyerSelector'); ?>",
+				{
+					id:'<?php echo $model->Id; ?>',
+					idResource:'<?php echo $idResource; ?>',
+					sourceType:'<?php echo $sourceType; ?>'
+					}
+				).success(
+					function(data){
+						$("#myModalElegirPlayer").html( data);						
+						$("#myModalElegirPlayer").on('hidden.bs.modal',function(e){$("#myModal").modal('show')});						
+						$("#myModal").modal('hide');
+						$("#myModalElegirPlayer").modal('show');						
+					});
+		<?php }?>
 		return false;
 	});
 	

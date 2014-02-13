@@ -1234,11 +1234,33 @@ class SiteController extends Controller
 				'model'=>$model,
 		));
 	}
-
+	public function actionAjaxStart($id, $sourceType, $idResource)
+	{
+		$setting = Setting::getInstance();
+		if(count($setting->players)> 1)
+		{
+			return 1;	
+		}	
+	}
+	public function actionAjaxShowPalyerSelector()
+	{
+		$id = $_POST['id'];
+		$sourceType = $_POST['sourceType'];
+		$idResource = $_POST['idResource'];
+		
+		$this->renderPartial('_playerSelector',array('id'=>$id,
+				'idResource'=>$idResource,
+				'sourceType'=>$sourceType));
+		
+	}
+	
 	public function actionStart($id, $sourceType, $idResource)
 	{
 		$this->showFilter = false;
-
+		
+		$setting = Setting::getInstance();
+		$player = $setting->players[0];
+		
 		$play = false;
 		$idResourceCurrentPlay = 0;
 		switch ($sourceType) {
@@ -1247,7 +1269,7 @@ class SiteController extends Controller
 				$TMDBData =$nzbModel->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$nzbModel->file_name);
-				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path);
+				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
 
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
@@ -1255,7 +1277,7 @@ class SiteController extends Controller
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
 				$TMDBData =$nzbRippedMovie->TMDBData;
 				$idResourceCurrentPlay = $idResource;
-				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path);
+				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path,$player);
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
@@ -1263,14 +1285,14 @@ class SiteController extends Controller
 				$TMDBData =$localFolder->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
-				DuneHelper::playDune($id,'/'.'/'.$localFolder->path);
+				DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
 
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 4:
 				$idCurrentDisc = self::markCurrentDiscRead();
 				$idResourceCurrentPlay = $idCurrentDisc;
-				DuneHelper::playDuneOnline($id);
+				DuneHelper::playDuneOnline($id,$player);
 					
 				$model = MyMovie::model()->findByPk($id);
 				break;
