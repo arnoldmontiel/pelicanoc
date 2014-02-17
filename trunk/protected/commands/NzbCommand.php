@@ -32,8 +32,6 @@ class NzbCommand extends CConsoleCommand  {
 						
 					try {
 				
-						$modelMyMovieNzb = MyMovieNzb::model()->findByPk($modelNzb->myMovieDiscNzb->Id_my_movie_nzb);
-				
 						if($modelNzb->url!='')
 						{
 							try {
@@ -67,109 +65,114 @@ class NzbCommand extends CConsoleCommand  {
 								// an error happened
 							}
 						}
-						if($modelMyMovieNzb->poster_original!='' && $validator->validateValue($modelMyMovieNzb->poster_original))
-						{
-							try {
-								$content = @file_get_contents($modelMyMovieNzb->poster_original);
-								if ($content !== false) {
-									$file = fopen($img_path . $modelMyMovieNzb->Id.".jpg", 'w');
-									fwrite($file,$content);
-									fclose($file);
-									$modelMyMovieNzb->poster = $modelMyMovieNzb->Id.".jpg";
-								} else {
-									// an error happened
-								}
-							} catch (Exception $e) {								
-								// an error happened
-							}
-						}
 						
-						if($modelMyMovieNzb->big_poster_original!='' && $validator->validateValue($modelMyMovieNzb->big_poster_original))
+						if(!isset($modelNzb->nzb)) // SOLO SI ES PADRE
 						{
-							try {
-								$content = @file_get_contents($modelMyMovieNzb->big_poster_original);
-								if ($content !== false) {
-									$file = fopen($img_path . $modelMyMovieNzb->Id."_big.jpg", 'w');
-									fwrite($file,$content);
-									fclose($file);
-									$modelMyMovieNzb->big_poster = $modelMyMovieNzb->Id."_big.jpg";
-								} else {
-									// an error happened
-								}
-							} catch (Exception $e) {
-								// an error happened
-							}
-						}
-						
-						if($modelMyMovieNzb->backdrop_original!='' && $validator->validateValue($modelMyMovieNzb->backdrop_original))
-						{
-							try {
-								$content = @file_get_contents($modelMyMovieNzb->backdrop_original);
-								if ($content !== false) {
-									$file = fopen($img_path . $modelMyMovieNzb->Id."_bd.jpg", 'w');
-									fwrite($file,$content);
-									fclose($file);
-									$modelMyMovieNzb->backdrop = $modelMyMovieNzb->Id."_bd.jpg";
-								} else {
-									// an error happened
-								}
-							} catch (Exception $e) {
-								// an error happened
-							}
-						}
-				
-						if(isset($modelNzb->myMovieDiscNzb->myMovieNzb->myMovieSerieHeader))
-						{
-							$modelSerie = MyMovieSerieHeader::model()->findByPk($modelNzb->myMovieDiscNzb->myMovieNzb->Id_my_movie_serie_header);
+							$modelMyMovieNzb = MyMovieNzb::model()->findByPk($modelNzb->myMovieDiscNzb->Id_my_movie_nzb);
 							
-							if(isset($modelSerie))
+							if($modelMyMovieNzb->poster_original!='' && $validator->validateValue($modelMyMovieNzb->poster_original))
 							{
-								if($modelSerie->poster_original!='' && $validator->validateValue($modelSerie->poster_original))
-								{
-									try {
-										$content = @file_get_contents($modelSerie->poster_original);
-										if ($content !== false) {
-											$file = fopen($img_path . $modelSerie->Id.".jpg", 'w');
-											fwrite($file,$content);
-											fclose($file);
-											$modelSerie->poster = $modelSerie->Id.".jpg";
-											
-											$modelSerie->save();
-										} else {
-											// an error happened
-										}
-									} catch (Exception $e) {										
+								try {
+									$content = @file_get_contents($modelMyMovieNzb->poster_original);
+									if ($content !== false) {
+										$file = fopen($img_path . $modelMyMovieNzb->Id.".jpg", 'w');
+										fwrite($file,$content);
+										fclose($file);
+										$modelMyMovieNzb->poster = $modelMyMovieNzb->Id.".jpg";
+									} else {
 										// an error happened
 									}
+								} catch (Exception $e) {								
+									// an error happened
 								}
+							}
+							
+							if($modelMyMovieNzb->big_poster_original!='' && $validator->validateValue($modelMyMovieNzb->big_poster_original))
+							{
+								try {
+									$content = @file_get_contents($modelMyMovieNzb->big_poster_original);
+									if ($content !== false) {
+										$file = fopen($img_path . $modelMyMovieNzb->Id."_big.jpg", 'w');
+										fwrite($file,$content);
+										fclose($file);
+										$modelMyMovieNzb->big_poster = $modelMyMovieNzb->Id."_big.jpg";
+									} else {
+										// an error happened
+									}
+								} catch (Exception $e) {
+									// an error happened
+								}
+							}
+							
+							if($modelMyMovieNzb->backdrop_original!='' && $validator->validateValue($modelMyMovieNzb->backdrop_original))
+							{
+								try {
+									$content = @file_get_contents($modelMyMovieNzb->backdrop_original);
+									if ($content !== false) {
+										$file = fopen($img_path . $modelMyMovieNzb->Id."_bd.jpg", 'w');
+										fwrite($file,$content);
+										fclose($file);
+										$modelMyMovieNzb->backdrop = $modelMyMovieNzb->Id."_bd.jpg";
+									} else {
+										// an error happened
+									}
+								} catch (Exception $e) {
+									// an error happened
+								}
+							}
+					
+							if(isset($modelNzb->myMovieDiscNzb->myMovieNzb->myMovieSerieHeader))
+							{
+								$modelSerie = MyMovieSerieHeader::model()->findByPk($modelNzb->myMovieDiscNzb->myMovieNzb->Id_my_movie_serie_header);
 								
-							 	$seasons = MyMovieSeason::model()->findAllByAttributes(array('Id_my_movie_serie_header'=>$modelSerie->Id, 'banner'=>null));
-								foreach($seasons as $modelSeason)
+								if(isset($modelSerie))
 								{
-									$newFileName = $modelSeason->Id_my_movie_serie_header .'_'.$modelSeason->season_number;
-									if($modelSeason->banner_original!='' && $validator->validateValue($modelSeason->banner_original))
+									if($modelSerie->poster_original!='' && $validator->validateValue($modelSerie->poster_original))
 									{
 										try {
-											$content = @file_get_contents($modelSeason->banner_original);
+											$content = @file_get_contents($modelSerie->poster_original);
 											if ($content !== false) {
-												$file = fopen($img_path . $newFileName .".jpg", 'w');
+												$file = fopen($img_path . $modelSerie->Id.".jpg", 'w');
 												fwrite($file,$content);
 												fclose($file);
-												$modelSeason->banner = $newFileName .".jpg";
-													
-												$modelSeason->save();
+												$modelSerie->poster = $modelSerie->Id.".jpg";
+												
+												$modelSerie->save();
 											} else {
 												// an error happened
 											}
-										} catch (Exception $e) {
+										} catch (Exception $e) {										
 											// an error happened
 										}
 									}
+									
+								 	$seasons = MyMovieSeason::model()->findAllByAttributes(array('Id_my_movie_serie_header'=>$modelSerie->Id, 'banner'=>null));
+									foreach($seasons as $modelSeason)
+									{
+										$newFileName = $modelSeason->Id_my_movie_serie_header .'_'.$modelSeason->season_number;
+										if($modelSeason->banner_original!='' && $validator->validateValue($modelSeason->banner_original))
+										{
+											try {
+												$content = @file_get_contents($modelSeason->banner_original);
+												if ($content !== false) {
+													$file = fopen($img_path . $newFileName .".jpg", 'w');
+													fwrite($file,$content);
+													fclose($file);
+													$modelSeason->banner = $newFileName .".jpg";
+														
+													$modelSeason->save();
+												} else {
+													// an error happened
+												}
+											} catch (Exception $e) {
+												// an error happened
+											}
+										}
+									}
+								 
 								}
-							 
 							}
 						}
-						
 						$modelMyMovieNzb->save();
 						$modelNzb->ready = 1;
 						$modelNzb->save();
