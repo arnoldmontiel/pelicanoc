@@ -172,8 +172,8 @@ class NzbCommand extends CConsoleCommand  {
 								 
 								}
 							}
-						}
-						$modelMyMovieNzb->save();
+							$modelMyMovieNzb->save();
+						}						
 						$modelNzb->ready = 1;
 						$modelNzb->save();
 				
