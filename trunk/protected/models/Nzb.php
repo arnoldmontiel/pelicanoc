@@ -62,15 +62,15 @@ class Nzb extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id, Id_my_movie_disc_nzb, Id_nzb_state', 'required'),
-			array('Id, Id_resource, Id_nzb_state, downloading, downloaded, requested, points, ready, sent', 'numerical', 'integerOnly'=>true),
+			array('Id, Id_nzb_state, Id_nzb_type', 'required'),
+			array('Id, Id_resource, Id_nzb_state, downloading, downloaded, requested, points, ready, Id_nzb_type, Id_nzb, sent', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc_nzb', 'length', 'max'=>200),
 			array('final_content_path', 'length', 'max'=>256),
 			array('url, path, file_name, subt_file_name, subt_url', 'length', 'max'=>255),
 			array('date, change_state_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_my_movie_disc_nzb, Id_resource, Id_nzb_state, url, path, file_name, subt_file_name, subt_url, downloading, downloaded, date, requested, points, ready, change_state_date, sent', 'safe', 'on'=>'search'),
+			array('Id, Id_my_movie_disc_nzb, Id_resource, Id_nzb_state, url, path, file_name, subt_file_name, subt_url, downloading, downloaded, date, requested, points, ready, change_state_date, sent, Id_nzb_type, Id_nzb', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,6 +88,8 @@ class Nzb extends CActiveRecord
 			'nzbState' => array(self::BELONGS_TO, 'NzbState', 'Id_nzb_state'),
 			'bookmarks' => array(self::HAS_MANY, 'Bookmark', 'Id_nzb'),
 			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),
+			'nzbType' => array(self::BELONGS_TO, 'NzbType', 'Id_nzb_type'),
+			'nzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
 		);
 	}
 
