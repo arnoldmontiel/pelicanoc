@@ -1253,13 +1253,17 @@ class SiteController extends Controller
 				'sourceType'=>$sourceType));
 		
 	}
-	
-	public function actionStart($id, $sourceType, $idResource)
+	public function actionAjaxShowPlayerStatus()
+	{
+		
+		$this->renderPartial('_playerStatus');
+		
+	}
+	public function actionstartByPlayer($id, $idPlayer,$sourceType, $idResource)
 	{
 		$this->showFilter = false;
 		
-		$setting = Setting::getInstance();
-		$player = $setting->players[0];
+		$player = Player::model()->findByPk($idPlayer);
 		
 		$play = false;
 		$idResourceCurrentPlay = 0;
@@ -1317,7 +1321,70 @@ class SiteController extends Controller
 				'sourceType'=>$sourceType,
 		));
 	}
-
+	public function actionStart($id, $sourceType, $idResource)
+	{
+		$this->showFilter = false;
+	
+		$setting = Setting::getInstance();
+		$player = $setting->players[0];
+	
+		$play = false;
+		$idResourceCurrentPlay = 0;
+		switch ($sourceType) {
+			case 1:
+				$nzbModel = Nzb::model()->findByPk($idResource);
+				$TMDBData =$nzbModel->TMDBData;
+				$idResourceCurrentPlay = $idResource;
+				$folderPath = explode('.',$nzbModel->file_name);
+				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+	
+				$model = MyMovieNzb::model()->findByPk($id);
+				break;
+			case 2:
+				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
+				$TMDBData =$nzbRippedMovie->TMDBData;
+				$idResourceCurrentPlay = $idResource;
+				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path,$player);
+				$model = MyMovie::model()->findByPk($id);
+				break;
+			case 3:
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				$TMDBData =$localFolder->TMDBData;
+				$idResourceCurrentPlay = $idResource;
+				$folderPath = explode('.',$localFolder->path);
+				DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
+	
+				$model = MyMovie::model()->findByPk($id);
+				break;
+			case 4:
+				$idCurrentDisc = self::markCurrentDiscRead();
+				$idResourceCurrentPlay = $idCurrentDisc;
+				DuneHelper::playDuneOnline($id,$player);
+					
+				$model = MyMovie::model()->findByPk($id);
+				break;
+		}
+		if(isset($TMDBData))
+		{
+			$backdrop = $TMDBData->backdrop!=""?$TMDBData->backdrop:$model->backdrop;
+			$poster = $TMDBData->big_poster!=""?$TMDBData->big_poster:$model->big_poster;
+		}
+		else
+		{
+			$backdrop = $model->backdrop;
+			$poster = $model->big_poster;
+		}
+		self::saveCurrentPlay($idResourceCurrentPlay, $sourceType);
+	
+		$this->render('control',array(
+				'model'=>$model,
+				'backdrop'=>$backdrop,
+				'big_poster'=>$poster,
+				'idResource'=>$idResource,
+				'sourceType'=>$sourceType,
+		));
+	}
+	
 	private function saveCurrentPlay($id, $sourceType)
 	{
 		if($id > 0)
@@ -1525,7 +1592,18 @@ class SiteController extends Controller
 
 		echo json_encode($response);
 	}
+	public function actionAjaxGetPlaybackByPlayer()
+	{
+		$idPlayer = $_POST['idPlayer'];
 
+		$player = Player::model()->findByPk($idPlayer);
+		if(isset($player))
+		{		
+			$response = $this->getPlaybackByPlayer($player);
+			echo json_encode($response);
+		}
+	}
+	
 	public function actionAjaxGetRipp()
 	{
 		$response = array('id'=>0, 'poster'=>'','originalTitle'=>'', 'percentage'=>0);
@@ -1556,7 +1634,7 @@ class SiteController extends Controller
 		//type = 3 = localFolder
 		//type = 4 = online
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
-		return $response;
+		//return $response;
 		if(DuneHelper::isPlaying())
 		{
 			$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1));
@@ -1596,6 +1674,54 @@ class SiteController extends Controller
 		return $response;
 
 	}
+	private function getPlaybackByPlayer($player)
+	{
+		//type = 1 = nzb
+		//type = 2 = rippedMovie
+		//type = 3 = localFolder
+		//type = 4 = online
+		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
+		//return $response;
+		if(DuneHelper::isPlayingByPlayer($player))
+		{
+			$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
+	
+			if(isset($modelCurrentPlaying))
+			{
+				if(isset($modelCurrentPlaying->Id_nzb))
+				{
+					$response['type'] = 1;
+					$response['id'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->Id_my_movie_nzb;
+					$response['id_resource'] = $modelCurrentPlaying->Id_nzb;
+					$response['originalTitle'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+				}
+				else if(isset($modelCurrentPlaying->Id_ripped_movie))
+				{
+					$response['type'] = 2;
+					$response['id'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->Id_my_movie;
+					$response['originalTitle'] = $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
+					$response['id_resource'] = $modelCurrentPlaying->Id_ripped_movie;
+				}
+				else if(isset($modelCurrentPlaying->Id_local_folder))
+				{
+					$response['type'] = 3;
+					$response['id'] = $modelCurrentPlaying->localFolder->myMovieDisc->Id_my_movie;
+					$response['originalTitle'] = $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
+					$response['id_resource'] = $modelCurrentPlaying->Id_local_folder;
+				}
+				else if(isset($modelCurrentPlaying->Id_current_disc))
+				{
+					$response['type'] = 4;
+					$response['originalTitle'] = $modelCurrentPlaying->currentDisc->myMovieDisc->myMovie->original_title;
+					$response['id'] = $modelCurrentPlaying->currentDisc->myMovieDisc->Id_my_movie;
+				}
+			}
+		}
+	
+		return $response;
+	
+	}
+	
 	/**
 	 * This is the default 'music' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -1708,7 +1834,22 @@ class SiteController extends Controller
 							'nameUnread'=>$nameUnread,
 							'label'=>$label);
 
-		$response = array('playBack'=>$this->getPlayback(),
+		$playerPlaying = 0;
+		$setting = Setting::getInstance();
+		$players = $setting->players;
+		foreach ($players as $player)
+		{
+			if(DuneHelper::isPlayingByPlayer($player))
+			{
+				$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
+				if(isset($modelCurrentPlaying))
+				{
+					$playerPlaying++;
+				}
+			}
+		}
+		
+		$response = array('playBack'=>array('count'=>$playerPlaying),
 				'currentDisc'=>$currentDisc,
 				'currentUSB'=>$currentUSB);
 

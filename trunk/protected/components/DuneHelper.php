@@ -158,6 +158,25 @@ class DuneHelper
 		}
 		return false;
 	}
+	static public function isPlayingByPlayer($player)
+	{
+		$modelDune = self::getStateByPlayer($player);
+	
+		if(isset($modelDune))
+		{
+			if($modelDune->player_state == 'bluray_playback' || $modelDune->player_state == 'dvd_playback')
+				return true;
+				
+			if($modelDune->player_state == 'file_playback')
+			{
+				if($modelDune->playback_state == 'stopped')
+					return false;
+				else
+					return true;
+			}
+		}
+		return false;
+	}
 	
 	static public function getState()
 	{
@@ -203,5 +222,52 @@ class DuneHelper
 		
 		return $modelDune;
 	}
+	static public function getStateByPlayer($player)
+	{
+		$modelDune = null;
+		$response = @file_get_contents( $player->url .'/cgi-bin/do?cmd=status');
+	
+		if($response===false)	return null;
+		if($response=="")	return null;
+		
+		$xml = simplexml_load_string($response);
+	
+		if(isset($xml))
+		{
+			$modelDune = new Dune();
+				
+			$param = $xml->xpath("//param[@name = 'playback_state']");
+			if(!empty($param))
+				$modelDune->playback_state = (string)$param[0]->attributes()->value;
+				
+			$param = $xml->xpath("//param[@name = 'playback_position']");
+				
+			if(!empty($param))
+				$modelDune->playback_position = (string)$param[0]->attributes()->value;
+	
+			$param = $xml->xpath("//param[@name = 'playback_duration']");
+			if(!empty($param))
+				$modelDune->playback_duration = (string)$param[0]->attributes()->value;
+				
+			$param = $xml->xpath("//param[@name = 'playback_url']");
+			if(!empty($param))
+				$modelDune->playback_url = (string)$param[0]->attributes()->value;
+				
+			$param = $xml->xpath("//param[@name = 'playback_speed']");
+			if(!empty($param))
+				$modelDune->playback_speed = (string)$param[0]->attributes()->value;
+				
+			$param = $xml->xpath("//param[@name = 'playback_volume']");
+			if(!empty($param))
+				$modelDune->playback_volume = (string)$param[0]->attributes()->value;
+				
+			$param = $xml->xpath("//param[@name = 'player_state']");
+			if(!empty($param))
+				$modelDune->player_state = (string)$param[0]->attributes()->value;
+		}
+	
+		return $modelDune;
+	}
+	
 	
 }

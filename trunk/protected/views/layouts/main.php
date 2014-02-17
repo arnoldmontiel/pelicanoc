@@ -60,18 +60,9 @@ function getCurrentState()
     		{        			
     			var obj = jQuery.parseJSON(data);
     			if(obj.playBack != null)
-    			{
-        			if(obj.playBack.id != 0)
-        			{
-    					$('#playback-title').html(obj.playBack.originalTitle);
-    					$('#playback').show();
-        			}
-        			else
-        				$('#playback').hide();
-    			}
-    			else
-    				$('#playback').hide();
-
+    			{    				    				
+					$('#player-status-quantity').html(obj.playBack.count);
+				}
     			if(obj.currentUSB != null)
     			{
     				if(obj.currentUSB.devicesQty >= 1)
@@ -127,10 +118,6 @@ function getCurrentState()
 					}
 				}
     		}
-    		else
-    		{		        		    				
-				$('#playback').hide();
-    		} 
 		},"json");
 	return false;
 }
@@ -159,6 +146,22 @@ function goToDevices()
 }
 
 $(document).ready(function(){
+	$("#player-status").click(
+		function()
+		{
+	    	$.post("<?php echo SiteController::createUrl('AjaxShowPlayerStatus'); ?>"
+	    	).success(
+	    		function(data){
+	        		if(data != null)
+	        		{
+		        		$("#myModalReproduciendo").html(data);
+		        		$("#myModalReproduciendo").modal("show");        			
+	        		}
+	    		},"json");
+			return false;
+		
+		}
+	);
 	var elem ='Nuevo Dispositivo conectado<div id="popoverDisTitle" class="popoverDisTitle">USB (Kingston)</div><div class="popoverButtons"><button type="button" onclick="closePopover()" class="btn btn-default">Cerrar</button><button type="button" onclick="goToDevices()" id="btnGoToDevice" class="btn btn-primary noMargin">Examinar</button></div></div>';
 	$('#popover-disp').popover({
         placement: 'bottom',
@@ -406,10 +409,10 @@ $(document).ready(function(){
 			</div>
 			<!-- /.navbarBotonCollapse -->
 			<div class="nav navbar-nav navbar-right">
-				<button type="button"
+				<button id="player-status" type="button"
 					class="btn btn-default navbar-btn btnReproduciendo"
-					data-toggle="modal" data-target="#myModalReproduciendo">
-					Reproduciendo <span class="badge">3</span><iclass="fa fa-caret-down fa-fw"></i>
+					data-toggle="modal">
+					Reproduciendo <span id="player-status-quantity" class="badge">0</span><iclass="fa fa-caret-down fa-fw"></i>
 				</button>
 			</div>
 			<!-- /.navbarRproduciendo -->
@@ -503,67 +506,11 @@ $(document).ready(function(){
 
 	<div id="myModalReproduciendo" class="modal fade in"
 		style="display: hidden;" aria-hidden="false">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">
-						<i class="fa fa-times-circle fa-lg"></i>
-					</button>
-					<h4 class="modal-title">Reproduciendo</h4>
-				</div>
-				<div class="modal-body">
-					<div class="reproTableContainer">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Player</th>
-									<th>Reproduciendo</th>
-									<th>&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Cocina</td>
-									<td>Spiderman</td>
-									<td class="align-right"><button type="button"
-											class="btn btn-primary">
-											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto
-										</button></td>
-								</tr>
-								<tr>
-									<td>Dormitorio Juan</td>
-									<td>Monsters Inc</td>
-									<td class="align-right"><button type="button"
-											class="btn btn-primary">
-											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto
-										</button></td>
-								</tr>
-								<tr>
-									<td>Dormitorio Pedro</td>
-									<td>Rapido y Furioso</td>
-									<td class="align-right"><button type="button"
-											class="btn btn-primary">
-											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto
-										</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btn-lg"
-						data-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
+		
 		<!-- /.modal-dialog -->
 	</div>
 
-	<div id="myModalElegirPlayer" class="modal fade in"
-		style="display: hidden;" aria-hidden="false">
-		
+	<div id="myModalElegirPlayer" class="modal fade in"	style="display: hidden;" aria-hidden="false">
 		<!-- /.modal-dialog -->
 	</div>
 <?php
@@ -590,16 +537,6 @@ $(document).ready(function(){
 // $this->endWidget();
 ?>
 
-<!-- floating DIV para Peliculas en Reproduccion -->
-	<div id="playback" class="peliReroduciendo">
-		<div class="rep">
-			Reproduciendo:
-			<div id="playback-title" class="tituloRep"></div>
-		</div>
-		<a type="button" id="btn-dune-control" class="btn btn-primary"><i
-			class="fa fa-keyboard-o"></i> Control Remoto</a>
-	</div>
-	<!-- /cierre floating -->
 
 	<!--call jPushMenu, required-->
 	<script>
