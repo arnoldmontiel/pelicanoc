@@ -186,16 +186,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	<a href="#" id="btn-eraser-popover" class="" ><i id="btn-eraser" class="fa fa-eraser fa-lg"></i></a>
 	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
-	
-	<div class="row detailSecondGroup">
-    	<div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
-    		EDITAR
-		</div><!--/.col-md-4 -->
-    	<div class="col-md-8 col-sm-8 align-left detailSecond">
-		<a id="btn-edit" href="#" id="btn-eraser-popover" class="" ><i  class="fa fa-pencil fa-lg pointer"></i></a>    	
-		</div><!--/.col-md-8 -->
-	</div><!--/.row -->
-	
+		
 	</div><!--/.tab-pane#2 -->
     
     <div class="tab-pane" id="tab3"><!--/.bookmarks -->
@@ -330,7 +321,14 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 				).success(
 					function(data){
 						$("#myModalElegirPlayer").html( data);						
-						$("#myModalElegirPlayer").on('hidden.bs.modal',function(e){$("#myModal").modal('show')});						
+						$("#myModalElegirPlayer").on('hidden.bs.modal',
+							function(e)
+							{
+								$("#btn-play").removeAttr("disabled");
+								$("#myModal").modal('show');
+								$("#myModalElegirPlayer").html('');
+							}
+						);						
 						$("#myModal").modal('hide');
 						$("#myModalElegirPlayer").modal('show');						
 					});
