@@ -1311,7 +1311,7 @@ class SiteController extends Controller
 			$backdrop = $model->backdrop;
 			$poster = $model->big_poster;
 		}
-		self::saveCurrentPlay($idResourceCurrentPlay, $sourceType);
+		self::saveCurrentPlayByPlayer($idResourceCurrentPlay, $sourceType,$player);
 
 		$this->render('control',array(
 				'model'=>$model,
@@ -1412,7 +1412,34 @@ class SiteController extends Controller
 			$modelCurrentPlay->save();
 		}
 	}
-
+	private function saveCurrentPlayByPlayer($id, $sourceType,$player)
+	{
+		if($id > 0)
+		{
+			CurrentPlay::model()->updateAll(array('is_playing'=>0));
+	
+			$modelCurrentPlay = new CurrentPlay();
+	
+			switch ($sourceType) {
+				case 1:
+					$modelCurrentPlay->Id_nzb = $id;
+					break;
+				case 2:
+					$modelCurrentPlay->Id_ripped_movie = $id;
+					break;
+				case 3:
+					$modelCurrentPlay->Id_local_folder = $id;
+					break;
+				case 4:
+					$modelCurrentPlay->Id_current_disc = $id;
+					break;
+			}
+	
+			$modelCurrentPlay->Id_player = $player->Id;
+			$modelCurrentPlay->save();
+		}
+	}
+	
 	public function actionAjaxGetProgressBar()
 	{
 		echo json_encode(DuneHelper::getProgressBar());
