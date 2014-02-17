@@ -423,7 +423,7 @@ class PelicanoHelper
 							}
 							$modelNzb->setAttributesByArray($item->nzb);
 							
-							if(!isset($modelNzb->nzb)) //solo si es Padre
+							if(!isset($item->Id_nzb)) //solo si es Padre
 							{ 
 								if($item->nzb->deleted)
 								{
@@ -560,7 +560,7 @@ class PelicanoHelper
 							
 							$transaction = $modelNzb->dbConnection->beginTransaction();
 							try {
-								$modelNzb->Id_my_movie_disc_nzb = (!isset($modelNzb->Id_nzb))?$idDisc:null;
+								$modelNzb->Id_my_movie_disc_nzb = (!isset($item->Id_nzb))?$idDisc:null;
 								$modelNzb->date = date("Y-m-d H:i:s",time());
 								$modelNzb->ready = 0;
 	
