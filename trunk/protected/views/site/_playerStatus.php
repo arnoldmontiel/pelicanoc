@@ -63,7 +63,7 @@
 									<td><?php echo $originalTitle;?></td>
 									<td class="align-right">
 									
-									<button <?php if($libre) echo 'disabled="disabled"';?> id="btn-dune-control" type="button" onclick="control()"
+									<button <?php if($libre) echo 'disabled="disabled"';?> id="btn-dune-control" type="button" onclick="control(<?php echo $player->Id; ?>)"
 											class="btn btn-primary btn-play-by-player">
 											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto	
 										</button>
