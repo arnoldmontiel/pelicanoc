@@ -412,7 +412,7 @@ $(document).ready(function(){
 				<button id="player-status" type="button"
 					class="btn btn-default navbar-btn btnReproduciendo"
 					data-toggle="modal">
-					Reproduciendo <span id="player-status-quantity" class="badge">0</span><iclass="fa fa-caret-down fa-fw"></i>
+					Reproduciendo <span id="player-status-quantity" class="badge">0</span><i class="fa fa-caret-down fa-fw"></i>
 				</button>
 			</div>
 			<!-- /.navbarRproduciendo -->
