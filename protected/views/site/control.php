@@ -11,31 +11,37 @@
     <div class="col-sm-8">
       <div class="row">
     <div class="col-sm-12">
-    <div class="dropdown ">
-          <a class="controlTitle" id="drop" role="button" data-toggle="dropdown" href="#">Cocina: <?php echo $model->original_title?> <i class="fa fa-chevron-circle-down"></i></a>
-           <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">
-				<li><a>Dormitorio Juan: Monsters Inc</a></li>        	
-    			<li role="presentation" class="divider"></li>	
-				<li><a>Dormitorio Pedro: Rapido y Furioso</a></li>        		
-		 </ul>
-        </div>
+    <div class="controlTitle"><?php echo $model->original_title?> </div>
     <!-- <div class="controlTitle"><?php //echo $model->original_title?></div> -->
     </div>
     <!-- /col-sm-8 -->
  </div><!-- /row interna -->
       <div class="row ">
     <div class="col-sm-5" style="text-align:left;">
-     <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO 
-<div class="btn-group">
+     <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO -->
+     <div class="chooseFile">
+     Ver: 
+     <div class="dropdown">
+          <a id="drop" role="button" data-toggle="dropdown" href="#">Principal <i class="fa fa-chevron-circle-down"></i></a>
+           <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">
+				<li><a>Extras</a></li>        	
+    			<li role="presentation" class="divider"></li>	
+				<li><a>Comentarios de Actores</a></li>        		
+		 </ul>
+        </div>
+        </div>
+<<!-- <div class="btn-group">
  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     archivopelicula grande.mkv 80GB <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
-    <li><a href="#">archivonotanGrande.mkv 10GB</a></li>
+    <li><a href="#">Pel&iacute;cula</a></li>
     <li class="divider"></li>
-    <li><a href="#">archivonotanMediano.mkv 1GB</a></li>
+    <li><a href="#">Extras</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Comentarios de Actores</a></li>
   </ul>
-</div>-->
+</div> -->
     <div class="controlAudioSub">
 <button type="button" class="btn btn-lg btn-primary" id="subtButton">Cambiar Subt&iacute;tulos</button>
 <button type="button" class="btn btn-lg btn-primary noMargin" id="audioButton">Cambiar Audio</button>
