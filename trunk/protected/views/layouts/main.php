@@ -184,17 +184,28 @@ $(document).ready(function(){
 	}, 10000);	
 	
 	
+	$('#pushMain .mobileMenuItem').removeClass('active');
 	$('#nav li').removeClass('active');
-	if(document.URL.indexOf('indexserie') > 0)
+	if(document.URL.indexOf('indexserie') > 0) {
 		$('#li-serie').addClass('active');
-	else if(document.URL.indexOf('marketplace') > 0)
+		$('#mobile-serie').addClass('active');
+	}
+	else if(document.URL.indexOf('marketplace') > 0) {
 		$('#li-marketplace').addClass('active');
-	else if(document.URL.toUpperCase().indexOf('DEVICES') > 0)
+	    $('#mobile-marketplace').addClass('active');
+	}
+	else if(document.URL.toUpperCase().indexOf('DEVICES') > 0) {
 		$('#li-devices').addClass('active');
-	else if(document.URL.indexOf('download') > 0)
+        $('#mobile-devices').addClass('active');
+	}	
+	else if(document.URL.indexOf('download') > 0) {
 		$('#li-download').addClass('active');
-	else 
+        $('#mobile-download').addClass('active');
+	}
+    	else {
 		$('#li-movie').addClass('active');
+        $('#mobile-movie').addClass('active');
+	}
 //	$("#search-query-filter").keyup(function(e){
 		//if($(this).val().length <=3)	return false;
 //		return false;
@@ -300,11 +311,11 @@ $(document).ready(function(){
 		id="pushMain">
 		<div class="cbp-title">Menu</div>
 		<a class="toggle-menu close-menu"> <i class="fa fa-times-circle"></i></a>
-		<a href="index.php">Mis Peliculas</a> 
-		<a href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a>
-		<a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a>
-		<a href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a>
-		<a href="<?php echo SiteController::createUrl('site/devices') ?>"
+		<a id="mobile-movie" class="mobileMenuItem" href="index.php">Mis Peliculas</a> 
+		<a id="mobile-serie" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a>
+		<a id="mobile-marketplace" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a>
+		<a id="mobile-download" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a>
+		<a id="mobile-devices" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/devices') ?>"
 			id="popover-disp">Dispositivos <span id="devicesQty"
 			style="display: none" class="badge"></span></a>
 	</nav>
@@ -407,12 +418,13 @@ $(document).ready(function(){
 					<i class="fa fa-reorder fa-fw"></i>
 				</button>
 			</div>
+			<p class="navbar-text visible-sm visible-xs" id="mobilePageName">Mis Peliculas</p>
 			<!-- /.navbarBotonCollapse -->
 			<div class="nav navbar-nav navbar-right">
 				<button id="player-status" type="button"
 					class="btn btn-default navbar-btn btnReproduciendo"
-					data-toggle="modal">
-					Reproduciendo <span id="player-status-quantity" class="badge">0</span><i class="fa fa-caret-down fa-fw"></i>
+					data-toggle="modal" data-target="#myModalReproduciendo">
+					Reproduciendo <span class="badge">3</span><i class="fa fa-caret-down fa-fw"></i>
 				</button>
 			</div>
 			<!-- /.navbarRproduciendo -->
@@ -571,6 +583,9 @@ jQuery(document).ready(function($) {
 		  $("#filtroGenero li").removeClass('active');
 		  //Marco el item correspondiente en menu comun
 		  $("#filtroGenero li a[data-filter='" + selector + "']").parent('li').addClass('active');
+		  //Cerrar menu			
+		  $('.jPushMenuBtn,body,.cbp-spmenu').removeClass('disabled active cbp-spmenu-open cbp-spmenu-push-toleft cbp-spmenu-push-toright');
+		  $(".modal-backdrop").remove();
 		   
 		  $('#media-type-filter').val(selector);
 		  $('#current-filter').val(selector);
