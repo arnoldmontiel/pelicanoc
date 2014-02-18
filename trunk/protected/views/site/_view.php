@@ -68,9 +68,29 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
     	echo CHtml::closeTag("p");
 		?>
     </div>
+    <?php
+    $currentPlays=array();
+    switch ($data->source_type) {
+    	case 1:
+    		$currentPlays= CurrentPlay::model()->findByAttributes(array('Id_nzb'=>$data->Id));
+    		break;
+    	case 2:
+    		$currentPlays= CurrentPlay::model()->findByAttributes(array('Id_ripped_movie'=>$data->Id));
+    		break;
+    	case 3:
+    		$currentPlays= CurrentPlay::model()->findByAttributes(array('Id_local_folder'=>$data->Id));
+    		break;
+    	default:
+    		$currentPlays=array();
+    		break;
+    }
+    
+    ?>
+    <?php if(empty($currentPlays)):?>
      <div class="ribbon">
         <div class="ribbonTxt">
             NUEVO
         </div>
     </div>
+	<?php endif?>
 </div>

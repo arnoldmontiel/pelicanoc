@@ -90,6 +90,7 @@ class Nzb extends CActiveRecord
 			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),
 			'nzbType' => array(self::BELONGS_TO, 'NzbType', 'Id_nzb_type'),
 			'nzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
+			'currentPlays' => array(self::HAS_MANY, 'CurrentPlay', 'Id_nzb'),				
 		);
 	}
 
