@@ -181,7 +181,7 @@ $(document).ready(function(){
 	
 	setInterval(function() {		
 		getCurrentState();
-	}, 5000);	
+	}, 10000);	
 	
 	
 	$('#nav li').removeClass('active');
