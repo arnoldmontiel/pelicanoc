@@ -209,7 +209,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
 
 	<!-- <div class="flexslider carousel">
 		<ul class="slides superScroll"> -->
-		    <?php /*
+		    <?php 
     			foreach($dataProvider->getData() as $data)
     			{
     				$modelMyMovieNzb = $data->myMovieDiscNzb->myMovieNzb;
@@ -233,7 +233,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
     				echo CHtml::closeTag("li");
     				
     			}
-    		*/?>        	
+    		?>        	
 <!--		</ul>
 	</div>  -->
 <!-- /content -->
