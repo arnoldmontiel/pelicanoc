@@ -1,6 +1,8 @@
 
 <?php 
-
+$aa = Movies::model()->findAll();
+foreach($aa as $data)
+{
 if($data->source_type == 1)
 {
 	$model = MyMovieDiscNzb::model()->findByPk($data->Id_my_movie_disc_nzb);
@@ -75,3 +77,4 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
         </div>
     </div>
 </div>
+<?php }?>
