@@ -106,6 +106,27 @@ class DuneHelper
 		
 		return $progressBar;
 	}
+	static public function getProgressBarByPlayer($player)
+	{
+		$progressBar = array('currentProgress'=>-1,
+				'currentTime'=>gmdate("H:i:s",0),
+				'totalTime'=>gmdate("H:i:s",0));
+	
+		$modelDune = self::getStateByPlayer($player);
+	
+		if(isset($modelDune))
+		{
+			if(($modelDune->playback_state == "playing" || $modelDune->player_state == "bluray_playback")
+			&& (int)$modelDune->playback_duration > 0)
+			{
+				$value = ((int)$modelDune->playback_position/(int)$modelDune->playback_duration) * 100;
+				$progressBar['currentProgress'] = round($value);
+				$progressBar['currentTime'] = gmdate("H:i:s",$modelDune->playback_position);
+				$progressBar['totalTime'] = gmdate("H:i:s",$modelDune->playback_duration);
+			}
+		}
+		return $progressBar;
+	}
 	
 	static public function getPlaybackUrl()
 	{

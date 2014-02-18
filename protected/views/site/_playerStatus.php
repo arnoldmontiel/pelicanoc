@@ -97,7 +97,7 @@ function control(idPlayer)
         			var obj = jQuery.parseJSON(data);
         			if(obj.id != 0)
         			{
-        				var param = '&id=' + obj.id + '&type=' + obj.type + '&id_resource=' + obj.id_resource;
+        				var param = '&id=' + obj.id + '&type=' + obj.type + '&id_resource=' + obj.id_resource+'&id_player=' + idPlayer;
         				window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
         				return false;
         			}

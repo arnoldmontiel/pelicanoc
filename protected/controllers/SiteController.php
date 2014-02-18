@@ -1319,6 +1319,7 @@ class SiteController extends Controller
 				'big_poster'=>$poster,
 				'idResource'=>$idResource,
 				'sourceType'=>$sourceType,
+				'player'=>$player
 		));
 	}
 	public function actionStart($id, $sourceType, $idResource)
@@ -1442,7 +1443,8 @@ class SiteController extends Controller
 	
 	public function actionAjaxGetProgressBar()
 	{
-		echo json_encode(DuneHelper::getProgressBar());
+		$player=Player::model()->findByPk($_POST['idPlayer']);
+		echo json_encode(DuneHelper::getProgressBarByPlayer($player));
 	}
 
 	public function actionAjaxShowBookmark()
@@ -1561,8 +1563,9 @@ class SiteController extends Controller
 
 	}
 
-	public function actionOpenDuneControl($id, $type,$id_resource)
+	public function actionOpenDuneControl($id, $type, $id_resource,$id_player)
 	{
+		$player = Player::model()->findByPk($id_player);
 		$this->showFilter = false;
 
 		if($type == 1)
@@ -1600,6 +1603,7 @@ class SiteController extends Controller
 				'backdrop'=>$backdrop,
 				'idResource'=>$id,
 				'sourceType'=>$type,
+				'player'=>$player
 		));
 	}
 

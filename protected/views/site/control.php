@@ -151,9 +151,8 @@ setInterval(function() {
 
 function getProgressBar()
 {
- 	
- 	$.post('".SiteController::createUrl('AjaxGetProgressBar')."'	
-		).success(
+ 	$.post('".SiteController::createUrl('AjaxGetProgressBar')."',
+		{idPlayer:".$player->Id."}).success(
 		function(data){	
 			var obj = jQuery.parseJSON(data);
 			if(obj != null && obj.currentProgress >= 0)
