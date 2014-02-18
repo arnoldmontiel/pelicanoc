@@ -12,18 +12,19 @@
 // 		echo $file['dirpath']. '<br>';	
 // }
 
-$this->widget('ext.isotope.Isotope',array(
-    'dataProvider'=>$dataProvider,
-    'itemView'=>'_view',
-    'itemSelectorClass'=>'item',
-	'summaryText' =>"",
-	'onClickLocation'=>SiteController::createUrl('AjaxMovieShowDetail'),
-	'onClickLocationParam'=>array('id','idresource','sourcetype'),
-    'options'=>array(), // options for the isotope jquery
-    'infiniteScroll'=>true, // default to true
-    'infiniteOptions'=>array(), // javascript options for infinite scroller
-    'id'=>'wall',
-));
+// $this->widget('ext.isotope.Isotope',array(
+//     'dataProvider'=>$dataProvider,
+//     'itemView'=>'_view',
+//     'itemSelectorClass'=>'item',
+// 	'summaryText' =>"",
+// 	'onClickLocation'=>SiteController::createUrl('AjaxMovieShowDetail'),
+// 	'onClickLocationParam'=>array('id','idresource','sourcetype'),
+//     'options'=>array(), // options for the isotope jquery
+//     'infiniteScroll'=>true, // default to true
+//     'infiniteOptions'=>array(), // javascript options for infinite scroller
+//     'id'=>'wall',
+// ));
+echo $this->renderPartial('_view',array('dataProvider'=>$dataProvider));
 ?>
 
 <?php 
