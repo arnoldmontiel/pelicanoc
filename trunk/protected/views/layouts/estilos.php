@@ -183,13 +183,65 @@ padding-top:80px;
 padding-bottom:20px;
 }
 
+/* ----- LOGIN ------*/
+.loginBody{background:transparent; background-color:#26ada1;}
+.loginPanel{
+background-color: #f8f8f8;
+border: 1px solid #d9d9d9;
+-moz-box-shadow: 0 0 16px -4px rgba(0, 0, 0, 0.5);
+-webkit-box-shadow: 0 0 16px -4px rgba(0, 0, 0, 0.5);
+box-shadow: 0 0 16px -4px rgba(0, 0, 0, 0.5);
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+vertical-align:middle;
+text-align:center;
+padding:20px;
+display:inline-block;
+margin:auto;
+}
+.loginBrand{font-family: 'LatoRegular', sans-serif;
+font-size: 28px;
+text-transform: uppercase;
+letter-spacing: 1px;
+line-height: 48px;
+ text-align:center;
+color:#fff;
+margin-bottom:15px;
+}
 
+.loginWrapper{ margin-bottom:200px; margin:auto;
+margin-top:100px; text-align:center;
+}
+.loginBody .inputLogin {
+margin: 5px;
+padding: 0 10px;
+width: 300px;
+height: 34px;
+color: #404040;
+background: white;
+border: 1px solid;
+border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+border-radius: 2px;
+outline: 5px solid #eff4f7;
+-moz-outline-radius: 3px;
+-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.loginForm{display:inline-block; margin:auto;}
+
+.loginForm .checkbox{text-align:left; color:#999; margin-left:5px; margin-top:2px;}
+
+.loginForm .btn{margin-top:20px;}
+
+.separatorLine{border-top:1px dotted #ddd;}
+/* ----- END LOGIN ------*/
 
 /* ----- NEW BUTTONS ------*/
 .btn-primary {
 	color: #ffffff;
 	background-color: #26ada1;
-	border-color: #21988e;
+	border-color: #26ada1;
 }
 
 .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary
@@ -1088,6 +1140,7 @@ white-space: nowrap;
 	color: #fff;
 	text-shadow: 0 1px 3px #333;
 	text-align: left;
+	padding-bottom:5px;
 }
 
 .controlAudioSub {
@@ -1202,16 +1255,9 @@ white-space: nowrap;
 	height: 280px;
 }
 
-#screenControl .dropdown {
-	text-align: left;
-	padding-top: 20px;
-	padding-bottom: 10px;
-	margin-bottom: 20px;
-	border-bottom: 1px solid #ccc;
-}
-
-#screenControl .dropdown a.controlTitle {
+#screenControl .controlTitle {
 	color: white;
+	border-bottom: 1px solid #ccc;
 }
 
 #screenControl .dropdown a.controlTitle:hover {
@@ -1240,6 +1286,19 @@ white-space: nowrap;
 #screenControl .dropdown ul li {
 	font-size: 1.6em;
 }
+ 
+ 
+
+#screenControl .dropdown {
+	text-align: left;
+}
+.chooseFile{color:white; font-size:2em; padding:15px; margin-top:5px;  text-shadow:0 1px 3px #333;}
+.chooseFile .dropdown{display:inline-block;}
+.chooseFile .dropdown .fa{display:inline;}
+.chooseFile .dropdown > a{text-shadow:none;color:white; padding: 5px; text-decoration:none; margin:5px;background-color:rgba(0,0,0,0.7);border-radius:5px;}
+.chooseFile .dropdown a:hover{color:#999; text-decoration:none;}
+
+.chooseFile ul li{color:#333; text-shadow:none;}
 
 /*-------- END CONTROL REMOTO --------------*/
 
