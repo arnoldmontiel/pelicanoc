@@ -1,7 +1,7 @@
 
 <div class="container" id="screenControl">
 <div class="controlContainer">
-  <div class="row">
+  <div class="row rowControlVariable">
     <div class="col-sm-4">
     <div class="controlAfiche">
 <img class="aficheImg" src="<?php echo "images/".$big_poster?>" border="0"> 
@@ -12,9 +12,10 @@
       <div class="row">
     <div class="col-sm-12">
     <div class="dropdown ">
-          <a class="controlTitle" id="drop" role="button" data-toggle="dropdown" href="#">Cocina: <?php echo $model->original_title?> <i class="fa fa-caret-down"></i></a>
-           <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
-				<li><a>Dormitorio Juan: Monsters Inc</a></li>        		
+          <a class="controlTitle" id="drop" role="button" data-toggle="dropdown" href="#">Cocina: <?php echo $model->original_title?> <i class="fa fa-chevron-circle-down"></i></a>
+           <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">
+				<li><a>Dormitorio Juan: Monsters Inc</a></li>        	
+    			<li role="presentation" class="divider"></li>	
 				<li><a>Dormitorio Pedro: Rapido y Furioso</a></li>        		
 		 </ul>
         </div>
@@ -22,7 +23,7 @@
     </div>
     <!-- /col-sm-8 -->
  </div><!-- /row interna -->
-      <div class="row">
+      <div class="row ">
     <div class="col-sm-5" style="text-align:left;">
      <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO 
 <div class="btn-group">
@@ -69,8 +70,8 @@
   </div>
   <!-- /row -->
   
-  <div class="row controlBackground">
-    <div class="col-sm-6">
+  <div class="row controlBackground rowControlVariable">
+    <div class="col-md-6 col-sm-12">
     <div class="controlNavegacion">
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="prevButton"><i class="fa fa-step-backward fa-2x"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="rewButton"><i class="fa fa-backward fa-2x"></i></button>
@@ -81,7 +82,7 @@
 </div>
     </div>
     <!-- /col-sm-6 -->
-    <div class=col-sm-6>
+    <div class="col-md-6 col-sm-12">
     <div class="row">
     <div class="col-sm-7">
     <div class="controlProgress">
@@ -104,8 +105,8 @@
     <!-- /col-sm-6 -->
     </div>
   <!-- /row -->
-    <div class="row">
-    <div class="col-sm-9">
+    <div class="row rowControlVariable">
+    <div class="col-md-9 col-sm-12">
         <div class="controlNumeros">
 <button type="button" class="btn btn-default" id="button0">0</button>
 <button type="button" class="btn btn-default" id="button1">1</button>
@@ -120,7 +121,7 @@
 </div>
     </div>
     <!-- /col-sm-9 -->
-    <div class="col-sm-3">   
+    <div class="col-md-3 col-sm-12">   
     <div class="controlConfig">
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="popUpMenuButton"><i class="fa fa-cog fa-lg"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="returnButton"><i class="fa fa-reply fa-lg"></i></button>
