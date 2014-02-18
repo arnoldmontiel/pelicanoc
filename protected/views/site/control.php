@@ -2,15 +2,15 @@
 <div class="container" id="screenControl">
 <div class="controlContainer">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-sm-4">
     <div class="controlAfiche">
 <img class="aficheImg" src="<?php echo "images/".$big_poster?>" border="0"> 
 </div>   
 </div>
-    <!-- /col-md-4 -->
-    <div class="col-md-8">
+    <!-- /col-sm-4 -->
+    <div class="col-sm-8">
       <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
     <div class="dropdown ">
           <a class="controlTitle" id="drop" role="button" data-toggle="dropdown" href="#">Cocina: <?php echo $model->original_title?> <i class="fa fa-caret-down"></i></a>
            <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop">
@@ -20,10 +20,10 @@
         </div>
     <!-- <div class="controlTitle"><?php //echo $model->original_title?></div> -->
     </div>
-    <!-- /col-md-8 -->
+    <!-- /col-sm-8 -->
  </div><!-- /row interna -->
       <div class="row">
-    <div class="col-md-5" style="text-align:left;">
+    <div class="col-sm-5" style="text-align:left;">
      <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO 
 <div class="btn-group">
  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -45,8 +45,8 @@
 </div>
 <?php endif;?>
     </div>
-    <!-- /col-md-5 -->
-    <div class="col-md-7">
+    <!-- /col-sm-5 -->
+    <div class="col-sm-7">
     <div class="controlFlechas pull-right">
     <div class="flechasArriba">
 <button type="button" class="btn btn-lg  btn-warning" id="upButton"><i class="fa fa-chevron-up fa-2x"></i></button>
@@ -61,16 +61,16 @@
 </div>
 </div>
     </div>
-    <!-- /col-md-7 -->
+    <!-- /col-sm-7 -->
  </div>
   <!-- /row interna -->
     </div>
-    <!-- /col-md-9 -->
+    <!-- /col-sm-9 -->
   </div>
   <!-- /row -->
   
   <div class="row controlBackground">
-    <div class="col-md-6">
+    <div class="col-sm-6">
     <div class="controlNavegacion">
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="prevButton"><i class="fa fa-step-backward fa-2x"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="rewButton"><i class="fa fa-backward fa-2x"></i></button>
@@ -80,32 +80,32 @@
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="nextButton"><i class="fa fa-step-forward fa-2x"></i></button>
 </div>
     </div>
-    <!-- /col-md-6 -->
-    <div class=col-md-6>
+    <!-- /col-sm-6 -->
+    <div class=col-sm-6>
     <div class="row">
-    <div class="col-md-7">
+    <div class="col-sm-7">
     <div class="controlProgress">
     <div class="progress">
         <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
     </div>
     </div>
     </div>
-    <!-- /col-md-7 -->
-    <div class="col-md-5">
+    <!-- /col-sm-7 -->
+    <div class="col-sm-5">
     <div class="controlLenght">
     <span id="currentTime"></span> / 
     <span id="totalTime"></span>
     </div>
     </div>
-    <!-- /col-md-5 -->
+    <!-- /col-sm-5 -->
     </div>
     <!-- /row interna -->
     </div>
-    <!-- /col-md-6 -->
+    <!-- /col-sm-6 -->
     </div>
   <!-- /row -->
     <div class="row">
-    <div class="col-md-9">
+    <div class="col-sm-9">
         <div class="controlNumeros">
 <button type="button" class="btn btn-default" id="button0">0</button>
 <button type="button" class="btn btn-default" id="button1">1</button>
@@ -119,14 +119,14 @@
 <button type="button" class="btn btn-default" id="button9">9</button>
 </div>
     </div>
-    <!-- /col-md-9 -->
-    <div class="col-md-3">   
+    <!-- /col-sm-9 -->
+    <div class="col-sm-3">   
     <div class="controlConfig">
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="popUpMenuButton"><i class="fa fa-cog fa-lg"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="returnButton"><i class="fa fa-reply fa-lg"></i></button>
 </div>
     </div>
-    <!-- /col-md-3 -->
+    <!-- /col-sm-3 -->
     </div>  <!-- /row -->
   </div><!-- /controlContainer -->
 </div><!-- /container -->

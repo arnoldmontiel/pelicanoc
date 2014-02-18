@@ -92,6 +92,8 @@ button {
 	text-align: right;
 }
 
+.fa-lg{width:1.3em;}
+
 html {
 padding:0px; margin:0px;
 }
@@ -219,6 +221,7 @@ padding-bottom:20px;
 
 .btn-default .badge {
 	color: #027871;
+	background-color:white;
 }
 
 .btn-danger {
@@ -300,6 +303,9 @@ ul.nav {
 	z-index: 1060;
 }
 
+#pushMain .mobileMenuItem.active{background-color:#e7e7e7;}
+
+#Menu .container-fluid{padding:0px;}
 #MenuLogo {
 	margin-left: 0px;
 	font-family: 'LatoRegular', sans-serif;
@@ -487,12 +493,11 @@ background-color: #e7e7e7;
 	margin-left: 20px;
 	height: 50px;
 	font-size: 0.6em;
-	padding-right: 8px;
-	padding-left: 8px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px; background-color:#e7e7e7;
 }
 
+#Menu .container-fluid{padding-right:10px; padding-left}
 #menuSecond .navbar-collapse {
 	padding: 0px;
 }
@@ -755,6 +760,10 @@ h3.popover-title {
 	position: relative;
 	overflow: visible;
 	border-top-right-radius: none !important;
+}
+
+.element a{
+display:block;
 }
 
 
@@ -1151,8 +1160,11 @@ white-space: nowrap;
 }
 
 .controlNumeros {
-	text-align: left;
+	text-align: center;
 	padding: 20px 0px;
+}
+.controlNavegacion {
+	text-align: center;
 }
 
 .controlNumeros .btn {
@@ -1500,9 +1512,9 @@ background-color:none;
 	color: #fff;
 	text-shadow: 0 1px 1px #666;
 	font-size: 18px;
-	width: 97%;
+	width: 95%;
 	margin: auto;
-	height: 268px;
+	height: 295px;
 	text-align: center;
 	line-height: 180px;
 	text-transform: uppercase;
@@ -1515,7 +1527,7 @@ background-color:none;
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
 .flexslider {
 	height: 295px;
-	width: 97%;
+	width: 95%;
 	margin: 0 auto;
 	margin-bottom: 30px;
 	background: none repeat scroll 0 0;
@@ -1532,13 +1544,28 @@ background-color:none;
 .flexslider .slides>li {
 	position: relative;
 }
+.flexslider .flex-next {
+	right: -34px !important;
+	background-position:100% 0;
+}
+.flexslider .flex-prev {
+	left: -34px !important;
+}
 
 .flexslider:hover .flex-next {
-	right: -36px;
+	right: -34px !important;
+	background-position:100% 0;
 }
 
 .flexslider:hover .flex-prev {
-	left: -36px;
+	left: -34px !important;
+}
+
+
+.flexslider .flex-next {
+}
+
+.flexslider .flex-prev {
 }
 
 .flex-control-nav {
@@ -1884,7 +1911,14 @@ font-size:  110% !important;
 		bottom: 84px;
 	}
 		.devicesHeader .nav-tabs{font-size:115%;}
-	
+
+	.controlNumeros {
+		text-align: left;
+	}
+	.controlNavegacion {
+		text-align: left;
+	}
+		
 }
 
 /*IPAD PORTRAIT*/
@@ -1919,6 +1953,13 @@ font-size:  110% !important;
 	.controlContainer .controlNavegacion .btn {
 		width: 70px;
 		height: 70px;
+	}
+	
+	.controlNumeros {
+		text-align: left;
+	}
+	.controlNavegacion {
+		text-align: left;
 	}
 	.controlProgress {
 		width: 90%;
