@@ -418,7 +418,31 @@ $(document).ready(function(){
 					<i class="fa fa-reorder fa-fw"></i>
 				</button>
 			</div>
-			<p class="navbar-text visible-sm visible-xs" id="mobilePageName">Mis Peliculas</p>
+			<p class="navbar-text visible-sm visible-xs" id="mobilePageName">
+			<?php 
+				if($this->action->Id=="index")
+				{
+					echo "Mis Peliculas";					
+				}
+				elseif($this->action->Id=="indexserie")
+				{
+					echo "Mis Series";					
+				}
+				elseif($this->action->Id=="marketplace")
+				{
+					echo "Marketplace";
+				}
+				elseif($this->action->Id=="downloads")
+				{
+					echo "Descargando";
+				}
+				elseif($this->action->Id=="devices")
+				{
+					echo "Dispositivos";
+				}
+				?>
+			
+			</p>
 			<!-- /.navbarBotonCollapse -->
 			<div class="nav navbar-nav navbar-right">
 				<button id="player-status" type="button"
