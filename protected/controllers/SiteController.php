@@ -1289,7 +1289,7 @@ class SiteController extends Controller
 				$TMDBData =$localFolder->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
-				DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
+				//DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
 
 				$model = MyMovie::model()->findByPk($id);
 				break;
