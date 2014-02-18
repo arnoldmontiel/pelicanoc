@@ -1160,11 +1160,11 @@ white-space: nowrap;
 }
 
 .controlNumeros {
-	text-align: center;
+	text-align: left;
 	padding: 20px 0px;
 }
 .controlNavegacion {
-	text-align: center;
+	text-align: left;
 }
 
 .controlNumeros .btn {
@@ -1173,6 +1173,7 @@ white-space: nowrap;
 	font-size: 2em;
 	margin-right: 5px;
 }
+.rowControlVariable{width:90%; margin:auto;}
 
 .controlConfig {
 	text-align: left;
@@ -1237,7 +1238,7 @@ white-space: nowrap;
 }
 
 #screenControl .dropdown ul li {
-	font-size: 1.3em;
+	font-size: 1.6em;
 }
 
 /*-------- END CONTROL REMOTO --------------*/
@@ -1912,12 +1913,8 @@ font-size:  110% !important;
 	}
 		.devicesHeader .nav-tabs{font-size:115%;}
 
-	.controlNumeros {
-		text-align: left;
-	}
-	.controlNavegacion {
-		text-align: left;
-	}
+	.rowControlVariable{width:99%; margin:auto;}
+	.controlNavegacion{text-align:center;}
 		
 }
 
@@ -1954,21 +1951,18 @@ font-size:  110% !important;
 		width: 70px;
 		height: 70px;
 	}
-	
-	.controlNumeros {
-		text-align: left;
-	}
-	.controlNavegacion {
-		text-align: left;
-	}
 	.controlProgress {
 		width: 90%;
 		margin: auto;
 	}
 	.controlNumeros .btn {
-		margin-right: 25px;
+		margin-right: 5px;
 		margin-bottom: 15px;
 	}
+	.controlProgress{padding-top:20px;}
+	.controlLenght{padding-top:16px;}
+	.rowControlVariable{width:99%; margin:auto;}
+	
 	#tab1 {
 		max-height: 650px;
 	}
@@ -2000,6 +1994,8 @@ box-shadow: none;
 
 	.devicesHeader .nav-tabs{font-size:15px;}
 
+	.controlNavegacion{text-align:center;}
+	.controlNumeros{text-align:center;}
 
 }
 
