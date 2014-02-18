@@ -447,9 +447,8 @@ $(document).ready(function(){
 			<div class="nav navbar-nav navbar-right">
 				<button id="player-status" type="button"
 					class="btn btn-default navbar-btn btnReproduciendo"
-					data-toggle="modal" data-target="#myModalReproduciendo">
-					Reproduciendo <span class="badge">3</span><i class="fa fa-caret-down fa-fw"></i>
-				</button>
+					data-toggle="modal">
+					Reproduciendo <span id="player-status-quantity" class="badge">0</span><i class="fa fa-caret-down fa-fw"></i>				</button>
 			</div>
 			<!-- /.navbarRproduciendo -->
 		</div>
