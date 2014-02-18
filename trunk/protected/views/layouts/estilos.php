@@ -1292,7 +1292,7 @@ white-space: nowrap;
 #screenControl .dropdown {
 	text-align: left;
 }
-.chooseFile{color:white; font-size:2em; padding:15px; margin-top:5px;  text-shadow:0 1px 3px #333;}
+.chooseFile{color:white; font-size:2em; padding:15px; margin-top:5px;  text-shadow:0 1px 3px #333; text-align:left;}
 .chooseFile .dropdown{display:inline-block;}
 .chooseFile .dropdown .fa{display:inline;}
 .chooseFile .dropdown > a{text-shadow:none;color:white; padding: 5px; text-decoration:none; margin:5px;background-color:rgba(0,0,0,0.7);border-radius:5px;}

@@ -13,16 +13,12 @@
     <div class="col-sm-12">
     <div class="controlTitle"><?php echo $model->original_title?> </div>
     <!-- <div class="controlTitle"><?php //echo $model->original_title?></div> -->
-    </div>
-    <!-- /col-sm-8 -->
- </div><!-- /row interna -->
-      <div class="row ">
-    <div class="col-sm-5" style="text-align:left;">
+    
      <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO -->
      <div class="chooseFile">
      Ver: 
      <div class="dropdown">
-          <a id="drop" role="button" data-toggle="dropdown" href="#">Principal <i class="fa fa-chevron-circle-down"></i></a>
+          <a id="drop" role="button" data-toggle="dropdown" href="#">Principal <i class="fa fa-caret-down"></i></a>
            <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">
 				<li><a>Extras</a></li>        	
     			<li role="presentation" class="divider"></li>	
@@ -30,7 +26,12 @@
 		 </ul>
         </div>
         </div>
-<<!-- <div class="btn-group">
+    </div>
+    <!-- /col-sm-8 -->
+ </div><!-- /row interna -->
+      <div class="row ">
+    <div class="col-sm-5" style="text-align:left;">
+<!-- <div class="btn-group">
  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     archivopelicula grande.mkv 80GB <span class="caret"></span>
   </button>
