@@ -1,43 +1,35 @@
-<div class="login">
-<div class="login-left">
 
-<div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
+    'htmlOptions'=>array(
+        'class'=>'loginForm',
+    ),
 )); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
+	<p>
+		<?php echo $form->textField($model,'username', array('class'=>'inputLogin', 'placeholder'=>'Usuario')); ?>
 		<?php echo $form->error($model,'username'); ?>
-	</div>
+	</p>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
+	<p>
+		<?php echo $form->passwordField($model,'password', array('class'=>'inputLogin', 'placeholder'=>'Password')); ?>
 		<?php echo $form->error($model,'password'); ?>
-	</div>
+	</p>
 
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
+	<div class="rememberMe">
+	    <?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->label($model,'rememberMe'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton('Ingresar', array('class'=>'btn btn-primary')); ?>
+		
+		
 	</div>
 
 <?php $this->endWidget(); ?>
-</div><!-- form -->
-</div><!-- left -->
-<div class="login-right">
-	<div class="login-text-logo">
-	Pelicano
-	</div>	
-</div><!-- right -->
-</div>

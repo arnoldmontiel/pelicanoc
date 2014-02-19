@@ -230,11 +230,17 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .loginForm{display:inline-block; margin:auto;}
 
-.loginForm .checkbox{text-align:left; color:#999; margin-left:5px; margin-top:2px;}
+.loginForm .rememberMe{color:#999; line-height:18px;}
+
+.loginForm .rememberMe label{margin:0px; vertical-align:middle;}
+.loginForm .rememberMe input{margin:0px; vertical-align:middle;}
 
 .loginForm .btn{margin-top:20px;}
 
 .separatorLine{border-top:1px dotted #ddd;}
+
+.loginFooter{color:white; text-align:center; margin-top:40px;}
+
 /* ----- END LOGIN ------*/
 
 /* ----- NEW BUTTONS ------*/
@@ -1329,6 +1335,9 @@ white-space: nowrap;
 .botonTodas .btn-lg {
 	font-size: 15px;
 }
+
+.selectedFiltersWrapper{ position:absolute; bottom:30px; z-index:2000; text-align:center; width:100%;}
+.selectedFilters{background-color:#efefef; border-radius:5px; display:inline-block; margin:auto; padding:20px;}
 
 /* ----- END MARKETPLACE --------*/
 
