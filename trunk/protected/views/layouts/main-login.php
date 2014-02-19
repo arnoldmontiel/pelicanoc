@@ -14,51 +14,22 @@
 
 <body class="loginBody">
 <div class="container" id="screenLogin" >
-
    <div class="row">
     <div class="col-md-12">
     <div class="loginWrapper">
     <div class="loginBrand">PELICANO</div>
     
     <div class="loginPanel">
-    <form class="loginForm" method="post" action="index.html">
-        <p><input type="text" class="inputLogin" name="login" value="" placeholder="Usuario or Email"></p>
-        <p><input type="password" class="inputLogin" name="password" value="" placeholder="Password"></p>
-        <div class="checkbox">
-        <label>
-          <input type="checkbox"> Recordarme
-        </label>
-      </div>
-      <div class="separatorLine"></div>
-        <button class="btn btn-primary">Ingresar</button>
-      </form>
-      </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    
-<div class="container" id="page">
-
-	<div id="header">
-	</div><!-- header -->
-
-	<div class="second-menu">
-	
-	</div>
-		
 	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
+    
+      </div>
+    </div>
+    	<div class="loginFooter">
 		Copyright &copy; <?php echo date('Y'); ?> by SmartLiving.<br/>
-		All Rights Reserved.<br/>
-		Powered by WestIdeas.
-	</div><!-- footer -->
-
-</div><!-- page -->
-
-</div>
+		All Rights Reserved
+	</div>
+    </div>
+    </div>
+    </div>
 </body>
 </html>
