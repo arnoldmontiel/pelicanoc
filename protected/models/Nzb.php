@@ -185,7 +185,8 @@ class Nzb extends CActiveRecord
 		$criteria->compare('downloaded',0);		
 		$criteria->compare('downloading',0);
 		$criteria->compare('ready',1);
-	
+		$criteria->addCondition("Id_nzb is null");
+		
 		return new CActiveDataProvider($this, array(
 									'criteria'=>$criteria,
 		));

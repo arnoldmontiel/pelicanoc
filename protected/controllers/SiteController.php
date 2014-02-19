@@ -53,10 +53,13 @@ class SiteController extends Controller
 
 	public function actionMarketplace()
 	{
-		$this->showFilter = false;
-		$modelNzb = new Nzb();
-		$dataProvider = $modelNzb->searchMarketplace();
-
+ 		$this->showFilter = false;
+ 		$modelNzb = new Nzb();
+ 		$dataProvider = $modelNzb->searchMarketplace();
+// 		$modelMovies = new Movies();
+// 		$dataProvider= $modelMovies->search();
+// 		$dataProvider->pagination->pageSize= 250;
+		
 
 		$this->render('marketplace',array(
 				'dataProvider'=>$dataProvider,
