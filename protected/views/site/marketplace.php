@@ -78,126 +78,28 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
     </div>-->
     <div class="row">
     <div class="col-sm-12">
-    <div class="scrollItems clearfix">
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/63973.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>    
-	</div>    
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/4982.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>    
-	</div>  
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/73611.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>   
-	</div>     
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/39356.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>   
-	</div>     
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/63973.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>    
-	</div>    
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/4982.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>   
-	</div>     
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/73611.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>    
-	</div>    
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/39356.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>  
-	</div>      
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/4982.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>   
-	</div>     
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/73611.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>    
-	</div>    
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/39356.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>  
-	</div>      
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/4982.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>   
-	</div>     
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/73611.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>    
-	</div>    
-	</div><!-- element -->
-    <div class="element">
-	<a href="#myModal" data-toggle="modal" class="">    
-        <img class="peliAfiche" src="images/39356.jpg" alt="details">    
-    </a>			
-    <div class="peliTitulo">
-		<p class="slide-text26">AC/DC: Live at River Plate</p>  
-	</div>      
-	</div><!-- element -->
-	</div><!-- scrollItems -->
+    <?php
+
+$this->widget('ext.isotope.Isotope',array(
+    'dataProvider'=>$dataProvider,
+    'itemView'=>'_view',
+    'itemSelectorClass'=>'item',
+	'summaryText' =>"",
+	'onClickLocation'=>SiteController::createUrl('AjaxMovieShowDetail'),
+	'onClickLocationParam'=>array('id','idresource','sourcetype'),
+    'options'=>array(), // options for the isotope jquery
+    'infiniteScroll'=>true, // default to true
+    'infiniteOptions'=>array(), // javascript options for infinite scroller
+    'id'=>'wall',
+));
+?>
 </div>
     </div>
 
 	<!-- <div class="flexslider carousel">
 		<ul class="slides superScroll"> -->
 		    <?php 
+		    
     			foreach($dataProvider->getData() as $data)
     			{
     				$modelMyMovieNzb = $data->myMovieDiscNzb->myMovieNzb;
