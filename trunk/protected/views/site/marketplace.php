@@ -82,10 +82,10 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
 
 $this->widget('ext.isotope.Isotope',array(
     'dataProvider'=>$dataProvider,
-    'itemView'=>'_view',
+    'itemView'=>'_viewMarketplace',
     'itemSelectorClass'=>'item',
 	'summaryText' =>"",
-	'onClickLocation'=>SiteController::createUrl('AjaxMovieShowDetail'),
+	'onClickLocation'=>SiteController::createUrl('AjaxMarketShowDetail'),
 	'onClickLocationParam'=>array('id','idresource','sourcetype'),
     'options'=>array(), // options for the isotope jquery
     'infiniteScroll'=>true, // default to true
@@ -93,67 +93,13 @@ $this->widget('ext.isotope.Isotope',array(
     'id'=>'wall',
 ));
 ?>
-</div>
+	</div>
     </div>
-
-	<!-- <div class="flexslider carousel">
-		<ul class="slides superScroll"> -->
-		    <?php 
-		    
-    			foreach($dataProvider->getData() as $data)
-    			{
-    				$modelMyMovieNzb = $data->myMovieDiscNzb->myMovieNzb;
-    				echo CHtml::openTag('li');
-    				echo CHtml::link(
-    				
-    				CHtml::image("images/".$modelMyMovieNzb->poster,'',array("class"=>"peliAfiche aficheClick",
-    								"width"=>"180", "height"=>"260", "border"=>"0",
-    								"idMovie"=>$modelMyMovieNzb->Id,
-    								"idResource"=>$data->Id)),
-    				
-    				'',array("style"=>"position:relative", "data-toggle"=>"modal", "href"=>"#myModal"));
-    					
-    					echo CHtml::openTag("div",array("id"=>$data->Id, "class"=>"peliTitulo"));
-    						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($modelMyMovieNzb->original_title)));
-    							echo $modelMyMovieNzb->original_title;
-    						echo CHtml::closeTag("p");
-    					echo CHtml::closeTag("div");
-    					
-    					
-    				echo CHtml::closeTag("li");
-    				
-    			}
-    		?>        	
-<!--		</ul>
-	</div>  -->
-<!-- /content -->
-
+</div><!-- /container -->
+    
 <!-- Le javascript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
-    $(window).load(function(){
-      $('.flexslider').flexslider({
-        animation: "slide",
-        animationLoop: false,
-        itemWidth: 180,
-        itemMargin: 5,
-		slideshow: false,
-		touch: true,
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-      });
-    });
   </script>
 
-<?php 
-// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
-
-// echo CHtml::openTag('div',array('id'=>'myModal'));
-// //place holder
-// echo CHtml::closeTag('div'); 
-
-// $this->endWidget(); ?>
-
-</div><!-- /container -->
