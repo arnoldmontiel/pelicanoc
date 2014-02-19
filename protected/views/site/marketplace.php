@@ -1,25 +1,13 @@
-<!--<div class="secondNavFixedTop clearfix">
-<h2 class="sliderTitle pull-left">Pel&iacute;culas</h2> 			
-		 	
-			<div class="pull-left">
-				<button
-					class="toggle-menu menu-left btn btn-default" id="toggleMarketplace">
-					<i class="fa fa-filter fa-fw"></i> Filtro
-				</button>
-			</div>
-			<div class="changeType pull-right">
-				<button class="btn btn-primary navbar-btn btn-lg"><i class="fa fa-long-arrow-right"></i> Series</button>
-			</div>
-			<div class="searchMain pull-left">
-			<form class="navbar-form navbar-right" role="search">
-				<div class="form-group">
-					<input id="main-search" type="text"
-						class="form-control form-search"
-						placeholder=" Buscar en Pel&iacute;culas">
-				</div>
-			</form>
-			</div>
-</div>-->
+<div class="selectedFiltersWrapper">
+<div class="selectedFilters">
+<span class="filterStart">FILTROS:</span>
+<span class="labelFilter">Comedia</span>
+<span class="labelFilter">Drama</span>
+<span class="labelFilter">2013</span>
+<span class="labelFilter">Estrenos</span>
+<span class="filterEnd"><i class="fa fa-times-circle"></i> Reset</span>
+</div>
+</div>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
 		id="menuSecond">
 		<div class="container-fluid">
