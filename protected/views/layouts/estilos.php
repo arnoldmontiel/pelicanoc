@@ -243,6 +243,8 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 
 .loginFooter{color:white; text-align:center; margin-top:40px;}
 
+.loginBody div.error{color:black;}
+
 /* ----- END LOGIN ------*/
 
 /* ----- NEW BUTTONS ------*/
