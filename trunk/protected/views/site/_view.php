@@ -63,7 +63,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
     </a>			
     <div id="<?php echo $data->Id;?>" class="peliTitulo">
 		<?php 
-    	echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($model->original_title)));
+    	echo CHtml::openTag("p",
+			array(/*"class"=>PelicanoHelper::setAnimationClass($model->original_title)*/));
     	echo $model->original_title;
     	echo CHtml::closeTag("p");
 		?>
