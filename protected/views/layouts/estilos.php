@@ -1040,6 +1040,9 @@ white-space: nowrap;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
 }
+.modalDetail .tab-pane.removeOverflowTab{
+overflow:visible;
+}
 
 .modalDetail .tab-pane.tabInfo {
 	max-height: auto;
