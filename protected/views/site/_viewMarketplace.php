@@ -6,7 +6,13 @@ $model = $model->myMovieNzb;
 
 $genre = preg_replace('/\W/', ' ',strtolower($model->genre));
 $title = preg_replace('/\W/', '-',strtolower($model->original_title));
+$modelTMDB =  TMDBData::model()->findByPk($data->Id_TMDB_data);;
+
 $moviePoster = $model->poster;
+if(isset($modelTMDB)&&$modelTMDB->poster!="")
+{
+	$moviePoster = $modelTMDB->poster;
+}
 
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
@@ -41,5 +47,5 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 				array('id'=>$model->Id, 'idNzb'=>$data->Id, 'class'=>'peliAfiche'));
 		?>    
     </a>
-    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $title;?></div>
+    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $model->original_title;?></div>
 </div>

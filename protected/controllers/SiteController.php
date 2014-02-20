@@ -56,9 +56,7 @@ class SiteController extends Controller
  		$this->showFilter = false;
  		$modelNzb = new Nzb();
  		$dataProvider = $modelNzb->searchMarketplace();
-// 		$modelMovies = new Movies();
-// 		$dataProvider= $modelMovies->search();
-// 		$dataProvider->pagination->pageSize= 250;
+ 		$dataProvider->pagination->pageSize= 250;
 		
 
 		$this->render('marketplace',array(
