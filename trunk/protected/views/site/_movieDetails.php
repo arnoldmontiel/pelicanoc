@@ -165,7 +165,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     </div><!--/.row -->
     </div><!--/.tab-pane#1 -->
     
-	<div class="tab-pane" id="tab2">
+	<div class="tab-pane removeOverflowTab" id="tab2">
     
     <div class="row detailSecondGroup">
     <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
