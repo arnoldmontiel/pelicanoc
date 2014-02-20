@@ -182,8 +182,8 @@ class Nzb extends CActiveRecord
 	
 		$criteria=new CDbCriteria;
 	
-		$criteria->compare('downloaded',0);		
-		$criteria->compare('downloading',0);
+// 		$criteria->compare('downloaded',0);		
+// 		$criteria->compare('downloading',0);
 		$criteria->compare('ready',1);
 		$criteria->addCondition("Id_nzb is null");
 		
