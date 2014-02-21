@@ -124,8 +124,8 @@ class SiteController extends Controller
 		$externalStorageDataCopying = ExternalStorageData::model()->findAll($criteriaExternal);
 		
 		$criteriaNzb=new CDbCriteria;
-		$criteriaNzb->addCondition('Id_nzb_state = 2');
-		$criteriaNzb->addCondition('downloading = 1');
+		//$criteriaNzb->addCondition('t.Id_nzb_state = 2');
+		$criteriaNzb->addCondition('t.downloading = 1 OR t.downloaded = 1');
 		//$criteriaExternal->limit=30;
 		//$criteriaExternal->order="read_date DESC";
 		
@@ -206,8 +206,13 @@ class SiteController extends Controller
 	public function actionAjaxStartDownload()
 	{
 		if(isset($_POST['Id_nzb']))
-		{
+		{		
 			PelicanoHelper::startDownload($_POST['Id_nzb']);
+			$nzbs = Nzb::model()->findAllByAttributes(array('Id_nzb'=>$_POST['Id_nzb']));
+			foreach ($nzbs as $nzb)
+			{
+				PelicanoHelper::startDownload($nzb->Id);				
+			}
 		}
 	}
 	public function actionAjaxPlaylistsShow()
@@ -1382,6 +1387,7 @@ class SiteController extends Controller
 				'big_poster'=>$poster,
 				'idResource'=>$idResource,
 				'sourceType'=>$sourceType,
+				'player'=>$player,
 		));
 	}
 	
