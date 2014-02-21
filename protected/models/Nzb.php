@@ -91,6 +91,7 @@ class Nzb extends CActiveRecord
 			'TMDBData' => array(self::BELONGS_TO, 'TMDBData', 'Id_TMDB_data'),
 			'nzbType' => array(self::BELONGS_TO, 'NzbType', 'Id_nzb_type'),
 			'nzb' => array(self::BELONGS_TO, 'Nzb', 'Id_nzb'),
+			'nzbs' => array(self::HAS_MANY, 'Nzb', 'Id_nzb'),
 			'currentPlays' => array(self::HAS_MANY, 'CurrentPlay', 'Id_nzb'),				
 		);
 	}
@@ -201,6 +202,7 @@ class Nzb extends CActiveRecord
 	
 		$criteria->compare('downloaded',0);
 		$criteria->compare('downloading',1);
+		$criteria->addCondition('t.Id_nzb is null');
 		$criteria->compare('ready',1);
 	
 		return new CActiveDataProvider($this, array(
