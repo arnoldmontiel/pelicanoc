@@ -329,7 +329,8 @@ class SiteController extends Controller
 			$bookmarks = $localFolder->bookmarks;
 		}
 		$casting = $this->getCasting($criteria);
-		$this->renderPartial('_movieFinishedDetails',array('model'=>$model,
+		//$this->renderPartial('_movieFinishedDetails',array('model'=>$model,
+		$this->renderPartial('_movieDetails',array('model'=>$model,
 				'casting'=>$casting,
 				'sourceType'=>$sourceType,
 				'modelNzb'=>$modelNzb,
@@ -1999,13 +2000,13 @@ class SiteController extends Controller
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
 				$model = $modelNzb->TMDBData;
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 			}
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
 				$model = $modelRippedMovie->TMDBData;
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 			}
 			else
 			{
@@ -2355,23 +2356,24 @@ class SiteController extends Controller
 		{
 			$idResource = $_GET['idResource'];
 			$sourceType = $_GET['sourceType'];
+			$modelSource = null;
 
 			if($sourceType == 1)
 			{
-				$modelNzb = Nzb::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$modelSource = Nzb::model()->findByPk($idResource);
+				$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
 			}
 			else if($sourceType == 2)
 			{
-				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$modelSource = RippedMovie::model()->findByPk($idResource);
+				$myMovie = $modelSource->myMovieDisc->myMovie;
 			}
 			else
 			{
-				$localFolder = LocalFolder::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$modelSource = LocalFolder::model()->findByPk($idResource);
+				$myMovie = $modelSource->myMovieDisc->myMovie;
 			}
-			$path = explode("/",$localFolder->path);
+			$path = explode("/",$modelSource->path);
 			$path = $path[count($path)-1];
 			$db = TMDBApi::getInstance();
 			$db->adult = true;  // return adult content
@@ -2391,12 +2393,12 @@ class SiteController extends Controller
 			if($sourceType == 1)
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 			}
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 			}
 			else
 			{
@@ -2485,8 +2487,8 @@ class SiteController extends Controller
 				$myMovieDisc = "MyMovieDiscNzb";
 				$newClass = "MyMovieNzb";
 				$modelNzb = Nzb::model()->findByPk($idResource);
-				$disc = $localFolder->myMovieDiscNzb;
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$disc = $modelNzb->myMovieDiscNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 				$relation = "MyMovieNzbPerson";
 				$Id_relation = "Id_my_movie_nzb";
 				$modelNzb->myMovieDiscNzb;
@@ -2494,8 +2496,8 @@ class SiteController extends Controller
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$disc = $localFolder->myMovieDisc;
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$disc = $modelRippedMovie->myMovieDisc;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 			}
 			else
 			{
@@ -2613,12 +2615,12 @@ class SiteController extends Controller
 			if($sourceType == 1)
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 			}
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 			}
 			else
 			{
@@ -2653,12 +2655,12 @@ class SiteController extends Controller
 		if($sourceType == 1)
 		{
 			$modelNzb = Nzb::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 		}
 		else if($sourceType == 2)
 		{
 			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
+			$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 		}
 		else
 		{
@@ -2689,12 +2691,12 @@ class SiteController extends Controller
 		if($sourceType == 1)
 		{
 			$modelNzb = Nzb::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+			$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 		}
 		else if($sourceType == 2)
 		{
 			$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-			$myMovie = $localFolder->myMovieDisc->myMovie;
+			$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 		}
 		else
 		{
@@ -2955,13 +2957,13 @@ class SiteController extends Controller
 			if($sourceType == 1)
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 				$modelResource =$modelNzb;
 			}
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 				$modelResource = $modelRippedMovie;
 			}
 			else
@@ -2984,12 +2986,12 @@ class SiteController extends Controller
 			if($sourceType == 1)
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 			}
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 			}
 			else
 			{
@@ -3015,12 +3017,12 @@ class SiteController extends Controller
 			if($sourceType == 1)
 			{
 				$modelNzb = Nzb::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDiscNzb->myMovieNzb;
+				$myMovie = $modelNzb->myMovieDiscNzb->myMovieNzb;
 			}
 			else if($sourceType == 2)
 			{
 				$modelRippedMovie = RippedMovie::model()->findByPk($idResource);
-				$myMovie = $localFolder->myMovieDisc->myMovie;
+				$myMovie = $modelRippedMovie->myMovieDisc->myMovie;
 			}
 			else
 			{
