@@ -20,6 +20,10 @@
 					{
 						$modelSource = Nzb::model()->findByPk($movie->Id);
 						$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
+						foreach($modelSource->nzbs as $nzb)
+						{
+							if($nzb->downloading)	continue;
+						}
 					}
 					else if($movie->source_type == 2)
 					{
