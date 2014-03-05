@@ -129,15 +129,15 @@ body{overflow:hidden; height:100%; width:100%;}
 html{overflow:hidden; height:100%; width:100%;}
 */
 body #content {
-height:100%;
 /*position:fixed;
 top:0px; left:0px; right:0px; bottom:0px;
-*/overflow:hidden;
-position:relative;
+*/
+/*overflow:hidden;
+position:relative;*/
 }
 .modal-open #content {
-height:100%;
-overflow:hidden;
+/*height:100%;
+overflow:hidden;*/
 }
 
 body .container{
@@ -145,10 +145,10 @@ body .container{
  height:100%;
 overflow:auto;
 -webkit-overflow-scrolling: touch;
-position:relative;
+/*position:relative;*/
  }
 .modal-open .container {
-overflow:hidden;
+/*overflow:hidden;*/
 }
 
 body #screenHome {
@@ -1872,94 +1872,7 @@ ul.thumbnails.image_picker_selector {
 
 /*---------- END EDIT PELICULA -------------*/
 
-/*---------- TEXTO MARQUESINA -------------*/
 
-p.slide-text26 {
-	position: relative;
-	animation: mymove26 2s infinite;
-	-webkit-animation: mymove26 2s infinite; /*Safari and Chrome*/
-    -moz-animation: mymove26 2s infinite;
-    -ms-animation: mymove26 2s infinite;
-    -o-animation: mymove26 2s infinite;
-    width: auto;
-	white-space: nowrap;
-}
-
-p.slide-text30 {
-	position: relative;
-	animation: mymove30 5s infinite;
-	-webkit-animation: mymove30 5s infinite; /*Safari and Chrome*/
-    -moz-animation: mymove30 2s infinite;
-    -ms-animation: mymove30 2s infinite;
-    -o-animation: mymove30 2s infinite;
-	width: auto;
-	white-space: nowrap;
-}
-
-p.slide-text35 {
-	position: relative;
-	animation: mymove35 5s infinite;
-	-webkit-animation: mymove35 5s infinite; /*Safari and Chrome*/
-    -moz-animation: mymove35 2s infinite;
-    -ms-animation: mymove35 2s infinite;
-    -o-animation: mymove35 2s infinite;
-	width: auto;
-	white-space: nowrap;
-}
-
-p.slide-text40 {
-	position: relative;
-	animation: mymove40 5s infinite;
-	-webkit-animation: mymove40 5s infinite; /*Safari and Chrome*/
-    -moz-animation: mymove40 2s infinite;
-    -ms-animation: mymove40 2s infinite;
-    -o-animation: mymove40 2s infinite;
-	width: auto;
-	white-space: nowrap;
-}
-
-p.slide-text41 {
-	position: relative;
-	animation: mymove41 5s infinite;
-	-webkit-animation: mymove41 5s infinite; /*Safari and Chrome*/
-    -moz-animation: mymove41 2s infinite;
-    -ms-animation: mymove41 2s infinite;
-    -o-animation: mymove41 2s infinite;
-	width: auto;
-	white-space: nowrap;
-}
-@keyframes mymove26 {	from {right: 0px;}  to {right: 18px;} }
-@-webkit-keyframes mymove26 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 18px;} }
-@-moz-keyframes mymove26 { from {right: 0px;}  to {right: 18px;} }
-@-ms-keyframes mymove26 { from {right: 0px;}  to {right: 18px;} }
-@-o-keyframes mymove26 { from {right: 0px;}  to {right: 18px;} }
-
-
-@keyframes mymove30  {	from {right: 0px;}  to {right: 70px;} }
-@-webkit-keyframes mymove30 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 70px;} }
-@-moz-keyframes mymove30 { from {right: 0px;}  to {right: 70px;} }
-@-ms-keyframes mymove30 { from {right: 0px;}  to {right: 70px;} }
-@-o-keyframes mymove30 { from {right: 0px;}  to {right: 70px;} }
-
-@keyframes mymove35  {	from {right: 0px;}  to {right: 80px;} }
-@-webkit-keyframes mymove35 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 80px;} }
-@-moz-keyframes mymove35 { from {right: 0px;}  to {right: 80px;} }
-@-ms-keyframes mymove35 { from {right: 0px;}  to {right: 80px;} }
-@-o-keyframes mymove35 { from {right: 0px;}  to {right: 80px;} }
-
-@keyframes mymove40  {	from {right: 0px;}  to {right: 100px;} }
-@-webkit-keyframes mymove40 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 100px;} }
-@-moz-keyframes mymove40 { from {right: 0px;}  to {right: 100px;} }
-@-ms-keyframes mymove40 { from {right: 0px;}  to {right: 100px;} }
-@-o-keyframes mymove40 { from {right: 0px;}  to {right: 100px;} }
-
-@keyframes mymove41  {	from {right: 0px;}  to {right: 150px;} }
-@-webkit-keyframes mymove41 /*Safari and Chrome*/  {	from {right: 0px;}  to {right: 150px;} }
-@-moz-keyframes mymove41 { from {right: 0px;}  to {right: 150px;} }
-@-ms-keyframes mymove41 { from {right: 0px;}  to {right: 150px;} }
-@-o-keyframes mymove41 { from {right: 0px;}  to {right: 150px;} }
-
-/*-------------- END TEXTO MARQUESINA -------------- */
 
 /*-------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------*/
