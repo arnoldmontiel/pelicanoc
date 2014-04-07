@@ -119,18 +119,23 @@ $this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filt
 $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading));
 ?>
 </div>
+
+<!-- Comentado para Pelicano Lite #####
 <div id="external-area">
 <?php
 //desde USB 
-$this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$externalStorageDataCopying));
+//$this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$externalStorageDataCopying));
 ?>
 </div>
 <div id="ripping-area">
 <?php
 //desde Discos Opticos 
-$this->renderPartial("_downloadRipping",array("modelMyMovie"=>$modelMyMovie));
+//$this->renderPartial("_downloadRipping",array("modelMyMovie"=>$modelMyMovie));
 ?>
 </div>
+-->
+ 
+ 
 <div class="pelisDescargadas" style="display:none">
 <!--      empieza peli finalizada-->
 <?php

@@ -12,10 +12,12 @@
 		id="menuSecond">
 		<div class="container-fluid">
 			<div class="nav navbar-nav navbar-left">
-		    <ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
+		    <!-- Comentado para Pelicano Lite #####
+		    	<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
 					<li class="generoItem active"><a href="#" data-filter="*">Pel&iacute;culas</a></li>
 					<li class="generoItem"><a href="#" data-filter=".comedy">Series</a></li>
 				</ul>
+				 -->
 			</div>
 			<div class="nav navbar-nav navbar-right">
 				<button
