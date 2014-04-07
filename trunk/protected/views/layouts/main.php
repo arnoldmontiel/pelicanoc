@@ -312,7 +312,7 @@ $(document).ready(function(){
 		<div class="cbp-title">Menu</div>
 		<a class="toggle-menu close-menu"> <i class="fa fa-times-circle"></i></a>
 		<a id="mobile-movie" class="mobileMenuItem" href="index.php">Mis Peliculas</a> 
-		<a id="mobile-serie" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a>
+<!--	<a id="mobile-serie" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a> -->
 		<a id="mobile-marketplace" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a>
 		<a id="mobile-download" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a>
 		<a id="mobile-devices" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/devices') ?>"
@@ -378,15 +378,15 @@ $(document).ready(function(){
 			<div class="nav navbar-nav navbar-left hidden-sm hidden-xs">
 				<ul class="nav navbar-nav hidden-sm" id="nav">
 					<li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
-					<li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a></li>
+					<!--	<li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a></li> -->
 					<li id="li-marketplace"><a
 						href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 					<li id="li-download"><a
 						href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a></li>
-					<li id="li-devices"><a
+					<!-- <li id="li-devices"><a
 						href="<?php echo SiteController::createUrl('site/devices') ?>"
 						id="popover-disp">Dispositivos <span id="devicesQty"
-							style="display: none" class="badge"></span></a></li>
+							style="display: none" class="badge"></span></a></li> -->
 				</ul>
           <?php
 										$customer = Setting::getInstance ()->getCustomer ();
