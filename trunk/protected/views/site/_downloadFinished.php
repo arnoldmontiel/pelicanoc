@@ -1,12 +1,14 @@
 	<div class="row">
     	<div class="col-md-12">
 			<h2 class="sliderTitle modified">Finalizadas recientemente</h2> 
+			<!-- Comentado para Pelicano Lite #####
 			<ul class="nav nav-pills">			
   				<li <?php echo ($filter=="pill-filter-all")?'class="active"':'';?>><a id="pill-filter-all" data-toggle="tab" href="#">Todas</a></li>
   				<li <?php echo ($filter=="pill-filter-market")?'class="active"':'';?>><a id="pill-filter-market" href="#" data-toggle="tab">Marketplace</a></li>
   				<li <?php echo ($filter=="pill-filter-usb")?'class="active"':'';?>><a id="pill-filter-usb" href="#" data-toggle="tab">USB</a></li>
   				<li <?php echo ($filter=="pill-filter-disco")?'class="active"':'';?>><a id="pill-filter-disco" href="#" data-toggle="tab">Disco</a></li>
   			</ul>
+  			-->
 		</div>
     </div>
 <?php if(!empty($movies)):?>
