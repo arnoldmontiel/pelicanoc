@@ -15,17 +15,31 @@
     <!-- <div class="controlTitle"><?php //echo $model->original_title?></div> -->
     
      <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO -->
+     <?php
+     if($sourceType==1):
+     ?>
+     <?php
+     $nzb = Nzb::model()->findByPk($idResource);
+     $nzbs=$nzb->nzbs;
+     if(!empty($nzbs)):?>
      <div class="chooseFile">
      Ver: 
      <div class="dropdown">
-          <a id="drop" role="button" data-toggle="dropdown" href="#">Principal <i class="fa fa-caret-down"></i></a>
-           <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">
-				<li><a>Extras</a></li>        	
-    			<li role="presentation" class="divider"></li>	
-				<li><a>Comentarios de Actores</a></li>        		
-		 </ul>
-        </div>
-        </div>
+		<a id="drop" role="button" data-toggle="dropdown" href="#"><?php echo $nzb->nzbType->description;?> 
+		<i class="fa fa-caret-down"></i>
+		</a>
+        <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">     
+		<li><a onclick="play('<?php $nzb->Id?>')"><?php echo $nzb->nzbType->description;?></a></li>        	
+		<li role="presentation" class="divider"></li>	
+     <?php foreach ($nzbs as $nzbItem) {?>
+		<li><a onclick="play('<?php $nzbItem->Id?>')"><?php echo $nzbItem->nzbType->description;?></a></li>        	
+		<li role="presentation" class="divider"></li>	
+     <?php }?>
+		</ul>
+	</div>
+	</div>
+	<?php endif?>
+    <?php endif?>
     </div>
     <!-- /col-sm-8 -->
  </div><!-- /row interna -->
