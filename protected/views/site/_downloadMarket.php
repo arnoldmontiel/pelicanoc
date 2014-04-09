@@ -26,20 +26,6 @@ $(function() {
 		    <?php
     			foreach($nzbDownloading as $nzb)
     			{
-    				$nzbChildren=$nzb->nzbs;
-    				if(!$nzb->downloading)
-    				{
-    					$hasDownloadingChildren =false;
-    					foreach ($nzbChildren as $nzbsChild)
-    					{
-    						if($nzbsChild->downloading)
-    						{
-    							$hasDownloadingChildren =true;
-    							continue;
-    						}
-    					}
-    					if(!$hasDownloadingChildren)	continue;    						
-    				}
 					$modelSource = $nzb;
 					if(!isset($modelSource->myMovieDiscNzb)) continue;
 					$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;

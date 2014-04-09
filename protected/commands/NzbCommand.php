@@ -238,6 +238,63 @@ class NzbCommand extends CConsoleCommand  {
 				$fileName = $fileName[0];
 				
 			}
+			if($modelNzb->downloaded)
+			{
+				//Check if all other nzbs are downloaded, if they do, save all of them as ready to play
+				$ready_to_play = true;
+				if(!isset($modelNzb->Id_nzb))
+				{
+					$children =$modelNzb->nzbs;
+					if(!empty($children))
+					{
+						foreach ($children as $child)
+						{
+							if(!$child->downloaded)
+							{
+								$ready_to_play = false;
+								break;
+							}
+						}
+						if($ready_to_play)
+						{
+							foreach ($children as $child)
+							{
+								$child->ready_to_play = true;
+								$child->save();
+							}
+							$modelNzb->ready_to_play = true;
+						}
+					}
+				}
+				else
+				{
+					$parent = $modelNzb->nzb;
+					$children =$parent->nzbs;
+					if(!empty($children))
+					{
+						foreach ($children as $child)
+						{
+							if($modelNzb->Id ==$child->Id)	continue;
+							if(!$child->downloaded)
+							{
+								$ready_to_play = false;
+								break;
+							}
+						}
+						if($ready_to_play)
+						{
+							foreach ($children as $child)
+							{
+								if($modelNzb->Id == $child->Id)	continue;
+								$child->ready_to_play = true;
+								$child->save();
+							}
+							$modelNzb->ready_to_play = true;
+						}
+					}											
+				}
+				
+			}
 			$modelNzb->save();							
 		}
 		return 0;
