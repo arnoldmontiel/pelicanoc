@@ -125,7 +125,7 @@ class SiteController extends Controller
 		
 		$criteriaNzb=new CDbCriteria;
 		//$criteriaNzb->addCondition('t.Id_nzb_state = 2');
-		$criteriaNzb->addCondition('t.downloading = 1 OR t.downloaded = 1');
+		$criteriaNzb->addCondition('(t.downloading = 1 OR t.downloaded = 1) AND (t.ready_to_play = 0)');
 		//$criteriaExternal->limit=30;
 		//$criteriaExternal->order="read_date DESC";
 		
@@ -199,8 +199,24 @@ class SiteController extends Controller
 		$criteria->order = 't.Id ASC';
 
 		$casting = $this->getCasting($criteria);
-
-		$this->renderPartial('_marketDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));
+		if(!$modelNzb->ready_to_play){
+			$this->renderPartial('_marketDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));				
+		}
+		else
+		{		
+			$sourceType = 1;
+			$bookmarks = $modelNzb->bookmarks;			
+			$this->renderPartial('_movieDetails',array('model'=>$model,
+					'casting'=>$casting,
+					'sourceType'=>$sourceType,
+					'modelNzb'=>$modelNzb,
+					'modelRippedMovie'=>null,
+					'modelLocalFolder'=>null,
+					'modelCurrentDisc'=>null,
+					'modelBookmarks'=>$bookmarks,
+			));
+				
+		}				
 	}
 
 	public function actionAjaxStartDownload()
