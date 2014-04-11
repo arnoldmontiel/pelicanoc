@@ -1136,7 +1136,7 @@ DROP TABLE IF EXISTS `nzb`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `nzb` (
   `Id` int(11) NOT NULL,
-  `Id_my_movie_disc_nzb` varchar(200) NOT NULL,
+  `Id_my_movie_disc_nzb` varchar(200) DEFAULT NULL,
   `Id_resource` int(11) DEFAULT NULL,
   `Id_nzb_state` int(11) NOT NULL,
   `url` varchar(255) DEFAULT NULL,
@@ -1156,15 +1156,23 @@ CREATE TABLE `nzb` (
   `Id_resource_type` int(11) NOT NULL DEFAULT '1',
   `Id_TMDB_data` int(11) DEFAULT NULL,
   `is_personal` tinyint(4) DEFAULT '0',
+  `Id_nzb_type` int(11) NOT NULL,
+  `Id_nzb` int(11) DEFAULT NULL,
+  `mkv_file_name` varchar(255) DEFAULT NULL,
+  `ready_to_play` tinyint(4) DEFAULT '0' COMMENT 'Cuando se han descargado todos los nzb tanto padre como hijos. Solo aplicaria a los padres en realidad.',
   PRIMARY KEY (`Id`),
   KEY `fk_nzb_my_movie_disc_nzb1` (`Id_my_movie_disc_nzb`),
   KEY `fk_nzb_nzb_state1` (`Id_nzb_state`),
   KEY `fk_nzb_resource_type1` (`Id_resource_type`),
   KEY `fk_nzb_TMDB_data1_idx` (`Id_TMDB_data`),
-  CONSTRAINT `fk_nzb_TMDB_data1` FOREIGN KEY (`Id_TMDB_data`) REFERENCES `TMDB_data` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_nzb_nzb_type1_idx` (`Id_nzb_type`),
+  KEY `fk_nzb_nzb1_idx` (`Id_nzb`),
   CONSTRAINT `fk_nzb_my_movie_disc_nzb1` FOREIGN KEY (`Id_my_movie_disc_nzb`) REFERENCES `my_movie_disc_nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_nzb_nzb1` FOREIGN KEY (`Id_nzb`) REFERENCES `nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_nzb_nzb_state1` FOREIGN KEY (`Id_nzb_state`) REFERENCES `nzb_state` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_nzb_resource_type1` FOREIGN KEY (`Id_resource_type`) REFERENCES `resource_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_nzb_nzb_type1` FOREIGN KEY (`Id_nzb_type`) REFERENCES `nzb_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_nzb_resource_type1` FOREIGN KEY (`Id_resource_type`) REFERENCES `resource_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_nzb_TMDB_data1` FOREIGN KEY (`Id_TMDB_data`) REFERENCES `TMDB_data` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1176,6 +1184,33 @@ LOCK TABLES `nzb` WRITE;
 /*!40000 ALTER TABLE `nzb` DISABLE KEYS */;
 /*!40000 ALTER TABLE `nzb` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `nzb_type`
+--
+
+DROP TABLE IF EXISTS `nzb_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `nzb_type` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nzb_type`
+--
+
+LOCK TABLES `nzb_type` WRITE;
+/*!40000 ALTER TABLE `nzb_type` DISABLE KEYS */;
+INSERT INTO `nzb_type` VALUES (1,'MAIN'),(2,'EXTRA 1'),(3,'EXTRA 2'),(4,'COMENTARIOS DIRECTOR');
+/*!40000 ALTER TABLE `nzb_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `nzb_state`
@@ -1496,6 +1531,7 @@ CREATE TABLE `setting` (
   `path_shared_copied` varchar(255) DEFAULT NULL,
   `path_shared_ripped` varchar(255) DEFAULT NULL,
   `path_sabnzbd_download` varchar(255) DEFAULT NULL,
+  `is_movie_tester` tinyint(4) DEFAULT 0,  
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
