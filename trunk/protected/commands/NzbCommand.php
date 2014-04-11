@@ -82,7 +82,8 @@ class NzbCommand extends CConsoleCommand  {
 									} else {
 										// an error happened
 									}
-								} catch (Exception $e) {								
+								} catch (Exception $e) {		
+									var_dump($e);						
 									// an error happened
 								}
 							}
@@ -99,7 +100,7 @@ class NzbCommand extends CConsoleCommand  {
 									} else {
 										// an error happened
 									}
-								} catch (Exception $e) {
+								} catch (Exception $e) {var_dump($e);
 									// an error happened
 								}
 							}
@@ -116,7 +117,7 @@ class NzbCommand extends CConsoleCommand  {
 									} else {
 										// an error happened
 									}
-								} catch (Exception $e) {
+								} catch (Exception $e) {var_dump($e);
 									// an error happened
 								}
 							}
@@ -141,7 +142,7 @@ class NzbCommand extends CConsoleCommand  {
 											} else {
 												// an error happened
 											}
-										} catch (Exception $e) {										
+										} catch (Exception $e) {					var_dump($e);					
 											// an error happened
 										}
 									}
@@ -164,7 +165,7 @@ class NzbCommand extends CConsoleCommand  {
 												} else {
 													// an error happened
 												}
-											} catch (Exception $e) {
+											} catch (Exception $e) {var_dump($e);
 												// an error happened
 											}
 										}
