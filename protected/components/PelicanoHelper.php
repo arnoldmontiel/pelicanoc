@@ -515,7 +515,7 @@ class PelicanoHelper
 									
 								//si es serie genero relacion con los episodios y el disco
 								//y grabo el id de header en la tabla myMovie
-								if(isset($idSeason) && isset($idDisc))
+								if(false&&isset($idSeason) && isset($idDisc))
 								{
 										
 									$modelMyMovieNzb = MyMovieNzb::model()->findByPk($item->myMovie->Id);
