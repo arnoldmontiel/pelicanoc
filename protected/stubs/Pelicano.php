@@ -401,6 +401,16 @@ function getNewNzbs($Id_device)
 	}
 	return $NzbResponseArray;		
 }
+function getTestNzbs($Id_device)
+{
+	$NzbResponseArray = array();
+	if(isset($this->soapClient))
+	{
+		$NzbResponseArray = $this->soapClient->getTestNzbs($Id_device);
+	}
+	return $NzbResponseArray;
+}
+
 function updateCustomer($CustomerRequest)
 {
 	$result = false;
