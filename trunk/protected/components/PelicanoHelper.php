@@ -411,7 +411,14 @@ class PelicanoHelper
 					$requests = array();
 					$setting = Setting::getInstance();
 					$pelicanoCliente = new Pelicano;
-					$NzbResponseArray = $pelicanoCliente->getNewNzbs($setting->getId_Device());
+					if($setting->is_movie_tester)
+					{
+						$NzbResponseArray = $pelicanoCliente->getTestNzbs($setting->getId_Device());
+					}
+					else
+					{
+						$NzbResponseArray = $pelicanoCliente->getNewNzbs($setting->getId_Device());
+					}					
 					foreach ($NzbResponseArray as $item)
 					{
 						try {

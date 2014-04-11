@@ -245,53 +245,48 @@ class NzbCommand extends CConsoleCommand  {
 				if(!isset($modelNzb->Id_nzb))
 				{
 					$children =$modelNzb->nzbs;
-					if(!empty($children))
+					foreach ($children as $child)
+					{
+						if(!$child->downloaded)
+						{
+							$ready_to_play = false;
+							break;
+						}
+					}
+					if($ready_to_play)
 					{
 						foreach ($children as $child)
 						{
-							if(!$child->downloaded)
-							{
-								$ready_to_play = false;
-								break;
-							}
+							$child->ready_to_play = true;
+							$child->save();
 						}
-						if($ready_to_play)
-						{
-							foreach ($children as $child)
-							{
-								$child->ready_to_play = true;
-								$child->save();
-							}
-							$modelNzb->ready_to_play = true;
-						}
-					}
+						$modelNzb->ready_to_play = true;
+					}						
 				}
 				else
 				{
 					$parent = $modelNzb->nzb;
+					if(!$parent->downloaded) $ready_to_play = false;
 					$children =$parent->nzbs;
-					if(!empty($children))
+					foreach ($children as $child)
+					{
+						if($modelNzb->Id ==$child->Id)	continue;
+						if(!$child->downloaded)
+						{
+							$ready_to_play = false;
+							break;
+						}
+					}
+					if($ready_to_play)
 					{
 						foreach ($children as $child)
 						{
-							if($modelNzb->Id ==$child->Id)	continue;
-							if(!$child->downloaded)
-							{
-								$ready_to_play = false;
-								break;
-							}
+							if($modelNzb->Id == $child->Id)	continue;
+							$child->ready_to_play = true;
+							$child->save();
 						}
-						if($ready_to_play)
-						{
-							foreach ($children as $child)
-							{
-								if($modelNzb->Id == $child->Id)	continue;
-								$child->ready_to_play = true;
-								$child->save();
-							}
-							$modelNzb->ready_to_play = true;
-						}
-					}											
+						$modelNzb->ready_to_play = true;
+					}
 				}
 				
 			}
