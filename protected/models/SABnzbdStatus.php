@@ -47,7 +47,7 @@ class SABnzbdStatus extends CModel
 						{
 							if(isset($nzb->Id_nzb))
 								$parentJob['nzb_id']=$nzb->Id_nzb;
-							foreach($this->_jobs as $addedJob)
+							foreach($this->_jobs as &$addedJob)
 							{
 								if($addedJob['nzb_id'] ==$parentJob['nzb_id'])
 								{
