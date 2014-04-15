@@ -107,27 +107,26 @@ class SABnzbdStatus extends CModel
 						}
 					}
 				}
-				
-				$sABnzbdHistory= new SABnzbdHistory();
-				$sABnzbdHistory->getHistory();
-				foreach ($sABnzbdHistory->slots as $slot)
-				{
-					foreach ($this->_jobs as &$newJobToUpdate)
-					{
-						if($slot['nzb_id']==$newJobToUpdate['nzb_id'])
-						{
-							$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
-							$newJobToUpdate['mb'] = $newJobToUpdate['mb'] + $nzb->sabnzbd_size;
-							$total = round($newJobToUpdate['mb']);
-							$current = round($newJobToUpdate["mb"]-$newJobToUpdate["mbleft"]);
-							$percentage = 0;
-							if($total > 0)
-								$percentage = round(($current * 100) / $total);
-							$newJobToUpdate['nzb_porcent']=$percentage;
-							break;
-						}
-					}
-				}
+// 				$sABnzbdHistory= new SABnzbdHistory();
+// 				$sABnzbdHistory->getHistory();
+// 				foreach ($sABnzbdHistory->slots as $slot)
+// 				{
+// 					foreach ($this->_jobs as &$newJobToUpdate)
+// 					{
+// 						if($slot['nzb_id']==$newJobToUpdate['nzb_id'])
+// 						{
+// 							$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
+// 							$newJobToUpdate['mb'] = $newJobToUpdate['mb'] + $nzb->sabnzbd_size;
+// 							$total = round($newJobToUpdate['mb']);
+// 							$current = round($newJobToUpdate["mb"]-$newJobToUpdate["mbleft"]);
+// 							$percentage = 0;
+// 							if($total > 0)
+// 								$percentage = round(($current * 100) / $total);
+// 							$newJobToUpdate['nzb_porcent']=$percentage;
+// 							break;
+// 						}
+// 					}
+// 				}
 				$this->_attributes['jobs']=$this->_jobs;
 			}
 		} catch (Exception $e) {
