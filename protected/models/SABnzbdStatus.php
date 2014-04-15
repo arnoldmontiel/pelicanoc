@@ -111,7 +111,7 @@ class SABnzbdStatus extends CModel
 				$sABnzbdHistory= new SABnzbdHistory();
 				$sABnzbdHistory->getHistory();
 				foreach ($sABnzbdHistory->slots as $slot)
-				{break;
+				{
 					foreach ($this->_jobs as &$newJobToUpdate)
 					{
 						if($slot['nzb_id']==$newJobToUpdate['nzb_id'])
@@ -128,9 +128,6 @@ class SABnzbdStatus extends CModel
 						}
 					}
 				}
-				
-				
-				
 				$this->_attributes['jobs']=$this->_jobs;
 			}
 		} catch (Exception $e) {
