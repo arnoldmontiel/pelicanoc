@@ -109,7 +109,7 @@ class SABnzbdStatus extends CModel
 				}
 				
 				$sABnzbdHistory= new SABnzbdHistory();
-				$$sABnzbdHistory->getHistory();
+				$sABnzbdHistory->getHistory();
 				foreach ($sABnzbdStatus->slots as $slot)
 				{
 					foreach ($this->_jobs as &$jobToUpdate)
