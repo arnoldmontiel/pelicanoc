@@ -257,10 +257,10 @@ class NzbCommand extends CConsoleCommand  {
 					{
 						foreach ($children as $child)
 						{
-							$child->ready_to_play = true;
+							$child->ready_to_play = 1;
 							$child->save();
 						}
-						$modelNzb->ready_to_play = true;
+						$modelNzb->ready_to_play = 1;
 					}						
 				}
 				else
@@ -282,10 +282,12 @@ class NzbCommand extends CConsoleCommand  {
 						foreach ($children as $child)
 						{
 							if($modelNzb->Id == $child->Id)	continue;
-							$child->ready_to_play = true;
+							$child->ready_to_play = 1;
 							$child->save();
 						}
-						$modelNzb->ready_to_play = true;
+						$parent->ready_to_play = 1;
+						$parent->save();
+						$modelNzb->ready_to_play = 1;
 					}
 				}
 				
