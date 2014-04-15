@@ -10,10 +10,13 @@ Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 // getRipp();
 // getNzbStatus();
 
+setInterval(function() {
+   	getNzbStatus();   		
+}, 1000*15)
    		
 setInterval(function() {
    	updateFinished($('ul.nav-pills li.active a').attr('id'));
-   	updateExternal();
+   	updateExternal();   		
 }, 1000*15)
 
 	$('ul.nav-pills li a').click(function(){
@@ -90,16 +93,8 @@ function getNzbStatus()
 		{
 			var result = JSON.parse(data);
 			for(var index = 0; index < result.length; index++)
-			{							
-				var total = Math.round(result[index].mb);
-				var current = Math.round(result[index].mb - result[index].mbleft);
-				var percentage = Math.round((current * 100)/ total);
-				var name = result[index].filename.replace(/\//g, '');
-				name = name.replace(/ /g,'');				
-				
-				$('#percentage-bar_'+name).width(percentage+'%');
-				$('#percentage-bar_'+name).html(percentage+'%');
-			
+			{											
+				$('#'+result.nzb_id).val(result.nzb_porcent).trigger('change');			
 			}
 		}
 	);

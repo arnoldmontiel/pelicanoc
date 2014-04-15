@@ -33,9 +33,29 @@ class SABnzbdStatus extends CModel
 			$this->_attributes = CJSON::decode($jsonData,true);
 			if(isset($this->_attributes)&&is_array($this->_attributes))
 			{
-				foreach ($this->_attributes as $job)
+				foreach ($this->_attributes['jobs'] as $job)
 				{
-					$this->_jobs[]=$job;
+					
+					$nzbs = Nzb::model()->findAllByAttributes(array('ready'=>1,'downloaded'=>'0','downloading'=>'1'));
+					foreach ($nzbs as $nzb)
+					{
+						$filename = explode('.', $nzb->file_name);
+						$filename =$filename[0]; 
+						if(strpos($job['filename'], $filename))
+						{
+							$job['nzb_file_name']=$nzb->file_name;
+							$job['nzb_id']=$nzb->Id;								
+							$total = round($job['mb']);
+							$current = round($job["mb"]-$job["mbleft"]);
+							$percentage = 0;
+							if($total > 0)
+								$percentage = round(($current * 100) / $total);
+							$job['nzb_porcent']=$percentage;
+								
+								
+						}
+					}
+					$this->_jobs[]=$job;						
 				}				
 			}
 		} catch (Exception $e) {
