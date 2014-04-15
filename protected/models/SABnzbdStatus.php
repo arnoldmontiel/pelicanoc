@@ -45,6 +45,8 @@ class SABnzbdStatus extends CModel
 						$proccesed = false;
 						if(strpos($job['filename'], $filename)!== false)
 						{
+							$parentJob['nzb_id_original']=$nzb->Id;
+							$parentJob['nzb_id']=$nzb->Id;
 							if(isset($nzb->Id_nzb))
 								$parentJob['nzb_id']=$nzb->Id_nzb;
 							foreach($this->_jobs as &$addedJob)
@@ -72,13 +74,40 @@ class SABnzbdStatus extends CModel
 								$percentage = 0;
 								if($total > 0)
 									$percentage = round(($current * 100) / $total);
-								$parentJob['nzb_porcent']=$percentage;																						
+								$parentJob['nzb_porcent']=$percentage;
+								if(!isset($nzb->sabnzbd_size))
+								{
+									$nzb->sabnzbd_size=$parentJob['mb'];
+									$nzb->save();									
+								}
 							}
 							break;
 						}
 					}
 					$this->_jobs[]=$parentJob;
-				}				
+				}
+				$nzbs = Nzb::model()->findAllByAttributes(array('ready'=>1,'downloaded'=>1,'downloading'=>0));
+				foreach ($nzbs as $nzb)
+				{
+					foreach ($this->_jobs as &$jobToUpdate)
+					{
+						$idNzb=$nzb->Id;
+						if(isset($nzb->Id_nzb))
+							$idNzb=$nzb->Id_nzb;
+						if($idNzb==$job['nzb_id'])
+						{
+							$jobToUpdate['mb'] = $jobToUpdate['mb'] + $nzb->sabnzbd_size;
+							$total = round($jobToUpdate['mb']);
+							$current = round($jobToUpdate["mb"]-$jobToUpdate["mbleft"]);
+							$percentage = 0;
+							if($total > 0)
+								$percentage = round(($current * 100) / $total);
+							$jobToUpdate['nzb_porcent']=$percentage;
+							break;
+						}
+					}
+				}
+				
 				$this->_attributes['jobs']=$this->_jobs;
 			}
 		} catch (Exception $e) {

@@ -53,7 +53,7 @@ $(function() {
 //     						echo CHtml::closeTag("p");
 //     					echo CHtml::closeTag("div");
 
-    				echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="80" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
+    				echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
     				echo CHtml::closeTag("li");
     				
     				
