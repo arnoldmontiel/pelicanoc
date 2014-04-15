@@ -94,7 +94,7 @@ function getNzbStatus()
 			var result = JSON.parse(data);
 			for(var index = 0; index < result.length; index++)
 			{											
-				$('#'+result.nzb_id).val(result.nzb_porcent).trigger('change');			
+				$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');			
 			}
 		}
 	);
