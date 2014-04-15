@@ -1,0 +1,15 @@
+2014/02/18 09:17:17 [error] [php] file_get_contents(http://192.168.100.103//cgi-bin/do?cmd=status): failed to open stream: No route to host (/home/arnold/workspace/pelicano/protected/components/DuneHelper.php:186)
+Stack trace:
+#0 /home/arnold/workspace/pelicano/protected/controllers/SiteController.php(1445): getProgressBar()
+#1 /home/arnold/php/yii-1.1.12.b600af/framework/web/actions/CInlineAction.php(50): SiteController->actionAjaxGetProgressBar()
+#2 /home/arnold/php/yii-1.1.12.b600af/framework/web/CController.php(309): CInlineAction->runWithParams()
+#3 /home/arnold/php/yii-1.1.12.b600af/framework/web/CController.php(287): SiteController->runAction()
+#4 /home/arnold/php/yii-1.1.12.b600af/framework/web/CController.php(266): SiteController->runActionWithFilters()
+#5 /home/arnold/php/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): SiteController->run()
+#6 /home/arnold/php/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController()
+#7 /home/arnold/php/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#8 /home/arnold/workspace/pelicano/index.php(13): CWebApplication->run()
+REQUEST_URI=/pelicano/index.php?r=site/AjaxGetProgressBar
+in /home/arnold/workspace/pelicano/protected/components/DuneHelper.php (186)
+in /home/arnold/workspace/pelicano/protected/components/DuneHelper.php (93)
+in /home/arnold/workspace/pelicano/protected/controllers/SiteController.php (1445)
