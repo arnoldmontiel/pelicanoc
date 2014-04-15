@@ -47,7 +47,6 @@ class SABnzbdStatus extends CModel
 							if(isset($nzb->Id_nzb))
 								$parentJob['nzb_id']=$nzb->Id_nzb;
 							$parentJob['nzb_file_name']=$nzb->file_name;
-							$parentJob['nzb_id']=$nzb->Id;								
 							$total = round($parentJob['mb']);
 							$current = round($parentJob["mb"]-$parentJob["mbleft"]);
 							$percentage = 0;
