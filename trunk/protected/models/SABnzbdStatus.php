@@ -60,6 +60,7 @@ class SABnzbdStatus extends CModel
 										$percentage = round(($current * 100) / $total);
 									$parentJob['nzb_porcent']=$percentage;
 									$proccesed = true;
+									$addedJob['nzb_id']=0;
 									break;
 								}								
 							}
