@@ -41,7 +41,7 @@ class SABnzbdStatus extends CModel
 					{
 						$filename = explode('.', $nzb->file_name);
 						$filename =$filename[0]; 
-						if(strpos($job['filename'], $filename))
+						if(strpos($job['filename'], $filename)!== false)
 						{
 							$job['nzb_file_name']=$nzb->file_name;
 							$job['nzb_id']=$nzb->Id;								
@@ -51,8 +51,7 @@ class SABnzbdStatus extends CModel
 							if($total > 0)
 								$percentage = round(($current * 100) / $total);
 							$job['nzb_porcent']=$percentage;
-								
-								
+							break;								
 						}
 					}
 					$this->_jobs[]=$job;						
