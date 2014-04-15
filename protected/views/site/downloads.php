@@ -92,6 +92,7 @@ function getNzbStatus()
 		function(data) 
 		{
 			var result = JSON.parse(data);
+	    				debugger;
 			for(var index = 0; index < result.length; index++)
 			{											
 				$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');			
