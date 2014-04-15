@@ -1160,6 +1160,7 @@ CREATE TABLE `nzb` (
   `Id_nzb` int(11) DEFAULT NULL,
   `mkv_file_name` varchar(255) DEFAULT NULL,
   `ready_to_play` tinyint(4) DEFAULT '0' COMMENT 'Cuando se han descargado todos los nzb tanto padre como hijos. Solo aplicaria a los padres en realidad.',
+  `sabnzbd_size` double DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `fk_nzb_my_movie_disc_nzb1` (`Id_my_movie_disc_nzb`),
   KEY `fk_nzb_nzb_state1` (`Id_nzb_state`),
