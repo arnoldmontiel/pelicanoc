@@ -55,7 +55,7 @@ class SABnzbdHistory extends CModel
 					}
 					$this->_slots[]=$parentSlot;
 				}
-				$this->_attributes['_slots']=$this->_slots;
+				$this->_attributes['slots']=$this->_slots;
 			}
 		} catch (Exception $e) {
 		}
