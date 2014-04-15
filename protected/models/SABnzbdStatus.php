@@ -107,15 +107,6 @@ class SABnzbdStatus extends CModel
 						}
 					}
 				}
-				foreach ($this->_jobs as $key=>$value)
-				{
-					if($this->_jobs[$key]['nzb_id']==0)
-					{
-						unset($this->_jobs[$key]);
-					}
-				}
-				
-				
 				$this->_attributes['jobs']=$this->_jobs;
 			}
 		} catch (Exception $e) {

@@ -90,8 +90,9 @@ function getNzbStatus()
 		{
 			var result = JSON.parse(data);
 			for(var index = 0; index < result.length; index++)
-			{											
-				$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');			
+			{			
+	    		if(result[index].nzb_id!='0')								
+					$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');			
 			}
 		}
 	);
