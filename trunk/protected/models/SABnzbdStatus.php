@@ -55,8 +55,8 @@ class SABnzbdStatus extends CModel
 						}
 					}
 					$this->_jobs[]=$job;
-					$this->_attributes['jobs']=$job;
 				}				
+				$this->_attributes['jobs']=$this->_jobs;
 			}
 		} catch (Exception $e) {
 		}
