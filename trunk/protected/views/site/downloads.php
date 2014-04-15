@@ -8,15 +8,12 @@
 Yii::app()->clientScript->registerScript('sabnzbdstatus', "
 
 // getRipp();
-// getNzbStatus();
-
-setInterval(function() {
-   	getNzbStatus();   		
-}, 1000*15)
+getNzbStatus();
    		
 setInterval(function() {
    	updateFinished($('ul.nav-pills li.active a').attr('id'));
    	updateExternal();   		
+   	getNzbStatus();   		
 }, 1000*15)
 
 	$('ul.nav-pills li a').click(function(){
