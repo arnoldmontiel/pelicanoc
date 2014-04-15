@@ -113,6 +113,7 @@ class SABnzbdStatus extends CModel
 				{
 					foreach ($this->_jobs as &$newJobToUpdate)
 					{
+						if(!isset($slot['nzb_id']))	continue;
 						if($slot['nzb_id']==$newJobToUpdate['nzb_id'])
 						{
 							$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
