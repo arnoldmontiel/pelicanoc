@@ -42,18 +42,38 @@ class SABnzbdStatus extends CModel
 						$filename = explode('.', $nzb->file_name);
 						$filename =$filename[0]; 
 						$parentJob =$job; 
+						$proccesed = false;
 						if(strpos($job['filename'], $filename)!== false)
 						{
 							if(isset($nzb->Id_nzb))
 								$parentJob['nzb_id']=$nzb->Id_nzb;
-							$parentJob['nzb_file_name']=$nzb->file_name;
-							$total = round($parentJob['mb']);
-							$current = round($parentJob["mb"]-$parentJob["mbleft"]);
-							$percentage = 0;
-							if($total > 0)
-								$percentage = round(($current * 100) / $total);
-							$parentJob['nzb_porcent']=$percentage;
-							break;								
+							foreach($this->_jobs as $addedJob)
+							{
+								if($addedJob['nzb_id'] ==$parentJob['nzb_id'])
+								{
+									$parentJob['mb'] = $parentJob['mb'] + $addedJob['mb'];
+									$parentJob["mbleft"] = $parentJob['mbleft'] + $addedJob['mbleft'];
+									$total = round($parentJob['mb']);
+									$current = round($parentJob["mb"]-$parentJob["mbleft"]);
+									$percentage = 0;
+									if($total > 0)
+										$percentage = round(($current * 100) / $total);
+									$parentJob['nzb_porcent']=$percentage;
+									$proccesed = true;
+									break;
+								}								
+							}
+							if(!$proccesed)
+							{
+								$parentJob['nzb_file_name']=$nzb->file_name;
+								$total = round($parentJob['mb']);
+								$current = round($parentJob["mb"]-$parentJob["mbleft"]);
+								$percentage = 0;
+								if($total > 0)
+									$percentage = round(($current * 100) / $total);
+								$parentJob['nzb_porcent']=$percentage;																						
+							}
+							break;
 						}
 					}
 					$this->_jobs[]=$parentJob;
