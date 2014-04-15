@@ -94,7 +94,7 @@ class SABnzbdStatus extends CModel
 						$idNzb=$nzb->Id;
 						if(isset($nzb->Id_nzb))
 							$idNzb=$nzb->Id_nzb;
-						if($idNzb==$job['nzb_id'])
+						if($idNzb==$jobToUpdate['nzb_id'])
 						{
 							$jobToUpdate['mb'] = $jobToUpdate['mb'] + $nzb->sabnzbd_size;
 							$total = round($jobToUpdate['mb']);
