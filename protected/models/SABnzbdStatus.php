@@ -112,18 +112,18 @@ class SABnzbdStatus extends CModel
 				$sABnzbdHistory->getHistory();
 				foreach ($sABnzbdHistory->slots as $slot)
 				{
-					foreach ($this->_jobs as &$jobToUpdate)
+					foreach ($this->_jobs as &$newJobToUpdate)
 					{
-						if($slot['nzb_id']==$jobToUpdate['nzb_id'])
+						if($slot['nzb_id']==$newJobToUpdate['nzb_id'])
 						{
 							$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
-							$jobToUpdate['mb'] = $jobToUpdate['mb'] + $nzb->sabnzbd_size;
-							$total = round($jobToUpdate['mb']);
-							$current = round($jobToUpdate["mb"]-$jobToUpdate["mbleft"]);
+							$newJobToUpdate['mb'] = $newJobToUpdate['mb'] + $nzb->sabnzbd_size;
+							$total = round($newJobToUpdate['mb']);
+							$current = round($newJobToUpdate["mb"]-$newJobToUpdate["mbleft"]);
 							$percentage = 0;
 							if($total > 0)
 								$percentage = round(($current * 100) / $total);
-							$jobToUpdate['nzb_porcent']=$percentage;
+							$newJobToUpdate['nzb_porcent']=$percentage;
 							break;
 						}
 					}
