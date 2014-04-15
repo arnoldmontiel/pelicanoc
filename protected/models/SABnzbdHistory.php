@@ -11,127 +11,51 @@
  *  
  *
  */
-class SABnzbdStatus extends CModel
+class SABnzbdHistory extends CModel
 {
 	public $setting; 
 	public $urlXml;
 	public $urlJson;
 	private $_attributes = array();
-	private $_jobs = array();
+	private $_slots = array();
 	
 	function __construct()
 	{
 		$this->setting = Setting::getInstance();
-		$this->urlXml =  $this->setting->sabnzb_api_url."mode=qstatus&output=xml&apikey=".$this->setting->sabnzb_api_key;
-		$this->urlJson = $this->setting->sabnzb_api_url."mode=qstatus&output=json&apikey=".$this->setting->sabnzb_api_key;
+		$this->urlXml =  $this->setting->sabnzb_api_url."mode=history&start=START&limit=LIMIT&output=xml&apikey=".$this->setting->sabnzb_api_key;
+		$this->urlJson = $this->setting->sabnzb_api_url."mode=history&start=START&limit=LIMIT&output=json&apikey=".$this->setting->sabnzb_api_key;
 	}
 	
-	public function getStatus()
+	public function getHistory()
 	{
 		try {
 			$jsonData = @file_get_contents($this->urlJson);
 			$this->_attributes = CJSON::decode($jsonData,true);
 			if(isset($this->_attributes)&&is_array($this->_attributes))
 			{
-				foreach ($this->_attributes['jobs'] as $job)
+				foreach ($this->_attributes['slots'] as $slot)
 				{
 					
 					$nzbs = Nzb::model()->findAllByAttributes(array('ready'=>1,'downloaded'=>'0','downloading'=>'1'));
+					$parentSlot = $slot;
 					foreach ($nzbs as $nzb)
 					{
 						$filename = explode('.', $nzb->file_name);
 						$filename =$filename[0]; 
-						$parentJob =$job; 
-						$proccesed = false;
-						if(strpos($job['filename'], $filename)!== false)
+						if(strpos($slot['name'], $filename)!== false)
 						{
-							$parentJob['nzb_id_original']=$nzb->Id;
-							$parentJob['nzb_id']=$nzb->Id;
+							$parentSlot['nzb_id_original']=$nzb->Id;
+							$parentSlot['nzb_id']=$nzb->Id;
 							if(isset($nzb->Id_nzb))
-								$parentJob['nzb_id']=$nzb->Id_nzb;
-							foreach($this->_jobs as &$addedJob)
 							{
-								if($addedJob['nzb_id'] ==$parentJob['nzb_id'])
-								{
-									$parentJob['mb'] = $parentJob['mb'] + $addedJob['mb'];
-									$parentJob["mbleft"] = $parentJob['mbleft'] + $addedJob['mbleft'];
-									$total = round($parentJob['mb']);
-									$current = round($parentJob["mb"]-$parentJob["mbleft"]);
-									$percentage = 0;
-									if($total > 0)
-										$percentage = round(($current * 100) / $total);
-									$parentJob['nzb_porcent']=$percentage;
-									$proccesed = true;
-									$addedJob['nzb_id']=0;
-									break;
-								}								
-							}
-							if(!$proccesed)
-							{
-								$parentJob['nzb_file_name']=$nzb->file_name;
-								$total = round($parentJob['mb']);
-								$current = round($parentJob["mb"]-$parentJob["mbleft"]);
-								$percentage = 0;
-								if($total > 0)
-									$percentage = round(($current * 100) / $total);
-								$parentJob['nzb_porcent']=$percentage;
-								if(!isset($nzb->sabnzbd_size))
-								{
-									$nzb->sabnzbd_size=$parentJob['mb'];
-									$nzb->save();									
-								}
+								$parentSlot['nzb_id']=$nzb->Id_nzb;								
 							}
 							break;
 						}
 					}
-					$this->_jobs[]=$parentJob;
+					$this->_slots[]=$parentSlot;
 				}
-				$nzbs = Nzb::model()->findAllByAttributes(array('ready'=>1,'downloaded'=>1,'downloading'=>0));
-				foreach ($nzbs as $nzb)
-				{
-					foreach ($this->_jobs as &$jobToUpdate)
-					{
-						$idNzb=$nzb->Id;
-						if(isset($nzb->Id_nzb))
-							$idNzb=$nzb->Id_nzb;
-						if($idNzb==$jobToUpdate['nzb_id'])
-						{
-							$jobToUpdate['mb'] = $jobToUpdate['mb'] + $nzb->sabnzbd_size;
-							$total = round($jobToUpdate['mb']);
-							$current = round($jobToUpdate["mb"]-$jobToUpdate["mbleft"]);
-							$percentage = 0;
-							if($total > 0)
-								$percentage = round(($current * 100) / $total);
-							$jobToUpdate['nzb_porcent']=$percentage;
-							break;
-						}
-					}
-				}
-				
-				$sABnzbdHistory= new SABnzbdHistory();
-				$$sABnzbdHistory->getHistory();
-				foreach ($sABnzbdStatus->slots as $slot)
-				{
-					foreach ($this->_jobs as &$jobToUpdate)
-					{
-						if($slot['nzb_id']==$jobToUpdate['nzb_id'])
-						{
-							$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
-							$jobToUpdate['mb'] = $jobToUpdate['mb'] + $nzb->sabnzbd_size;
-							$total = round($jobToUpdate['mb']);
-							$current = round($jobToUpdate["mb"]-$jobToUpdate["mbleft"]);
-							$percentage = 0;
-							if($total > 0)
-								$percentage = round(($current * 100) / $total);
-							$jobToUpdate['nzb_porcent']=$percentage;
-							break;
-						}
-					}
-				}
-				
-				
-				
-				$this->_attributes['jobs']=$this->_jobs;
+				$this->_attributes['_slots']=$this->_slots;
 			}
 		} catch (Exception $e) {
 		}
