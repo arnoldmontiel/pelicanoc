@@ -78,7 +78,7 @@ class SABnzbdStatus extends CModel
 								$save = false;
 								if(!isset($nzb->sabnzbd_id))
 								{
-									$nzb->sabnzbd_id=$parentJob['nzo_id'];
+									$nzb->sabnzbd_id=$parentJob['id'];
 									$save = true;									
 								}								
 								if(!isset($nzb->sabnzbd_size))
