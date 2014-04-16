@@ -45,7 +45,7 @@ $(function() {
     				
     				'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
     								"idResource"=>$modelSource->Id,
-    								"sourceType"=>1));    			
+    								"sourceType"=>1,'onclick'=>'showDownloading(this)'));    			
     					
 //     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
 //     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
@@ -89,6 +89,25 @@ $(function() {
         }
       });
     });
+    function showDownloading(object)
+    {
+		var id = $(object).attr('idMovie');
+		var idNzb = $(object).attr('idResource');
+		var param = 'id='+id + '&idNzb=' + idNzb; 
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxMarketShowDetail') ?> ',
+	   		data: param,
+	 	}).success(function(data)
+	 	{
+	 	
+			$('#myModal').html(data);
+			$('#myModal').modal('show');
+			
+		}
+	 	);	
+    
+    }
   </script>
 
 <?php 
