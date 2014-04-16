@@ -66,13 +66,14 @@ class Nzb extends CActiveRecord
 			array('Id, Id_nzb_state, Id_nzb_type', 'required'),
 			array('Id, Id_resource, Id_nzb_state, downloading, downloaded, requested, points, ready, Id_nzb_type, Id_nzb, sent,ready_to_play', 'numerical', 'integerOnly'=>true),
 			array('sabnzbd_size', 'length', 'max'=>30),
+			array('sabnzbd_id', 'length', 'max'=>45),
 			array('Id_my_movie_disc_nzb', 'length', 'max'=>200),
 			array('final_content_path', 'length', 'max'=>256),
 			array('url, path, file_name, subt_file_name, subt_url, mkv_file_name', 'length', 'max'=>255),
 			array('date, change_state_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_my_movie_disc_nzb, Id_resource, Id_nzb_state, url, path, file_name, subt_file_name, subt_url, downloading, downloaded, date, requested, points, ready, change_state_date, sent, Id_nzb_type, Id_nzb, mkv_file_name,ready_to_play,sabnzbd_size', 'safe', 'on'=>'search'),
+			array('Id, Id_my_movie_disc_nzb, Id_resource, Id_nzb_state, url, path, file_name, subt_file_name, subt_url, downloading, downloaded, date, requested, points, ready, change_state_date, sent, Id_nzb_type, Id_nzb, mkv_file_name,ready_to_play,sabnzbd_size,sabnzbd_id', 'safe', 'on'=>'search'),
 		);
 	}
 
