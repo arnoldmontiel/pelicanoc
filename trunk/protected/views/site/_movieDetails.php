@@ -290,6 +290,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
         html:true
     });
   });										
+  <?php if(isset($modelNzb)):?>
+  
 	$('#btn-download').click(function(){
 		$(this).attr("disabled", "disabled");
 		$.post("<?php echo SiteController::createUrl('AjaxStartDownload'); ?>",
@@ -304,7 +306,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 		);
 		return false;
 	});
-	
+	<?php endif?>
 	$(".check-playlist").click(function(){
 		var target = this;
 		$.post("<?php echo SiteController::createUrl('AjaxAddOrRemovePlaylist'); ?>",
