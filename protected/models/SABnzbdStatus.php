@@ -75,10 +75,21 @@ class SABnzbdStatus extends CModel
 								if($total > 0)
 									$percentage = round(($current * 100) / $total);
 								$parentJob['nzb_porcent']=$percentage;
+								$save = false;
+								if(!isset($nzb->sabnzbd_id))
+								{
+									$nzb->sabnzbd_id=$parentJob['id'];
+									$save = true;									
+								}								
 								if(!isset($nzb->sabnzbd_size))
 								{
+									$save = true;
 									$nzb->sabnzbd_size=$parentJob['mb'];
-									$nzb->save();									
+																		
+								}
+								if($save)
+								{
+									$nzb->save();
 								}
 							}
 							break;
