@@ -59,7 +59,14 @@
     <div class="col-md-9 col-sm-9">
     <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
-                <li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
+                <?php if(isset($modelNzb)):?>
+	                <?php if($modelNzb->ready_to_play):?>
+                		<li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
+	                <?php endif?>
+                <?php else:?>
+                	<li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
+              	<?php endif?>                  
+                
               <!-- <li class=""><a href="#tab3" data-toggle="tab">Bookmarks</a></li>-->
               <?php if(!isset($modelNzb)):?> 
               <li class="pull-right"><button  id="btn-edit" type="button" class="btn btn-default"><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button></li>
@@ -235,19 +242,18 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     </div><!--/.modal-body -->
     <div class="modal-footer">
   <!-- Single button -->
-<div class="btn-group pull-left">
- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    archivopelicula grande.mkv 80GB <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu bottom-up" role="menu">
-    <li><a href="#">archivonotanGrande.mkv 10GB</a></li>
-    <li class="divider"></li>
-    <li><a href="#">archivonotanMediano.mkv 1GB</a></li>
-  </ul>
-</div>
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
-    <button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"
-				data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
+    <?php if(isset($modelNzb)):?>
+    	<?php if($modelNzb->ready_to_play):?>
+    		<button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
+    	<?php else:?>
+  			<button id="btn-download" type="button" class="btn btn-primary btn-lg" <?php if($modelNzb->downloaded||$modelNzb->downloading)	echo 'disabled="disabled"'; ?>>
+    		<i class="fa fa-download"></i> <?php echo ($modelNzb->downloaded||$modelNzb->downloading)?"Descargando":"Descargar";?></button>
+    	<?php endif?>    	    
+    <?php else:?>
+    <button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
+    <?php endif?>
+    
     </div><!--/.modal-footer -->
   </div><!--/.modal-content -->
     </div><!--/.modal-dialog -->
@@ -283,6 +289,20 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
         html:true
     });
   });										
+	$('#btn-download').click(function(){
+		$(this).attr("disabled", "disabled");
+		$.post("<?php echo SiteController::createUrl('AjaxStartDownload'); ?>",
+			{Id_nzb: "<?php echo $modelNzb->Id; ?>"}
+		).success(
+			function(data) 
+			{					
+				$("#myModal").html("");
+				$("#myModal").modal("hide");
+				return false;
+			}
+		);
+		return false;
+	});
 	
 	$(".check-playlist").click(function(){
 		var target = this;

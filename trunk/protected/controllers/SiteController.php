@@ -200,7 +200,17 @@ class SiteController extends Controller
 
 		$casting = $this->getCasting($criteria);
 		if(!$modelNzb->ready_to_play){
-			$this->renderPartial('_marketDetails',array('model'=>$model, 'casting'=>$casting, 'modelNzb'=>$modelNzb));				
+			$sourceType = 1;
+			$bookmarks = $modelNzb->bookmarks;			
+			$this->renderPartial('_movieDetails',array('model'=>$model,
+					'casting'=>$casting,
+					'sourceType'=>$sourceType,
+					'modelNzb'=>$modelNzb,
+					'modelRippedMovie'=>null,
+					'modelLocalFolder'=>null,
+					'modelCurrentDisc'=>null,
+					'modelBookmarks'=>$bookmarks,)
+				);				
 		}
 		else
 		{		
