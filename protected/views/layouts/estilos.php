@@ -121,6 +121,7 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
+	height:auto;
 	}
 
 
@@ -142,7 +143,7 @@ overflow:hidden;*/
 
 body .container{
  display: block;
- height:100%;
+ /*height:100%;*/
 overflow:auto;
 -webkit-overflow-scrolling: touch;
 /*position:relative;*/
@@ -523,7 +524,6 @@ background-color: #e7e7e7;
 .changeType {margin-right:30px;}
 
 .searchMain.marketplace{
-	margin-right: 10px;
 }
 
 .searchMain input{
@@ -1343,51 +1343,7 @@ overflow:visible;
 	font-size: 15px;
 }
 
-.selectedFiltersWrapper{  position:fixed; bottom:10px; z-index:980; text-align:center; width:100%; font-size:0px;}
-.selectedFilters{
-display:inline-block; 
-margin:auto; 
-height:auto;
--webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.4);
--moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.4);
-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.4);
-border-radius:5px;
-}
-.labelFilter{
-font-size:18px;
-font-family:"GudeaRegular";
-font-weight:normal;
-background-color:white; 
-background-color:#D0E6DF;
-color:#26ada1;
-display:inline-block;
-padding:8px;
-text-transform:uppercase;
-letter-spacing:2px;
-/*-webkit-box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.29);
--moz-box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.29);
-box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.29);
-*/
-border-right:1px solid rgba(38, 173, 161, 0.15);
-;
-border-radius:0px;
-margin:0px;
-}
-
-.filterStart{
-font-size:18px;
-background-color:#26ada1; color:white; display:inline-block; 
-border-bottom-left-radius:5px;
-border-top-left-radius:5px;
-padding:8px;
-}
-.filterEnd{
-font-size:18px;
-background-color:#26ada1; color:white; display:inline-block; 
-border-bottom-right-radius:5px;
-border-top-right-radius:5px;
-padding:8px;
-}
+.filterDesc{font-size:14px; display:inline-block; margin-left:10px; line-height:51px; color:#666; letter-spacing:1px;}
 
 /* ----- END MARKETPLACE --------*/
 

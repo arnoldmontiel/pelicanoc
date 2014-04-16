@@ -36,6 +36,7 @@ $this->widget('ext.isotope.Isotope',array(
 // $this->endWidget(); 
 ?>
 
+
     </div> <!-- /col-md-12 -->
   </div><!-- /row -->
 </div><!-- /container -->
