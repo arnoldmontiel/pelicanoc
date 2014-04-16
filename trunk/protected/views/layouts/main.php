@@ -307,8 +307,7 @@ $(document).ready(function(){
 <input id="search-filter" type="hidden" name="search-filter" value="">
 <body class="cbp-spmenu-push">
 <!-- /////////MENU LATERAL MAIN///////// -->
-	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-		id="pushMain">
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushMain">
 		<div class="cbp-title">Menu</div>
 		<a class="toggle-menu close-menu"> <i class="fa fa-times-circle"></i></a>
 		<a id="mobile-movie" class="mobileMenuItem" href="index.php">Mis Peliculas</a> 
@@ -336,7 +335,7 @@ $(document).ready(function(){
 	</nav>
 <!-- /////////////////////////////////////// -->
 <!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
-	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="pushMarketplace">
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushMarketplace">
 		<div class="cbp-title">Filtrar B&uacute;squeda</div>
 		<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 		<div class="pushMenuSuperGroup">

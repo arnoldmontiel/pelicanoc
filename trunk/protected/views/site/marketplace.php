@@ -1,15 +1,4 @@
-<div class="selectedFiltersWrapper">
-<div class="selectedFilters">
-<span class="filterStart">FILTROS:</span>
-<span class="labelFilter">Comedia</span>
-<span class="labelFilter">Drama</span>
-<span class="labelFilter">2013</span>
-<span class="labelFilter">Estrenos</span>
-<span class="filterEnd"><i class="fa fa-times-circle"></i> Reset</span>
-</div>
-</div>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-		id="menuSecond">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="menuSecond">
 		<div class="container-fluid">
 			<div class="nav navbar-nav navbar-left">
 		    <!-- Comentado para Pelicano Lite #####
@@ -19,18 +8,15 @@
 				</ul>
 				 -->
 			</div>
-			<div class="nav navbar-nav navbar-right">
-				<button
-					class="toggle-menu menu-right btn btn-primary navbar-btn"
-					id="toggleMarketplace">
+			<div class="nav navbar-nav navbar-left">
+				<button class="toggle-menu menu-left btn btn-primary navbar-btn" id="toggleMarketplace">
 					<i class="fa fa-filter fa-fw"></i> Filtro
 				</button>
 			</div>
+				<div class="filterDesc pull-left">Todas las Peliculas</div>
 			<form class="navbar-form navbar-right" role="search">
 				<div class="searchMain form-group marketplace">
-					<input id="main-search" type="text"
-						class="form-control form-search"
-						placeholder=" Buscar Pel&iacute;cula">
+					<input id="main-search" type="text" class="form-control form-search" placeholder=" Buscar Pel&iacute;cula">
 				</div>
 			</form>
 		</div>
