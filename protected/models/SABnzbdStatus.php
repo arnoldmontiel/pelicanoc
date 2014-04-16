@@ -97,7 +97,7 @@ class SABnzbdStatus extends CModel
 					}
 					$this->_jobs[]=$parentJob;
 				}
-				$nzbs = Nzb::model()->findAllByAttributes(array('ready'=>1,'downloaded'=>1,'downloading'=>0));
+				$nzbs = Nzb::model()->findAllByAttributes(array('ready'=>1,'downloaded'=>1,'downloading'=>0,'ready_to_play'=>0));
 				foreach ($nzbs as $nzb)
 				{
 					foreach ($this->_jobs as &$jobToUpdate)
