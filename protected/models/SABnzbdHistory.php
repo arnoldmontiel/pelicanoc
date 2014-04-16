@@ -42,7 +42,7 @@ class SABnzbdHistory extends CModel
 					{
 						$filename = explode('.', $nzb->file_name);
 						$filename =$filename[0]; 
-						if(strpos($slot['name'], $filename)!== false)
+						if($nzb->sabnzbd_id==$parentSlot['nzo_id'])//confirmar que es "nzo_id"
 						{
 							$parentSlot['nzb_id_original']=$nzb->Id;
 							$parentSlot['nzb_id']=$nzb->Id;
