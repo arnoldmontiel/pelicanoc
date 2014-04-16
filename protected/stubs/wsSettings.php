@@ -33,6 +33,8 @@ class ClientSettingsRequest extends SOAP2Array
 	public $port_v4; //integer;
 	public $ip_v6; //string;
 	public $port_v6; //integer;
+	public $disc_used_space; //string;
+	public $disc_total_space; //string;
 }
 
 class ServerAnydvdUpdateResponse
