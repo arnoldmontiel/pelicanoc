@@ -1641,6 +1641,8 @@ background-color:none;
 	padding: 4px;
 }
 
+.labelDescargando{ font-size:20px; line-height:40px; font-weight:bold; color:#26ada1;}
+
 /*-------- END DESCARGAS --------------*/
 
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
