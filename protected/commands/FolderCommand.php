@@ -425,7 +425,7 @@ class FolderCommand extends CConsoleCommand  {
 						
 					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
 					{
-						if(self::saveByImdb($modelPeliFile))
+						if(self::saveByPeliFile($modelPeliFile))
 						{
 							$modelLocalFolder = new LocalFolder();
 							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
@@ -760,37 +760,90 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function buildPeliFile($folderName, $path, $type)
 	{
-		$myMoviesAPI = new MyMoviesAPI();
-		$response = $myMoviesAPI->SearchDiscTitleByTitle($folderName);
-		if(!empty($response) && (string)$response['status'] == 'ok')
+		//limpio el nombre. Reemplazo . por espacios y parentesis por vacio
+		$name = str_replace('.',' ',$folderName);
+		$name = preg_replace('/\(|\)/', '', $name);
+		
+		//encuentro el año
+		$year = '';
+		$regex = "/\b\d{4}\b/";
+		preg_match($regex, $name, $match);
+		if(isset($match[0]))
 		{
-			$titles = $response->Titles;
-			foreach($titles->children() as $title)
+			$year = $match[0];
+			$yearPos = strpos($name, $year);
+			$name = substr($name, 0, $yearPos);
+		}
+		
+		//busco en la api
+		$db = TMDBApi::getInstance();
+		$db->adult = true;  // return adult content
+		$db->paged = false; // merges all paged results into a single result automatically
+		$results = $db->search('movie', array('query'=>$name, 'year'=>$year));
+		$idMovie = null;
+		
+		foreach($results as $item)
+		{
+			$idMovie = $item->id;
+			break;
+		}
+		
+		if(isset($idMovie))
+		{
+			$movie = new TMDBMovie($idMovie);
+			if(isset($movie))
 			{
-				$idImdb = (string)$title['imdb'];
-				if($idImdb == 'tt0000000')
-					continue;
-	
-				$originalTitle = (string)$title['originalTitle'];	
 				try {
-						
-	
 					$fp = @fopen($path.'/pelicano.peli', 'w');
 					if(isset($fp))
 					{
-						$content = 'imdb='.$idImdb.";\n";
+						$content = 'imdb='.$movie->imdb_id.";\n";
 						$content .= 'type='.$type.";\n";
-						$content .= 'name='.$originalTitle.';';		
-	
+						$content .= 'name='.$movie->original_title.';';
+						
+						$date = date_parse($movie->release_date);
+						$content .= 'year='.$date['year'].';';
+						
 						@fwrite($fp, $content);
 						@fclose($fp);
 					}
 				} catch (Exception $e) {
 					break;
 				}
-				break;
 			}
-		}		
+		}
+		
+// 		$myMoviesAPI = new MyMoviesAPI();
+// 		$response = $myMoviesAPI->SearchDiscTitleByTitle($folderName);
+// 		if(!empty($response) && (string)$response['status'] == 'ok')
+// 		{
+// 			$titles = $response->Titles;
+// 			foreach($titles->children() as $title)
+// 			{
+// 				$idImdb = (string)$title['imdb'];
+// 				if($idImdb == 'tt0000000')
+// 					continue;
+	
+// 				$originalTitle = (string)$title['originalTitle'];	
+// 				try {
+						
+	
+// 					$fp = @fopen($path.'/pelicano.peli', 'w');
+// 					if(isset($fp))
+// 					{
+// 						$content = 'imdb='.$idImdb.";\n";
+// 						$content .= 'type='.$type.";\n";
+// 						$content .= 'name='.$originalTitle.';';		
+	
+// 						@fwrite($fp, $content);
+// 						@fclose($fp);
+// 					}
+// 				} catch (Exception $e) {
+// 					break;
+// 				}
+// 				break;
+// 			}
+// 		}		
 	}
 	
 	private function buildPeliFileES($folderName, $path, $type)
@@ -923,6 +976,73 @@ class FolderCommand extends CConsoleCommand  {
 		return $modelPeliFile;
 	}
 	
+	private function saveByPeliFile($modelPeliFile)
+	{
+		if(empty($modelPeliFile->imdb) ||  $modelPeliFile->imdb == 'tt0000000') //me fijo si es personal o  tt0000000
+		{
+			$name = "Desconocido";
+			if(empty($modelPeliFile->imdb))
+				$name = $modelPeliFile->name;
+				
+			$idMyMovie = MyMovieHelper::saveUnknownMyMovieData($name);
+	
+			$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
+			if(!isset($modelMyMovieDiscDB))
+			{
+				$modelMyMovieDiscDB = new MyMovieDisc();
+				$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+			}
+				
+			$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
+			$modelMyMovieDiscDB->name = $modelPeliFile->name;
+			if($modelMyMovieDiscDB->save())
+			{
+	
+				return true;
+			}
+		}
+		else
+		{
+			$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb));
+			if(!isset($modelMyMovieDB))
+			{
+				$idMyMovie = TMDBHelper::saveInfo($modelPeliFile->name, $modelPeliFile->year, $modelPeliFile->idDisc);
+				
+				if(isset($idMyMovie))
+				{
+					$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
+					if(!isset($modelMyMovieDiscDB))
+					{
+						$modelMyMovieDiscDB = new MyMovieDisc();
+						$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+						$modelMyMovieDiscDB->Id_my_movie = $idMyMovie;
+						$modelMyMovieDiscDB->name = $modelPeliFile->name;
+						if($modelMyMovieDiscDB->save())
+							return true;
+					}
+				}
+			}
+			else
+			{
+				$modelMyMovieDiscDB = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
+
+				if(!isset($modelMyMovieDiscDB))
+				{
+					$modelMyMovieDiscDB = new MyMovieDisc();
+					$modelMyMovieDiscDB->Id = $modelPeliFile->idDisc;
+					$modelMyMovieDiscDB->Id_my_movie = $modelMyMovieDB->Id;
+					$modelMyMovieDiscDB->name = $modelPeliFile->name;
+					if($modelMyMovieDiscDB->save())
+						return true;
+					
+				}
+			}
+										
+		}
+	
+		return false;
+	}
+				
 	private function saveByImdb($modelPeliFile)
 	{
 		if(empty($modelPeliFile->imdb) ||  $modelPeliFile->imdb == 'tt0000000') //me fijo si es personal o  tt0000000
