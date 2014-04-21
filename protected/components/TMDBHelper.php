@@ -32,7 +32,7 @@ class TMDBHelper
 				
 				$idMyMovie = uniqid ("cust_");
 				
-				var_dump(TMDBHelper::downloadAndLinkImages($movie->id,$idMyMovie,$poster,$bigPoster,$backdrop));
+				var_dump(self::downloadAndLinkImages($movie->id,$idMyMovie,$poster,$bigPoster,$backdrop));
 				
 				$myMovie->Id = $idMyMovie;
 				$myMovie->Id_parental_control = 1; //UNRATED
