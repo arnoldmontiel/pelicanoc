@@ -31,7 +31,7 @@ class TMDBHelper
 			$idMovie = $item->id;
 			break;
 		}
-		
+		echo "aaaaaaaaa". $idMovie;
 		return new TMDBMovie($idMovie);
 	}
 	
