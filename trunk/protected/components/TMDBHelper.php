@@ -1,14 +1,47 @@
 <?php
 class TMDBHelper
 {
-	static public function saveInfo($name, $year, $idDisc)
+	static public function getInfoByFolderName($folderName)
+	{
+		//limpio el nombre. Reemplazo . por espacios y parentesis por vacio
+		$name = str_replace('.',' ',$folderName);
+		$name = preg_replace('/\(|\)/', '', $name);
+		
+		//encuentro el año
+		$year = '';
+		$regex = "/\b\d{4}\b/";
+		preg_match($regex, $name, $match);
+		if(isset($match[0]))
+		{
+			$year = $match[0];
+			$yearPos = strpos($name, $year);
+			$name = substr($name, 0, $yearPos);
+		}
+		
+		//busco en la api
+		$db = TMDBApi::getInstance();
+		$db->adult = true;  // return adult content
+		$db->paged = false; // merges all paged results into a single result automatically
+		$results = $db->search('movie', array('query'=>$name, 'year'=>$year));
+		$idMovie = null;
+		
+		foreach($results as $item)
+		{
+			$idMovie = $item->id;
+			break;
+		}
+		
+		return new TMDBMovie($idMovie);
+	}
+	
+	static public function saveInfo($modelPeliFile, $idLote, $path)
 	{
 		$idMyMovie = null;
 		
 		$db = TMDBApi::getInstance();
 		$db->adult = true;  // return adult content
 		$db->paged = false; // merges all paged results into a single result automatically
-		$results = $db->search('movie', array('query'=>$name, 'year'=>$year));
+		$results = $db->search('movie', array('query'=>$modelPeliFile->name, 'year'=>$modelPeliFile->year));
 		$idMovie = null;
 		
 		foreach($results as $item)
@@ -33,9 +66,7 @@ class TMDBHelper
 				
 				$myMovie = new MyMovie();
 				
-				$idMyMovie = uniqid ("cust_");
-				
-				var_dump(self::downloadAndLinkImages($movie->id,$idMyMovie,$poster,$bigPoster,$backdrop));
+				$idMyMovie = uniqid ("cust_");				
 				
 				$myMovie->Id = $idMyMovie;
 				$myMovie->Id_parental_control = 1; //UNRATED
@@ -133,18 +164,40 @@ class TMDBHelper
 						}
 					}
 					
-					$myMovieDisc = MyMovieDisc::model()->findByPk($idDisc);
+					$myMovieDisc = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
 					if(!isset($myMovieDisc))
 					{
 						$myMovieDisc = new MyMovieDisc();
-						$myMovieDisc->Id = $idDisc;
+						$myMovieDisc->Id = $modelPeliFile->idDisc;
 					}
-					$myMovieDisc->name = $name;
+					$myMovieDisc->name = $modelPeliFile->name;
 					$myMovieDisc->Id_my_movie = $idMyMovie;
 				
 					$myMovieDisc->save();
 					
+					$idFileType = 1;
+					switch ($modelPeliFile->type) {
+						case "FOLDER":
+							$idFileType = 1;
+							break;
+						case "ISO":
+							$idFileType = 2;
+							break;
+						case "MKV":
+							$idFileType = 3;
+							break;
+					}
+					
+					$modelLocalFolder = new LocalFolder();
+					$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
+					$modelLocalFolder->Id_file_type = $idFileType;
+					$modelLocalFolder->Id_lote = $idLote;
+					$modelLocalFolder->path = $path;
+					$modelLocalFolder->save();
+					
 					$transaction->commit();
+					
+					var_dump(self::downloadAndLinkImages($movie->id,$idMyMovie,3,$poster,$bigPoster,$backdrop));
 					
 				}
 			}
