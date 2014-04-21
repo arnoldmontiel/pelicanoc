@@ -220,17 +220,17 @@ class TMDBHelper
 			if($sourceType == 1)
 			{
 				$modelResource = Nzb::model()->findByPk($idResource);
-				$model = $modelResource->TMDBData;
+				$model = (isset($modelResource->TMDBData))?$modelResource->TMDBData:null;
 			}
 			else if($sourceType == 2)
 			{
 				$modelResource = RippedMovie::model()->findByPk($idResource);
-				$model = $modelResource->TMDBData;
+				$model = (isset($modelResource->TMDBData))?$modelResource->TMDBData:null;
 			}
 			else
 			{
 				$modelResource = LocalFolder::model()->findByPk($idResource);
-				$model = $modelResource->TMDBData;
+				$model = (isset($modelResource->TMDBData))?$modelResource->TMDBData:null;
 			}
 			
 			if(!isset($model))
