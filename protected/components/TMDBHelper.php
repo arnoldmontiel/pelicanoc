@@ -25,6 +25,7 @@ class TMDBHelper
 		$results = $db->search('movie', array('query'=>$name, 'year'=>$year));
 		$idMovie = null;
 		
+		echo $name;
 		foreach($results as $item)
 		{
 			$idMovie = $item->id;
@@ -43,7 +44,7 @@ class TMDBHelper
 		$db->paged = false; // merges all paged results into a single result automatically
 		$results = $db->search('movie', array('query'=>$modelPeliFile->name, 'year'=>$modelPeliFile->year));
 		$idMovie = null;
-		echo $modelPeliFile->name;
+		
 		foreach($results as $item)
 		{
 			$idMovie = $item->id;
