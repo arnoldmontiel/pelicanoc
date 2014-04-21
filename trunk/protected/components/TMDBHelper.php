@@ -201,7 +201,7 @@ class TMDBHelper
 					
 					$transaction->commit();
 					
-					var_dump(self::downloadAndLinkImages($movie->id,$idMyMovie,3,$poster,$bigPoster,$backdrop));
+					var_dump(self::downloadAndLinkImages($movie->id,$modelLocalFolder->Id,3,$poster,$bigPoster,$backdrop));
 					
 				}
 			}
