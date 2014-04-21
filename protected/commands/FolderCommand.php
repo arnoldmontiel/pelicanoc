@@ -424,18 +424,7 @@ class FolderCommand extends CConsoleCommand  {
 					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 						
 					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
-					{
-						if(self::saveByPeliFile($modelPeliFile))
-						{
-							$modelLocalFolder = new LocalFolder();
-							$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
-							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
-							$modelLocalFolder->Id_source_type = self::getSoruceType($modelPeliFile->source);
-							$modelLocalFolder->Id_lote = $modelLote->Id;
-							$modelLocalFolder->path = $shortPath;
-							$modelLocalFolder->save();
-						}
-					}
+						self::saveByPeliFile($modelPeliFile, $modelLote->Id, $shortPath);
 						
 				} //end if null
 			}			
@@ -760,56 +749,27 @@ class FolderCommand extends CConsoleCommand  {
 	
 	private function buildPeliFile($folderName, $path, $type)
 	{
-		//limpio el nombre. Reemplazo . por espacios y parentesis por vacio
-		$name = str_replace('.',' ',$folderName);
-		$name = preg_replace('/\(|\)/', '', $name);
 		
-		//encuentro el año
-		$year = '';
-		$regex = "/\b\d{4}\b/";
-		preg_match($regex, $name, $match);
-		if(isset($match[0]))
+		$movie = TMDBHelper::getInfoByFolderName($folderName);
+		
+		if(isset($movie))
 		{
-			$year = $match[0];
-			$yearPos = strpos($name, $year);
-			$name = substr($name, 0, $yearPos);
-		}
-		
-		//busco en la api
-		$db = TMDBApi::getInstance();
-		$db->adult = true;  // return adult content
-		$db->paged = false; // merges all paged results into a single result automatically
-		$results = $db->search('movie', array('query'=>$name, 'year'=>$year));
-		$idMovie = null;
-		
-		foreach($results as $item)
-		{
-			$idMovie = $item->id;
-			break;
-		}
-		
-		if(isset($idMovie))
-		{
-			$movie = new TMDBMovie($idMovie);
-			if(isset($movie))
-			{
-				try {
-					$fp = @fopen($path.'/pelicano.peli', 'w');
-					if(isset($fp))
-					{
-						$content = 'imdb='.$movie->imdb_id.";\n";
-						$content .= 'type='.$type.";\n";
-						$content .= 'name='.$movie->original_title.';';
-						
-						$date = date_parse($movie->release_date);
-						$content .= 'year='.$date['year'].';';
-						
-						@fwrite($fp, $content);
-						@fclose($fp);
-					}
-				} catch (Exception $e) {
-					break;
+			try {
+				$fp = @fopen($path.'/pelicano.peli', 'w');
+				if(isset($fp))
+				{
+					$content = 'imdb='.$movie->imdb_id.";\n";
+					$content .= 'type='.$type.";\n";
+					$content .= 'name='.$movie->original_title.';';
+					
+					$date = date_parse($movie->release_date);
+					$content .= 'year='.$date['year'].';';
+					
+					@fwrite($fp, $content);
+					@fclose($fp);
 				}
+			} catch (Exception $e) {
+				break;
 			}
 		}
 		
@@ -976,7 +936,7 @@ class FolderCommand extends CConsoleCommand  {
 		return $modelPeliFile;
 	}
 	
-	private function saveByPeliFile($modelPeliFile)
+	private function saveByPeliFile($modelPeliFile, $idLote, $path)
 	{
 		if(empty($modelPeliFile->imdb) ||  $modelPeliFile->imdb == 'tt0000000') //me fijo si es personal o  tt0000000
 		{
@@ -1006,7 +966,7 @@ class FolderCommand extends CConsoleCommand  {
 			$modelMyMovieDB = MyMovie::model()->findByAttributes(array('imdb'=>$modelPeliFile->imdb));
 			if(!isset($modelMyMovieDB))
 			{
-				$idMyMovie = TMDBHelper::saveInfo($modelPeliFile->name, $modelPeliFile->year, $modelPeliFile->idDisc);
+				$idMyMovie = TMDBHelper::saveInfo($modelPeliFile, $idLote, $path);
 				
 				if(isset($idMyMovie))
 				{
