@@ -23,6 +23,9 @@ class TMDBHelper
 			try
 			{
 				$movie = new TMDBMovie($idMovie);
+				if(!isset($movie))
+					return $idMyMovie;
+				
 				$persons = $movie->casts();
 				$poster = $movie->poster('342');
 				$bigPoster = $movie->poster('500');
