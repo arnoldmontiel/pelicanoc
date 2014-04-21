@@ -25,14 +25,17 @@ class TMDBHelper
 		$results = $db->search('movie', array('query'=>$name, 'year'=>$year));
 		$idMovie = null;
 		
-		echo $name;
 		foreach($results as $item)
 		{
 			$idMovie = $item->id;
 			break;
 		}
-		echo "aaaaaaaaa". $idMovie;
-		return new TMDBMovie($idMovie);
+		
+		$movie = null;
+		if(isset($idMovie))
+			$movie = new TMDBMovie($idMovie);
+		
+		return $movie;
 	}
 	
 	static public function saveInfo($modelPeliFile, $idLote, $path)
