@@ -36,7 +36,7 @@
 												if(isset($modelCurrentPlaying))
 												{
 													$libre=false;
-													$originalTitle="<i class='fa fa-circle-o' style='color:rgb(248, 174, 174);'></i> Reproduciendo: ";
+													$originalTitle='<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i> ';
 													if(isset($modelCurrentPlaying->Id_nzb))
 													{
 														$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
@@ -57,7 +57,7 @@
 											}
 											
 										} catch (Exception $e) {
-											$originalTitle="Apagado";
+											$originalTitle='<span class="label label-default">Apagado</span>';
 										}
 									?>
 									<td><?php echo $originalTitle;?></td>
