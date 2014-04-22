@@ -3,7 +3,7 @@
     	<script>
 $(function() {
     $(".dial").knob({
-        'bgColor' : "rgba(255,255,255,0.1)",
+        'bgColor' : "rgba(255,255,255,0.3)",
         'inputColor' : "white",
         'font' : "GudeaBold",
         'fgColor' : "white"
