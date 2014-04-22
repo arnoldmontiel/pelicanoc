@@ -27,14 +27,14 @@
 								<tr>
 									<td><?php echo $player->description?></td>
 									<?php
-										$originalTitle="Libre";
-										try {
+										$originalTitle='<span class="label label-success">Libre</span>';
+									try {
 											if(DuneHelper::isPlayingByPlayer($player))
 											{
 												$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
 												if(isset($modelCurrentPlaying))
 												{
-													$originalTitle="Reproduciendo: ";
+													$originalTitle='<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i> ';
 													if(isset($modelCurrentPlaying->Id_nzb))
 													{
 														$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
@@ -55,7 +55,7 @@
 											}
 											
 										} catch (Exception $e) {
-											$originalTitle="ERROR";
+										$originalTitle='<span class="label label-default">Apagado</span>';
 										}
 									?>
 									<td><?php echo $originalTitle;?></td>
