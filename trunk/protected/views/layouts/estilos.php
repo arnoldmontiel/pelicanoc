@@ -880,7 +880,7 @@ width: 120px;
 
 
 .ribbon.ribFinalizado{
-border-top-color:#F3A053;
+border-top-color:#26ada1;
 right: -40px;
 top: 209px;
 width: 129px;
@@ -894,7 +894,7 @@ width:158px;
 }
 
 .ribbon.ribDescargando{
-border-top-color:#FD9E5F;
+border-top-color:#5AB4C5;
 bottom: 92px;
 right: -71px;
 width:158px;
