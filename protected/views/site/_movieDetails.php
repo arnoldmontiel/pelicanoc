@@ -35,8 +35,20 @@
  			else
  			{
  				$path = $setting->path_shared . $path;
- 			} 			
- 			$size = PelicanoHelper::getDirectorySize($path);
+ 			} 	
+ 			if(isset($modelNzb))
+ 			{
+ 				if($modelNzb->ready_to_play)
+ 				{
+ 					$size = PelicanoHelper::getDirectorySize($path); 					
+ 				}
+ 			}
+ 			else
+ 			{
+ 				$size = PelicanoHelper::getDirectorySize($path);
+ 					
+ 			}
+ 			 			
  		}
 
  		$moviePoster = $model->big_poster;
