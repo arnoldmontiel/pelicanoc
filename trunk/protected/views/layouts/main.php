@@ -450,10 +450,11 @@ $(document).ready(function(){
 			</p>
 			<!-- /.navbarBotonCollapse -->
 			<div class="nav navbar-nav navbar-right">
-				<button id="player-status" type="button"
-					class="btn btn-default navbar-btn btnReproduciendo"
-					data-toggle="modal">
-					Reproduciendo <span id="player-status-quantity" class="badge">0</span><i class="fa fa-caret-down fa-fw"></i>				</button>
+				<button id="player-status" type="button" class="btn btn-default navbar-btn btnReproduciendo btnRep"
+					data-toggle="modal"><i class="fa fa-desktop fa-fw"></i>
+					Reproduciendo <span id="player-status-quantity" class="badge">5</span><i class="fa fa-caret-down fa-fw"></i> 
+				 <!-- 	No hay reproducciones -->
+					</button>
 			</div>
 			<!-- /.navbarRproduciendo -->
 		</div>

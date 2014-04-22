@@ -1123,7 +1123,17 @@ overflow:visible;
 
 .btnReproduciendo {
 	margin-right: 5px;
+	border-color:#eee; color:white; 
 }
+
+.btnNoRep {background-color:rgb(248, 174, 174);}
+.btnRep{background-color:rgb(236, 0, 57);}
+
+
+.btnNoRep:hover, .btnNoRep:active, .btnNoRep:focus {background-color:rgb(236, 148, 148); border-color:#eee;}
+.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:rgb(236, 88, 112); border-color:#eee;}
+
+#player-status-quantity{color:#666;}
 
 /* ------ END POPUP REPRODUCIENDO ------- */
 

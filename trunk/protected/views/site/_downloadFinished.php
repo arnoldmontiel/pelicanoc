@@ -57,7 +57,11 @@
     					
      					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
      						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
-     							echo $myMovie->original_title;
+
+     						$shortTitle = $myMovie->original_title;
+     						$shortTitle = (strlen($shortTitle) > 26) ? substr($shortTitle,0,23).'...' : $shortTitle;
+     						
+     						echo $shortTitle;
      						echo CHtml::closeTag("p");
      					echo CHtml::closeTag("div");
     					

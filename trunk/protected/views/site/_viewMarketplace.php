@@ -37,6 +37,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
 ");
 
+$shortTitle = $model->original_title;
+$shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
 ?>
 
         
@@ -47,5 +49,5 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 				array('id'=>$model->Id, 'idNzb'=>$data->Id, 'class'=>'peliAfiche'));
 		?>    
     </a>
-    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $model->original_title;?></div>
+    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
 </div>

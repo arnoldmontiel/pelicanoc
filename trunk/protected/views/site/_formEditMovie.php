@@ -349,8 +349,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
           <div class="form-group">
     <label for="fieldResumen" class="col-md-1 control-label">Resumen</label>
               <div class="col-md-11">
-<textarea class="form-control" id="fieldResumen" name="<?php echo get_class($model).'[description]'?>" rows="5"><?php echo $model->description; ?></textarea>
-                  </div>
+<textarea class="form-control" id="fieldResumen" name="<?php echo get_class($model).'[description]'?>" rows="5"><?php echo $model->description; ?></textarea>                  </div>
     </div>
     </div><!-- /col-md-12 -->
     </div><!-- /row -->

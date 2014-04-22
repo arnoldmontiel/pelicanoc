@@ -27,7 +27,7 @@
 								<tr>
 									<td><?php echo $player->description?></td>
 									<?php
-										$originalTitle="Libre";
+										$originalTitle='<span class="label label-success">Libre</span>';
 										$libre = true;
 										try {
 											if(DuneHelper::isPlayingByPlayer($player))
@@ -36,7 +36,7 @@
 												if(isset($modelCurrentPlaying))
 												{
 													$libre=false;
-													$originalTitle="Reproduciendo: ";
+													$originalTitle="<i class='fa fa-circle-o' style='color:rgb(248, 174, 174);'></i> Reproduciendo: ";
 													if(isset($modelCurrentPlaying->Id_nzb))
 													{
 														$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
@@ -62,11 +62,14 @@
 									?>
 									<td><?php echo $originalTitle;?></td>
 									<td class="align-right">
-									
-									<button <?php if($libre) echo 'disabled="disabled"';?> id="btn-dune-control" type="button" onclick="control(<?php echo $player->Id; ?>)"
-											class="btn btn-primary btn-play-by-player">
+									<?php if($libre){
+										echo "&nbsp;";
+									}else{
+										echo'<button id="btn-dune-control" type="button" onclick=control('.$player->Id.') class="btn btn-primary btn-play-by-player">
 											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto	
-										</button>
+										</button>';
+									};?>
+									
 										</td>
 								</tr>							
 								

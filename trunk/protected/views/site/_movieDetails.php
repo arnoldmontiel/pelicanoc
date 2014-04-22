@@ -79,7 +79,7 @@
     GENERO
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-	&nbsp;<?php echo $model->genre;?>
+	<?php echo $model->genre;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -133,7 +133,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     A&Ntilde;O
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    &nbsp;<?php echo $model->production_year;?>
+    <?php echo $model->production_year;?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -142,7 +142,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     DIRECTOR
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    &nbsp;<?php echo $casting['director'];?>
+    <?php echo $casting['director'];?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -151,7 +151,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     ACTORES
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    &nbsp;<?php echo $casting['actors'];?>
+    <?php echo $casting['actors'];?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -169,7 +169,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     SIN&Oacute;PSIS
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond detailSummary">
-    &nbsp;<?php echo $model->description;?>
+    <?php echo nl2br($model->description);?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     </div><!--/.tab-pane#1 -->
