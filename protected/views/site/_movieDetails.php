@@ -241,15 +241,24 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     </div><!--/.modal-body -->
     <div class="modal-footer">
-    <div class="labelDescargando pull-left"><i class="fa fa-spinner fa-spin"></i> Descargando...</div>
+    <?php if(isset($modelNzb)):?>
+    	<?php if(!$modelNzb->ready_to_play&&($modelNzb->downloaded||$modelNzb->downloading)):?>
+    	<div class="labelDescargando pull-left"><i class="fa fa-spinner fa-spin"></i> Descargando...</div>
+    	<?php endif?>
+    <?php endif?>
   <!-- Single button -->
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
     <?php if(isset($modelNzb)):?>
     	<?php if($modelNzb->ready_to_play):?>
     		<button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
     	<?php else:?>
-  			<button id="btn-download" type="button" class="btn btn-primary btn-lg" <?php if($modelNzb->downloaded||$modelNzb->downloading)	echo 'disabled="disabled"'; ?>>
-    		<i class="fa fa-download"></i> <?php echo ($modelNzb->downloaded||$modelNzb->downloading)?"Descargando":"Descargar";?></button>
+    		<?php if($modelNzb->downloaded||$modelNzb->downloading):?>
+	  			<button onclick="cancelDownloading(<?php echo $modelNzb->Id?>)" type="button" class="btn btn-primary btn-lg">
+	    		<i class="fa fa-times-circle"></i> Cancelar</button>
+    		<?php else:?>
+    			<button id="btn-download" type="button" class="btn btn-primary btn-lg">
+	    		<i class="fa fa-download"></i> Descargar</button>
+    		<?php endif?>
     	<?php endif?>    	    
     <?php else:?>
     <button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
@@ -291,7 +300,21 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     });
   });										
   <?php if(isset($modelNzb)):?>
-  
+	  function cancelDownloading(idNzb)
+	  {
+			$.post("<?php echo SiteController::createUrl('AjaxCancelDownload'); ?>",
+					{Id_nzb: idNzb}
+				).success(
+					function(data) 
+					{					
+						$("#myModal").html("");
+						$("#myModal").modal("hide");
+						return false;
+					}
+				);
+				return false;
+	  
+	  }  
 	$('#btn-download').click(function(){
 		$(this).attr("disabled", "disabled");
 		$.post("<?php echo SiteController::createUrl('AjaxStartDownload'); ?>",
