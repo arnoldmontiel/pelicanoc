@@ -69,6 +69,7 @@ function getCurrentState()
 						$("#player-status").addClass('btnNoRep');
 						$("#player-status-text").text(' No hay reproducciones ');
 						$('#player-status-quantity').hide();
+						$('#player-status-arrow').hide();
 					}
 					else
 					{
@@ -76,6 +77,7 @@ function getCurrentState()
 						$("#player-status").addClass('btnRep');
 						$("#player-status-text").text(' Reproduciendo ');
 						$('#player-status-quantity').show();
+						$('#player-status-arrow').show();
 					}
 				}
     			if(obj.currentUSB != null)
@@ -467,7 +469,7 @@ $(document).ready(function(){
 			<div class="nav navbar-nav navbar-right">
 				<button id="player-status" type="button" class="btn btn-default navbar-btn btnReproduciendo btnNoRep"
 					data-toggle="modal"><i class="fa fa-desktop fa-fw"></i>
-					<span id="player-status-text"> </span><span id="player-status-quantity" class="badge"></span><i class="fa fa-caret-down fa-fw"></i> 
+					<span id="player-status-text"> No hay reproducciones </span><span id="player-status-quantity" class="badge"></span><i id="player-status-arrow" style="display: none;" class="fa fa-caret-down fa-fw"></i> 
 				 <!-- 	No hay reproducciones -->
 					</button>
 			</div>
