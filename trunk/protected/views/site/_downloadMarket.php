@@ -54,10 +54,28 @@ $(function() {
 //     					echo CHtml::closeTag("div");
 
     				echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
-    				echo CHtml::closeTag("li");
-    				
+    				echo CHtml::closeTag("li");		
     				
     			}
+    			
+    			
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
+    			echo CHtml::openTag("li",array("class"=>"liSlider"));
+    			echo CHtml::link(
+    			
+    					CHtml::image("images/6bc6839c-0a99-4c81-afdf-08b7eb0a4643.jpg",'',array(
+    							"width"=>"180", "height"=>"260", "border"=>"0",
+    					)),
+    			
+    					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
+    							"idResource"=>$modelSource->Id,
+    							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
+    			echo '<div class="preparando">
+<i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
+    			echo CHtml::closeTag("li");
+    			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
+    			
+    			
     		?>        	
 		</ul>
 	</div>
