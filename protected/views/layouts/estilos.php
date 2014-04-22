@@ -866,23 +866,42 @@ display:block;
 	border: 25px solid transparent;
 	border-top: 25px solid #26ada1;
 	position: absolute;
-	bottom: 79px;
-	right: -103px;
-	padding: 0 10px;
-	width: 120px;
 	color: white;
 	font-family: sans-serif;
 	size: 11px;
 }
 
-.flex-viewport {
-	padding-bottom: 5px;
+.ribbon.ribNuevo{
+border-top-color:#26ada1;
+bottom: 79px;
+right: -103px;
+width: 120px;
 }
 
-.flexslider .ribbon {
-	right: -42px;
-	top: 202px;
-	width: 150px;
+
+.ribbon.ribFinalizado{
+border-top-color:#F3A053;
+right: -40px;
+top: 209px;
+width: 129px;
+}
+
+.ribbon.ribMisPeliculas{
+border-top-color:#3E6085;
+bottom: 92px;
+right: -71px;
+width:158px;
+}
+
+.ribbon.ribDescargando{
+border-top-color:#FD9E5F;
+bottom: 92px;
+right: -71px;
+width:158px;
+}
+
+.flex-viewport {
+	padding-bottom: 5px;
 }
 
 .flexslider .liSlider {

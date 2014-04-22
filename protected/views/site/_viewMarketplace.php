@@ -50,4 +50,10 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
 		?>    
     </a>
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
+    
+     <div class="ribbon ribMisPeliculas">
+        <div class="ribbonTxt">
+            MIS PELICULAS
+        </div>
+    </div>
 </div>
