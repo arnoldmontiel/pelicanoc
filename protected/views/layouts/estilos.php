@@ -1636,6 +1636,13 @@ background-color:none;
 
 .labelDescargando{ font-size:20px; line-height:40px; font-weight:bold; color:#26ada1;}
 
+.preparando{width:180px; height:40px;
+text-transform:uppercase; letter-spacing:1px; color:white; font-size:18px; 
+position:absolute;
+text-align:center;
+ top:50%; margin-top:-20px;
+}
+
 /*-------- END DESCARGAS --------------*/
 
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
