@@ -160,15 +160,25 @@ class FolderCommand extends CConsoleCommand  {
 			try 
 			{
 				$setting = Setting::getInstance();
-				$path = $setting->path_shared;
+				$sharedPath = $setting->path_shared;
 				
-				self::generatePeliFiles($path);				
-				self::processPeliFile($path);				
+				$modelLote = new Lote();
+				//genero un nuevo lote
+				$modelLote->save();
 				
-				$modelCommandStatus->setBusy(false);				
+				self::generatePeliFiles($sharedPath, $modelLote->Id);				
+				self::processPeliFile($sharedPath, $modelLote->Id);				
+				
+				$modelLote->description = 'Successfull';
+				$modelLote->save();
+				
+				$modelCommandStatus->setBusy(false);
+								
 			} 
 			catch (Exception $e) 
 			{				
+				$modelLote->description = 'Error: ' . $e->getMessage();
+				$modelLote->save();
 				$modelCommandStatus->setBusy(false);
 			}
 		}
@@ -399,19 +409,21 @@ class FolderCommand extends CConsoleCommand  {
 	
 	}
 	
-	private function processPeliFile($path)
+	/**
+	 * Si ya existe el "pelicano.peli" y no se generó la metadata, se genera
+	 * @param string $sharedPath
+	 * @param integer $idLote - el Id del lote
+	 * @return boolean
+	 */
+	private function processPeliFile($sharedPath, $idLote)
 	{		
 		try 
 		{
 			$setting = Setting::getInstance();
 						
-			$modelLote = new Lote();
-			$iterator = ReadFolderHelper::getPeliDirectoryList($path, true, $path.$setting->path_shared_pelicano_root);
+			$iterator = ReadFolderHelper::getPeliDirectoryList($sharedPath, true, $sharedPath.$setting->path_shared_pelicano_root);
 			$chunksize = 1*(1024*1024); // how many bytes per chunk
-				
-			//genero un nuevo lote
-			$modelLote->save();
-			
+							
 			foreach ($iterator as $file)
 			{
 					
@@ -419,23 +431,37 @@ class FolderCommand extends CConsoleCommand  {
 				if(isset($modelPeliFile)) 
 				{
 			
-					$shortPath = self::getShortPath($path, $file, $modelPeliFile);
+					$shortPath = self::getShortPath($sharedPath, $file, $modelPeliFile);
 		
 					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 						
 					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
-						self::saveByPeliFile($modelPeliFile, $modelLote->Id, $shortPath);
+					{
+						$movie = TMDBHelper::getInfoByPeliFile($modelPeliFile);
+						$idDisc = TMDBHelper::saveMetaData($movie);						
+							
+						if(isset($idDisc))
+						{
+							$modelLocalFolder = new LocalFolder();
+							$modelLocalFolder->Id_my_movie_disc = $idDisc;
+							$modelLocalFolder->Id_file_type = $modelPeliFile->type;
+							$modelLocalFolder->Id_lote = $idLote;
+							$modelLocalFolder->path = $shortPath;
+							$modelLocalFolder->save();
+						
+							TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
+						}
+						
+					}
 						
 				} //end if null
 			}			
-			$modelLote->description = 'Successfull';
-			$modelLote->save();
+			
 			return true;			
 		} 
 		catch (Exception $e) 
 		{
-			$modelLote->description = 'Error: ' . $e->getMessage();
-			$modelLote->save();
+
 			return false;			
 		}
 		
@@ -531,10 +557,15 @@ class FolderCommand extends CConsoleCommand  {
 		return $modelPeliFile;
 	}
 	
-	private function generatePeliFiles($path)
+	/**
+ 	* Recorre todo el sharedPath y genera los "pelicano.peli" en los directorios donde no existen 
+ 	* @param string $sharedPath - el path raiz donde estan los videos
+ 	* @param integer $idLote - el Id del lote
+ 	*/
+	private function generatePeliFiles($sharedPath, $idLote)
 	{
 		
-		$videoIterator = ReadFolderHelper::getVideoDirectoryList($path,true);
+		$videoIterator = ReadFolderHelper::getVideoDirectoryList($sharedPath,true);
 		
 		if($videoIterator)
 		{
@@ -549,13 +580,10 @@ class FolderCommand extends CConsoleCommand  {
 						$hasPeliFile = true;
 						break;
 					}
-				}
-				$folderName = basename(dirname($file['dirpath'].'/'.$file['filename']));
-		
-				$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
+				}				
 		
 				if(!$hasPeliFile)
-					self::buildPeliFile($folderName, $file['dirpath'], $type);
+					self::buildPeliFile($file, $sharedPath, $idLote);
 			}
 		}
 	}
@@ -746,16 +774,25 @@ class FolderCommand extends CConsoleCommand  {
 		
 		return $idSourceType;
 	}
-	
-	private function buildPeliFile($folderName, $path, $type)
+					 
+	/**
+	 * Genera el "pelicano.peli" y guarda la metadata generando ademas el registro en localfolder
+	 * @param file $file - Contiene información relacionada respecto al directorio actual 'dirpath' ruta completa, 'filename' archivo en cuestion. En el 
+	 * caso que sea un folder ese campo viene vacio
+	 * @param string $sharedPath - el path raiz donde estan los videos
+	 * @param integer $idLote - el Id del lote
+	 */		
+	private function buildPeliFile($file, $sharedPath, $idLote)
 	{
+		$type = ($file['filename']=='folder')?'folder':pathinfo($file['dirpath'].$file['filename'], PATHINFO_EXTENSION);
+		$folderName = basename(dirname($file['dirpath'].'/'.$file['filename']));
 		
 		$movie = TMDBHelper::getInfoByFolderName($folderName);
 		
 		if(isset($movie))
 		{
 			try {
-				$fp = @fopen($path.'/pelicano.peli', 'w');
+				$fp = @fopen($file['dirpath'].'/pelicano.peli', 'w');
 				if(isset($fp))
 				{
 					$content = 'imdb='.$movie->imdb_id.";\n";
@@ -771,39 +808,31 @@ class FolderCommand extends CConsoleCommand  {
 			} catch (Exception $e) {
 				break;
 			}
-		}
-		
-// 		$myMoviesAPI = new MyMoviesAPI();
-// 		$response = $myMoviesAPI->SearchDiscTitleByTitle($folderName);
-// 		if(!empty($response) && (string)$response['status'] == 'ok')
-// 		{
-// 			$titles = $response->Titles;
-// 			foreach($titles->children() as $title)
-// 			{
-// 				$idImdb = (string)$title['imdb'];
-// 				if($idImdb == 'tt0000000')
-// 					continue;
+			
+			$idDisc = TMDBHelper::saveMetaData($movie);
+			
+			if(isset($idDisc))
+			{
+				$modelLocalFolder = new LocalFolder();
+				$modelLocalFolder->Id_my_movie_disc = $idDisc;
+				$modelLocalFolder->Id_file_type = self::getFileType($type);
+				$modelLocalFolder->Id_lote = $idLote;
+				$modelLocalFolder->path = self::getLocalFolderPath($type, $file, $sharedPath);
+				$modelLocalFolder->save();
+				
+				TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
+			}
+		}	
+	}
 	
-// 				$originalTitle = (string)$title['originalTitle'];	
-// 				try {
-						
 	
-// 					$fp = @fopen($path.'/pelicano.peli', 'w');
-// 					if(isset($fp))
-// 					{
-// 						$content = 'imdb='.$idImdb.";\n";
-// 						$content .= 'type='.$type.";\n";
-// 						$content .= 'name='.$originalTitle.';';		
-	
-// 						@fwrite($fp, $content);
-// 						@fclose($fp);
-// 					}
-// 				} catch (Exception $e) {
-// 					break;
-// 				}
-// 				break;
-// 			}
-// 		}		
+	private function getLocalFolderPath($type, $file, $sharedPath)
+	{
+		$localFolderPath = str_replace($sharedPath,'',$file['dirpath']);
+		if($type != 'folder')	
+			$localFolderPath .= '/'. $file['filename'];
+
+		return $localFolderPath;
 	}
 	
 	private function buildPeliFileES($folderName, $path, $type)
