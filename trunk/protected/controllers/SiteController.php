@@ -241,6 +241,19 @@ class SiteController extends Controller
 			}
 		}
 	}
+	public function actionAjaxCancelDownload()
+	{
+		if(isset($_POST['Id_nzb']))
+		{		
+			PelicanoHelper::cancelDownload($_POST['Id_nzb']);
+			$nzbs = Nzb::model()->findAllByAttributes(array('Id_nzb'=>$_POST['Id_nzb']));
+			foreach ($nzbs as $nzb)
+			{
+				PelicanoHelper::cancelDownload($nzb->Id);				
+			}
+		}
+	}
+	
 	public function actionAjaxPlaylistsShow()
 	{
 		$models = Playlist::model()->findAll();
