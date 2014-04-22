@@ -448,7 +448,7 @@ class FolderCommand extends CConsoleCommand  {
 							$modelLocalFolder->Id_lote = $idLote;
 							$modelLocalFolder->path = $shortPath;
 							$modelLocalFolder->save();
-							echo "El ID: ". $modelLocalFolder->Id;
+							echo "El ID: ". var_dump($modelLocalFolder);
 							TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
 						}
 						
