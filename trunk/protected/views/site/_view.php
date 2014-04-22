@@ -85,7 +85,7 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
     
     ?>
     <?php if(empty($currentPlays)):?>
-     <div class="ribbon">
+     <div class="ribbon ribNuevo">
         <div class="ribbonTxt">
             NUEVO
         </div>

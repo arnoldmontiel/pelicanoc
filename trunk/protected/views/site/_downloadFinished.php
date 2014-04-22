@@ -65,7 +65,7 @@
      						echo CHtml::closeTag("p");
      					echo CHtml::closeTag("div");
     					
-    echo '<div class="ribbon"><div class="ribbonTxt">FINALIZADA</div></div>';		
+    echo '<div class="ribbon ribFinalizado"><div class="ribbonTxt">FINALIZADA</div></div>';		
 
     				echo CHtml::closeTag("li");
     				
