@@ -1650,7 +1650,7 @@ background-color:none;
 	padding: 4px;
 	box-shadow: none;
 }
-
+#flexsliderMarket{height:269px;}
 .flex-direction-nav a {
 	opacity: 1;
 }
