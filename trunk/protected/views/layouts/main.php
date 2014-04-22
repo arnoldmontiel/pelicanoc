@@ -68,12 +68,14 @@ function getCurrentState()
 						$("#player-status").removeClass('btnRep');
 						$("#player-status").addClass('btnNoRep');
 						$("#player-status-text").text(' No hay reproducciones ');
+						$('#player-status-quantity').hide();
 					}
 					else
 					{
 						$("#player-status").removeClass('btnNoRep');
 						$("#player-status").addClass('btnRep');
 						$("#player-status-text").text(' Reproduciendo ');
+						$('#player-status-quantity').show();
 					}
 				}
     			if(obj.currentUSB != null)
