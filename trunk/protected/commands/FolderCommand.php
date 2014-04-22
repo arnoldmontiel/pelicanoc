@@ -448,7 +448,7 @@ class FolderCommand extends CConsoleCommand  {
 							$modelLocalFolder->Id_lote = $idLote;
 							$modelLocalFolder->path = $shortPath;
 							$modelLocalFolder->save();
-						
+							echo "El ID: ". $modelLocalFolder->Id;
 							TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
 						}
 						
@@ -819,7 +819,7 @@ class FolderCommand extends CConsoleCommand  {
 				$modelLocalFolder->Id_lote = $idLote;
 				$modelLocalFolder->path = self::getLocalFolderPath($type, $file, $sharedPath);
 				$modelLocalFolder->save();
-				
+				echo "El ID: ". $modelLocalFolder->Id;
 				TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
 			}
 		}	
