@@ -444,11 +444,11 @@ class FolderCommand extends CConsoleCommand  {
 						{
 							$modelLocalFolder = new LocalFolder();
 							$modelLocalFolder->Id_my_movie_disc = $idDisc;
-							$modelLocalFolder->Id_file_type = $modelPeliFile->type;
+							$modelLocalFolder->Id_file_type = self::getFileType($modelPeliFile->type);
 							$modelLocalFolder->Id_lote = $idLote;
 							$modelLocalFolder->path = $shortPath;
 							$modelLocalFolder->save();
-							echo "El ID: ". var_dump($modelLocalFolder);
+							
 							TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
 						}
 						
@@ -743,7 +743,7 @@ class FolderCommand extends CConsoleCommand  {
 	{
 		$idFileType = 1;
 		
-		switch ($type) {
+		switch (strtoupper($type)) {
 			case "FOLDER":
 				$idFileType = 1;
 				break;
@@ -760,7 +760,7 @@ class FolderCommand extends CConsoleCommand  {
 	private function getSoruceType($source)
 	{
 		$idSourceType = null;
-		switch ($source) {
+		switch (strtoupper($source)) {
 			case "BLU-RAY":
 				$idSourceType = 1;
 				break;
@@ -819,7 +819,7 @@ class FolderCommand extends CConsoleCommand  {
 				$modelLocalFolder->Id_lote = $idLote;
 				$modelLocalFolder->path = self::getLocalFolderPath($type, $file, $sharedPath);
 				$modelLocalFolder->save();
-				echo "El ID: ". $modelLocalFolder->Id;
+				
 				TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
 			}
 		}	
