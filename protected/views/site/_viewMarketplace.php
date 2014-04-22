@@ -51,9 +51,19 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
     </a>
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
     
+    <?php if($data->ready_to_play):?>
      <div class="ribbon ribMisPeliculas">
         <div class="ribbonTxt">
             MIS PELICULAS
         </div>
     </div>
+     <?php else:?>
+    	<?php if($data->downloaded||$data->downloading):?>
+     		<div class="ribbon ribDescargando">
+		        <div class="ribbonTxt">
+		            Descargando
+		        </div>
+		    </div>
+   		<?php endif?>
+    <?php endif?>
 </div>
