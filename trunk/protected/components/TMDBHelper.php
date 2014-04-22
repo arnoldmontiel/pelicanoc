@@ -1,6 +1,40 @@
 <?php
 class TMDBHelper
 {
+	/**
+	 * A partir del parseo del objeto PeliFile con el nombre y el año, busca la pelicula correspondiente
+	 * @param PeliFile $modelPeliFile - objeto pelifile
+	 * @return Ambigous <NULL, TMDBMovie> el objeto movie de TMDB
+	 */
+	static public function getInfoByPeliFile($modelPeliFile)
+	{
+		$idMyMovie = null;
+		
+		$db = TMDBApi::getInstance();
+		$db->adult = true;  // return adult content
+		$db->paged = false; // merges all paged results into a single result automatically
+		$results = $db->search('movie', array('query'=>$modelPeliFile->name, 'year'=>$modelPeliFile->year));
+		$idMovie = null;
+		
+		foreach($results as $item)
+		{
+			$idMovie = $item->id;
+			break;
+		}
+		
+		$movie = null;
+		if(isset($idMovie))
+			$movie = new TMDBMovie($idMovie);
+		
+		return $movie;
+	}
+	
+	
+	/**
+	 * A partir del parseo del nombre del directorio que contiene el video, busca la pelicula correspondiente
+	 * @param string $folderName - Nombre del directorio
+	 * @return Ambigous <NULL, TMDBMovie> el objeto movie de TMDB
+	 */
 	static public function getInfoByFolderName($folderName)
 	{
 		//limpio el nombre. Reemplazo . por espacios y parentesis por vacio
@@ -38,40 +72,28 @@ class TMDBHelper
 		return $movie;
 	}
 	
-	static public function saveInfo($modelPeliFile, $idLote, $path)
+	/**
+	 * Salva toda la metadata devuelta por TMDB en my_movie y genera un my_movie_disc (este metodo no guarda las imagenes)
+	 * @param TMDB movie $movie
+	 * @return Ambigous <NULL, string> Si pudo guardar toda la metadata, duevelve el Id de disco correspondiente al Id de my_movie_disc
+	 */
+	static public function saveMetaData($movie)
 	{
-		$idMyMovie = null;
-		
-		$db = TMDBApi::getInstance();
-		$db->adult = true;  // return adult content
-		$db->paged = false; // merges all paged results into a single result automatically
-		$results = $db->search('movie', array('query'=>$modelPeliFile->name, 'year'=>$modelPeliFile->year));
-		$idMovie = null;
-		
-		foreach($results as $item)
-		{
-			$idMovie = $item->id;
-			break;
-		}
-		
-		if(isset($idMovie))
+		$idDisc = null;
+		if(isset($movie))
 		{
 			$transaction=Yii::app()->db->beginTransaction();
 			try
 			{
-				$movie = new TMDBMovie($idMovie);
-				if(!isset($movie))
-					return $idMyMovie;
-				
 				$persons = $movie->casts();
 				$poster = $movie->poster('342');
 				$bigPoster = $movie->poster('500');
 				$backdrop = $movie->backdrop('original');
-				
+	
 				$myMovie = new MyMovie();
-				
-				$idMyMovie = uniqid ("cust_");				
-				
+	
+				$idMyMovie = uniqid ("cust_");
+	
 				$myMovie->Id = $idMyMovie;
 				$myMovie->Id_parental_control = 1; //UNRATED
 				$myMovie->original_title = $movie->original_title;
@@ -85,11 +107,11 @@ class TMDBHelper
 				$myMovie->sort_title= $movie->title;
 				$myMovie->imdb= $movie->imdb_id;
 				$myMovie->rating= (int)$movie->vote_average;
-				
+	
 				$myMovie->poster_original = $poster;
 				$myMovie->big_poster_original = $bigPoster;
 				$myMovie->backdrop_original = $backdrop;
-				
+	
 				$genres = $movie->genres;
 				$myMovie->genre="";
 				$first = true;
@@ -105,7 +127,7 @@ class TMDBHelper
 						$myMovie->genre = $myMovie->genre.", ".$genre->name;
 					}
 				}
-				
+	
 				$companies = $movie->production_companies;
 				$myMovie->studio = "";
 				$first = true;
@@ -121,11 +143,11 @@ class TMDBHelper
 						$myMovie->studio = $myMovie->studio.", ".$companie->name;
 					}
 				}
-				
+	
 				if($myMovie->save())
 				{
 					$casts =isset($persons['cast'])?$persons['cast']:array();
-				
+	
 					$relations = MyMoviePerson::model()->findAllByAttributes(array('Id_my_movie'=>$idMyMovie));
 					$personsToDelete = array();
 					foreach ($relations as $relation)
@@ -167,51 +189,61 @@ class TMDBHelper
 							$myMoviePerson->save();
 						}
 					}
-					
-					$myMovieDisc = MyMovieDisc::model()->findByPk($modelPeliFile->idDisc);
-					if(!isset($myMovieDisc))
-					{
-						$myMovieDisc = new MyMovieDisc();
-						$myMovieDisc->Id = $modelPeliFile->idDisc;
-					}
-					$myMovieDisc->name = $modelPeliFile->name;
+						
+					//genero un nuevo disco
+					$myMovieDisc = new MyMovieDisc();
+					$idDisc = uniqid();
+					$myMovieDisc->Id = $idDisc;
+					$myMovieDisc->name = $movie->original_title;
 					$myMovieDisc->Id_my_movie = $idMyMovie;
-				
+	
 					$myMovieDisc->save();
-					
-					$idFileType = 1;
-					switch ($modelPeliFile->type) {
-						case "FOLDER":
-							$idFileType = 1;
-							break;
-						case "ISO":
-							$idFileType = 2;
-							break;
-						case "MKV":
-							$idFileType = 3;
-							break;
-					}
-					
-					$modelLocalFolder = new LocalFolder();
-					$modelLocalFolder->Id_my_movie_disc = $modelPeliFile->idDisc;
-					$modelLocalFolder->Id_file_type = $idFileType;
-					$modelLocalFolder->Id_lote = $idLote;
-					$modelLocalFolder->path = $path;
-					$modelLocalFolder->save();
-					
+						
 					$transaction->commit();
-					
-					var_dump(self::downloadAndLinkImages($movie->id,$modelLocalFolder->Id,3,$poster,$bigPoster,$backdrop));
-					
+						
 				}
 			}
 			catch (Exception $e) {
 				$transaction->rollBack();
-				var_dump($e);
+				//var_dump($e);
 			}
-			
+				
 		}
-		return $idMyMovie;
+		return $idDisc;
+	}
+	
+
+	static public function downloadAndLinkImagesByModel($movie,$idResource)
+	{
+		$poster = $movie->poster('342');
+		$bigPoster = $movie->poster('500');
+		$backdrop = $movie->backdrop('original');
+		
+		try {
+			$modelResource = LocalFolder::model()->findByPk($idResource);
+			$model = (isset($modelResource->TMDBData))?$modelResource->TMDBData:null;
+		
+			if(!isset($model))
+				$model = new TMDBData();
+				
+			if($poster!="")
+				$model->poster = self::getImage($poster, $movie->id, true);
+			if($bigPoster!="")
+				$model->big_poster = self::getImage($bigPoster, $movie->id."_big");
+			if($backdrop!="")
+				$model->backdrop = self::getImage($backdrop, $movie->id."_bd");
+				
+			$model->TMDB_id = $movie->id;
+				
+			$model->save();
+			$modelResource->Id_TMDB_data = $model->Id;
+			$modelResource->save();
+			$modelResource->refresh();
+			return $modelResource;
+				
+		} catch (Exception $e) {
+			var_dump($e);
+		}
 	}
 	
 	static public function downloadAndLinkImages($TMDBId,$idResource,$sourceType,$poster,$bigPoster,$backdrop)
