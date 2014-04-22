@@ -61,7 +61,7 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
     	<?php if($data->downloaded||$data->downloading):?>
      		<div class="ribbon ribDescargando">
 		        <div class="ribbonTxt">
-		            Descargando
+		            DESCARGANDO
 		        </div>
 		    </div>
    		<?php endif?>
