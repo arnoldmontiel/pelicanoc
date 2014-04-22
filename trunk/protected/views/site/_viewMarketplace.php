@@ -29,6 +29,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	 	{
 	 	
 			$('#myModal').html(data);
+			$('#myModal').modal('show');
 			
 		}
 	 	);	
@@ -43,7 +44,7 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
 
         
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
-	<a id="link-movie-<?php echo $model->Id;?>" style="position:relative;" data-target="#myModal" data-toggle="modal" href="#myModal" class="">    
+	<a id="link-movie-<?php echo $model->Id;?>" style="position:relative;"  data-toggle="modal" href="#myModal" class="">    
         <?php
 		 echo CHtml::image("images/".$moviePoster,'details',
 				array('id'=>$model->Id, 'idNzb'=>$data->Id, 'class'=>'peliAfiche'));
