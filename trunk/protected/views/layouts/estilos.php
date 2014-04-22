@@ -887,14 +887,14 @@ width: 129px;
 }
 
 .ribbon.ribMisPeliculas{
-border-top-color:#3E6085;
+border-top-color:#FF9A03;
 bottom: 92px;
 right: -71px;
 width:158px;
 }
 
 .ribbon.ribDescargando{
-border-top-color:#5AB4C5;
+border-top-color:#FF42D1;
 bottom: 92px;
 right: -71px;
 width:158px;
