@@ -1,5 +1,6 @@
 
 <?php 
+
 if($data->source_type == 1)
 {
 	$model = MyMovieDiscNzb::model()->findByPk($data->Id_my_movie_disc_nzb);
@@ -51,6 +52,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
 
 ");
 
+$shortTitle = $model->original_title;
+$shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
 ?>
 
         
@@ -61,14 +64,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
 		?>    
     </a>			
-    <div id="<?php echo $data->Id;?>" class="peliTitulo">
-		<?php 
-    	echo CHtml::openTag("p",
-			array(/*"class"=>PelicanoHelper::setAnimationClass($model->original_title)*/));
-    	echo $model->original_title;
-    	echo CHtml::closeTag("p");
-		?>
-    </div>
+    <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
+    
     <?php
     $currentPlays=array();
     switch ($data->source_type) {
