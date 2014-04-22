@@ -512,6 +512,14 @@ background-color: #e7e7e7;
 .reproTableContainer .table td {
 	vertical-align: middle;
 }
+
+.reproTableContainer .label{font-size:13px;
+margin-bottom: 2px;
+display: inline-block;}
+
+.reproTableContainer i{color:#666;}
+.reproTableContainer button i{color:white;}
+
 /* ------ SECOND MENU / NAV BAR ------- */
 
 .secondNavFixedTop{top:80px; width:100%; position:Absolute; z-index:1099;}
