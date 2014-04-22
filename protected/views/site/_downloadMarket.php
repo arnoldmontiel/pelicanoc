@@ -70,8 +70,22 @@ $(function() {
     					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
     							"idResource"=>$modelSource->Id,
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
-    			echo '<div class="preparando">
-<i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
+    			echo '<div class="preparando"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
+    			echo CHtml::closeTag("li");
+    			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
+    			
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
+    			echo CHtml::openTag("li",array("class"=>"liSlider"));
+    			echo CHtml::link(
+    					 
+    					CHtml::image("images/6bc6839c-0a99-4c81-afdf-08b7eb0a4643.jpg",'',array(
+    							"width"=>"180", "height"=>"260", "border"=>"0",
+    					)),
+    					 
+    					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
+    							"idResource"=>$modelSource->Id,
+    							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
+    			echo '<div class="fallo"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
     			echo CHtml::closeTag("li");
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
     			

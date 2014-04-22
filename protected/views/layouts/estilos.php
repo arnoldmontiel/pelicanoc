@@ -1643,6 +1643,22 @@ text-align:center;
  top:50%; margin-top:-20px;
 }
 
+.fallo{width:180px; height:40px;
+text-transform:uppercase; letter-spacing:1px; color:white; font-size:18px; 
+position:absolute;
+text-align:center;
+ top:45%; margin-top:-20px;
+}
+
+.fallo .label{display: inline-block;
+width:140px;
+white-space: pre-wrap;
+margin:auto;
+line-height:20px;
+background-color:rgba(217, 83, 79, 0.73);}
+
+.fallo .btn{ margin-top:10px;}
+
 /*-------- END DESCARGAS --------------*/
 
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
