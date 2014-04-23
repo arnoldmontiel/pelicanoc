@@ -1924,10 +1924,15 @@ class SiteController extends Controller
 				}
 			}
 		}
+		$criteriaDownloading = new CDbCriteria;
+		$criteriaDownloading->condition = '(downloading = 1 OR downloaded = 1) AND ready_to_play = 0 AND Id_nzb is null';
 		
+		$nzb = Nzb::model()->findAll($criteriaDownloading);
+		$downloading['qty'] = count($nzb); 
 		$response = array('playBack'=>array('count'=>$playerPlaying),
 				'currentDisc'=>$currentDisc,
-				'currentUSB'=>$currentUSB);
+				'currentUSB'=>$currentUSB,
+				'downloading'=>$downloading);
 
 		echo json_encode($response);
 	}
