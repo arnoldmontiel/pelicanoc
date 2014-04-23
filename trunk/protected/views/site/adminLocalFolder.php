@@ -31,21 +31,32 @@ $('#btn-scan').click(function(){
 });
 ");
 ?>
-<h1>Administracion</h1>
+
+
+<div class="container" id="screenEscaneo">
+	<div class="row pageTitleContainer">
+    	<div class="col-md-6">
+   	 		<h1 class="pageTitle">Escaneo Inicial</h1>
+   	 	</div>
+    	<div class="col-md-6 align-right">
+   	 		<button id="btn-scan" class="btn btn-primary"><i class="fa fa-refresh"></i> Escanear</button>
+   	 	</div>
+   	 </div>
+	<div class="row">
+    	<div class="col-md-12">
 
 <?php 
-
-echo CHtml::button('Escanear',array('id'=>'btn-scan'));
-
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'local-folder-grid',
+	'itemsCssClass' => 'table table-striped table-bordered tablaIndividual',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'cssFile'=>false,
 	'columns'=>array(		        
 		array(
 		    'name'=>'fileType_description',
-		    'value'=>'$data->fileType->description',		    
+		    'value'=>'$data->fileType->description',	
+			'headerHtmlOptions'=>array("width"=>"5%"),	    
 		),
 		array(
 		    'name'=>'title',
@@ -76,3 +87,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 )); ?>
+
+    	</div>
+    </div>
+</div>
