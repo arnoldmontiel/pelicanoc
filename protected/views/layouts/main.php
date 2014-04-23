@@ -333,9 +333,11 @@ $(document).ready(function(){
 -->
 		<a id="mobile-marketplace" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a>
 		<a id="mobile-download" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a>
+		<!-- Comentado para Pelicano Lite ##### 
 		<a id="mobile-devices" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/devices') ?>"
 			id="popover-disp">Dispositivos <span id="devicesQty"
 			style="display: none" class="badge"></span></a>
+-->
 	</nav>
 <!-- /////////////////////////////////////// -->
 <!-- /////////MENU LATERAL GENEROS///////// -->
@@ -354,12 +356,11 @@ $(document).ready(function(){
 <!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushMarketplace">
 		<div class="cbp-title">Filtrar B&uacute;squeda</div>
+		<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
 		<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 		<div class="pushMenuSuperGroup">
 		<div class="pushMenuGroup">
-		<a class="pushMenuActive" href="#">Estrenos</a>
-		<a href="#">Populares</a>
-		<a href="#">Recomendadas</a>
+		<a class="pushMenuActive pushTodas" href="#">Todas</a>
 		</div>
 		<div class="pushMenuGroup">
 		<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
@@ -373,13 +374,6 @@ $(document).ready(function(){
 		<a href="#">2013</a>
 		<a href="#">2012</a>
 		<a href="#">2010</a>
-		</div>
-		<div class="pushMenuGroup">
-		<div class="pushMenuGroupTitle">IDIOMA</div>
-		<a href="#">Todos</a>
-		<a href="#">Arabe</a>
-		<a href="#">Espa&ntilde;ol</a>
-		<a href="#">Arabe</a>
 		</div>
 		</div>
 	</nav>
@@ -613,8 +607,13 @@ jQuery(document).ready(function($) {
 		menu: '#pushMarketplace'});
 
 	$( "#pushMarketplace .pushMenuSuperGroup a" ).click(function() {
-		  $( this ).toggleClass( "pushMenuActive" );
-		  return false;
+		  if ($(this).hasClass('pushTodas')){
+			  $('#pushMarketplace .pushMenuSuperGroup a').removeClass( "pushMenuActive" );
+			  $(this).addClass( "pushMenuActive" );
+		  }else{
+			$('#pushMarketplace .pushTodas').removeClass( "pushMenuActive" );
+			$( this ).toggleClass( "pushMenuActive" );
+		  }
 		  		});
 
 	//-------------FILTROS GENERO, PILLS Y PUSHMENU --------------
