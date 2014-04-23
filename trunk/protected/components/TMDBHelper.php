@@ -45,11 +45,24 @@ class TMDBHelper
 		$year = '';
 		$regex = "/\b\d{4}\b/";
 		preg_match($regex, $name, $match);
-		if(isset($match[0]))
+		if(isset($match[0])) //si encuentra el año, corta del año para la izquierda para obtener el titulo
 		{
 			$year = $match[0];
 			$yearPos = strpos($name, $year);
 			$name = substr($name, 0, $yearPos);
+			if(trim($name) == "")
+				$name = $year;
+		}
+		else //si no encuentra el año, genera el titulo con la primer palabra. En el caso que el temaño de la primera sea menor a 3 letras, toma las dos primeras.
+		{
+			$words = explode(' ', $name);
+			if(count($words) >= 2)
+			if(strlen($words[0]) > 3)
+				$name = $words[0];
+			else
+				$name = $words[0]. ' ' .$words[1];
+			else
+				$name = $words[0];
 		}
 		
 		//busco en la api
