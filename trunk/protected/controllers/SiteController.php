@@ -1267,6 +1267,7 @@ class SiteController extends Controller
 
 	public function actionLocalFolderAdmin()
 	{
+		$this->showFilter = false;
 		$model = new LocalFolder('search');
 		$model->unsetAttributes();  // clear any default values
 
