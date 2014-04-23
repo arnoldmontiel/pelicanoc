@@ -435,7 +435,7 @@ class FolderCommand extends CConsoleCommand  {
 		
 					$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$shortPath));
 						
-					if(!empty($modelPeliFile->imdb) && !isset($modelLocalFolderDB) && $modelPeliFile->imdb != 'tt0000000')
+					if(!isset($modelLocalFolderDB))
 					{
 						$movie = TMDBHelper::getInfoByPeliFile($modelPeliFile);
 						$idDisc = TMDBHelper::saveMetaData($movie);						
@@ -808,23 +808,23 @@ class FolderCommand extends CConsoleCommand  {
 			} catch (Exception $e) {
 				break;
 			}
+		}
+		
+		$idDisc = TMDBHelper::saveMetaData($movie);
+		
+		if(isset($idDisc))
+		{
+			$modelLocalFolder = new LocalFolder();
+			$modelLocalFolder->Id_my_movie_disc = $idDisc;
+			$modelLocalFolder->Id_file_type = self::getFileType($type);
+			$modelLocalFolder->Id_lote = $idLote;
+			$modelLocalFolder->path = self::getLocalFolderPath($type, $file, $sharedPath);
+			$modelLocalFolder->save();
 			
-			$idDisc = TMDBHelper::saveMetaData($movie);
+			TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
+		}
 			
-			if(isset($idDisc))
-			{
-				$modelLocalFolder = new LocalFolder();
-				$modelLocalFolder->Id_my_movie_disc = $idDisc;
-				$modelLocalFolder->Id_file_type = self::getFileType($type);
-				$modelLocalFolder->Id_lote = $idLote;
-				$modelLocalFolder->path = self::getLocalFolderPath($type, $file, $sharedPath);
-				$modelLocalFolder->save();
-				
-				TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
-			}
-		}	
 	}
-	
 	
 	private function getLocalFolderPath($type, $file, $sharedPath)
 	{
