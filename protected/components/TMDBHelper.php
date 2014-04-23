@@ -222,40 +222,113 @@ class TMDBHelper
 			}
 				
 		}
+		else //no hay info Seteo todo vacio
+		{
+			$transaction=Yii::app()->db->beginTransaction();
+			try
+			{				
+				$poster = 'no_image.jpg';
+				$bigPoster = 'no_image_big.jpg';
+				$backdrop = 'no_image_bd.jpg';
+			
+				$myMovie = new MyMovie();
+			
+				$idMyMovie = uniqid ("cust_");
+			
+				$myMovie->Id = $idMyMovie;
+				$myMovie->Id_parental_control = 1; //UNRATED
+				$myMovie->original_title = 'Desconocido';
+				$myMovie->adult = 0;
+				$myMovie->description = 'Video No reconocido';
+				$myMovie->local_title = 'Desconocido';				
+			
+				$myMovie->poster_original = $poster;
+				$myMovie->big_poster_original = $bigPoster;
+				$myMovie->backdrop_original = $backdrop;
+			
+				$myMovie->genre="";
+			
+				if($myMovie->save())
+				{
+					//genero un nuevo disco
+					$myMovieDisc = new MyMovieDisc();
+					$idDisc = uniqid();
+					$myMovieDisc->Id = $idDisc;
+					$myMovieDisc->name = 'Desconocido';
+					$myMovieDisc->Id_my_movie = $idMyMovie;
+			
+					$myMovieDisc->save();
+			
+					$transaction->commit();
+			
+				}
+			}
+			catch (Exception $e) {
+				$transaction->rollBack();
+				//var_dump($e);
+			}
+		}
+			
 		return $idDisc;
 	}
 	
 
 	static public function downloadAndLinkImagesByModel($movie,$idResource)
 	{
-		$poster = $movie->poster('342');
-		$bigPoster = $movie->poster('500');
-		$backdrop = $movie->backdrop('original');
-		
-		try {
-			$modelResource = LocalFolder::model()->findByPk($idResource);
-			$model = (isset($modelResource->TMDBData))?$modelResource->TMDBData:null;
-		
-			if(!isset($model))
-				$model = new TMDBData();
-				
-			if($poster!="")
-				$model->poster = self::getImage($poster, $movie->id, true);
-			if($bigPoster!="")
-				$model->big_poster = self::getImage($bigPoster, $movie->id."_big");
-			if($backdrop!="")
-				$model->backdrop = self::getImage($backdrop, $movie->id."_bd");
-				
-			$model->TMDB_id = $movie->id;
-				
-			$model->save();
-			$modelResource->Id_TMDB_data = $model->Id;
-			$modelResource->save();
-			$modelResource->refresh();
-			return $modelResource;
-				
-		} catch (Exception $e) {
-			var_dump($e);
+		if(isset($movie))
+		{
+			$poster = $movie->poster('342');
+			$bigPoster = $movie->poster('500');
+			$backdrop = $movie->backdrop('original');
+			
+			try {
+				$modelResource = LocalFolder::model()->findByPk($idResource);
+				$model = (isset($modelResource->TMDBData))?$modelResource->TMDBData:null;
+			
+				if(!isset($model))
+					$model = new TMDBData();
+					
+				if($poster!="")
+					$model->poster = self::getImage($poster, $movie->id, true);
+				if($bigPoster!="")
+					$model->big_poster = self::getImage($bigPoster, $movie->id."_big");
+				if($backdrop!="")
+					$model->backdrop = self::getImage($backdrop, $movie->id."_bd");
+					
+				$model->TMDB_id = $movie->id;
+					
+				$model->save();
+				$modelResource->Id_TMDB_data = $model->Id;
+				$modelResource->save();
+				$modelResource->refresh();
+				return $modelResource;
+					
+			} catch (Exception $e) {
+				var_dump($e);
+			}
+		}
+		else //no hay info Seteo las imagenes por defecto
+		{
+			try {
+				$modelResource = LocalFolder::model()->findByPk($idResource);
+				$model = (isset($modelResource->TMDBData))?$modelResource->TMDBData:null;
+					
+				if(!isset($model))
+					$model = new TMDBData();
+					
+				$model->poster = 'no_image.jpg';
+				$model->big_poster = 'no_image_big.jpg';
+				$model->backdrop = 'no_image_bd.jpg';
+				$model->TMDB_id = 1;					
+				$model->save();
+				$modelResource->Id_TMDB_data = $model->Id;
+				$modelResource->save();
+				$modelResource->refresh();
+				return $modelResource;
+					
+			} catch (Exception $e) {
+				var_dump($e);
+			}
 		}
 	}
 	
