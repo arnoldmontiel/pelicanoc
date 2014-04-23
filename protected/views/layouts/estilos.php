@@ -177,6 +177,12 @@ padding-top:80px;
 padding-bottom:20px;
 }
 
+
+body #screenEscaneo {
+padding-top:80px;
+padding-bottom:20px;
+}
+
 body #screenControl {
 	padding-top: 80px;
 }
