@@ -478,10 +478,14 @@ class FolderCommand extends CConsoleCommand  {
 			$modelPeliFile->type == 'AVI')
 		{
 			foreach (new DirectoryIterator($file['dirpath']) as $fileInfo) {
-				if(!$fileInfo->isDir() && (pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'iso' ||
-				pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mkv' ||
-				pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'mp4' ||
-				pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == 'avi'))
+				if(!$fileInfo->isDir() && 
+					(
+						strtoupper(pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION)) == 'ISO' ||
+						strtoupper(pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION)) == 'MKV' ||
+						strtoupper(pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION)) == 'MP4' ||
+						strtoupper(pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION)) == 'AVI'
+					)
+				)
 				{
 					$shortPath .= '/'. $fileInfo->getFilename();
 					break;
