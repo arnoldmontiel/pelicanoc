@@ -92,10 +92,11 @@
   <!-- /row -->
   
   <div class="row controlBackground rowControlVariable">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-7 col-sm-12">
     <div class="controlNavegacion">
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="prevButton"><i class="fa fa-step-backward fa-2x"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="rewButton"><i class="fa fa-backward fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-primary btn-inverse" id="pauseButton"><i class="fa fa-pause fa-2x"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="playButton"><i class="fa fa-play fa-2x"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="stopButton"><i class="fa fa-stop fa-2x"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="fwButton"><i class="fa fa-forward fa-2x"></i></button>
@@ -103,7 +104,7 @@
 </div>
     </div>
     <!-- /col-sm-6 -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-5 col-sm-12">
     <div class="row">
     <div class="col-sm-7">
     <div class="controlProgress">
