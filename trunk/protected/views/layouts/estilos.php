@@ -610,17 +610,6 @@ display: inline-block;}
 
 /* ------ MOBILE MENU ------- */
 
-.pushMenuActive{position:relative;}
-
-.pushMenuActive:before {
-        position:absolute;
-		font-family: FontAwesome;
-        top:0;
-        right:10px;
-        top:50%;
-        margin-top:-8px;
-        content: '\f00c';
-    }
 .cbp-spmenu .pushMenuSuperGroup{height:100%; padding-bottom:50px;overflow:auto; -webkit-overflow-scrolling:touch;}
 .cbp-spmenu .pushMenuGroup{border-bottom:1px solid #ddd;padding-top:10px;}
 .cbp-spmenu .pushMenuGroup .pushMenuGroupTitle{
@@ -691,6 +680,36 @@ a.list-group-item {
 .cbp-spmenu{width:auto; min-width:250px;}
 .cbp-spmenu-open{width:auto; min-width:250px;}
 
+#pushMarketplace .pushMenuGroup a{position:relative;}
+#pushMarketplace .pushMenuGroup a:before {
+position: absolute;
+font-family: FontAwesome;
+top: 0;
+right: 10px;
+top: 50%;
+color: #ddd;
+margin-top: -8px;
+margin-right: 3px;
+content: '\f096';
+}
+
+#pushMarketplace .pushMenuGroup .pushMenuActive{position:relative;}
+
+#pushMarketplace .pushMenuGroup .pushMenuActive:before {
+        position:absolute;
+		font-family: FontAwesome;
+        top:0;
+        right:10px;
+        top:50%;
+        margin-top:-8px;
+content: '\f046';
+color: #666;
+    }
+    
+    .sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; background-color:#fbfbfb; padding: 10px 0px; width:100%; text-align:center; border-top:2px solid #eee;}
+    .btnLimpiar{margin-left:10px;}
+    
+
 /* ------ END MOBILE MENU ------- */
 
 /* ------ BTN INITIAL FONT SIZES ------- */
@@ -738,6 +757,10 @@ h2.sliderTitle {
 	margin-top: 2px;
 }
 
+h2.pageSubtitle {
+	padding-left:10px;
+
+}
 h1.pageTitle {
 	font-size: 2em;
 	font-weight: normal;
@@ -746,6 +769,7 @@ h1.pageTitle {
 	text-align: left;
 	margin: 0px;
 	line-height: auto;
+	padding-left:10px;
 }
 
 h3 {
@@ -887,7 +911,7 @@ width: 129px;
 }
 
 .ribbon.ribMisPeliculas{
-border-top-color:#FF9A03;
+border-top-color:#265A83;
 bottom: 92px;
 right: -71px;
 width:158px;
@@ -1969,6 +1993,28 @@ font-size:  110% !important;
 
 /*IPAD PORTRAIT*/
 @media ( max-width : 768px) {
+
+.ribbon.ribNuevo{
+bottom: 83px;
+right: -145px;
+}
+
+
+.ribbon.ribFinalizado{
+right: -38px;
+top: 209px;
+}
+
+.ribbon.ribMisPeliculas{
+bottom: 97px;
+right: -112px;
+}
+
+.ribbon.ribDescargando{
+bottom: 97px;
+right: -112px;
+}
+
 	.navbar .nav>li>a {
 		padding: 10px 10px 10px;
 	}
@@ -1981,10 +2027,6 @@ font-size:  110% !important;
 	.peliAfiche {
 		width: 220px;
 		height: 320px;
-	}
-	.ribbon {
-		right: -143px;
-		bottom: 83px;
 	}
 	.controlContainer {
 		width: 100%;
