@@ -2006,6 +2006,13 @@ right: -38px;
 top: 209px;
 }
 
+.ribMisPeliculas{
+right:-92px; bottom:68px;
+}
+
+.ribDescargando{
+right:-80px; bottom:70px;
+}
 
 	.navbar .nav>li>a {
 		padding: 10px 10px 10px;
