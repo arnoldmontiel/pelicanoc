@@ -814,18 +814,25 @@ class FolderCommand extends CConsoleCommand  {
 			}
 		}
 		
-		$idDisc = TMDBHelper::saveMetaData($movie);
+		//si no existe el registro, creo los datos
+		$localFolderPath = self::getLocalFolderPath($type, $file, $sharedPath);
+		$modelLocalFolderDB = LocalFolder::model()->findByAttributes(array('path'=>$localFolderPath));
 		
-		if(isset($idDisc))
+		if(!isset($modelLocalFolderDB))
 		{
-			$modelLocalFolder = new LocalFolder();
-			$modelLocalFolder->Id_my_movie_disc = $idDisc;
-			$modelLocalFolder->Id_file_type = self::getFileType($type);
-			$modelLocalFolder->Id_lote = $idLote;
-			$modelLocalFolder->path = self::getLocalFolderPath($type, $file, $sharedPath);
-			$modelLocalFolder->save();
+			$idDisc = TMDBHelper::saveMetaData($movie);
 			
-			TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
+			if(isset($idDisc))
+			{
+				$modelLocalFolder = new LocalFolder();
+				$modelLocalFolder->Id_my_movie_disc = $idDisc;
+				$modelLocalFolder->Id_file_type = self::getFileType($type);
+				$modelLocalFolder->Id_lote = $idLote;
+				$modelLocalFolder->path = $localFolderPath;
+				$modelLocalFolder->save();
+				
+				TMDBHelper::downloadAndLinkImagesByModel($movie, $modelLocalFolder->Id);
+			}
 		}
 			
 	}
