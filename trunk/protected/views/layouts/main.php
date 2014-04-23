@@ -59,6 +59,17 @@ function getCurrentState()
     		if(data != null)
     		{        			
     			var obj = jQuery.parseJSON(data);
+    			if(obj.downloading != null)
+    			{
+    				if(obj.downloading.qty >= 1)
+        			{
+    					$('.downloadingQty').html(obj.downloading.qty);
+        			}
+        			else
+        			{
+        				$('.downloadingQty').html("");
+        			}
+				}    				    				
     			if(obj.playBack != null)
     			{    				    				
 					$('#player-status-quantity').html(obj.playBack.count);
@@ -332,7 +343,9 @@ $(document).ready(function(){
 		<a id="mobile-serie" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a> 
 -->
 		<a id="mobile-marketplace" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a>
-		<a id="mobile-download" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a>
+		<a id="mobile-download" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando
+		<span id="downloadingQty"
+			class="badge downloadingQty"></span></a>
 		<!-- Comentado para Pelicano Lite ##### 
 		<a id="mobile-devices" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/devices') ?>"
 			id="popover-disp">Dispositivos <span id="devicesQty"
@@ -396,7 +409,9 @@ $(document).ready(function(){
 					<li id="li-marketplace"><a
 						href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
 					<li id="li-download"><a
-						href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando</a></li>
+						href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando
+						<span id="downloadingQty"
+							class="badge downloadingQty"></span></a></li>
 					<!-- Comentado para Pelicano Lite ##### 
 					<li id="li-devices"><a
 						href="<?php echo SiteController::createUrl('site/devices') ?>"
