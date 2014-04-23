@@ -910,18 +910,13 @@ top: 209px;
 width: 129px;
 }
 
-.ribbon.ribMisPeliculas{
-border-top-color:#265A83;
-bottom: 92px;
-right: -71px;
-width:158px;
+.ribMisPeliculas{
+position:absolute; color:rgba(255,255,255,0.8); right:-73px; bottom:60px; font-size:23px;
 }
 
-.ribbon.ribDescargando{
-border-top-color:#FF42D1;
-bottom: 92px;
-right: -71px;
-width:158px;
+.ribDescargando{
+position:absolute; color:#666; background-color:rgba(255,255,255,0.9); border-radius:40px; 
+padding:3px 5px; display:inline-block; text-align:center; right:-62px; bottom:60px; font-size:15px; letter-spacing:1px; 
 }
 
 .flex-viewport {
@@ -2005,15 +2000,6 @@ right: -38px;
 top: 209px;
 }
 
-.ribbon.ribMisPeliculas{
-bottom: 97px;
-right: -112px;
-}
-
-.ribbon.ribDescargando{
-bottom: 97px;
-right: -112px;
-}
 
 	.navbar .nav>li>a {
 		padding: 10px 10px 10px;
