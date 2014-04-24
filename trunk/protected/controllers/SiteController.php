@@ -1149,7 +1149,29 @@ class SiteController extends Controller
 
 			if(isset($modelResource))
 			{
-				if(PelicanoHelper::eraseResource($modelResource->path))
+				if($sourceType==1)
+				{
+					
+					$filename = explode('.', $modelResource->file_name);
+					$path =$filename[0];						
+					PelicanoHelper::eraseResource($path);
+
+					$modelResource->downloaded = 0;
+					$modelResource->ready_to_play = 0;
+					$modelResource->save();
+					
+					$nzbs = $modelResource->nzbs;
+					foreach ($nzbs as $nzb)
+					{						
+						$filename = explode('.', $nzb->file_name);
+						$path =$filename[0];
+						PelicanoHelper::eraseResource($path);
+						$nzb->downloaded = 0;
+						$nzb->ready_to_play = 0;
+						$nzb->save();						
+					}
+				}
+				else if(PelicanoHelper::eraseResource($modelResource->path))
 				{
 					PelicanoHelper::onDeleteCheckES($modelResource, $sourceType);
 					$modelResource->delete();
