@@ -575,7 +575,8 @@ class FolderCommand extends CConsoleCommand  {
 		{
 			foreach ($videoIterator as $file)
 			{
-				$subIterator = ReadFolderHelper::getPeliDirectoryList($file['dirpath'], true);
+				//$subIterator = ReadFolderHelper::getPeliDirectoryList($file['dirpath'], true);
+				$subIterator = ReadFolderHelper::getPeliDirectoryList($file['dirpath']);
 				$hasPeliFile = false;
 				foreach ($subIterator as $fileSubIterator)
 				{
