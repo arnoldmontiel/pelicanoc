@@ -26,6 +26,19 @@ function scanDirectory()
 	return false;	
 }
 
+function hideReg(hide, idLocalFolder)
+{
+	$.post("<?php echo SiteController::createUrl('AjaxHideScanedVideo'); ?>",
+			{
+				idLocalFolder:idLocalFolder,
+				hide:hide 
+			}
+	).success(
+		function(data){
+			$.fn.yiiGridView.update('local-folder-grid');
+	});
+	return false;
+}
 
 </script>
 
@@ -58,28 +71,33 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		    'name'=>'title',
 		    'value'=>'$data->myMovieDisc->myMovie->original_title',		    
 		),
-		array(
-		    'name'=>'sourceType_description',
-		    'value'=>'isset($data->sourceType)?$data->sourceType->description:""',		    
-		),
         'read_date',
         'path',
-        'Id_lote',
-		array(				
-				'htmlOptions' => array('style'=>'width:100px;'),
-			 	'type'=>'raw',			 			
-				'value'=>'CHtml::link("Reproducir",Yii::app()->createUrl("'.Yii::app()->getController()->getId().'/start",array("idResource"=>$data->Id, "sourceType"=>3, "id"=>$data->myMovieDisc->Id_my_movie)),array("target"=>"_blank"))',
-			),
+        'Id_lote',		
 		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{delete}',
-			'deleteConfirmation'=>'�Esta seguro de eliminar el registro?',
-			'buttons'=>array(
-				'delete' => array
-				(
-					'url'=>'Yii::app()->controller->createUrl("site/AjaxDeleteScan",array("id"=>$data->Id))',
-				)
-			),
+			'header'=>'Oculto',
+			'value'=>function($data){
+				$value = 'No';
+				if($data->hide == 1)
+					$value = 'Si';		
+				return $value;
+			},
+			'type'=>'raw',
+		),
+		array(
+				'htmlOptions' => array('style'=>'width:100px;'),
+				'type'=>'raw',
+				'value'=>'CHtml::link("Reproducir",Yii::app()->createUrl("'.Yii::app()->getController()->getId().'/start",array("idResource"=>$data->Id, "sourceType"=>3, "id"=>$data->myMovieDisc->Id_my_movie)),array("target"=>"_blank"))',
+		),
+		array(
+			'header'=>'Acciones',
+				'value'=>function($data){
+					$value = '<button onclick="hideReg(1,'.$data->Id.');" type="button" class="btn btn-default btn-sm" ><i class="fa fa-cog"></i> Ocultar</button>';
+					if($data->hide == 1)
+						$value = '<button onclick="hideReg(0,'.$data->Id.');" type="button" class="btn btn-default btn-sm" ><i class="fa fa-cog"></i> Mostrar</button>';
+					return $value;
+				},
+				'type'=>'raw',
 		),
 	),
 )); ?>
