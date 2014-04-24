@@ -1241,6 +1241,18 @@ class SiteController extends Controller
 		ReadFolderHelper::scanDirectory();
 	}
 
+	public function actionAjaxHideScanedVideo()
+	{
+		$idLocalFolder = isset($_POST['idLocalFolder'])?$_POST['idLocalFolder']:null;
+		$hide = isset($_POST['hide'])?$_POST['hide']:0;
+		if(isset($idLocalFolder))
+		{
+			$modelLocalFolder = LocalFolder::model()->findByPk($idLocalFolder);
+			$modelLocalFolder->hide = $hide;
+			$modelLocalFolder->save();
+		}
+	}
+	
 	public function actionAjaxDeleteScan($id)
 	{
 		$modelLocalFolder = LocalFolder::model()->findByPk($id);

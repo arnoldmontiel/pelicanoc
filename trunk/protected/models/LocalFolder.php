@@ -121,7 +121,7 @@ class LocalFolder extends CActiveRecord
 		
 		// Create a custom sort
 		$sort=new CSort;
-		$sort->defaultOrder = 't.Id_lote DESC';
+		$sort->defaultOrder = 't.Id_lote DESC, m.original_title ASC';
 		$sort->attributes=array(
 						'path',
 						'read_date',
