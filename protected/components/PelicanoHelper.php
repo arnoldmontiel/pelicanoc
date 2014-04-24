@@ -616,6 +616,23 @@ class PelicanoHelper
 			}			
 		}
 	
+	}	
+	public static function cancelDownload($idNzb)
+	{
+		$nzb = Nzb::model()->findByPk($idNzb);
+		if(isset($nzb)&&isset($nzb->sabnzbd_id)&&!$nzb->ready_to_play&&($nzb->downloading||$nzb->downloaded))
+		{
+			$setting = Setting::getInstance();
+			try
+			{
+				$setting = Setting::getInstance();
+				$url =  $setting->sabnzb_api_url."mode=queue&name=delete&value=".$nzb->sabnzbd_id."&apikey=".$setting->sabnzb_api_key;
+				$response = @file_get_contents($url);				
+			}
+			catch (Exception $e)
+			{
+			}
+		}
 	}
 	public static function startDownload($idNzb)
 	{
@@ -643,8 +660,6 @@ class PelicanoHelper
 			{
 			}
 		}
-		
-		
 	}
 	
 	public static function saveSpecification($item)
