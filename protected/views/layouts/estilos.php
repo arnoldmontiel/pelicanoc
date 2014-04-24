@@ -1156,6 +1156,12 @@ overflow:visible;
 	bottom: -6px;
 }
 
+.modalPath{
+font-size: 14px;
+line-height: 18px;
+padding: 3px 0px;
+}
+
 /* ------ END MODAL DETAIL ------- */
 
 /* ------ POPUP REPRODUCIENDO ------- */

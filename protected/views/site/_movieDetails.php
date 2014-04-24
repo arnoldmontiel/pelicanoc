@@ -190,28 +190,28 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     <?php if(isset($modelLocalFolder)):?>
     <div class="row detailSecondGroup">
-    <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     RUTA
 	</div><!--/.col-md-4 -->
-    <div class="col-md-8 col-sm-8 align-left detailSecond">	
-	<?php echo $modelLocalFolder->path;?>
+    <div class="col-md-9 col-sm-9 align-left detailSecond">	
+	<div class="modalPath"><?php echo $modelLocalFolder->path;?></div>
 	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
     <?php endif;?>
     <div class="row detailSecondGroup">
-    <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     TAMA&Ntilde;O EN DISCO
 	</div><!--/.col-md-4 -->
-    <div class="col-md-8 col-sm-8 align-left detailSecond">
+    <div class="col-md-9 col-sm-9 align-left detailSecond">
 	<?php echo $size;?>
 	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
 		    
     <div class="row detailSecondGroup">
-    <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-4 align-left detailSecond detailSecondFirst">
     BORRAR
 	</div><!--/.col-md-4 -->
-    <div class="col-md-8 col-sm-8 align-left detailSecond">
+    <div class="col-md-9 col-sm-8 align-left detailSecond">
 	<!--<i id="btn-eraser" class="fa fa-eraser fa-lg"></i>-->
 	<!--<button id="btn-eraser-popover" class="popover fade bottom in"><i class="fa fa-eraser fa-lg"></i></button>-->
 	<a href="#" id="btn-eraser-popover" class="" ><i id="btn-eraser" class="fa fa-eraser fa-lg"></i></a>
