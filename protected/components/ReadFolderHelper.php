@@ -135,8 +135,9 @@ class ReadFolderHelper
 		
 	}
 	
-	static public function scanDirectory($path)
+	static public function scanDirectory()
 	{		
+		$path = '';
 		$_COMMAND_NAME = "scanDirectory";
 		
 		$modelCommandStatus = CommandStatus::model()->findByAttributes(array('command_name'=>$_COMMAND_NAME));

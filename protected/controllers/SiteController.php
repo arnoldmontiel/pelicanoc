@@ -1238,11 +1238,7 @@ class SiteController extends Controller
 
 	public function actionAjaxGetFilesFromPath()
 	{
-		if(isset($_POST['path']))
-		{
-			ReadFolderHelper::scanDirectory($_POST['path']);
-		}
-
+		ReadFolderHelper::scanDirectory();
 	}
 
 	public function actionAjaxDeleteScan($id)
