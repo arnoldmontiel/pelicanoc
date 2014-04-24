@@ -213,6 +213,25 @@ class PelicanoHelper
 		
 	}
 	
+	static public function sendClientSettings()
+	{
+		PelicanoHelper::getExternalIPAddress();//this olso update the database with the ip
+	
+		$settings = Setting::getInstance();
+		$settingsWS = new wsSettings();
+		$clientsettings = new ClientSettingsRequest();
+		$clientsettings->Id_device = $settings->Id_device;
+		$clientsettings->ip_v4 = $settings->ip_v4;
+		$clientsettings->port_v4 = $settings->port_v4;
+		$clientsettings->ip_v6 = $settings->ip_v6;
+		$clientsettings->port_v6 = $settings->port_v6;
+	
+		//$settingsWS->setClientSettings($clientsettings);
+		$clientsettings->disc_total_space = self::getNixDirSize('/media/usb0/');
+		return $clientsettings;
+	
+	}
+	
 	static public function getExternalIPAddress()
 	{
 		$setting = Setting::getInstance();
