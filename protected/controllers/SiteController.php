@@ -1149,12 +1149,12 @@ class SiteController extends Controller
 
 			if(isset($modelResource))
 			{
-				if($sourceType==1)
+				if($sourceType==1)//nzb
 				{
 					
 					$filename = explode('.', $modelResource->file_name);
 					$path =$filename[0];						
-					PelicanoHelper::eraseResource($path);
+					PelicanoHelper::deleteTree($path);
 
 					$modelResource->downloaded = 0;
 					$modelResource->ready_to_play = 0;
@@ -1165,7 +1165,7 @@ class SiteController extends Controller
 					{						
 						$filename = explode('.', $nzb->file_name);
 						$path =$filename[0];
-						PelicanoHelper::eraseResource($path);
+						PelicanoHelper::deleteTree($path);
 						$nzb->downloaded = 0;
 						$nzb->ready_to_play = 0;
 						$nzb->save();						

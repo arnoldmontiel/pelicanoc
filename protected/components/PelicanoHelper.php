@@ -652,6 +652,11 @@ class PelicanoHelper
 					$url =  $setting->sabnzb_api_url."mode=history&name=delete&del_files=1&value=".$nzb->sabnzbd_id."&apikey=".$setting->sabnzb_api_key;
 				
 				$response = @file_get_contents($url);
+				
+				$filename = explode('.', $nzb->file_name);
+				$path =$filename[0];
+				PelicanoHelper::deleteTree($path);
+				
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
 				$nzb->save();
