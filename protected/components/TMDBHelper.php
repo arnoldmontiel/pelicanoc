@@ -41,6 +41,10 @@ class TMDBHelper
 		$name = str_replace('.',' ',$folderName);
 		$name = preg_replace('/\(|\)/', '', $name);
 		
+		//limpio del nombre los 1080p y 720p que ensucian la busqueda
+		$name = preg_replace('1080p', '', $name);
+		$name = preg_replace('720p', '', $name);
+		
 		//encuentro el año
 		$year = '';
 		$regex = "/\b\d{4}\b/";
