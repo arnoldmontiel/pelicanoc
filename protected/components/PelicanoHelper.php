@@ -626,7 +626,12 @@ class PelicanoHelper
 			try
 			{
 				$setting = Setting::getInstance();
-				$url =  $setting->sabnzb_api_url."mode=queue&name=delete&del_files=1&value=".$nzb->sabnzbd_id."&apikey=".$setting->sabnzb_api_key;
+				$url="";
+				if($nzb->downloading)
+					$url =  $setting->sabnzb_api_url."mode=queue&name=delete&del_files=1&value=".$nzb->sabnzbd_id."&apikey=".$setting->sabnzb_api_key;
+				else
+					$url =  $setting->sabnzb_api_url."mode=history&name=delete&del_files=1&value=".$nzb->sabnzbd_id."&apikey=".$setting->sabnzb_api_key;
+				
 				$response = @file_get_contents($url);
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
