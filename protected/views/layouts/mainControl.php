@@ -217,7 +217,7 @@ $(document).ready(function(){
     <!-- /span12 -->
   </div>
   <!-- /row -->
- 
+ </div>
 	<?php echo $content; ?>        
 
 <div id="myModalDiscIn" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: hidden;">
