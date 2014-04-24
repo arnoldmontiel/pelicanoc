@@ -241,16 +241,23 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	echo CHtml::hiddenField('input_genres');	
 	echo CHtml::hiddenField('input_directors');	
 	?>
+	<?php 
+	$modelLocalFolder = null;
+	if($sourceType == 3)
+		$modelLocalFolder = LocalFolder::model()->findByPk($idResource);
+	?>
+	<?php if(isset($modelLocalFolder)):?>
     <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-    <label for="fieldTitulo" class="col-md-1 control-label">Archivo</label>
+    <label for="fieldTitulo" class="col-md-1 control-label">Ruta</label>
     <div class="col-md-11 fileName">
-     nombredearchivo.mkv
+     <?php echo $modelLocalFolder->path;?>
       </div>
     </div>
     </div><!-- /col-md-12 -->
     </div><!-- /row -->
+    <?php endif;?>
     <div class="row">
         <div class="col-md-12">
           <div class="form-group">
