@@ -1942,6 +1942,12 @@ class SiteController extends Controller
 				'currentDisc'=>$currentDisc,
 				'currentUSB'=>$currentUSB,
 				'downloading'=>$downloading);
+		//si se esta descargando algo, entonces llamo al status para actualizar la tabla nzb con los ids sabnzbd_id
+		if($downloading['qty']>0)
+		{
+			$sABnzbdStatus= new SABnzbdStatus();
+			$sABnzbdStatus->getStatus();				
+		}
 
 		echo json_encode($response);
 	}
