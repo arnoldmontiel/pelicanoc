@@ -1,37 +1,33 @@
-<?php
-/* @var $this AutoRipperController */
-/* @var $model AutoRipper */
-
-Yii::app()->clientScript->registerScript('admin-local-folder', "
+<script type="text/javascript">
 
 setInterval(function() {
-   $.fn.yiiGridView.update('local-folder-grid');
-   getScanStatus();
-}, 100*90)
+	   $.fn.yiiGridView.update('local-folder-grid');
+	   getScanStatus();
+	}, 100*90)
 
+getScanStatus();
 function getScanStatus()
 {
-$.post('".SiteController::createUrl('AjaxGetScanStatus')."'
+	$.post("<?php echo SiteController::createUrl('AjaxGetScanStatus'); ?>"
 	).success(
-	function(data){
-		if(data == 0)
-			$('#btn-scan').removeAttr('disabled');
+		function(data){
+			if(data == 0)
+				$('#btn-scan').removeAttr('disabled');
 	});
 }
-$('#btn-scan').click(function(){	
+
+function scanDirectory()
+{
 	$('#btn-scan').attr('disabled','disabled');
-	$.post('".SiteController::createUrl('AjaxGetFilesFromPath')."',
-	{ 
-		path: 'a'
-	}
+	$.post("<?php echo SiteController::createUrl('AjaxGetFilesFromPath'); ?>"
 	).success(
-	function(data){
-
+		function(data){
 	});
-});
-");
-?>
+	return false;	
+}
 
+
+</script>
 
 <div class="container" id="screenEscaneo">
 	<div class="row pageTitleContainer">
@@ -39,7 +35,7 @@ $('#btn-scan').click(function(){
    	 		<h1 class="pageTitle">Escaneo Inicial</h1>
    	 	</div>
     	<div class="col-md-6 align-right">
-   	 		<button id="btn-scan" class="btn btn-primary"><i class="fa fa-refresh"></i> Escanear</button>
+   	 		<button id="btn-scan" onclick="scanDirectory();" class="btn btn-primary"><i class="fa fa-refresh"></i> Escanear</button>
    	 	</div>
    	 </div>
 	<div class="row">
