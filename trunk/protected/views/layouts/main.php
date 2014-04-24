@@ -373,7 +373,8 @@ $(document).ready(function(){
 		<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 		<div class="pushMenuSuperGroup">
 		<div class="pushMenuGroup">
-		<a class="pushMenuActive pushTodas" href="#">Todas</a>
+		<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>
+		<a class="pushMenuRadio pushNuevas" href="#">Nuevas</a>
 		</div>
 		<div class="pushMenuGroup">
 		<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
@@ -622,14 +623,16 @@ jQuery(document).ready(function($) {
 		menu: '#pushMarketplace'});
 
 	$( "#pushMarketplace .pushMenuSuperGroup a" ).click(function() {
-		  if ($(this).hasClass('pushTodas')){
-			  $('#pushMarketplace .pushMenuSuperGroup a').removeClass( "pushMenuActive" );
+		  if ($(this).hasClass('pushMenuRadio')){
+			  $('#pushMarketplace .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
 			  $(this).addClass( "pushMenuActive" );
 		  }else{
-			$('#pushMarketplace .pushTodas').removeClass( "pushMenuActive" );
 			$( this ).toggleClass( "pushMenuActive" );
 		  }
-		  		});
+	});
+	$( "#pushMarketplace .btnLimpiar" ).click(function() {
+		$("#pushMarketplace .pushMenuSuperGroup a").not(".pushMenuRadio").removeClass("pushMenuActive");
+	});
 
 	//-------------FILTROS GENERO, PILLS Y PUSHMENU --------------
 	
