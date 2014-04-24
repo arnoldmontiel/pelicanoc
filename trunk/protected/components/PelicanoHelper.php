@@ -649,14 +649,22 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=queue&name=delete&del_files=1&value=".$nzb->sabnzbd_id."&apikey=".$setting->sabnzb_api_key;
 				
 				$response = @file_get_contents($url);
-				
+				$downloading = $nzb->downloading; 
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
 				$nzb->save();
-				
-				$filename = explode('.', $nzb->file_name);
-				$path =$filename[0];
-				PelicanoHelper::deleteTree($setting->path_sabnzbd_temp.$path);
+				if($downloading)
+				{
+					$filename = explode('.', $nzb->file_name);
+					$path =$filename[0];
+					PelicanoHelper::deleteTree($setting->path_sabnzbd_temp.$path);						
+				}
+				else
+				{
+					$filename = explode('.', $nzb->file_name);
+					$path =$filename[0];
+					PelicanoHelper::deleteTree($setting->path_sabnzbd_download.$path);						
+				}
 			}
 			catch (Exception $e)
 			{
