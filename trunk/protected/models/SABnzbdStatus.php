@@ -25,8 +25,141 @@ class SABnzbdStatus extends CModel
 		$this->urlXml =  $this->setting->sabnzb_api_url."mode=qstatus&output=xml&apikey=".$this->setting->sabnzb_api_key;
 		$this->urlJson = $this->setting->sabnzb_api_url."mode=qstatus&output=json&apikey=".$this->setting->sabnzb_api_key;
 	}
+	function completeSABNZBDId()
+	{
+		if(isset($this->_attributes)&&is_array($this->_attributes))
+		{
+			foreach ($this->_attributes['jobs'] as $job)
+			{
+				$nzbs = Nzb::model()->findAllByAttributes(array('ready'=>1,'downloaded'=>'0','downloading'=>'1'));
+				foreach ($nzbs as $nzb)
+				{
+					$filename = explode('.', $nzb->file_name);
+					$filename =$filename[0];
+					$parentJob =$job;
+					$proccesed = false;
+					if(strpos($job['filename'], $filename)!== false)
+					{
+						$save = false;
+						if(!isset($nzb->sabnzbd_id))
+						{
+							$nzb->sabnzbd_id=$parentJob['id'];
+							$save = true;
+						}
+						if(!isset($nzb->sabnzbd_size))
+						{
+							$save = true;
+							$nzb->sabnzbd_size=$parentJob['mb'];
+						}
+						if($save)
+						{
+							$nzb->save();
+						}
+						break;
+					}
+				}
+			}
+		}
+	}
+	function completeQueuedJobs()
+	{
+		$workingJobs = array();
+		foreach ($this->_attributes['jobs'] as $job)
+		{
+			$nzb = Nzb::model()->findByAttributes(array('sabnzbd_id'=>$job['id']));
+			if(isset($nzb))
+			{
+				$job['nzb_id'] = $nzb->Id;
+				$job['nzb_id_original']=$nzb->Id;
+				if(isset($nzb->Id_nzb))
+					$job['nzb_id']=$nzb->Id_nzb;
+				//busco en $workingJobs si ya esta, si no, lo inserto y acumulo en ese item
+				$found = false;
+				foreach ($workingJobs as $jobAdded)
+				{
+					if($jobAdded['nzb_id']==$job['nzb_id'])
+					{
+						$found = true;
+						break;
+					}
+				}
+				//si no lo encuentro en $workingJobs, lo agrego
+				if(!$found)
+				{
+					$total = round($job['mb']);
+					$current = round($job["mb"]-$job["mbleft"]);
+					$percentage = 0;
+					if($total > 0)
+						$percentage = round(($current * 100) / $total);
+					$job['nzb_porcent']=$percentage;
+		
+					$workingJobs[] = $job;
+				}
+				else//si lo encuentro en $workingJobs, lo sumo
+				{
+					foreach ($workingJobs as &$jobAdded)
+					{
+						if($jobAdded['nzb_id']==$job['nzb_id'])
+						{
+							$jobAdded['mb'] = $jobAdded['mb'] + $job['mb'];
+							$jobAdded["mbleft"] = $jobAdded['mbleft'] + $job['mbleft'];
+							$total = round($jobAdded['mb']);
+							$current = round($jobAdded["mb"]-$jobAdded["mbleft"]);
+							$percentage = 0;
+							if($total > 0)
+								$percentage = round(($current * 100) / $total);
+							$jobAdded['nzb_porcent']=$percentage;
+							break;
+						}
+					}
+				}
+			}
+		}
+		$this->_attributes['jobs']=$workingJobs;
+		$this->_jobs=$workingJobs;
+	}
+
+	
+	function completeHistoryJobs()
+	{
+		$sABnzbdHistory= new SABnzbdHistory();
+		$sABnzbdHistory->getHistory();
+		foreach ($sABnzbdHistory->slots as $slot)
+		{
+			foreach ($this->_jobs as &$newJobToUpdate)
+			{
+				if(!isset($slot['nzb_id']))	continue;
+				if($slot['nzb_id']==$newJobToUpdate['nzb_id'])
+				{
+					$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
+					$newJobToUpdate['mb'] = $newJobToUpdate['mb'] + $nzb->sabnzbd_size;
+					$total = round($newJobToUpdate['mb']);
+					$current = round($newJobToUpdate["mb"]-$newJobToUpdate["mbleft"]);
+					$percentage = 0;
+					if($total > 0)
+						$percentage = round(($current * 100) / $total);
+					$newJobToUpdate['nzb_porcent']=$percentage;
+					break;
+				}
+			}
+		}
+		$this->_attributes['jobs']=$this->_jobs;				
+	}
 	
 	public function getStatus()
+	{
+		try {
+			$jsonData = @file_get_contents($this->urlJson);
+			$this->_attributes = CJSON::decode($jsonData,true);
+			
+			$this->completeSABNZBDId();
+			$this->completeQueuedJobs();
+			$this->completeHistoryJobs();
+				
+		} catch (Exception $e) {
+		}
+	}
+	public function getStatusOld()
 	{
 		try {
 			$jsonData = @file_get_contents($this->urlJson);
