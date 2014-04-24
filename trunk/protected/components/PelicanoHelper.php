@@ -655,7 +655,7 @@ class PelicanoHelper
 				
 				$filename = explode('.', $nzb->file_name);
 				$path =$filename[0];
-				PelicanoHelper::deleteTree($path);
+				PelicanoHelper::deleteTree($setting->path_nzb_temp.$path);
 				
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
