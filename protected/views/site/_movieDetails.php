@@ -191,7 +191,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     <?php if(isset($modelLocalFolder)):?>
     <div class="row detailSecondGroup">
     <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
-    ARCHIVO
+    RUTA
 	</div><!--/.col-md-4 -->
     <div class="col-md-8 col-sm-8 align-left detailSecond">	
 	<?php echo $modelLocalFolder->path;?>
