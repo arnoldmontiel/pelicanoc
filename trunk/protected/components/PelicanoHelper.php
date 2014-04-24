@@ -653,13 +653,14 @@ class PelicanoHelper
 				
 				$response = @file_get_contents($url);
 				
-				$filename = explode('.', $nzb->file_name);
-				$path =$filename[0];
-				PelicanoHelper::deleteTree($setting->path_nzb_temp.$path);
-				
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
 				$nzb->save();
+				
+				$filename = explode('.', $nzb->file_name);
+				$path =$filename[0];
+				PelicanoHelper::deleteTree($setting->path_sabnzbd_temp.$path);
+				
 			}
 			catch (Exception $e)
 			{
