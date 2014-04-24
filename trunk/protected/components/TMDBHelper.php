@@ -61,10 +61,12 @@ class TMDBHelper
 		{
 			$words = explode(' ', $name);
 			if(count($words) >= 2)
-			if(strlen($words[0]) > 3)
-				$name = $words[0];
-			else
-				$name = $words[0]. ' ' .$words[1];
+			{
+				if(strlen($words[0]) > 3)
+					$name = $words[0];
+				else
+					$name = $words[0]. ' ' .$words[1];
+			}
 			else
 				$name = $words[0];
 		}
