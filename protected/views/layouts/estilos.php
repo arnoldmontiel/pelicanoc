@@ -1233,6 +1233,7 @@ overflow:visible;
 .controlFlechas {
 	width: 235px;
 	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
 .flechasArriba {
