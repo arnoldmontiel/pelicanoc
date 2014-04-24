@@ -145,8 +145,8 @@ class SiteController extends Controller
 	public function actionAjaxRefreshSabNzbStatus()
 	{
 		$sABnzbdStatus= new SABnzbdStatus();
-		$sABnzbdStatus->getStatus();		
-		echo CJSON::encode(isset($sABnzbdStatus->jobs)?$sABnzbdStatus->jobs:array());
+		$sABnzbdStatus->getStatus();
+		echo CJSON::encode($sABnzbdStatus->jobs);
 	}
 
 	public function actionAjaxDiscIn()
