@@ -40,15 +40,16 @@
  			{
  				if($modelNzb->ready_to_play)
  				{
- 					$size = PelicanoHelper::getDirectorySize($path);
+ 					$size = PelicanoHelper::getDirectorySize($path,false);
  					$nzbs = $modelNzb->nzbs;
  					foreach ($nzbs as $nzb)
  					{
  						$pathChild = explode('.',$nzb->file_name);
  						$pathChild = $pathChild[0]; 							
  						$pathChild = $setting->path_sabnzbd_download . $pathChild;
- 						$size += PelicanoHelper::getDirectorySize($pathChild); 						
+ 						$size += PelicanoHelper::getDirectorySize($pathChild,false);
  					}
+ 					$size = PelicanoHelper::format_bytes($size);
  				}
  			}
  			else
