@@ -1914,6 +1914,7 @@ ul.thumbnails.image_picker_selector {
 	padding-bottom: 20px;
 }
 
+.fileName{padding-top: 7px;font-size:17px;}
 /*---------- END EDIT PELICULA -------------*/
 
 

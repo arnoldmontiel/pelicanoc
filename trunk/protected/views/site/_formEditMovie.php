@@ -244,6 +244,16 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <div class="row">
         <div class="col-md-12">
           <div class="form-group">
+    <label for="fieldTitulo" class="col-md-1 control-label">Archivo</label>
+    <div class="col-md-11 fileName">
+     nombredearchivo.mkv
+      </div>
+    </div>
+    </div><!-- /col-md-12 -->
+    </div><!-- /row -->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
     <label for="fieldTitulo" class="col-md-1 control-label">Titulo</label>
     <div class="col-md-11">
       <input type="text" class="form-control" id="fieldTitulo" name="<?php echo get_class($model).'[original_title]'?>" placeholder="Título" value="<?php echo $model->original_title; ?>">

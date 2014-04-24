@@ -190,6 +190,15 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     <div class="row detailSecondGroup">
     <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
+    ARCHIVO
+	</div><!--/.col-md-4 -->
+    <div class="col-md-8 col-sm-8 align-left detailSecond">
+	nombredearchivoloco.mkv
+	</div><!--/.col-md-8 -->
+	</div><!--/.row -->
+    
+    <div class="row detailSecondGroup">
+    <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
     TAMA&Ntilde;O EN DISCO
 	</div><!--/.col-md-4 -->
     <div class="col-md-8 col-sm-8 align-left detailSecond">
