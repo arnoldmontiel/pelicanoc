@@ -188,15 +188,16 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
 	<div class="tab-pane removeOverflowTab" id="tab2">
     
+    <?php if(isset($modelLocalFolder)):?>
     <div class="row detailSecondGroup">
     <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
     ARCHIVO
 	</div><!--/.col-md-4 -->
-    <div class="col-md-8 col-sm-8 align-left detailSecond">
-	nombredearchivoloco.mkv
+    <div class="col-md-8 col-sm-8 align-left detailSecond">	
+	<?php echo $modelLocalFolder->path;?>
 	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
-    
+    <?php endif;?>
     <div class="row detailSecondGroup">
     <div class="col-md-4 col-sm-4 align-left detailSecond detailSecondFirst">
     TAMA&Ntilde;O EN DISCO
