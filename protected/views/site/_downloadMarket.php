@@ -80,8 +80,8 @@ $(function() {
     							"width"=>"180", "height"=>"260", "border"=>"0",
     					)),
     					 
-    					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
-    							"idResource"=>$modelSource->Id,
+    					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>"testmymovie",
+    							"idResource"=>"1",
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
     			echo '<div class="frente"><div>EN COLA</div><button class="btn btn-primary"><i class="fa fa-chevron-circle-left"></i> Mandar al Frente</button></div>';
     			echo CHtml::closeTag("li");
