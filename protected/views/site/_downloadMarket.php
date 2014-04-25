@@ -53,7 +53,8 @@ $(function() {
 //     						echo CHtml::closeTag("p");
 //     					echo CHtml::closeTag("div");
 
-    				echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
+    				echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0%" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
+    				echo '<div class="frente"><div>DESCARGANDO</div></div>';
     				echo CHtml::closeTag("li");		
     				
     			}
@@ -72,7 +73,7 @@ $(function() {
     			echo '<div class="preparando"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
     			echo CHtml::closeTag("li");*/
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
     			echo CHtml::openTag("li",array("class"=>"liSlider"));
     			echo CHtml::link(
     					 
@@ -83,11 +84,12 @@ $(function() {
     					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>"testmymovie",
     							"idResource"=>"1",
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
-    			echo '<div class="frente"><div>EN COLA</div><button class="btn btn-primary"><i class="fa fa-chevron-circle-left"></i> Mandar al Frente</button></div>';
+    			echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0%" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
+    			echo '<div class="frente"><div>EN COLA</div><button class="btn btn-primary btn-xs"><i class="fa fa-chevron-circle-left"></i> Descargar Primero</button></div>';
     			echo CHtml::closeTag("li");
-    			'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
+    			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
     			
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
     			echo CHtml::openTag("li",array("class"=>"liSlider"));
     			echo CHtml::link(
     					 
@@ -98,8 +100,8 @@ $(function() {
     					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
     							"idResource"=>$modelSource->Id,
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
-    			echo '<div class="fallo"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
-    			echo CHtml::closeTag("li");*/
+    			echo '<div class="fallo"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
+    			echo CHtml::closeTag("li");
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
     			
     			
