@@ -121,7 +121,6 @@ $(function() {
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
-    $(window).load(function(){
       $('#flexsliderMarket').flexslider({
         animation: "slide",
         animationLoop: false,
@@ -133,7 +132,6 @@ $(function() {
           $('body').removeClass('loading');
         }
       });
-    });
     function showDownloading(object)
     {
 		var id = $(object).attr('idMovie');
