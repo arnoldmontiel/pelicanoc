@@ -119,6 +119,7 @@ class PelicanoHelper
 		
 		if(!empty($output))
 		{
+			$output = preg_replace('!\s+!', ' ', $output);
 			$result = explode(' ', $output);
 			
 			if(isset($result[1]))
