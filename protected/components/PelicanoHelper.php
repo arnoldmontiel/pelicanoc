@@ -671,11 +671,11 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=queue&name=delete&del_files=1&value=".$nzb->sabnzbd_id."&apikey=".$setting->sabnzb_api_key;
 				
 				$response = @file_get_contents($url);
-				$downloading = $nzb->downloading; 
+				$downloaded = $nzb->downloaded; 
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
 				$nzb->save();
-				if($nzb->downloaded)
+				if($downloaded)
 				{
 					$filename = explode('.', $nzb->file_name);
 					$path =$filename[0];
