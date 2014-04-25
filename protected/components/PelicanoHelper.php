@@ -675,7 +675,7 @@ class PelicanoHelper
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
 				$nzb->save();
-				if($downloaded)
+				if($nzb->downloaded)
 				{
 					$filename = explode('.', $nzb->file_name);
 					$path =$filename[0];
