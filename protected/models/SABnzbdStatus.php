@@ -27,7 +27,7 @@ class SABnzbdStatus extends CModel
 	}
 	function completeSABNZBDId()
 	{
-		if(isset($this->_attributes)&&is_array($this->_attributes))
+		if(isset($this->_attributes)&&is_array($this->_attributes)&&isset($this->_attributes['jobs']))
 		{
 			foreach ($this->_attributes['jobs'] as $job)
 			{
@@ -64,52 +64,55 @@ class SABnzbdStatus extends CModel
 	function completeQueuedJobs()
 	{
 		$workingJobs = array();
-		foreach ($this->_attributes['jobs'] as $job)
+		if(isset($this->_attributes['jobs']))
 		{
-			$nzb = Nzb::model()->findByAttributes(array('sabnzbd_id'=>$job['id']));
-			if(isset($nzb))
+			foreach ($this->_attributes['jobs'] as $job)
 			{
-				$job['nzb_id'] = $nzb->Id;
-				$job['nzb_id_original']=$nzb->Id;
-				if(isset($nzb->Id_nzb))
-					$job['nzb_id']=$nzb->Id_nzb;
-				//busco en $workingJobs si ya esta, si no, lo inserto y acumulo en ese item
-				$found = false;
-				foreach ($workingJobs as $jobAdded)
+				$nzb = Nzb::model()->findByAttributes(array('sabnzbd_id'=>$job['id']));
+				if(isset($nzb))
 				{
-					if($jobAdded['nzb_id']==$job['nzb_id'])
-					{
-						$found = true;
-						break;
-					}
-				}
-				//si no lo encuentro en $workingJobs, lo agrego
-				if(!$found)
-				{
-					$total = round($job['mb']);
-					$current = round($job["mb"]-$job["mbleft"]);
-					$percentage = 0;
-					if($total > 0)
-						$percentage = round(($current * 100) / $total);
-					$job['nzb_porcent']=$percentage;
-		
-					$workingJobs[] = $job;
-				}
-				else//si lo encuentro en $workingJobs, lo sumo
-				{
-					foreach ($workingJobs as &$jobAdded)
+					$job['nzb_id'] = $nzb->Id;
+					$job['nzb_id_original']=$nzb->Id;
+					if(isset($nzb->Id_nzb))
+						$job['nzb_id']=$nzb->Id_nzb;
+					//busco en $workingJobs si ya esta, si no, lo inserto y acumulo en ese item
+					$found = false;
+					foreach ($workingJobs as $jobAdded)
 					{
 						if($jobAdded['nzb_id']==$job['nzb_id'])
 						{
-							$jobAdded['mb'] = $jobAdded['mb'] + $job['mb'];
-							$jobAdded["mbleft"] = $jobAdded['mbleft'] + $job['mbleft'];
-							$total = round($jobAdded['mb']);
-							$current = round($jobAdded["mb"]-$jobAdded["mbleft"]);
-							$percentage = 0;
-							if($total > 0)
-								$percentage = round(($current * 100) / $total);
-							$jobAdded['nzb_porcent']=$percentage;
+							$found = true;
 							break;
+						}
+					}
+					//si no lo encuentro en $workingJobs, lo agrego
+					if(!$found)
+					{
+						$total = round($job['mb']);
+						$current = round($job["mb"]-$job["mbleft"]);
+						$percentage = 0;
+						if($total > 0)
+							$percentage = round(($current * 100) / $total);
+						$job['nzb_porcent']=$percentage;
+			
+						$workingJobs[] = $job;
+					}
+					else//si lo encuentro en $workingJobs, lo sumo
+					{
+						foreach ($workingJobs as &$jobAdded)
+						{
+							if($jobAdded['nzb_id']==$job['nzb_id'])
+							{
+								$jobAdded['mb'] = $jobAdded['mb'] + $job['mb'];
+								$jobAdded["mbleft"] = $jobAdded['mbleft'] + $job['mbleft'];
+								$total = round($jobAdded['mb']);
+								$current = round($jobAdded["mb"]-$jobAdded["mbleft"]);
+								$percentage = 0;
+								if($total > 0)
+									$percentage = round(($current * 100) / $total);
+								$jobAdded['nzb_porcent']=$percentage;
+								break;
+							}
 						}
 					}
 				}

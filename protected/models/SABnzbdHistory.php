@@ -31,7 +31,7 @@ class SABnzbdHistory extends CModel
 		try {
 			$jsonData = @file_get_contents($this->urlJson);
 			$this->_attributes = CJSON::decode($jsonData,true);
-			if(isset($this->_attributes)&&is_array($this->_attributes))
+			if(isset($this->_attributes)&&is_array($this->_attributes)&&isset($this->_attributes['history']['slots']))
 			{
 				foreach ($this->_attributes['history']['slots'] as $slot)
 				{
