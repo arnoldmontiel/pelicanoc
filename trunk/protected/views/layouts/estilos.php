@@ -719,6 +719,7 @@ content: '\f10c';
 }
 .pushSelectable .pushMenuGroup .pushMenuRadio.pushMenuActive:before {
 content: '\f111';
+content: '\f192';
 right: 10px;
 }
    

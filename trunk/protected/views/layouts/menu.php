@@ -199,8 +199,9 @@
 <?php endif; ?>
 
 
-<!--scripts para menu lateral-->
 <script>
+//-------------FILTROS MENU LATERAL --------------
+			
 jQuery(document).ready(function($) {
 	
 	$('#toggleMain.toggle-menu').jPushMenu({
@@ -224,63 +225,11 @@ jQuery(document).ready(function($) {
 		  }
 	});
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
-		$(".pushSelectable .pushMenuSuperGroup a").not(".pushMenuRadio").removeClass("pushMenuActive");
+		$(".pushSelectable .pushMenuSuperGroup a").removeClass("pushMenuActive");
+		$(".pushSelectable .pushMenuSuperGroup a.pushMenuRadio.pushTodas").addClass("pushMenuActive");
 	});
 
-	//-------------FILTROS GENERO, PILLS Y PUSHMENU --------------
 	
-	$( "#pushGenero .pushMenuSuperGroup a" ).click(function() {
-		 $(this).addClass('pushMenuActive').siblings().removeClass('pushMenuActive');
-		  //Para marcar mas de uno:
-		  //$( this ).toggleClass( "pushMenuActive" );
-		  var selector = $(this).attr("data-filter");
-
-		  //Desmarco todo el menu comun
-		  $("#filtroGenero li").removeClass('active');
-		  //Marco el item correspondiente en menu comun
-		  $("#filtroGenero li a[data-filter='" + selector + "']").parent('li').addClass('active');
-		  //Cerrar menu			
-		  $('.jPushMenuBtn,body,.cbp-spmenu').removeClass('disabled active cbp-spmenu-open cbp-spmenu-push-toleft cbp-spmenu-push-toright');
-		  $(".modal-backdrop").remove();
-		   
-		  $('#media-type-filter').val(selector);
-		  $('#current-filter').val(selector);
-		  
-		  //clean search filter
-		  $('#search-filter').val(null);
-		  $('#index_search').val(null);
-
-		  $('#wall .items').infinitescroll('retrieve');  
-		  $('#wall .items').isotope({ filter: selector });
-		  return false;
-		  		});
-
-	$('#filtroGenero li a').click(function(){
-		  var selector = $(this).attr("data-filter");
-
-		  $('#filtroGenero li.active').removeClass('active')
-		  $(this).parent('li').addClass('active');
-		  //CORREGIR
-		  //$("#selectedGenero .selected").text($(this).text());
-
-		  //Desmarco todo el menuMobile
-		  $("#pushGenero .pushMenuSuperGroup a").removeClass('pushMenuActive');
-		  //Marco el item correspondiente en menu mobile
-		  $("#pushGenero .pushMenuSuperGroup a[data-filter='" + selector + "']").addClass('pushMenuActive');
-			   
-		  $('#media-type-filter').val(selector);
-		  $('#current-filter').val(selector);
-		  
-		  //clean search filter
-		  $('#search-filter').val(null);
-		  $('#index_search').val(null);
-
-		  $('#wall .items').infinitescroll('retrieve');  
-		  $('#wall .items').isotope({ filter: selector });
-		  return false;
-		});
-
-	//----------------------------- END--------------------------
-	
+		
 });
 </script>
