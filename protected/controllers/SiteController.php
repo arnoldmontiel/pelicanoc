@@ -498,7 +498,7 @@ class SiteController extends Controller
 	public function actionAjaxUpdateDownloads()
 	{
 		$criteriaNzb=new CDbCriteria;
-		$criteriaNzb->addCondition('(downloading = 1 OR downloaded = q)');
+		$criteriaNzb->addCondition('(downloading = 1 OR downloaded = 1)');
 		$criteriaNzb->addCondition('(ready_to_play = 0)');
 		$criteriaNzb->addCondition('Id_nzb IS NOT NULL');
 		//$criteriaNzb->order="???";
