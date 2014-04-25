@@ -121,17 +121,33 @@ $(function() {
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
-      $('#flexsliderMarket').flexslider({
-        animation: "slide",
-        animationLoop: false,
-        itemWidth: 180,
-        itemMargin: 5,
-		slideshow: false,
-		touch: true,
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-      });
+  <?php if(isset($fromAjax) && $fromAjax):?>
+	      $('#flexsliderMarket').flexslider({
+	        animation: "slide",
+	        animationLoop: false,
+	        itemWidth: 180,
+	        itemMargin: 5,
+			slideshow: false,
+			touch: true,
+	        start: function(slider){
+	          $('body').removeClass('loading');
+	        }
+	      });
+  <?php else:?>
+	  $(window).load(function(){
+	      $('#flexsliderMarket').flexslider({
+	        animation: "slide",
+	        animationLoop: false,
+	        itemWidth: 180,
+	        itemMargin: 5,
+			slideshow: false,
+			touch: true,
+	        start: function(slider){
+	          $('body').removeClass('loading');
+	        }
+	      });
+	    });
+  <?php endif?>
     function showDownloading(object)
     {
 		var id = $(object).attr('idMovie');
