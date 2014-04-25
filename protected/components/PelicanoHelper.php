@@ -663,7 +663,7 @@ class PelicanoHelper
 				{
 					$filename = explode('.', $nzb->file_name);
 					$path =$filename[0];
-					PelicanoHelper::deleteTree($setting->path_sabnzbd_download.$path);						
+					self::eraseResource($path);						
 				}
 			}
 			catch (Exception $e)
