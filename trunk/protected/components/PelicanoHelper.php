@@ -112,6 +112,14 @@ class PelicanoHelper
 		return $size;
 	}
 	
+	static public function getNixStorageUsed($path) {
+		$size = 0;
+	
+		$output = exec('df ' . escapeshellarg($path));
+	
+		return $output;
+	}
+	
 	static public function getWinDirSize($path) 
 	{
 		$size = 0;
@@ -227,7 +235,8 @@ class PelicanoHelper
 		$clientsettings->port_v6 = $settings->port_v6;
 	
 		//$settingsWS->setClientSettings($clientsettings);
-		$clientsettings->disc_total_space = self::getNixDirSize('/media/usb0/');
+		//$clientsettings->disc_total_space = self::getNixDirSize('/media/usb0/');
+		$clientsettings->disc_total_space = disk_total_space('/media/usb0');
 		return $clientsettings;
 	
 	}
