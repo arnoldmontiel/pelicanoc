@@ -686,8 +686,8 @@ a.list-group-item {
 .cbp-spmenu{width:auto; min-width:250px;}
 .cbp-spmenu-open{width:auto; min-width:250px;}
 
-#pushMarketplace .pushMenuGroup a{position:relative;}
-#pushMarketplace .pushMenuGroup a:before {
+.pushSelectable .pushMenuGroup a{position:relative;}
+.pushSelectable .pushMenuGroup a:before {
 position: absolute;
 font-family: FontAwesome;
 top: 0;
@@ -700,9 +700,9 @@ content: '\f096';
 }
 
 
-#pushMarketplace .pushMenuGroup .pushMenuActive{position:relative;}
+.pushSelectable .pushMenuGroup .pushMenuActive{position:relative;}
 
-#pushMarketplace .pushMenuGroup .pushMenuActive:before {
+.pushSelectable .pushMenuGroup .pushMenuActive:before {
         position:absolute;
 		font-family: FontAwesome;
         top:0;
@@ -714,10 +714,10 @@ color: #666;
     }
    
 
-#pushMarketplace .pushMenuGroup .pushMenuRadio:before {
+.pushSelectable .pushMenuGroup .pushMenuRadio:before {
 content: '\f10c';
 }
-#pushMarketplace .pushMenuGroup .pushMenuRadio.pushMenuActive:before {
+.pushSelectable .pushMenuGroup .pushMenuRadio.pushMenuActive:before {
 content: '\f111';
 right: 10px;
 }
@@ -1689,9 +1689,10 @@ text-align:center;
 text-transform:uppercase; letter-spacing:1px; color:white; font-size:18px; 
 position:absolute;
 text-align:center;
- top:45%; margin-top:-20px;
+ top:45%; margin-top:-60px;
+text-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
-.frente .btn{ margin-top:10px;}
+.frente .btn{ margin-top:120px;}
 
 .fallo{width:180px; height:40px;
 text-transform:uppercase; letter-spacing:1px; color:white; font-size:18px; 
