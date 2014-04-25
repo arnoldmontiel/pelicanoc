@@ -247,8 +247,8 @@ class PelicanoHelper
 		$clientsettings->port_v6 = $settings->port_v6;
 	
 		$storageUsed = self::getNixStorageUsed($settings->path_shared);		
-		$clientsettings->disc_used_space = $storageUsed->used;
-		$clientsettings->disc_total_space = $storageUsed->size;
+		$clientsettings->disc_used_space = $storageUsed['used'];
+		$clientsettings->disc_total_space = $storageUsed['size'];
 		
 		$settingsWS->setClientSettings($clientsettings);
 	
