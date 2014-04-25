@@ -128,7 +128,7 @@ class PelicanoHelper
 				$used = $result[2];
 		}
 		
-		return array('size'=>$size, 'used'=>$used);
+		return array('size'=>$size, 'used'=>$used, 'output'=>$output);
 	}
 	
 	static public function getWinDirSize($path) 
