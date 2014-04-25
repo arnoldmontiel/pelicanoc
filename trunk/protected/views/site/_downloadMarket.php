@@ -155,12 +155,4 @@ $(function() {
     }
   </script>
 
-<?php 
-// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
-
-// echo CHtml::openTag('div',array('id'=>'myModal'));
-// //place holder
-// echo CHtml::closeTag('div'); 
-
-// $this->endWidget(); ?>
 

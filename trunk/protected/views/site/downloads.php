@@ -12,7 +12,8 @@ getNzbStatus();
    		
 setInterval(function() {
    	updateFinished($('ul.nav-pills li.active a').attr('id'));
-   	updateExternal();   		
+   	//updateExternal();comentado para version lite
+	updateDownloads();   		   		
    	getNzbStatus();   		
 }, 1000*15)
 
@@ -55,7 +56,25 @@ setInterval(function() {
 			});   		
    		}
 	}	
+	function updateDownloads()
+	{
+   		if(!$('#myModal').is(':visible'))
+   		{
+   			var currentIds = new Array;
+   			$.each($('li a.aficheClickNzb'),function(){
+   				//currentIds.push({ idexternalstorage:$(this).attr('idexternalstorage'),sourcetype:$(this).attr('sourcetype'),idresource:$(this).attr('idresource'),idmovie:$(this).attr('idmovie')});
+				currentIds.push($(this).attr('idresource'));
+			});
    				
+   			$.post('" .SiteController::createUrl('AjaxUpdateDownloads'). "',{ids:currentIds}
+			).success(
+			function(data){
+   				if(data.trim()!='')
+   					$('#market-area').html(data);
+			});   		
+   		}
+	}	
+						
 function getRipp()
 {
 	$.post('" .SiteController::createUrl('AjaxGetRipp'). "'

@@ -494,7 +494,38 @@ class SiteController extends Controller
        );");			
 		
 	}
-	public function actionAjaxUpdateDownloadExternal()
+	
+	public function acionAjaxUpdateDownloads()
+	{
+		$criteriaNzb=new CDbCriteria;
+		$criteriaNzb->addCondition('(downloading = 1 OR downloaded = q)');
+		$criteriaNzb->addCondition('(ready_to_play = 0)');
+		$criteriaNzb->addCondition('Id_nzb IS NOT NULL');
+		//$criteriaNzb->order="???";
+	
+		$nzbs = Nzb::model()->findAll($criteriaNzb);
+		$newItem = false;
+		if(isset($_POST['ids']))
+		{
+			if(count($nzbs)==count($_POST['ids']))
+			{
+				$ids = $_POST['ids'];
+				foreach ($nzbs as $nzb)
+				{
+					if(!in_array( $nzb->Id , $ids, true ))
+					{
+						$newItem = true;
+						break;
+					}
+				}
+				if(!$newItem)
+					return;
+			}
+		}
+		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading));
+	}
+	
+	public function acionAjaxUpdateDownloadExternal()
 	{
 		$criteriaExternal=new CDbCriteria;
 		$criteriaExternal->addCondition('(status = 2 OR status = 7)');
