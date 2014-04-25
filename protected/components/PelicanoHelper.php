@@ -117,13 +117,16 @@ class PelicanoHelper
 		$used = 0;
 		$output = exec('df ' . escapeshellarg($path));
 		
-		$result = explode(' ', $output);
-		
-		if(isset($result[1]))
-			$size = $result[1];
-		
-		if(isset($result[2]))
-			$used = $result[2];
+		if(!empty($output))
+		{
+			$result = explode(' ', $output);
+			
+			if(isset($result[1]))
+				$size = $result[1];
+			
+			if(isset($result[2]))
+				$used = $result[2];
+		}
 		
 		return array('size'=>$size, 'used'=>$used);
 	}
