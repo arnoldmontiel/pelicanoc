@@ -524,21 +524,7 @@ class SiteController extends Controller
 					return;
 			}
 		}
-		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs));
-		echo CHtml::script("
-		      $('#flexsliderMarket').flexslider({
-		        animation: 'slide',
-		        animationLoop: false,
-		        itemWidth: 180,
-		        itemMargin: 5,
-				slideshow: false,
-				touch: true,
-		        start: function(slider){
-		          $('body').removeClass('loading');
-		        }
-		      });
-    	");
-		
+		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs,"fromAjax"=>1));		
 	}
 	
 	public function acionAjaxUpdateDownloadExternal()
