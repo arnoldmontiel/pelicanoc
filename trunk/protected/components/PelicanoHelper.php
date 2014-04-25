@@ -260,7 +260,7 @@ class PelicanoHelper
 		//$ip = $_SERVER['SERVER_ADDR'];
 		$ip = @file_get_contents("http://checkip.dyndns.org/");
 		$dyndns = explode(':', $ip);
-		if($dyndns)
+		if(!empty($dyndns) && count($dyndns)>1)
 		{
 			$setting->ip_v4 = $dyndns[1];
 			$setting->ip_v4 = trim($setting->ip_v4);
