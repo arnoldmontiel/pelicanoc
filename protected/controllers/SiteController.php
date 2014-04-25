@@ -190,43 +190,45 @@ class SiteController extends Controller
 		$idNzb = $_POST['idNzb'];
 
 		$modelNzb = Nzb::model()->findByPk($idNzb);
-
-		$criteria=new CDbCriteria;
-
-		$model = MyMovieNzb::model()->findByPk($id);
-		$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
-		$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
-		$criteria->order = 't.Id ASC';
-
-		$casting = $this->getCasting($criteria);
-		if(!$modelNzb->ready_to_play){
-			$sourceType = 1;
-			$bookmarks = $modelNzb->bookmarks;			
-			$this->renderPartial('_movieDetails',array('model'=>$model,
-					'casting'=>$casting,
-					'sourceType'=>$sourceType,
-					'modelNzb'=>$modelNzb,
-					'modelRippedMovie'=>null,
-					'modelLocalFolder'=>null,
-					'modelCurrentDisc'=>null,
-					'modelBookmarks'=>$bookmarks,)
-				);				
+		if(isset($modelNzb))
+		{
+			$criteria=new CDbCriteria;
+			
+			$model = MyMovieNzb::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			
+			$casting = $this->getCasting($criteria);
+			if(!$modelNzb->ready_to_play){//para que esta este if? hace lo mismo en el else???
+				$sourceType = 1;
+				$bookmarks = $modelNzb->bookmarks;
+				$this->renderPartial('_movieDetails',array('model'=>$model,
+						'casting'=>$casting,
+						'sourceType'=>$sourceType,
+						'modelNzb'=>$modelNzb,
+						'modelRippedMovie'=>null,
+						'modelLocalFolder'=>null,
+						'modelCurrentDisc'=>null,
+						'modelBookmarks'=>$bookmarks,)
+				);
+			}
+			else
+			{
+				$sourceType = 1;
+				$bookmarks = $modelNzb->bookmarks;
+				$this->renderPartial('_movieDetails',array('model'=>$model,
+						'casting'=>$casting,
+						'sourceType'=>$sourceType,
+						'modelNzb'=>$modelNzb,
+						'modelRippedMovie'=>null,
+						'modelLocalFolder'=>null,
+						'modelCurrentDisc'=>null,
+						'modelBookmarks'=>$bookmarks,
+				));
+			
+			}				
 		}
-		else
-		{		
-			$sourceType = 1;
-			$bookmarks = $modelNzb->bookmarks;			
-			$this->renderPartial('_movieDetails',array('model'=>$model,
-					'casting'=>$casting,
-					'sourceType'=>$sourceType,
-					'modelNzb'=>$modelNzb,
-					'modelRippedMovie'=>null,
-					'modelLocalFolder'=>null,
-					'modelCurrentDisc'=>null,
-					'modelBookmarks'=>$bookmarks,
-			));
-				
-		}				
 	}
 
 	public function actionAjaxStartDownload()
