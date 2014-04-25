@@ -16,7 +16,8 @@ class SettingsCommand extends CConsoleCommand  {
 			PelicanoHelper::setHeartBeat(2);//to PelicanoM					
 		} catch (Exception $e) {
 		}		
-		PelicanoHelper::sendExternalIPAddressToServer();
+		//PelicanoHelper::sendExternalIPAddressToServer();
+		PelicanoHelper::sendClientSettings();
 		PelicanoHelper::getCustomerSettings();
 		PelicanoHelper::updateNzbDataFromServer();
 		return true;

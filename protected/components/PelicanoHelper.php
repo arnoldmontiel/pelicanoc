@@ -246,10 +246,11 @@ class PelicanoHelper
 		$clientsettings->ip_v6 = $settings->ip_v6;
 		$clientsettings->port_v6 = $settings->port_v6;
 	
-		//$settingsWS->setClientSettings($clientsettings);
-		//$clientsettings->disc_total_space = self::getNixDirSize('/media/usb0/');
-		$clientsettings->disc_total_space = disk_total_space('/media/usb0');
-		return $clientsettings;
+		$storageUsed = self::getNixStorageUsed($settings->path_shared);		
+		$clientsettings->disc_used_space = $storageUsed->used;
+		$clientsettings->disc_total_space = $storageUsed->size;
+		
+		$settingsWS->setClientSettings($clientsettings);
 	
 	}
 	
