@@ -675,13 +675,7 @@ class PelicanoHelper
 				$nzb->downloading = 0;
 				$nzb->downloaded = 0;
 				$nzb->save();
-				if($downloading)
-				{
-					$filename = explode('.', $nzb->file_name);
-					$path =$filename[0];
-					PelicanoHelper::deleteTree($setting->path_sabnzbd_temp.$path);						
-				}
-				else
+				if($downloaded)
 				{
 					$filename = explode('.', $nzb->file_name);
 					$path =$filename[0];
@@ -704,7 +698,6 @@ class PelicanoHelper
 				$fileName = explode('.',$nzb->file_name);
 				$fileName = $fileName[0];
 				//antes de iniciar la descarga elemino (si es que existen) las carpetas que pudieron haber quedado de antiguas descargas. 
-				PelicanoHelper::deleteTree($setting->path_sabnzbd_temp.$fileName);
 				self::eraseResource($fileName);
 				
 				$from = dirname(__FILE__)."/../../".$setting->path_pending."/";
