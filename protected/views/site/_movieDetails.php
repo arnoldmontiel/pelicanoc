@@ -284,7 +284,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     		<button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
     	<?php else:?>
     		<?php if($modelNzb->downloaded||$modelNzb->downloading):?>
-	  			<button onclick="cancelDownloading(<?php echo $modelNzb->Id?>)" type="button" class="btn btn-primary btn-lg">
+	  			<button NOVAonclick="cancelDownloading(<?php echo $modelNzb->Id?>)" id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg">
 	    		<i class="fa fa-times-circle"></i> Cancelar</button>
     		<?php else:?>
     			<button id="btn-download" type="button" class="btn btn-primary btn-lg">
@@ -314,6 +314,10 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 			});
   
   }
+  function closeCancelPopover()
+  {
+	  $('#btn-cancel-popover').popover('hide');
+  }
   function cancelar()
   {
 	  $('#btn-eraser-popover').popover('hide');
@@ -329,7 +333,21 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
         content:elem,
         html:true
     });
+  });
+
+  $(function () {
+	  var elem ='¿Seguro desea cancelar la descarga?<div class="popoverButtons"><button id="btn-cancel-ok" class="btn btn-default" type="button" onclick="cancelDownloading(<?php echo $modelNzb->Id;?>)">Si</button>'+
+	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="closeCancelPopover()">No</button></div>';
+	  
+	$('#btn-cancel-popover').popover({
+        title: 'Confirmar',
+        content: '¿Desea cancelar la descarga?',
+        placement: 'left',
+        content:elem,
+        html:true
+    });
   });										
+  										
   <?php if(isset($modelNzb)):?>
 	  function cancelDownloading(idNzb)
 	  {
