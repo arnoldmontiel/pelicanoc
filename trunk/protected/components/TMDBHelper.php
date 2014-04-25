@@ -294,12 +294,16 @@ class TMDBHelper
 				if(!isset($model))
 					$model = new TMDBData();
 					
+				$model->poster = 'no_image.jpg';
+				$model->big_poster = 'no_image_big.jpg';
+				$model->backdrop = 'no_image_bd.jpg';
+				
 				if($poster!="")
-					$model->poster = self::getImage($poster, $movie->id, true);
+					$model->poster = self::getImage("", $poster, $movie->id, true);
 				if($bigPoster!="")
-					$model->big_poster = self::getImage($bigPoster, $movie->id."_big");
+					$model->big_poster = self::getImage("_big", $bigPoster, $movie->id."_big");
 				if($backdrop!="")
-					$model->backdrop = self::getImage($backdrop, $movie->id."_bd");
+					$model->backdrop = self::getImage("_bd", $backdrop, $movie->id."_bd");
 					
 				$model->TMDB_id = $movie->id;
 					
@@ -362,12 +366,16 @@ class TMDBHelper
 				$model = new TMDBData();
 			}
 			
+			$model->poster = 'no_image.jpg';
+			$model->big_poster = 'no_image_big.jpg';
+			$model->backdrop = 'no_image_bd.jpg';
+			
 			if($poster!="")
-				$model->poster = self::getImage($poster, $TMDBId,true);
+				$model->poster = self::getImage("", $poster, $TMDBId,true);
 			if($bigPoster!="")
-				$model->big_poster = self::getImage($bigPoster, $TMDBId."_big");
+				$model->big_poster = self::getImage("_big", $bigPoster, $TMDBId."_big");
 			if($backdrop!="")
-				$model->backdrop = self::getImage($backdrop, $TMDBId."_bd");
+				$model->backdrop = self::getImage("_bd", $backdrop, $TMDBId."_bd");
 			
 			$model->TMDB_id = $TMDBId;
 			
@@ -381,11 +389,13 @@ class TMDBHelper
 			var_dump($e);
 		}
 	}
-	private function getImage($original, $newFileName, $copy = false)
+	private function getImage($posFix, $original, $newFileName, $copy = false)
 	{
 		$validator = new CUrlValidator();
 		$setting = Setting::getInstance();
-		$name = 'no_poster.jpg';
+		
+		$name = 'no_image'.$posFix.'.jpg';
+		
 		if(strstr ( $original, "_temp" ))
 		{
 			if($copy)
