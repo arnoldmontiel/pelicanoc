@@ -1685,6 +1685,14 @@ text-align:center;
  top:50%; margin-top:-20px;
 }
 
+.frente{width:180px; height:40px;
+text-transform:uppercase; letter-spacing:1px; color:white; font-size:18px; 
+position:absolute;
+text-align:center;
+ top:45%; margin-top:-20px;
+}
+.frente .btn{ margin-top:10px;}
+
 .fallo{width:180px; height:40px;
 text-transform:uppercase; letter-spacing:1px; color:white; font-size:18px; 
 position:absolute;
