@@ -114,10 +114,18 @@ class PelicanoHelper
 	
 	static public function getNixStorageUsed($path) {
 		$size = 0;
-	
+		$used = 0;
 		$output = exec('df ' . escapeshellarg($path));
-	
-		return $output;
+		
+		$result = explode(' ', $output);
+		
+		if(isset($result[1]))
+			$size = $result[1];
+		
+		if(isset($result[2]))
+			$used = $result[2];
+		
+		return array('size'=>$size, 'used'=>$used);
 	}
 	
 	static public function getWinDirSize($path) 
