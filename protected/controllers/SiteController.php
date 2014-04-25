@@ -522,7 +522,7 @@ class SiteController extends Controller
 					return;
 			}
 		}
-		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading));
+		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs));
 	}
 	
 	public function acionAjaxUpdateDownloadExternal()
