@@ -523,7 +523,7 @@ class SiteController extends Controller
 			}
 		}
 		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs));
-		echo CHtml::script("function(){
+		echo CHtml::script("
 		      $('#flexsliderMarket').flexslider({
 		        animation: 'slide',
 		        animationLoop: false,
@@ -535,7 +535,6 @@ class SiteController extends Controller
 		          $('body').removeClass('loading');
 		        }
 		      });
-		    });
     	");
 		
 	}
