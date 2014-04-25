@@ -72,7 +72,7 @@ $(function() {
     			echo '<div class="preparando"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
     			echo CHtml::closeTag("li");*/
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
     			echo CHtml::openTag("li",array("class"=>"liSlider"));
     			echo CHtml::link(
     					 
@@ -85,7 +85,7 @@ $(function() {
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
     			echo '<div class="frente"><div>EN COLA</div><button class="btn btn-primary"><i class="fa fa-chevron-circle-left"></i> Mandar al Frente</button></div>';
     			echo CHtml::closeTag("li");
-    			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
+    			'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
     			
     			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
     			echo CHtml::openTag("li",array("class"=>"liSlider"));
