@@ -1933,6 +1933,78 @@ ul.thumbnails.image_picker_selector {
 .fileName{padding-top: 7px;font-size:17px;}
 /*---------- END EDIT PELICULA -------------*/
 
+/* ------ PAGINADOR------- */
+.grid-view .pager {
+margin: 5px 0 0 0;
+text-align: right;
+}
+
+ul.yiiPager .page a {
+font-weight: normal;
+height: 32px;
+width: 30px;
+margin: 0px;
+font-size: 16px;
+border-radius: 4px;
+line-height: 26px;
+text-align: center;
+color: #26ada1;
+background-color: #fff;
+border-color: #ddd;
+}
+ul.yiiPager .page a:hover{
+color: #fff;
+background-color: #26ada1;
+border-color: #26ada1;
+}
+
+ul.yiiPager{ padding-bottom:40px; margin-left:10px;}
+
+.pager{color:white;}
+.pager .next>a, .pager .previous>a{
+font-weight: normal;
+height: 32px;
+margin: 0px;
+font-size: 16px;
+border-radius: 4px;
+line-height: 26px;
+text-align: center;
+margin-left:5px;
+color: #26ada1;
+background-color: #eee;
+border-color: #ddd;
+}
+
+.pager .next>a:hover, .pager .previous>a:hover{
+color: #fff;
+background-color: #26ada1;
+border-color: #26ada1;
+}
+
+
+ul.yiiPager a:link, ul.yiiPager a:visited {
+
+color: #26ada1;
+background-color: #fff;
+border-color: #ddd;
+}
+
+ul.yiiPager .selected a{color: #ffffff;
+background-color: #26ada1;
+font-weight: 600;
+border-color: #26ada1;
+}
+ul.yiiPager .selected a:hover{color: #ffffff;
+background-color: #26ada1;
+font-weight: 600;
+border-color: #26ada1;
+cursor:inherit;
+}
+
+
+
+
+/* ------ END PAGINADOR------- */
 
 
 /*-------------------------------------------------------------------------------*/
