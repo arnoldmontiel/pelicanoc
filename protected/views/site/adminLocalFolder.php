@@ -60,23 +60,34 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'itemsCssClass' => 'table table-striped table-bordered tablaIndividual noMargin',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
-	'columns'=>array(		        
+	'summaryText'=>'',
+	'columns'=>array(
 		array(
-		    'name'=>'fileType_description',
-		    'value'=>'$data->fileType->description',	
-			'htmlOptions'=>array("style"=>"width:5%;"),    
+			'name'=>'fileType_description',
+			'value'=>function($data){
+	
+				return $data->fileType->description;
+			},
+			'type'=>'raw',
 		),
 		array(
-		    'name'=>'title',
-		    'value'=>'$data->myMovieDisc->myMovie->original_title',		  
-		),
+			'name'=>'title',
+			'value'=>function($data){
+	
+				return $data->myMovieDisc->myMovie->original_title;
+			},
+			'type'=>'raw',
+		),		
         'read_date',
-        'path',
-        'Id_lote',		
-		array(
-		    'name'=>'sourceType_description',
-		    'value'=>'isset($data->sourceType)?$data->sourceType->description:""',	
-		),
+        array(
+        	'name'=>'path',
+        	'value'=>function($data){
+        
+        		return $data->path;
+        	},
+        	'type'=>'raw',
+        ),
+        'Id_lote',
 		array(
 				'header'=>'Ocultar',
 				'value'=>function($data){
