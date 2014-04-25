@@ -87,7 +87,7 @@ class SABnzbdStatus extends CModel
 					}
 					//si no lo encuentro en $workingJobs, lo agrego
 					if(!$found)
-					{
+					{						
 						$total = round($job['mb']);
 						$current = round($job["mb"]-$job["mbleft"]);
 						$percentage = 0;
@@ -114,7 +114,8 @@ class SABnzbdStatus extends CModel
 								break;
 							}
 						}
-					}
+						unset($jobAdded);
+					}						
 				}
 			}
 		}
@@ -145,6 +146,7 @@ class SABnzbdStatus extends CModel
 					break;
 				}
 			}
+			unset($newJobToUpdate);
 		}
 		$this->_attributes['jobs']=$this->_jobs;				
 	}
