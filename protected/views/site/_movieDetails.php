@@ -373,8 +373,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 		).success(
 			function(data) 
 			{					
-				$("#downloaded_"+idNzb).hide();
-				$("#downloading_"+idNzb).show();		
+				$("#downloaded_<?php echo $modelNzb->Id; ?>").hide();
+				$("#downloading_<?php echo $modelNzb->Id; ?>").show();		
 				$("#myModal").html("");
 				$("#myModal").modal("hide");
 				return false;
