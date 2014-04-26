@@ -240,6 +240,7 @@ class NzbCommand extends CConsoleCommand  {
 				}
 				else
 				{
+					$modelNzb->downloading = 1;
 					$modelNzb->downloaded = 0;
 				}
 				
