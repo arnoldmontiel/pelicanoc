@@ -356,7 +356,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 				).success(
 					function(data) 
 					{					
-						location.reload();
+						$("#myModal").html("");
+						$("#myModal").modal("hide");
 						return false;
 					}
 				);
