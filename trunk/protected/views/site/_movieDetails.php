@@ -310,7 +310,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 			 }
 			).success(
 				function(data){
-					window.location = <?php echo '"'. SiteController::createUrl('index') . '"'; ?>; 
+					location.reload(); 
 			});
   
   }
@@ -356,8 +356,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 				).success(
 					function(data) 
 					{					
-						$("#myModal").html("");
-						$("#myModal").modal("hide");
+						location.reload();
 						return false;
 					}
 				);
