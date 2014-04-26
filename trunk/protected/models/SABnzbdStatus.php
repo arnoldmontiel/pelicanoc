@@ -151,9 +151,8 @@ class SABnzbdStatus extends CModel
 						$percentage = round(($current * 100) / $total);
 					$newJobToUpdate['nzb_porcent']=$percentage;
 
-					//si el job ya contiene un error, no lo actualizo ya que con al menos un error
-					//lo tomo como que el job completo falló
-					if(isset($newJobToUpdate['status']) && $newJobToUpdate['status']=="Failed")
+					//Si no es un error el job, actualizo con el nuevo status.
+					if(isset($newJobToUpdate['status']) && $newJobToUpdate['status']!="Failed")
 					{
 						$newJobToUpdate['status'] =$slot['status'];
 						if($slot['status']=="Failed")
