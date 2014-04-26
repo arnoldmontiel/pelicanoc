@@ -53,7 +53,8 @@ $(function() {
     				echo '<div class="frente"><div>DESCARGANDO</div></div>';
     				//preparando
     				echo '<div class="preparando" id="preparing_'.$nzb->Id.'" style="display:none"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
-    				
+    				//error
+    				echo '<div class="fallo" id="error_'.$nzb->Id.'" style="display:none"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
     				echo CHtml::closeTag("li");		
     				
     			}
