@@ -127,7 +127,12 @@ function getNzbStatus()
 	    				}
 					}
 	    			else
+	    			{
+	    				$('#preparing_'+result[index].nzb_id).hide();
+	    				$('#error_'+result[index].nzb_id).hide();
+	    				$('#knob_'+result[index].nzb_id).show();	    				
 						$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');
+	    			}
 	    		}			
 			}
 		}
