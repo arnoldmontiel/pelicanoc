@@ -224,18 +224,23 @@ class NzbCommand extends CConsoleCommand  {
 // 				$nzbMovieState->save();
 				$params = $fileName." ".$setting->path_sabnzbd_download.$fileName.' '. $setting->sabnzb_pwd_file_path;
 				exec(dirname(__FILE__).'/../commands/shell/finishDownload.sh '.$params,$output,$return);
-				//TODO: $return verificar el resultado de esta variable para continuar
-				$pelicanoCliente = new Pelicano;
-				$request = new NzbStateRequest;
-				$request->Id_device = $setting->Id_device;
-				$request->Id_nzb = $modelNzb->Id;
-				$request->change_state_date = time();				
-				$request->Id_state = 3;//downloaded
-								
-				$requests[]=$request;
-				$status = $pelicanoCliente->setNzbState($requests);
-				$fileName = explode('.',$modelNzb->file_name);
-				$fileName = $fileName[0];
+				//TODO: Si falla, enviar error al server
+				if($return_var == 0)
+				{
+					$pelicanoCliente = new Pelicano;
+					$request = new NzbStateRequest;
+					$request->Id_device = $setting->Id_device;
+					$request->Id_nzb = $modelNzb->Id;
+					$request->change_state_date = time();
+					$request->Id_state = 3;//downloaded
+					
+					$requests[]=$request;
+					$status = $pelicanoCliente->setNzbState($requests);
+				}
+				else
+				{
+					$modelNzb->downloaded = 0;
+				}
 				
 			}
 			if($modelNzb->downloaded)
