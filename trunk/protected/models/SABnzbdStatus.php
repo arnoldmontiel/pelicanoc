@@ -170,6 +170,9 @@ class SABnzbdStatus extends CModel
 				$job = array();
 				$job['nzb_id'] =$slot['nzb_id'];
 				$job['status'] =$slot['status'];
+				$job['mb'] =$slot['mb'];
+				$job['mbleft'] =$slot['mbleft'];
+				$job['nzb_id_original'] =$slot['nzb_id_original'];
 				if($slot['status']=="Failed")
 				{
 					$job['error'] =1;
