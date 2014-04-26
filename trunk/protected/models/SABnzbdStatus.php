@@ -130,6 +130,7 @@ class SABnzbdStatus extends CModel
 		$sABnzbdHistory->getHistory();
 		foreach ($sABnzbdHistory->slots as $slot)
 		{
+			$found= false;
 			foreach ($this->_jobs as &$newJobToUpdate)
 			{
 				if(!isset($slot['nzb_id']))	continue;
@@ -143,10 +144,43 @@ class SABnzbdStatus extends CModel
 					if($total > 0)
 						$percentage = round(($current * 100) / $total);
 					$newJobToUpdate['nzb_porcent']=$percentage;
+
+					//si el job ya contiene un error, no lo actualizo ya que con al menos un error
+					//lo tomo como que el job completo falló
+					if(isset($newJobToUpdate['status']) && $newJobToUpdate['status']=="Failed")
+					{
+						$newJobToUpdate['status'] =$slot['status'];
+						if($slot['status']=="Failed")
+						{
+							$newJobToUpdate['error'] =1;
+						}
+						else
+						{
+							$newJobToUpdate['error'] =0;
+						}						
+					}
+						
+					$found= true;
 					break;
 				}
 			}
 			unset($newJobToUpdate);
+			if(!$found)//si no existe este slot en un job activo, entonces agrego un nuevo job
+			{
+				$job = array();
+				$job['nzb_id'] =$slot['nzb_id'];
+				$job['status'] =$slot['status'];
+				if($slot['status']=="Failed")
+				{
+					$job['error'] =1;
+				}
+				else
+				{
+					$job['error'] =0;
+				}				
+				$this->_jobs[]=$job;
+				$job['nzb_porcent']=100;				
+			}
 		}
 		$this->_attributes['jobs']=$this->_jobs;				
 	}

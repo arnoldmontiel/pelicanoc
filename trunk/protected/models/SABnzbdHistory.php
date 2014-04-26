@@ -35,7 +35,7 @@ class SABnzbdHistory extends CModel
 			{
 				foreach ($this->_attributes['history']['slots'] as $slot)
 				{
-					$nzb = Nzb::model()->findByAttributes(array('ready'=>1,'sabnzbd_id'=>$slot['nzo_id']));
+					$nzb = Nzb::model()->findByAttributes(array('ready'=>1,'sabnzbd_id'=>$slot['nzo_id'],'ready_to_play'=>0));
 					$parentSlot = $slot;
 					if(isset($nzb))
 					{
