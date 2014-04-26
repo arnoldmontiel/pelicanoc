@@ -110,8 +110,13 @@ function getNzbStatus()
 			var result = JSON.parse(data);
 			for(var index = 0; index < result.length; index++)
 			{			
-	    		if(result[index].nzb_id!='0')								
-					$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');			
+	    		if(result[index].nzb_id!='0')
+	    		{
+	    			if(typeof result[index].status!='undefined')
+	    				$('#'+result[index].nzb_id).partent().remove();
+	    			else
+						$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');
+	    		}			
 			}
 		}
 	);

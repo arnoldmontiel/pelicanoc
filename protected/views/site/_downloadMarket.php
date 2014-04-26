@@ -54,12 +54,12 @@ $(function() {
 //     					echo CHtml::closeTag("div");
 
     				echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0%" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
-    				echo '<div class="frente"><div>DESCARGANDO</div></div>';
+    				echo '<div class="frente"><div>DESCARGANDO</div></div>';    				
     				echo CHtml::closeTag("li");		
     				
     			}
 
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
     			 echo CHtml::openTag("li",array("class"=>"liSlider"));
     			echo CHtml::link(
     					 
@@ -71,7 +71,7 @@ $(function() {
     							"idResource"=>$modelSource->Id,
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
     			echo '<div class="preparando"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
-    			echo CHtml::closeTag("li");*/
+    			echo CHtml::closeTag("li");
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
     			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
     			echo CHtml::openTag("li",array("class"=>"liSlider"));
