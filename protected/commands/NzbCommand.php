@@ -225,7 +225,7 @@ class NzbCommand extends CConsoleCommand  {
 				$params = $fileName." ".$setting->path_sabnzbd_download.$fileName.' '. $setting->sabnzb_pwd_file_path;
 				exec(dirname(__FILE__).'/../commands/shell/finishDownload.sh '.$params,$output,$return);
 				//TODO: Si falla, enviar error al server
-				if($return_var == 0)
+				if($return == 0)
 				{
 					$pelicanoCliente = new Pelicano;
 					$request = new NzbStateRequest;
