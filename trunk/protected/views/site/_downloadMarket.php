@@ -54,7 +54,7 @@ $(function() {
     				//preparando
     				echo '<div class="preparando" id="preparing_'.$nzb->Id.'" style="display:none"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
     				//error
-    				echo '<div class="fallo" id="error_'.$nzb->Id.'" style="display:none"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
+    				echo '<div class="fallo" id="error_'.$nzb->Id.'" style="display:none"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs" id="restart_'.$nzb->Id.'" onclick="retrytDownload('.$nzb->Id.')"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
     				echo CHtml::closeTag("li");		
     				
     			}
@@ -150,25 +150,6 @@ $(function() {
 	      });
 	    });
   <?php endif?>
-    function showDownloading(object)
-    {
-		var id = $(object).attr('idMovie');
-		var idNzb = $(object).attr('idResource');
-		var param = 'id='+id + '&idNzb=' + idNzb; 
-		$.ajax({
-	   		type: 'POST',
-	   		url: '<?php echo SiteController::createUrl('AjaxMarketShowDetail') ?> ',
-	   		data: param,
-	 	}).success(function(data)
-	 	{
-	 	
-			$('#myModal').html(data);
-			$('#myModal').modal('show');
-			
-		}
-	 	);	
-    
-    }
   </script>
 
 

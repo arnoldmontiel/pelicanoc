@@ -281,6 +281,40 @@ foreach($dataProvider->getData() as $record)
     			
     		}
        );
+    function retrytDownload(idNzb)
+    {
+        alert("funcion no implementada");
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxRestartDownload') ?> ',
+	   		data: {id:idNzb},
+	 	}).success(function(data)
+	 	{	 	
+			$('#restart_'+idNzb).attr('disabled','disabled');
+		}
+	 	);	
+        
+        return false;
+    }
+    function showDownloading(object)
+    {
+		var id = $(object).attr('idMovie');
+		var idNzb = $(object).attr('idResource');
+		var param = 'id='+id + '&idNzb=' + idNzb; 
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxMarketShowDetail') ?> ',
+	   		data: param,
+	 	}).success(function(data)
+	 	{
+	 	
+			$('#myModal').html(data);
+			$('#myModal').modal('show');
+		}
+	 	);	
+    
+    }
+    
     
 </script>
 
