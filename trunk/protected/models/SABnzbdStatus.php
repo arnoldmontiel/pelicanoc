@@ -137,31 +137,36 @@ class SABnzbdStatus extends CModel
 		foreach ($sABnzbdHistory->slots as $slot)
 		{
 			$found= false;
-			foreach ($this->_jobs as &$newJobToUpdate)
+			foreach ($this->_jobs as &$jobToUpdate)
 			{
 				if(!isset($slot['nzb_id']))	continue;
-				if($slot['nzb_id']==$newJobToUpdate['nzb_id'])
+				if($slot['nzb_id']==$jobToUpdate['nzb_id'])
 				{
 					$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
-					$newJobToUpdate['mb'] = $newJobToUpdate['mb'] + $nzb->sabnzbd_size;
-					$total = round($newJobToUpdate['mb']);
-					$current = round($newJobToUpdate["mb"]-$newJobToUpdate["mbleft"]);
+					if($nzb->has_error)
+					{
+						$jobToUpdate['status'] ="Failed";
+						$jobToUpdate['error'] =1;						
+					}
+					$jobToUpdate['mb'] = $jobToUpdate['mb'] + $nzb->sabnzbd_size;
+					$total = round($jobToUpdate['mb']);
+					$current = round($jobToUpdate["mb"]-$jobToUpdate["mbleft"]);
 					$percentage = 0;
 					if($total > 0)
 						$percentage = round(($current * 100) / $total);
-					$newJobToUpdate['nzb_porcent']=$percentage;
+					$jobToUpdate['nzb_porcent']=$percentage;
 
 					//Si no es un error el job, actualizo con el nuevo status.
-					if(isset($newJobToUpdate['status']) && $newJobToUpdate['status']!="Failed")
+					if(isset($jobToUpdate['status']) && $jobToUpdate['status']!="Failed")
 					{
-						$newJobToUpdate['status'] =$slot['status'];
+						$jobToUpdate['status'] =$slot['status'];
 						if($slot['status']=="Failed")
 						{
-							$newJobToUpdate['error'] =1;
+							$jobToUpdate['error'] =1;
 						}
 						else
 						{
-							$newJobToUpdate['error'] =0;
+							$jobToUpdate['error'] =0;
 						}						
 					}
 						
@@ -169,7 +174,7 @@ class SABnzbdStatus extends CModel
 					break;
 				}
 			}
-			unset($newJobToUpdate);
+			unset($jobToUpdate);
 			if(!$found)//si no existe este slot en un job activo, entonces agrego un nuevo job
 			{
 				$job = array();
