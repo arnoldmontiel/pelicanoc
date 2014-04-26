@@ -113,7 +113,7 @@ function getNzbStatus()
 	    		if(result[index].nzb_id!='0')
 	    		{
 	    			if(typeof result[index].status!='undefined')
-	    				$('#'+result[index].nzb_id).partent().remove();
+	    				$('#'+result[index].nzb_id).parent().remove();
 	    			else
 						$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');
 	    		}			
