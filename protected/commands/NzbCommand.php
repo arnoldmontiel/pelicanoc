@@ -196,6 +196,7 @@ class NzbCommand extends CConsoleCommand  {
 	}
 	
 	function actionUpdateStateMovies($file_name) {
+		$return = 0;
 		$setting = Setting::getInstance();
 		
 		$criteria=new CDbCriteria;
@@ -299,6 +300,6 @@ class NzbCommand extends CConsoleCommand  {
 			}
 			$modelNzb->save();							
 		}
-		return 0;
+		return $return;
 	}
 }
