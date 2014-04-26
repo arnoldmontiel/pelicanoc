@@ -230,7 +230,19 @@ class SiteController extends Controller
 			}				
 		}
 	}
-
+	
+	public function actionAjaxRestartDownload()
+	{
+		if(isset($_POST['Id_nzb']))
+		{		
+			PelicanoHelper::restartDownload($_POST['Id_nzb']);
+			$nzbs = Nzb::model()->findAllByAttributes(array('Id_nzb'=>$_POST['Id_nzb']));
+			foreach ($nzbs as $nzb)
+			{
+				PelicanoHelper::restartDownload($nzb->Id);				
+			}
+		}
+	}
 	public function actionAjaxStartDownload()
 	{
 		if(isset($_POST['Id_nzb']))
