@@ -47,19 +47,18 @@ $(function() {
     								"idResource"=>$modelSource->Id,
     								"sourceType"=>1,'onclick'=>'showDownloading(this)'));    			
     					
-//     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
-//     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
-//     							echo $myMovie->original_title;
-//     						echo CHtml::closeTag("p");
-//     					echo CHtml::closeTag("div");
 
-    				echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0%" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
-    				echo '<div class="frente"><div>DESCARGANDO</div></div>';    				
+    				//knob 
+					echo '<div class="knob" id="knob_'.$nzb->Id.'" ><input id="'.$nzb->Id.'" type="text" value="0%" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
+    				echo '<div class="frente"><div>DESCARGANDO</div></div>';
+    				//preparando
+    				echo '<div class="preparando" id="preparing_'.$nzb->Id.'" style="display:none"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
+    				
     				echo CHtml::closeTag("li");		
     				
     			}
 
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
     			 echo CHtml::openTag("li",array("class"=>"liSlider"));
     			echo CHtml::link(
     					 
@@ -71,9 +70,9 @@ $(function() {
     							"idResource"=>$modelSource->Id,
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
     			echo '<div class="preparando"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
-    			echo CHtml::closeTag("li");
+    			echo CHtml::closeTag("li");*/
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
     			echo CHtml::openTag("li",array("class"=>"liSlider"));
     			echo CHtml::link(
     					 
@@ -86,10 +85,10 @@ $(function() {
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
     			echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0%" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
     			echo '<div class="frente"><div>EN COLA</div><button class="btn btn-primary btn-xs"><i class="fa fa-chevron-circle-left"></i> Descargar Primero</button></div>';
-    			echo CHtml::closeTag("li");
+    			echo CHtml::closeTag("li");*/
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
     			
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''*/
+    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
     			echo CHtml::openTag("li",array("class"=>"liSlider"));
     			echo CHtml::link(
     					 
@@ -101,7 +100,7 @@ $(function() {
     							"idResource"=>$modelSource->Id,
     							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
     			echo '<div class="fallo"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
-    			echo CHtml::closeTag("li");
+    			echo CHtml::closeTag("li");*/
     			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
     			
     			
