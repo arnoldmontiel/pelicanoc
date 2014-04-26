@@ -1162,6 +1162,7 @@ CREATE TABLE `nzb` (
   `ready_to_play` tinyint(4) DEFAULT '0' COMMENT 'Cuando se han descargado todos los nzb tanto padre como hijos. Solo aplicaria a los padres en realidad.',
   `sabnzbd_size` double DEFAULT NULL,
   `sabnzbd_id` varchar(45) DEFAULT NULL COMMENT 'Id que entrega sabnzbd, con este valor se puede saber que item de sabnzbd fue el último que descargó. Al iniciar una descarga deberia setear a null este valor.',  
+  `has_error` tinyint(4) DEFAULT '0' COMMENT 'si hubo un error durante la descarga.',
   PRIMARY KEY (`Id`),
   KEY `fk_nzb_my_movie_disc_nzb1` (`Id_my_movie_disc_nzb`),
   KEY `fk_nzb_nzb_state1` (`Id_nzb_state`),
