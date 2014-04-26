@@ -717,6 +717,37 @@ class PelicanoHelper
 			}
 		}
 	}
+	public static function restartDownload($idNzb)
+	{
+		$nzb = Nzb::model()->findByPk($idNzb);
+		if(isset($nzb))
+		{
+			$setting = Setting::getInstance();
+			try
+			{
+				$fileName = explode('.',$nzb->file_name);
+				$fileName = $fileName[0];
+				//antes de iniciar la descarga elemino (si es que existen) las carpetas que pudieron haber quedado de antiguas descargas.
+				self::eraseResource($fileName);
+	
+				$from = dirname(__FILE__)."/../../".$setting->path_pending."/";
+				$to =  dirname(__FILE__)."/../../".$setting->path_ready."/";
+				$params = $from.' '.$to.' '.$fileName.' '.$setting->sabnzb_pwd_file_path;
+				exec(dirname(__FILE__).'/../commands/shell/startDownload.sh '.$params,$output,$return);
+				$nzb->downloaded = 0;
+				$nzb->downloading = 1;
+				$nzb->ready_to_play = 0;
+				$nzb->sabnzbd_id = new CDbExpression('NULL');
+				$nzb->Id_nzb_state = 2;
+				$nzb->change_state_date = new CDbExpression('NOW()');
+				$nzb->sent = 0;
+				$nzb->save();
+			}
+			catch (Exception $e)
+			{
+			}
+		}
+	}
 	
 	public static function saveSpecification($item)
 	{

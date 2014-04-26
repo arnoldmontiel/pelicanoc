@@ -287,7 +287,7 @@ foreach($dataProvider->getData() as $record)
 		$.ajax({
 	   		type: 'POST',
 	   		url: '<?php echo SiteController::createUrl('AjaxRestartDownload') ?> ',
-	   		data: {id:idNzb},
+	   		data: {Id_nzb:idNzb},
 	 	}).success(function(data)
 	 	{	 	
 			$('#restart_'+idNzb).attr('disabled','disabled');
