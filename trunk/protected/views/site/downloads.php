@@ -113,7 +113,19 @@ function getNzbStatus()
 	    		if(result[index].nzb_id!='0')
 	    		{
 	    			if(typeof result[index].status!='undefined')
-	    				$('#'+result[index].nzb_id).parent().remove();
+	    			{
+	    				$('#knob_'+result[index].nzb_id).hide();
+	    				if(typeof result[index].error!='undefined'&&result[index].error==1)
+	    				{
+	    					$('#preparing_'+result[index].nzb_id).hide();
+	    					$('#error_'+result[index].nzb_id).show();
+	    				}
+	    				else
+	    				{
+	    					$('#error_'+result[index].nzb_id).hide();
+	    					$('#preparing_'+result[index].nzb_id).show();
+	    				}
+					}
 	    			else
 						$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');
 	    		}			
