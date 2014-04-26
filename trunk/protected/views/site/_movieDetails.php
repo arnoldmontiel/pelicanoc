@@ -355,7 +355,9 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 					{Id_nzb: idNzb}
 				).success(
 					function(data) 
-					{					
+					{
+						$("#downloaded_"+idNzb).hide();
+						$("#downloading_"+idNzb).hide();
 						$("#myModal").html("");
 						$("#myModal").modal("hide");
 						return false;
@@ -371,6 +373,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 		).success(
 			function(data) 
 			{					
+				$("#downloaded_"+idNzb).hide();
+				$("#downloading_"+idNzb).show();		
 				$("#myModal").html("");
 				$("#myModal").modal("hide");
 				return false;
