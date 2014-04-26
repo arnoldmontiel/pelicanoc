@@ -52,12 +52,20 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
     </a>
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
     
-    <?php if($data->ready_to_play):?>
-    <div class="ribMisPeliculas"><i class="fa fa-check-circle"></i></div>
-     <?php else:?>
-    	<?php if($data->downloaded||$data->downloading):?>
-		        <div class="ribDescargando"><i class="fa fa-spinner fa-spin fa-sm" ></i> <i class="fa fa-download" ></i></div>
-		    
-   		<?php endif?>
-    <?php endif?>
-</div>
+    <?php 
+		$showDownloaded = false;
+		$showDownloading = false;		    
+		if($data->ready_to_play)
+    	{
+			$showDownloaded = true;
+    	}		        
+     	else
+     	{
+     		if($data->downloaded||$data->downloading)
+		        $showDownloading = true;		    
+     	}
+	?>
+    	<div class="ribMisPeliculas" id="downloaded_<?php echo $data->Id; ?>" <?php echo (!$showDownloaded)?"style='display:none'":"";?>><i class="fa fa-check-circle"></i></div>
+		<div class="ribDescargando" id="downloading_<?php echo $data->Id; ?>" <?php echo (!$showDownloading)?"style='display:none'":"";?>><i class="fa fa-spinner fa-spin fa-sm" ></i> <i class="fa fa-download" ></i></div>		    
+    	
+   </div>
