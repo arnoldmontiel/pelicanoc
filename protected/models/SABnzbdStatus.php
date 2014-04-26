@@ -143,7 +143,8 @@ class SABnzbdStatus extends CModel
 				if($slot['nzb_id']==$jobToUpdate['nzb_id'])
 				{
 					$nzb = Nzb::model()->findByPk($slot['nzb_id_original']);
-					if($nzb->has_error)
+					// si isset($jobToUpdate['status']) significa que este job fue agregado manualmente 
+					if(isset($jobToUpdate['status'])&&$nzb->has_error)
 					{
 						$jobToUpdate['status'] ="Failed";
 						$jobToUpdate['error'] =1;						
@@ -191,7 +192,13 @@ class SABnzbdStatus extends CModel
 				else
 				{
 					$job['error'] =0;
-				}				
+				}
+				if($nzb->has_error)
+				{
+					$jobToUpdate['status'] ="Failed";
+					$jobToUpdate['error'] =1;
+				}
+				
 				$this->_jobs[]=$job;
 				$job['nzb_porcent']=100;				
 			}
