@@ -334,7 +334,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
         html:true
     });
   });
-
+  <?php if(isset($modelNzb)):?>
   $(function () {
 	  var elem ='¿Seguro desea cancelar la descarga?<div class="popoverButtons"><button id="btn-cancel-ok" class="btn btn-default" type="button" onclick="cancelDownloading(<?php echo $modelNzb->Id;?>)">Si</button>'+
 	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="closeCancelPopover()">No</button></div>';
@@ -348,7 +348,6 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     });
   });										
   										
-  <?php if(isset($modelNzb)):?>
 	  function cancelDownloading(idNzb)
 	  {
 			$.post("<?php echo SiteController::createUrl('AjaxCancelDownload'); ?>",
