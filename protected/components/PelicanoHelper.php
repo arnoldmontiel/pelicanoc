@@ -266,6 +266,10 @@ class PelicanoHelper
 	
 	}
 	
+	/**
+	 * Se fija si la carpeta compartida del NAS tiene acceso
+	 * @return boolean true si tiene acceso, false si no!
+	 */
 	static public function isAccessibleNasFolder()
 	{
 		$isAccessible = false;
@@ -275,16 +279,15 @@ class PelicanoHelper
 		$output = trim($output);
 		
 		$mountDir = $modelSetting->host_file_server.$modelSetting->host_file_server_path; 
-		
-		echo preg_replace('#/+#','/',$mountDir). "<br>"; 
-		echo $mountDir. "<br>";
+		$mountDir = preg_replace('#/+#','/',$mountDir); 
+
 		if(!empty($output))
 		{
-			if(strpos($output,'are') !== false)
+			if(strpos($output,$mountDir) !== false)
 				$isAccessible = true;
 		}
 		
-		echo $output. "<br>";
+		//echo $output. "<br>";
 		
 		return $isAccessible;
 	}
