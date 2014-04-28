@@ -99,11 +99,7 @@
 									id="popover-disp">Dispositivos <span id="devicesQty"
 											style="display: none" class="badge"></span></a></li>
 											-->
-											</ul>
-											<?php
-											$customer = Setting::getInstance ()->getCustomer ();
-											$username = (User::getCurrentUser ()) ? User::getCurrentUser ()->username : '';
-											?>
+											</ul>											
 				</div>
 			<!-- /.navbar menu -->
 			<!-- 
@@ -113,8 +109,14 @@
 			<div class="nav navbar-nav navbar-right hidden-sm hidden-xs">
 				<ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> admin <i
-							class="fa fa-caret-down fa-fw"></i></a>
+						data-toggle="dropdown">
+							<i class="fa fa-user fa-fw"></i> 
+							<?php 
+								$customer = Setting::getInstance ()->getCustomer ();
+								$username = (User::getCurrentUser ()) ? User::getCurrentUser ()->username : '';
+								echo $username;
+							?> 
+							<i class="fa fa-caret-down fa-fw"></i></a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
 							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
