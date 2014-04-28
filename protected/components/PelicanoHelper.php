@@ -272,10 +272,17 @@ class PelicanoHelper
 		$modelSetting = Setting::getInstance();
 		
 		$output = exec('df ' . escapeshellarg($modelSetting->path_shared));
-		
 		$output = trim($output);
+		
+		$mountDir = $modelSetting->host_file_server.$modelSetting->host_file_server_path; 
+		
+		echo realpath($mountDir). "<br>"; 
+		echo $mountDir. "<br>";
 		if(!empty($output))
-			$isAccessible = true;
+		{
+			if(strpos($output,'are') !== false)
+				$isAccessible = true;
+		}
 		
 		echo $output. "<br>";
 		
