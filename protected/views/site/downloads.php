@@ -273,11 +273,9 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 			});   		
         
     }
-    function showDownloading(object)
+    function showDownloading(idNzb)
     {
-		var id = $(object).attr('idMovie');
-		var idNzb = $(object).attr('idResource');
-		var param = 'id='+id + '&idNzb=' + idNzb; 
+		var param = 'idNzb=' + idNzb; 
 		$.ajax({
 	   		type: 'POST',
 	   		url: '<?php echo SiteController::createUrl('AjaxMarketShowDetail') ?> ',

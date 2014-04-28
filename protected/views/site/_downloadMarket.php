@@ -68,7 +68,7 @@ $(function() {
     				
     				'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
     								"idResource"=>$modelSource->Id,
-    								"sourceType"=>1,'onclick'=>'showDownloading(this)'));    			
+    								"sourceType"=>1,'onclick'=>'showDownloading('.$nzb->Id.')'));    			
     					
 
     				//knob 
