@@ -266,6 +266,10 @@ class PelicanoHelper
 	
 	}
 	
+	/**
+	 * Verifica si el NAS responde para ver si esta vivo
+	 * @return boolean
+	 */
 	static public function isNASAlive()
 	{
 		$isAlive = false;
@@ -281,13 +285,13 @@ class PelicanoHelper
 				$isAlive = true;
 		}		
 		
-		echo $output."<br>";
+		//echo $output."<br>";
 		return $isAlive;
 	}
 	
 	/**
 	 * Se fija si la carpeta compartida del NAS tiene acceso
-	 * @return boolean true si tiene acceso, false si no!
+	 * @return boolean
 	 */
 	static public function isAccessibleNasFolder()
 	{
@@ -306,8 +310,7 @@ class PelicanoHelper
 				$isAccessible = true;
 		}
 		
-		echo $output. "<br>";
-		
+		//echo $output. "<br>";
 		return $isAccessible;
 	}
 	
