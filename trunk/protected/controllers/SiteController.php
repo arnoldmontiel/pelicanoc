@@ -500,12 +500,24 @@ class SiteController extends Controller
 						break;
 					}
 				}
-				if(!$newItem)
-					return;
 			}
 		}
 		$sABnzbdStatus= new SABnzbdStatus();
-		$sABnzbdStatus->getStatus();		
+		$sABnzbdStatus->getStatus();
+		//se cambio el orden, tambien actualizo
+		$changeOrder = false;
+		$ids = $_POST['ids'];
+		$jobs= $sABnzbdStatus->jobs;
+		foreach ($ids as $key => $id)
+		{
+			if(!isset($jobs[$key]) || $jobs[$key]['nzb_id']!=$id)				
+			{
+				$changeOrder = true;
+				break;
+			}
+		}
+		if(!$newItem && !$changeOrder)
+			return;		
 		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs,"sABnzbdStatus"=>$sABnzbdStatus,"fromAjax"=>1));		
 	}
 	
