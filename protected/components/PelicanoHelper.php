@@ -275,6 +275,12 @@ class PelicanoHelper
 		$output = exec('fping ' . escapeshellarg($hostFileServer));
 		$output = trim($output);
 		
+		if(!empty($output))
+		{
+			if(strpos($output,'alive') !== false)
+				$isAccessible = true;
+		}		
+		
 		echo $output."<br>";
 		return $isAlive;
 	}
