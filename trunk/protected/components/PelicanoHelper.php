@@ -276,7 +276,7 @@ class PelicanoHelper
 		
 		$mountDir = $modelSetting->host_file_server.$modelSetting->host_file_server_path; 
 		
-		echo realpath($mountDir). "<br>"; 
+		echo preg_replace('#/+#','/',$mountDir). "<br>"; 
 		echo $mountDir. "<br>";
 		if(!empty($output))
 		{
