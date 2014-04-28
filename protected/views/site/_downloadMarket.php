@@ -74,7 +74,7 @@ $(function() {
     				//knob 
     				$hide='style="display:none"';
 					
-    				echo '<div class="knob" id="knob_'.$nzb->Id.'" '.(!$first?$hide:'').'><input id="'.$nzb->Id.'" type="text" value="0" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
+    				echo '<div class="knob" id="knob_'.$nzb->Id.'" '.(!$first?$hide:'').' onclick="showDownloading('.$nzb->Id.')"><input id="'.$nzb->Id.'" type="text" value="0" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
     				echo '<div class="frente" '.(!$first?$hide:'').'><div>DESCARGANDO</div></div>';
     				//preparando
     				echo '<div class="preparando" id="preparing_'.$nzb->Id.'" '.$hide.'><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
