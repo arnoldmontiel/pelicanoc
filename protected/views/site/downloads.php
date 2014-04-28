@@ -253,8 +253,7 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading))
 	   		url: '<?php echo SiteController::createUrl('AjaxMarketShowDetail') ?> ',
 	   		data: param,
 	 	}).success(function(data)
-	 	{
-	 	
+	 	{	 	
 			$('#myModal').html(data);
 			$('#myModal').modal('show');
 		}
