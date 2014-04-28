@@ -87,7 +87,20 @@
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
-  		$(window).load(function(){
+  <?php if(isset($fromAjax) && $fromAjax):?>
+  	$('#flexsliderFinished').flexslider({
+	      animation: 'slide',
+	      animationLoop: false,
+	      itemWidth: 180,
+	      itemMargin: 5,
+			slideshow: false,
+			touch: true,
+	      start: function(slider){
+	        $('body').removeClass('loading');
+	      }
+	    });
+	  <?php else:?>
+  	$(window).load(function(){
   			$('#flexsliderFinished').flexslider({
   		      animation: 'slide',
   		      animationLoop: false,
@@ -104,6 +117,8 @@
     	{
 		});
     });
+    <?php endif?>    
+	    
   </script>
 
 <?php 
