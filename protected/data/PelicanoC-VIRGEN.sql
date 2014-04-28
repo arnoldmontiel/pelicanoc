@@ -1535,7 +1535,9 @@ CREATE TABLE `setting` (
   `path_shared_ripped` varchar(255) DEFAULT NULL,
   `path_sabnzbd_download` varchar(255) DEFAULT NULL,
   `is_movie_tester` tinyint(4) DEFAULT 0,
-  `path_sabnzbd_temp` varchar(255) DEFAULT NULL COMMENT 'debe apuntar a donde sabnzbd esta configurado como " Temporary Download Folder"',    
+  `path_sabnzbd_temp` varchar(255) DEFAULT NULL COMMENT 'debe apuntar a donde sabnzbd esta configurado como " Temporary Download Folder"',
+  `host_file_server_user` varchar(45) DEFAULT NULL COMMENT 'Usuario para acceder al NAS desde el Player',
+  `host_file_server_passwd` varchar(45) DEFAULT NULL COMMENT 'Password para acceder al NAS desde el Player',     
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
