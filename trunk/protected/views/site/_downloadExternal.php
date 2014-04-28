@@ -67,6 +67,20 @@
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
   <script type="text/javascript">
+  <?php if(isset($fromAjax) && $fromAjax):?>
+  $('#flexsliderExternal').flexslider({
+      animation: "slide",
+      animationLoop: false,
+      itemWidth: 180,
+      itemMargin: 5,
+		slideshow: false,
+		touch: true,
+      start: function(slider){
+        $('body').removeClass('loading');
+      }
+    });
+  
+  <?php else:?>
     $(window).load(function(){
       $('#flexsliderExternal').flexslider({
         animation: "slide",
@@ -80,13 +94,5 @@
         }
       });
     });
-  </script>
-
-<?php 
-// $this->beginWidget('bootstrap.widgets.TbModal', array('id' => 'myModal')); 
-
-// echo CHtml::openTag('div',array('id'=>'myModal'));
-// //place holder
-// echo CHtml::closeTag('div'); 
-
-// $this->endWidget(); ?>
+    <?php endif?>    
+   </script>
