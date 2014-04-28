@@ -273,7 +273,8 @@ class PelicanoHelper
 		
 		$output = exec('df ' . escapeshellarg($modelSetting->path_shared));
 		
-		if(!empty(trim($output)))
+		$output = trim($output);
+		if(!empty($output))
 			$isAccessible = true;
 		
 		return $isAccessible;
