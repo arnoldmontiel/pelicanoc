@@ -266,6 +266,18 @@ class PelicanoHelper
 	
 	}
 	
+	static public function isNASAlive()
+	{
+		$isAlive = false;
+		$modelSetting = Setting::getInstance();
+		
+		$output = exec('fping ' . escapeshellarg($modelSetting->host_file_server));
+		$output = trim($output);
+		
+		echo $output."<br>";
+		return $isAlive;
+	}
+	
 	/**
 	 * Se fija si la carpeta compartida del NAS tiene acceso
 	 * @return boolean true si tiene acceso, false si no!
