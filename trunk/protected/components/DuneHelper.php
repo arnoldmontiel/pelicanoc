@@ -63,7 +63,14 @@ class DuneHelper
 		$path = str_replace(' ', '%20', $path);
 		$path = str_replace('&', '%26', $path);
 		$url = $player->url . '/cgi-bin/do?cmd='.$cmd.'&media_url='.$player->file_protocol.':';
-		$url = $url . '//'. $setting->host_file_server . $setting->host_file_server_path .$path;
+		$userAndPass="";
+		if(isset($setting->host_file_server_user) && $setting->host_file_server_user!="")
+			$userAndPass=$setting->host_file_server_user;				
+		if(isset($setting->host_file_server_passwd) && $setting->host_file_server_passwd!="")
+			$userAndPass= $userAndPass.":".$setting->host_file_server_passwd;		
+		if(isset($setting->host_file_server_user) && $setting->host_file_server_user!="")
+			$userAndPass=$userAndPass."@";		
+		$url = $url . '//' . $userAndPass . $setting->host_file_server . $setting->host_file_server_path .$path;
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
 		@file_get_contents($url);
 		return true;
