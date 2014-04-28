@@ -130,6 +130,20 @@ class SiteController extends Controller
 		//$criteriaExternal->order="read_date DESC";
 		
 		$nzbDownloading = Nzb::model()->findAll($criteriaNzb);
+		
+		$orderNzb = array();
+		$jobs = $sABnzbdStatus->jobs;
+		foreach ($jobs as $job)
+		{
+			foreach ($nzbDownloading as $nzb)
+			{
+				if($job['nzb_id']==$nzb->Id)
+				{
+					$orderNzb['']=$nzb;
+				}
+			}
+			
+		}
 				
 		$this->render('downloads',array(
 				'dataProvider'=>$dataProvider,
