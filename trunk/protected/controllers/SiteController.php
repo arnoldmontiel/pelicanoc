@@ -463,7 +463,20 @@ class SiteController extends Controller
 				
 		$this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter,"fromAjax"=>1));						
 	}
+		
+	public function actionAjaxRefreshDownload()
+	{
+		$criteriaNzb=new CDbCriteria;
+		$criteriaNzb->addCondition('(downloading = 1 OR downloaded = 1)');
+		$criteriaNzb->addCondition('(ready_to_play = 0)');
+		$criteriaNzb->addCondition('Id_nzb IS NULL');
+		//$criteriaNzb->order="???";
 	
+		$nzbs = Nzb::model()->findAll($criteriaNzb);
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();		
+		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs,"sABnzbdStatus"=>$sABnzbdStatus,"fromAjax"=>1));		
+	}
 	public function actionAjaxUpdateDownloads()
 	{
 		$criteriaNzb=new CDbCriteria;

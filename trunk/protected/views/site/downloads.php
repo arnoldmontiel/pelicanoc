@@ -16,23 +16,7 @@ setInterval(function() {
 	updateDownloads();   		   		
    	getNzbStatus();   		
 }, 1000*15)
-    
-   	function downloadFirst(idNzb,button)
-    {
-        $(button).attr('disabled','disabled');
-		$.ajax({
-	   		type: 'POST',
-	   		url: '".SiteController::createUrl('AjaxDownloadFirst') ."',
-	   		data: {Id_nzb:idNzb},
-	 	}).success(function(data)
-	 	{
-	 		updateDownloads();	 	
-		}
-	 	);	
-        
-        return false;
-    }
-   		
+
 	$('ul.nav-pills li a').click(function(){
 		updateFinished($(this).attr('id'));
 	});
@@ -257,6 +241,30 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 	 	);	
         
         return false;
+    }
+    function downloadFirst(idNzb,button)
+    {
+        $(button).attr("disabled","disabled");
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxDownloadFirst') ?> ',
+	   		data: {Id_nzb:idNzb},
+	 	}).success(function(data)
+	 	{
+	 		refreshDownloads();
+		}
+	 	);	
+        
+        return false;
+    }
+    function refreshDownloads()
+    {
+			$.post('<?php echo SiteController::createUrl('AjaxRefreshDownload') ?> ').success(
+			function(data){
+   				if(data.trim()!='')
+   					$('#market-area').html(data);
+			});   		
+        
     }
     function showDownloading(object)
     {
