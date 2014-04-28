@@ -6,7 +6,7 @@ $(function() {
         'bgColor' : "rgba(255,255,255,0.3)",
         'inputColor' : "white",
         'font' : "GudeaBold",
-        'fgColor' : "white"
+        'fgColor' : "white",
         'draw' : function () { 
         	$(this.i).val(this.cv + '%')
          }
