@@ -36,7 +36,7 @@
     				'',array("class"=>"peliAfiche aficheClickLocalFolder","idMovie"=>$myMovie->Id,
     								"idExternalStorage"=>$externalStorageData->Id,
     								"idResource"=>$modelSource->Id,
-    								"sourceType"=>4));    			
+    								"sourceType"=>4,"onclick"=>"showLocalFolder(this)"));    			
     					
 //     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
 //     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
