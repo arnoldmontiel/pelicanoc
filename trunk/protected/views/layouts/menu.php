@@ -119,7 +119,7 @@
 							<li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
 							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
 									Consumos</a></li>
-							<li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul></li>
 				</ul>
 			</div>
