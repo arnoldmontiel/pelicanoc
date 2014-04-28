@@ -729,6 +729,14 @@ class PelicanoHelper
 			{
 			}
 		}
+	}	
+	public static function downloadFirst($idNzb)
+	{
+		$nzb = Nzb::model()->findByPk($idNzb);
+		
+		$setting = Setting::getInstance();
+		$url =  $this->setting->sabnzb_api_url."mode=switch&value=".$nzb->sabnzbd_id."&value2=0&apikey=".$this->setting->sabnzb_api_key;
+		@file_get_contents($url);		
 	}
 	public static function restartDownload($idNzb)
 	{

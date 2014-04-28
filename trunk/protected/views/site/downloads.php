@@ -230,7 +230,6 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
        );
     function retrytDownload(idNzb)
     {
-        alert("funcion no implementada");
 		$.ajax({
 	   		type: 'POST',
 	   		url: '<?php echo SiteController::createUrl('AjaxRestartDownload') ?> ',
@@ -238,6 +237,20 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 	 	}).success(function(data)
 	 	{	 	
 			$('#restart_'+idNzb).attr('disabled','disabled');
+		}
+	 	);	
+        
+        return false;
+    }
+    function downloadFirst(idNzb,button)
+    {
+        $(button).attr("disabled","disabled");
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxDownloadFirst') ?> ',
+	   		data: {Id_nzb:idNzb},
+	 	}).success(function(data)
+	 	{	 	
 		}
 	 	);	
         
