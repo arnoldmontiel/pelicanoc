@@ -53,7 +53,7 @@
     				
     				'',array("class"=>"peliAfiche aficheClickFinished","idMovie"=>$myMovie->Id,
     								"idResource"=>$movie->Id,
-    								"sourceType"=>$movie->source_type));
+    								"sourceType"=>$movie->source_type,"onclick='showFinished(this)'"));
     					
      					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
      						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
