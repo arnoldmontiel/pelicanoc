@@ -271,7 +271,8 @@ class PelicanoHelper
 		$isAlive = false;
 		$modelSetting = Setting::getInstance();
 		
-		$output = exec('fping ' . escapeshellarg($modelSetting->host_file_server));
+		$hostFileServer = rtrim($modelSetting->host_file_server, '/\\'); //saco ultimo slash
+		$output = exec('fping ' . escapeshellarg($hostFileServer));
 		$output = trim($output);
 		
 		echo $output."<br>";
@@ -291,8 +292,8 @@ class PelicanoHelper
 		$output = trim($output);
 		
 		$mountDir = $modelSetting->host_file_server.$modelSetting->host_file_server_path; 
-		$mountDir = preg_replace('#/+#','/',$mountDir); 
-
+		$mountDir = preg_replace('#/+#','/',$mountDir); //saco slash consecutivos 
+		$mountDir = rtrim($mountDir, '/\\'); //saco ultimo slash
 		if(!empty($output))
 		{
 			if(strpos($output,$mountDir) !== false)
