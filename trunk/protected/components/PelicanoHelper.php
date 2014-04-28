@@ -258,13 +258,13 @@ class PelicanoHelper
 		$clientsettings->ip_v6 = $settings->ip_v6;
 		$clientsettings->port_v6 = $settings->port_v6;
 	
-		$clientsettings->isNASAlive = 0;
+		$clientsettings->is_nas_alive = 0;
 		if(self::isAccessibleNasFolder())
 		{
 			$storageUsed = self::getNixStorageUsed($settings->path_shared);		
 			$clientsettings->disc_used_space = $storageUsed['used'];
 			$clientsettings->disc_total_space = $storageUsed['size'];
-			$clientsettings->isNASAlive = 1;
+			$clientsettings->is_nas_alive = 1;
 		}
 		
 		$settingsWS->setClientSettings($clientsettings);
