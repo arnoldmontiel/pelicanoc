@@ -186,30 +186,6 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 				function(data){
 		});
 	});
-    $("a.aficheClickFinished").click(
-    		function()
-    		{
-    			var sourceType = $(this).attr("sourceType");
-    			var id = $(this).attr("idMovie");
-    			var idResource = $(this).attr("idResource");		
-    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
-    			$.ajax({
-    		   		type: 'POST',
-    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowFinishedDetail') ?>',
-    		   		data: param,
-    		 	}).success(function(data)
-    		 	{
-    		 	
-    				$('#myModal').html(data);	
-    		   		$('#myModal').modal({
-    	  				show: true
-    				});		
-    			}
-    		 	);
-    		   	return false;	
-    			
-    		}
-       );
     $("a.aficheClickLocalFolder").click(
     		function()
     		{
@@ -287,6 +263,28 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 		}
 	 	);	
     
+    }
+    
+    function showFinished(object)
+    {
+		var sourceType = $(object).attr("sourceType");
+		var id = $(object).attr("idMovie");
+		var idResource = $(object).attr("idResource");		
+		var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxMovieShowFinishedDetail') ?>',
+	   		data: param,
+	 	}).success(function(data)
+	 	{
+	 	
+			$('#myModal').html(data);	
+	   		$('#myModal').modal({
+  				show: true
+			});		
+		}
+	 	);
+	   	return false;	
     }
     
     
