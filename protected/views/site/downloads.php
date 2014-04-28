@@ -62,7 +62,6 @@ setInterval(function() {
    		{
    			var currentIds = new Array;
    			$.each($('li a.aficheClickNzb'),function(){
-   				//currentIds.push({ idexternalstorage:$(this).attr('idexternalstorage'),sourcetype:$(this).attr('sourcetype'),idresource:$(this).attr('idresource'),idmovie:$(this).attr('idmovie')});
 				currentIds.push($(this).attr('idresource'));
 			});
    				
