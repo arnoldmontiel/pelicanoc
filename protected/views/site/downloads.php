@@ -22,7 +22,7 @@ setInterval(function() {
         $(button).attr('disabled','disabled');
 		$.ajax({
 	   		type: 'POST',
-	   		url: '<?php echo SiteController::createUrl('AjaxDownloadFirst') ?> ',
+	   		url: '".SiteController::createUrl('AjaxDownloadFirst') ."',
 	   		data: {Id_nzb:idNzb},
 	 	}).success(function(data)
 	 	{
