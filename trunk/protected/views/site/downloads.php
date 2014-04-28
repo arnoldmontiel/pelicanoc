@@ -16,7 +16,23 @@ setInterval(function() {
 	updateDownloads();   		   		
    	getNzbStatus();   		
 }, 1000*15)
-
+    
+   	function downloadFirst(idNzb,button)
+    {
+        $(button).attr('disabled','disabled');
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxDownloadFirst') ?> ',
+	   		data: {Id_nzb:idNzb},
+	 	}).success(function(data)
+	 	{
+	 		updateDownloads();	 	
+		}
+	 	);	
+        
+        return false;
+    }
+   		
 	$('ul.nav-pills li a').click(function(){
 		updateFinished($(this).attr('id'));
 	});
@@ -237,21 +253,6 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 	 	}).success(function(data)
 	 	{	 	
 			$('#restart_'+idNzb).attr('disabled','disabled');
-		}
-	 	);	
-        
-        return false;
-    }
-    function downloadFirst(idNzb,button)
-    {
-        $(button).attr("disabled","disabled");
-		$.ajax({
-	   		type: 'POST',
-	   		url: '<?php echo SiteController::createUrl('AjaxDownloadFirst') ?> ',
-	   		data: {Id_nzb:idNzb},
-	 	}).success(function(data)
-	 	{
-	 		updateDownloads();	 	
 		}
 	 	);	
         
