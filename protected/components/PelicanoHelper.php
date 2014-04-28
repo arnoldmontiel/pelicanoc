@@ -258,9 +258,14 @@ class PelicanoHelper
 		$clientsettings->ip_v6 = $settings->ip_v6;
 		$clientsettings->port_v6 = $settings->port_v6;
 	
-		$storageUsed = self::getNixStorageUsed($settings->path_shared);		
-		$clientsettings->disc_used_space = $storageUsed['used'];
-		$clientsettings->disc_total_space = $storageUsed['size'];
+		$clientsettings->isNASAlive = 0;
+		if(self::isAccessibleNasFolder())
+		{
+			$storageUsed = self::getNixStorageUsed($settings->path_shared);		
+			$clientsettings->disc_used_space = $storageUsed['used'];
+			$clientsettings->disc_total_space = $storageUsed['size'];
+			$clientsettings->isNASAlive = 1;
+		}
 		
 		$settingsWS->setClientSettings($clientsettings);
 	
@@ -296,18 +301,22 @@ class PelicanoHelper
 	static public function isAccessibleNasFolder()
 	{
 		$isAccessible = false;
-		$modelSetting = Setting::getInstance();
 		
-		$output = exec('df ' . escapeshellarg($modelSetting->path_shared));
-		$output = trim($output);
-		
-		$mountDir = $modelSetting->host_file_server.$modelSetting->host_file_server_path; 
-		$mountDir = preg_replace('#/+#','/',$mountDir); //saco slash consecutivos 
-		$mountDir = rtrim($mountDir, '/\\'); //saco ultimo slash
-		if(!empty($output))
+		if(self::isNASAlive())
 		{
-			if(strpos($output,$mountDir) !== false)
-				$isAccessible = true;
+			$modelSetting = Setting::getInstance();
+			
+			$output = exec('df ' . escapeshellarg($modelSetting->path_shared));
+			$output = trim($output);
+			
+			$mountDir = $modelSetting->host_file_server.$modelSetting->host_file_server_path; 
+			$mountDir = preg_replace('#/+#','/',$mountDir); //saco slash consecutivos 
+			$mountDir = rtrim($mountDir, '/\\'); //saco ultimo slash
+			if(!empty($output))
+			{
+				if(strpos($output,$mountDir) !== false)
+					$isAccessible = true;
+			}
 		}
 		
 		//echo $output. "<br>";
