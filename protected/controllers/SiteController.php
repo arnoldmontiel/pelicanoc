@@ -139,7 +139,7 @@ class SiteController extends Controller
 			{
 				if($job['nzb_id']==$nzb->Id)
 				{
-					$orderNzb['']=$nzb;
+					$orderNzb[]=$nzb;
 				}
 			}
 			
