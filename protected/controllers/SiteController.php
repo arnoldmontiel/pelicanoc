@@ -144,6 +144,10 @@ class SiteController extends Controller
 			}
 			
 		}
+		if(!empty($orderNzb))
+		{
+			$nzbDownloading =$orderNzb;		
+		}
 				
 		$this->render('downloads',array(
 				'dataProvider'=>$dataProvider,
