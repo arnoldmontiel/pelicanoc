@@ -277,6 +277,8 @@ class PelicanoHelper
 		if(!empty($output))
 			$isAccessible = true;
 		
+		echo $output. "<br>";
+		
 		return $isAccessible;
 	}
 	
