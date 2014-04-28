@@ -135,11 +135,12 @@ class SiteController extends Controller
 		$jobs = $sABnzbdStatus->jobs;
 		foreach ($jobs as $job)
 		{
-			foreach ($nzbDownloading as $nzb)
+			foreach ($nzbDownloading as $key => $nzb)
 			{
 				if($job['nzb_id']==$nzb->Id)
 				{
 					$orderNzb[]=$nzb;
+					unset($nzbDownloading[$key]);
 				}
 			}
 			
