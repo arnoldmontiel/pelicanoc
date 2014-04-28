@@ -40,7 +40,7 @@ $(function() {
     				echo CHtml::openTag("li",array("class"=>"liSlider"));
 					echo CHtml::link(
     				
-    				CHtml::image("images/".$moviePoster,'',array(
+    				CHtml::image(PelicanoHelper::getImageName($moviePoster),'',array(
     								"width"=>"180", "height"=>"260", "border"=>"0",
     								)),
     				
