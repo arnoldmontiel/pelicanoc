@@ -24,6 +24,25 @@ $(function() {
 	<div id="flexsliderMarket" class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
+			    $orderNzb = array();
+			    $jobs = $sABnzbdStatus->jobs;
+			    foreach ($jobs as $job)
+			    {
+			    	foreach ($nzbDownloading as $key => $nzb)
+			    	{
+			    		if($job['nzb_id']==$nzb->Id)
+			    		{
+			    			$orderNzb[]=$nzb;
+			    			unset($nzbDownloading[$key]);
+			    		}
+			    	}
+			    		
+			    }
+			    if(!empty($orderNzb))
+			    {
+			    	$nzbDownloading =$orderNzb;
+			    }
+		    
 		    	$first =true;
     			foreach($nzbDownloading as $nzb)
     			{
