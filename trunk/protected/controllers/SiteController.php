@@ -186,7 +186,6 @@ class SiteController extends Controller
 
 	public function actionAjaxMarketShowDetail()
 	{
-		$id = $_POST['id'];
 		$idNzb = $_POST['idNzb'];
 
 		$modelNzb = Nzb::model()->findByPk($idNzb);
