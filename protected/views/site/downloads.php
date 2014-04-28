@@ -168,67 +168,9 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading))
 ?>
 </div>
 -->
- 
- 
-<div class="pelisDescargadas" style="display:none">
-<!--      empieza peli finalizada-->
-<?php
-foreach($dataProvider->getData() as $record) 
-{
-	$data = $record->myMovieDiscNzb->myMovieNzb;
-	
-	$percentage = 0;	
-	$fileName = explode('.',$record->file_name);
-	$fileName = $fileName[0];
-	if(isset($sABnzbdStatus->jobs))
-	{
-		foreach($sABnzbdStatus->jobs as $job)
-		{
-			if(strpos($job['filename'], $fileName) !== false)
-			{
-				$total = round($job['mb']);
-				$current = round($job["mb"]-$job["mbleft"]);
-					
-				if($total > 0)
-					$percentage = round(($current * 100) / $total);
-					
-				break;
-			}
-		}		
-	}	
-	
- ?>
-	<div class="peliDescargando"><img class="peliAfiche" src="<?php echo 'images/'. $data->poster ?>" border="0">
-		<div class="peliDescargandoProgress">
-			<div class="progress progress-striped active">
-  				<div id="percentage-bar_<?php echo $fileName ?>" class="bar" style="width: <?php echo $percentage ?>%;"><?php echo $percentage ?>%</div>
-			</div>
-		</div>
-	</div>
-<?php } ?>
-<!--      termina peli finalizada-->
-</div>
-
-<div id="ripping-area" style="display:none">
-	<h2 class="sliderTitle">Copiando</h2>
-	<div class="peliDescargando">
-	<?php if(isset($modelMyMovie)): ?>
-		<img id="ripp-image" class="peliAfiche" src="<?php echo 'images/'. $modelMyMovie->poster ?>" border="0">
-	<?php else: ?>
-		<img id="ripp-image" class="peliAfiche" src="" border="0">
-	<?php endif; ?>		
-		<div class="peliDescargandoProgress">
-			<div class="progress progress-striped active">
-				<div id="percentage-bar" class="bar" style="width:0%;">0%</div>				
-			</div>
-		</div>
-		<a id="btn-cancelRipp" class="btn">
-			<i class="icon-th"></i>
-				Cancelar
-		</a>
-	</div>
-
-</div>
+    </div> <!-- /col-md-12 -->
+  </div><!-- /row -->
+</div><!-- /container -->
 <script>
 	$('#btn-cancelRipp').click(function(){
 		$('#btn-cancelRipp').attr("disabled", "disabled");		
@@ -322,8 +264,3 @@ foreach($dataProvider->getData() as $record)
     
     
 </script>
-
-
-    </div> <!-- /col-md-12 -->
-  </div><!-- /row -->
-</div><!-- /container -->
