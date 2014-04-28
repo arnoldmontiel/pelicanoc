@@ -250,7 +250,8 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 	   		url: '<?php echo SiteController::createUrl('AjaxDownloadFirst') ?> ',
 	   		data: {Id_nzb:idNzb},
 	 	}).success(function(data)
-	 	{	 	
+	 	{
+	 		updateDownloads();	 	
 		}
 	 	);	
         
