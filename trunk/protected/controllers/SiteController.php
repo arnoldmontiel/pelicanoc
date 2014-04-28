@@ -192,8 +192,9 @@ class SiteController extends Controller
 		$modelNzb = Nzb::model()->findByPk($idNzb);
 		if(isset($modelNzb))
 		{
+			$modelMyMovieDiscNzb = MyMovieDiscNzb::model()->findByPk($modelNzb->Id_my_movie_disc_nzb);
 			$criteria=new CDbCriteria;
-			
+			$id= $modelMyMovieDiscNzb->Id_my_movie_nzb;
 			$model = MyMovieNzb::model()->findByPk($id);
 			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
