@@ -3,6 +3,18 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function getImageName($name, $posFix = "")
+	{
+		$imagePath = "images/";
+		$defaultImage = 'no_image'.$posFix.'.jpg';
+		$imageName = $imagePath.$defaultImage;
+		
+		if(file_exists($imagePath.$name) && !empty($name))
+			$imageName = $imagePath.$name;
+		
+		return $imageName;
+	}
+	
 	static public function onDeleteCheckES($model, $sourceType)
 	{
 		if($sourceType == 3)
