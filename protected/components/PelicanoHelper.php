@@ -278,7 +278,7 @@ class PelicanoHelper
 		if(!empty($output))
 		{
 			if(strpos($output,'alive') !== false)
-				$isAccessible = true;
+				$isAlive = true;
 		}		
 		
 		echo $output."<br>";
