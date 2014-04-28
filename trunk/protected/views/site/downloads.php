@@ -107,6 +107,7 @@ function getNzbStatus()
 		function(data) 
 		{
 			var result = JSON.parse(data);
+	    	var first = true;
 			for(var index = 0; index < result.length; index++)
 			{			
 	    		if(result[index].nzb_id!='0')
@@ -131,10 +132,15 @@ function getNzbStatus()
 	    			{
 	    				$('#preparing_'+result[index].nzb_id).hide();
 	    				$('#error_'+result[index].nzb_id).hide();
+	    				if(!first)
+	    				{
+	    					$('#queued_'+result[index].nzb_id).show();
+	    				}
 	    				$('#knob_'+result[index].nzb_id).show();	    				
 						$('#'+result[index].nzb_id).val(result[index].nzb_porcent).trigger('change');
 	    			}
 	    		}			
+	    		first = false;
 			}
 		}
 	);
