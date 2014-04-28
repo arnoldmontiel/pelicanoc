@@ -268,12 +268,15 @@ class PelicanoHelper
 	
 	static public function isAccessibleNasFolder()
 	{
-		
+		$isAccessible = false;
 		$modelSetting = Setting::getInstance();
 		
 		$output = exec('df ' . escapeshellarg($modelSetting->path_shared));
 		
-		return $output;
+		if(!empty(trim($output)))
+			$isAccessible = true;
+		
+		return $isAccessible;
 	}
 	
 	static public function getExternalIPAddress()
