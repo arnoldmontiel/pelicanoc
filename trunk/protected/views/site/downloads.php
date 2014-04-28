@@ -150,7 +150,7 @@ $this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filt
 <div id="market-area">
 <?php
 //desde marketplace 
-$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading));
+$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"sABnzbdStatus"=>$sABnzbdStatus));
 ?>
 </div>
 
