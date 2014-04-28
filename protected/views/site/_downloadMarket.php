@@ -55,6 +55,9 @@ $(function() {
     				echo '<div class="preparando" id="preparing_'.$nzb->Id.'" style="display:none"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
     				//error
     				echo '<div class="fallo" id="error_'.$nzb->Id.'" style="display:none"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs" id="restart_'.$nzb->Id.'" onclick="retrytDownload('.$nzb->Id.')"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
+    				//en cola
+    				echo '<div class="frente" id="queued_'.$nzb->Id.'" style="display:none"><div>EN COLA</div><button class="btn btn-primary btn-xs" onclick="downloadFirst('.$nzb->Id.')"><i class="fa fa-chevron-circle-left"></i> Descargar Primero</button></div>';
+    				
     				echo CHtml::closeTag("li");		
     				
     			}
