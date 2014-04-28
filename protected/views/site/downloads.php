@@ -118,11 +118,13 @@ function getNzbStatus()
 	    				if(typeof result[index].error!='undefined'&&result[index].error=='1')
 	    				{
 	    					$('#preparing_'+result[index].nzb_id).hide();
-	    					$('#error_'+result[index].nzb_id).show();
+	    					$('#queued_'+result[index].nzb_id).hide();
+	    					$('#error_'+result[index].nzb_id).show();	    				
 	    				}
 	    				else
 	    				{
 	    					$('#error_'+result[index].nzb_id).hide();
+	    					$('#queued_'+result[index].nzb_id).hide();
 	    					$('#preparing_'+result[index].nzb_id).show();
 	    				}
 					}
