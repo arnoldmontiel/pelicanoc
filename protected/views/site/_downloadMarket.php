@@ -7,6 +7,9 @@ $(function() {
         'inputColor' : "white",
         'font' : "GudeaBold",
         'fgColor' : "white"
+        'draw' : function () { 
+        	$(this.i).val(this.cv + '%')
+         }
     });
 });
 </script>
