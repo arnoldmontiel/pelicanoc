@@ -125,7 +125,7 @@ class SiteController extends Controller
 		
 		$criteriaNzb=new CDbCriteria;
 		//$criteriaNzb->addCondition('t.Id_nzb_state = 2');
-		$criteriaNzb->addCondition('(t.downloading = 1 OR t.downloaded = 1) AND (t.ready_to_play = 0)');
+		$criteriaNzb->addCondition('(t.Id_nzb IS NULL) AND (t.downloading = 1 OR t.downloaded = 1) AND (t.ready_to_play = 0)');
 		//$criteriaExternal->limit=30;
 		//$criteriaExternal->order="read_date DESC";
 		
