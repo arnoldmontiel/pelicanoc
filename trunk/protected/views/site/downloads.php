@@ -186,31 +186,6 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 				function(data){
 		});
 	});
-    $("a.aficheClickLocalFolder").click(
-    		function()
-    		{
-    			var sourceType = $(this).attr("sourceType");
-    			var id = $(this).attr("idMovie");
-    			var idExternalStorage = $(this).attr("idExternalStorage");
-    			var idResource = $(this).attr("idResource");		
-    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource+'&idExternalStorageData='+idExternalStorage; 
-    			$.ajax({
-    		   		type: 'POST',
-    		   		url: '<?php echo SiteController::createUrl('AjaxMovieShowExternalStorageDownloadDetail') ?>',
-    		   		data: param,
-    		 	}).success(function(data)
-    		 	{
-    		 	
-    				$('#myModal').html(data);	
-    		   		$('#myModal').modal({
-    	  				show: true
-    				});		
-    			}
-    		 	);
-    		   	return false;	
-    			
-    		}
-       );
     function retrytDownload(idNzb)
     {
 		$.ajax({
@@ -286,6 +261,27 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 	 	);
 	   	return false;	
     }
-    
+    function showLocalFolder(object)
+    {
+		var sourceType = $(object).attr("sourceType");
+		var id = $(object).attr("idMovie");
+		var idExternalStorage = $(object).attr("idExternalStorage");
+		var idResource = $(object).attr("idResource");		
+		var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource+'&idExternalStorageData='+idExternalStorage; 
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxMovieShowExternalStorageDownloadDetail') ?>',
+	   		data: param,
+	 	}).success(function(data)
+	 	{
+	 	
+			$('#myModal').html(data);	
+	   		$('#myModal').modal({
+  				show: true
+			});		
+		}
+	 	);
+	   	return false;			
+    }    
     
 </script>
