@@ -300,7 +300,7 @@ class PelicanoHelper
 				$isAccessible = true;
 		}
 		
-		//echo $output. "<br>";
+		echo $output. "<br>";
 		
 		return $isAccessible;
 	}
