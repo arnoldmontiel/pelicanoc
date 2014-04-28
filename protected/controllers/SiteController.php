@@ -130,25 +130,6 @@ class SiteController extends Controller
 		//$criteriaExternal->order="read_date DESC";
 		
 		$nzbDownloading = Nzb::model()->findAll($criteriaNzb);
-		
-		$orderNzb = array();
-		$jobs = $sABnzbdStatus->jobs;
-		foreach ($jobs as $job)
-		{
-			foreach ($nzbDownloading as $key => $nzb)
-			{
-				if($job['nzb_id']==$nzb->Id)
-				{
-					$orderNzb[]=$nzb;
-					unset($nzbDownloading[$key]);
-				}
-			}
-			
-		}
-		if(!empty($orderNzb))
-		{
-			$nzbDownloading =$orderNzb;		
-		}
 				
 		$this->render('downloads',array(
 				'dataProvider'=>$dataProvider,
@@ -469,63 +450,7 @@ class SiteController extends Controller
 				return;
 		}
 				
-		$this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter));
-		echo CHtml::script("$('#flexsliderFinished').flexslider({
-				animation: 'slide',
-				animationLoop: false,
-				itemWidth: 165,
-				itemMargin: 5,
-				slideshow: false,
-				touch: true,
-				start: function(slider){
-					$('body').removeClass('loading');
-				}
-			});
-		$('ul.nav-pills li a').click(function(){
-			updateFinished($(this).attr('id'));
-		});
-	function updateFinished(filter)
-	{
-		if(!$('#myModal').is(':visible'))
-   		{
-   			var currentIds = new Array;
-   			$.each($('li a.aficheClickFinished'),function(){
-   				currentIds.push({ sourcetype:$(this).attr('sourcetype'),idresource:$(this).attr('idresource'),idmovie:$(this).attr('idmovie')});
-			});
-   			$.post('" .SiteController::createUrl('AjaxUpdateDownloadFinished'). "',{ids:currentIds,idFilter:filter}
-			).success(
-			function(data){
-				if(data.trim()!='')
-   					$('#finished-area').html(data);
-			});   		
-   		
-   		}
-	}	
-    	$('a.aficheClickFinished').click(
-    		function()
-    		{
-    			var sourceType = $(this).attr('sourceType');
-    			var id = $(this).attr('idMovie');
-    			var idResource = $(this).attr('idResource');		
-    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
-    			$.ajax({
-    		   		type: 'POST',
-    		   		url: '".SiteController::createUrl('AjaxMovieShowFinishedDetail')."',
-    		   		data: param,
-    		 	}).success(function(data)
-    		 	{
-    		 	
-    				$('#myModal').html(data);	
-    		   		$('#myModal').modal({
-    	  				show: true
-    				});		
-    			}
-    		 	);
-    		   	return false;	
-    			
-    		}
-       );");			
-		
+		$this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter,"fromAjax"=>1));						
 	}
 	
 	public function actionAjaxUpdateDownloads()
@@ -555,7 +480,9 @@ class SiteController extends Controller
 					return;
 			}
 		}
-		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs,"fromAjax"=>1));		
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();		
+		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs,"sABnzbdStatus"=>$sABnzbdStatus,"fromAjax"=>1));		
 	}
 	
 	public function acionAjaxUpdateDownloadExternal()
