@@ -551,43 +551,7 @@ class SiteController extends Controller
 			}
 		}
 		
-		$this->renderPartial("_downloadExternal",array('externalStorageDataCopying'=>$externalStorageDataCopying,));
-		echo CHtml::script("$('#flexsliderExternal').flexslider({
-				animation: 'slide',
-				animationLoop: false,
-				itemWidth: 165,
-				itemMargin: 5,
-				slideshow: false,
-				touch: true,
-				start: function(slider){
-					$('body').removeClass('loading');
-				}
-			});
-    	$('a.aficheClickLocalFolder').click(
-    		function()
-    		{
-    			var sourceType = $(this).attr('sourceType');
-    			var id = $(this).attr('idMovie');
-    			var idExternalStorage = $(this).attr('idExternalStorage');
-    			var idResource = $(this).attr('idResource');		
-    			var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource+'&idExternalStorageData='+idExternalStorage; 
-    			$.ajax({
-    		   		type: 'POST',
-    		   		url: '".SiteController::createUrl('AjaxMovieShowExternalStorageDownloadDetail')."',
-    		   		data: param,
-    		 	}).success(function(data)
-    		 	{
-    		 	
-    				$('#myModal').html(data);	
-    		   		$('#myModal').modal({
-    	  				show: true
-    				});		
-    			}
-    		 	);
-    		   	return false;					    
-    		}
-       );");
-	
+		$this->renderPartial("_downloadExternal",array('externalStorageDataCopying'=>$externalStorageDataCopying,"fromAjax"=>1));
 	}
 	
 	public function actionAjaxMovieShowExternalStorageDownloadDetail()
