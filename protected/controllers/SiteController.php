@@ -1335,6 +1335,43 @@ class SiteController extends Controller
 		$this->renderPartial('_playerStatus');
 		
 	}
+	public function actionAjaxPlayNzbByPlayer($idNzb, $idPlayer)
+	{
+		$this->showFilter = false;
+	
+		$player = Player::model()->findByPk($idPlayer);	
+		$nzbModel = Nzb::model()->findByPk($idNzb);
+		$TMDBData =$nzbModel->TMDBData;
+		$folderPath = explode('.',$nzbModel->file_name);
+
+		DuneHelper::playDune($nzbModel->myMovieDiscNzb->myMovieNzb->Id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+
+		$model = $nzbModel->myMovieDiscNzb->myMovieNzb;
+		if(isset($TMDBData))
+		{
+			$backdrop = $TMDBData->backdrop!=""?$TMDBData->backdrop:$model->backdrop;
+			$poster = $TMDBData->big_poster!=""?$TMDBData->big_poster:$model->big_poster;
+		}
+		else
+		{
+			$backdrop = $model->backdrop;
+			$poster = $model->big_poster;
+		}
+		$poster = PelicanoHelper::getImageName($poster, "_big");
+		$backdrop = PelicanoHelper::getImageName($backdrop, "_bd");
+	
+		self::saveCurrentPlayByPlayer($idNzb, 1,$player);
+	
+		$this->render('control',array(
+				'model'=>$model,
+				'backdrop'=>$backdrop,
+				'big_poster'=>$poster,
+				'idResource'=>$idNzb,
+				'sourceType'=>1,
+				'player'=>$player
+		));
+	}
+	
 	public function actionstartByPlayer($id, $idPlayer,$sourceType, $idResource)
 	{
 		$this->showFilter = false;

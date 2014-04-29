@@ -426,6 +426,18 @@ $('#button9').click(function(){
    		data: 'ir_code=EC13BF00',
  	});
 });
+	
+function play(idNzb)
+{
+	$.ajax({
+		type: 'POST',
+	   	url: '". SiteController::createUrl('AjaxPlayNzbByPlayer') . "'
+		data: {idNzb:idNzb,idPlayer:".$player->Id."}
+	}).success(
+		function(data){	 	
+		}
+	);
+}
 		
 ");
 ?>
