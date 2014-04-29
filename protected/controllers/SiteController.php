@@ -146,7 +146,12 @@ class SiteController extends Controller
 	{
 		$sABnzbdStatus= new SABnzbdStatus();
 		$sABnzbdStatus->getStatus();
-		echo CJSON::encode($sABnzbdStatus->jobs);
+		$result['jobs'] = $sABnzbdStatus->jobs;
+		if(isset($sABnzbdStatus->attributes['speed']))
+			$result['speed'] = $sABnzbdStatus->attributes['speed'];
+		if(isset($sABnzbdStatus->attributes['speedlimit']))
+			$result['speedlimit'] = $sABnzbdStatus->attributes['speedlimit'];
+		echo CJSON::encode($result);
 	}
 
 	public function actionAjaxDiscIn()
@@ -477,14 +482,21 @@ class SiteController extends Controller
 		$sABnzbdStatus->getStatus();		
 		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs,"sABnzbdStatus"=>$sABnzbdStatus,"fromAjax"=>1));		
 	}
+	
+	public function actionAjaxSaveSpeedlimit()
+	{
+		PelicanoHelper::setSpeedlimit($_POST['speed']);
+	}
 	public function actionAjaxUpdateDownloads()
 	{
 		$criteriaNzb=new CDbCriteria;
 		$criteriaNzb->addCondition('(downloading = 1 OR downloaded = 1)');
 		$criteriaNzb->addCondition('(ready_to_play = 0)');
 		$criteriaNzb->addCondition('Id_nzb IS NULL');
-		//$criteriaNzb->order="???";
-	
+
+		$sABnzbdStatus= new SABnzbdStatus();
+		$sABnzbdStatus->getStatus();
+		
 		$nzbs = Nzb::model()->findAll($criteriaNzb);
 		$newItem = false;
 		if(isset($_POST['ids']))
@@ -501,23 +513,21 @@ class SiteController extends Controller
 					}
 				}
 			}
-		}
-		$sABnzbdStatus= new SABnzbdStatus();
-		$sABnzbdStatus->getStatus();
-		//se cambio el orden, tambien actualizo
-		$changeOrder = false;
-		$ids = $_POST['ids'];
-		$jobs= $sABnzbdStatus->jobs;
-		foreach ($ids as $key => $id)
-		{
-			if(!isset($jobs[$key]) || $jobs[$key]['nzb_id']!=$id)				
+			//se cambio el orden, tambien actualizo
+			$changeOrder = false;
+			$ids = $_POST['ids'];
+			$jobs= $sABnzbdStatus->jobs;
+			foreach ($ids as $key => $id)
 			{
-				$changeOrder = true;
-				break;
+				if(!isset($jobs[$key]) || $jobs[$key]['nzb_id']!=$id)				
+				{
+					$changeOrder = true;
+					break;
+				}
 			}
+			if(!$newItem && !$changeOrder)
+				return;		
 		}
-		if(!$newItem && !$changeOrder)
-			return;		
 		$this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbs,"sABnzbdStatus"=>$sABnzbdStatus,"fromAjax"=>1));		
 	}
 	

@@ -746,7 +746,13 @@ class PelicanoHelper
 			}			
 		}
 	
-	}	
+	}
+	public static function setSpeedlimit($speed)
+	{
+		$setting = Setting::getInstance();
+		$url =  $setting->sabnzb_api_url."mode=config&name=speedlimit&value=".$speed."&apikey=".$setting->sabnzb_api_key;		
+		$response = @file_get_contents($url);		
+	}
 	public static function cancelDownload($idNzb)
 	{
 		$nzb = Nzb::model()->findByPk($idNzb);

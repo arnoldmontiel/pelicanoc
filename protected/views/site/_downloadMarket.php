@@ -20,7 +20,7 @@ $(function() {
   			</ul>
 			<?php endif?>
     	</div>
-    	<div class="col-md-6 align-right velocidadDescarga">Velocidad de Descarga: 100 mb 
+    	<div class="col-md-6 align-right velocidadDescarga">Velocidad de Descarga: <span id="downloadSpeed">100 KB</span> 
 				<button type="button" class="btn btn-primary btn-xs"
 					data-toggle="modal" data-target="#myModalVelocidad"><i class="fa fa-pencil"></i>
 					</button>
@@ -197,11 +197,11 @@ $(function() {
       <div class="modal-body">
 
   <div class="form-group">
-  <label class="required">Velocidad (en mb) <span class="required">*</span></label>    <input class="form-control"  type="text" value="100">  </div>
+  <label class="required">Velocidad (en KB/s) <span class="required">*</span></label>    <input id ="setSpeedLimit" class="form-control"  type="text" value="">  </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
-        <button id="saveBrand" type="button" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</button>
+        <button type="button" onclick="saveSpeedlimit(this)" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</button>
       </div>
     </div>
 			<!-- /.modal-content -->
