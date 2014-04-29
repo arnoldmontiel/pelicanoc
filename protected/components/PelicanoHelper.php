@@ -283,18 +283,11 @@ class PelicanoHelper
 		$modelPlayer = Player::model()->findByPk($idPlayer);
 		if(isset($modelPlayer))
 		{
-			$playerUrl = rtrim($modelPlayer->url, '/\\'); //saco ultimo slash
-			$output = exec('fping ' . escapeshellarg($playerUrl));
-			$output = trim($output);
-
-			if(!empty($output))
-			{
-				if(strpos($output,'alive') !== false)
-					$isAlive = true;
-			}
+			$modelDune = self::getStateByPlayer($modelPlayer);
+			if(isset($modelDune))
+				$isAlive = true;
 		}	
 	
-		//echo $output."<br>";
 		return $isAlive;
 	}
 	
