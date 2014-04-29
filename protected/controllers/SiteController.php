@@ -1830,12 +1830,14 @@ class SiteController extends Controller
 				if(isset($modelCurrentPlaying->Id_nzb))
 				{
 					$response['type'] = 1;
+					 
 					if(isset($modelCurrentPlaying->nzb->Id_nzb))
-						$response['id'] = $modelCurrentPlaying->nzb->nzb->myMovieDiscNzb->Id_my_movie_nzb;
+						$myMovieDisc = $modelCurrentPlaying->nzb->nzb->myMovieDiscNzb;
 					else
-						$response['id'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->Id_my_movie_nzb;
+						$myMovieDisc = $modelCurrentPlaying->nzb->myMovieDiscNzb;
+					$response['id'] = $myMovieDisc->Id_my_movie_nzb;
 					$response['id_resource'] = $modelCurrentPlaying->Id_nzb;
-					$response['originalTitle'] = $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+					$response['originalTitle'] = $myMovieDisc->myMovieNzb->original_title;
 				}
 				else if(isset($modelCurrentPlaying->Id_ripped_movie))
 				{
