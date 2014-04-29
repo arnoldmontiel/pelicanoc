@@ -29,10 +29,10 @@
 		<i class="fa fa-caret-down"></i>
 		</a>
         <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">     
-		<li><a onclick="play(<?php echo $nzb->Id?>)"><?php echo $nzb->nzbType->description;?></a></li>        	
+		<li><a onclick="play(<?php echo $nzb->Id?>,<?php echo $player->Id ?>)"><?php echo $nzb->nzbType->description;?></a></li>        	
 		<li role="presentation" class="divider"></li>	
      <?php foreach ($nzbs as $nzbItem) {?>
-		<li><a onclick="play(<?php echo $nzbItem->Id?>)"><?php echo $nzbItem->nzbType->description;?></a></li>        	
+		<li><a onclick="play(<?php echo $nzbItem->Id?>,<?php echo $player->Id ?>)"><?php echo $nzbItem->nzbType->description;?></a></li>        	
 		<li role="presentation" class="divider"></li>	
      <?php }?>
 		</ul>
@@ -433,12 +433,12 @@ $('#button9').click(function(){
 <!--
 
 //-->
-function play(idNzb)
+function play(idNzb,idPlayer)
 {
 	$.ajax({
 		type: 'POST',
 	   	url: '<?php echo SiteController::createUrl('AjaxPlayNzbByPlayer')?> ',
-		data: {idNzb:idNzb,idPlayer:".$player->Id."}
+		data: {idNzb:idNzb,idPlayer:idPlayer}
 	}).success(
 		function(data){	 	
 		}
