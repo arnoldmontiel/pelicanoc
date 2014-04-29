@@ -65,7 +65,7 @@
  		{
  			$moviePoster = $modelTMDB->big_poster;
  		}
- 			
+ 		$moviePoster = PelicanoHelper::getImageName($moviePoster, "_big");
 		?>	    
      <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times-circle fa-lg"></i></button>
@@ -74,7 +74,7 @@
     <div class="modal-body"> 
     <div class="row">
     <div class="col-md-3 col-sm-3 align-center">
-    <img class="aficheDetail" src="<?php echo PelicanoHelper::getImageName($moviePoster, "_big");?>" width="100%" height="100%" border="0">
+    <img class="aficheDetail" src="<?php echo $moviePoster;?>" width="100%" height="100%" border="0">
     </div><!--/.col-md-3PRINCIPAL -->
         
     <div class="col-md-9 col-sm-9">

@@ -1378,6 +1378,9 @@ class SiteController extends Controller
 			$backdrop = $model->backdrop;
 			$poster = $model->big_poster;
 		}
+		$poster = PelicanoHelper::getImageName($poster, "_big");
+		$backdrop = PelicanoHelper::getImageName($backdrop, "_bd");
+		
 		self::saveCurrentPlayByPlayer($idResourceCurrentPlay, $sourceType,$player);
 
 		$this->render('control',array(
@@ -1442,6 +1445,9 @@ class SiteController extends Controller
 			$backdrop = $model->backdrop;
 			$poster = $model->big_poster;
 		}
+		$poster = PelicanoHelper::getImageName($poster, "_big");
+		$backdrop = PelicanoHelper::getImageName($backdrop, "_bd");
+		
 		self::saveCurrentPlay($idResourceCurrentPlay, $sourceType);
 	
 		$this->render('control',array(
@@ -1664,6 +1670,8 @@ class SiteController extends Controller
 			$backdrop = $model->backdrop;
 			$poster = $model->big_poster;
 		}
+		$poster = PelicanoHelper::getImageName($poster, "_big");
+		$backdrop = PelicanoHelper::getImageName($backdrop, "_bd");
 		
 		$this->render('control',array(
 				'model'=>$model,

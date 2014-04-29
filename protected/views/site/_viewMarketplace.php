@@ -13,7 +13,7 @@ if(isset($modelTMDB)&&$modelTMDB->poster!="")
 {
 	$moviePoster = $modelTMDB->poster;
 }
-
+$moviePoster = PelicanoHelper::getImageName($moviePoster);
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	$('#link-movie-$model->Id').click(function(){
@@ -46,7 +46,7 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
 	<a id="link-movie-<?php echo $model->Id;?>" style="position:relative;"  data-toggle="modal" href="#" class="">    
         <?php
-		 echo CHtml::image(PelicanoHelper::getImageName($moviePoster),'details',
+		 echo CHtml::image($moviePoster,'details',
 				array('id'=>$model->Id, 'idNzb'=>$data->Id, 'class'=>'peliAfiche'));
 		?>    
     </a>

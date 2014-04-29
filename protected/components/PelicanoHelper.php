@@ -272,6 +272,33 @@ class PelicanoHelper
 	}
 	
 	/**
+	 * Verifica si el Player responde para ver si esta vivo
+	 * @param integer $idPlayer
+	 * @return boolean
+	 */
+	static public function isPlayerAlive($idPlayer)
+	{
+		$isAlive = false;
+		
+		$modelPlayer = Player::model()->findByPk($idPlayer);
+		if(isset($modelPlayer))
+		{
+			$playerUrl = rtrim($modelPlayer->url, '/\\'); //saco ultimo slash
+			$output = exec('fping ' . escapeshellarg($playerUrl));
+			$output = trim($output);
+
+			if(!empty($output))
+			{
+				if(strpos($output,'alive') !== false)
+					$isAlive = true;
+			}
+		}	
+	
+		//echo $output."<br>";
+		return $isAlive;
+	}
+	
+	/**
 	 * Verifica si el NAS responde para ver si esta vivo
 	 * @return boolean
 	 */
