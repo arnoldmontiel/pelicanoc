@@ -1335,10 +1335,12 @@ class SiteController extends Controller
 		$this->renderPartial('_playerStatus');
 		
 	}
-	public function actionAjaxPlayNzbByPlayer($idNzb, $idPlayer)
+	public function actionAjaxPlayNzbByPlayer()
 	{
 		$this->showFilter = false;
-	
+		$idNzb=$_POST['idNzb'];
+		$idPlayer =$_POST['idPlayer'];
+		
 		$player = Player::model()->findByPk($idPlayer);	
 		$nzbModel = Nzb::model()->findByPk($idNzb);
 		$TMDBData =$nzbModel->TMDBData;
