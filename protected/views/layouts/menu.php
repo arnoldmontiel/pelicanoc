@@ -36,9 +36,13 @@
 			</div>
 			<div class="pushMenuGroup">
 			<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-			<a href="#">2013</a>
-			<a href="#">2012</a>
-			<a href="#">2010</a>
+			<ol id="filters">
+		      <li data-filter="all">Reset filters</li>
+		      <li data-filter="2014">2014</li>
+		      <li data-filter="2013">2013</li>
+		      <li data-filter="2012">2012</li>
+		      <li data-filter="2011">2011</li>
+		    </ol>
 			</div>
 			</div>
 			</nav>

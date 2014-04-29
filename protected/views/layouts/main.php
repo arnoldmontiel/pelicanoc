@@ -11,8 +11,6 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <!-- Font Awesome -->
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<!-- Isotope -->
-<link href="css/isotope.css" rel="stylesheet" media="screen">
 <!-- Flexslider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
@@ -33,6 +31,10 @@
 <link href="css/jPushMenu.css" rel="stylesheet" />
 <!-- FastClick -->
 <script src="js/fastclick.js"></script>
+<!-- Wookmark -->
+<link href="js/wookmark/css/main.css" rel="stylesheet" />
+<script src="js/wookmark/jquery.wookmark.js"></script>
+<script src="js/wookmark/libs/jquery.imagesloaded.js"></script>
 <script>
 $(function() {
     FastClick.attach(document.body);
