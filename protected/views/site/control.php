@@ -20,13 +20,10 @@
      ?>
      <?php
      $nzb = Nzb::model()->findByPk($idResource);
-     var_dump($nzb);
      if(isset($nzb->Id_nzb))
      {
      	$nzb = $nzb->nzb;     	
      }
-     var_dump($nzb);
-     return;
      $nzbs=$nzb->nzbs;
      if(!empty($nzbs)):?>
      <div class="chooseFile">

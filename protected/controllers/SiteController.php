@@ -1709,7 +1709,7 @@ class SiteController extends Controller
 				'model'=>$model,
 				'big_poster'=>$poster,
 				'backdrop'=>$backdrop,
-				'idResource'=>$id,
+				'idResource'=>$id_resource,
 				'sourceType'=>$type,
 				'player'=>$player
 		));
