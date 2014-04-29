@@ -431,7 +431,7 @@ function play(idNzb)
 {
 	$.ajax({
 		type: 'POST',
-	   	url: '". SiteController::createUrl('AjaxPlayNzbByPlayer') . "'
+	   	url: '". SiteController::createUrl('AjaxPlayNzbByPlayer') . "',
 		data: {idNzb:idNzb,idPlayer:".$player->Id."}
 	}).success(
 		function(data){	 	
