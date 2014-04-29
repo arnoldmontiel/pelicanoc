@@ -1345,7 +1345,10 @@ class SiteController extends Controller
 		$nzbModel = Nzb::model()->findByPk($idNzb);
 		$TMDBData =$nzbModel->TMDBData;
 		$folderPath = explode('.',$nzbModel->file_name);
-
+		$nzbModel->myMovieDiscNzb->myMovieNzb->Id;
+		$nzbModel->myMovieDiscNzb->myMovieNzb;
+		$nzbModel->myMovieDiscNzb;
+		
 		DuneHelper::playDune($nzbModel->myMovieDiscNzb->myMovieNzb->Id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
 
 		$model = $nzbModel->myMovieDiscNzb->myMovieNzb;
