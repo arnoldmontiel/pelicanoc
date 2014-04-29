@@ -426,7 +426,13 @@ $('#button9').click(function(){
    		data: 'ir_code=EC13BF00',
  	});
 });
-	
+			
+");
+?>
+<script type="text/javascript">
+<!--
+
+//-->
 function play(idNzb)
 {
 	$.ajax({
@@ -438,10 +444,8 @@ function play(idNzb)
 		}
 	);
 }
-		
-");
-?>
 
+</script>
 
 	
 	
