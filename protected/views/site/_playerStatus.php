@@ -5,7 +5,7 @@
 						aria-hidden="true">
 						<i class="fa fa-times-circle fa-lg"></i>
 					</button>
-					<h4 class="modal-title">Reproduciendo</h4>
+					<h4 class="modal-title">Reproducciones</h4>
 				</div>
 				<div class="modal-body">
 					<div class="reproTableContainer">

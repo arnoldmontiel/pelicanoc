@@ -1711,6 +1711,10 @@ background-color:rgba(217, 83, 79, 0.73);}
 
 .fallo .btn{ margin-top:10px;}
 
+.velocidadDescarga{
+color:white; line-height:40px; padding-right:45px;
+}
+
 /*-------- END DESCARGAS --------------*/
 
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
