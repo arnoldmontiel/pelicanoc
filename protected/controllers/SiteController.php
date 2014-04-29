@@ -1337,44 +1337,24 @@ class SiteController extends Controller
 	}
 	public function actionAjaxPlayNzbByPlayer()
 	{
-		$this->showFilter = false;
 		$idNzb=$_POST['idNzb'];
 		$idPlayer =$_POST['idPlayer'];
 		
 		$player = Player::model()->findByPk($idPlayer);	
 		$nzbModel = Nzb::model()->findByPk($idNzb);
-		$TMDBData =$nzbModel->TMDBData;
 		$folderPath = explode('.',$nzbModel->file_name);
-		$nzbModel->myMovieDiscNzb;
-		$nzbModel->myMovieDiscNzb->myMovieNzb;
-		$nzbModel->myMovieDiscNzb->myMovieNzb->Id;
 		
-		DuneHelper::playDune($nzbModel->myMovieDiscNzb->myMovieNzb->Id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
-
-		$model = $nzbModel->myMovieDiscNzb->myMovieNzb;
-		if(isset($TMDBData))
-		{
-			$backdrop = $TMDBData->backdrop!=""?$TMDBData->backdrop:$model->backdrop;
-			$poster = $TMDBData->big_poster!=""?$TMDBData->big_poster:$model->big_poster;
+		if(isset($nzbModel->Id_nzb))
+		{			
+			$idMyMovie = $nzbModel->nzb->myMovieDiscNzb->myMovieNzb->Id;
 		}
 		else
 		{
-			$backdrop = $model->backdrop;
-			$poster = $model->big_poster;
-		}
-		$poster = PelicanoHelper::getImageName($poster, "_big");
-		$backdrop = PelicanoHelper::getImageName($backdrop, "_bd");
-	
+			$idMyMovie = $nzbModel->myMovieDiscNzb->myMovieNzb->Id;			
+		}				
+		DuneHelper::playDune($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+
 		self::saveCurrentPlayByPlayer($idNzb, 1,$player);
-	
-		$this->render('control',array(
-				'model'=>$model,
-				'backdrop'=>$backdrop,
-				'big_poster'=>$poster,
-				'idResource'=>$idNzb,
-				'sourceType'=>1,
-				'player'=>$player
-		));
 	}
 	
 	public function actionstartByPlayer($id, $idPlayer,$sourceType, $idResource)
