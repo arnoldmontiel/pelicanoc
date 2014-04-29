@@ -39,7 +39,10 @@
 													$originalTitle='<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i> ';
 													if(isset($modelCurrentPlaying->Id_nzb))
 													{
-														$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+														if(isset($modelCurrentPlaying->nzb->Id_nzb))
+															$originalTitle .= $modelCurrentPlaying->nzb->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+														else
+															$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
 													}
 													else if(isset($modelCurrentPlaying->Id_ripped_movie))
 													{
