@@ -20,7 +20,7 @@ if(isset($modelTMDB)&&$modelTMDB->poster!="")
 	$moviePoster = $modelTMDB->poster;
 }
 
-//$moviePoster = $data->TMDBData->poster;
+$moviePoster = PelicanoHelper::getImageName($moviePoster);
 
 $genre = preg_replace('/\W/', ' ',strtolower($model->genre));
 $title = preg_replace('/\W/', '-',strtolower($model->original_title));
@@ -60,7 +60,7 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
 <div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
 	<a id="link-movie-<?php echo $model->Id;?>-<?php echo $data->Id;?>-<?php echo $data->source_type;?>" style="position:relative;" href="#myModal" data-toggle="modal" class="">    
         <?php
-		 echo CHtml::image(PelicanoHelper::getImageName($moviePoster),'details',
+		 echo CHtml::image($moviePoster,'details',
 				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
 		?>    
     </a>			

@@ -4,7 +4,7 @@
   <div class="row rowControlVariable">
     <div class="col-sm-4">
     <div class="controlAfiche">
-<img class="aficheImg" src="<?php echo "images/".$big_poster?>" border="0"> 
+<img class="aficheImg" src="<?php echo $big_poster?>" border="0"> 
 </div>   
 </div>
     <!-- /col-sm-4 -->
@@ -164,7 +164,7 @@
  <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	
-	ChangeBG('images/','".$backdrop."');
+	ChangeBG('','".$backdrop."');
 	
 setInterval(function() {
 	//checkEndScene();

@@ -8,6 +8,7 @@ else
 {
 	$moviePoster = $model->big_poster;
 }
+$moviePoster = PelicanoHelper::getImageName($moviePoster,"_big");
 
 if(isset($modelTMDB)&&$modelTMDB->backdrop!="")
 {
@@ -18,10 +19,12 @@ else
 	$backdrop = $model->backdrop;
 }
 
+$backdrop = PelicanoHelper::getImageName($backdrop,"_bd");
+
 Yii::app()->clientScript->registerScript('update-my-movie-post-head', "
 		var date = new Date;	 	
 		if('".$backdrop."'!='')			
-	   		ChangeBG('images/','".$backdrop."'+ '?' +date.valueOf());			
+	   		ChangeBG('','".$backdrop."'+ '?' +date.valueOf());			
 ",CClientScript::POS_BEGIN);
 
 Yii::app()->clientScript->registerScript('update-my-movie', "
@@ -223,7 +226,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <div class="row superContainer">
     <div class="col-md-3">
     <div class="editAfiche">
-<img id="poster" class="aficheImg" src="images/<?php echo $moviePoster;?>" border="0">
+<img id="poster" class="aficheImg" src="<?php echo $moviePoster;?>" border="0">
 </div>
 <div class="editImagesButtons">   
 <a id="open-change-poster" data-toggle="modal"  class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</a>
