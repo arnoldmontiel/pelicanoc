@@ -16,6 +16,7 @@ class SABnzbdStatus extends CModel
 	public $setting; 
 	public $urlXml;
 	public $urlJson;
+	public $urlJsonAdvanced;
 	private $_attributes = array();
 	private $_jobs = array();
 	
@@ -24,6 +25,7 @@ class SABnzbdStatus extends CModel
 		$this->setting = Setting::getInstance();
 		$this->urlXml =  $this->setting->sabnzb_api_url."mode=qstatus&output=xml&apikey=".$this->setting->sabnzb_api_key;
 		$this->urlJson = $this->setting->sabnzb_api_url."mode=qstatus&output=json&apikey=".$this->setting->sabnzb_api_key;
+		$this->urlJsonAdvanced = $this->setting->sabnzb_api_url."mode=queue&start=START&limit=LIMIT&output=json&apikey=".$this->setting->sabnzb_api_key;		
 	}
 	function completeSABNZBDId()
 	{
@@ -215,6 +217,11 @@ class SABnzbdStatus extends CModel
 			$this->completeSABNZBDId();
 			$this->completeQueuedJobs();
 			$this->completeHistoryJobs();
+			
+			$jsonData = @file_get_contents($this->urlJsonAdvanced);
+			$result = CJSON::decode($jsonData,true);
+			if(isset($result['queue']['speedlimit']))
+				$this->_attributes['speedlimit'] = $result['queue']['speedlimit'];
 				
 		} catch (Exception $e) {
 		}

@@ -106,7 +106,11 @@ function getNzbStatus()
 	$.get('".SiteController::createUrl('AjaxRefreshSabNzbStatus')."').success(
 		function(data) 
 		{
+	    	
 			var result = JSON.parse(data);
+			$('#downloadSpeed').html(result.speed+'B/s');
+			$('#setSpeedLimit').val(result.speedlimit);	    				
+			result = result.jobs;
 	    	var first = true;
 			for(var index = 0; index < result.length; index++)
 			{			
@@ -260,6 +264,21 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 		}
 	 	);
 	   	return false;	
+    }
+    function saveSpeedlimit(object)
+    {
+		$.ajax({
+	   		type: 'POST',
+	   		url: '<?php echo SiteController::createUrl('AjaxSaveSpeedlimit') ?> ',
+	   		data: {speed:$("#setSpeedLimit").val()},
+	 	}).success(function(data)
+	 	{
+	 		$('#myModalVelocidad').modal('hide');
+		}
+	 	);	
+        
+        return false;
+        
     }
     function showLocalFolder(object)
     {
