@@ -1,5 +1,3 @@
-	<div class="row">
-    	
     	<script>
 $(function() {
     $(".dial").knob({
@@ -13,15 +11,21 @@ $(function() {
     });
 });
 </script>
-    	<div class="col-md-12">
-			<h2 class="sliderTitle modified">Descargando desde Marketplace</h2> 
-			<?php if(!empty($nzbDownloading)):?>
+    	
+    	<div class="row">
+    	<div class="col-md-6"><h2 class="sliderTitle modified">Descargando desde Marketplace</h2>
+    	<?php if(!empty($nzbDownloading)):?>
 			<ul class="nav nav-pills">
   				 <!-- <li class="active"><a data-toggle="tab" href="#">Todas</a></li> -->
   			</ul>
 			<?php endif?>
-  		</div>
-    </div>
+    	</div>
+    	<div class="col-md-6 align-right velocidadDescarga">Velocidad de Descarga: 100 mb 
+				<button type="button" class="btn btn-primary btn-xs"
+					data-toggle="modal" data-target="#myModalVelocidad"><i class="fa fa-pencil"></i>
+					</button>
+					</div>
+		</div>
 <?php if(!empty($nzbDownloading)):?>
     
 	<div id="flexsliderMarket" class="flexslider carousel">
@@ -183,5 +187,25 @@ $(function() {
 	    });
   <?php endif?>
   </script>
+<div id="myModalVelocidad" class="modal fade in" aria-hidden="false">
+<div class="modal-dialog">
+			<div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h4 class="modal-title">Editar Velocida de Descarga</h4>
+      </div>
+      <div class="modal-body">
 
+  <div class="form-group">
+  <label class="required">Velocidad (en mb) <span class="required">*</span></label>    <input class="form-control"  type="text" value="100">  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+        <button id="saveBrand" type="button" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</button>
+      </div>
+    </div>
+			<!-- /.modal-content -->
+		</div>
+		
+</div>
 
