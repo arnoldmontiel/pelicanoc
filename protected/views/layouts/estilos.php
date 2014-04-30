@@ -5,12 +5,7 @@
  * Copyright 2013 
  */
  
- 
- .grid-sizer{ 
-	width: 180px;
-	height: 295px;}
- .item{  margin-bottom: 10px;}
- #itemsContainer{margin:auto;}
+
  
 @font-face {
 	font-family: 'GudeaRegular';
@@ -856,46 +851,12 @@ h3.popover-title {
 }
 
 
-#wall {
-	text-align: center;
-}
-
-.items {
-	margin: 0 auto !important;
-}
 
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container
 	{
 	width: 100% !important;
 	max-width: 100% !important;
 	min-width: 100% !important;
-}
-
-.element {
-	width: 180px;
-	height: 295px;
-	background-color: none !important;
-	background: none !important;
-	position: relative;
-	overflow: visible;
-	border-top-right-radius: none !important;
-}
-
-.element a{
-display:block;
-}
-
-
-.element a:hover img, .element a:focus img, .element a:active img{
-  -webkit-opacity: 0.5;
-  -moz-opacity: 0.5;
-  opacity: 0.5;
-	background-color: none !important;
-	background: none !important;
-}
-
-.element * {
-	position: relative !important;
 }
 
 .knob {
@@ -988,7 +949,18 @@ white-space: nowrap;
 	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
 }
 
-	/* ------ BODY / MAIN LAYOUT ------- */
+/* ------ END BODY / MAIN LAYOUT ------- */
+
+
+/* -------- ISOTOPE ------------ */
+
+ .grid-sizer{ width: 180px; height: 295px;}
+ 
+ .item{  margin-bottom: 10px;}
+ 
+ #itemsContainer{margin:auto;}
+ 
+/* -------- END ISOTOPE ------------ */
 
 /* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
 .modal {
@@ -2037,20 +2009,11 @@ cursor:inherit;
 
 /* Large desktop */
 @media ( min-width : 1024px) {
-	.element {
-		width: 180px;
-		height: 295px;
-		background-color: none !important;
-		background: none !important;
-	}
-	.peliAfiche {
-		width: 180px;
-		height: 260px;
-	}
-	.controlContainer {
-		/*width:70%;*/
-		
-	}
+
+	 .grid-sizer{ width: 180px; height: 295px;}
+
+	.peliAfiche { width: 180px; height: 260px; }
+
 		
 }
 
@@ -2083,16 +2046,11 @@ font-size:  110% !important;
 	.controlContainer {
 		width: 100%;
 	}
-	.element {
-		width: 180px;
-		height: 295px;
-		background-color: none !important;
-		background: none !important;
-	}
-	.peliAfiche {
-		width: 180px;
-		height: 260px;
-	}
+	
+	 .grid-sizer{ width: 180px; height: 295px;}
+
+	.peliAfiche { width: 180px; height: 260px; }
+	
 	.ribbon {
 		right: -103px;
 		bottom: 84px;
@@ -2129,16 +2087,14 @@ right:-80px; bottom:70px;
 	.navbar .nav>li>a {
 		padding: 10px 10px 10px;
 	}
-	.element {
-		width: 220px;
-		height: 355px;
-		background-color: none !important;
-		background: none !important;
-	}
-	.peliAfiche {
-		width: 220px;
-		height: 320px;
-	}
+	
+	
+
+	 .grid-sizer{ width: 220px; height: 2355px;}
+
+	.peliAfiche { width: 220px; height: 320px; }
+	
+	
 	.controlContainer {
 		width: 100%;
 	}
