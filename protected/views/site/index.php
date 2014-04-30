@@ -1,6 +1,20 @@
 <script type="text/javascript">
 docReady( function() {
   var container = document.querySelector('#itemsContainer');
+
+  //variables para calcular columnas por fila de acuerdo al tama–o del viewport
+  var count = $("#itemsContainer").children().length;
+  var viewport = $( window ).width();
+  var sizer = $( '.grid-sizer' ).width()+10;
+  var idealCols = parseInt(viewport/sizer);
+
+  //si el total es mayor al ideal, centramos, si no, no hay suficientes items a lo ancho y queda feo, entonces a la izquierda
+  //esto se deberia recalcular con los filtros y cambio en el tama–o de la pantalla (capaz es muy complejo)
+  if(count>idealCols){
+	//en este caso deberiamos armar isotope con el isFitWidth=true
+  }else{
+		//en este caso con el isFitWidth=false
+  }
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
   itemSelector: '.item',
@@ -9,6 +23,7 @@ docReady( function() {
     isFitWidth: true,
     gutter: 10
   },
+  
  });
   
 	// layout Isotope again after all images have loaded
