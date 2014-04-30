@@ -31,10 +31,11 @@
 <link href="css/jPushMenu.css" rel="stylesheet" />
 <!-- FastClick -->
 <script src="js/fastclick.js"></script>
-<!-- Wookmark -->
-<link href="js/wookmark/css/main.css" rel="stylesheet" />
-<script src="js/wookmark/jquery.wookmark.js"></script>
-<script src="js/wookmark/libs/jquery.imagesloaded.js"></script>
+<!-- Isotope -->
+<link href="css/isotope.css" rel="stylesheet" media="screen">
+<script src="js/isotope/dist/isotope.pkgd.js"></script>
+<script src="js/isotope/dist/isotope.pkgd.min.js"></script>
+
 <script>
 $(function() {
     FastClick.attach(document.body);
