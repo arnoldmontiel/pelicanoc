@@ -958,6 +958,13 @@ white-space: nowrap;
  
  .item{  margin-bottom: 10px;}
  
+ .item a:hover img, .item a:focus img, .item a:active img{
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+ 
+ 
  #itemsContainer{margin:auto;}
  
 /* -------- END ISOTOPE ------------ */
