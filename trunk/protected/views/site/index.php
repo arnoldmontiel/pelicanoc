@@ -27,26 +27,25 @@ $this->widget('ext.isotope.Isotope',array(
 ?>
 <script type="text/javascript">
 docReady( function() {
-  var container = document.querySelector('#container');
+  var container = document.querySelector('#itemsContainer');
   var iso = window.iso = new Isotope( container, {
     layoutMode: 'fitRows',
     transitionDuration: '0.8s',
-    cellsByRow: {
-      columnWidth: 130,
-      rowHeight: 140,
-    },
     getSortData: {
       number: '.number parseInt',
       symbol: '.symbol',
       name: '.name',
       category: '[data-category]',
-      weight: function( itemElem ) {
-        // remove parenthesis
-        return parseFloat( getText( itemElem.querySelector('.weight') ).replace( /[\(\)]/g, '') );
-      }
     }
+
+	// layout Isotope again after all images have loaded
+ /* imagesLoaded( container, function() {
+	  iso.layout();
+	});*/
+
   });
 
+  
   var options = document.querySelector('#options');
 
   eventie.bind( options, 'click', function( event ) {
@@ -77,7 +76,7 @@ function getText( elem ) {
 
 </script>
     
-<div id="container" role="main">
+<div id="itemsContainer" role="main">
 <?php 
 $modelMovies = Movies::model()->findAll();
 foreach($modelMovies as $data)
@@ -115,10 +114,9 @@ foreach($modelMovies as $data)
 // 	echo '<p>'.$model->production_year.'</p>';	
 // 	echo CHtml::closeTag('li');
 	
-	echo '<div class="element '.$model->production_year.' " data-symbol="Hg" data-category="transition">';
-	echo '<img src="'.$moviePoster.'" height="283" width="200">';
-	echo '<p>'.$model->production_year.'</p>';
-	echo '<p class="weight">200.59</p>';
+	echo '<div class="item '.$model->production_year.' ">';
+	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
+	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
 	echo '</div>';
 	
 	
