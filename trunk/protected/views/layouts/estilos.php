@@ -883,9 +883,10 @@ h3.popover-title {
 
 .ribbon.ribNuevo{
 border-top-color:#26ada1;
-bottom: 79px;
-right: -103px;
+bottom: 26px;
+right: -38px;
 width: 120px;
+padding-left: 12px;
 }
 
 
@@ -956,7 +957,7 @@ white-space: nowrap;
 
  .grid-sizer{ width: 180px; height: 295px;}
  
- .item{  margin-bottom: 10px;}
+ .item{  margin-bottom: 10px; }
  
  .item a:hover img, .item a:focus img, .item a:active img{
   -webkit-opacity: 0.5;
