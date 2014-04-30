@@ -28,9 +28,11 @@
 									<td><?php echo $player->description?></td>
 									<?php
 										$originalTitle='<span class="label label-success">Libre</span>';
+										$isAlive = false;										
 										try {
 											if(PelicanoHelper::isPlayerAlive($player->Id))
 											{
+												$isAlive = true;
 												if(DuneHelper::isPlayingByPlayer($player))
 												{
 													$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
@@ -65,10 +67,16 @@
 										}
 									?>
 									<td><?php echo $originalTitle;?></td>
-									<td class="align-right"><button id="btn-play-player" type="button" onclick="play('<?php echo $id?>', <?php echo $player->Id?>,<?php echo $sourceType?>,<?php echo $idResource?>)"
+									<td class="align-right">
+									<?php if($isAlive):?>
+										<button id="btn-play-player" type="button" onclick="play('<?php echo $id?>', <?php echo $player->Id?>,<?php echo $sourceType?>,<?php echo $idResource?>)"
 											class="btn btn-primary btn-play-by-player">
 											<i class="fa fa-play-circle fa-fw"></i> Reproducir
-										</button></td>
+										</button>
+										<?php else:?>
+											&nbsp;
+										<?php endif?>
+									</td>
 								</tr>		
 							<?php 
 							}
