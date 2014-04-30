@@ -217,7 +217,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	</div><!--/.row -->
 		    
     <div class="row detailSecondGroup">
-    <div class="col-md-3 col-sm-4 align-left detailSecond detailSecondFirst">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     BORRAR
 	</div><!--/.col-md-4 -->
     <div class="col-md-9 col-sm-8 align-left detailSecond">
