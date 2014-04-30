@@ -63,10 +63,10 @@
 											}
 											else 
 											{
-												$originalTitle='<span class="label label-default">Apagado</span>';
+												$originalTitle='<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.';
 											}
 										} catch (Exception $e) {
-											$originalTitle='<span class="label label-default">Apagado</span>';
+											$originalTitle='<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.';
 										}
 									?>
 									<td><?php echo $originalTitle;?></td>
