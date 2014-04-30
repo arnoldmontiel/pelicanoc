@@ -30,7 +30,13 @@
      <div class="chooseFile">
      Ver: 
      <div class="dropdown">
-		<a id="drop" role="button" data-toggle="dropdown" href="#"><?php echo $nzb->nzbType->description;?> 
+		<a id="drop" role="button" data-toggle="dropdown" href="#">
+			<?php 
+			if($isMovieTester)
+				echo $nzb->mkv_file_name;
+			else
+				echo $nzb->nzbType->description;
+			?>
 		<i class="fa fa-caret-down"></i>
 		</a>
         <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">     
@@ -39,7 +45,7 @@
 			if($isMovieTester)
 				echo $nzb->mkv_file_name;
 			else
-				echo $nzb->nzbType->description;				
+				echo $nzb->nzbType->description;
 			?>
 		</a></li>        	
 		<li role="presentation" class="divider"></li>	
