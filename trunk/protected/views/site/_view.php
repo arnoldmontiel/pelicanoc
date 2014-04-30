@@ -25,43 +25,13 @@ $moviePoster = PelicanoHelper::getImageName($moviePoster);
 $genre = preg_replace('/\W/', ' ',strtolower($model->genre));
 $title = preg_replace('/\W/', '-',strtolower($model->original_title));
 
-
-Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$model->Id.$data->Id.$data->source_type, "
-	$('#link-movie-$model->Id-$data->Id-$data->source_type').click(function(){
-		var target = $(this).attr('href');
-		var sourceType = '$data->source_type';
-		var id = '$model->Id';
-		var idResource = '$data->Id';		
-		var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
-		$.ajax({
-	   		type: 'POST',
-	   		url: '". SiteController::createUrl('AjaxMovieShowDetail') . "',
-	   		data: param,
-	 	}).success(function(data)
-	 	{
-	 	
-			$('#myModal').html(data);	
-	   		$('#myModal').modal({
-  				show: true
-			})		
-		}
-	 	);
-	   	return false;	
-		
-});
-
-");
-
 $shortTitle = $model->original_title;
 $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
 ?>
 
-<div class="element post item <?php echo $genre;?> <?php echo $title;?>" title="<?php echo $title;?>">
-	<a id="link-movie-<?php echo $model->Id;?>-<?php echo $data->Id;?>-<?php echo $data->source_type;?>" style="position:relative;" href="#myModal" data-toggle="modal" class="">    
-        <?php
-		 echo CHtml::image($moviePoster,'details',
-				array('id'=>$model->Id, 'idResource'=>$data->Id, 'sourceType'=>$data->source_type, 'class'=>'peliAfiche'));
-		?>    
+<div class="item <?php echo $genre;?>" title="<?php echo $title;?>">
+	<a onclick="openMovieShowDetail('<?php echo $model->Id;?>',<?php echo $data->source_type;?>,<?php echo $data->Id;?>)" style="position:relative;">    
+        <?php echo CHtml::image($moviePoster,'',array('class'=>'peliAfiche'));?>    
     </a>			
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
     
