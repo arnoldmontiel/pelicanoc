@@ -32,8 +32,7 @@
 <!-- FastClick -->
 <script src="js/fastclick.js"></script>
 <!-- Isotope -->
-<link href="css/isotope.css" rel="stylesheet" media="screen">
-<script src="js/isotope/dist/isotope.pkgd.js"></script>
+<script src="js/isotope/dist/imagesloaded.pkgd.min.js"></script>
 <script src="js/isotope/dist/isotope.pkgd.min.js"></script>
 
 <script>
@@ -374,6 +373,32 @@ $(document).ready(function(){
 	<div id="myModalElegirPlayer" class="modal fade in"	style="display: hidden;" aria-hidden="false">
 		<!-- /.modal-dialog -->
 	</div>
+	
+	
+	<div id="myModalAlerta" class="modal fade in"  aria-hidden="false"><div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<i class="fa fa-times-circle fa-lg"></i>
+					</button>
+					<h4 class="modal-title">Alerta</h4>
+				</div>
+				<div class="modal-body">
+				<div class="alert alert-danger noMargin">
+        <h4><i class="fa fa-warning"></i>  La pel&iacute;cula no se encuentra disponible</h4>
+       Esto puede deberse a que la pelicula haya sido borrada o movida de lugar.</br></br>
+Por favor , contacte al administrador.
+      </div>
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+</div>
+	
 <?php
 
 /*
