@@ -63,11 +63,15 @@
 											class="btn btn-primary btn-play-by-player">
 											<i class="fa fa-play-circle fa-fw"></i> Reproducir
 										</button></td>
-								</tr>							
-								
+								</tr>		
 							<?php 
 							}
-							?>
+							?>					
+								<tr>
+									<td>Cocina</td>
+																		<td colspan="2"><span class="label label-default">Offline</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.</td>
+					
+								</tr>
 							</tbody>
 						</table>
 					</div>
