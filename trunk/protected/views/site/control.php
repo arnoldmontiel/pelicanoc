@@ -12,14 +12,15 @@
       <div class="row">
     <div class="col-sm-12">
     <div class="controlTitle"><?php echo $model->original_title?> </div>
-    <!-- <div class="controlTitle"><?php //echo $model->original_title?></div> -->
-    
      <!-- DROPDOWN PARA CAMBIAR ARCHIVO Q ESTOY MIRANDO -->
-     <?php
+     <?php     
      if($sourceType==1):
      ?>
      <?php
-     $nzb = Nzb::model()->findByPk($idResource);
+     $setting = Setting::getInstance();
+     $isMovieTester = $setting->is_movie_tester;
+      
+     $nzb = Nzb::model()->findByPk($idResource);     
      if(isset($nzb->Id_nzb))
      {
      	$nzb = $nzb->nzb;     	
@@ -33,10 +34,24 @@
 		<i class="fa fa-caret-down"></i>
 		</a>
         <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">     
-		<li><a onclick="play(<?php echo $nzb->Id?>,<?php echo $player->Id ?>)"><?php echo $nzb->nzbType->description;?></a></li>        	
+		<li><a onclick="play(<?php echo $nzb->Id?>,<?php echo $player->Id ?>)">		
+			<?php 
+			if($isMovieTester)
+				echo $nzb->mkv_file_name;
+			else
+				echo $nzb->nzbType->description;				
+			?>
+		</a></li>        	
 		<li role="presentation" class="divider"></li>	
      <?php foreach ($nzbs as $nzbItem) {?>
-		<li><a onclick="play(<?php echo $nzbItem->Id?>,<?php echo $player->Id ?>)"><?php echo $nzbItem->nzbType->description;?></a></li>        	
+		<li><a onclick="play(<?php echo $nzbItem->Id?>,<?php echo $player->Id ?>)">
+			<?php
+				if($isMovieTester)
+					echo $nzbItem->mkv_file_name;
+				else
+					echo $nzbItem->nzbType->description;
+			?>
+		</a></li>        	
 		<li role="presentation" class="divider"></li>	
      <?php }?>
 		</ul>
