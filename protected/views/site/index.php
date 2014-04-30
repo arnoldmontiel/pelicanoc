@@ -26,56 +26,58 @@ $this->widget('ext.isotope.Isotope',array(
 ));*/
 ?>
 <script type="text/javascript">
-//$('.element').wookmark();
- (function ($){
-      $('#tiles').imagesLoaded(function() {
-        // Prepare layout options.
-        var options = {
-          autoResize: true, // This will auto-update the layout when the browser window is resized.
-          container: $('#main'), // Optional, used for some extra CSS styling
-          offset: 2, // Optional, the distance between grid items
-          itemWidth: 210, // Optional, the width of a grid item
-          align: 'center',
-          fillEmptySpace: true // Optional, fill the bottom of each column with widths of flexible height
-        };
+docReady( function() {
+  var container = document.querySelector('#container');
+  var iso = window.iso = new Isotope( container, {
+    layoutMode: 'fitRows',
+    transitionDuration: '0.8s',
+    cellsByRow: {
+      columnWidth: 130,
+      rowHeight: 140,
+    },
+    getSortData: {
+      number: '.number parseInt',
+      symbol: '.symbol',
+      name: '.name',
+      category: '[data-category]',
+      weight: function( itemElem ) {
+        // remove parenthesis
+        return parseFloat( getText( itemElem.querySelector('.weight') ).replace( /[\(\)]/g, '') );
+      }
+    }
+  });
 
-        // Get a reference to your grid items.
-        var handler = $('#tiles li'),
-            filters = $('#filters li');
+  var options = document.querySelector('#options');
 
-        // Call the layout function.
-        handler.wookmark(options);
+  eventie.bind( options, 'click', function( event ) {
+    if ( !matchesSelector( event.target, 'button' ) ) {
+      return;
+    }
 
-        /**
-* When a filter is clicked, toggle it's active state and refresh.
-*/
-        function onClickFilter(e) {
-          var $item = $(e.currentTarget),
-              activeFilters = [],
-              filterType = $item.data('filter');
-			
-          if (filterType === 'all') {
-            filters.removeClass('active');
-          } else {
-            $item.toggleClass('active');
+    // var opt = {};
+    var key = event.target.parentNode.getAttribute('data-isotope-key');
+    var value = event.target.getAttribute('data-isotope-value');
 
-            // Collect active filter strings
-            filters.filter('.active').each(function() {
-              activeFilters.push($(this).data('filter'));
-            });
-          }
+    if ( key === 'filter' && value === 'number-greater-than-50' ) {
+      value = function( elem ) {
+        var numberText = getText( elem.querySelector('.number') );
+        return parseInt( numberText, 10 ) > 40;
+      };
+    }
+    console.log( key, value );
+    iso.options[ key ] = value;
+    iso.arrange();
+  });
 
-          handler.wookmarkInstance.filter(activeFilters, 'or');
-        }
+});
 
-        // Capture filter click events.
-        $('#filters').on('click.wookmark-filter', 'li', onClickFilter);
-      });
-    })(jQuery);
+function getText( elem ) {
+  return elem.textContent || elem.innerText;
+}
+
 </script>
     
-<div id="main" role="main">
-	<ul id="tiles">
+<div id="container" role="main">
 <?php 
 $modelMovies = Movies::model()->findAll();
 foreach($modelMovies as $data)
@@ -108,13 +110,20 @@ foreach($modelMovies as $data)
 			
 	
 	//echo CHtml::openTag('li',array('data-filter-class'=>'["london", "art"]'));
-	echo CHtml::openTag('li',array('data-filter-class'=>'["'.$model->production_year.'", "art"]'));
+// 	echo CHtml::openTag('li',array('data-filter-class'=>'["'.$model->production_year.'", "art"]'));
+// 	echo '<img src="'.$moviePoster.'" height="283" width="200">';
+// 	echo '<p>'.$model->production_year.'</p>';	
+// 	echo CHtml::closeTag('li');
+	
+	echo '<div class="element '.$model->production_year.' " data-symbol="Hg" data-category="transition">';
 	echo '<img src="'.$moviePoster.'" height="283" width="200">';
-	echo '<p>'.$model->production_year.'</p>';	
-	echo CHtml::closeTag('li');
+	echo '<p>'.$model->production_year.'</p>';
+	echo '<p class="weight">200.59</p>';
+	echo '</div>';
+	
+	
 }
-?>
-	</ul>
+?>	
 
 </div>
 

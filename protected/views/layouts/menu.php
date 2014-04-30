@@ -36,13 +36,16 @@
 			</div>
 			<div class="pushMenuGroup">
 			<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-			<ol id="filters">
-		      <li data-filter="all">Reset filters</li>
-		      <li data-filter="2014">2014</li>
-		      <li data-filter="2013">2013</li>
-		      <li data-filter="2012">2012</li>
-		      <li data-filter="2011">2011</li>
-		    </ol>
+				<div id="options">
+				  <h2>Filter</h2>
+				  <div class="option-set" data-isotope-key="filter">
+				    <button data-isotope-value="*">show all</button>
+				    <button data-isotope-value=".2011">2011</button>
+				    <button data-isotope-value=".2012">2012</button>
+				    <button data-isotope-value=".2013">2013</button>
+				    <button data-isotope-value=".2014">2014</button>
+				  </div>
+				</div>
 			</div>
 			</div>
 			</nav>
