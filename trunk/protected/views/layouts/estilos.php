@@ -958,6 +958,7 @@ white-space: nowrap;
  .grid-sizer{ width: 180px; height: 295px;}
  
  .item{  margin-bottom: 10px; }
+ .item a{ cursor:pointer;}
  
  .item a:hover img, .item a:focus img, .item a:active img{
   -webkit-opacity: 0.5;

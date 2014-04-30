@@ -30,7 +30,7 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
 ?>
 
 <div class="item <?php echo $genre;?>" title="<?php echo $title;?>">
-	<a onclick="openMovieShowDetail('<?php echo $model->Id;?>',<?php echo $data->source_type;?>,<?php echo $data->Id;?>)" style="position:relative;">    
+	<a onclick="openMovieShowDetail('<?php echo $model->Id;?>',<?php echo $data->source_type;?>,<?php echo $data->Id;?>)">    
         <?php echo CHtml::image($moviePoster,'',array('class'=>'peliAfiche'));?>    
     </a>			
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
