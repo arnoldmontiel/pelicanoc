@@ -47,9 +47,9 @@ docReady( function() {
  });
   
 	// layout Isotope again after all images have loaded
-//    imagesLoaded( container, function() {
-//  	  iso.layout();
-//  	});
+	 imagesLoaded( container, function() {
+  	  iso.layout();
+  	});
 
   var options = document.querySelector('#filters');
 
@@ -83,43 +83,47 @@ function openMovieShowDetail(id, sourceType, idResource)
 <div class="grid-sizer"></div>
 
 <?php 
-$modelMovies = Movies::model()->findAll();
-foreach($modelMovies as $data)
+foreach($dataProvider->getData() as $data) 
 {
-	if($data->source_type == 1)
-	{
-		$model = MyMovieDiscNzb::model()->findByPk($data->Id_my_movie_disc_nzb);
-		$model = $model->myMovieNzb;
-	}
-	else
-	{
-		$model = MyMovieDisc::model()->findByPk($data->Id_my_movie_disc);
-		$model = $model->myMovie;
-	}
-
-	//$modelTMDB =  $data->TMDBData;
-	$modelTMDB =  TMDBData::model()->findByPk($data->Id_TMDB_data);;
-	$moviePoster = $model->poster;
-	if(isset($modelTMDB)&&$modelTMDB->poster!="")
-	{
-		$moviePoster = $modelTMDB->poster;
-	}
-	
-	$moviePoster = PelicanoHelper::getImageName($moviePoster);
-	
-	$genre = preg_replace('/\W/', ' ',strtolower($model->genre));
-	$title = preg_replace('/\W/', '-',strtolower($model->original_title));
-	$shortTitle = $model->original_title;
-	$shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
-	
-	echo '<div class="item comedy '.$model->production_year.' ">';
-	$id = "'$model->Id'";
-	echo '<a onclick="openMovieShowDetail('.$id.', '.$data->source_type.', '.$data->Id.')">';
-	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
-	echo '</a>';
-	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
-	echo '</div>';	
+	echo $this->renderPartial('_view',array('data'=>$data)); 
 }
+
+// foreach($modelMovies as $data)
+// {
+// 	if($data->source_type == 1)
+// 	{
+// 		$model = MyMovieDiscNzb::model()->findByPk($data->Id_my_movie_disc_nzb);
+// 		$model = $model->myMovieNzb;
+// 	}
+// 	else
+// 	{
+// 		$model = MyMovieDisc::model()->findByPk($data->Id_my_movie_disc);
+// 		$model = $model->myMovie;
+// 	}
+
+// 	//$modelTMDB =  $data->TMDBData;
+// 	$modelTMDB =  TMDBData::model()->findByPk($data->Id_TMDB_data);;
+// 	$moviePoster = $model->poster;
+// 	if(isset($modelTMDB)&&$modelTMDB->poster!="")
+// 	{
+// 		$moviePoster = $modelTMDB->poster;
+// 	}
+	
+// 	$moviePoster = PelicanoHelper::getImageName($moviePoster);
+	
+// 	$genre = preg_replace('/\W/', ' ',strtolower($model->genre));
+// 	$title = preg_replace('/\W/', '-',strtolower($model->original_title));
+// 	$shortTitle = $model->original_title;
+// 	$shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
+	
+// 	echo '<div class="item comedy '.$model->production_year.' ">';
+// 	$id = "'$model->Id'";
+// 	echo '<a onclick="openMovieShowDetail('.$id.', '.$data->source_type.', '.$data->Id.')">';
+// 	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
+// 	echo '</a>';
+// 	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
+// 	echo '</div>';	
+// }
 ?>	
 
 </div>

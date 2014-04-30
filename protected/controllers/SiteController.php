@@ -310,7 +310,7 @@ class SiteController extends Controller
 			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
 			$criteria->order = 't.Id ASC';
-			$bookmarks = $modelNzb->bookmarks;
+			$bookmarks = (isset($modelNzb->bookmarks))?$modelNzb->bookmarks:null;
 		}
 		else if($sourceType == 2)
 		{
@@ -319,7 +319,7 @@ class SiteController extends Controller
 			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
 			$criteria->order = 't.Id ASC';
-			$bookmarks = $modelRippedMovie->bookmarks;
+			$bookmarks = (isset($modelRippedMovie->bookmarks))?$modelRippedMovie->bookmarks:null;
 		}
 		else
 		{
@@ -328,7 +328,7 @@ class SiteController extends Controller
 			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
 			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
 			$criteria->order = 't.Id ASC';
-			$bookmarks = $localFolder->bookmarks;
+			$bookmarks = (isset($localFolder->bookmarks))?$localFolder->bookmarks:null;
 		}
 		$casting = $this->getCasting($criteria);
 		$this->renderPartial('_movieDetails',array('model'=>$model,

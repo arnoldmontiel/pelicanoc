@@ -25,35 +25,35 @@
 			<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
-			<div class="pushMenuGroup">
-			<a class="pushMenuRadio pushMenuActive pushTodas" href="#" data-filter="*">Todas</a>
-			<a class="pushMenuRadio pushNuevas" href="#">Sin Ver</a>
-			</div>
-			<div class="pushMenuGroup"  data-filter-group="genre">
-			<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
-			<a href="#" data-filter=".comedy">Comedia</a>
-			<a href="#" data-filter=".romance">Romance</a>
-			<a href="#" data-filter=".fantasy">Fantas&iacute;a</a>
-			</div>
-			<div class="pushMenuGroup"  data-filter-group="year">
-			<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-			<a href="#" data-filter=".2010">2010</a>
-			<a href="#" data-filter=".2012">2012</a>
-			<a href="#" data-filter=".2014">2014</a>
-			</div>
-			<div class="pushMenuGroup">
-			<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-				<div id="options">
-				  <h2>Filter</h2>
-				  <div class="option-set" data-isotope-key="filter">
-				    <button data-isotope-value="*">show all</button>
-				    <button data-isotope-value=".2011">2011</button>
-				    <button data-isotope-value=".2012">2012</button>
-				    <button data-isotope-value=".2013">2013</button>
-				    <button data-isotope-value=".2014">2014</button>
-				  </div>
+				<div class="pushMenuGroup">
+					<a class="pushMenuRadio pushMenuActive pushTodas" href="#" data-filter="*">Todas</a>
+					<a class="pushMenuRadio pushNuevas" href="#">Sin Ver</a>
 				</div>
-			</div>
+				<div class="pushMenuGroup"  data-filter-group="genre">
+					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
+					<a href="#" data-filter=".comedy">Comedia</a>
+					<a href="#" data-filter=".romance">Romance</a>
+					<a href="#" data-filter=".fantasy">Fantas&iacute;a</a>
+				</div>
+				<div class="pushMenuGroup"  data-filter-group="year">
+					<div class="pushMenuGroupTitle">A&Ntilde;O</div>
+					<a href="#" data-filter=".2010">2010</a>
+					<a href="#" data-filter=".2012">2012</a>
+					<a href="#" data-filter=".2014">2014</a>
+				</div>
+				<div class="pushMenuGroup">
+				<div class="pushMenuGroupTitle">A&Ntilde;O</div>
+					<div id="options">
+					  <h2>Filter</h2>
+					  <div class="option-set" data-isotope-key="filter">
+					    <button data-isotope-value="*">show all</button>
+					    <button data-isotope-value=".2011">2011</button>
+					    <button data-isotope-value=".2012">2012</button>
+					    <button data-isotope-value=".2013">2013</button>
+					    <button data-isotope-value=".2014">2014</button>
+					  </div>
+					</div>
+				</div>
 			</div>
 			</nav>
 			<!-- /////////////////////////////////////// -->

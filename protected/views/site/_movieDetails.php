@@ -231,6 +231,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     <div class="tab-pane" id="tab3"><!--/.bookmarks -->
     
+    <?php if(isset($modelBookmarks)):?>
     <?php foreach ($modelBookmarks as $bookmark){?>
 	<div class="row detailSecondGroup">
     <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
@@ -262,6 +263,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     </div><!--/.col-md-9 -->
 	</div><!--/.row -->	    
 	<?php }?>	    
+	<?php endif;?>
 	</div><!--/.tab-pane3 -->
 	
 	</div><!--/.tab-content --> 
