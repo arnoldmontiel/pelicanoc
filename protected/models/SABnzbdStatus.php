@@ -197,8 +197,8 @@ class SABnzbdStatus extends CModel
 				}
 				if($nzb->has_error)
 				{
-					$jobToUpdate['status'] ="Failed";
-					$jobToUpdate['error'] =1;
+					$job['status'] ="Failed";
+					$job['error'] =1;
 				}
 				
 				$this->_jobs[]=$job;
