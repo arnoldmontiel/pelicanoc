@@ -27,15 +27,12 @@ $this->widget('ext.isotope.Isotope',array(
 ?>
 <div id="filters" class="button-group">
   <button data-filter="*">show all</button>
-  <button data-filter=".comedy" onClick="hola(this);">comedy</button>
+  <button data-filter=".comedy">comedy</button>
   <button data-filter=".romance">romance</button>
-  <button data-filter=".alkali, .alkaline-earth">alkali & alkaline-earth</button>
-  <button data-filter=":not(.transition)">not transition</button>
-  <button data-filter=".metal:not(.transition)">metal but not transition</button>
 </div>
 <script type="text/javascript">
 docReady( function() {
-  var container = document.querySelector('#itemsContainer');
+  var container = ('#itemsContainer');
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
   itemSelector: '.item',
@@ -52,6 +49,13 @@ docReady( function() {
  	});
 
 
+   $('#filters').on( 'click', 'button', function() {
+	   var filterValue = $(this).attr('data-filter');
+	   $container.isotope({ filter: filterValue });
+	 });
+     
+ 
+	
 });
 
 function hola(obj){
@@ -62,6 +66,8 @@ function hola(obj){
 	   $container.isotope({ filter: filterValue });
 
 }
+
+
 
 </script>
     
@@ -105,12 +111,18 @@ foreach($modelMovies as $data)
 // 	echo '<p>'.$model->production_year.'</p>';	
 // 	echo CHtml::closeTag('li');
 	
-	echo '<div class="item comedy '.$model->production_year.' ">';
-	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
+	echo '<div class="item comedy '.$model->production_year.' '.$title.'" title="'.$title.'">';
+	echo '<a id="link-movie-'.$model->Id.'-'.$data->Id.'-'.$data->source_type.'" href="#myModal" data-toggle="modal">';  
+	echo '<img id="'.$model->Id.'" idResource="'.$data->Id.'" sourceType="'.$data->source_type.'" src="'.$moviePoster.'" class="peliAfiche">';
+	echo '</a>';
 	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
 	echo '</div>';
-	echo '<div class="item romance '.$model->production_year.' ">';
-	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
+	
+	//ejemplo romance
+	echo '<div class="item romance '.$model->production_year.' '.$title.'" title="'.$title.'">';
+	echo '<a id="link-movie-'.$model->Id.'-'.$data->Id.'-'.$data->source_type.'" href="#myModal" data-toggle="modal">';  
+	echo '<img id="'.$model->Id.'" idResource="'.$data->Id.'" sourceType="'.$data->source_type.'" src="'.$moviePoster.'" class="peliAfiche">';
+	echo '</a>';
 	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
 	echo '</div>';
 	
