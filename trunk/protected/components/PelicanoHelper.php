@@ -282,8 +282,9 @@ class PelicanoHelper
 		
 		$modelPlayer = Player::model()->findByPk($idPlayer);
 		if(isset($modelPlayer))
-		{
-			$modelDune = self::getStateByPlayer($modelPlayer);
+		{	
+			$modelDune = DuneHelper::getStateByPlayer($modelPlayer);
+				
 			if(isset($modelDune))
 				$isAlive = true;
 		}	
