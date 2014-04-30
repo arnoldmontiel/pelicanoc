@@ -174,15 +174,15 @@
 			<!-- /.navbarBotonCollapse -->
 			<div class="nav navbar-nav navbar-right">
 			<div class="dropdown" style="display:inline-block;"><button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-warning"></i> <i class="fa fa-caret-down"></i></button>
-  <ul class="dropdown-menu">
-    <li>Se han detectado los siguientes errores:</li>
-    <li class="divider"></li>
-    <li><i class="fa fa-warning"></i> Error 1</li>
-    <li class="divider"></li>
-    <li><i class="fa fa-warning"></i> Su disco esta por llenarse</li>
-    <li class="divider"></li>
-    <li>Si tiene dudas, contacte al administrador.</li>
-  </ul>
+  <div class="dropdown-menu dropdownAlert">
+    Se han detectado los siguientes errores:
+    <ul class="list-group">
+  <li class="list-group-item list-group-item-warning"><i class="fa fa-exclamation-circle"></i> El disco esta por llenarse</li>
+  <li class="list-group-item list-group-item-danger"><i class="fa fa-ban"></i> Hay players apagados o fuera de servicio</li>
+  <li class="list-group-item list-group-item-danger"><i class="fa fa-ban"></i> El servidor no responde</li>
+</ul>
+    Un reporte fue enviado, si tiene dudas contacte al administrador.
+  </div>
 </div>
 				<button id="player-status" type="button" class="btn btn-default navbar-btn btnReproduciendo btnNoRep"
 					data-toggle="modal"><i class="fa fa-desktop fa-fw"></i>

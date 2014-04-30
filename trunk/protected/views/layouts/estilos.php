@@ -615,6 +615,11 @@ display: inline-block;}
 	height: auto;
 }
 
+
+.dropdownAlert {color:#666; width:450px; padding:10px;}
+.dropdownAlert ul{ margin:15px 0px;}
+.dropdownAlert ul li{ border-color:white !important;}
+
 /* ------ END MENU ------- */
 
 /* ------ MOBILE MENU ------- */
