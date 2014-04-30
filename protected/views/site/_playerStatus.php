@@ -30,35 +30,41 @@
 										$originalTitle='<span class="label label-success">Libre</span>';
 										$libre = true;
 										try {
-											if(DuneHelper::isPlayingByPlayer($player))
+											if(PelicanoHelper::isPlayerAlive($player->Id))
 											{
-												$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
-												if(isset($modelCurrentPlaying))
+												if(DuneHelper::isPlayingByPlayer($player))
 												{
-													$libre=false;
-													$originalTitle='<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i> ';
-													if(isset($modelCurrentPlaying->Id_nzb))
+													$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
+													if(isset($modelCurrentPlaying))
 													{
-														if(isset($modelCurrentPlaying->nzb->Id_nzb))
-															$originalTitle .= $modelCurrentPlaying->nzb->nzb->myMovieDiscNzb->myMovieNzb->original_title;
-														else
-															$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
-													}
-													else if(isset($modelCurrentPlaying->Id_ripped_movie))
-													{
-														$originalTitle .= $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
-													}
-													else if(isset($modelCurrentPlaying->Id_local_folder))
-													{
-														$originalTitle .= $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
-													}
-													else if(isset($modelCurrentPlaying->Id_current_disc))
-													{
-														$originalTitle .= $modelCurrentPlaying->currentDisc->myMovieDisc->myMovie->original_title;
+														$libre=false;
+														$originalTitle='<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i> ';
+														if(isset($modelCurrentPlaying->Id_nzb))
+														{
+															if(isset($modelCurrentPlaying->nzb->Id_nzb))
+																$originalTitle .= $modelCurrentPlaying->nzb->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+															else
+																$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+														}
+														else if(isset($modelCurrentPlaying->Id_ripped_movie))
+														{
+															$originalTitle .= $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
+														}
+														else if(isset($modelCurrentPlaying->Id_local_folder))
+														{
+															$originalTitle .= $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
+														}
+														else if(isset($modelCurrentPlaying->Id_current_disc))
+														{
+															$originalTitle .= $modelCurrentPlaying->currentDisc->myMovieDisc->myMovie->original_title;
+														}
 													}
 												}
 											}
-											
+											else 
+											{
+												$originalTitle='<span class="label label-default">Apagado</span>';
+											}
 										} catch (Exception $e) {
 											$originalTitle='<span class="label label-default">Apagado</span>';
 										}
