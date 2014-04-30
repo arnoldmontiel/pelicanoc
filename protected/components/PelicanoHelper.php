@@ -831,6 +831,9 @@ class PelicanoHelper
 			$setting = Setting::getInstance();
 			try
 			{
+				//si fue descargado y no tuvo error, no reintento
+				if( $nzb->downloading == 0 && $nzb->downloaded==1 && $nzb->has_error == 0)	return;
+				
 				$fileName = explode('.',$nzb->file_name);
 				$fileName = $fileName[0];
 				//antes de iniciar la descarga elemino (si es que existen) las carpetas que pudieron haber quedado de antiguas descargas.
@@ -840,6 +843,7 @@ class PelicanoHelper
 				$to =  dirname(__FILE__)."/../../".$setting->path_ready."/";
 				$params = $from.' '.$to.' '.$fileName.' '.$setting->sabnzb_pwd_file_path;
 				exec(dirname(__FILE__).'/../commands/shell/startDownload.sh '.$params,$output,$return);
+				$nzb->has_error = 0;
 				$nzb->downloaded = 0;
 				$nzb->downloading = 1;
 				$nzb->ready_to_play = 0;
