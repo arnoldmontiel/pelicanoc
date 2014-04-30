@@ -4,6 +4,14 @@
  *
  * Copyright 2013 
  */
+ 
+ 
+ .grid-sizer{ 
+	width: 180px;
+	height: 295px;}
+ .item{  margin-bottom: 10px;}
+ #itemsContainer{margin:auto;}
+ 
 @font-face {
 	font-family: 'GudeaRegular';
 	src: url('fonts/Gudea-Regular.otf');

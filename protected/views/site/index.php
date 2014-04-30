@@ -25,58 +25,49 @@ $this->widget('ext.isotope.Isotope',array(
     'id'=>'wall',
 ));*/
 ?>
+<div id="filters" class="button-group">
+  <button data-filter="*">show all</button>
+  <button data-filter=".comedy" onClick="hola(this);">comedy</button>
+  <button data-filter=".romance">romance</button>
+  <button data-filter=".alkali, .alkaline-earth">alkali & alkaline-earth</button>
+  <button data-filter=":not(.transition)">not transition</button>
+  <button data-filter=".metal:not(.transition)">metal but not transition</button>
+</div>
 <script type="text/javascript">
 docReady( function() {
   var container = document.querySelector('#itemsContainer');
   var iso = window.iso = new Isotope( container, {
-    layoutMode: 'fitRows',
     transitionDuration: '0.8s',
-    getSortData: {
-      number: '.number parseInt',
-      symbol: '.symbol',
-      name: '.name',
-      category: '[data-category]',
-    }
-
-	// layout Isotope again after all images have loaded
- /* imagesLoaded( container, function() {
-	  iso.layout();
-	});*/
-
-  });
-
+  itemSelector: '.item',
+  masonry: {
+    columnWidth: '.grid-sizer',
+    isFitWidth: true,
+    gutter: 10
+  },
+ });
   
-  var options = document.querySelector('#options');
+	// layout Isotope again after all images have loaded
+   imagesLoaded( container, function() {
+ 	  iso.layout();
+ 	});
 
-  eventie.bind( options, 'click', function( event ) {
-    if ( !matchesSelector( event.target, 'button' ) ) {
-      return;
-    }
-
-    // var opt = {};
-    var key = event.target.parentNode.getAttribute('data-isotope-key');
-    var value = event.target.getAttribute('data-isotope-value');
-
-    if ( key === 'filter' && value === 'number-greater-than-50' ) {
-      value = function( elem ) {
-        var numberText = getText( elem.querySelector('.number') );
-        return parseInt( numberText, 10 ) > 40;
-      };
-    }
-    console.log( key, value );
-    iso.options[ key ] = value;
-    iso.arrange();
-  });
 
 });
 
-function getText( elem ) {
-  return elem.textContent || elem.innerText;
+function hola(obj){
+
+	   var filterValue = $(obj).attr('data-filter');
+	   alert(filterValue);
+	   var container = document.querySelector('#itemsContainer');
+	   $container.isotope({ filter: filterValue });
+
 }
 
 </script>
     
 <div id="itemsContainer" role="main">
+<div class="grid-sizer"></div>
+
 <?php 
 $modelMovies = Movies::model()->findAll();
 foreach($modelMovies as $data)
@@ -114,7 +105,11 @@ foreach($modelMovies as $data)
 // 	echo '<p>'.$model->production_year.'</p>';	
 // 	echo CHtml::closeTag('li');
 	
-	echo '<div class="item '.$model->production_year.' ">';
+	echo '<div class="item comedy '.$model->production_year.' ">';
+	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
+	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
+	echo '</div>';
+	echo '<div class="item romance '.$model->production_year.' ">';
 	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
 	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
 	echo '</div>';

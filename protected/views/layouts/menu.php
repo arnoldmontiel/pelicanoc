@@ -29,10 +29,17 @@
 			<a class="pushMenuRadio pushMenuActive pushTodas" href="#" data-filter="*">Todas</a>
 			<a class="pushMenuRadio pushNuevas" href="#">Sin Ver</a>
 			</div>
-			<div class="pushMenuGroup">
+			<div class="pushMenuGroup"  data-filter-group="genre">
+			<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
 			<a href="#" data-filter=".comedy">Comedia</a>
 			<a href="#" data-filter=".romance">Romance</a>
 			<a href="#" data-filter=".fantasy">Fantas&iacute;a</a>
+			</div>
+			<div class="pushMenuGroup"  data-filter-group="year">
+			<div class="pushMenuGroupTitle">A&Ntilde;O</div>
+			<a href="#" data-filter=".2010">2010</a>
+			<a href="#" data-filter=".2012">2012</a>
+			<a href="#" data-filter=".2014">2014</a>
 			</div>
 			<div class="pushMenuGroup">
 			<div class="pushMenuGroupTitle">A&Ntilde;O</div>
@@ -125,9 +132,9 @@
 							?> 
 							<i class="fa fa-caret-down fa-fw"></i></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
+							<!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
 							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
-									Consumos</a></li>
+									Consumos</a></li> -->
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul></li>
 				</ul>
@@ -166,6 +173,17 @@
 			</p>
 			<!-- /.navbarBotonCollapse -->
 			<div class="nav navbar-nav navbar-right">
+			<div class="dropdown" style="display:inline-block;"><button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-warning"></i> <i class="fa fa-caret-down"></i></button>
+  <ul class="dropdown-menu">
+    <li>Se han detectado los siguientes errores:</li>
+    <li class="divider"></li>
+    <li><i class="fa fa-warning"></i> Error 1</li>
+    <li class="divider"></li>
+    <li><i class="fa fa-warning"></i> Su disco esta por llenarse</li>
+    <li class="divider"></li>
+    <li>Si tiene dudas, contacte al administrador.</li>
+  </ul>
+</div>
 				<button id="player-status" type="button" class="btn btn-default navbar-btn btnReproduciendo btnNoRep"
 					data-toggle="modal"><i class="fa fa-desktop fa-fw"></i>
 					<span id="player-status-text"> No hay reproducciones </span><span id="player-status-quantity" class="badge"></span><i id="player-status-arrow" style="display: none;" class="fa fa-caret-down fa-fw"></i> 
@@ -232,6 +250,8 @@ jQuery(document).ready(function($) {
 		  }else{
 			$( this ).toggleClass( "pushMenuActive" );
 		  }
+
+
 	});
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
 		$(".pushSelectable .pushMenuSuperGroup a").removeClass("pushMenuActive");
