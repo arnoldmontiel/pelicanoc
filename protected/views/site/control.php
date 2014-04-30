@@ -20,7 +20,13 @@
      $setting = Setting::getInstance();
      $isMovieTester = $setting->is_movie_tester;
       
-     $nzb = Nzb::model()->findByPk($idResource);     
+     $nzb = Nzb::model()->findByPk($idResource);
+     
+     if($isMovieTester)
+     	$selectedDescription = $nzb->mkv_file_name;
+     else
+     	$selectedDescription = $nzb->nzbType->description;
+      
      if(isset($nzb->Id_nzb))
      {
      	$nzb = $nzb->nzb;     	
@@ -31,11 +37,8 @@
      Ver: 
      <div class="dropdown">
 		<a id="drop" role="button" data-toggle="dropdown" href="#">
-			<?php 
-			if($isMovieTester)
-				echo $nzb->mkv_file_name;
-			else
-				echo $nzb->nzbType->description;
+			<?php
+				echo $selectedDescription; 
 			?>
 		<i class="fa fa-caret-down"></i>
 		</a>
