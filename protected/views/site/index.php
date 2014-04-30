@@ -29,10 +29,13 @@ $this->widget('ext.isotope.Isotope',array(
   <button data-filter="*">show all</button>
   <button data-filter=".comedy">comedy</button>
   <button data-filter=".romance">romance</button>
+  <button data-filter=".alkali, .alkaline-earth">alkali & alkaline-earth</button>
+  <button data-filter=":not(.transition)">not transition</button>
+  <button data-filter=".metal:not(.transition)">metal but not transition</button>
 </div>
 <script type="text/javascript">
 docReady( function() {
-  var container = ('#itemsContainer');
+  var container = document.querySelector('#itemsContainer');
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
   itemSelector: '.item',
@@ -44,31 +47,36 @@ docReady( function() {
  });
   
 	// layout Isotope again after all images have loaded
-   imagesLoaded( container, function() {
- 	  iso.layout();
- 	});
+//    imagesLoaded( container, function() {
+//  	  iso.layout();
+//  	});
 
+  var options = document.querySelector('#filters');
 
-   $('#filters').on( 'click', 'button', function() {
-	   var filterValue = $(this).attr('data-filter');
-	   $container.isotope({ filter: filterValue });
-	 });
-     
- 
-	
+  eventie.bind( options, 'click', function( event ) {
+    var value = event.target.getAttribute('data-filter');
+    iso.options[ 'filter' ] = value;
+    iso.arrange();
+  });
+
 });
 
-function hola(obj){
-
-	   var filterValue = $(obj).attr('data-filter');
-	   alert(filterValue);
-	   var container = document.querySelector('#itemsContainer');
-	   $container.isotope({ filter: filterValue });
-
+function openMovieShowDetail(id, sourceType, idResource)
+{
+	var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
+	$.ajax({
+		type: 'POST',
+		url: "<?php echo SiteController::createUrl('AjaxMovieShowDetail')?>",
+		data: param,
+	}).success(function(data)
+	{	
+		$('#myModal').html(data);	
+		$('#myModal').modal({
+			show: true
+		})		
+	});
+	return false;	
 }
-
-
-
 </script>
     
 <div id="itemsContainer" role="main">
@@ -103,30 +111,14 @@ foreach($modelMovies as $data)
 	$title = preg_replace('/\W/', '-',strtolower($model->original_title));
 	$shortTitle = $model->original_title;
 	$shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
-			
 	
-	//echo CHtml::openTag('li',array('data-filter-class'=>'["london", "art"]'));
-// 	echo CHtml::openTag('li',array('data-filter-class'=>'["'.$model->production_year.'", "art"]'));
-// 	echo '<img src="'.$moviePoster.'" height="283" width="200">';
-// 	echo '<p>'.$model->production_year.'</p>';	
-// 	echo CHtml::closeTag('li');
-	
-	echo '<div class="item comedy '.$model->production_year.' '.$title.'" title="'.$title.'">';
-	echo '<a id="link-movie-'.$model->Id.'-'.$data->Id.'-'.$data->source_type.'" href="#myModal" data-toggle="modal">';  
-	echo '<img id="'.$model->Id.'" idResource="'.$data->Id.'" sourceType="'.$data->source_type.'" src="'.$moviePoster.'" class="peliAfiche">';
+	echo '<div class="item comedy '.$model->production_year.' ">';
+	$id = "'$model->Id'";
+	echo '<a onclick="openMovieShowDetail('.$id.', '.$data->source_type.', '.$data->Id.')">';
+	echo '<img src="'.$moviePoster.'" class="peliAfiche">';
 	echo '</a>';
 	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
-	echo '</div>';
-	
-	//ejemplo romance
-	echo '<div class="item romance '.$model->production_year.' '.$title.'" title="'.$title.'">';
-	echo '<a id="link-movie-'.$model->Id.'-'.$data->Id.'-'.$data->source_type.'" href="#myModal" data-toggle="modal">';  
-	echo '<img id="'.$model->Id.'" idResource="'.$data->Id.'" sourceType="'.$data->source_type.'" src="'.$moviePoster.'" class="peliAfiche">';
-	echo '</a>';
-	echo '<div id="'.$data->Id.'" class="peliTitulo">'.$shortTitle.'</div>';
-	echo '</div>';
-	
-	
+	echo '</div>';	
 }
 ?>	
 
