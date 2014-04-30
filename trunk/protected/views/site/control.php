@@ -37,13 +37,15 @@
      Ver: 
      <div class="dropdown">
 		<a id="drop" role="button" data-toggle="dropdown" href="#">
+		<span id="selectedDescription">
 			<?php
 				echo $selectedDescription; 
 			?>
+			</span>
 		<i class="fa fa-caret-down"></i>
 		</a>
         <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">     
-		<li><a onclick="play(<?php echo $nzb->Id?>,<?php echo $player->Id ?>)">		
+		<li><a onclick="play(this,<?php echo $nzb->Id?>,<?php echo $player->Id ?>)">		
 			<?php 
 			if($isMovieTester)
 				echo $nzb->mkv_file_name;
@@ -53,7 +55,7 @@
 		</a></li>        	
 		<li role="presentation" class="divider"></li>	
      <?php foreach ($nzbs as $nzbItem) {?>
-		<li><a onclick="play(<?php echo $nzbItem->Id?>,<?php echo $player->Id ?>)">
+		<li><a onclick="play(this,<?php echo $nzbItem->Id?>,<?php echo $player->Id ?>)">
 			<?php
 				if($isMovieTester)
 					echo $nzbItem->mkv_file_name;
@@ -461,14 +463,15 @@ $('#button9').click(function(){
 <!--
 
 //-->
-function play(idNzb,idPlayer)
+function play(object,idNzb,idPlayer)
 {
 	$.ajax({
 		type: 'POST',
 	   	url: '<?php echo SiteController::createUrl('AjaxPlayNzbByPlayer')?> ',
 		data: {idNzb:idNzb,idPlayer:idPlayer}
 	}).success(
-		function(data){	 	
+		function(data){
+			$("#selectedDescription").html($(object).html());	 	
 		}
 	);
 }
