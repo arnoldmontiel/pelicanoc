@@ -25,8 +25,8 @@
 			<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
-				<div class="pushMenuGroup">
-					<a class="pushMenuRadio pushMenuActive pushTodas" href="#" data-filter="*">Todas</a>
+				<div class="pushMenuGroup" data-filter-group="all">
+					<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>
 					<a class="pushMenuRadio pushNuevas" href="#">Sin Ver</a>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="genre">
@@ -47,15 +47,15 @@
 			<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
-				<div class="pushMenuGroup">
+				<div class="pushMenuGroup" data-filter-group="all">
 					<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>
 					<a class="pushMenuRadio pushNuevas" href="#">Nuevas</a>
 				</div>
-				<div class="pushMenuGroup">
+				<div class="pushMenuGroup"  data-filter-group="genre">
 					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
 					<?php echo PelicanoHelper::getLeftFilter('genre');?>
 				</div>
-				<div class="pushMenuGroup">
+				<div class="pushMenuGroup"  data-filter-group="year">
 					<div class="pushMenuGroupTitle">A&Ntilde;O</div>
 					<?php echo PelicanoHelper::getLeftFilter('year');?>
 				</div>
@@ -236,7 +236,25 @@ jQuery(document).ready(function($) {
 		$(".pushSelectable .pushMenuSuperGroup a.pushMenuRadio.pushTodas").addClass("pushMenuActive");
 	});
 
-	
+	$( ".pushSelectable .pushTodas" ).click(function() {
+		$(".pushSelectable .pushMenuSuperGroup a").removeClass("pushMenuActive");
+		$(".pushSelectable .pushMenuSuperGroup a.pushMenuRadio.pushTodas").addClass("pushMenuActive");
+	});	
 		
 });
+</script>
+<script type="text/javascript">
+
+//store filters
+var filters = [];
+filters['year'] = [];
+filters['genre'] = [];
+
+function clearFilters()
+{
+	for ( var prop in filters ) 
+	{
+		filters[prop] = [];
+	}
+}
 </script>
