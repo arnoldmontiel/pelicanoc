@@ -351,6 +351,33 @@ class PelicanoHelper
 	
 		return $isAlive;
 	}
+	static public function canStart($sourceType,$idResource)
+	{
+		$sourceType = $_POST['sourceType'];
+		$idResource = $_POST['idResource'];
+		
+		$setting = Setting::getInstance();
+		switch ($sourceType)
+		{
+			case 1:
+				$nzbModel = Nzb::model()->findByPk($idResource);
+				$folderPath = explode('.',$nzbModel->file_name);
+				if(@file_exists($setting->path_shared.'/'.$folderPath[0].'/'.$nzbModel->path)!==false)	return 1;
+				break;
+			case 2:
+				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
+				if(@file_exists($setting->path_shared.'/'.$nzbRippedMovie->path)!==false)	return 1;
+				break;
+			case 3:
+				$localFolder = LocalFolder::model()->findByPk($idResource);
+				if(@file_exists($setting->path_shared.'/'.$localFolder->path)!==false)	return 1;
+				break;
+			case 4:
+				//no se puede validar
+				break;
+		}
+		return 0;		
+	}
 	
 	/**
 	 * Verifica si el NAS responde para ver si esta vivo

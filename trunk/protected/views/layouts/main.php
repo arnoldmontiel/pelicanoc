@@ -364,7 +364,7 @@ $(document).ready(function(){
 				<div class="alert alert-danger noMargin">
         <h4><i class="fa fa-warning"></i>  La pel&iacute;cula no se encuentra disponible</h4>
        Esto puede deberse a que la pelicula haya sido borrada o movida de lugar.</br></br>
-Por favor , contacte al administrador.
+Por favor, contacte al administrador.
       </div>
 				
 				</div>

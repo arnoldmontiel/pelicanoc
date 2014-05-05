@@ -97,13 +97,30 @@
 function play(id, idPlayer,sourceType,idResource)
 {
 	$(".btn-play-by-player").attr("disabled", "disabled");
-	var params = {
-    	id:id,
-    	idPlayer:idPlayer,
-    	sourceType:sourceType,
-    	idResource:idResource
-	};
-	window.location = "<?php echo SiteController::createUrl('site/startByPlayer'); ?>&"+$.param( params );	
+	$.post("<?php echo SiteController::createUrl('AjaxArnold'); ?>",
+			{
+				idResource:idResource,
+			    sourceType:sourceType
+			}
+			).success(
+				function(data){
+					alert(data)
+					if(data == "1")
+					{
+						var params = {
+						    	id:id,
+						    	idPlayer:idPlayer,
+						    	sourceType:sourceType,
+						    	idResource:idResource
+							};
+							window.location = "<?php echo SiteController::createUrl('site/startByPlayer'); ?>&"+$.param( params );
+					}else
+					{
+						$("#myModalElegirPlayer").modal("hide");
+						$("#myModalAlerta").modal("show");						
+					}
+				
+			});
 }
 							
 </script>
