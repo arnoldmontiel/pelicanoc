@@ -259,4 +259,16 @@ function clearFilters()
 	}
 	$('#main-search').val('');
 }
+
+$(document).keypress(function(e) {
+    if(e.keyCode == 13) 
+    {
+    	if($('*:focus').attr('id') == 'main-search')
+    	{
+    		$('#main-search').change();
+    		return false;
+    	}    	
+    	return false; 
+    }
+});
 </script>
