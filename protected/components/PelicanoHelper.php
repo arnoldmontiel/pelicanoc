@@ -16,7 +16,7 @@ class PelicanoHelper
 		if($flr == 'year')
 		{
 			foreach($movies as $item)
-				$filters .= '<a href="#" data-filter=".flr-'.$item->year.'">'.$item->year.'</a>';			
+				$filters .= '<a href="#" data-filter="flr-'.$item->year.'">'.$item->year.'</a>';			
 		}
 		else 
 		{
@@ -32,7 +32,7 @@ class PelicanoHelper
 			}
 			asort($genres);
 			foreach($genres as $value)
-				$filters .= '<a href="#" data-filter=".flr-'.strtolower($value).'">'.$value.'</a>';
+				$filters .= '<a href="#" data-filter="flr-'.strtolower($value).'">'.$value.'</a>';
 		}
 		
 		

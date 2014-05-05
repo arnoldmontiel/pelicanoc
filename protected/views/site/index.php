@@ -39,7 +39,8 @@ docReady( function() {
     	             
     	        // test each filter
     	        if ( filter ) {
-    	          isMatched = isMatched || $(this).is( filter );
+    	          //isMatched = isMatched || $(this).is( filter );
+    	          isMatched = isMatched || $(this).is('[class*="'+filter+'"]')
     	        }
 
     	      }   
@@ -75,6 +76,23 @@ docReady( function() {
 	    iso.arrange();
 	  });
 
+  $('#main-search').change(function(){
+ 		
+	  	var $this = $(this);
+	    var key = $this.parent().attr('data-filter-group');
+	    
+	    filters[key] = [];
+	    
+	    var value = 'flr-' + $this.val().toLowerCase().trim().replace(/ /gi,'-');
+	    
+	    if(value.lenght != 0)
+	    {
+			filters[key].push(value);
+	    	iso.arrange();
+	    }
+	});
+	
+  
 });
 
 

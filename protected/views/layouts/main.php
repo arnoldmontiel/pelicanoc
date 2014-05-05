@@ -249,29 +249,6 @@ $(document).ready(function(){
 		$('#wall .items').infinitescroll('filterText');
 		});
 	
-	$(document).keypress(function(e) {
-	    if(e.keyCode == 13) 
-	    {
-	    	if($('*:focus').attr('id') == 'main-search')
-	    	{
-	    		$('#main-search').change();
-	    		return false;
-	    	}    	
-	    	if($('*:focus').attr('id') == 'search-query-filter')
-	    	{
-	    		$("#search-query-filter").change();
-	    		$("#search-query-filter").trigger('blur');
-	    		return false;
-	    	}    	
-	    	return false; 
-	    }
-	});
-	
-	$('#main-search').change(function(){
-		var searchFilter = $(this).val().toLowerCase().trim().replace(/ /gi,'-');
-	 	$('#search-filter').val(searchFilter); 	 	
-		$('#wall .items').infinitescroll('filterText');  
-	});
 
 	$('#nav a').click(function(){
 		window.location = $(this).attr('href');

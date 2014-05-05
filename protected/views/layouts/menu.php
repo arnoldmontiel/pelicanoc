@@ -195,7 +195,7 @@
 			</div>
 				<div class="filterDesc pull-left">Todas las Peliculas</div>
 			<form class="navbar-form navbar-right" role="search">
-				<div class="searchMain form-group">
+				<div class="searchMain form-group" data-filter-group="title">
 					<input id="main-search" type="text" class="form-control form-search" placeholder=" Buscar Pel&iacute;cula">
 				</div>
 			</form>
@@ -249,6 +249,7 @@ jQuery(document).ready(function($) {
 var filters = [];
 filters['year'] = [];
 filters['genre'] = [];
+filters['title'] = [];
 
 function clearFilters()
 {
@@ -256,5 +257,6 @@ function clearFilters()
 	{
 		filters[prop] = [];
 	}
+	$('#main-search').val('');
 }
 </script>
