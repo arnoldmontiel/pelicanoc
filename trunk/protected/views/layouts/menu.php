@@ -31,28 +31,11 @@
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="genre">
 					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
-					<a href="#" data-filter=".comedy">Comedia</a>
-					<a href="#" data-filter=".romance">Romance</a>
-					<a href="#" data-filter=".fantasy">Fantas&iacute;a</a>
+					<?php echo PelicanoHelper::getLeftFilter('genre');?>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="year">
 					<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-					<a href="#" data-filter=".2010">2010</a>
-					<a href="#" data-filter=".2012">2012</a>
-					<a href="#" data-filter=".2014">2014</a>
-				</div>
-				<div class="pushMenuGroup">
-				<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-					<div id="options">
-					  <h2>Filter</h2>
-					  <div class="option-set" data-isotope-key="filter">
-					    <button data-isotope-value="*">show all</button>
-					    <button data-isotope-value=".2011">2011</button>
-					    <button data-isotope-value=".2012">2012</button>
-					    <button data-isotope-value=".2013">2013</button>
-					    <button data-isotope-value=".2014">2014</button>
-					  </div>
-					</div>
+					<?php echo PelicanoHelper::getLeftFilter('year');?>
 				</div>
 			</div>
 			</nav>

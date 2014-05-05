@@ -22,14 +22,13 @@ if(isset($modelTMDB)&&$modelTMDB->poster!="")
 
 $moviePoster = PelicanoHelper::getImageName($moviePoster);
 
-$genre = preg_replace('/\W/', ' ',strtolower($model->genre));
-$title = preg_replace('/\W/', '-',strtolower($model->original_title));
-
 $shortTitle = $model->original_title;
 $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
+
+
 ?>
 
-<div class="item <?php echo $genre;?>" title="<?php echo $title;?>">
+<div class="item <?php echo PelicanoHelper::getFilters($model); ?>">
 	<a onclick="openMovieShowDetail('<?php echo $model->Id;?>',<?php echo $data->source_type;?>,<?php echo $data->Id;?>)">    
         <?php echo CHtml::image($moviePoster,'',array('class'=>'peliAfiche'));?>    
     </a>			

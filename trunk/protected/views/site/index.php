@@ -1,28 +1,51 @@
 <script type="text/javascript">
+
+//store filters
+var filters = [];
+
 docReady( function() {
   var container = document.querySelector('#itemsContainer');
 
-  //variables para calcular columnas por fila de acuerdo al tama–o del viewport
+  //variables para calcular columnas por fila de acuerdo al tamaï¿½o del viewport
   var count = $("#itemsContainer").children().length;
   var viewport = $( window ).width();
   var sizer = $( '.grid-sizer' ).width()+10;
   var idealCols = parseInt(viewport/sizer);
-
+  
+  var hasFitWidth = false;
   //si el total es mayor al ideal, centramos, si no, no hay suficientes items a lo ancho y queda feo, entonces a la izquierda
-  //esto se deberia recalcular con los filtros y cambio en el tama–o de la pantalla (capaz es muy complejo)
+  //esto se deberia recalcular con los filtros y cambio en el tamaï¿½o de la pantalla (capaz es muy complejo)
   if(count>idealCols){
 	//en este caso deberiamos armar isotope con el isFitWidth=true
-  }else{
-		//en este caso con el isFitWidth=false
+	  hasFitWidth = true
   }
+  
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
   itemSelector: '.item',
   masonry: {
     columnWidth: '.grid-sizer',
-    isFitWidth: true,
+    isFitWidth: hasFitWidth,
     gutter: 10
   },
+  filter: function() {
+      var isMatched = true;
+      var $this = $(this);
+
+      if(filters.length > 0)
+    	  isMatched = false;
+	  
+      for ( var index = 0; index < filters.length; index++ ) {
+        var filter = filters[ index ];
+             
+        // test each filter
+        if ( filter ) {
+          isMatched = isMatched || $(this).is( filter );
+        }
+
+      }
+      return isMatched;
+    }
   
  });
   
@@ -31,15 +54,18 @@ docReady( function() {
   	  iso.layout();
   	});
 
-  var options = document.querySelector('#filters');
-
-  eventie.bind( options, 'click', function( event ) {
-    var value = event.target.getAttribute('data-filter');
-    iso.options[ 'filter' ] = value;
-    iso.arrange();
-  });
+  $('.pushMenuGroup').on( 'click', 'a', function() {
+	    var $this = $(this);
+	    	    
+	    if($this.hasClass('pushMenuActive'))
+	    	filters.push($this.attr('data-filter'));
+	    else
+	    	filters.splice( filters.indexOf( $this.attr('data-filter') ), 1 );	    
+	    iso.arrange();
+	  });
 
 });
+
 
 function openMovieShowDetail(id, sourceType, idResource)
 {
@@ -62,15 +88,6 @@ function openMovieShowDetail(id, sourceType, idResource)
 <div class="container" id="screenHome" >
 	<div class="row">
     	<div class="col-md-12">
-			<div id="filters" class="button-group">
-			  <button data-filter="*">show all</button>
-			  <button data-filter=".comedy">comedy</button>
-			  <button data-filter=".romance">romance</button>
-			  <button data-filter=".alkali, .alkaline-earth">alkali & alkaline-earth</button>
-			  <button data-filter=":not(.transition)">not transition</button>
-			  <button data-filter=".metal:not(.transition)">metal but not transition</button>
-			</div>
-    
 			<div id="itemsContainer" role="main">
 				<div class="grid-sizer"></div>
 					<?php 
