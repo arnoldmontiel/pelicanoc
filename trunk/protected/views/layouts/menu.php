@@ -47,23 +47,18 @@
 			<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
-			<div class="pushMenuGroup">
-			<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>
-			<a class="pushMenuRadio pushNuevas" href="#">Nuevas</a>
-			</div>
-			<div class="pushMenuGroup">
-			<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
-			<a href="#">Comedia</a>
-			<a href="#">Drama</a>
-			<a href="#">Romance</a>
-			<a href="#">Thriller</a>
-			</div>
-			<div class="pushMenuGroup">
-			<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-			<a href="#">2013</a>
-			<a href="#">2012</a>
-			<a href="#">2010</a>
-			</div>
+				<div class="pushMenuGroup">
+					<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>
+					<a class="pushMenuRadio pushNuevas" href="#">Nuevas</a>
+				</div>
+				<div class="pushMenuGroup">
+					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
+					<?php echo PelicanoHelper::getLeftFilter('genre');?>
+				</div>
+				<div class="pushMenuGroup">
+					<div class="pushMenuGroupTitle">A&Ntilde;O</div>
+					<?php echo PelicanoHelper::getLeftFilter('year');?>
+				</div>
 			</div>
 			</nav>
 			<!-- /////////////////////////////////////// -->
