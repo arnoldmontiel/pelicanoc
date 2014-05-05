@@ -266,6 +266,7 @@ $(document).keypress(function(e) {
     	if($('*:focus').attr('id') == 'main-search')
     	{
     		$('#main-search').change();
+    		$("#main-search").trigger('blur');
     		return false;
     	}    	
     	return false; 
