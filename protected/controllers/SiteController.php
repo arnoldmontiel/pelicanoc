@@ -1365,13 +1365,14 @@ class SiteController extends Controller
 		
 		$play = false;
 		$idResourceCurrentPlay = 0;
+		$resultPlay = true;
 		switch ($sourceType) {
 			case 1:
 				$nzbModel = Nzb::model()->findByPk($idResource);
 				$TMDBData =$nzbModel->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$nzbModel->file_name);
-				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+				$resultPlay = DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
 
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
@@ -1379,7 +1380,7 @@ class SiteController extends Controller
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
 				$TMDBData =$nzbRippedMovie->TMDBData;
 				$idResourceCurrentPlay = $idResource;
-				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path,$player);
+				$resultPlay = DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path,$player);
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
@@ -1388,7 +1389,7 @@ class SiteController extends Controller
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
 				//commentar para que el play ande mas rapido
-				DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
+				$resultPlay = DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
 
 				$model = MyMovie::model()->findByPk($id);
 				break;
@@ -1400,6 +1401,7 @@ class SiteController extends Controller
 				$model = MyMovie::model()->findByPk($id);
 				break;
 		}
+		if($resultPlay == false) 	return "";
 		if(isset($TMDBData))
 		{
 			$backdrop = $TMDBData->backdrop!=""?$TMDBData->backdrop:$model->backdrop;
@@ -1433,13 +1435,14 @@ class SiteController extends Controller
 	
 		$play = false;
 		$idResourceCurrentPlay = 0;
+		$resultPlay = true;
 		switch ($sourceType) {
 			case 1:
 				$nzbModel = Nzb::model()->findByPk($idResource);
 				$TMDBData =$nzbModel->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$nzbModel->file_name);
-				DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+				$resultPlay = DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
 	
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
@@ -1447,7 +1450,7 @@ class SiteController extends Controller
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
 				$TMDBData =$nzbRippedMovie->TMDBData;
 				$idResourceCurrentPlay = $idResource;
-				DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path,$player);
+				$resultPlay = DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path,$player);
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
@@ -1455,7 +1458,7 @@ class SiteController extends Controller
 				$TMDBData =$localFolder->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
-				DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
+				$resultPlay = DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
 	
 				$model = MyMovie::model()->findByPk($id);
 				break;
@@ -1467,6 +1470,7 @@ class SiteController extends Controller
 				$model = MyMovie::model()->findByPk($id);
 				break;
 		}
+		if($resultPlay == false)	return "";
 		if(isset($TMDBData))
 		{
 			$backdrop = $TMDBData->backdrop!=""?$TMDBData->backdrop:$model->backdrop;
