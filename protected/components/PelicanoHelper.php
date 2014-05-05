@@ -26,7 +26,7 @@ class PelicanoHelper
 				$movieGenres = explode(', ',$item->genre);
 				foreach($movieGenres as $value)
 				{
-					if(! in_array($value,$genres))
+					if(!empty($value) && ! in_array($value,$genres))
 						$genres[] = $value;
 				}				
 			}
