@@ -1428,6 +1428,9 @@ class SiteController extends Controller
 	}
 	public function actionAjaxCanStart()
 	{
+		$sourceType = $_POST['sourceType'];
+		$idResource = $_POST['idResource'];
+		
 		echo PelicanoHelper::canStart($sourceType,$idResource);
 	}
 	public function actionStart($id, $sourceType, $idResource)

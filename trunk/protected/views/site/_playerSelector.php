@@ -97,14 +97,13 @@
 function play(id, idPlayer,sourceType,idResource)
 {
 	$(".btn-play-by-player").attr("disabled", "disabled");
-	$.post("<?php echo SiteController::createUrl('AjaxArnold'); ?>",
+	$.post("<?php echo SiteController::createUrl('AjaxCanStart'); ?>",
 			{
 				idResource:idResource,
 			    sourceType:sourceType
 			}
 			).success(
 				function(data){
-					alert(data)
 					if(data == "1")
 					{
 						var params = {
