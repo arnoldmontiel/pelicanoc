@@ -1426,6 +1426,10 @@ class SiteController extends Controller
 				'player'=>$player
 		));
 	}
+	public function actionAjaxCanStart()
+	{
+		echo PelicanoHelper::canStart($sourceType,$idResource);
+	}
 	public function actionStart($id, $sourceType, $idResource)
 	{
 		$this->showFilter = false;
