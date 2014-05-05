@@ -3,6 +3,66 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function getLeftFilter($flr)
+	{
+		$filters = "";
+		
+		$criteria = new CDbCriteria();
+		$criteria->select = 'distinct '. $flr;
+		$criteria->order = $flr.' DESC';
+		
+		$movies = Movies::model()->findAll($criteria);
+		
+		if($flr == 'year')
+		{
+			foreach($movies as $item)
+				$filters .= '<a href="#" data-filter=".flr-'.$item->year.'">'.$item->year.'</a>';			
+		}
+		else 
+		{
+			$genres = array();
+			foreach($movies as $item)
+			{
+				$movieGenres = explode(', ',$item->genre);
+				foreach($movieGenres as $value)
+				{
+					if(! in_array($value,$genres))
+						$genres[] = $value;
+				}				
+			}
+			asort($genres);
+			foreach($genres as $value)
+				$filters .= '<a href="#" data-filter=".flr-'.strtolower($value).'">'.$value.'</a>';
+		}
+		
+		
+		return $filters;
+	}
+	
+	static public function getFilters($model)
+	{
+		$year = "";
+		$title = "";
+		$genre = "";
+		
+		if(isset($model->genre))
+		{
+			$genre = preg_replace('/[ ,]+/', ' flr-',strtolower($model->genre));
+			$genre = 'flr-'.$genre;
+		}
+		
+		if(isset($model->original_title))
+		{
+			$title = preg_replace('/\W/', '-',strtolower($model->original_title));
+			$title = 'flr-'.$title;
+		}
+		
+		if(isset($model->production_year))
+			$year = 'flr-'.$model->production_year;
+				
+		return $genre . ' ' . $title . ' ' . $year;	
+	}
+	
 	static public function getImageName($name, $posFix = "")
 	{
 		$imagePath = "images/";

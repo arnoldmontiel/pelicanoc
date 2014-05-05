@@ -9,6 +9,10 @@
  * @property string Id_my_movie_disc
  * @property string $source_type
  * @property string $date
+ * @property string $title
+ * @property integer $Id_TMDB_data
+ * @property string $year
+ * @property string $genre
  */
 class Movies extends CActiveRecord
 {
@@ -38,13 +42,16 @@ class Movies extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id', 'numerical', 'integerOnly'=>true),
+			array('Id, Id_TMDB_data', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc_nzb, Id_my_movie_disc', 'length', 'max'=>200),
 			array('source_type', 'length', 'max'=>20),
+			array('title', 'length', 'max'=>100),
+			array('year', 'length', 'max'=>45),
+			array('genre', 'length', 'max'=>255),
 			array('date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_my_movie_disc_nzb, Id_my_movie_disc, source_type, date', 'safe', 'on'=>'search'),
+			array('Id, Id_my_movie_disc_nzb, Id_my_movie_disc, source_type, date, title, Id_TMDB_data, year, genre', 'safe', 'on'=>'search'),
 		);
 	}
 
