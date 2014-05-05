@@ -743,7 +743,9 @@ class PelicanoHelper
 									$modelMyMovieNzb->save();
 										
 									//grabo episodios
-									$episodes = $item->myMovie->myMovieSerieHeader->myMovieSeason->Episode;
+									$episodes = array();
+									if(isset($item->myMovie->myMovieSerieHeader->myMovieSeason->Episode))
+										$episodes = $item->myMovie->myMovieSerieHeader->myMovieSeason->Episode;
 									foreach($episodes as $episode)
 									{
 										$modelMyMovieEpisode = MyMovieEpisode::model()->findByAttributes(array(
