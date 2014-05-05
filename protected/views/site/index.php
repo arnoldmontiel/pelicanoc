@@ -1,8 +1,5 @@
 <script type="text/javascript">
 
-//store filters
-var filters = [];
-
 docReady( function() {
   var container = document.querySelector('#itemsContainer');
 
@@ -30,20 +27,28 @@ docReady( function() {
   },
   filter: function() {
       var isMatched = true;
-      var $this = $(this);
+      var $this = $(this);      
 
-      if(filters.length > 0)
-    	  isMatched = false;
-	  
-      for ( var index = 0; index < filters.length; index++ ) {
-        var filter = filters[ index ];
-             
-        // test each filter
-        if ( filter ) {
-          isMatched = isMatched || $(this).is( filter );
-        }
+      for ( var prop in filters ) 
+      {          
+    	  if(filters[prop].length > 0)
+        	  isMatched = false;
+    	  
+    	  for ( var index = 0; index < filters[prop].length; index++ ) {
+    	        var filter = filters[prop][ index ];
+    	             
+    	        // test each filter
+    	        if ( filter ) {
+    	          isMatched = isMatched || $(this).is( filter );
+    	        }
 
-      }
+    	      }   
+	      
+    	// break if not matched
+          if ( !isMatched && filters[prop].length > 0) {
+            break;
+          }
+      }     
       return isMatched;
     }
   
@@ -56,11 +61,17 @@ docReady( function() {
 
   $('.pushMenuGroup').on( 'click', 'a', function() {
 	    var $this = $(this);
-	    	    
-	    if($this.hasClass('pushMenuActive'))
-	    	filters.push($this.attr('data-filter'));
+	    var key = $this.parent().attr('data-filter-group');
+	    if(key == 'all')
+			clearFilters();		    
 	    else
-	    	filters.splice( filters.indexOf( $this.attr('data-filter') ), 1 );	    
+	    {
+		    if($this.hasClass('pushMenuActive'))
+		    	filters[key].push($this.attr('data-filter'));
+		    else
+		    	filters[key].splice( filters[key].indexOf( $this.attr('data-filter') ), 1 );
+	    }
+    	
 	    iso.arrange();
 	  });
 
