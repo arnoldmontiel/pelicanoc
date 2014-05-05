@@ -303,6 +303,22 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 
 		  	
   <script>
+	$("#myModalElegirPlayer").on('hidden.bs.modal',
+			function(e)
+			{
+				$("#btn-play").removeAttr("disabled");
+				$("#myModal").modal('show');
+				$("#myModalElegirPlayer").html('');
+			}
+		);						
+	$("#myModalAlerta").on('hidden.bs.modal',
+			function(e)
+			{
+				$("#btn-play").removeAttr("disabled");
+				$("#myModal").modal('show');
+			}
+		);						
+	
   function borrar()
   {
 	$.post("<?php echo SiteController::createUrl('AjaxRemoveMovie'); ?>",
@@ -409,7 +425,31 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 		if(count($setting->players)==1)
 		{
 		?>
-			window.location = <?php echo '"'. SiteController::createUrl('site/start',array('id'=>$model->Id,'sourceType'=>$sourceType,'idResource'=>$idResource)) . '"'; ?>;
+
+		$.post("<?php echo SiteController::createUrl('AjaxCanStart'); ?>",
+				{
+					idResource:'<?php echo $idResource; ?>',
+				    sourceType:'<?php echo $sourceType; ?>'
+				}
+				).success(
+					function(data){
+						if(data == "1")
+						{
+							var params = {
+							    	id:'<?php echo $model->Id; ?>',
+							    	idPlayer:<?php echo $setting->players[0]->Id?>,
+							    	sourceType:'<?php echo $sourceType; ?>',
+							    	idResource:'<?php echo $idResource; ?>'
+								};
+								window.location = "<?php echo SiteController::createUrl('site/startByPlayer'); ?>&"+$.param( params );
+						}else
+						{
+							$("#myModal").modal("hide");
+							$("#myModalAlerta").modal("show");
+													
+						}
+					
+				});
 		<?php 
 		}else{
 		?>   
@@ -423,14 +463,6 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 				).success(
 					function(data){
 						$("#myModalElegirPlayer").html( data);						
-						$("#myModalElegirPlayer").on('hidden.bs.modal',
-							function(e)
-							{
-								$("#btn-play").removeAttr("disabled");
-								$("#myModal").modal('show');
-								$("#myModalElegirPlayer").html('');
-							}
-						);						
 						$("#myModal").modal('hide');
 						$("#myModalElegirPlayer").modal('show');						
 					});

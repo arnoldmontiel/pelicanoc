@@ -352,10 +352,7 @@ class PelicanoHelper
 		return $isAlive;
 	}
 	static public function canStart($sourceType,$idResource)
-	{
-		$sourceType = $_POST['sourceType'];
-		$idResource = $_POST['idResource'];
-		
+	{		
 		$setting = Setting::getInstance();
 		switch ($sourceType)
 		{
