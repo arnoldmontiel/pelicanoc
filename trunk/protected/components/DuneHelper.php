@@ -72,6 +72,7 @@ class DuneHelper
 			$userAndPass=$userAndPass."@";		
 		$url = $url . '//' . $userAndPass . $setting->host_file_server . $setting->host_file_server_path .$path;
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
+		if(@file_exists($setting->path_shared.$path)==false)	return false;
 		@file_get_contents($url);
 		return true;
 	}
