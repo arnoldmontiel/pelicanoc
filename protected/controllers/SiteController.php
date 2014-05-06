@@ -1450,7 +1450,10 @@ class SiteController extends Controller
 						$result['playing']= 1;
 						if(isset($modelCurrentPlaying->Id_nzb))
 						{
-							$result['title']= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+							if(isset($modelCurrentPlaying->nzb->Id_nzb))
+								$result['title']= $modelCurrentPlaying->nzb->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+							else
+								$result['title']= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
 						}
 						else if(isset($modelCurrentPlaying->Id_ripped_movie))
 						{

@@ -21,12 +21,92 @@
 							<?php 		
 							$setting = Setting::getInstance();
 							$players = $setting->players;
+							$originalTitle='<span class="label label-default">Cargando</span>';
 							foreach ($players as $player)
 							{
+								echo CHtml::hiddenField("player",$player->Id,array('id'=>'player'));
+								
 							?>
 								<tr>
 									<td><?php echo $player->description?></td>
-									<?php
+									
+									<td id="td_status_<?php echo $player->Id?>"><?php echo $originalTitle;?></td>
+									<td class="align-right">
+										&nbsp;
+										<button id="btn_dune_control_<?php echo $player->Id?>" style="display: none;" type="button" onclick="control('<?php $player->Id?>')" class="btn btn-primary btn-play-by-player">
+											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto	
+										</button>
+										</td>
+								</tr>							
+								
+							<?php 
+							}
+							?>
+							</tbody>
+							
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-lg"
+						data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		
+<script>
+function control(idPlayer)
+{
+    	$.post("<?php echo SiteController::createUrl('AjaxGetPlaybackByPlayer'); ?>",{idPlayer:idPlayer}
+    	).success(
+    		function(data){
+        		if(data != null)
+        		{        			
+        			var obj = jQuery.parseJSON(data);
+        			if(obj.id != 0)
+        			{
+        				var param = '&id=' + obj.id + '&type=' + obj.type + '&id_resource=' + obj.id_resource+'&id_player=' + idPlayer;
+        				window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
+        				return false;
+        			}
+        		}
+    		},"json");
+		return false;
+}
+function fillStatus()
+{
+	$.each( $('[name="player"]'), function( key, value ) {
+		$.post("<?php echo SiteController::createUrl('AjaxGetPlayerStatus'); ?>",
+				{
+					idPlayer:$(this).val()
+				}
+				).success(
+					function(data){
+						 obj = jQuery.parseJSON(data);
+						 if(obj.powerOff == "1")
+						 {
+							  $("#td_status_"+obj.idPlayer).html('<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.');
+						 }
+						 else if(obj.playing == "1")
+						 {
+							  $("#td_status_"+obj.idPlayer).html('<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i>'+obj.title);						 
+							  $("#btn_dune_control_"+obj.idPlayer).show();
+						 }
+						 else
+						 {
+							  $("#td_status_"+obj.idPlayer).html('<span class="label label-success">Libre</span>');
+						 }
+					
+				});
+			})
+}
+fillStatus();
+
+</script>
+
+<?php
+return;
 										$originalTitle='<span class="label label-success">Libre</span>';
 										$libre = true;
 										try {
@@ -69,64 +149,3 @@
 											$originalTitle='<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.';
 										}
 									?>
-									<td><?php echo $originalTitle;?></td>
-									<td class="align-right">
-									<?php if($libre){
-										echo "&nbsp;";
-									}else{
-										echo'<button id="btn-dune-control" type="button" onclick=control('.$player->Id.') class="btn btn-primary btn-play-by-player">
-											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto	
-										</button>';
-									};?>
-									
-										</td>
-								</tr>							
-								
-							<?php 
-							}
-							?>
-							</tbody>
-							
-						</table>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btn-lg"
-						data-dismiss="modal">Cerrar</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		
-<script>
-function control(idPlayer)
-{
-    	$.post("<?php echo SiteController::createUrl('AjaxGetPlaybackByPlayer'); ?>",{idPlayer:idPlayer}
-    	).success(
-    		function(data){
-        		if(data != null)
-        		{        			
-        			var obj = jQuery.parseJSON(data);
-        			if(obj.id != 0)
-        			{
-        				var param = '&id=' + obj.id + '&type=' + obj.type + '&id_resource=' + obj.id_resource+'&id_player=' + idPlayer;
-        				window.location = <?php echo '"'. SiteController::createUrl('OpenDuneControl') . '"'; ?> + param;    	
-        				return false;
-        			}
-        		}
-    		},"json");
-		return false;
-}
-function play(id, idPlayer,sourceType,idResource)
-{
-	$(".btn-play-by-player").attr("disabled", "disabled");
-	var params = {
-    	id:id,
-    	idPlayer:idPlayer,
-    	sourceType:sourceType,
-    	idResource:idResource
-	};
-	//window.location = "<?php echo SiteController::createUrl('site/startByPlayer'); ?>&"+$.param( params );	
-}
-							
-</script>
