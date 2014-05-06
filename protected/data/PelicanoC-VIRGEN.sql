@@ -1630,6 +1630,31 @@ LOCK TABLES `subtitle` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `system_status`
+--
+
+DROP TABLE IF EXISTS `system_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `system_status` (
+  `Id` int(11) NOT NULL,
+  `error_players` tinyint(4) DEFAULT '0',
+  `error_NAS` tinyint(4) DEFAULT '0',
+  `error_NAS_space` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `system_status`
+--
+
+LOCK TABLES `system_status` WRITE;
+/*!40000 ALTER TABLE `system_status` DISABLE KEYS */;
+/*!40000 ALTER TABLE `system_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tmdb`
 --
 
