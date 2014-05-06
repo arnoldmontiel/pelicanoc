@@ -31,6 +31,7 @@
 									
 									<td id="td_status_<?php echo $player->Id?>"><?php echo $originalTitle;?></td>
 									<td class="align-right">
+										&nbsp;
 										<button id="btn_play_<?php echo $player->Id?>" style="display: none;" type="button" onclick="play('<?php echo $id?>', <?php echo $player->Id?>,<?php echo $sourceType?>,<?php echo $idResource?>)"
 											class="btn btn-primary btn-play-by-player">
 											<i class="fa fa-play-circle fa-fw"></i> Reproducir
@@ -110,45 +111,3 @@ function fillStatus()
 fillStatus();
 							
 </script>
-
-<?php
-return;
-		$originalTitle='<span class="label label-success">Libre</span>';
-		$isAlive = false;										
-		try {
-			if(PelicanoHelper::isPlayerAlive($player->Id))
-			{
-				$isAlive = true;
-				if(DuneHelper::isPlayingByPlayer($player))
-				{
-					$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
-					if(isset($modelCurrentPlaying))
-					{
-						$originalTitle='<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i> ';
-						if(isset($modelCurrentPlaying->Id_nzb))
-						{
-							$originalTitle .= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
-						}
-						else if(isset($modelCurrentPlaying->Id_ripped_movie))
-						{
-							$originalTitle .= $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
-						}
-						else if(isset($modelCurrentPlaying->Id_local_folder))
-						{
-							$originalTitle .= $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
-						}
-						else if(isset($modelCurrentPlaying->Id_current_disc))
-						{
-							$originalTitle .= $modelCurrentPlaying->currentDisc->myMovieDisc->myMovie->original_title;
-						}
-					}
-				}
-			}
-			else
-			{												
-				$originalTitle='<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.';
-			}												
-		} catch (Exception $e) {
-			$originalTitle='<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.';
-		}
-?>
