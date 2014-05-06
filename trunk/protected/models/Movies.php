@@ -13,6 +13,7 @@
  * @property integer $Id_TMDB_data
  * @property string $year
  * @property string $genre
+ * @property string $is_new
  */
 class Movies extends CActiveRecord
 {
@@ -44,14 +45,14 @@ class Movies extends CActiveRecord
 		return array(
 			array('Id, Id_TMDB_data', 'numerical', 'integerOnly'=>true),
 			array('Id_my_movie_disc_nzb, Id_my_movie_disc', 'length', 'max'=>200),
-			array('source_type', 'length', 'max'=>20),
+			array('source_type, is_new', 'length', 'max'=>20),
 			array('title', 'length', 'max'=>100),
 			array('year', 'length', 'max'=>45),
 			array('genre', 'length', 'max'=>255),
 			array('date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_my_movie_disc_nzb, Id_my_movie_disc, source_type, date, title, Id_TMDB_data, year, genre', 'safe', 'on'=>'search'),
+			array('Id, Id_my_movie_disc_nzb, Id_my_movie_disc, source_type, date, title, Id_TMDB_data, year, genre, is_new', 'safe', 'on'=>'search'),
 		);
 	}
 

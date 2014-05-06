@@ -25,9 +25,9 @@
 			<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
-				<div class="pushMenuGroup" data-filter-group="all">
-					<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>
-					<a class="pushMenuRadio pushNuevas" href="#">Sin Ver</a>
+				<div class="pushMenuGroup" data-filter-group="header">
+					<a class="pushMenuRadio pushMenuActive pushTodas" href="#" data-filter="*">Todas</a>
+					<a class="pushMenuRadio pushNuevas" href="#" data-filter="flr-isnew">Sin Ver</a>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="genre">
 					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
@@ -247,6 +247,7 @@ jQuery(document).ready(function($) {
 
 //store filters
 var filters = [];
+filters['header'] = [];
 filters['year'] = [];
 filters['genre'] = [];
 filters['title'] = [];

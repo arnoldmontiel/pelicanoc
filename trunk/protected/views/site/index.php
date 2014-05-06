@@ -63,17 +63,27 @@ docReady( function() {
   $('.pushMenuGroup').on( 'click', 'a', function() {
 	    var $this = $(this);
 	    var key = $this.parent().attr('data-filter-group');
-	    if(key == 'all')
-			clearFilters();		    
-	    else
+	    if(key != 'header')
 	    {
 		    if($this.hasClass('pushMenuActive'))
 		    	filters[key].push($this.attr('data-filter'));
 		    else
 		    	filters[key].splice( filters[key].indexOf( $this.attr('data-filter') ), 1 );
+		    
 	    }
-    	
+	    else
+	    {
+		    if($this.attr('data-filter') != "*")
+		    {
+		    	filters[key] = [];
+	    		filters[key].push($this.attr('data-filter'));
+		    }
+		    else
+	    		clearFilters();
+	    }
+	    
 	    iso.arrange();
+	    
 	  });
 
   $('#main-search').change(function(){
