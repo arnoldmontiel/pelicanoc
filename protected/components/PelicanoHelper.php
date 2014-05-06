@@ -44,6 +44,7 @@ class PelicanoHelper
 		$year = "";
 		$title = "";
 		$genre = "";
+		$new = "";
 		
 		if(isset($model->genre))
 		{
@@ -51,16 +52,19 @@ class PelicanoHelper
 			$genre = 'flr-'.$genre;
 		}
 		
-		if(isset($model->original_title))
+		if(isset($model->title))
 		{
-			$title = preg_replace('/\W/', '-',strtolower($model->original_title));
+			$title = preg_replace('/\W/', '-',strtolower($model->title));
 			$title = 'flr-'.$title;
-		}
+		}		
 		
-		if(isset($model->production_year))
-			$year = 'flr-'.$model->production_year;
-				
-		return $genre . ' ' . $title . ' ' . $year;	
+		if(isset($model->year))
+			$year = 'flr-'.$model->year;
+
+		if(isset($model->is_new))
+			$new = ($model->is_new == 1)?'flr-isnew':'';
+		
+		return $genre . ' ' . $title . ' ' . $year . ' ' . $new;	
 	}
 	
 	static public function getImageName($name, $posFix = "")

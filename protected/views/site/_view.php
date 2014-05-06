@@ -28,31 +28,12 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
 
 ?>
 
-<div class="item <?php echo PelicanoHelper::getFilters($model); ?>">
+<div class="item <?php echo PelicanoHelper::getFilters($data); ?>">
 	<a onclick="openMovieShowDetail('<?php echo $model->Id;?>',<?php echo $data->source_type;?>,<?php echo $data->Id;?>)">    
         <?php echo CHtml::image($moviePoster,'',array('class'=>'peliAfiche'));?>    
     </a>			
     <div id="<?php echo $data->Id;?>" class="peliTitulo"><?php echo $shortTitle;?></div>
-    
-    <?php
-    $currentPlays=array();
-    switch ($data->source_type) {
-    	case 1:
-    		$currentPlays= CurrentPlay::model()->findByAttributes(array('Id_nzb'=>$data->Id));
-    		break;
-    	case 2:
-    		$currentPlays= CurrentPlay::model()->findByAttributes(array('Id_ripped_movie'=>$data->Id));
-    		break;
-    	case 3:
-    		$currentPlays= CurrentPlay::model()->findByAttributes(array('Id_local_folder'=>$data->Id));
-    		break;
-    	default:
-    		$currentPlays=array();
-    		break;
-    }
-    
-    ?>
-    <?php if(empty($currentPlays)):?>
+    <?php if($data->is_new):?>
      <div class="ribbon ribNuevo">
         <div class="ribbonTxt">
             NUEVO
