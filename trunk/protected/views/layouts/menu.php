@@ -100,7 +100,7 @@
         </div> -->
 			<div class="nav navbar-nav navbar-right hidden-sm hidden-xs">
 				<ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+					<li class="dropdown" ><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">
 							<i class="fa fa-user fa-fw"></i> 
 							<?php 
@@ -151,17 +151,17 @@
 			</p>
 			<!-- /.navbarBotonCollapse -->
 			<div class="nav navbar-nav navbar-right">
-			<div class="dropdown" style="display:inline-block;"><button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-warning"></i> <i class="fa fa-caret-down"></i></button>
-  <div class="dropdown-menu dropdownAlert">
-    Se han detectado los siguientes errores:
-    <ul class="list-group">
-  <li class="list-group-item list-group-item-warning"><i class="fa fa-exclamation-circle"></i> El disco esta por llenarse</li>
-  <li class="list-group-item list-group-item-danger"><i class="fa fa-ban"></i> Hay players apagados o fuera de servicio</li>
-  <li class="list-group-item list-group-item-danger"><i class="fa fa-ban"></i> El servidor no responde</li>
-</ul>
-    Un reporte fue enviado, si tiene dudas contacte al administrador.
-  </div>
-</div>
+			<div class="dropdown" id="has_errors" style="display:inline-block; visibility:hidden;"><button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-warning"></i> <i class="fa fa-caret-down"></i></button>
+  			<div class="dropdown-menu dropdownAlert">
+    			Se han detectado los siguientes errores:
+  		  		<ul class="list-group">
+  					<li id="error_NAS_space" class="list-group-item list-group-item-warning"><i class="fa fa-exclamation-circle"></i> El disco esta por llenarse</li>
+  					<li id="error_player" class="list-group-item list-group-item-danger"><i class="fa fa-ban"></i> Hay players apagados o fuera de servicio</li>
+  					<li id="error_NAS" class="list-group-item list-group-item-danger"><i class="fa fa-ban"></i> El servidor no responde</li>
+				</ul>
+    			Un reporte fue enviado, si tiene dudas contacte al administrador.
+  				</div>
+			</div>
 				<button id="player-status" type="button" class="btn btn-default navbar-btn btnReproduciendo btnNoRep"
 					data-toggle="modal"><i class="fa fa-desktop fa-fw"></i>
 					<span id="player-status-text"> No hay reproducciones </span><span id="player-status-quantity" class="badge"></span><i id="player-status-arrow" style="display: none;" class="fa fa-caret-down fa-fw"></i> 

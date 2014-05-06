@@ -61,6 +61,45 @@ function getCurrentState()
     		if(data != null)
     		{        			
     			var obj = jQuery.parseJSON(data);
+    			if(obj.systemStatus != null)
+    			{
+        			var error = 0;
+    				if(obj.systemStatus.error_players == 1)
+        			{
+    					error=1;
+    					$('#error_player').show();
+        			}
+        			else
+        			{
+        				$('#error_player').hide();
+        			}
+    				if(obj.systemStatus.error_NAS == 1)
+        			{
+    					error=1;
+    					$('#error_NAS').show();
+        			}
+    				else
+        			{
+        				$('#error_NAS').hide();
+        			}
+    				if(obj.systemStatus.error_NAS_space == 1)
+        			{
+    					error=1;
+    					$('#error_NAS_space').show();
+        			}
+    				else
+        			{
+        				$('#error_NAS_space').hide();
+        			}
+        			if(error==1)
+        			{
+        				$('#has_errors').css('visibility', 'visible');
+        			}
+        			else
+        			{
+        				$('#has_errors').css('visibility', 'hidden');
+        			}
+				}    				    				
     			if(obj.downloading != null)
     			{
     				if(obj.downloading.qty >= 1)
