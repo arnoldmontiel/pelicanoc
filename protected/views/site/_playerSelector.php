@@ -29,7 +29,7 @@
 								<tr>
 									<td><?php echo $player->description?></td>
 									
-									<td id="td_status_<?php echo $player->Id?>"><?php echo $originalTitle;?></td>
+									<td id="td_status_selector_<?php echo $player->Id?>"><?php echo $originalTitle;?></td>
 									<td class="align-right">
 										&nbsp;
 										<button id="btn_play_<?php echo $player->Id?>" style="display: none;" type="button" onclick="play('<?php echo $id?>', <?php echo $player->Id?>,<?php echo $sourceType?>,<?php echo $idResource?>)"
@@ -93,15 +93,15 @@ function fillStatus()
 						 obj = jQuery.parseJSON(data);
 						 if(obj.powerOff == "1")
 						 {
-							  $("#td_status_"+obj.idPlayer).html('<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.');
+							  $("#td_status_selector_"+obj.idPlayer).html('<span class="label label-default">Apagado</span> <i class="fa fa-warning"></i> El player esta apagado o fuera de servicio, un informe fue enviado para analizar el problema.');
 						 }
 						 else if(obj.playing == "1")
 						 {
-							  $("#td_status_"+obj.idPlayer).html('<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i>'+obj.title);						 
+							  $("#td_status_selector_"+obj.idPlayer).html('<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i>'+obj.title);						 
 						 }
 						 else
 						 {
-							  $("#td_status_"+obj.idPlayer).html('<span class="label label-success">Libre</span>');
+							  $("#td_status_selector_"+obj.idPlayer).html('<span class="label label-success">Libre</span>');
 							  $("#btn_play_"+obj.idPlayer).show();
 						 }
 					
