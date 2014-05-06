@@ -1651,6 +1651,7 @@ CREATE TABLE `system_status` (
 
 LOCK TABLES `system_status` WRITE;
 /*!40000 ALTER TABLE `system_status` DISABLE KEYS */;
+INSERT INTO `system_status` VALUES(1,0,0,0);
 /*!40000 ALTER TABLE `system_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
