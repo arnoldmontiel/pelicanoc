@@ -33,7 +33,7 @@
 									<td id="td_status_<?php echo $player->Id?>"><?php echo $originalTitle;?></td>
 									<td class="align-right">
 										&nbsp;
-										<button id="btn_dune_control_<?php echo $player->Id?>" style="display: none;" type="button" onclick="control('<?php $player->Id?>')" class="btn btn-primary btn-play-by-player">
+										<button id="btn_dune_control_<?php echo $player->Id?>" style="display: none;" type="button" onclick="control('<?php echo $player->Id?>')" class="btn btn-primary btn-play-by-player">
 											<i class="fa fa-keyboard-o fa-fw"></i> Control Remoto	
 										</button>
 										</td>
