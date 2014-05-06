@@ -1426,6 +1426,56 @@ class SiteController extends Controller
 				'player'=>$player
 		));
 	}
+	
+	public function actionAjaxGetPlayerStatus()
+	{
+		$idPlayer = $_POST['idPlayer'];
+		$originalTitle='<span class="label label-success">Libre</span>';
+		$isAlive = false;
+		$result = array();
+		$result['idPlayer']= $idPlayer;
+		$result['powerOff']= 0;
+		$result['playing']= 0;
+		$result['title']= "";
+		try {
+			$player = Player::model()->findByPk($idPlayer);
+			if(PelicanoHelper::isPlayerAlive($player->Id))
+			{
+				$isAlive = true;
+				if(DuneHelper::isPlayingByPlayer($player))
+				{
+					$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
+					if(isset($modelCurrentPlaying))
+					{
+						$result['playing']= 1;
+						if(isset($modelCurrentPlaying->Id_nzb))
+						{
+							$result['title']= $modelCurrentPlaying->nzb->myMovieDiscNzb->myMovieNzb->original_title;
+						}
+						else if(isset($modelCurrentPlaying->Id_ripped_movie))
+						{
+							$result['title']= $modelCurrentPlaying->rippedMovie->myMovieDisc->myMovie->original_title;
+						}
+						else if(isset($modelCurrentPlaying->Id_local_folder))
+						{
+							$result['title']= $modelCurrentPlaying->localFolder->myMovieDisc->myMovie->original_title;
+						}
+						else if(isset($modelCurrentPlaying->Id_current_disc))
+						{
+							$result['title']= $modelCurrentPlaying->currentDisc->myMovieDisc->myMovie->original_title;
+						}
+					}
+				}
+			}
+			else
+			{
+				$result['powerOff']= 1;
+			}
+		} catch (Exception $e) {
+			$result['powerOff']= 1;
+		}
+		echo json_encode($result); 
+	}
 	public function actionAjaxCanStart()
 	{
 		$sourceType = $_POST['sourceType'];
