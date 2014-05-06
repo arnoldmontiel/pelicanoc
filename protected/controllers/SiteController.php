@@ -2060,11 +2060,21 @@ class SiteController extends Controller
 		$criteriaDownloading->condition = '(downloading = 1 OR downloaded = 1) AND ready_to_play = 0 AND Id_nzb is null';
 		
 		$nzb = Nzb::model()->findAll($criteriaDownloading);
-		$downloading['qty'] = count($nzb); 
+		$downloading['qty'] = count($nzb);
+
+		$modelSystemStatus = SystemStatus::model()->findByPk(1);
+		if(isset($modelSystemStatus))
+			$systemStatus = $modelSystemStatus->attributes;
+		else 
+		{
+			$modelSystemStatus = new SystemStatus;
+			$systemStatus = $modelSystemStatus->attributes;			
+		}
 		$response = array('playBack'=>array('count'=>$playerPlaying),
 				'currentDisc'=>$currentDisc,
 				'currentUSB'=>$currentUSB,
-				'downloading'=>$downloading);
+				'downloading'=>$downloading,
+				'systemStatus'=>$systemStatus);
 		//si se esta descargando algo, entonces llamo al status para actualizar la tabla nzb con los ids sabnzbd_id
 		if($downloading['qty']>0)
 		{
