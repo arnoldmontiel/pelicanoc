@@ -27,12 +27,12 @@
 								echo CHtml::hiddenField("player",$player->Id,array('id'=>'player'));
 							?>
 								<tr>
-									<td><?php echo $player->description?></td>
+									<td colsppan="2"><?php echo $player->description?></td>
 									
 									<td id="td_status_selector_<?php echo $player->Id?>"><?php echo $originalTitle;?></td>
-									<td class="align-right">
+									<td este="borrar" class="align-right">
 										&nbsp;
-										<button id="btn_play_<?php echo $player->Id?>" style="display: none;" type="button" onclick="play('<?php echo $id?>', <?php echo $player->Id?>,<?php echo $sourceType?>,<?php echo $idResource?>)"
+										<button id="btn_play_<?php echo $player->Id?>" style="visibility: hidden;" type="button" onclick="play('<?php echo $id?>', <?php echo $player->Id?>,<?php echo $sourceType?>,<?php echo $idResource?>)"
 											class="btn btn-primary btn-play-by-player">
 											<i class="fa fa-play-circle fa-fw"></i> Reproducir
 										</button>
