@@ -110,6 +110,12 @@ function getNzbStatus()
 			var result = JSON.parse(data);
 			$('#downloadSpeed').html(result.speed+'B/s');
 			$('#setSpeedLimit').val(result.speedlimit);	    				
+	    	
+	    	if( typeof result.speed =='undefined')
+	    		$('#downloadSpeed').html('0 B/s');
+	    	if( typeof result.speedlimit=='undefined')
+				$('#setSpeedLimit').val('');
+	    					    				
 			result = result.jobs;
 	    	var first = true;
 			for(var index = 0; index < result.length; index++)

@@ -20,7 +20,7 @@ $(function() {
   			</ul>
 			<?php endif?>
     	</div>
-    	<div class="col-md-6 align-right velocidadDescarga">Velocidad de Descarga: <span id="downloadSpeed">100 KB</span> 
+    	<div class="col-md-6 align-right velocidadDescarga">Velocidad de Descarga: <span id="downloadSpeed">0 KB</span> 
 				<button type="button" class="btn btn-primary btn-xs"
 					data-toggle="modal" data-target="#myModalVelocidad"><i class="fa fa-pencil"></i>
 					</button>
