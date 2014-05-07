@@ -56,13 +56,13 @@ docReady( function() {
  });
 
   
-// 	iso.on('layoutComplete', function(isoInstance, laidOutItems){
-// 		hasFitWidth = false;
+	iso.on('layoutComplete', function(isoInstance, laidOutItems){
+// 		var hasFitWidth = false;
 // 	  	if(laidOutItems.length > idealCols)
 // 		 	hasFitWidth = true;
-		  
+		 
 // 	  	isoInstance.options.masonry.isFitWidth = hasFitWidth;
-// 	});
+	});
 	  
 	// layout Isotope again after all images have loaded
 	imagesLoaded( container, function() {
