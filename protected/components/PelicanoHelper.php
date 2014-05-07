@@ -3,6 +3,46 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	/**
+	 * Graba el estado nuevo del sistema, si no cambia nada, no se hace el update
+	 * @param integer $status 1-error_player, 2-error_NAS, 3-error_NAS_space
+	 * @param integer $value 1 o 0
+	 * @return true si algo cambia y se logra grabar.
+	 *  
+	 */
+	static public function saveSystemStatus($status,$value)
+	{
+		//$error_player, 2-error_NAS, 3-error_NAS_space
+		$systemStatus = SystemStatus::model()->findByPk(1);
+		$result = false;
+		switch ($status) {
+			case 1:
+				if($systemStatus->error_player!=$value)
+				{
+					$systemStatus->error_player=$value;
+					$result = $systemStatus->save();
+				}					
+			break;
+			case 2:
+				if($systemStatus->error_NAS!=$value)
+				{
+					$systemStatus->error_NAS=$value;
+					$result = $systemStatus->save();
+				}					
+				break;
+			case 3:
+				if($systemStatus->error_NAS_space!=$value)
+				{
+					$systemStatus->error_NAS_space=$value;
+					$result = $systemStatus->save();
+				}					
+				break;				
+			default:
+				$result=false;
+			break;
+		}
+		return $result;		
+	}
 	static public function getLeftFilter($flr)
 	{
 		$filters = "";
@@ -336,7 +376,12 @@ class PelicanoHelper
 			$clientsettings->disc_used_space = $storageUsed['used'];
 			$clientsettings->disc_total_space = $storageUsed['size'];
 			$clientsettings->is_nas_alive = 1;
+			if(($clientsettings->disc_used_space/$clientsettings->disc_total_space*100)>75)
+				self::saveSystemStatus(3,1);
+			else
+				self::saveSystemStatus(3,0);
 		}
+		self::saveSystemStatus(2,!$clientsettings->is_nas_alive);
 		
 		$settingsWS->setClientSettings($clientsettings);
 	
