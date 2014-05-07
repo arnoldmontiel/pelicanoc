@@ -1306,6 +1306,7 @@ CREATE TABLE `player` (
   `description` varchar(255) DEFAULT NULL,
   `file_protocol` varchar(45) DEFAULT NULL,
   `Id_setting` int(11) NOT NULL,
+  `has_error` tinyint(4) DEFAULT '0' COMMENT 'si el player tiene algun tipo de error', 
   PRIMARY KEY (`Id`),
   KEY `fk_player_setting1` (`Id_setting`),
   CONSTRAINT `fk_player_setting1` FOREIGN KEY (`Id_setting`) REFERENCES `setting` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
