@@ -1477,6 +1477,7 @@ class SiteController extends Controller
 		} catch (Exception $e) {
 			$result['powerOff']= 1;
 		}
+		PelicanoHelper::saveSystemStatus(1,$result['powerOff']);
 		echo json_encode($result); 
 	}
 	public function actionAjaxCanStart()
