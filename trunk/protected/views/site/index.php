@@ -55,21 +55,22 @@ docReady( function() {
   
  });
 
-	iso.on('layoutComplete', function(isoInstance, laidOutItems){
-		hasFitWidth = false;
-	  	if(laidOutItems.length > idealCols)
-		 	hasFitWidth = true;
-		  
-	  	isoInstance.options.masonry.isFitWidth = hasFitWidth;
-  });
   
+// 	iso.on('layoutComplete', function(isoInstance, laidOutItems){
+// 		hasFitWidth = false;
+// 	  	if(laidOutItems.length > idealCols)
+// 		 	hasFitWidth = true;
+		  
+// 	  	isoInstance.options.masonry.isFitWidth = hasFitWidth;
+// 	});
+	  
 	// layout Isotope again after all images have loaded
 	imagesLoaded( container, function() {
-		iso.layout();
+		iso.layout();		
 	});
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
-		setFilters(this);
+		setMenuFilters(this);
 	    iso.arrange();
 	    updateFilterSummary();
 	    

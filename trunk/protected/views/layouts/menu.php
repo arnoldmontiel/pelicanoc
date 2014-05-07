@@ -280,7 +280,7 @@ function updateFilterSummary()
 	$("#filter-summary").html(summary);	
 }
 
-function setFilters(obj)
+function setMenuFilters(obj)
 {
 	var $this = $(obj);
 	var key = $this.parent().attr('data-filter-group');
