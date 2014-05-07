@@ -98,7 +98,7 @@ button {
 .fa-lg{width:1.3em;}
 
 html {
-padding:0px; margin:0px;
+padding:0px; margin:0px; height:100% !important;
 }
 
 body {
@@ -124,7 +124,7 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
-	height:auto;
+	height:100% !important;
 	}
 
 
@@ -133,22 +133,19 @@ body{overflow:hidden; height:100%; width:100%;}
 html{overflow:hidden; height:100%; width:100%;}
 */
 body #content {
-/*position:fixed;
+position:fixed;
 top:0px; left:0px; right:0px; bottom:0px;
-*/
+
 /*overflow:hidden;
 position:relative;*/
 }
-.modal-open #content {
-/*height:100%;
-overflow:hidden;*/
-}
+body.modal-open  {
+overflow:hidden;}
 
 body .container{
  display: block;
- /*height:100%;*/
+ height:auto;
 overflow:auto;
--webkit-overflow-scrolling: touch;
 /*position:relative;*/
  }
 .modal-open .container {
@@ -624,7 +621,7 @@ display: inline-block;}
 
 /* ------ MOBILE MENU ------- */
 
-.cbp-spmenu .pushMenuSuperGroup{height:100%; padding-bottom:50px;overflow:auto; -webkit-overflow-scrolling:touch;}
+.cbp-spmenu .pushMenuSuperGroup{height:100%; padding-bottom:108px;overflow:auto; -webkit-overflow-scrolling:touch;}
 .cbp-spmenu .pushMenuGroup{border-bottom:1px solid #ddd;padding-top:10px;}
 .cbp-spmenu .pushMenuGroup .pushMenuGroupTitle{
 padding-left:15px;
@@ -962,7 +959,10 @@ white-space: nowrap;
 
  .grid-sizer{ width: 180px; height: 295px;}
  
- .item{  margin-bottom: 10px; }
+ .item{  margin-bottom: 10px; position:relative;
+ }
+    
+    
  .item a{ cursor:pointer;}
  
  .item a:hover img, .item a:focus img, .item a:active img{
@@ -970,9 +970,21 @@ white-space: nowrap;
   -moz-opacity: 0.5;
   opacity: 0.5;
 }
+
+ #screenHome{height:100%; overflow:hidden;}
+ .wrapper{height:100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling:touch;
+  
+  }
+        
+        
  
- 
- #itemsContainer{margin:auto;}
+ #itemsContainer{margin:auto;overflow:hidden; height:auto; }
+
+ .modal-backdrop{overflow: scroll; 
+  -webkit-overflow-scrolling:touch;}
  
 /* -------- END ISOTOPE ------------ */
 
@@ -1830,6 +1842,7 @@ color:white; line-height:40px; padding-right:45px;
 	margin-right: 10px;
 }
 
+#myModal {overflow:hidden;}
 #myModalCambiarAfiche .modal-dialog {
 	width: 80%;
 }
@@ -2080,8 +2093,8 @@ font-size:  110% !important;
 @media ( max-width : 768px) {
 
 .ribbon.ribNuevo{
-bottom: 83px;
-right: -145px;
+		right: -39px;
+		bottom: 23px;
 }
 
 
