@@ -109,7 +109,6 @@ function openMovieShowDetail(id, sourceType, idResource)
 
 <div class="container" id="screenHome" >
     	 <div class="wrapper">
-    	
 			<div id="itemsContainer" role="main" class="clearfix">
 				<div class="grid-sizer"></div>
 					<?php 
@@ -119,5 +118,5 @@ function openMovieShowDetail(id, sourceType, idResource)
 						}
 					?>	
 			</div>
-			</div>
+		</div><!-- /wrapper -->
 </div><!-- /container -->
