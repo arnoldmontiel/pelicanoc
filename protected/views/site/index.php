@@ -14,7 +14,7 @@ docReady( function() {
   //esto se deberia recalcular con los filtros y cambio en el tama�o de la pantalla (capaz es muy complejo)
   if(count>idealCols){
 	//en este caso deberiamos armar isotope con el isFitWidth=true
-	  hasFitWidth = true
+	  hasFitWidth = true;
   }
   
   var iso = window.iso = new Isotope( container, {
@@ -24,7 +24,7 @@ docReady( function() {
     columnWidth: '.grid-sizer',
     isFitWidth: hasFitWidth,
     gutter: 10
-  },
+  },  
   filter: function() {
       var isMatched = true;
       var $this = $(this);      
@@ -35,7 +35,7 @@ docReady( function() {
         	  isMatched = false;
     	  
     	  for ( var index = 0; index < filters[prop].length; index++ ) {
-    	        var filter = filters[prop][ index ];
+    	        var filter = filters[prop][ index ].key;
     	             
     	        // test each filter
     	        if ( filter ) {
@@ -54,52 +54,32 @@ docReady( function() {
     }
   
  });
+
+	iso.on('layoutComplete', function(isoInstance, laidOutItems){
+		hasFitWidth = false;
+	  	if(laidOutItems.length > idealCols)
+		 	hasFitWidth = true;
+		  
+	  	isoInstance.options.masonry.isFitWidth = hasFitWidth;
+  });
   
 	// layout Isotope again after all images have loaded
-	 imagesLoaded( container, function() {
-  	  iso.layout();
-  	});
+	imagesLoaded( container, function() {
+		iso.layout();
+	});
 
-  $('.pushMenuGroup').on( 'click', 'a', function() {
-	    var $this = $(this);
-	    var key = $this.parent().attr('data-filter-group');
-	    if(key != 'header')
-	    {
-		    if($this.hasClass('pushMenuActive'))
-		    	filters[key].push($this.attr('data-filter'));
-		    else
-		    	filters[key].splice( filters[key].indexOf( $this.attr('data-filter') ), 1 );
-		    
-	    }
-	    else
-	    {
-		    if($this.attr('data-filter') != "*")
-		    {
-		    	filters[key] = [];
-	    		filters[key].push($this.attr('data-filter'));
-		    }
-		    else
-	    		clearFilters();
-	    }
-	    
+	$('.pushMenuGroup').on( 'click', 'a', function() {
+		setFilters(this);
 	    iso.arrange();
+	    updateFilterSummary();
 	    
 	  });
 
-  $('#main-search').change(function(){
- 		
-	  	var $this = $(this);
-	    var key = $this.parent().attr('data-filter-group');
-	    
-	    filters[key] = [];
-	    
-	    var value = 'flr-' + $this.val().toLowerCase().trim().replace(/ /gi,'-');
-	    
-	    if(value.lenght != 0)
-	    {
-			filters[key].push(value);
-	    	iso.arrange();
-	    }
+	$('#main-search').change(function()
+	{
+		setTextFilter(this);
+		iso.arrange();
+    	updateFilterSummary();		
 	});
 	
   

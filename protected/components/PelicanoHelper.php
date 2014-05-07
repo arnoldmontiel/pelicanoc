@@ -32,7 +32,10 @@ class PelicanoHelper
 			}
 			asort($genres);
 			foreach($genres as $value)
-				$filters .= '<a href="#" data-filter="flr-'.strtolower($value).'">'.$value.'</a>';
+			{
+				$aux = preg_replace('/\W/', '-',strtolower($value));
+				$filters .= '<a href="#" data-filter="flr-'.$aux.'">'.$value.'</a>';
+			}
 		}
 		
 		
@@ -48,8 +51,12 @@ class PelicanoHelper
 		
 		if(isset($model->genre))
 		{
-			$genre = preg_replace('/[ ,]+/', ' flr-',strtolower($model->genre));
-			$genre = 'flr-'.$genre;
+			$genres = explode(', ', $model->genre);
+			foreach($genres as $item)
+			{
+				$aux = preg_replace('/\W/', '-',strtolower($item));
+				$genre = $genre . ' flr-'.$aux;
+			}
 		}
 		
 		if(isset($model->title))
