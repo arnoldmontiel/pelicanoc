@@ -1437,8 +1437,8 @@ class SiteController extends Controller
 		$result['powerOff']= 0;
 		$result['playing']= 0;
 		$result['title']= "";
+		$player = Player::model()->findByPk($idPlayer);
 		try {
-			$player = Player::model()->findByPk($idPlayer);
 			if(PelicanoHelper::isPlayerAlive($player->Id))
 			{
 				$isAlive = true;
@@ -1476,6 +1476,11 @@ class SiteController extends Controller
 			}
 		} catch (Exception $e) {
 			$result['powerOff']= 1;
+		}
+		if($result['powerOff']==1)
+		{
+			$player->has_error = 1;
+			$player->save();
 		}
 		PelicanoHelper::saveSystemStatus(1,$result['powerOff']);
 		echo json_encode($result); 

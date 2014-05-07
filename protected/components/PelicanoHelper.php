@@ -19,7 +19,18 @@ class PelicanoHelper
 			case 1:
 				if($systemStatus->error_players!=$value)
 				{
-					$systemStatus->error_players=$value;
+					$settings = Setting::getInstance();
+					$hasError= 0;
+					foreach ($settings->players as $player)
+					{
+						if($player->has_error)
+						{
+							$hasError = 1;
+							break;
+						}
+						
+					}
+					$systemStatus->error_players=$hasError;
 					$result = $systemStatus->save();
 				}					
 			break;
