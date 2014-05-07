@@ -124,32 +124,42 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
-	height:100% !important;
+/*	height:100% !important;*/
 	}
 
 
-/* no ncesesarios?
-body{overflow:hidden; height:100%; width:100%;}
-html{overflow:hidden; height:100%; width:100%;}
-*/
+ .container{height:100%; overflow:hidden;}
+ 
+ .container.noWrapper{height:auto; overflow:auto;}
+ 
+ .wrapper{height:100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling:touch;
+  
+padding-top:130px;
+margin-left:-15px;
+margin-right:-15px;
+  }
+        
+        
+ 
+ #itemsContainer{margin:auto;}
+ 
+ .modal-backdrop{
+ overflow: scroll; 
+  -webkit-overflow-scrolling:touch;
+  }
+ 
+ 
+body.modal-open  {
+overflow:hidden;}
+
+
 body #content {
 position:fixed;
 top:0px; left:0px; right:0px; bottom:0px;
 
-/*overflow:hidden;
-position:relative;*/
-}
-body.modal-open  {
-overflow:hidden;}
-
-body .container{
- /*display: block;
- height:auto;
-overflow:auto;*/
-/*position:relative;*/
- }
-.modal-open .container {
-/*overflow:hidden;*/
 }
 
 body #screenHome {
@@ -745,11 +755,6 @@ right: 10px;
 /* ------ END BTN SIZES ------- */
 
 /* ------ BODY / MAIN LAYOUT ------- */
-#content {
-	/* this line is needed fot center aligning isotope*/
-	margin: 0 auto !important;
-	margin-left: 0px;
-}
 
 h2 {
 	font-size: 28px;
@@ -971,23 +976,6 @@ white-space: nowrap;
   opacity: 0.5;
 }
 
- .container{height:100%; overflow:hidden;}
- 
- .container.noWrapper{height:auto; overflow:auto;}
- .wrapper{height:100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling:touch;
-  
-padding-top:130px;
-  }
-        
-        
- 
- #itemsContainer{margin:auto;overflow:hidden; height:auto; }
-
- .modal-backdrop{overflow: scroll; 
-  -webkit-overflow-scrolling:touch;}
  
 /* -------- END ISOTOPE ------------ */
 
@@ -1845,7 +1833,7 @@ color:white; line-height:40px; padding-right:45px;
 	margin-right: 10px;
 }
 
-#myModal {overflow:hidden;}
+#myModal {/*overflow:hidden;*/}
 #myModalCambiarAfiche .modal-dialog {
 	width: 80%;
 }
