@@ -96,6 +96,8 @@ function openMovieShowDetail(id, sourceType, idResource)
 		data: param,
 	}).success(function(data)
 	{	
+	
+		
 		$('#myModal').html(data);	
 		$('#myModal').modal({
 			show: true
@@ -106,9 +108,9 @@ function openMovieShowDetail(id, sourceType, idResource)
 </script>
 
 <div class="container" id="screenHome" >
-	<div class="row">
-    	<div class="col-md-12">
-			<div id="itemsContainer" role="main">
+    	 <div class="wrapper">
+    	
+			<div id="itemsContainer" role="main" class="clearfix">
 				<div class="grid-sizer"></div>
 					<?php 
 						foreach($dataProvider->getData() as $data) 
@@ -117,6 +119,5 @@ function openMovieShowDetail(id, sourceType, idResource)
 						}
 					?>	
 			</div>
-		</div> <!-- /col-md-12 -->
-	</div><!-- /row -->
+			</div>
 </div><!-- /container -->

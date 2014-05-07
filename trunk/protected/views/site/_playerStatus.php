@@ -21,7 +21,7 @@
 							<?php 		
 							$setting = Setting::getInstance();
 							$players = $setting->players;
-							$originalTitle='<i class="fa fa-spinner fa-spin"></i> Revisando Estado';
+							$originalTitle='<i class="fa fa-spinner fa-spin"></i> Verificando Estado';
 							foreach ($players as $player)
 							{
 								echo CHtml::hiddenField("player",$player->Id,array('id'=>'player'));

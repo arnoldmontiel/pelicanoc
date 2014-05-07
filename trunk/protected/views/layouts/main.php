@@ -355,11 +355,9 @@ $(document).ready(function(){
 
 <?php include 'menu.php';?>
 
-<!-- <div class="wrapper"> -->
 
 	<?php echo $content; ?>        
-   <!-- </div>
-	 end wrapper -->
+
 	<div id="myModalEditName" class="modal fade in"></div>
 	<div id="myModalEditarAsoc" class="modal fade in" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
