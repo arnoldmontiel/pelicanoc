@@ -258,7 +258,7 @@ function updateFilterSummary()
 
 	if(filters['genre'].length > 0)
 	{
-		summary = summary + 'G&Eacute;NERO::';
+		summary = summary + 'G&Eacute;NERO:';
 		for(var index = 0; index < filters['genre'].length; index++)
 		{
 			summary = summary + ' ' + filters['genre'][index].value;
