@@ -143,9 +143,9 @@ body.modal-open  {
 overflow:hidden;}
 
 body .container{
- display: block;
+ /*display: block;
  height:auto;
-overflow:auto;
+overflow:auto;*/
 /*position:relative;*/
  }
 .modal-open .container {
@@ -153,7 +153,7 @@ overflow:auto;
 }
 
 body #screenHome {
-padding-top:130px;
+padding-top:0px;
 padding-bottom:20px;
 }
 
@@ -971,12 +971,15 @@ white-space: nowrap;
   opacity: 0.5;
 }
 
- #screenHome{height:100%; overflow:hidden;}
+ .container{height:100%; overflow:hidden;}
+ 
+ .container.noWrapper{height:auto; overflow:auto;}
  .wrapper{height:100%;
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling:touch;
   
+padding-top:130px;
   }
         
         
