@@ -5,7 +5,7 @@ class PelicanoHelper
 {
 	/**
 	 * Graba el estado nuevo del sistema, si no cambia nada, no se hace el update
-	 * @param integer $status 1-error_player, 2-error_NAS, 3-error_NAS_space
+	 * @param integer $status 1-error_players, 2-error_NAS, 3-error_NAS_space
 	 * @param integer $value 1 o 0
 	 * @return true si algo cambia y se logra grabar.
 	 *  
@@ -17,9 +17,9 @@ class PelicanoHelper
 		$result = false;
 		switch ($status) {
 			case 1:
-				if($systemStatus->error_player!=$value)
+				if($systemStatus->error_players!=$value)
 				{
-					$systemStatus->error_player=$value;
+					$systemStatus->error_players=$value;
 					$result = $systemStatus->save();
 				}					
 			break;
