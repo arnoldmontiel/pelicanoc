@@ -193,7 +193,7 @@
 					<i class="fa fa-filter fa-fw"></i> Filtro
 				</button>
 			</div>
-				<div class="filterDesc pull-left">Todas las Peliculas</div>
+			<div id="filter-summary" class="filterDesc pull-left">Todas las Peliculas</div>
 			<form class="navbar-form navbar-right" role="search">
 				<div class="searchMain form-group" data-filter-group="title">
 					<input id="main-search" type="text" class="form-control form-search" placeholder=" Buscar Pel&iacute;cula">
@@ -251,6 +251,80 @@ filters['header'] = [];
 filters['year'] = [];
 filters['genre'] = [];
 filters['title'] = [];
+
+function updateFilterSummary()
+{
+	var summary = '';	
+
+	if(filters['genre'].length > 0)
+	{
+		summary = summary + 'G&Eacute;NERO::';
+		for(var index = 0; index < filters['genre'].length; index++)
+		{
+			summary = summary + ' ' + filters['genre'][index].value;
+		}
+	}
+
+	if(filters['year'].length > 0)
+	{
+		summary = summary + ' A&Ntilde;O:';
+		for(var index = 0; index < filters['year'].length; index++)
+		{
+			summary = summary + ' ' + filters['year'][index].value;
+		}
+	}
+
+	if(summary.length == 0)
+		summary = 'Todas las Peliculas';
+	
+	$("#filter-summary").html(summary);	
+}
+
+function setFilters(obj)
+{
+	var $this = $(obj);
+	var key = $this.parent().attr('data-filter-group');
+	if(key != 'header')
+	{
+		if($this.hasClass('pushMenuActive'))
+			filters[key].push({key:$this.attr('data-filter'),value:$this.text()});
+		else
+		{			
+			for (var index in filters[key])
+			{
+				if(filters[key][index].key == $this.attr('data-filter'))
+				{
+					filters[key].splice( index, 1 );
+					break;
+				}
+			}			
+		}
+	}
+	else
+	{
+		if($this.attr('data-filter') != "*")
+		{
+			filters[key] = [];
+			filters[key].push({key:$this.attr('data-filter'),value:$this.text()});
+		}
+		else
+	    	clearFilters();
+	}
+}
+
+function setTextFilter(obj)
+{
+	var $this = $(obj);
+    var key = $this.parent().attr('data-filter-group');
+    
+    filters[key] = [];
+
+    if($this.val().length > 0)
+    {
+    	var newkey = 'flr-' + $this.val().toLowerCase().trim().replace(/ /gi,'-');    	
+    	filters[key].push({key:newkey,value:$this.val()});
+    }
+}
 
 function clearFilters()
 {
