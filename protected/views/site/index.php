@@ -65,7 +65,6 @@ docReady( function() {
 //or with vanilla JS
 //initialize Isotope
 imagesLoaded( container, function() {
-	  	$('#itemsContainer').addClass('centrado');
 		iso.layout();	
 	});
   
