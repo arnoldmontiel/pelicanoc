@@ -392,7 +392,7 @@ class PelicanoHelper
 			else
 				self::saveSystemStatus(3,0);
 		}
-		self::saveSystemStatus(2,!$clientsettings->is_nas_alive);
+		self::saveSystemStatus(2,$clientsettings->is_nas_alive?0:1);
 		
 		$settingsWS->setClientSettings($clientsettings);
 	
