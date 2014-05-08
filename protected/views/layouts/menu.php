@@ -19,6 +19,7 @@
 <!-- /////////////////////////////////////// -->
 
 
+			<?php  if($this->action->Id=="index"):?>
 			<!-- /////////MENU LATERAL MIS PELICULAS///////// -->
 			<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMisPeliculas">
 			<div class="cbp-title">Filtrar Mis Peliculas</div>
@@ -40,7 +41,7 @@
 			</div>
 			</nav>
 			<!-- /////////////////////////////////////// -->
-			
+			<?php  else:?>
 			<!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
 			<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMarketplace">
 			<div class="cbp-title">Filtrar B&uacute;squeda</div>
@@ -61,7 +62,7 @@
 			</div>
 			</nav>
 			<!-- /////////////////////////////////////// -->
-			
+			<?php  endif;?>
 			
 			<!-- /////////MENU PRINCIPAL///////// -->
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="Menu">
