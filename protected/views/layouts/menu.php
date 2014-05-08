@@ -18,12 +18,15 @@
 </nav>
 <!-- /////////////////////////////////////// -->
 
-
-			<?php  if($this->action->Id=="index"):?>
-			<!-- /////////MENU LATERAL MIS PELICULAS///////// -->
-			<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMisPeliculas">
+<?php if (isset($this->showFilter) && $this->showFilter): ?>
+	<?php  if($this->action->Id=="index"):?>
+		<!-- /////////MENU LATERAL MIS PELICULAS///////// -->
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMisPeliculas">
 			<div class="cbp-title">Filtrar Mis Peliculas</div>
-			<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
+			<div class="sideMenuBotones">
+				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button>
+				<button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button>
+			</div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
 				<div class="pushMenuGroup" data-filter-group="header">
@@ -39,13 +42,16 @@
 					<?php echo PelicanoHelper::getLeftFilter('year');?>
 				</div>
 			</div>
-			</nav>
-			<!-- /////////////////////////////////////// -->
-			<?php  else:?>
-			<!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
-			<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMarketplace">
+		</nav>
+		<!-- /////////////////////////////////////// -->
+	<?php  else:?>
+		<!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMarketplace">
 			<div class="cbp-title">Filtrar B&uacute;squeda</div>
-			<div class="sideMenuBotones"><button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button><button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button></div>
+			<div class="sideMenuBotones">
+				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button>
+				<button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button>
+			</div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
 				<div class="pushMenuGroup" data-filter-group="all">
@@ -60,9 +66,10 @@
 					<?php echo PelicanoHelper::getLeftFilter('year','marketplace');?>
 				</div>
 			</div>
-			</nav>
-			<!-- /////////////////////////////////////// -->
-			<?php  endif;?>
+		</nav>
+		<!-- /////////////////////////////////////// -->
+	<?php  endif;?>
+<?php  endif;?>
 			
 			<!-- /////////MENU PRINCIPAL///////// -->
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="Menu">
