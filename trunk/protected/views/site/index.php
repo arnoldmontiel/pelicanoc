@@ -1,6 +1,8 @@
 <script type="text/javascript">
 
 docReady( function() {
+
+	
   var container = document.querySelector('#itemsContainer');
 
   //variables para calcular columnas por fila de acuerdo al tama�o del viewport
@@ -16,6 +18,8 @@ docReady( function() {
 	//en este caso deberiamos armar isotope con el isFitWidth=true
 	  hasFitWidth = true;
   }
+
+
   
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
@@ -27,9 +31,8 @@ docReady( function() {
   },  
   filter: function() {
       var isMatched = true;
-      var $this = $(this);      
-
-      for ( var prop in filters ) 
+      var $this = $(this);    
+            for ( var prop in filters ) 
       {          
     	  if(filters[prop].length > 0)
         	  isMatched = false;
@@ -53,31 +56,33 @@ docReady( function() {
           if ( !isMatched && filters[prop].length > 0) {
             break;
           }
+
       }     
       return isMatched;
     }
   
  });
-
+//or with vanilla JS
+//initialize Isotope
+imagesLoaded( container, function() {
+	  	$('#itemsContainer').addClass('centrado');
+		iso.layout();	
+	});
   
 	iso.on('layoutComplete', function(isoInstance, laidOutItems){
-// 		var hasFitWidth = false;
-// 	  	if(laidOutItems.length > idealCols)
-// 		 	hasFitWidth = true;
-		 
-// 	  	isoInstance.options.masonry.isFitWidth = hasFitWidth;
+ 	  	if(laidOutItems.length > idealCols)
+ 	  	$('#itemsContainer').addClass('centrado');
+
+ 	  	if(laidOutItems.length < idealCols)
+ 	  	$('#itemsContainer').removeClass('centrado');
 	});
 	  
-	// layout Isotope again after all images have loaded
-	imagesLoaded( container, function() {
-		iso.layout();		
-	});
+	
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
 		setMenuFilters(this);
 	    iso.arrange();
 	    updateFilterSummary();
-	    
 	  });
 
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
@@ -119,7 +124,7 @@ function openMovieShowDetail(id, sourceType, idResource)
 
 <div class="container" id="screenHome" >
     	 <div class="wrapper">
-			<div id="itemsContainer" role="main" class="clearfix">
+			<div id="itemsContainer" role="main" class="clearfix centrado">
 				<div class="grid-sizer"></div>
 					<?php 
 						foreach($dataProvider->getData() as $data) 

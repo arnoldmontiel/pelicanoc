@@ -249,7 +249,7 @@ function updateFilterSummary()
 
 	if(filters['genre'].length > 0)
 	{
-		summary = summary + 'G&Eacute;NERO:';
+		summary = summary + 'G&eacute;nero:';
 		for(var index = 0; index < filters['genre'].length; index++)
 		{
 			summary = summary + ' ' + filters['genre'][index].value;
@@ -258,7 +258,7 @@ function updateFilterSummary()
 
 	if(filters['year'].length > 0)
 	{
-		summary = summary + ' A&Ntilde;O:';
+		summary = summary + ' A&ntilde;o:';
 		for(var index = 0; index < filters['year'].length; index++)
 		{
 			summary = summary + ' ' + filters['year'][index].value;

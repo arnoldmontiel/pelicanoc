@@ -124,7 +124,6 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
-/*	height:100% !important;*/
 	}
 
 
@@ -136,31 +135,33 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling:touch;
-  
-padding-top:130px;
-margin-left:-15px;
-margin-right:-15px;
+	padding-top:130px;
+	margin-left:-15px;
+	margin-right:-15px;
   }
         
         
- 
- #itemsContainer{margin:auto;}
- 
+ body #content {
+position:fixed;
+top:0px; left:0px; right:0px; bottom:0px;
+
+}
+
+#itemsContainer{margin-left:30px;}
+#itemsContainer.centrado{margin:auto; }
+
+
+body.modal-open  {
+overflow:hidden;}
+
+
+
+
  .modal-backdrop{
  overflow: scroll; 
   -webkit-overflow-scrolling:touch;
   }
  
- 
-body.modal-open  {
-overflow:hidden;}
-
-
-body #content {
-position:fixed;
-top:0px; left:0px; right:0px; bottom:0px;
-
-}
 
 body #screenHome {
 padding-top:0px;
