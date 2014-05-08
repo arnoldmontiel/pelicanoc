@@ -451,6 +451,7 @@ class PelicanoHelper
 	}
 	static public function canStart($sourceType,$idResource)
 	{		
+		if(!self::isAccessibleNasFolder())	return 0;
 		$setting = Setting::getInstance();
 		switch ($sourceType)
 		{
