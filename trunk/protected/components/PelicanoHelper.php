@@ -67,7 +67,7 @@ class PelicanoHelper
 		if($flr == 'year')
 		{
 			foreach($movies as $item)
-				$filters .= '<a href="#" data-filter="flr-'.$item->year.'">'.$item->year.'</a>';			
+				$filters .= '<a href="#" class="pushMenuCheck" data-filter="flr-'.$item->year.'">'.$item->year.'</a>';			
 		}
 		else 
 		{
@@ -85,7 +85,7 @@ class PelicanoHelper
 			foreach($genres as $value)
 			{
 				$aux = preg_replace('/\W/', '-',strtolower($value));
-				$filters .= '<a href="#" data-filter="flr-'.$aux.'">'.$value.'</a>';
+				$filters .= '<a href="#" class="pushMenuCheck" data-filter="flr-'.$aux.'">'.$value.'</a>';
 			}
 		}
 		

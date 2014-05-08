@@ -230,15 +230,6 @@ jQuery(document).ready(function($) {
 		  }
 
 
-	});
-	$( ".pushSelectable .btnLimpiar" ).click(function() {
-		$(".pushSelectable .pushMenuSuperGroup a").removeClass("pushMenuActive");
-		$(".pushSelectable .pushMenuSuperGroup a.pushMenuRadio.pushTodas").addClass("pushMenuActive");
-	});
-
-	$( ".pushSelectable .pushTodas" ).click(function() {
-		$(".pushSelectable .pushMenuSuperGroup a").removeClass("pushMenuActive");
-		$(".pushSelectable .pushMenuSuperGroup a.pushMenuRadio.pushTodas").addClass("pushMenuActive");
 	});	
 		
 });
@@ -302,13 +293,8 @@ function setMenuFilters(obj)
 	}
 	else
 	{
-		if($this.attr('data-filter') != "*")
-		{
-			filters[key] = [];
-			filters[key].push({key:$this.attr('data-filter'),value:$this.text()});
-		}
-		else
-	    	clearFilters();
+		filters[key] = [];
+		filters[key].push({key:$this.attr('data-filter'),value:$this.text()});				
 	}
 }
 
@@ -330,8 +316,11 @@ function clearFilters()
 {
 	for ( var prop in filters ) 
 	{
-		filters[prop] = [];
+		if(prop != 'header')
+			filters[prop] = [];
 	}
+		
+	$(".pushSelectable .pushMenuSuperGroup .pushMenuCheck ").removeClass("pushMenuActive");
 	$('#main-search').val('');
 }
 

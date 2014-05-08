@@ -33,14 +33,18 @@ docReady( function() {
       {          
     	  if(filters[prop].length > 0)
         	  isMatched = false;
-    	  
+    	      	  
     	  for ( var index = 0; index < filters[prop].length; index++ ) {
     	        var filter = filters[prop][ index ].key;
-    	             
-    	        // test each filter
-    	        if ( filter ) {
-    	          //isMatched = isMatched || $(this).is( filter );
-    	          isMatched = isMatched || $(this).is('[class*="'+filter+'"]')
+
+    	        if(prop == 'header' && filter == "*") //cuando filtra por todos
+    	        	isMatched = true;
+    	        else
+    	        {
+	    	        // test each filter
+	    	        if ( filter ) {
+	    	          isMatched = isMatched || $(this).is('[class*="'+filter+'"]')
+	    	        }
     	        }
 
     	      }   
@@ -76,6 +80,12 @@ docReady( function() {
 	    
 	  });
 
+	$( ".pushSelectable .btnLimpiar" ).click(function() {
+		clearFilters();
+		iso.arrange();
+		updateFilterSummary();
+	});
+	
 	$('#main-search').change(function()
 	{
 		setTextFilter(this);
