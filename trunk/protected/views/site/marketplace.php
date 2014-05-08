@@ -1,92 +1,135 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="menuSecond">
-		<div class="container-fluid">
-			<div class="nav navbar-nav navbar-left">
-		    <!-- Comentado para Pelicano Lite #####
-		    	<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
-					<li class="generoItem active"><a href="#" data-filter="*">Pel&iacute;culas</a></li>
-					<li class="generoItem"><a href="#" data-filter=".comedy">Series</a></li>
-				</ul>
-				 -->
-			</div>
-			<div class="nav navbar-nav navbar-left">
-				<button class="toggle-menu menu-left btn btn-primary navbar-btn" id="toggleMarketplace">
-					<i class="fa fa-filter fa-fw"></i> Filtro
-				</button>
-			</div>
-				<div class="filterDesc pull-left">Todas las Peliculas</div>
-			<form class="navbar-form navbar-right" role="search">
-				<div class="searchMain form-group marketplace">
-					<input id="main-search" type="text" class="form-control form-search" placeholder=" Buscar Pel&iacute;cula">
-				</div>
-			</form>
-		</div>
-	</nav>
-<div class="container noWrapper" id="screenMarketplace" >
-<?php 
-Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
-	$('.aficheClick').click(function(){
-		var target = $(this).attr('href');
-		var id = $(this).attr('idMovie');
-		var idNzb = $(this).attr('idResource');
-		var param = 'id='+id + '&idNzb=' + idNzb; 
-		$.ajax({
-	   		type: 'POST',
-	   		url: '". SiteController::createUrl('AjaxMarketShowDetail') . "',
-	   		data: param,
-	 	}).success(function(data)
-	 	{
-	 	
-			$('#myModal').html(data);
-			
-		}
-	 	);	
-		
+<script type="text/javascript">
+
+docReady( function() {
+
+	
+  var container = document.querySelector('#itemsContainer');
+
+  //variables para calcular columnas por fila de acuerdo al tama�o del viewport
+  var count = $("#itemsContainer").children().length;
+  var viewport = $( window ).width();
+  var sizer = $( '.grid-sizer' ).width()+10;
+  var idealCols = parseInt(viewport/sizer);
+  
+  var hasFitWidth = false;
+  //si el total es mayor al ideal, centramos, si no, no hay suficientes items a lo ancho y queda feo, entonces a la izquierda
+  //esto se deberia recalcular con los filtros y cambio en el tama�o de la pantalla (capaz es muy complejo)
+  if(count>idealCols){
+	//en este caso deberiamos armar isotope con el isFitWidth=true
+	  hasFitWidth = true;
+  }
+
+
+  
+  var iso = window.iso = new Isotope( container, {
+    transitionDuration: '0.8s',
+  itemSelector: '.item',
+  masonry: {
+    columnWidth: '.grid-sizer',
+    isFitWidth: hasFitWidth,
+    gutter: 10
+  },  
+  filter: function() {
+      var isMatched = true;
+      var $this = $(this);    
+            for ( var prop in filters ) 
+      {          
+    	  if(filters[prop].length > 0)
+        	  isMatched = false;
+    	      	  
+    	  for ( var index = 0; index < filters[prop].length; index++ ) {
+    	        var filter = filters[prop][ index ].key;
+
+    	        if(prop == 'header' && filter == "*") //cuando filtra por todos
+    	        	isMatched = true;
+    	        else
+    	        {
+	    	        // test each filter
+	    	        if ( filter ) {
+	    	          isMatched = isMatched || $(this).is('[class*="'+filter+'"]')
+	    	        }
+    	        }
+
+    	      }   
+	      
+    	// break if not matched
+          if ( !isMatched && filters[prop].length > 0) {
+            break;
+          }
+
+      }     
+      return isMatched;
+    }
+  
+ });
+//or with vanilla JS
+//initialize Isotope
+imagesLoaded( container, function() {
+		iso.layout();	
+	});
+  
+	iso.on('layoutComplete', function(isoInstance, laidOutItems){
+ 	  	if(laidOutItems.length > idealCols)
+ 	  	$('#itemsContainer').addClass('centrado');
+
+ 	  	if(laidOutItems.length < idealCols)
+ 	  	$('#itemsContainer').removeClass('centrado');
+	});
+	  
+	
+
+	$('.pushMenuGroup').on( 'click', 'a', function() {
+		setMenuFilters(this);
+	    iso.arrange();
+	    updateFilterSummary();
+	  });
+
+	$( ".pushSelectable .btnLimpiar" ).click(function() {
+		clearFilters();
+		iso.arrange();
+		updateFilterSummary();
+	});
+	
+	$('#main-search').change(function()
+	{
+		setTextFilter(this);
+		iso.arrange();
+    	updateFilterSummary();		
+	});
+	
+  
 });
 
-");
 
-?>
-	<!--<div class="row">
-    	<div class="col-md-9">
- <h2 class="sliderTitle">Pel&iacute;culas</h2> 
-    					<ul class="nav nav-pills">
-  				<li class="active"><a data-toggle="tab" href="#">Todas</a></li>
-  				<li><a data-toggle="tab" href="#">Estrenos</a></li>
-  				<li><a href="#" data-toggle="tab">M&aacute;s Vistas</a></li>
-  				<li><a href="#" data-toggle="tab">&Uacute;ltimas Agregadas</a></li>
-			</ul> 
-		</div>
-    	    <div class="col-md-3">  
-    	    
-    	    
-    	    
-    	    <div class="botonTodas"><a href="control.php" class="btn btn-primary btn-lg">Series <i class="fa fa-arrow-right"></i> </a></div>
-		</div>
-    </div>-->
-    <div class="row">
-    <div class="col-sm-12">
-    <?php
-
-$this->widget('ext.isotope.Isotope',array(
-    'dataProvider'=>$dataProvider,
-    'itemView'=>'_viewMarketplace',
-    'itemSelectorClass'=>'item',
-	'summaryText' =>"",
-	'onClickLocation'=>SiteController::createUrl('AjaxMarketShowDetail'),
-	'onClickLocationParam'=>array('id','idresource','sourcetype'),
-    'options'=>array(), // options for the isotope jquery
-    'infiniteScroll'=>true, // default to true
-    'infiniteOptions'=>array(), // javascript options for infinite scroller
-    'id'=>'wall',
-));
-?>
-	</div>
-    </div>
+function openMovieShowDetail(id, sourceType, idResource)
+{
+	var param = 'id='+id+'&sourcetype='+sourceType+'&idNzb='+idResource; 
+	$.ajax({
+		type: 'POST',
+		url: "<?php echo SiteController::createUrl('AjaxMarketShowDetail')?>",
+		data: param,
+	}).success(function(data)
+	{	
+	
+		
+		$('#myModal').html(data);	
+		$('#myModal').modal({
+			show: true
+		})		
+	});
+	return false;	
+}
+</script>
+<div class="container" id="screenMarketplace" >
+    	 <div class="wrapper">
+			<div id="itemsContainer" role="main" class="clearfix centrado">
+				<div class="grid-sizer"></div>
+					<?php 
+						foreach($dataProvider->getData() as $data) 
+						{					
+							echo $this->renderPartial('_viewMarketplace',array('data'=>$data)); 
+						}
+					?>	
+			</div>
+		</div><!-- /wrapper -->
 </div><!-- /container -->
-    
-<!-- Le javascript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-  <script type="text/javascript">
-  </script>
-
