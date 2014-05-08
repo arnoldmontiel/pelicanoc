@@ -691,6 +691,28 @@ LOCK TABLES `lote` WRITE;
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `marketplace`
+--
+
+DROP TABLE IF EXISTS `marketplace`;
+/*!50001 DROP VIEW IF EXISTS `marketplace`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `marketplace` (
+  `Id` tinyint NOT NULL,
+  `Id_my_movie_disc_nzb` tinyint NOT NULL,
+  `source_type` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `title` tinyint NOT NULL,
+  `Id_TMDB_data` tinyint NOT NULL,
+  `year` tinyint NOT NULL,
+  `genre` tinyint NOT NULL,
+  `downloaded` tinyint NOT NULL,
+  `downloading` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `movies`
 --
 
@@ -1733,6 +1755,25 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES ('arnold','Arnold','arnol@gmail.com',1,1,'1983-08-24');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Final view structure for view `marketplace`
+--
+
+/*!50001 DROP TABLE IF EXISTS `marketplace`*/;
+/*!50001 DROP VIEW IF EXISTS `marketplace`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`pelicano`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `marketplace` AS select `nzb`.`Id` AS `Id`,`nzb`.`Id_my_movie_disc_nzb` AS `Id_my_movie_disc_nzb`,1 AS `source_type`,`nzb`.`date` AS `date`,`mn`.`original_title` AS `title`,`nzb`.`Id_TMDB_data` AS `Id_TMDB_data`,`mn`.`production_year` AS `year`,`mn`.`genre` AS `genre`,if((`nzb`.`ready_to_play` = 1),1,0) AS `downloaded`,if(((`nzb`.`downloaded` = 1) or (`nzb`.`downloading` = 1)),1,0) AS `downloading` from ((`nzb` join `my_movie_disc_nzb` `mdn` on((`mdn`.`Id` = `nzb`.`Id_my_movie_disc_nzb`))) join `my_movie_nzb` `mn` on((`mn`.`Id` = `mdn`.`Id_my_movie_nzb`))) where ((`nzb`.`ready` = 1) and isnull(`nzb`.`Id_nzb`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Final view structure for view `movies`

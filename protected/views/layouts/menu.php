@@ -48,16 +48,15 @@
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
 				<div class="pushMenuGroup" data-filter-group="all">
-					<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>
-					<a class="pushMenuRadio pushNuevas" href="#">Nuevas</a>
+					<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>					
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="genre">
 					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
-					<?php echo PelicanoHelper::getLeftFilter('genre');?>
+					<?php echo PelicanoHelper::getLeftFilter('genre','marketplace');?>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="year">
 					<div class="pushMenuGroupTitle">A&Ntilde;O</div>
-					<?php echo PelicanoHelper::getLeftFilter('year');?>
+					<?php echo PelicanoHelper::getLeftFilter('year','marketplace');?>
 				</div>
 			</div>
 			</nav>
@@ -126,6 +125,7 @@
 			</div>
 			<p class="navbar-text visible-sm visible-xs" id="mobilePageName">
 			<?php 
+				$toggleId = 'toggleMisPeliculas';
 				if($this->action->Id=="index")
 				{
 					echo "Mis Peliculas";					
@@ -136,6 +136,7 @@
 				}
 				elseif($this->action->Id=="marketplace")
 				{
+					$toggleId = 'toggleMarketplace';
 					echo "Marketplace";
 				}
 				elseif($this->action->Id=="downloads")
@@ -189,7 +190,7 @@
 				 -->
 			</div>
 			<div class="nav navbar-nav navbar-left">
-				<button class="toggle-menu menu-left btn btn-primary navbar-btn jPushMenuBtn" id="toggleMisPeliculas">
+				<button class="toggle-menu menu-left btn btn-primary navbar-btn jPushMenuBtn" id="<?php echo $toggleId;?>">
 					<i class="fa fa-filter fa-fw"></i> Filtro
 				</button>
 			</div>
@@ -307,7 +308,7 @@ function setTextFilter(obj)
 
     if($this.val().length > 0)
     {
-    	var newkey = 'flr-' + $this.val().toLowerCase().trim().replace(/ /gi,'-');    	
+    	var newkey = $this.val().toLowerCase().trim().replace(/ /gi,'-');    	
     	filters[key].push({key:newkey,value:$this.val()});
     }
 }

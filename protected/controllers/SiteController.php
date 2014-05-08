@@ -52,16 +52,15 @@ class SiteController extends Controller
 	}
 
 	public function actionMarketplace()
-	{
- 		$this->showFilter = false;
- 		$modelNzb = new Nzb();
- 		$dataProvider = $modelNzb->searchMarketplace();
+	{ 		
+ 		$modelMarketplace = new Marketplace();
+ 		
+ 		$dataProvider= $modelMarketplace->search();
  		$dataProvider->pagination->pageSize= 250;
-		
-
-		$this->render('marketplace',array(
-				'dataProvider'=>$dataProvider,
-		));
+ 		
+ 		$this->render('marketplace',array(
+ 				'dataProvider'=>$dataProvider,
+ 		)); 		
 	}
 	
 	public function actionGoToDevices($idSelected)

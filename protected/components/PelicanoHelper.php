@@ -54,7 +54,7 @@ class PelicanoHelper
 		}
 		return $result;		
 	}
-	static public function getLeftFilter($flr)
+	static public function getLeftFilter($flr, $page = '')
 	{
 		$filters = "";
 		
@@ -62,7 +62,10 @@ class PelicanoHelper
 		$criteria->select = 'distinct '. $flr;
 		$criteria->order = $flr.' DESC';
 		
-		$movies = Movies::model()->findAll($criteria);
+		if($page == 'marketplace')
+			$movies = Marketplace::model()->findAll($criteria);
+		else
+			$movies = Movies::model()->findAll($criteria);
 		
 		if($flr == 'year')
 		{
@@ -123,6 +126,35 @@ class PelicanoHelper
 			$new = ($model->is_new == 1)?'flr-isnew':'';
 		
 		return $genre . ' ' . $title . ' ' . $year . ' ' . $new;	
+	}
+	
+	static public function getFiltersMarketplace($model)
+	{
+		$year = "";
+		$title = "";
+		$genre = "";
+	
+		if(isset($model->genre))
+		{
+			$genres = explode(', ', $model->genre);
+			foreach($genres as $item)
+			{
+				$aux = preg_replace('/\W/', '-',strtolower($item));
+				$genre = $genre . ' flr-'.$aux;
+			}
+		}
+	
+		if(isset($model->title))
+		{
+			$title = preg_replace('/\W/', '-',strtolower($model->title));
+			$title = 'flr-'.$title;
+		}
+	
+		if(isset($model->year))
+			$year = 'flr-'.$model->year;
+	
+	
+		return $genre . ' ' . $title . ' ' . $year;
 	}
 	
 	static public function getImageName($name, $posFix = "")
