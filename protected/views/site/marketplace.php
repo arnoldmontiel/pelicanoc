@@ -21,8 +21,7 @@
 			</form>
 		</div>
 	</nav>
-<div class="container" id="screenMarketplace" >
-
+<div class="container noWrapper" id="screenMarketplace" >
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#marketPlace_view', "
 	$('.aficheClick').click(function(){

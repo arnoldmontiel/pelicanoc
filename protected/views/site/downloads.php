@@ -1,5 +1,6 @@
 
 <div class="container" id="screenDescargas" >
+<div class="wrapper">
    <div class="row">
     <div class="col-md-12">
     
@@ -187,6 +188,7 @@ $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"
 -->
     </div> <!-- /col-md-12 -->
   </div><!-- /row -->
+</div><!-- /wrapper -->
 </div><!-- /container -->
 <script>
 	$('#btn-cancelRipp').click(function(){
