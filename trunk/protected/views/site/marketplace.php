@@ -68,13 +68,13 @@ imagesLoaded( container, function() {
 		iso.layout();	
 	});
   
-	iso.on('layoutComplete', function(isoInstance, laidOutItems){
- 	  	if(laidOutItems.length > idealCols)
- 	  	$('#itemsContainer').addClass('centrado');
+// 	iso.on('layoutComplete', function(isoInstance, laidOutItems){
+//  	  	if(laidOutItems.length > idealCols)
+//  	  	$('#itemsContainer').addClass('centrado');
 
- 	  	if(laidOutItems.length < idealCols)
- 	  	$('#itemsContainer').removeClass('centrado');
-	});
+//  	  	if(laidOutItems.length < idealCols)
+//  	  	$('#itemsContainer').removeClass('centrado');
+// 	});
 	  
 	
 
