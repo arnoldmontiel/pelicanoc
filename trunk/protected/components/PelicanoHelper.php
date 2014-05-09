@@ -31,6 +31,10 @@ class PelicanoHelper
 						
 					}
 					$systemStatus->error_players=$hasError;
+					$errorLog = new ErrorLog();
+					$errorLog->error_type = $status;
+					$errorLog->has_error = $hasError;
+					$errorLog->save();
 					$result = $systemStatus->save();
 				}					
 			break;
@@ -39,6 +43,10 @@ class PelicanoHelper
 				{
 					$systemStatus->error_NAS=$value;
 					$result = $systemStatus->save();
+					$errorLog = new ErrorLog();
+					$errorLog->error_type = $status;
+					$errorLog->has_error = $value;
+					$errorLog->save();						
 				}					
 				break;
 			case 3:
@@ -46,6 +54,10 @@ class PelicanoHelper
 				{
 					$systemStatus->error_NAS_space=$value;
 					$result = $systemStatus->save();
+					$errorLog = new ErrorLog();
+					$errorLog->error_type = $status;
+					$errorLog->has_error = $value;
+					$errorLog->save();						
 				}					
 				break;				
 			default:
