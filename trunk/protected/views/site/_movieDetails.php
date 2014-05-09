@@ -100,7 +100,7 @@
     GENERO
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-	<?php echo $model->genre;?>
+	<?php echo ($model->genre != '' ? $model->genre : '&nbsp;');	?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -109,7 +109,7 @@
     PUBLICO
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    <?php echo $model->parentalControl->description;?>
+	<?php echo ($model->parentalControl->description != '' ? $model->parentalControl->description  : '&nbsp;');	?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -154,7 +154,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     A&Ntilde;O
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    <?php echo $model->production_year;?>
+    <?php echo ($model->production_year != '' ? $model->production_year : '&nbsp;');	?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -163,8 +163,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     DIRECTOR
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    <?php echo $casting['director'];?>
-    </div><!--/.col-md-9 -->
+	<?php echo ($casting['director'] != '' ? $casting['director'] : '&nbsp;');	?>
+	</div><!--/.col-md-9 -->
     </div><!--/.row -->
     
     <div class="row detailSecondGroup">
@@ -172,7 +172,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     ACTORES
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    <?php echo $casting['actors'];?>
+	<?php echo ($casting['actors'] != '' ? $casting['actors'] : '&nbsp;');	?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -181,7 +181,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     DURACI&Oacute;N
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-    <?php echo $model->running_time;?>mm
+	<?php echo ($model->running_time != '' ? $model->running_time.'mm' : '&nbsp;');	?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
@@ -190,7 +190,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     SIN&Oacute;PSIS
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond detailSummary">
-    <?php echo nl2br($model->description);?>
+	<?php echo ($model->description != '' ? nl2br($model->description) : '&nbsp;');	?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     </div><!--/.tab-pane#1 -->
