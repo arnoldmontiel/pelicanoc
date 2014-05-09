@@ -18,6 +18,32 @@ USE `pelicanoc`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `error_log`
+--
+
+DROP TABLE IF EXISTS `error_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `error_log` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `error_type` int(11) DEFAULT NULL,
+  `has_error` tinyint(4) DEFAULT '0',
+  `was_sent` tinyint(4) DEFAULT '0',
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '1 - error_players\n2 - error_NAS\n3 - error_NAS_space',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `error_log`
+--
+
+LOCK TABLES `error_log` WRITE;
+/*!40000 ALTER TABLE `error_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `error_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `TMDB_data`
 --
 
