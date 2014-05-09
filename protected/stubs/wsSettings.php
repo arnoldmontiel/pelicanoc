@@ -26,6 +26,13 @@ class CustomerSettingsResponse
 	public $Users; //UserSOAP[];
 }
 
+class ClientError
+{
+	public $error_type; //integer;
+	public $has_error; //integer;
+	public $log_date; //date;
+}
+
 class ClientSettingsRequest extends SOAP2Array
 {
 	public $Id_device; //string;
@@ -36,6 +43,7 @@ class ClientSettingsRequest extends SOAP2Array
 	public $is_nas_alive; //integer;
 	public $disc_used_space; //string;
 	public $disc_total_space; //string;
+	public $ClientError; //ClientError[];
 }
 
 class ServerAnydvdUpdateResponse
