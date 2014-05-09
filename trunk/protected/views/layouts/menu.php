@@ -24,8 +24,7 @@
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMisPeliculas">
 			<div class="cbp-title">Filtrar Mis Peliculas</div>
 			<div class="sideMenuBotones">
-				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button>
-				<button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button>
+				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
 			</div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
@@ -34,11 +33,11 @@
 					<a class="pushMenuRadio pushNuevas" href="#" data-filter="flr-isnew">Sin Ver</a>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="genre">
-					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
+					<div class="pushMenuGroupTitle">G&Eacute;NERO <button class="btn btn-xs btn-default"><i class="fa fa-undo"></i> Limpiar</button></div>
 					<?php echo PelicanoHelper::getLeftFilter('genre');?>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="year">
-					<div class="pushMenuGroupTitle">A&Ntilde;O</div>
+					<div class="pushMenuGroupTitle">A&Ntilde;O <button class="btn btn-xs btn-default"><i class="fa fa-undo"></i> Limpiar</button></div>
 					<?php echo PelicanoHelper::getLeftFilter('year');?>
 				</div>
 			</div>
@@ -58,11 +57,11 @@
 					<a class="pushMenuRadio pushMenuActive pushTodas" href="#">Todas</a>					
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="genre">
-					<div class="pushMenuGroupTitle">G&Eacute;NERO</div>
+					<div class="pushMenuGroupTitle">G&Eacute;NERO <button class="btn btn-xs btn-default"><i class="fa fa-undo"></i> Limpiar</button></div>
 					<?php echo PelicanoHelper::getLeftFilter('genre','marketplace');?>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="year">
-					<div class="pushMenuGroupTitle">A&Ntilde;O</div>
+					<div class="pushMenuGroupTitle">A&Ntilde;O <button class="btn btn-xs btn-default"><i class="fa fa-undo"></i> Limpiar</button></div>
 					<?php echo PelicanoHelper::getLeftFilter('year','marketplace');?>
 				</div>
 			</div>
