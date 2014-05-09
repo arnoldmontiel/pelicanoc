@@ -425,9 +425,25 @@ class PelicanoHelper
 				self::saveSystemStatus(3,0);
 		}
 		
+		$errorLogs = ErrorLog::model()->findAllByAttributes(array('was_sent'=>0));
+		foreach($errorLogs as $log)
+		{
+			$clientError = new ClientError();
+			$clientError->error_type = $log->error_type;
+			$clientError->has_error = $log->has_error;
+			$clientError->has_error = $log->date;
+			$clientsettings->ClientError[] = $clientError;
+		}
 		
 		
-		$settingsWS->setClientSettings($clientsettings);
+		if($settingsWS->setClientSettings($clientsettings))
+		{
+			foreach($errorLogs as $log)
+			{
+				$log->was_sent = 1;
+				$log->save();
+			}
+		}
 	
 	}
 	
