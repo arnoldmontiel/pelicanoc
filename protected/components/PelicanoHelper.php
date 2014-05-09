@@ -443,7 +443,7 @@ class PelicanoHelper
 			$clientError = new ClientError();
 			$clientError->error_type = $log->error_type;
 			$clientError->has_error = $log->has_error;
-			$clientError->log_date = $log->date;
+			$clientError->date = $log->date;
 			$clientsettings->ClientError[] = $clientError;
 		}
 		
