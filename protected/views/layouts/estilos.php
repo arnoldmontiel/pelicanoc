@@ -135,7 +135,6 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling:touch;
-	padding-top:130px;
 	margin-left:-15px;
 	margin-right:-15px;
   }
@@ -164,8 +163,10 @@ overflow:hidden;}
  
 
 body #screenHome {
-padding-top:0px;
 padding-bottom:20px;
+}
+#screenHome .wrapper{
+padding-top:130px;
 }
 
 body #screenSeries {
@@ -174,13 +175,17 @@ padding-bottom:20px;
 }
 
 body #screenMarketplace {
-padding-top:130px;
 padding-bottom:20px;
+}
+#screenMarketplace .wrapper{
+padding-top:130px;
 }
 
 body #screenDescargas {
-padding-top:80px;
 padding-bottom:20px;
+}
+#screenDescargas .wrapper{
+padding-top:80px;
 }
 
 body #screenDevices {
