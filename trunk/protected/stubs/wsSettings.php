@@ -30,7 +30,7 @@ class ClientError
 {
 	public $error_type; //integer;
 	public $has_error; //integer;
-	public $log_date; //date;
+	public $date; //date;
 }
 
 class ClientSettingsRequest extends SOAP2Array
