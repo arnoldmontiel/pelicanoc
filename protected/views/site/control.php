@@ -263,7 +263,14 @@ $('#playButton').click(function(){
    		data: 'ir_code=B748BF00',
  	});
 });
-
+$('#pauseButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=B748BF00',
+ 	});
+});
+				
 $('#stopButton').click(function(){
 	$.ajax({
    		type: 'GET',
