@@ -46,16 +46,6 @@ class Setting extends CActiveRecord
 {
 	private static $setting;
 	private $_customer;
-		 
-	public function setAttributes($model)
-	{
-		//set attributes
-		$attributesArray = $model->attributes;
-		while (($value = current($attributesArray)) !== false) {
-			$this->setAttribute(key($attributesArray), $value);
-			next($attributesArray);
-		}
-	}
 	
 // 	private function __construct()
 // 	{

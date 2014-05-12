@@ -669,8 +669,8 @@ class PelicanoHelper
 			$settings->Id_customer = $response->Id_customer;
 			$settings->Id_reseller = $response->Id_reseller;
 			
-			//if(isset($response->Configuration))
-				//$settings->setAttributes($response->Configuration);
+			if(isset($response->Configuration))
+				$settings->attributes = $response->Configuration;
 			
 			$settings->save();
 	
