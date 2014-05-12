@@ -24,6 +24,7 @@ docReady( function() {
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
   itemSelector: '.item',
+  layoutmode: 'sloppyMasonry',
   masonry: {
     columnWidth: '.grid-sizer',
     isFitWidth: hasFitWidth,
@@ -68,13 +69,13 @@ imagesLoaded( container, function() {
 		iso.layout();	
 	});
   
-// 	iso.on('layoutComplete', function(isoInstance, laidOutItems){
+ 	iso.on('layoutComplete', function(isoInstance, laidOutItems){
 //  	  	if(laidOutItems.length > idealCols)
 //  	  	$('#itemsContainer').addClass('centrado');
 
 //  	  	if(laidOutItems.length < idealCols)
 //  	  	$('#itemsContainer').removeClass('centrado');
-// 	});
+ 	});
 	  
 	
 
@@ -127,7 +128,7 @@ function openMovieShowDetail(id, sourceType, idResource)
 }
 </script>
 <div class="container" id="screenMarketplace" >
-    	 <div class="wrapper">
+    	 <div class="wrapper clearfix">
 			<div id="itemsContainer" role="main" class="clearfix centrado">
 				<div class="grid-sizer"></div>
 					<?php 

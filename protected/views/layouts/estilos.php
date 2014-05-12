@@ -124,6 +124,7 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
+ height:100%;
 		}
 
 
@@ -131,15 +132,17 @@ body {
  
  .container.noWrapper{height:auto;   overflow-x: hidden !important;overflow:auto;}
  
- .wrapper{height:100%;
-  overflow-x: hidden !important;
+ .wrapper{
+   overflow-x: hidden !important;
   overflow-y: auto;
   -webkit-overflow-scrolling:touch;
   margin-left:-15px;
   margin-right:-15px;
+  height:100%;
   }
         
  body #content {
+ height:100%;
 position:fixed;
 top:0px; left:0px; right:0px; bottom:0px;
 
@@ -2125,7 +2128,7 @@ right:5px; bottom:37px;
 	
 	
 
-	 .grid-sizer{ width: 220px; height: 2355px;}
+	 .grid-sizer{ width: 220px; height: 355px;}
 
 	.peliAfiche { width: 220px; height: 320px; }
 	
