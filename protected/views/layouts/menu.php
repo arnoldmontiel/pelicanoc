@@ -48,8 +48,7 @@
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMarketplace">
 			<div class="cbp-title">Filtrar B&uacute;squeda</div>
 			<div class="sideMenuBotones">
-				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar</button>
-				<button class="btn btn-primary btnLimpiar"><i class="fa fa-check"></i> Aplicar</button>
+				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
 			</div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
