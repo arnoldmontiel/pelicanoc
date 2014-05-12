@@ -15,6 +15,24 @@ class UserSOAP
 	public $birth_date; //date;
 }
 
+class ConfigurationSOAP
+{	
+	public $sabnzb_api_key; //string;
+	public $sabnzb_api_url; //string;
+	public $path_sabnzbd_download;  //string;
+	public $path_pending; //string;
+	public $host_name; //string;
+	public $path_ready; //string;
+	public $path_images; //string;
+	public $path_shared; //string;
+	public $host_path; //string;
+	public $host_file_server; //string;
+	public $host_file_server_path; //string;
+	public $tmdb_api_key; //string;
+	public $tmdb_lang; //string;
+	public $michael_jackson; //string;
+}
+
 class CustomerSettingsResponse
 {
 	public $Id_customer; //integer;
@@ -23,8 +41,10 @@ class CustomerSettingsResponse
 	public $name; //string;
 	public $last_name; //string;
 	public $address; //string;
+	public $Configuration; //ConfigurationSOAP;
 	public $Users; //UserSOAP[];
 }
+
 
 class ClientError
 {

@@ -32,7 +32,13 @@
  * @property string $path_shared_pelicano_root
  * @property string $path_shared_copied
  * @property string $path_shared_ripped
- *
+ * @property string $path_sabnzbd_download
+ * @property integer $is_movie_tester
+ * @property string $path_sabnzbd_temp
+ * @property string $host_file_server_user
+ * @property string $host_file_server_passwd
+ * @property string $michael_jackson
+ * 
  * The followings are the available model relations:
  * @property Player[] $players 
  */
