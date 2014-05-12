@@ -82,7 +82,10 @@ class PelicanoHelper
 		if($flr == 'year')
 		{
 			foreach($movies as $item)
-				$filters .= '<a href="#" class="pushMenuCheck" data-filter="flr-'.$item->year.'">'.$item->year.'</a>';			
+			{
+				if(isset($item->year) && !empty($item->year))
+					$filters .= '<a href="#" class="pushMenuCheck" data-filter="flr-'.$item->year.'">'.$item->year.'</a>';
+			}			
 		}
 		else 
 		{
