@@ -13,14 +13,14 @@ $(function() {
 </script>
     	
     	<div class="row">
-    	<div class="col-md-6"><h2 class="sliderTitle modified">Descargando desde Marketplace</h2>
+    	<div class="col-sm-7"><h2 class="sliderTitle modified">Descargando desde Marketplace</h2>
     	<?php if(!empty($nzbDownloading)):?>
 			<ul class="nav nav-pills">
   				 <!-- <li class="active"><a data-toggle="tab" href="#">Todas</a></li> -->
   			</ul>
 			<?php endif?>
     	</div>
-    	<div class="col-md-6 align-right velocidadDescarga">Velocidad de Descarga: <span id="downloadSpeed">0 KB</span> 
+    	<div class="col-sm-5 align-right velocidadDescarga">Velocidad de Descarga: <span id="downloadSpeed">0 KB</span> 
 				<button type="button" class="btn btn-primary btn-xs"
 					data-toggle="modal" data-target="#myModalVelocidad"><i class="fa fa-pencil"></i>
 					</button>
@@ -85,7 +85,7 @@ $(function() {
     				//error
     				echo '<div class="fallo" id="error_'.$nzb->Id.'" '.$hide.'><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs" id="restart_'.$nzb->Id.'" onclick="retrytDownload('.$nzb->Id.')"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
     				//en cola
-    				echo '<div class="frente" id="queued_'.$nzb->Id.'" '.($first?$hide:'').'><div>EN COLA</div><button class="btn btn-primary btn-xs" onclick="downloadFirst('.$nzb->Id.',this)"><i class="fa fa-chevron-circle-left"></i> Descargar Primero</button></div>';
+    				echo '<div class="frente" id="queued_'.$nzb->Id.'" '.($first?$hide:'').'><div>EN ESPERA</div><button class="btn btn-primary" onclick="downloadFirst('.$nzb->Id.',this)"><i class="fa fa-chevron-circle-left"></i> Descargar Primero</button></div>';
     				
     				echo CHtml::closeTag("li");		
     				if($first)
@@ -187,5 +187,6 @@ $(function() {
 	    });
   <?php endif?>
   </script>
+  
 
 
