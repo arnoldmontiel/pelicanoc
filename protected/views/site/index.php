@@ -90,6 +90,12 @@ imagesLoaded( container, function() {
 		iso.arrange();
 		updateFilterSummary();
 	});
+
+	$( ".pushSelectable .pushMenuGroupTitle" ).click(function() {
+		clearFilterByKey(this);
+		iso.arrange();
+		updateFilterSummary();
+	});	
 	
 	$('#main-search').change(function()
 	{
