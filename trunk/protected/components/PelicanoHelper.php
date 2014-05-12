@@ -670,7 +670,18 @@ class PelicanoHelper
 			$settings->Id_reseller = $response->Id_reseller;
 			
 			if(isset($response->Configuration))
+			{
 				$settings->setAttributesByArray($response->Configuration);
+				$modelTmdb = Tmdb::model()->findByPk(1);
+				if(!isset($modelTmdb)){
+					$modelTmdb = new Tmdb();
+					$modelTmdb->Id = 1;
+				}
+				
+				$modelTmdb->api_key = $response->Configuration->tmdb_api_key; 
+				$modelTmdb->lang = $response->Configuration->tmdb_lang;
+				$modelTmdb->save();
+			}
 			
 			$settings->save();
 	
