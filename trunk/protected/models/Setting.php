@@ -47,9 +47,10 @@ class Setting extends CActiveRecord
 	private static $setting;
 	private $_customer;
 		 
-	public function setAttributesByArray($array)
+	public function setAttributes($model)
 	{
-		$attributesArray = get_object_vars($array);
+		//set attributes
+		$attributesArray = $model->attributes;
 		while (($value = current($attributesArray)) !== false) {
 			$this->setAttribute(key($attributesArray), $value);
 			next($attributesArray);
