@@ -320,6 +320,14 @@ function setTextFilter(obj)
     }
 }
 
+function clearFilterByKey(obj)
+{
+	var $this = $(obj);
+	var key = $this.parent().attr('data-filter-group');
+	filters[key] = [];
+	$this.parent().find('.pushMenuCheck').removeClass("pushMenuActive");
+}
+
 function clearFilters()
 {
 	for ( var prop in filters ) 
