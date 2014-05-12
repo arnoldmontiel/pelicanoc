@@ -124,21 +124,20 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
-	}
+		}
 
 
  .container{height:100%; overflow:hidden;}
  
- .container.noWrapper{height:auto; overflow:auto;}
+ .container.noWrapper{height:auto;   overflow-x: hidden !important;overflow:auto;}
  
  .wrapper{height:100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-x: hidden !important;
+  overflow-y: auto;
   -webkit-overflow-scrolling:touch;
-	margin-left:-15px;
-	margin-right:-15px;
+  margin-left:-15px;
+  margin-right:-15px;
   }
-        
         
  body #content {
 position:fixed;
@@ -206,6 +205,7 @@ body #screenControl {
 body #screenEditMovie {
 padding-top:80px;
 padding-bottom:20px;
+overflow:auto;
 }
 
 /* ----- LOGIN ------*/
@@ -911,12 +911,14 @@ width: 129px;
 }
 
 .ribMisPeliculas{
-position:absolute; color:rgba(255,255,255,0.8); right:-73px; bottom:60px; font-size:23px;
+position:absolute; color:rgba(255,255,255,1); right:7px; bottom:34px; font-size:23px;
+z-index:200;
 }
 
 .ribDescargando{
-position:absolute; color:#666; background-color:rgba(255,255,255,0.9); border-radius:40px; 
-padding:3px 5px; display:inline-block; text-align:center; right:-62px; bottom:60px; font-size:15px; letter-spacing:1px; 
+position:absolute; color:#666; background-color:rgba(255,255,255,1); border-radius:37px; 
+padding:3px 5px; display:inline-block; text-align:center; right:5px; bottom:40px; font-size:15px; letter-spacing:1px; 
+z-index:200;
 }
 
 .flex-viewport {
@@ -950,6 +952,8 @@ white-space: nowrap;
 	box-shadow: 0 1px 4px #333;
 }
 
+a.peliAfiche {cursor:pointer;
+}
 .peliDesc img {
 	opacity: 0.5;
 }
@@ -1723,7 +1727,7 @@ color:white; line-height:40px; padding-right:45px;
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
 .flexslider {
 	height: 295px;
-	width: 95%;
+	width: 93%;
 	margin: 0 auto;
 	margin-bottom: 30px;
 	background: none repeat scroll 0 0;
@@ -2083,12 +2087,19 @@ font-size:  110% !important;
 
 	.rowControlVariable{width:99%; margin:auto;}
 	.controlNavegacion{text-align:center;}
-		
-}
+	
+	.flexslider {
+		width: 90%;		
+	}
 
+}
 /*IPAD PORTRAIT*/
 @media ( max-width : 768px) {
 
+	.flexslider {
+		width: 88%;		
+	}
+	
 .ribbon.ribNuevo{
 		right: -39px;
 		bottom: 23px;
@@ -2101,11 +2112,11 @@ top: 209px;
 }
 
 .ribMisPeliculas{
-right:-92px; bottom:68px;
+right:7px; bottom:34px;
 }
 
 .ribDescargando{
-right:-80px; bottom:70px;
+right:5px; bottom:37px;
 }
 
 	.navbar .nav>li>a {
