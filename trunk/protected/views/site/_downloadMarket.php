@@ -187,25 +187,5 @@ $(function() {
 	    });
   <?php endif?>
   </script>
-<div id="myModalVelocidad" class="modal fade in" aria-hidden="false">
-<div class="modal-dialog">
-			<div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-        <h4 class="modal-title">Editar Velocida de Descarga</h4>
-      </div>
-      <div class="modal-body">
 
-  <div class="form-group">
-  <label class="required">Velocidad (en KB/s) <span class="required">*</span></label>    <input id ="setSpeedLimit" class="form-control"  type="text" value="">  </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
-        <button type="button" onclick="saveSpeedlimit(this)" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</button>
-      </div>
-    </div>
-			<!-- /.modal-content -->
-		</div>
-		
-</div>
 
