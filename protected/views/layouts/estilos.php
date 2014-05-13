@@ -657,7 +657,7 @@ letter-spacing: 2px;}
 	color: #777;
 }
 
-.cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active, .cbp-spmenu .mobileMenuItem:hover{ background-color:#eee;} 
+.cbp-spmenu .pushMenuCheck:hover, .cbp-spmenu .pushMenuRadio:hover, .cbp-spmenu .mobileMenuItem:active, .cbp-spmenu .mobileMenuItem:hover{ background-color:#eee;} 
 
 .cbp-spmenu a {
 	color: #777;
