@@ -117,7 +117,7 @@
 		   		url: '<?php echo SiteController::createUrl('ajaxSaveSelectedMovie');?>',
 		   		data: {Id_movie:target.id,sourceType:<?php echo $sourceType; ?>,idResource:'<?php echo $idResource; ?>'},
 		 	}).success(function(data)
-		 	{	
+		 	{
 		 		location.reload();
 			}
 		 	);

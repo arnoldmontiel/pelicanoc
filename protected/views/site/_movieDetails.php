@@ -109,7 +109,10 @@
     PUBLICO
     </div><!--/.col-md-3 -->
     <div class="col-md-9 col-sm-9 align-left detailSecond">
-	<?php echo ($model->parentalControl->description != '' ? $model->parentalControl->description  : '&nbsp;');	?>
+	<?php
+		//echo ($model->parentalControl->description != '' ? $model->parentalControl->description  : '&nbsp;');	
+		echo ($model->certification != '' ? $model->certification  : 'UNRATED');
+	?>
     </div><!--/.col-md-9 -->
     </div><!--/.row -->
     
