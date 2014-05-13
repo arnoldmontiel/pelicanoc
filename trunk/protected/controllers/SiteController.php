@@ -2282,13 +2282,24 @@ class SiteController extends Controller
 				$bigPoster = $movie->poster('500');
 				$backdrop = $movie->backdrop('original');
 		
-				var_dump(TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop));
+				TMDBHelper::downloadAndLinkImages($movie->id,$idResource,$sourceType,$poster,$bigPoster,$backdrop);
 				if(!$myMovie->is_custom)
 				{
 					$myMovie->Id=uniqid ("cust_");
 					$newMyMovie->attributes =$myMovie->attributes;
 					$myMovie = $newMyMovie;
 				}
+				$releases = $movie->releases();
+				$myMovie->certification = "UNRATED";
+				foreach($releases->countries as $countries)
+				{
+					if(($countries->iso_3166_1=="US" || $countries->iso_3166_1=="GB") && $countries->certification!="")
+					{
+						$myMovie->certification = $countries->certification;
+						break;
+					}
+				}
+				
 				$myMovie->original_title = $movie->original_title;
 				$myMovie->adult = $movie->adult?1:0;
 				$myMovie->release_date = $movie->release_date;
