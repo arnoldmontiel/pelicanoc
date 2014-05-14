@@ -2133,9 +2133,9 @@ right:5px; bottom:37px;
 	}
 	
 	/*asi se muestran de a 4 por fila */
- .grid-sizer{ width: 172px; height: 282px;}
+ .grid-sizer{ width: 160px; height: 267px;}
 
-	.peliAfiche { width: 170px; height: 247px; }
+	.peliAfiche { width: 160px; height: 232px; }
 		
 
 	/*asi se muestran de a 3 por fila */
