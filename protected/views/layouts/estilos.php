@@ -657,7 +657,7 @@ letter-spacing: 2px;}
 	color: #777;
 }
 
-.cbp-spmenu .pushMenuCheck:hover, .cbp-spmenu .pushMenuRadio:hover, .cbp-spmenu .mobileMenuItem:active, .cbp-spmenu .mobileMenuItem:hover{ background-color:#eee;} 
+
 
 .cbp-spmenu a {
 	color: #777;
@@ -666,9 +666,13 @@ letter-spacing: 2px;}
 
 .cbp-spmenu a:hover {
 	color: #5e5e5e;
-	background-color: transparent;
+	background-color:inherit;
 	text-decoration: none;
 }
+
+.cbp-spmenu a.cbpPressed{ background-color:#eee;}
+.cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active{ background-color:#eee;} 
+
 
 .cbp-spmenu .cbp-title {
 	background-color: #f8f8f8;
@@ -2128,12 +2132,17 @@ right:5px; bottom:37px;
 		padding: 10px 10px 10px;
 	}
 	
-	
+	/*asi se muestran de a 4 por fila */
+ .grid-sizer{ width: 172px; height: 282px;}
 
-	 .grid-sizer{ width: 220px; height: 355px;}
+	.peliAfiche { width: 170px; height: 247px; }
+		
+
+	/*asi se muestran de a 3 por fila */
+	/* .grid-sizer{ width: 220px; height: 355px;}
 
 	.peliAfiche { width: 220px; height: 320px; }
-	
+	*/
 	
 	.controlContainer {
 		width: 100%;

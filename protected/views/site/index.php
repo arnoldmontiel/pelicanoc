@@ -80,6 +80,7 @@ imagesLoaded( container, function() {
 	
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
+		$(this).toggleClass('cbpPressed');
 		setMenuFilters(this);
 	    iso.arrange();
 	    updateFilterSummary();
