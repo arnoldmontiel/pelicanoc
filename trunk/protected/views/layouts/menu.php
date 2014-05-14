@@ -229,6 +229,7 @@ jQuery(document).ready(function($) {
 		menu: '#pushMarketplace'});
 
 	$( ".pushSelectable .pushMenuSuperGroup a" ).click(function() {
+	
 		  if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
 			  $(this).addClass( "pushMenuActive" );
