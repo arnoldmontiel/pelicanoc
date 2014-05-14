@@ -670,8 +670,6 @@ letter-spacing: 2px;}
 	text-decoration: none;
 }
 
-.cbp-spmenu a.cbpPressed{ background-color:#eee;}
-.cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active{ background-color:#eee;} 
 
 
 .cbp-spmenu .cbp-title {
@@ -756,6 +754,20 @@ right: 10px;
     .sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; background-color:#fbfbfb; padding: 10px 0px; width:100%; text-align:center; border-top:2px solid #eee;}
     .btnLimpiar{margin-left:10px;}
     
+    
+ .cbp-spmenu a.cbpPressed{ background-color:#eee;}
+.cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active, .cbp-spmenu  a.pushMenuActive{ background-color:#eee;
+ } 
+.cbp-spmenu  a.pushMenuActive:active{ background-color:transparent;
+ } 
+ 
+.cbp-spmenu .pushMenuCheck:active:before, .cbp-spmenu .pushMenuRadio:active:before, .cbp-spmenu  a.pushMenuActive:active:before{
+ -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+content: '\f110';
+}   
 
 /* ------ END MOBILE MENU ------- */
 
