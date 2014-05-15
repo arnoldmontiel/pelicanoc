@@ -1453,7 +1453,16 @@ padding: 3px 0px;
 	font-size: 15px;
 }
 
-.filterDesc{font-size:14px; display:inline-block; margin-left:10px; line-height:51px; color:#666; letter-spacing:1px;}
+.filterDesc{font-size:14px; 
+line-height:51px; color:#666; letter-spacing:1px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+  width:auto;
+  padding-left:10px;
+  padding-right:10px;
+  display:block;
+}
 
 /* ----- END MARKETPLACE --------*/
 

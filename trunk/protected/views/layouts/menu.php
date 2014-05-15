@@ -187,7 +187,7 @@
 <!-- /////////MENU SECUNDARIO///////// -->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="menuSecond">
 		<div class="container-fluid">
-			<div class="nav navbar-nav navbar-left">
+		<div class="nav navbar-nav navbar-left hidden">
 		    <!-- Comentado para Pelicano Lite #####
 		    	<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
 					<li class="generoItem active"><a href="#" data-filter="*">Pel&iacute;culas</a></li>
@@ -199,14 +199,20 @@
 				<button class="toggle-menu menu-left btn btn-primary navbar-btn jPushMenuBtn" id="<?php echo $toggleId;?>">
 					<i class="fa fa-filter fa-fw"></i> Filtro
 				</button>
-			</div>
-			<div id="filter-summary" class="filterDesc pull-left">Todas las Peliculas</div>
-			<form class="navbar-form navbar-right" role="search">
+				</div>
+				
+
+
+		<form class="navbar-form navbar-right" role="search">
 				<div class="searchMain form-group" data-filter-group="title">
 					<input id="main-search" type="text" class="form-control form-search" placeholder=" Buscar Pel&iacute;cula">
 				</div>
 			</form>
-		</div>
+			
+			<div id="filter-summary" class="filterDesc">Todas las Peliculas</div>
+			
+			
+		</div><!-- /container-fluid -->
 	</nav>
 <?php endif; ?>
 
