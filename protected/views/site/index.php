@@ -97,12 +97,10 @@ function startFilter(obj)
 		//2� marcar como activo (pone el check)
 		if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
-			  $(this).toggleClass( "pushMenuActive");
-		  }else{			
-			$( this ).toggleClass( "pushMenuActive");
-		  }
-		  setTimeout(startFilter, 50,this);
-		  return false;
+		}
+		$(this).toggleClass( "pushMenuActive");
+		setTimeout(startFilter, 50,this);
+		return false;
 	  });
 
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
