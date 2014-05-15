@@ -80,15 +80,23 @@ imagesLoaded( container, function() {
 	
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
+		//1¼ pintar al hacer click
+		$( this ).addClass( "pushMenuClicked" );
+		//2¼ marcar como activo (pone el check)
 		if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
 			  $(this).addClass( "pushMenuActive" );
 		  }else{
 			$( this ).toggleClass( "pushMenuActive" );
 		  }
+		//3¼ tomar filtros
 		setMenuFilters(this);
+		//4¼ acomodar pelis
 	    iso.arrange();
+		//5¼ ni idea
 	    updateFilterSummary();
+		//6¼ despintar el estado "click"
+		$( this ).removeClass( "pushMenuClicked" );
 	  });
 
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
