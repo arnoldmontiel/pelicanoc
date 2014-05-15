@@ -80,7 +80,12 @@ imagesLoaded( container, function() {
 	
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
-		$(this).toggleClass('cbpPressed');
+		if ($(this).hasClass('pushMenuRadio')){
+			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
+			  $(this).addClass( "pushMenuActive" );
+		  }else{
+			$( this ).toggleClass( "pushMenuActive" );
+		  }
 		setMenuFilters(this);
 	    iso.arrange();
 	    updateFilterSummary();
