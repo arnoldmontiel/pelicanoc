@@ -230,13 +230,13 @@ jQuery(document).ready(function($) {
 
 	$( ".pushSelectable .pushMenuSuperGroup a" ).click(function() {
 	
-		  if ($(this).hasClass('pushMenuRadio')){
+		 /* if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
 			  $(this).addClass( "pushMenuActive" );
 		  }else{
 			$( this ).toggleClass( "pushMenuActive" );
 		  }
-
+*/
 
 	});	
 		
