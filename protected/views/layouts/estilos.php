@@ -754,11 +754,10 @@ right: 10px;
     .sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; background-color:#fbfbfb; padding: 10px 0px; width:100%; text-align:center; border-top:2px solid #eee;}
     .btnLimpiar{margin-left:10px;}
     
-    
- .cbp-spmenu a.cbpPressed{ background-color:#eee;}
+/*    
 .cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active{ background-color:#eee;
  } 
-.cbp-spmenu  a.pushMenuActive:active{ background-color:#eee; } 
+.cbp-spmenu  a.pushMenuActive:active{ background-color:#eee; } */
  
 .cbp-spmenu .pushMenuCheck:active:before, .cbp-spmenu .pushMenuRadio:active:before, .cbp-spmenu  a.pushMenuActive:active:before{
  -webkit-animation: spin 2s infinite linear;
@@ -768,6 +767,9 @@ right: 10px;
 content: '\f110';
 color: #ddd;
 }   
+
+
+.cbp-spmenu  a.pushMenuClicked{ background-color:#eee; } 
 
 /* ------ END MOBILE MENU ------- */
 
