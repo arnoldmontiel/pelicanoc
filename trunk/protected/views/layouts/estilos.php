@@ -1640,60 +1640,9 @@ background-color:none;
 /* ----- END DISPOSITIVOS --------*/
 
 /*-------- DESCARGAS --------------*/
-.pelisFinalizadas {
-	padding: 10px 40px;
-	margin-bottom: 20px;
-}
-
-.peliFinalizada {
-	width: 140px;
-	text-align: center;
-	display: inline-block;
-	margin-bottom: 10px;
-}
-
-.peliFinalizadaBt {
-	padding: 5px;
-	text-align: center;
-}
-
-.peliFinalizada button {
-	margin: auto;
-}
-
-.peliFinalizada img {
-	margin: auto;
-}
-
-.pelisDescargadas {
-	padding: 10px 40px;
-}
-
-.peliDescargando {
-	width: 170px;
-	text-align: center;
-	display: inline-block;
-	margin-bottom: 10px;
-}
-
-.peliDescargandoProgress {
-	padding: 5px;
-	text-align: center;
-}
-
-.peliDescargando img {
-	margin: auto;
-}
-
-.progress {
-	margin-bottom: 0px !important;
-	height: 15px;
-}
-
-.progress .bar {
-	text-align: right;
-	line-height: 16px;
-}
+/*no logre encontrar el error, la solucion por ahora para evitar overflow lateral es forzarlos a hidden:*/
+#finished-area{overflow:hidden !important; }
+#market-area{overflow:hidden !important; }
 
 #screenDescargas .nav-pills {
 	margin-bottom: 10px;
