@@ -734,7 +734,7 @@ content: '\f096';
         position:absolute;
 		font-family: FontAwesome;
         top:0;
-        right:7px;
+        right:9px;
         top:50%;
         margin-top:-8px;
 content: '\f046';
@@ -756,10 +756,9 @@ right: 10px;
     
     
  .cbp-spmenu a.cbpPressed{ background-color:#eee;}
-.cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active, .cbp-spmenu  a.pushMenuActive{ background-color:#eee;
+.cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active{ background-color:#eee;
  } 
-.cbp-spmenu  a.pushMenuActive:active{ background-color:transparent;
- } 
+.cbp-spmenu  a.pushMenuActive:active{ background-color:#eee; } 
  
 .cbp-spmenu .pushMenuCheck:active:before, .cbp-spmenu .pushMenuRadio:active:before, .cbp-spmenu  a.pushMenuActive:active:before{
  -webkit-animation: spin 2s infinite linear;
@@ -767,6 +766,7 @@ right: 10px;
   -o-animation: spin 2s infinite linear;
   animation: spin 2s infinite linear;
 content: '\f110';
+color: #ddd;
 }   
 
 /* ------ END MOBILE MENU ------- */
