@@ -78,25 +78,31 @@ imagesLoaded( container, function() {
 	});
 
 	
-
+function startFilter(obj)
+{
+	//3ï¿½ tomar filtros
+	setMenuFilters(obj);
+	//4ï¿½ acomodar pelis
+	iso.arrange();
+	//5ï¿½ ni idea
+    updateFilterSummary();
+	//6ï¿½ despintar el estado "click"
+	$( obj ).removeClass( "pushMenuClicked" );
+			   
+	
+}
 	$('.pushMenuGroup').on( 'click', 'a', function() {
-		//1¼ pintar al hacer click
+		//1ï¿½ pintar al hacer click
 		$( this ).addClass( "pushMenuClicked" );
-		//2¼ marcar como activo (pone el check)
+		//2ï¿½ marcar como activo (pone el check)
 		if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
-			  $(this).addClass( "pushMenuActive" );
-		  }else{
-			$( this ).toggleClass( "pushMenuActive" );
+			  $(this).toggleClass( "pushMenuActive");
+		  }else{			
+			$( this ).toggleClass( "pushMenuActive");
 		  }
-		//3¼ tomar filtros
-		setMenuFilters(this);
-		//4¼ acomodar pelis
-	    iso.arrange();
-		//5¼ ni idea
-	    updateFilterSummary();
-		//6¼ despintar el estado "click"
-		$( this ).removeClass( "pushMenuClicked" );
+		  setTimeout(startFilter, 50,this);
+		  return false;
 	  });
 
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
