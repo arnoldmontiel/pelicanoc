@@ -260,7 +260,10 @@ function updateFilterSummary()
 		summary = summary + 'G&eacute;nero:';
 		for(var index = 0; index < filters['genre'].length; index++)
 		{
-			summary = summary + ' ' + filters['genre'][index].value;
+			if(index != 0)
+				summary = summary + ', ' + filters['genre'][index].value;
+			else
+				summary = summary + ' ' + filters['genre'][index].value;
 		}
 	}
 
@@ -269,7 +272,10 @@ function updateFilterSummary()
 		summary = summary + ' A&ntilde;o:';
 		for(var index = 0; index < filters['year'].length; index++)
 		{
-			summary = summary + ' ' + filters['year'][index].value;
+			if(index != 0)
+				summary = summary + ', ' + filters['year'][index].value;
+			else
+				summary = summary + ' ' + filters['year'][index].value;
 		}
 	}
 
