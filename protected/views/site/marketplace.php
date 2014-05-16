@@ -108,7 +108,6 @@ imagesLoaded( container, function() {
 
 	$( ".pushSelectable .pushMenuGroupTitle" ).click(function() {
 		clearFilterByKey(this);
-		updateFilterSummary();
 	});	
 	
 	$('#main-search').change(function()
