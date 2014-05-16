@@ -27,7 +27,7 @@
 				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
 				<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
 			</div>
-			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
+			<a class="toggle-menuMisPeliculas close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
 				<div class="pushMenuGroup" data-filter-group="header">
 					<a class="pushMenuRadio pushMenuActive pushTodas" href="#" data-filter="*">Todas</a>
@@ -47,9 +47,10 @@
 	<?php  else:?>
 		<!-- /////////MENU LATERAL FILTROS MARKETPLACE///////// -->
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMarketplace">
-			<div class="cbp-title">Filtrar B&uacute;squeda</div>
+			<div class="cbp-title">Filtrar Marketplace</div>
 			<div class="sideMenuBotones">
 				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
+				<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
 			</div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
@@ -235,18 +236,6 @@ jQuery(document).ready(function($) {
 		closeOnClickOutside:false,
 		menu: '#pushMarketplace'});
 
-	$( ".pushSelectable .pushMenuSuperGroup a" ).click(function() {
-	
-		 /* if ($(this).hasClass('pushMenuRadio')){
-			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
-			  $(this).addClass( "pushMenuActive" );
-		  }else{
-			$( this ).toggleClass( "pushMenuActive" );
-		  }
-*/
-
-	});	
-		
 });
 </script>
 <script type="text/javascript">

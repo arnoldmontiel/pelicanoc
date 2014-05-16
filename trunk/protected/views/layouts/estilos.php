@@ -746,26 +746,14 @@ color: #666;
 content: '\f10c';
 }
 .pushSelectable .pushMenuGroup .pushMenuRadio.pushMenuActive:before {
-content: '\f111';
 content: '\f192';
 right: 10px;
 }
-   
-    .sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; background-color:#fbfbfb; padding: 10px 0px; width:100%; text-align:center; border-top:2px solid #eee;}
-    .btnLimpiar{margin-right:10px;}
-/*    
-.cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active{ background-color:#eee;
- } 
-.cbp-spmenu  a.pushMenuActive:active{ background-color:#eee; } */
  
-.cbp-spmenu .pushMenuCheck:active:before, .cbp-spmenu .pushMenuRadio:active:before, .cbp-spmenu  a.pushMenuActive:active:before{
- -webkit-animation: spin 2s infinite linear;
-  -moz-animation: spin 2s infinite linear;
-  -o-animation: spin 2s infinite linear;
-  animation: spin 2s infinite linear;
-content: '\f110';
-color: #ddd;
-}   
+ .pushMenuGroupTitle button{margin-bottom:10px;}
+   
+.sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; background-color:#fbfbfb; padding: 10px 0px; width:100%; text-align:center; border-top:2px solid #eee;}
+.btnLimpiar{margin-right:10px;}
 
 
 .cbp-spmenu  a.pushMenuClicked{ background-color:#eee; } 
