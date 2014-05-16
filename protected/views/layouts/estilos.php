@@ -752,8 +752,7 @@ right: 10px;
 }
    
     .sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; background-color:#fbfbfb; padding: 10px 0px; width:100%; text-align:center; border-top:2px solid #eee;}
-    .btnLimpiar{margin-left:10px;}
-    
+    .btnLimpiar{margin-right:10px;}
 /*    
 .cbp-spmenu .pushMenuCheck:active, .cbp-spmenu .pushMenuRadio:active, .cbp-spmenu .mobileMenuItem:active{ background-color:#eee;
  } 
@@ -2178,10 +2177,37 @@ box-shadow: none;
 
 }
 
+/*NEXUS*/
 
-@media only screen and (max-width: 767px) { /*esto arma el menu mobile*/
-	/* .mobile-two .span2 { width: 50% !important; float: left; padding: 0 15px; }*/
+/* Nexus 7 (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 603px) and (max-device-width : 966px) {
 }
 
+/* Nexus 7 (landscape) ----------- */
+@media only screen and (min-width : 604px)  and (max-width : 767px) and (orientation: landscape) {
+
+}
+
+/* Nexus 7 (portrait) ----------- */
+@media only screen and (min-width: 590px) and (max-width : 600px) and (orientation: portrait) {
+}
+
+/*CELUS*/
+/*Landscape*/
+@media only screen and (min-width : 360px) and (max-width: 599px) and (orientation: landscape) {
+
+	.grid-sizer{ width: 150px; height: 250px;}
+body{background-color:green;}
+	
+	.peliAfiche { width: 150px; height: 215px; }
+}
+
+/*Portrait*/
+@media only screen and (max-width: 350px) and (orientation: portrait) { 
+body{background-color:red ;}
+	 .grid-sizer{ width: 140px; height: 235px;}
+
+	.peliAfiche { width: 140px; height: 200px; }
+}
 
 </style>
