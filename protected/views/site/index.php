@@ -85,10 +85,14 @@ function startFilter()
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
 		//1� pintar al hacer click
-		$( this ).toggleClass( "pushMenuClicked" );
+		
 		//2� marcar como activo (pone el check)
 		if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
+		}
+		else
+		{
+			$( this ).toggleClass( "pushMenuClicked" );
 		}
 		$(this).toggleClass( "pushMenuActive");
 		setMenuFilters(this);		
