@@ -19,7 +19,6 @@ docReady( function() {
 	  hasFitWidth = true;
   }
 
-
   
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
@@ -67,15 +66,6 @@ imagesLoaded( container, function() {
 		iso.layout();	
 	});
   
-	iso.on('layoutComplete', function(isoInstance, laidOutItems){
- /*	  	if(laidOutItems.length > idealCols)
- 	  	$('#itemsContainer').addClass('centrado');
-
- 	  	if(laidOutItems.length < idealCols)
- 	  	$('#itemsContainer').removeClass('centrado');
-*/
-	});
-
 	
 function startFilter()
 {
@@ -84,9 +74,6 @@ function startFilter()
 }
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
-		//1� pintar al hacer click
-		
-		//2� marcar como activo (pone el check)
 		if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
 		}
