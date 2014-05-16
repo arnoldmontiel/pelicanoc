@@ -339,6 +339,7 @@ function clearFilterByKey(obj)
 	var key = $this.parent().attr('data-filter-group');
 	filters[key] = [];
 	$this.parent().find('.pushMenuCheck').removeClass("pushMenuActive");
+	$this.parent().find('.pushMenuCheck').removeClass("pushMenuClicked");
 }
 
 function clearFilters()
@@ -350,6 +351,7 @@ function clearFilters()
 	}
 		
 	$(".pushSelectable .pushMenuSuperGroup .pushMenuCheck ").removeClass("pushMenuActive");
+	$(".pushSelectable .pushMenuSuperGroup .pushMenuCheck ").removeClass("pushMenuClicked");
 	$('#main-search').val('');
 }
 

@@ -32,14 +32,13 @@ docReady( function() {
   filter: function() {
       var isMatched = true;
       var $this = $(this);    
-            for ( var prop in filters ) 
-      {          
+      for ( var prop in filters ) 
+      {   
     	  if(filters[prop].length > 0)
         	  isMatched = false;
-    	      	  
+    	      	 
     	  for ( var index = 0; index < filters[prop].length; index++ ) {
     	        var filter = filters[prop][ index ].key;
-
     	        if(prop == 'header' && filter == "*") //cuando filtra por todos
     	        	isMatched = true;
     	        else
@@ -78,31 +77,28 @@ imagesLoaded( container, function() {
 	});
 
 	
-function startFilter(obj)
+function startFilter()
 {
-	//3� tomar filtros
-	setMenuFilters(obj);
-	//4� acomodar pelis
-	iso.arrange();
-	//5� ni idea
-    updateFilterSummary();
-	//6� despintar el estado "click"
-	$( obj ).removeClass( "pushMenuClicked" );
-			   
-	
+	iso.arrange();	
+    updateFilterSummary();    
 }
+
 	$('.pushMenuGroup').on( 'click', 'a', function() {
 		//1� pintar al hacer click
-		$( this ).addClass( "pushMenuClicked" );
+		$( this ).toggleClass( "pushMenuClicked" );
 		//2� marcar como activo (pone el check)
 		if ($(this).hasClass('pushMenuRadio')){
 			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
 		}
 		$(this).toggleClass( "pushMenuActive");
-		setTimeout(startFilter, 50,this);
-		return false;
+		setMenuFilters(this);		
 	  });
 
+	$( ".pushSelectable .btnAplicar" ).click(function() {		
+		setTimeout(startFilter, 50);
+		return false;
+	});
+	
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
 		clearFilters();
 		iso.arrange();
@@ -111,7 +107,7 @@ function startFilter(obj)
 
 	$( ".pushSelectable .pushMenuGroupTitle" ).click(function() {
 		clearFilterByKey(this);
-		iso.arrange();
+		//iso.arrange();
 		updateFilterSummary();
 	});	
 	
