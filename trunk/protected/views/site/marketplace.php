@@ -76,15 +76,30 @@ imagesLoaded( container, function() {
 //  	  	if(laidOutItems.length < idealCols)
 //  	  	$('#itemsContainer').removeClass('centrado');
  	});
-	  
-	
+
+ 	function startFilter()
+ 	{
+ 		iso.arrange();	
+ 	    updateFilterSummary();    
+ 	}
 
 	$('.pushMenuGroup').on( 'click', 'a', function() {
-		setMenuFilters(this);
-	    iso.arrange();
-	    updateFilterSummary();
+		if ($(this).hasClass('pushMenuRadio')){
+			  $('.pushSelectable .pushMenuSuperGroup a.pushMenuRadio').removeClass( "pushMenuActive" );
+		}
+		else
+		{
+			$( this ).toggleClass( "pushMenuClicked" );
+		}
+		$(this).toggleClass( "pushMenuActive");
+		setMenuFilters(this);		
 	  });
 
+	$( ".pushSelectable .btnAplicar" ).click(function() {		
+		setTimeout(startFilter, 50);
+		return false;
+	});
+	
 	$( ".pushSelectable .btnLimpiar" ).click(function() {
 		clearFilters();
 		iso.arrange();
@@ -93,9 +108,8 @@ imagesLoaded( container, function() {
 
 	$( ".pushSelectable .pushMenuGroupTitle" ).click(function() {
 		clearFilterByKey(this);
-		iso.arrange();
 		updateFilterSummary();
-	});
+	});	
 	
 	$('#main-search').change(function()
 	{
