@@ -400,7 +400,7 @@ class TMDBHelper
 			var_dump($e);
 		}
 	}
-	private function getImage($posFix, $original, $newFileName, $copy = false)
+	static public function getImage($posFix, $original, $newFileName, $copy = false)
 	{
 		$validator = new CUrlValidator();
 		$setting = Setting::getInstance();
