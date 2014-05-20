@@ -293,6 +293,10 @@ $(document).ready(function(){
 		window.location = $(this).attr('href');
 		return false;
 	});
+	$('nav a').click(function(){
+		window.location = $(this).attr('href');
+		return false;
+	});
 	
 	$('#popover-disp').click(function(){
 		$('#popover-disp').popover('hide');
