@@ -205,10 +205,14 @@ body #screenControl {
 	padding-top: 80px;
 }
 
-body #screenEditMovie {
-padding-top:80px;
+body #screenEditMovie .wrapper{
 padding-bottom:20px;
-overflow:auto;
+padding-top:80px;
+}
+
+body #screenEditMovie .wrapper .row{
+margin-left:0px !important;
+margin-right:0px !important;
 }
 
 /* ----- LOGIN ------*/
@@ -949,11 +953,14 @@ z-index:200;
 .peliTitulo {
 	color: #fff !important;
 	padding: 5px;
-overflow: hidden;
-white-space: nowrap;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+  width:auto;
+
 }
 
-    
+.item{width:180px;}
 .peliAfiche {
 	width: 180px;
 	height: 260px;
@@ -2092,8 +2099,9 @@ right:5px; bottom:37px;
 	}
 	
 	/*asi se muestran de a 4 por fila */
- .grid-sizer{ width: 160px; height: 267px;}
-
+	
+	.item{ width:160px;}
+	.grid-sizer{ width: 160px; height: 267px;}
 	.peliAfiche { width: 160px; height: 232px; }
 		
 

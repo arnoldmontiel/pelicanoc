@@ -23,7 +23,7 @@ if(isset($modelTMDB)&&$modelTMDB->poster!="")
 $moviePoster = PelicanoHelper::getImageName($moviePoster);
 
 $shortTitle = $model->original_title;
-$shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
+//$shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $shortTitle;
 
 
 ?>
