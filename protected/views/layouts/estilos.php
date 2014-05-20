@@ -84,7 +84,7 @@ button {
 }
 
 .align-left {
-	text-align: left;
+	text-align: left !important;
 }
 
 .align-center {
@@ -1792,9 +1792,9 @@ color:white; line-height:40px; padding-right:45px;
 	text-align: center;
 }
 
-.editAfiche .aficheImg {
-	width: 200px;
-	height: 280px;
+.editAfiche .peliAfiche {
+	width: 100%;
+	height: auto;
 	margin-bottom: 10px;
 }
 
@@ -1806,7 +1806,7 @@ color:white; line-height:40px; padding-right:45px;
 	margin: auto;
 	margin-bottom: 10px;
 	display: block;
-	width: 199px;
+	width: 100%;
 }
 
 .buttonGroup {
@@ -1876,6 +1876,7 @@ ul.thumbnails.image_picker_selector {
 .form-group label {
 	font-size: 17px;
 	color: white;
+	font-weight:400;
 	text-align: right;
 }
 
@@ -1928,6 +1929,9 @@ ul.thumbnails.image_picker_selector {
 }
 
 .fileName{padding-top: 7px;font-size:17px;}
+
+#screenEditMovie .noLeftPad{padding-left:0px;text-align:left;}
+
 /*---------- END EDIT PELICULA -------------*/
 
 /* ------ PAGINADOR------- */
