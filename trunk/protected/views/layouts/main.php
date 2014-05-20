@@ -437,6 +437,30 @@ Por favor, contacte al administrador.
 			<!-- /.modal-content -->
 		</div>
 </div>
+
+	<div id="myModalError" class="modal fade in" style="display:block;"  aria-hidden="false"><div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<i class="fa fa-times-circle fa-lg"></i>
+					</button>
+					<h4 class="modal-title">Error</h4>
+				</div>
+				<div class="modal-body">
+				<div class="alert alert-danger noMargin">
+        <h4><i class="fa fa-warning"></i> Lo sentimos, se ha producido un error. </h4>
+        Vuelva a intentarlo. <br/>
+        Mientras tanto un informe ha sido enviado al sistema para su an&aacute;lisis.
+      </div>
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+</div>
 	
 <?php
 
