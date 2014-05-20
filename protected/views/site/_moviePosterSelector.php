@@ -58,7 +58,12 @@
 	 		$("#poster").attr("src", "images/"+data.big_poster+"?" + date.valueOf());
 			$('#myModalCambiarAfiche').modal('hide');
 		}
-	 	);			
+	 	).error(function()
+	 			{
+	 				$('#myModalCambiarAfiche').modal('hide');
+	 				$('#myModalError').modal('show');
+	 			}
+	 		 	);			
    		}
        });
     

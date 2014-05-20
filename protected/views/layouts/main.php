@@ -438,7 +438,7 @@ Por favor, contacte al administrador.
 		</div>
 </div>
 
-	<div id="myModalError" class="modal fade in" style="display:block;"  aria-hidden="false"><div class="modal-dialog">
+	<div id="myModalError" class="modal fade in" aria-hidden="false"><div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">

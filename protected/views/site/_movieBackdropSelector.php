@@ -58,7 +58,12 @@
 			 	ChangeBG('images/',data.backdrop+"?" + date.valueOf());
 				$('#myModalCambiarBackdrop').modal('hide');	   						   				
 			}
-		 	);
+		 	).error(function()
+		 	{
+ 				$('#myModalCambiarBackdrop').modal('hide');
+ 				$('#myModalError').modal('show');
+ 			}
+ 		 	);
 	 	}			
         }
     	);
