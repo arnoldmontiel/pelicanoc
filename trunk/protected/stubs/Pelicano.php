@@ -88,6 +88,7 @@ class MyMovieSOAP
 	public $Subtitle; //MyMovieSubtitleSOAP[];
 	public $AudioTrack; //MyMovieAudioTrackSOAP[];
 	public $Person; //MyMoviePersonSOAP[];
+	public $certification; //string;
 }
 
 class MyMovieSubtitleSOAP
