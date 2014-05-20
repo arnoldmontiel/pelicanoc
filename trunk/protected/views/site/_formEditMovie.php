@@ -207,34 +207,35 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		");
 ?>
 <div class="container" id="screenEditMovie">
+    	 <div class="wrapper clearfix">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
     <h2 class="pageSubtitle">Editar Pelicula</h2>
-        </div> <!-- /col-md-12 -->
+        </div> <!-- /col-sm-12 -->
     </div> <!-- /row -->
     <div class="row pageTitleContainer">
-    <div class="col-md-6">
+    <div class="col-sm-6">
             <h1 class="pageTitle"><?php echo $model->original_title; ?></h1>
-        </div> <!-- /col-md-6 -->
-    <div class="col-md-6 align-right">
+        </div> <!-- /col-sm-6 -->
+    <div class="col-sm-6 align-right">
     <?php if(!$modelResource->is_personal):?>
 		<button id="unlink-source" type="button" class="btn btn-danger"><i class="fa fa-unlink "></i> Reset</button>
 	<?php endif?>
 		<button id="open-movie-list" type="submit" class="btn btn-primary"><i class="fa fa-link "></i> Buscar Información</button>
-        </div> <!-- /col-md-6 -->
+        </div> <!-- /col-sm-6 -->
     </div>
     <div class="row superContainer">
-    <div class="col-md-3">
+    <div class="col-sm-3">
     <div class="editAfiche">
-<img id="poster" class="aficheImg" src="<?php echo $moviePoster;?>" border="0">
+<img id="poster" class="peliAfiche" src="<?php echo $moviePoster;?>" border="0">
 </div>
 <div class="editImagesButtons">   
 <a id="open-change-poster" data-toggle="modal"  class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</a>
 <a id="open-change-backdrop" data-toggle="modal" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Fondo</a>
 </div>
 </div>
-    <!-- /col-md-3 -->
-    <div class="col-md-9">
+    <!-- /col-sm-3 -->
+    <div class="col-sm-9">
     <form class="form-horizontal" id="my-movie-form" role="form" method="post" action=<?php echo SiteController::createUrl('EditMovie',array('idResource'=>$idResource,'sourceType'=>$sourceType));?> >
     <?php
     echo CHtml::hiddenField('idResource',$idResource);
@@ -251,42 +252,44 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	?>
 	<?php if(isset($modelLocalFolder)):?>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <div class="form-group">
-    <label for="fieldTitulo" class="col-md-1 control-label">Ruta</label>
-    <div class="col-md-11 fileName">
+    <label for="fieldTitulo" class="col-sm-1 control-label noLeftPad">Ruta</label>
+    <div class="col-sm-11 fileName">
      <?php echo $modelLocalFolder->path;?>
       </div>
     </div>
-    </div><!-- /col-md-12 -->
+    </div><!-- /col-sm-12 -->
     </div><!-- /row -->
     <?php endif;?>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <div class="form-group">
-    <label for="fieldTitulo" class="col-md-1 control-label">Titulo</label>
-    <div class="col-md-11">
+    <label for="fieldTitulo" class="col-sm-1 control-label noLeftPad">Titulo</label>
+    <div class="col-sm-11">
       <input type="text" class="form-control" id="fieldTitulo" name="<?php echo get_class($model).'[original_title]'?>" placeholder="Título" value="<?php echo $model->original_title; ?>">
     </div>
     </div>
-    </div><!-- /col-md-12 -->
+    </div><!-- /col-sm-12 -->
     </div><!-- /row -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <div class="form-group">
-    <label for="fieldGenero" class="col-md-1 control-label">Genero</label>
-    <div class="col-md-11">
+    <label for="fieldGenero" class="col-sm-1 control-label noLeftPad">Genero</label>
+    <div class="col-sm-11">
       <div id="genres" style="width:100%">
     </div>
     </div>
     </div>
-    </div><!-- /col-md-12 -->
+    </div><!-- /col-sm-12 -->
     </div><!-- /row -->
     <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6 col-sm-12 noLeftPad">
+    <div class="row">
+    <div class="col-sm-6">
   <div class="form-group">
-    <label for="fieldValoracion" class="col-md-4 control-label">Publico</label>
-      <div class="col-md-8">
+    <label for="fieldValoracion" class="col-md-4 col-sm-2 control-label noLeftPad">Publico</label>
+      <div class="col-md-8 col-sm-10">
       <?php
 		$parentalControl=ParentalControl::model()->findAll();
 		$list= CHtml::listData(
@@ -296,11 +299,11 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
       
       </div>
   </div>
-    </div><!-- /col-md-3 -->
-    <div class="col-md-3">
+    </div><!-- /col-sm-6 -->
+    <div class="col-sm-6">
   <div class="form-group">
-    <label for="fieldRating" class="col-md-3 control-label">Rating</label>
-      <div class="col-md-9">
+    <label for="fieldRating" class="col-sm-3 control-label noLeftPad">Rating</label>
+      <div class="col-sm-9">
               <?php 
 		$from = 1;
 		$to = 10;
@@ -313,11 +316,15 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
       
           </div>
   </div>
-  </div><!-- /col-md-3 -->
-    <div class="col-md-3">
+  </div><!-- /col-sm-6 -->
+    </div>
+    </div>
+    <div class="col-md-6 col-sm-12 noLeftPad">
+    <div class="row">
+    <div class="col-sm-6">
   <div class="form-group">
-    <label for="fieldAno" class="col-md-2 control-label">Año</label>
-        <div class="col-md-10">
+    <label for="fieldAno" class="col-md-2 col-sm-2 control-label noLeftPad">Año</label>
+        <div class="col-md-10 col-sm-10">
         <?php 
 		$yearNow = date("Y");
 		$yearFrom = $yearNow - 100;
@@ -331,57 +338,60 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		?>
 	</div>
   </div>
-    </div><!-- /col-md-3 -->
-    <div class="col-md-3">
+    </div><!-- /col-sm-6 -->
+    <div class="col-sm-6">
   <div class="form-group">
-    <label for="fieldDuracion" class="col-md-4 control-label">Duracion</label>
-      <div class="col-md-8">
+    <label for="fieldDuracion" class="col-md-4 col-sm-3 control-label noLeftPad">Duracion</label>
+      <div class="col-sm-8 col-sm-9">
       <input type="text" class="form-control" id="fieldDuracion" placeholder="Duración" name="<?php echo get_class($model).'[running_time]'?>" value="<?php echo $model->running_time; ?>">
                <span>m</span> </div>
   </div>
-  </div><!-- /col-md-3 -->
+  </div><!-- /col-sm-6 -->
+    </div>
+    </div>
     </div><!-- /row -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <div class="form-group">
-    <label for="fieldDirector" class="col-md-1 control-label">Director</label>
-              <div class="col-md-11">
+    <label for="fieldDirector" class="col-sm-1 control-label noLeftPad">Director</label>
+              <div class="col-sm-11">
 	<div id="directors" style="width:100%">
     </div>
 	</div>
     </div>
-    </div><!-- /col-md-12 -->
+    </div><!-- /col-sm-12 -->
     </div><!-- /row -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <div class="form-group">
-    <label for="fieldActores" class="col-md-1 control-label">Actores</label>
-              <div class="col-md-11">
+    <label for="fieldActores" class="col-sm-1 control-label noLeftPad">Actores</label>
+              <div class="col-sm-11">
 	<div id="actors" style="width:100%">
     </div>
       
 	</div>
     </div>
-    </div><!-- /col-md-12 -->
+    </div><!-- /col-sm-12 -->
     </div><!-- /row -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <div class="form-group">
-    <label for="fieldResumen" class="col-md-1 control-label">Resumen</label>
-              <div class="col-md-11">
+    <label for="fieldResumen" class="col-sm-1 control-label noLeftPad">Resumen</label>
+              <div class="col-sm-11">
 <textarea class="form-control" id="fieldResumen" name="<?php echo get_class($model).'[description]'?>" rows="5"><?php echo $model->description; ?></textarea>                  </div>
     </div>
-    </div><!-- /col-md-12 -->
+    </div><!-- /col-sm-12 -->
     </div><!-- /row -->
  <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
  <div class="buttonGroup"><button type="submit" class="btn btn-default btn-lg"><i class="fa fa-arrow-left "></i> Volver</button><button type="submit" class="btn btn-primary btn-lg noMargin"><i class="fa fa-save "></i> Guardar</button></div>
-    </div><!-- /col-md-12 -->
+    </div><!-- /col-sm-12 -->
     </div><!-- /row -->    
 </form>
     </div>
-    <!-- /col-md-9 -->
+    <!-- /col-sm-9 -->
  </div><!-- /row interna -->
+ </div> <!-- /wrapper -->  
  </div> <!-- /container -->  
 <script>
 function unlink()
