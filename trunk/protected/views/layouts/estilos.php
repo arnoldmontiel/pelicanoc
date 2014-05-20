@@ -762,6 +762,8 @@ right: 10px;
 
 .cbp-spmenu  a.pushMenuClicked{ background-color:#eee; } 
 
+.cbp-spmenu .mobileMenuItem:active,.cbp-spmenu  .mobileMenuItem:focus,.cbp-spmenu  .mobileMenuItem:hover{ background-color:#eee; }
+
 /* ------ END MOBILE MENU ------- */
 
 /* ------ BTN INITIAL FONT SIZES ------- */
