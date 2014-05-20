@@ -409,8 +409,26 @@ class PelicanoHelper
 		$clientsettings->port_v4 = $settings->port_v4;
 		$clientsettings->ip_v6 = $settings->ip_v6;
 		$clientsettings->port_v6 = $settings->port_v6;
+		$clientsettings->ClientError = array();
 		
-		$settingsWS->setClientSettings($clientsettings);
+		$errorLogs = ErrorLog::model()->findAllByAttributes(array('was_sent'=>0));
+		foreach($errorLogs as $log)
+		{
+			$clientError = new ClientError();
+			$clientError->error_type = $log->error_type;
+			$clientError->has_error = $log->has_error;
+			$clientError->date = $log->date;
+			$clientsettings->ClientError[] = $clientError;
+		}
+		
+		if($settingsWS->setClientSettings($clientsettings))
+		{
+			foreach($errorLogs as $log)
+			{
+				$log->was_sent = 1;
+				$log->save();
+			}
+		}
 		
 	}
 	
