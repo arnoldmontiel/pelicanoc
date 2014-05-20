@@ -441,6 +441,7 @@ class PelicanoHelper
 		}
 		
 		$errorLogs = ErrorLog::model()->findAllByAttributes(array('was_sent'=>0));
+		$clientsettings->ClientError = array();
 		foreach($errorLogs as $log)
 		{
 			$clientError = new ClientError();
