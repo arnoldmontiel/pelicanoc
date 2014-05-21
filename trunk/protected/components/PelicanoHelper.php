@@ -14,6 +14,12 @@ class PelicanoHelper
 	{
 		//$error_player, 2-error_NAS, 3-error_NAS_space
 		$systemStatus = SystemStatus::model()->findByPk(1);
+		if(!isset($systemStatus))
+		{
+			$systemStatus = new SystemStatus;
+			$systemStatus->Id=1;
+			$systemStatus->save();
+		}
 		$result = false;
 		switch ($status) {
 			case 1:
