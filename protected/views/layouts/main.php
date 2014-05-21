@@ -293,7 +293,7 @@ $(document).ready(function(){
 		window.location = $(this).attr('href');
 		return false;
 	});
-	$('nav a').click(function(){
+	$('#pushMain a').click(function(){
 		window.location = $(this).attr('href');
 		return false;
 	});
