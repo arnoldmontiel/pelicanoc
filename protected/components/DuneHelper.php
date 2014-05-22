@@ -188,7 +188,7 @@ class DuneHelper
 	}
 	static public function isPlayingByPlayer($player)
 	{		
-		if(self::isPlayerAlive($player->Id))
+		if(PelicanoHelper::isPlayerAlive($player->Id))
 		{
 			PelicanoHelper::saveSystemStatus(1,0);		
 		}
