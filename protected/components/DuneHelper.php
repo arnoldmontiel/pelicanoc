@@ -187,7 +187,15 @@ class DuneHelper
 		return false;
 	}
 	static public function isPlayingByPlayer($player)
-	{
+	{		
+		if(self::isPlayerAlive($player->Id))
+		{
+			PelicanoHelper::saveSystemStatus(1,0);		
+		}
+		else
+		{
+			PelicanoHelper::saveSystemStatus(1,1);				
+		}
 		$modelDune = self::getStateByPlayer($player);
 	
 		if(isset($modelDune))
