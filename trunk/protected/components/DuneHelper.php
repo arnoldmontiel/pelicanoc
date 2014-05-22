@@ -190,10 +190,14 @@ class DuneHelper
 	{		
 		if(PelicanoHelper::isPlayerAlive($player->Id))
 		{
+			$player->has_error = 0;
+			$player->save();
 			PelicanoHelper::saveSystemStatus(1,0);		
 		}
 		else
 		{
+			$player->has_error = 1;
+			$player->save();
 			PelicanoHelper::saveSystemStatus(1,1);				
 		}
 		$modelDune = self::getStateByPlayer($player);
