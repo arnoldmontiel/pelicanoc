@@ -1478,7 +1478,7 @@ class SiteController extends Controller
 		}
 		if($result['powerOff']==1)
 		{
-			$player->has_error = 1;
+			$player->has_error = $result['powerOff'];
 			$player->save();
 		}
 		PelicanoHelper::saveSystemStatus(1,$result['powerOff']);
