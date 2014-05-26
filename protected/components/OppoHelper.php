@@ -57,13 +57,10 @@ class OppoHelper
 		$url = $player->url .":436/loginSambaWithID?".json_encode($params);
 		echo 		$url;
 		@file_get_contents($url);
-		//mounting samba path				
-		echo($setting->host_file_server_path);
-		echo("timeado: ".rtrim($setting->host_file_server_path, '/')." ]");
 		
-		$sharedPath=explode('/', rtrim($setting->host_file_server_path, '/'));
-		var_dump($sharedPath);
-		return true;
+		//mounting samba path				
+		$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
+
 		$params= array();
 		
 		$params['folder'] = $sharedPath[0];
