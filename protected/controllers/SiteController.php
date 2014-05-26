@@ -1449,7 +1449,12 @@ class SiteController extends Controller
 			if(PelicanoHelper::isPlayerAlive($player->Id))
 			{
 				$isAlive = true;
-				if(DuneHelper::isPlayingByPlayer($player))
+				$isPlaying =  false;
+				if(isset($player->type) && $player->type == 1)
+					$isPlaying = OppoHelper::isPlayingByPlayer($player);
+				else
+					 $isPlaying= DuneHelper::isPlayingByPlayer($player);				
+				if($isPlaying)
 				{
 					$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
 					if(isset($modelCurrentPlaying))
