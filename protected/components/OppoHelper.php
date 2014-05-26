@@ -57,33 +57,27 @@ class OppoHelper
 		$url = $player->url .":436/loginSambaWithID?".json_encode($params);
 		echo 		$url;
 		@file_get_contents($url);
-		echo "6--------";
 		//mounting samba path				
 		$sharedPath = $setting->host_file_server_path;
 		echo "7--------".$setting->host_file_server_path;
-		$sharedPath[]= explode('/', rtrim($setting->host_file_server_path, '/'));	
+		explode('/', rtrim($setting->host_file_server_path, '/'));	
 		echo "7.1--------";
+		$sharedPath[]=explode('/', rtrim($setting->host_file_server_path, '/'));
 		$params= array();
-		echo "7.2--------";
 		
 		$params['folder'] = $sharedPath[0];
-		echo "7.3--------";
 		
 		$params['serverName'] = rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
-		echo "7.4--------";
 		
 		$params['bRememberID'] = 1;
 		$params['bWithID'] = 1;				
-		echo "9--------";
 		$url = $player->url .":436/mountSharedFolder?".json_encode($params);
 		echo 		$url;
 		@file_get_contents($url);
-		echo "10--------";
 		
-		//star movie				
-		$sharedPath = $setting->host_file_server_path;
+		//start movie				
 		$sharedPath[]= explode('/', rtrim($setting->host_file_server_path, '/'));
 		$completePath="";
 		if(count($sharedPath)>1)
