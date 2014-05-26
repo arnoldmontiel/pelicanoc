@@ -59,6 +59,7 @@ class OppoHelper
 		@file_get_contents($url);
 		//mounting samba path				
 		echo($setting->host_file_server_path);
+		echo("timeado: ".rtrim($setting->host_file_server_path, '/')." ]");
 		
 		$sharedPath=explode('/', rtrim($setting->host_file_server_path, '/'));
 		var_dump($sharedPath);
