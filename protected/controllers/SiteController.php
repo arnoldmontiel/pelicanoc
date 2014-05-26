@@ -1365,21 +1365,21 @@ class SiteController extends Controller
 		$play = false;
 		$idResourceCurrentPlay = 0;
 		$resultPlay = true;
+		$path="";
 		switch ($sourceType) {
 			case 1:
 				$nzbModel = Nzb::model()->findByPk($idResource);
 				$TMDBData =$nzbModel->TMDBData;
 				$idResourceCurrentPlay = $idResource;
-				$folderPath = explode('.',$nzbModel->file_name);
-				$resultPlay = DuneHelper::playDune($id,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
-
+				$folderPath = explode('.',$nzbModel->file_name);				
+				$path = '/'.$folderPath[0].'/'.$nzbModel->path;
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
 			case 2:
 				$nzbRippedMovie = RippedMovie::model()->findByPk($idResource);
 				$TMDBData =$nzbRippedMovie->TMDBData;
 				$idResourceCurrentPlay = $idResource;
-				$resultPlay = DuneHelper::playDune($id,'/'.'/'.$nzbRippedMovie->path,$player);
+				$path = '/'.'/'.$nzbRippedMovie->path;
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 3:
@@ -1388,18 +1388,26 @@ class SiteController extends Controller
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$localFolder->path);
 				//commentar para que el play ande mas rapido
-				$resultPlay = DuneHelper::playDune($id,'/'.'/'.$localFolder->path,$player);
-
+				$path = '/'.'/'.$localFolder->path;
 				$model = MyMovie::model()->findByPk($id);
 				break;
 			case 4:
 				$idCurrentDisc = self::markCurrentDiscRead();
 				$idResourceCurrentPlay = $idCurrentDisc;
+				
 				DuneHelper::playDuneOnline($id,$player);
 					
 				$model = MyMovie::model()->findByPk($id);
 				break;
 		}
+		if($sourceType!=4)
+		{
+			if(isset($player->type) && $player->type == 1)
+				$resultPlay = DuneHelper::playDune($id,$path,$player);
+			else
+				$resultPlay = OppoHelper::playOppo($id,$path,$player);
+		}
+		
 		if($resultPlay == false) 	return "";
 		if(isset($TMDBData))
 		{
