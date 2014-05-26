@@ -1457,9 +1457,10 @@ class SiteController extends Controller
 				if($isPlaying)
 				{
 					$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
+					$result['playing']= 1;
+					$result['title']="Desconocido";
 					if(isset($modelCurrentPlaying))
-					{
-						$result['playing']= 1;
+					{						
 						if(isset($modelCurrentPlaying->Id_nzb))
 						{
 							if(isset($modelCurrentPlaying->nzb->Id_nzb))
