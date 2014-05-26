@@ -1898,7 +1898,12 @@ class SiteController extends Controller
 		//type = 4 = online
 		$response = array('id'=>0,'type'=>1, 'originalTitle'=>'');
 		//return $response;
-		if(DuneHelper::isPlayingByPlayer($player))
+		$isPlaying =  false;
+		if(isset($player->type) && $player->type == 1)
+			$isPlaying = OppoHelper::isPlayingByPlayer($player);
+		else
+			$isPlaying = DuneHelper::isPlayingByPlayer($player);
+		if($isPlaying)
 		{
 			$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
 	
