@@ -52,7 +52,7 @@ class OppoHelper
 		$params= array();
 		$params['serverName'] = rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
-		$params['password'] = $setting->host_file_server_passwd;
+		$params['psssword'] = $setting->host_file_server_passwd;
 		$params['bRememberID'] = 1;		
 		$url = $player->url .":436/loginSambaWithID?".json_encode($params);
 		echo 		$url;
