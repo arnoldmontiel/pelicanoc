@@ -501,7 +501,7 @@ class PelicanoHelper
 		{	
 			if(isset($modelPlayer->type)&&$modelPlayer->type==1)
 			{
-				$isAlive = OppoHelper::isPlayerAlive($modelPlayer);
+				$isAlive =true;//= OppoHelper::isPlayerAlive($modelPlayer);
 			}
 			else 
 			{
