@@ -159,12 +159,13 @@ class DuneHelper
 		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code=E619BF00');
 	}
 	
-	
-	
-	static public function useRemote($irCode)
+	static public function useRemote($irCode,$Id_player)
 	{
-		$setting = Setting::getInstance();
-		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
+		$modelPlayer = Player::model()->findByPk($Id_player);
+		if(isset($modelPlayer))
+		{
+			echo file_get_contents( $modelPlayer->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
+		}
 	}
 	
 	static public function isPlaying()
