@@ -58,13 +58,16 @@ class OppoHelper
 		echo 		$url;
 		@file_get_contents($url);
 		//mounting samba path				
-
+		echo($setting->host_file_server_path);
+		
 		$sharedPath=explode('/', rtrim($setting->host_file_server_path, '/'));
+		var_dump($sharedPath);
+		return true;
 		$params= array();
 		
 		$params['folder'] = $sharedPath[0];
 		
-		$params['serverName'] = rtrim($setting->host_file_server, '/');
+		$params['server'] = rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
 		
