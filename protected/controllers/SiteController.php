@@ -1406,9 +1406,10 @@ class SiteController extends Controller
 		if($sourceType!=4)
 		{
 			if(isset($player->type) && $player->type == 1)
-				$resultPlay = DuneHelper::playDune($id,$path,$player);
-			else
 				$resultPlay = OppoHelper::playOppo($id,$path,$player);
+			else
+				$resultPlay = DuneHelper::playDune($id,$path,$player);
+				
 		}
 		
 		if($resultPlay == false) 	return "";
@@ -1809,7 +1810,10 @@ class SiteController extends Controller
 
 	public function actionAjaxUseRemote()
 	{
-		DuneHelper::useRemote($_GET['ir_code']);
+		if(isset($player->type) && $player->type == 1)
+			OppoHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);
+		else
+			DuneHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);				
 	}
 
 	public function actionAjaxStop()

@@ -178,19 +178,21 @@ class OppoHelper
 	}
 	
 	
-	
-	static public function useRemote($irCode)
+	static public function useRemote($irCode,$Id_player)
 	{
-		$setting = Setting::getInstance();
-		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
+		$modelPlayer = Player::model()->findByPk($idPlayer);
+		if(isset($modelPlayer))
+		{
+			echo file_get_contents( $modelPlayer->url .':436/sendremotekey?{"key":"'.$code.'"}');
+		}
 	}
 	
 	static public function isPlayerAlive($player)
 	{
 		$url = $player->url .":436/getglobalinfo";
 		try {
-			$response = json_decode(file_get_contents($url));
-			if($response->success==true)
+			$response = json_decode(@file_get_contents($url));
+			if(isset($response)&&$response->success==true)
 			{
 				return true;
 			}
@@ -219,8 +221,8 @@ class OppoHelper
 			PelicanoHelper::saveSystemStatus(1,1);				
 		}
 		$url = $player->url .":436/getglobalinfo";
-		$response = json_decode(file_get_contents($url));
-		if($response->is_video_playing==true)
+		$response = json_decode(@file_get_contents($url));
+		if(isset($response)&&$response->is_video_playing==true)
 		{
 			return true;
 		}

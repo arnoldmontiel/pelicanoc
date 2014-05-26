@@ -570,7 +570,6 @@ class PelicanoHelper
 	static public function isAccessibleNasFolder()
 	{
 		$isAccessible = false;
-		
 		if(self::isNASAlive())
 		{
 			$modelSetting = Setting::getInstance();

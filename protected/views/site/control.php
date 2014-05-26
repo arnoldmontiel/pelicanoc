@@ -192,9 +192,509 @@
 // echo CHtml::closeTag('div');
 // $this->endWidget(); ?>
  <?php
-Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
+if(isset($player->type) && $player->type == 1)
+{
+	$script="
+$('#playButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=B748BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#pauseButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=B748BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
 	
-	ChangeBG('','".$backdrop."');
+$('#stopButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxStop') . "'
+ 	}).success(function()
+ 	{
+		window.location = '".SiteController::createUrl('index')."'
+	}
+ 	);
+});
+	
+$('#prevButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=B649BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+     			return false;
+});
+	
+$('#nextButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=E21DBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+     			return false;
+});
+	
+$('#rewButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=E31CBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+				return false;
+});
+	
+$('#fwButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=E41BBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+        		return false;
+});
+	
+$('#enterButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=EB14BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+				return false;
+});
+	
+$('#returnButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=FB04BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+				return false;
+});
+	
+$('#popUpMenuButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F807BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+							return false;
+});
+	
+$('#upButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=EA15BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+     		return false;
+});
+	
+$('#downButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=E916BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#leftButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=E817BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#rightButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=E718BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#subtButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=AB54BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#audioButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=BB44BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#aButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=BF40BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#button0').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F50ABF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+$('#button1').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F40BBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#button2').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F30CBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#button3').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F20DBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#button4').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F10EBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#button5').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=F00FBF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+$('#button6').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=FE01BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+$('#button7').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=EE11BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#button8').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=ED12BF00,Id_player=".$player->Id."',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+$('#button9').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: 'ir_code=EC13BF00',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+";
+}
+else
+{
+	$script="
+$('#playButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'B748BF00',Id_player:".$player->Id."},
+});
+});
+$('#pauseButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'B748BF00',Id_player:".$player->Id."},
+});
+});
+	
+$('#stopButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxStop') . "'
+ 	}).success(function()
+ 	{
+		window.location = '".SiteController::createUrl('index')."'
+	}
+ 	);
+});
+	
+$('#prevButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'B649BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#nextButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'E21DBF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#rewButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'E31CBF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#fwButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'E41BBF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#enterButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'EB14BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#returnButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'FB04BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#popUpMenuButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'F807BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#upButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'EA15BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#downButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'E916BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#leftButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'E817BF00',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#rightButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'E718BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#subtButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'AB54BF00',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#audioButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'BB44BF00',Id_player:".$player->Id."},
+});
+			return false;
+});
+	
+$('#aButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'BF40BF00',Id_player:".$player->Id."},
+});
+			return false;
+});
+$('#button0').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'F50ABF00',Id_player:".$player->Id."},
+});
+			return false;
+});
+$('#button1').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'F40BBF00',Id_player:".$player->Id."},
+});
+				return false;
+});
+$('#button2').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'F30CBF00',Id_player:".$player->Id."},
+});
+   				return false;
+});
+$('#button3').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'F20DBF00',Id_player:".$player->Id."},
+});
+   				return false;
+});
+$('#button4').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'F10EBF00',Id_player:".$player->Id."},
+});
+   				return false;
+});
+$('#button5').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'F00FBF00',Id_player:".$player->Id."},
+});
+	return false;
+});
+$('#button6').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'FE01BF00',Id_player:".$player->Id."},
+});
+	return false;
+});
+$('#button7').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'EE11BF00',Id_player:".$player->Id."},
+});
+	return false;
+});
+$('#button8').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: {ir_code:'ED12BF00',Id_player:".$player->Id."},
+ 	});
+	return false;
+});
+$('#button9').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+ 	});
+   				return false;
+});
+";	
+}				
+
+$firstPart =
+"ChangeBG('','".$backdrop."');
 	
 setInterval(function() {
 	//checkEndScene();
@@ -254,217 +754,8 @@ $('#bookmarkButton').click(function(){
 			$('#modalBookmark').modal('show');			
 	});
 });
-		
-	
-$('#playButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=B748BF00',
- 	});
-});
-$('#pauseButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=B748BF00',
- 	});
-});
-				
-$('#stopButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxStop') . "'
- 	}).success(function()
- 	{
-		window.location = '".SiteController::createUrl('index')."'
-	}
- 	);	
-});
-
-$('#prevButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=B649BF00',
- 	});
-});
-
-$('#nextButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E21DBF00',
- 	});
-});
-
-$('#rewButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E31CBF00',
- 	});
-});
-  
-$('#fwButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E41BBF00',
- 	});
-});
-
-$('#enterButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EB14BF00',
- 	});
-});
-
-$('#returnButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=FB04BF00',
- 	});
-});
-
-$('#popUpMenuButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F807BF00',
- 	});
-});
-
-$('#upButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EA15BF00',
- 	});
-});
-
-$('#downButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E916BF00',
- 	});
-});
-
-$('#leftButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E817BF00',
- 	});
-});
-
-$('#rightButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E718BF00',
- 	});
-});
-
-$('#subtButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=AB54BF00',
- 	});
-});
-
-$('#audioButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=BB44BF00',
- 	});
-});
-
-$('#aButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=BF40BF00',
- 	});
-});
-$('#button0').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F50ABF00',
- 	});
-});
-$('#button1').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F40BBF00',
- 	});
-});
-$('#button2').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F30CBF00',
- 	});
-});
-$('#button3').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F20DBF00',
- 	});
-});
-$('#button4').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F10EBF00',
- 	});
-});
-$('#button5').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F00FBF00',
- 	});
-});
-$('#button6').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=FE01BF00',
- 	});
-});
-$('#button7').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EE11BF00',
- 	});
-});
-$('#button8').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=ED12BF00',
- 	});
-});
-$('#button9').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EC13BF00',
- 	});
-});
-			
-");
+";
+Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie',$firstPart . $script);
 ?>
 <script type="text/javascript">
 <!--
