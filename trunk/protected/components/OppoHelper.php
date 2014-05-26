@@ -62,11 +62,18 @@ class OppoHelper
 		$sharedPath = $setting->host_file_server_path;
 		echo "7--------";
 		$sharedPath[]= explode('/', $setting->host_file_server_path);	
+		echo "7.1--------";
 		$params= array();
+		echo "7.2--------";
+		
 		$params['folder'] = $sharedPath[0];
+		echo "7.3--------";
+		
 		$params['serverName'] = rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
+		echo "7.4--------";
+		
 		$params['bRememberID'] = 1;
 		$params['bWithID'] = 1;				
 		echo "9--------";
