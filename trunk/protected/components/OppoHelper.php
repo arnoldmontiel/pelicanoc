@@ -185,7 +185,7 @@ class OppoHelper
 		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code='.$irCode);
 	}
 	
-	static public function isPlayerAlive()
+	static public function isPlayerAlive($player)
 	{
 		$url = $player->url .":436/getglobalinfo";
 		$response = json_decode(file_get_contents($url));
