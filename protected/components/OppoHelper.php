@@ -87,7 +87,7 @@ class OppoHelper
 		}		
 		$completePath.=$path;
 		$params= array();
-		$params['path'] = $completePath;
+		$params['path'] = "/mnt/cifs1/".$completePath;
 		$params['extraNetPath'] = rtrim($setting->host_file_server, '/');
 		$params['index'] = 0;
 		$params['type'] = 1;
