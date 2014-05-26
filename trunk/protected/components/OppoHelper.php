@@ -61,7 +61,7 @@ class OppoHelper
 		//mounting samba path				
 		$sharedPath = $setting->host_file_server_path;
 		echo "7--------".$setting->host_file_server_path;
-		$sharedPath[]= explode('/', $setting->host_file_server_path);	
+		$sharedPath[]= explode('/', rtrim($setting->host_file_server_path, '/'));	
 		echo "7.1--------";
 		$params= array();
 		echo "7.2--------";
@@ -84,7 +84,7 @@ class OppoHelper
 		
 		//star movie				
 		$sharedPath = $setting->host_file_server_path;
-		$sharedPath[]= explode('/', $setting->host_file_server_path);
+		$sharedPath[]= explode('/', rtrim($setting->host_file_server_path, '/'));
 		$completePath="";
 		if(count($sharedPath)>1)
 		{
