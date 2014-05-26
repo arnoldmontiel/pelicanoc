@@ -192,6 +192,7 @@ class OppoHelper
 		echo "2  ** ";
 		$response = json_decode(file_get_contents($url));
 		echo "3  ** ";
+		var_dump($response);
 		if(isset($response['success'])&&$response['success']==true)
 		{
 		echo "4  ** ";
