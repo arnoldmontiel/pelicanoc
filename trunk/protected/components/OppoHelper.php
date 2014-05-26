@@ -50,7 +50,7 @@ class OppoHelper
 		$setting = Setting::getInstance();
 		//login to samba server
 		$params= array();
-		$params['serverName'] = $setting->host_file_server;
+		$params['serverName'] = rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
 		$params['bRememberID'] = 1;		
@@ -63,7 +63,7 @@ class OppoHelper
 		$sharedPath[]= explode('/', $setting->host_file_server_path);	
 		$params= array();
 		$params['folder'] = $sharedPath[0];
-		$params['serverName'] = $setting->host_file_server;
+		$params['serverName'] = rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
 		$params['bRememberID'] = 1;
@@ -87,7 +87,7 @@ class OppoHelper
 		$completePath.=$path;
 		$params= array();
 		$params['path'] = $completePath;
-		$params['extraNetPath'] = $setting->host_file_server;
+		$params['extraNetPath'] = rtrim($setting->host_file_server, '/');
 		$params['index'] = 0;
 		$params['type'] = 1;
 		$params['appDeviceType'] = 7;
