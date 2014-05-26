@@ -58,11 +58,8 @@ class OppoHelper
 		echo 		$url;
 		@file_get_contents($url);
 		//mounting samba path				
-		$sharedPath = $setting->host_file_server_path;
-		echo "7--------".$setting->host_file_server_path;
-		explode('/', rtrim($setting->host_file_server_path, '/'));	
-		echo "7.1--------";
-		$sharedPath[]=explode('/', rtrim($setting->host_file_server_path, '/'));
+
+		$sharedPath=explode('/', rtrim($setting->host_file_server_path, '/'));
 		$params= array();
 		
 		$params['folder'] = $sharedPath[0];
@@ -78,7 +75,6 @@ class OppoHelper
 		@file_get_contents($url);
 		
 		//start movie				
-		$sharedPath[]= explode('/', rtrim($setting->host_file_server_path, '/'));
 		$completePath="";
 		if(count($sharedPath)>1)
 		{
