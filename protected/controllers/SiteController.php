@@ -1350,8 +1350,11 @@ class SiteController extends Controller
 		else
 		{
 			$idMyMovie = $nzbModel->myMovieDiscNzb->myMovieNzb->Id;			
-		}				
-		DuneHelper::playDune($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+		}			
+		if(isset($player->type) && $player->type == 1)
+			OppoHelper::playOppo($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+		else
+			DuneHelper::playDune($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);				
 
 		self::saveCurrentPlayByPlayer($idNzb, 1,$player);
 	}
@@ -1633,7 +1636,13 @@ class SiteController extends Controller
 	public function actionAjaxGetProgressBar()
 	{
 		$player=Player::model()->findByPk($_POST['idPlayer']);
-		echo json_encode(DuneHelper::getProgressBarByPlayer($player));
+		$isPlaying =  false;
+		if(isset($player->type) && $player->type == 1)
+			echo json_encode(array());
+		else
+			echo json_encode(DuneHelper::getProgressBarByPlayer($player));
+		
+		
 	}
 
 	public function actionAjaxShowBookmark()
@@ -2071,7 +2080,12 @@ class SiteController extends Controller
 		$players = $setting->players;
 		foreach ($players as $player)
 		{
-			if(DuneHelper::isPlayingByPlayer($player))
+			if(isset($player->type) && $player->type == 1)
+				$isPlaying = OppoHelper::isPlayingByPlayer($player);
+			else
+				$isPlaying = DuneHelper::isPlayingByPlayer($player);
+				
+			if($isPlaying)
 			{
 				$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
 				if(isset($modelCurrentPlaying))
