@@ -54,7 +54,8 @@ class OppoHelper
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
 		$params['bRememberID'] = 1;		
-		$url = $player->url .":436/loginSambaWithID?".json_encode($params);		
+		$url = $player->url .":436/loginSambaWithID?".json_encode($params);
+		echo 		$url;
 		@file_get_contents($url);
 		
 		//mounting samba path				
@@ -68,6 +69,7 @@ class OppoHelper
 		$params['bRememberID'] = 1;
 		$params['bWithID'] = 1;				
 		$url = $player->url .":436/mountSharedFolder?".json_encode($params);
+		echo 		$url;
 		@file_get_contents($url);
 		
 		//star movie				
@@ -90,6 +92,7 @@ class OppoHelper
 		$params['type'] = 1;
 		$params['appDeviceType'] = 7;
 		$url = $player->url .":436/playnormalfile?".json_encode($params);
+		echo 		$url;
 		@file_get_contents($url);
 		return true;
 	}
