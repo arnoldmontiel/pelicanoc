@@ -187,12 +187,17 @@ class OppoHelper
 	
 	static public function isPlayerAlive($player)
 	{
+		echo "1  ** ";
 		$url = $player->url .":436/getglobalinfo";
+		echo "2  ** ";
 		$response = json_decode(file_get_contents($url));
+		echo "3  ** ";
 		if(isset($response['success'])&&$response['success']==true)
 		{
+		echo "4  ** ";
 			return true;
 		}
+		echo "5  ** ";
 		return false;
 		
 	}
