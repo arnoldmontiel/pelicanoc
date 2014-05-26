@@ -220,7 +220,7 @@ class OppoHelper
 		}
 		$url = $player->url .":436/getglobalinfo";
 		$response = json_decode(file_get_contents($url));
-		if(isset($response['is_video_playing'])&&$response['is_video_playing']==true)
+		if($response->is_video_playing==true)
 		{
 			return true;
 		}
