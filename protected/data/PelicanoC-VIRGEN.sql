@@ -1601,7 +1601,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords',NULL,'/pelicano','/copied','/ripped',NULL,0,"","","","");
+INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://localhost:8080/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords',NULL,'/pelicano','/copied','/ripped',NULL,0,"","","","");
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
