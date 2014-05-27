@@ -1357,6 +1357,7 @@ CREATE TABLE `player` (
   `file_protocol` varchar(45) DEFAULT NULL,
   `Id_setting` int(11) NOT NULL,
   `has_error` tinyint(4) DEFAULT '0' COMMENT 'si el player tiene algun tipo de error', 
+  `has_error` int(11) DEFAULT '0' COMMENT '0-Dune 1-Oppo', 
   PRIMARY KEY (`Id`),
   KEY `fk_player_setting1` (`Id_setting`),
   CONSTRAINT `fk_player_setting1` FOREIGN KEY (`Id_setting`) REFERENCES `setting` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -1369,7 +1370,7 @@ CREATE TABLE `player` (
 
 LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
-INSERT INTO `player` VALUES (1,'http://192.168.100.104/','Principal','smb',1);
+INSERT INTO `player` VALUES (1,'http://192.168.100.104/','Principal','smb',1,0);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1589,6 +1590,7 @@ CREATE TABLE `setting` (
   `path_sabnzbd_temp` varchar(255) DEFAULT NULL COMMENT 'debe apuntar a donde sabnzbd esta configurado como " Temporary Download Folder"',
   `host_file_server_user` varchar(45) DEFAULT NULL COMMENT 'Usuario para acceder al NAS desde el Player',
   `host_file_server_passwd` varchar(45) DEFAULT NULL COMMENT 'Password para acceder al NAS desde el Player',     
+  `michael_jackson` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1599,7 +1601,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords',NULL,'/pelicano','/copied','/ripped',NULL,0);
+INSERT INTO `setting` VALUES (1,'./nzb',1,'c0d401e705d49aa2b7570db72a0ff429','http://dhcppc2:8080/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images',NULL,'/pelicanos',1,'50ed8335ae2ef','186.182.183.6',NULL,NULL,NULL,NULL,NULL,'rdsmart','SmartLiving01','192.168.0.105/','/storage/','/srv/storage/Downloads/passwords',NULL,'/pelicano','/copied','/ripped',NULL,0,"","","","");
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
