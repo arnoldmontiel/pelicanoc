@@ -193,7 +193,7 @@ class OppoHelper
 	
 	static public function isPlayerAlive($player)
 	{
-		$service_port = "19999";
+		$service_port = 19999;
 		/* Get the IP address for the target host. */
 		$address = "192.168.1.183";
 		/*Create a TCP/IP socket. */
