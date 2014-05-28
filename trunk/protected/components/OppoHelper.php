@@ -204,9 +204,14 @@ class OppoHelper
 			echo "OK.\n";
 		}
 		$in = "foppoConnectPlayerByIPDirect";
-		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
-		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
-		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		echo "sending foppoConnectPlayerByIPDirect\n";
+		echo socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		echo "---------------\n";
+		echo socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		echo "---------------\n";
+		echo socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		echo "---------------\n";
+		
 		socket_close($socket);
 				
 		$url = $player->url .":436/getglobalinfo";
