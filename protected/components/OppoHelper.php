@@ -50,15 +50,26 @@ class OppoHelper
 		$setting = Setting::getInstance();
 		//login to samba server
 		$params= array();
-		$params['serverName'] = "SMARTSERVER";//= rtrim($setting->host_file_server, '/');
+		$params['serverName'] = $setting->host_file_server_name;
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
-		$params['bRememberID'] = 1;		
-		$url = $player->url .":436/loginSambaWithID?".json_encode($params);
-		@file_get_contents($url);
-		if(isset($response))
+		$params['bRememberID'] = 1;
+		$retry = 0;
+		do
 		{
-			var_dump($response); 			
+			$url = $player->url .":436/loginSambaWithID?".json_encode($params);
+			$url = str_replace('&', '%26', $url);
+			$url = str_replace(' ', '%20', $url);				
+			$response = @file_get_contents($url);
+			$retry++;
+			$response = json_decode($response);
+			if(isset($response)&&$response->success==false)
+				sleep ( 4 );
+				
+		}while(isset($response)&&$response->success==false&&$retry<3);		
+		if(!isset($response)||!is_object($response)||$response->success!=true)
+		{
+			return false;
 		}
 		sleep ( 4 );
 		
@@ -70,19 +81,31 @@ class OppoHelper
 		$params['folder'] = $sharedPath[0];
 		
 		$params['userName'] = $setting->host_file_server_user;
-		$params['server'] = "SMARTSERVER";//rtrim($setting->host_file_server, '/');
+		$params['server'] = $setting->host_file_server_name;
 		
 		$params['bRememberID'] = 1;
 		$params['bWithID'] = 1;				
 		$params['password'] = $setting->host_file_server_passwd;
 		$url = $player->url .":436/mountSharedFolder?".json_encode($params);
-		$response = @file_get_contents($url);
-		if(isset($response))
+		$retry = 0;
+		do
 		{
-			var_dump($response); 			
-		}
-		
+			$url = str_replace('&', '%26', $url);
+			$url = str_replace(' ', '%20', $url);				
+			$response = @file_get_contents($url);
+			$response = json_decode($response);
+			$retry++;
+			if(isset($response)&&$response->success==false)
+				sleep ( 4 );
+				
+		}while(isset($response)&&$response->success==false&&$retry<3);
+
+		if(!isset($response)||!is_object($response)||$response->success!=true)
+		{
+			return false;
+		}		
 		sleep ( 4 );
+				
 		//start movie				
 		$completePath="";
 		if(count($sharedPath)>1)
@@ -95,7 +118,8 @@ class OppoHelper
 		}		
 		$completePath.=$path;
 		$params= array();
-		$params['path'] = "/mnt/cifs1/".$completePath;
+		
+		$params['path'] = $response->cifsMntPath."/".$completePath;
 		$params['extraNetPath'] = rtrim($setting->host_file_server, '/');
 		$params['index'] = 0;
 		$params['type'] = 1;
@@ -103,8 +127,20 @@ class OppoHelper
 		$url = $player->url .":436/playnormalfile?".json_encode($params);
 		$url = str_replace('&', '%26', $url);
 		$url = str_replace(' ', '%20', $url);
-		$response = file_get_contents($url);
-		var_dump($response);
+		$retry = 0;
+		do
+		{
+			$response = file_get_contents($url);
+			$retry++;
+			$response = json_decode($response);				
+			if(isset($response)&&$response->success==false)
+				sleep ( 4 );
+		}while(isset($response)&&$response->success==false&$retry<3);
+		if(!isset($response)||!is_object($response)||$response->success!=true)
+		{
+			return false;
+		}		
+		
 		return true;
 	}
 	
