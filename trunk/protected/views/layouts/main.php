@@ -58,6 +58,11 @@ function getCurrentState()
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentState'); ?>"
 	).success(
 		function(data){
+
+			setTimeout(		
+	 			'getCurrentState()'
+	 		, 10000);	
+				
     		if(data != null)
     		{        			
     			var obj = jQuery.parseJSON(data);
@@ -187,7 +192,11 @@ function getCurrentState()
 					}
 				}
     		}
-		},"json");
+		},"json").error(function(){
+			setTimeout(		
+		 			'getCurrentState()'
+		 		, 10000);	
+			});
 	return false;
 }
 
@@ -248,9 +257,9 @@ $(document).ready(function(){
 	});
 
 	
-	setInterval(function() {		
-		getCurrentState();
-	}, 10000);	
+// 	setInterval(function() {		
+// 		getCurrentState();
+// 	}, 10000);	
 	
 	
 	$('#pushMain .mobileMenuItem').removeClass('active');
