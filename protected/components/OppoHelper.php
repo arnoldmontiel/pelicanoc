@@ -193,6 +193,22 @@ class OppoHelper
 	
 	static public function isPlayerAlive($player)
 	{
+		$service_port = "19999";
+		/* Get the IP address for the target host. */
+		$address = "192.168.1.183";
+		/*Create a TCP/IP socket. */
+		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+		if ($socket === false) {
+			//echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+		} else {
+			//echo "OK.\n";
+		}
+		$in = "foppoConnectPlayerByIPDirect";
+		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		socket_close($sock);
+				
 		$url = $player->url .":436/getglobalinfo";
 		try {
 			$response = json_decode(@file_get_contents($url));
