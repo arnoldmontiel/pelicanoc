@@ -203,7 +203,7 @@ class OppoHelper
 		} else {
 			echo "OK.\n";
 		}
-		$in = "foppoConnectPlayerByIPDirect";
+		$in = "oppoConnectPlayerByIPDirect";
 		//@file_get_contents($address.":".$service_port."?".$in);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
