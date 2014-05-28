@@ -245,9 +245,9 @@ class OppoHelper
 		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 		socket_set_option($socket, SOL_SOCKET, SO_BROADCAST, 1);
 		if ($socket === false) {
-			echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+			//echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
 		} else {
-			echo "OK.\n";
+			//echo "OK.\n";
 		}
 		$in = "NOTIFY OREMOTE LOGIN";
 		//@file_get_contents($address.":".$service_port."?".$in);
@@ -259,9 +259,9 @@ class OppoHelper
 		$address = "192.168.1.183";
 		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 		if ($socket === false) {
-			echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+			//echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
 		} else {
-			echo "OK.\n";
+			//echo "OK.\n";
 		}
 		$in = "oppoConnectPlayerByIPDirect";
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
