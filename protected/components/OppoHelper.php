@@ -193,10 +193,24 @@ class OppoHelper
 	
 	static public function initializeOppo($player)
 	{
+		//Send broascast message.
+		$service_port = 7624;
+		$address = "255.255.255.255";
+		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+		socket_set_option($socket, SOL_SOCKET, SO_BROADCAST, 1);
+		if ($socket === false) {
+			echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+		} else {
+			echo "OK.\n";
+		}
+		$in = "NOTIFY OREMOTE LOGIN";
+		//@file_get_contents($address.":".$service_port."?".$in);
+		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		socket_close($socket);
+		
+		
 		$service_port = 19999;
-		/* Get the IP address for the target host. */
 		$address = "192.168.1.183";
-		/*Create a TCP/IP socket. */
 		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 		if ($socket === false) {
 			echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
@@ -204,7 +218,6 @@ class OppoHelper
 			echo "OK.\n";
 		}
 		$in = "oppoConnectPlayerByIPDirect";
-		//@file_get_contents($address.":".$service_port."?".$in);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
