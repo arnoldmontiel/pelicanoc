@@ -69,8 +69,8 @@ class OppoHelper
 		
 		$params['folder'] = $sharedPath[0];
 		
-		$params['userName'] = "SMARTSERVER";//$setting->host_file_server_user;
-		$params['server'] = rtrim($setting->host_file_server, '/');
+		$params['userName'] = $setting->host_file_server_user;
+		$params['server'] = "SMARTSERVER";//rtrim($setting->host_file_server, '/');
 		
 		$params['bRememberID'] = 1;
 		$params['bWithID'] = 1;				
