@@ -239,6 +239,7 @@ class OppoHelper
 			self::initializeOppo($player);
 			return false;
 		}
+		self::initializeOppo($player);
 		return false;
 		
 	}
