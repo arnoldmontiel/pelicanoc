@@ -1591,6 +1591,7 @@ CREATE TABLE `setting` (
   `host_file_server_user` varchar(45) DEFAULT NULL COMMENT 'Usuario para acceder al NAS desde el Player',
   `host_file_server_passwd` varchar(45) DEFAULT NULL COMMENT 'Password para acceder al NAS desde el Player',     
   `michael_jackson` varchar(256) DEFAULT NULL,
+  `host_file_server_name` varchar(255) DEFAULT NULL COMMENT 'Es el nombre con el que se identifica el servidor SMB/NFS',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
