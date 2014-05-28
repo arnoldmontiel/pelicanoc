@@ -65,12 +65,12 @@ class OppoHelper
 		
 		$params['folder'] = $sharedPath[0];
 		
-		$params['server'] = rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
-		$params['password'] = $setting->host_file_server_passwd;
+		$params['server'] = rtrim($setting->host_file_server, '/');
 		
 		$params['bRememberID'] = 1;
 		$params['bWithID'] = 1;				
+		$params['password'] = $setting->host_file_server_passwd;
 		$url = $player->url .":436/mountSharedFolder?".json_encode($params);
 		echo 		$url;
 		@file_get_contents($url);
