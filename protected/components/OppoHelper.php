@@ -61,7 +61,7 @@ class OppoHelper
 		{
 			var_dump($response); 			
 		}
-		sleep ( 2 );
+		sleep ( 4 );
 		
 		//mounting samba path				
 		$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
@@ -84,7 +84,7 @@ class OppoHelper
 			var_dump($response); 			
 		}
 		
-		sleep ( 2 );
+		sleep ( 4 );
 		//start movie				
 		$completePath="";
 		if(count($sharedPath)>1)
