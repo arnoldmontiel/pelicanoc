@@ -55,7 +55,6 @@ class OppoHelper
 		$params['psssword'] = $setting->host_file_server_passwd;
 		$params['bRememberID'] = 1;		
 		$url = $player->url .":436/loginSambaWithID?".json_encode($params);
-		echo 		$url;
 		@file_get_contents($url);
 		if(isset($response))
 		{
@@ -77,7 +76,6 @@ class OppoHelper
 		$params['bWithID'] = 1;				
 		$params['password'] = $setting->host_file_server_passwd;
 		$url = $player->url .":436/mountSharedFolder?".json_encode($params);
-		echo 		$url;
 		$response = @file_get_contents($url);
 		if(isset($response))
 		{
@@ -103,7 +101,8 @@ class OppoHelper
 		$params['type'] = 1;
 		$params['appDeviceType'] = 7;
 		$url = $player->url .":436/playnormalfile?".json_encode($params);
-		echo 		$url;
+		$url = str_replace('&', '%26', $url);
+		$url = str_replace(' ', '%20', $url);
 		$response = file_get_contents($url);
 		var_dump($response);
 		return true;
