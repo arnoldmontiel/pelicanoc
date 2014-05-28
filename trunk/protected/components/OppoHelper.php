@@ -57,6 +57,11 @@ class OppoHelper
 		$url = $player->url .":436/loginSambaWithID?".json_encode($params);
 		echo 		$url;
 		@file_get_contents($url);
+		if(isset($response))
+		{
+			var_dump($response); 			
+		}
+		sleep ( 2 );
 		
 		//mounting samba path				
 		$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
@@ -73,8 +78,13 @@ class OppoHelper
 		$params['password'] = $setting->host_file_server_passwd;
 		$url = $player->url .":436/mountSharedFolder?".json_encode($params);
 		echo 		$url;
-		@file_get_contents($url);
+		$response = @file_get_contents($url);
+		if(isset($response))
+		{
+			var_dump($response); 			
+		}
 		
+		sleep ( 2 );
 		//start movie				
 		$completePath="";
 		if(count($sharedPath)>1)
@@ -95,6 +105,7 @@ class OppoHelper
 		$url = $player->url .":436/playnormalfile?".json_encode($params);
 		echo 		$url;
 		@file_get_contents($url);
+		
 		return true;
 	}
 	
