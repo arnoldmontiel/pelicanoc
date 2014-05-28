@@ -191,7 +191,7 @@ class OppoHelper
 		}
 	}
 	
-	static public function isPlayerAlive($player)
+	static public function initializeOppo($player)
 	{
 		$service_port = 19999;
 		/* Get the IP address for the target host. */
@@ -204,16 +204,15 @@ class OppoHelper
 			echo "OK.\n";
 		}
 		$in = "foppoConnectPlayerByIPDirect";
-		@file_get_contents($address.":".$service_port."?".$in);
-		echo "sending foppoConnectPlayerByIPDirect\n";
-		echo socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
-		echo "---------------\n";
-		echo socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
-		echo "---------------\n";
-		echo socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
-		echo "---------------\n";
+		//@file_get_contents($address.":".$service_port."?".$in);
+		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
 		
-		socket_close($socket);
+		socket_close($socket);		
+	}
+	static public function isPlayerAlive($player)
+	{
 				
 		$url = $player->url .":436/getglobalinfo";
 		try {
@@ -224,6 +223,7 @@ class OppoHelper
 			}
 				
 		} catch (Exception $e) {
+			self::initializeOppo($player);
 			return false;
 		}
 		return false;
