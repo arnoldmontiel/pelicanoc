@@ -104,7 +104,7 @@ class OppoHelper
 		$params['appDeviceType'] = 7;
 		$url = $player->url .":436/playnormalfile?".json_encode($params);
 		echo 		$url;
-		$response = @file_get_contents($url);
+		$response = file_get_contents($url);
 		var_dump($response);
 		return true;
 	}
