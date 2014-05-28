@@ -1455,9 +1455,9 @@ class SiteController extends Controller
 				$isAlive = true;
 				$isPlaying =  false;
 				if(isset($player->type) && $player->type == 1)
-					$isPlaying = OppoHelper::isPlayingByPlayer($player);
+					$isPlaying= DuneHelper::isPlayingByPlayer($player);
 				else
-					 $isPlaying= DuneHelper::isPlayingByPlayer($player);				
+					$isPlaying = OppoHelper::isPlayingByPlayer($player);					 				
 				if($isPlaying)
 				{
 					$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
