@@ -50,7 +50,7 @@ class OppoHelper
 		$setting = Setting::getInstance();
 		//login to samba server
 		$params= array();
-		$params['serverName'] = rtrim($setting->host_file_server, '/');
+		$params['serverName'] = "SMARTSERVER";//= rtrim($setting->host_file_server, '/');
 		$params['userName'] = $setting->host_file_server_user;
 		$params['psssword'] = $setting->host_file_server_passwd;
 		$params['bRememberID'] = 1;		
@@ -69,7 +69,7 @@ class OppoHelper
 		
 		$params['folder'] = $sharedPath[0];
 		
-		$params['userName'] = $setting->host_file_server_user;
+		$params['userName'] = "SMARTSERVER";//$setting->host_file_server_user;
 		$params['server'] = rtrim($setting->host_file_server, '/');
 		
 		$params['bRememberID'] = 1;
