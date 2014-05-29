@@ -215,8 +215,8 @@ $('#pauseButton').click(function(){
 $('#stopButton').click(function(){
 	$.ajax({
    		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxStop') . "'
-     	data: {Id_player:".$player->Id."},
+   		url: '". SiteController::createUrl('AjaxStop') . "',
+     	data: {Id_player:".$player->Id."}
  	}).success(function()
  	{
 		window.location = '".SiteController::createUrl('index')."'
@@ -453,7 +453,7 @@ $('#stopButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxStop') . "',
-		data: {Id_player:".$player->Id."},
+		data: {Id_player:".$player->Id."}
  	}).success(function()
  	{
 		window.location = '".SiteController::createUrl('index')."'
