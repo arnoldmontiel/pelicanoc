@@ -2054,7 +2054,7 @@ font-size:  110% !important;
 }
 
 /*IPAD LANDSCAPE*/
-@media screen ( min-width : 769px) and (max-width: 1024px) and (orientation:landscape){
+@media screen ( min-width : 768px) and (max-width: 1024px) and (orientation:landscape){
 	.controlContainer {
 		width: 100%;
 	}
@@ -2078,11 +2078,10 @@ font-size:  110% !important;
 
 }
 /*IPAD PORTRAIT*/
-@media screen  ( max-width : 768px) and (orientation: portrait) {
-
-	.flexslider {
-		width: 88%;		
-	}
+@media only screen and (min-width : 765px) and (max-width : 768px)  and (orientation:portrait){
+.flexslider {
+	width: 88%;		
+}
 	
 .ribbon.ribNuevo{
 		right: -39px;
@@ -2103,63 +2102,63 @@ right:7px; bottom:34px;
 right:5px; bottom:37px;
 }
 
-	.navbar .nav>li>a {
-		padding: 10px 10px 10px;
-	}
+.navbar .nav>li>a {
+	padding: 10px 10px 10px;
+}
 	
-	/*asi se muestran de a 4 por fila */
+/*asi se muestran de a 4 por fila */
 	
-	.item{ width:160px;}
-	.grid-sizer{ width: 160px; height: 267px;}
-	.peliAfiche { width: 160px; height: 232px; }
+.item{ width:160px;}
+.grid-sizer{ width: 160px; height: 267px;}
+.peliAfiche { width: 160px; height: 232px; }
 		
 
-	/*asi se muestran de a 3 por fila */
-	/* .grid-sizer{ width: 220px; height: 355px;}
+/*asi se muestran de a 3 por fila */
+/* .grid-sizer{ width: 220px; height: 355px;}
 
-	.peliAfiche { width: 220px; height: 320px; }
-	*/
+.peliAfiche { width: 220px; height: 320px; }
+*/
 	
-	.controlContainer {
-		width: 100%;
-	}
-	.controlContainer .span6 {
-		width: 100%;
-	}
-	.controlNavegacion {
-		width: 680px;
-		margin: auto;
-	}
-	.controlContainer .controlNavegacion .btn {
-		width: 70px;
-		height: 70px;
-	}
-	.controlProgress {
-		width: 90%;
-		margin: auto;
-	}
-	.controlNumeros .btn {
-		margin-right: 5px;
-		margin-bottom: 15px;
-	}
-	.controlProgress{padding-top:20px;}
-	.controlLenght{padding-top:16px;}
-	.rowControlVariable{width:99%; margin:auto;}
+.controlContainer {
+	width: 100%;
+}
+.controlContainer .span6 {
+	width: 100%;
+}
+.controlNavegacion {
+	width: 680px;
+	margin: auto;
+}
+.controlContainer .controlNavegacion .btn {
+	width: 70px;
+	height: 70px;
+}
+.controlProgress {
+	width: 90%;
+	margin: auto;
+}
+.controlNumeros .btn {
+	margin-right: 5px;
+	margin-bottom: 15px;
+}
+.controlProgress{padding-top:20px;}
+.controlLenght{padding-top:16px;}
+.rowControlVariable{width:99%; margin:auto;}
 	
-	#tab1 {
-		max-height: 650px;
-	}
-	.modalDetail {
-		width: 95%;
-	}
+#tab1 {
+	max-height: 650px;
+}
+.modalDetail {
+	width: 95%;
+}
 	
-	.navbar-header {
+.navbar-header {
 float: left;
 }
-	.navbar-right {
+.navbar-right {
 float: right;
 }
-	.navbar-left {
+.navbar-left {
 float: left;
 }
 .navbar-nav{margin:0px;}
@@ -2175,10 +2174,10 @@ border-bottom: 1px solid transparent;
 box-shadow: none;
 }
 
-	.devicesHeader .nav-tabs{font-size:15px;}
+.devicesHeader .nav-tabs{font-size:15px;}
 
-	.controlNavegacion{text-align:center;}
-	.controlNumeros{text-align:center;}
+.controlNavegacion{text-align:center;}
+.controlNumeros{text-align:center;}
 
 }
 
