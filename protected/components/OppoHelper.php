@@ -228,7 +228,7 @@ class OppoHelper
 	}
 	
 	
-	static public function useRemote($irCode,$Id_player)
+	static public function useRemote($code,$Id_player)
 	{
 		$modelPlayer = Player::model()->findByPk($Id_player);
 		if(isset($modelPlayer))
