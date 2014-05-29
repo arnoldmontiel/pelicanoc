@@ -222,8 +222,8 @@ class NzbCommand extends CConsoleCommand  {
 // 				$nzbMovieState= new NzbMovieState;
 // 				$nzbMovieState->Id_nzb = $modelNzb->Id;
 // 				$nzbMovieState->Id_movie_state = 3;				
-// 				$nzbMovieState->save();
-				$params = $fileName." ".$setting->path_sabnzbd_download.$fileName.' '. $setting->sabnzb_pwd_file_path;
+// 				$nzbMovieState->save();			
+				$params = $fileName." ".$setting->path_sabnzbd_download."/".$fileName.' '. $setting->sabnzb_pwd_file_path;
 				exec(dirname(__FILE__).'/../commands/shell/finishDownload.sh '.$params,$output,$return);
 				//TODO: Si falla, enviar error al server
 				if($return == 0)
