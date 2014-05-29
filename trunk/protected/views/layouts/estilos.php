@@ -2054,7 +2054,7 @@ font-size:  110% !important;
 }
 
 /*IPAD LANDSCAPE*/
-@media ( min-width : 769px) and (max-width: 1024px) {
+@media ( min-width : 769px) and (max-width: 1024px) and (orientation : landscape){
 	.controlContainer {
 		width: 100%;
 	}
@@ -2078,7 +2078,7 @@ font-size:  110% !important;
 
 }
 /*IPAD PORTRAIT*/
-@media ( max-width : 768px) {
+@media ( max-width : 768px) and (orientation: portrait) {
 
 	.flexslider {
 		width: 88%;		
@@ -2184,17 +2184,80 @@ box-shadow: none;
 
 /*NEXUS*/
 
-/* Nexus 7 (portrait and landscape) ----------- */
+/* Nexus 7 (603x963) y 800x600 (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 603px) and (max-device-width : 966px) {
-}
-
-/* Nexus 7 (landscape) ----------- */
-@media only screen and (min-width : 604px)  and (max-width : 767px) and (orientation: landscape) {
 
 }
 
-/* Nexus 7 (portrait) ----------- */
-@media only screen and (min-width: 590px) and (max-width : 600px) and (orientation: portrait) {
+/* Nexus 7 (603x963) y 800x600 (landscape) ----------- */
+@media only screen and (min-width : 604px)  and (max-width : 963px) and (orientation: landscape) {
+.item{ width:140px;}
+	.grid-sizer{ width: 140px; height: 237px;}
+	.peliAfiche { width: 140px; height: 202px; }
+	
+.col-md-12 {
+    width: 100%;
+  }
+  .col-md-11 {
+    width: 91.66666667%;
+  }
+  .col-md-10 {
+    width: 83.33333333%;
+  }
+  .col-md-9 {
+    width: 75%;
+  }
+  .col-md-8 {
+    width: 66.66666667%;
+  }
+  .col-md-7 {
+    width: 58.33333333%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-5 {
+    width: 41.66666667%;
+  }
+  .col-md-4 {
+    width: 33.33333333%;
+  }
+  .col-md-3 {
+    width: 25%;
+  }
+  .col-md-2 {
+    width: 16.66666667%;
+  }
+  .col-md-1 {
+    width: 8.33333333%;
+  }
+  #screenControl .controlContainer .controlNavegacion .btn {
+width: 55px;
+height: 55px;
+}
+.controlProgress{ height:55px; padding-top:25px;}
+
+.controlNavegacion {
+padding: 5px 0px;
+}
+
+
+.progress{ height:10px;}
+ .controlNumeros .btn {
+width: 45px;
+height: 45px;
+font-size: 1.5em;
+margin-right: 5px;
+}
+#screenControl .controlConfig .btn {
+height: 45px;
+width: 45px;
+font-size: 1.5em;
+}
+}
+
+/* Nexus 7 (603x963) y 800x600 (portrait) ----------- */
+@media only screen and (min-width: 590px) and (max-width : 603px) and (orientation: portrait) {
 }
 
 /*CELUS*/
