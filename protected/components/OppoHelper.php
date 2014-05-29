@@ -193,7 +193,7 @@ class OppoHelper
 				'totalTime'=>gmdate("H:i:s",0));
 	
 	
-		if(isset($response) && is_object($response))
+		if(isset($response) && is_object($response)&&$response->total_time!=0)
 		{
 			$value = ((int)$response->cur_time/(int)$response->total_time) * 100;
 			$progressBar['currentProgress'] = round($value);
