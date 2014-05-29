@@ -47,6 +47,13 @@ class Setting extends CActiveRecord
 	private static $setting;
 	private $_customer;
 	
+	public function beforeSave()
+	{
+		//Solo por ahora!!!
+		$this->host_name = 'http://gruposmartliving.com';
+		return parent::beforeSave();
+	}
+	
 	public function setAttributesByArray($array)
 	{
 		$attributesArray = get_object_vars($array);
