@@ -264,8 +264,11 @@ class OppoHelper
 			//echo "OK.\n";
 		}
 		$in = "oppoConnectPlayerByIPDirect";
+		sleep(1);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		sleep(1);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
+		sleep(1);
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
 		
 		socket_close($socket);		
