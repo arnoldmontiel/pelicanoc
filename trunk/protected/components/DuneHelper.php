@@ -158,6 +158,11 @@ class DuneHelper
 		//echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=black_screen');
 		echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=ir_code&ir_code=E619BF00');
 	}
+	static public function setBlackScreenByPlayer($player)
+	{
+		//echo file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=black_screen');
+		echo file_get_contents( $player->url .'/cgi-bin/do?cmd=ir_code&ir_code=E619BF00');
+	}
 	
 	static public function useRemote($irCode,$Id_player)
 	{

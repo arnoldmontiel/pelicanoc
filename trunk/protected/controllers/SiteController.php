@@ -1819,7 +1819,18 @@ class SiteController extends Controller
 
 	public function actionAjaxStop()
 	{
-		DuneHelper::setBlackScreen();
+		if(isset($_GET['Id_player']))
+		{
+			$player = Player::model()->findByPk($_GET['Id_player']);
+			if(isset($player->type) && $player->type == 1)
+				OppoHelper::useRemote('STP',$_GET['Id_player']);
+			else
+				DuneHelper::setBlackScreenByPlayer($player);							
+		}
+		else
+		{
+			DuneHelper::setBlackScreen();
+		}				
 	}
 
 	public function actionAjaxGetPlayback()
