@@ -199,8 +199,7 @@ $('#playButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=B748BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'PLA',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -208,8 +207,7 @@ $('#pauseButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=B748BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'PAU',Id_player:".$player->Id."},
 });
     		return false;
 });
@@ -229,8 +227,7 @@ $('#prevButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=B649BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'PRE',Id_player:".$player->Id."},
 });
      			return false;
 });
@@ -239,8 +236,7 @@ $('#nextButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E21DBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NXT',Id_player:".$player->Id."},
 });
      			return false;
 });
@@ -249,8 +245,7 @@ $('#rewButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E31CBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'REV',Id_player:".$player->Id."},
 });
 				return false;
 });
@@ -259,8 +254,7 @@ $('#fwButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E41BBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'FWD',Id_player:".$player->Id."},
 });
         		return false;
 });
@@ -269,8 +263,7 @@ $('#enterButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EB14BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'SEL',Id_player:".$player->Id."},
 });
 				return false;
 });
@@ -279,8 +272,7 @@ $('#returnButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=FB04BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'RET',Id_player:".$player->Id."},
 });
 				return false;
 });
@@ -289,8 +281,7 @@ $('#popUpMenuButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F807BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'MNU',Id_player:".$player->Id."},
 });
 							return false;
 });
@@ -299,7 +290,6 @@ $('#upButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EA15BF00',
 		data: {ir_code:'NUP',Id_player:".$player->Id."},
 });
      		return false;
@@ -309,7 +299,6 @@ $('#downButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E916BF00',
 		data: {ir_code:'NDN',Id_player:".$player->Id."},
 });
     		return false;
@@ -319,7 +308,6 @@ $('#leftButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E817BF00',
 		data: {ir_code:'NLT',Id_player:".$player->Id."},
 });
     		return false;
@@ -329,7 +317,6 @@ $('#rightButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=E718BF00',
 		data: {ir_code:'NRT',Id_player:".$player->Id."},
 });
     		return false;
@@ -339,8 +326,7 @@ $('#subtButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=AB54BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'SUB',Id_player:".$player->Id."},
 });
     		return false;
 });
@@ -349,8 +335,7 @@ $('#audioButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=BB44BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'AUD',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -359,7 +344,6 @@ $('#aButton').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=BF40BF00',
 		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
 });
 		return false;
@@ -368,8 +352,7 @@ $('#button0').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F50ABF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU0',Id_player:".$player->Id."},
 });
     		return false;
 });
@@ -377,8 +360,7 @@ $('#button1').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F40BBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU1',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -386,8 +368,7 @@ $('#button2').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F30CBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU2',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -395,8 +376,7 @@ $('#button3').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F20DBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU3',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -404,8 +384,7 @@ $('#button4').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F10EBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU4',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -413,8 +392,7 @@ $('#button5').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=F00FBF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU5',Id_player:".$player->Id."},
 });
     		return false;
 });
@@ -422,8 +400,7 @@ $('#button6').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=FE01BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU6',Id_player:".$player->Id."},
 });
     		return false;
 });
@@ -431,8 +408,7 @@ $('#button7').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EE11BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU7',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -440,8 +416,7 @@ $('#button8').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=ED12BF00,Id_player=".$player->Id."',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU8',Id_player:".$player->Id."},
 });
 		return false;
 });
@@ -449,8 +424,7 @@ $('#button9').click(function(){
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: 'ir_code=EC13BF00',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
+		data: {ir_code:'NU9',Id_player:".$player->Id."},
 });
 		return false;
 });
