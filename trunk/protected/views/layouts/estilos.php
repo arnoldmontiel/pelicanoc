@@ -1319,6 +1319,7 @@ padding: 3px 0px;
 	padding-right: 15px;
 	font-size: 1.3em;
 	font-weight: bold;
+	color:white;
 }
 
 #screenControl .controlContainer .btn-warning {
