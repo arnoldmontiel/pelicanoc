@@ -29,7 +29,7 @@ class SABnzbdStatus extends CModel
 	}
 	function completeSABNZBDId()
 	{
-		if(!isset($this->_attributes))
+		if(empty($this->_attributes))
 		{
 			$jsonData = @file_get_contents($this->urlJson);
 			$this->_attributes = CJSON::decode($jsonData,true);

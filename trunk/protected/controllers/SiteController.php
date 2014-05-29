@@ -2134,7 +2134,7 @@ class SiteController extends Controller
 		if($downloading['qty']>0)
 		{
 			$sABnzbdStatus= new SABnzbdStatus();
-			$sABnzbdStatus->completeSABNZBDId();;				
+			$sABnzbdStatus->completeSABNZBDId();				
 		}
 
 		echo json_encode($response);
