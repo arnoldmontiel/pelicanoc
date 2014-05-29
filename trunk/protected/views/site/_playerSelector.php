@@ -55,6 +55,7 @@
 
 function play(id, idPlayer,sourceType,idResource)
 {
+	$("#btn_play_"+idPlayer).html('<i class="fa  fa-spin"></i> Iniciando ...');
 	$(".btn-play-by-player").attr("disabled", "disabled");
 	$.post("<?php echo SiteController::createUrl('AjaxCanStart'); ?>",
 			{
