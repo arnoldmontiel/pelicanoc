@@ -257,6 +257,11 @@ class OppoHelper
 		
 		$service_port = 19999;
 		$address = "192.168.1.183";
+		
+		//probar esto para limpiar el http
+		$str = $modelPlayer->url;
+		$str = preg_replace('#^https?://#', '', rtrim($str,'/'));
+		
 		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 		if ($socket === false) {
 			//echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
@@ -272,6 +277,12 @@ class OppoHelper
 		socket_sendto($socket, $in, strlen($in), 0, $address, $service_port);
 		
 		socket_close($socket);		
+		
+		sleep(1);
+		file_get_contents( $modelPlayer->url .':436/getmainfirmwareversion');
+		sleep(1);		
+		file_get_contents( $modelPlayer->url .':436/getdevicelist');
+		
 	}
 	static public function isPlayerAlive($player)
 	{
