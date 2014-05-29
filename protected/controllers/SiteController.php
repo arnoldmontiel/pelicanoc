@@ -2090,11 +2090,13 @@ class SiteController extends Controller
 				$isPlaying = DuneHelper::isPlayingByPlayer($player);
 			if($isPlaying)
 			{
-				$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
-				if(isset($modelCurrentPlaying))
-				{
-					$playerPlaying++;
-				}
+ 				$playerPlaying++;
+ 				//No valido esto, para ser consitente con AjaxGetPlayerStatus 
+// 				$modelCurrentPlaying = CurrentPlay::model()->findByAttributes(array('is_playing'=>1,'Id_player'=>$player->Id));
+// 				if(isset($modelCurrentPlaying))
+// 				{
+// 					$playerPlaying++;
+// 				}
 			}
 		}
 		$criteriaDownloading = new CDbCriteria;
