@@ -98,7 +98,7 @@ function fillStatus()
 						 }
 						 else if(obj.playing == "1")
 						 {
-							  $("#td_status_selector_"+obj.idPlayer).html('<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i>'+obj.title);						 
+							  $("#td_status_selector_"+obj.idPlayer).html('<span class="label label-danger">Reproduciendo</span> <br/> <i class="fa fa-caret-right"></i> '+obj.title);						 
 							  $("#btn_play_"+obj.idPlayer).show();
 							  $("#btn_play_"+obj.idPlayer).css('visibility','visible');
 						 }
