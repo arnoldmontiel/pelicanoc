@@ -2020,7 +2020,7 @@ cursor:inherit;
 /*---------------------------------------------------------------------------*/
 
 /* Large desktop */
-@media ( min-width : 1024px) {
+@media screen  ( min-width : 1024px) {
 
 	 .grid-sizer{ width: 180px; height: 295px;}
 
@@ -2030,7 +2030,7 @@ cursor:inherit;
 }
 
 /*ALL MOBILE*/
-@media ( max-width : 1024px){
+@media screen  ( max-width : 1024px){
 
 .table.tablaIndividual th {
 font-family: 600;
@@ -2054,7 +2054,7 @@ font-size:  110% !important;
 }
 
 /*IPAD LANDSCAPE*/
-@media ( min-width : 769px) and (max-width: 1024px) and (orientation : landscape){
+@media screen ( min-width : 769px) and (max-width: 1024px) and (orientation:landscape){
 	.controlContainer {
 		width: 100%;
 	}
@@ -2078,7 +2078,7 @@ font-size:  110% !important;
 
 }
 /*IPAD PORTRAIT*/
-@media ( max-width : 768px) and (orientation: portrait) {
+@media screen  ( max-width : 768px) and (orientation: portrait) {
 
 	.flexslider {
 		width: 88%;		
@@ -2185,12 +2185,12 @@ box-shadow: none;
 /*NEXUS*/
 
 /* Nexus 7 (603x963) y 800x600 (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 603px) and (max-device-width : 966px) {
+@media screen and (min-device-width : 603px) and (max-device-width : 966px) {
 
 }
 
 /* Nexus 7 (603x963) y 800x600 (landscape) ----------- */
-@media only screen and (min-width : 604px)  and (max-width : 963px) and (orientation: landscape) {
+@media screen and (min-width : 604px)  and (max-width : 963px) and (orientation: landscape) {
 .item{ width:140px;}
 	.grid-sizer{ width: 140px; height: 237px;}
 	.peliAfiche { width: 140px; height: 202px; }
@@ -2257,12 +2257,12 @@ font-size: 1.5em;
 }
 
 /* Nexus 7 (603x963) y 800x600 (portrait) ----------- */
-@media only screen and (min-width: 590px) and (max-width : 603px) and (orientation: portrait) {
+@media screen and (min-width: 590px) and (max-width : 603px) and (orientation: portrait) {
 }
 
 /*CELUS*/
 /*Landscape*/
-@media only screen and (min-width : 360px) and (max-width: 599px) and (orientation: landscape) {
+@media screen and (min-width : 360px) and (max-width: 599px) and (orientation: landscape) {
 
 	.grid-sizer{ width: 150px; height: 250px;}
 body{background-color:green;}
@@ -2271,7 +2271,7 @@ body{background-color:green;}
 }
 
 /*Portrait*/
-@media only screen and (max-width: 350px) and (orientation: portrait) { 
+@media screen and (max-width: 350px) and (orientation: portrait) { 
 body{background-color:red ;}
 	 .grid-sizer{ width: 140px; height: 235px;}
 
