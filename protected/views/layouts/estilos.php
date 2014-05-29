@@ -1222,11 +1222,11 @@ padding: 3px 0px;
 }
 
 .btnNoRep {background-color:#D2D4D6;}
-.btnRep{background-color:rgb(236, 0, 57);  background-color:#439CBD; background-color:#FFA441;}
+.btnRep{background-color:rgb(236, 0, 57); background-color:#E73391; background-color:#439CBD;}
 
 
 .btnNoRep:hover, .btnNoRep:active, .btnNoRep:focus {background-color:#BEC7CF; border-color:#eee;}
-.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#237897; border-color:#eee; background-color:#F59732;}
+.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#237897; border-color:#eee;  }
 
 #player-status-quantity{color:#666;}
 
