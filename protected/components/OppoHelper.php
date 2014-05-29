@@ -256,11 +256,11 @@ class OppoHelper
 		
 		
 		$service_port = 19999;
-		$address = "192.168.1.183";
+		//$address = "192.168.1.183";
 		
 		//probar esto para limpiar el http
-		$str = $modelPlayer->url;
-		$str = preg_replace('#^https?://#', '', rtrim($str,'/'));
+		$address = $player->url;
+		$address = preg_replace('#^https?://#', '', rtrim($address,'/'));
 		
 		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 		if ($socket === false) {
