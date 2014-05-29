@@ -1810,6 +1810,7 @@ class SiteController extends Controller
 
 	public function actionAjaxUseRemote()
 	{
+		$player = Player::model()->findByPk($_GET['Id_player']);
 		if(isset($player->type) && $player->type == 1)
 			OppoHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);
 		else
