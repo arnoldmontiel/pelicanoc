@@ -160,7 +160,7 @@ class OppoHelper
 	}
 	
 	static public function getProgressBar()
-	{
+	{		
 		$progressBar = array('currentProgress'=>-1,
 							'currentTime'=>gmdate("H:i:s",0),
 							'totalTime'=>gmdate("H:i:s",0));		
@@ -183,22 +183,22 @@ class OppoHelper
 	}
 	static public function getProgressBarByPlayer($player)
 	{
+		$url = $player->url .":436/getplayingtime";
+		
+		$response = @file_get_contents($url);
+		$response = json_decode($response);
+		
 		$progressBar = array('currentProgress'=>-1,
 				'currentTime'=>gmdate("H:i:s",0),
 				'totalTime'=>gmdate("H:i:s",0));
 	
-		$modelDune = self::getStateByPlayer($player);
 	
-		if(isset($modelDune))
+		if(isset($response) && is_object($response))
 		{
-			if(($modelDune->playback_state == "playing" || $modelDune->player_state == "bluray_playback")
-			&& (int)$modelDune->playback_duration > 0)
-			{
-				$value = ((int)$modelDune->playback_position/(int)$modelDune->playback_duration) * 100;
-				$progressBar['currentProgress'] = round($value);
-				$progressBar['currentTime'] = gmdate("H:i:s",$modelDune->playback_position);
-				$progressBar['totalTime'] = gmdate("H:i:s",$modelDune->playback_duration);
-			}
+			$value = ((int)$response->cur_time/(int)$response->total_time) * 100;
+			$progressBar['currentProgress'] = round($value);
+			$progressBar['currentTime'] = gmdate("H:i:s",$response->cur_time);
+			$progressBar['totalTime'] = gmdate("H:i:s",$response->total_time);
 		}
 		return $progressBar;
 	}
