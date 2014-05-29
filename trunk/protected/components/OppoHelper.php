@@ -64,14 +64,14 @@ class OppoHelper
 			$retry++;
 			$response = json_decode($response);
 			if(isset($response)&&$response->success==false)
-				sleep ( 4 );
+				sleep ( 2 );
 				
-		}while(isset($response)&&$response->success==false&&$retry<3);		
+		}while(isset($response)&&$response->success==false&&$retry<5);		
 		if(!isset($response)||!is_object($response)||$response->success!=true)
 		{
 			return false;
 		}
-		sleep ( 4 );
+		sleep ( 2 );
 		
 		//mounting samba path				
 		$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
@@ -96,9 +96,9 @@ class OppoHelper
 			$response = json_decode($response);
 			$retry++;
 			if(isset($response)&&$response->success==false)
-				sleep ( 4 );
+				sleep ( 2 );
 				
-		}while(isset($response)&&$response->success==false&&$retry<3);
+		}while(isset($response)&&$response->success==false&&$retry<5);
 
 		if(!isset($response)||!is_object($response)||$response->success!=true)
 		{
@@ -134,8 +134,8 @@ class OppoHelper
 			$retry++;
 			$response = json_decode($response);				
 			if(isset($response)&&$response->success==false)
-				sleep ( 4 );
-		}while(isset($response)&&$response->success==false&$retry<3);
+				sleep ( 2 );
+		}while(isset($response)&&$response->success==false&$retry<5);
 		if(!isset($response)||!is_object($response)||$response->success!=true)
 		{
 			return false;
