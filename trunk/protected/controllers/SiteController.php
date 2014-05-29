@@ -1639,7 +1639,7 @@ class SiteController extends Controller
 		$player=Player::model()->findByPk($_POST['idPlayer']);
 		$isPlaying =  false;
 		if(isset($player->type) && $player->type == 1)
-			echo json_encode(array());
+			echo json_encode(OppoHelper::getProgressBarByPlayer($player));
 		else
 			echo json_encode(DuneHelper::getProgressBarByPlayer($player));
 		
