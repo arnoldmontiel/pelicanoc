@@ -150,7 +150,9 @@ top:0px; left:0px; right:0px; bottom:0px;
 
 #itemsContainer{margin-left:30px;}
 #itemsContainer.centrado{margin:auto; }
-
+#itemsContainer > * {
+    -webkit-transform: translateZ(0px);
+}
 
 body.modal-open  {
 overflow:hidden;}
