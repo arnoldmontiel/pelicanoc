@@ -1221,12 +1221,12 @@ padding: 3px 0px;
 	border-color:#eee; color:white; 
 }
 
-.btnNoRep {background-color:rgb(248, 174, 174); background-color:#D2D4D6;}
-.btnRep{background-color:rgb(236, 0, 57); background-color:#25414E; background-color:#4A789C; background-color:#439CBD;}
+.btnNoRep {background-color:#D2D4D6;}
+.btnRep{background-color:rgb(236, 0, 57);  background-color:#439CBD; background-color:#FFA441;}
 
 
 .btnNoRep:hover, .btnNoRep:active, .btnNoRep:focus {background-color:#BEC7CF; border-color:#eee;}
-.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#237897; border-color:#eee;}
+.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#237897; border-color:#eee; background-color:#F59732;}
 
 #player-status-quantity{color:#666;}
 
