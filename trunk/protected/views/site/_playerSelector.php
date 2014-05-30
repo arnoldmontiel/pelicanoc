@@ -1,3 +1,15 @@
+<?php 
+$hideOppo = false;
+if($sourceType == 3)
+{
+	$localFolder = LocalFolder::model()->findByPk($idResource);
+	if(isset($localFolder))
+	{
+		$hideOppo = ($localFolder->Id_file_type != 3)?true:false;
+	}
+}
+?>
+
 <div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -24,6 +36,9 @@
 							$originalTitle='<i class="fa fa-spinner fa-spin"></i>  Verificando Estado';
 							foreach ($players as $player)
 							{
+								if($player->type == 1 && $hideOppo)
+									continue;
+								
 								echo CHtml::hiddenField("player",$player->Id,array('id'=>'player'));
 							?>
 								<tr>
