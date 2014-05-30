@@ -74,7 +74,6 @@ class OppoHelper
 		$url = str_replace(' ', '%20', $url);
 		
 		$response = file_get_contents($url);
-		$retry++;
 		$response = json_decode($response);
 		if(isset($response)&&$response->success==true)
 			return true;
