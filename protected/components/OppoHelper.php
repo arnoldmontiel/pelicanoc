@@ -48,6 +48,38 @@ class OppoHelper
 	{
 				
 		$setting = Setting::getInstance();
+		$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
+		
+		//pruebo darle play de una
+		$completePath="";
+		if(count($sharedPath)>1)
+		{
+			for($i=1;$i<count($sharedPath);$i++)
+			{
+				$completePath.="/".$sharedPath[$i];
+			}
+				
+		}
+		$completePath.=$path;
+		$params= array();
+	
+		$params['path'] = $response->cifsMntPath."/".$completePath;
+		$params['extraNetPath'] = rtrim($setting->host_file_server, '/');
+		$params['index'] = 0;
+		$params['type'] = 1;
+		$params['appDeviceType'] = 7;
+		
+		$url = $player->url .":436/playnormalfile?".json_encode($params);
+		$url = str_replace('&', '%26', $url);
+		$url = str_replace(' ', '%20', $url);
+		
+		$response = file_get_contents($url);
+		$retry++;
+		$response = json_decode($response);
+		if(isset($response)&&$response->success==true)
+			return true;
+		
+		//si no pude darle play de una hago los tres pasos (login - montar - play)
 		//login to samba server
 		$params= array();
 		$params['serverName'] = $setting->host_file_server_name;
@@ -64,18 +96,16 @@ class OppoHelper
 			$retry++;
 			$response = json_decode($response);
 			if(isset($response)&&$response->success==false)
-				sleep ( 2 );
+				sleep ( 1 );
 				
-		}while(isset($response)&&$response->success==false&&$retry<5);		
+		}while(isset($response)&&$response->success==false&&$retry<10);		
 		if(!isset($response)||!is_object($response)||$response->success!=true)
 		{
 			return false;
 		}
-		sleep ( 2 );
+		//sleep ( 2 );
 		
 		//mounting samba path				
-		$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
-
 		$params= array();
 		
 		$params['folder'] = $sharedPath[0];
@@ -96,15 +126,15 @@ class OppoHelper
 			$response = json_decode($response);
 			$retry++;
 			if(isset($response)&&$response->success==false)
-				sleep ( 2 );
+				sleep ( 1 );
 				
-		}while(isset($response)&&$response->success==false&&$retry<5);
+		}while(isset($response)&&$response->success==false&&$retry<10);
 
 		if(!isset($response)||!is_object($response)||$response->success!=true)
 		{
 			return false;
 		}		
-		sleep ( 4 );
+		//sleep ( 4 );
 				
 		//start movie				
 		$completePath="";
@@ -134,8 +164,8 @@ class OppoHelper
 			$retry++;
 			$response = json_decode($response);				
 			if(isset($response)&&$response->success==false)
-				sleep ( 2 );
-		}while(isset($response)&&$response->success==false&$retry<5);
+				sleep ( 1 );
+		}while(isset($response)&&$response->success==false&$retry<10);
 		if(!isset($response)||!is_object($response)||$response->success!=true)
 		{
 			return false;
