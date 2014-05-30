@@ -8,6 +8,14 @@ if($sourceType == 3)
 		$hideOppo = ($localFolder->Id_file_type != 3)?true:false;
 	}
 }
+else if($sourceType == 1)
+{
+	$nzbModel = Nzb::model()->findByPk($idResource);
+	if(isset($nzbModel))
+	{
+		$hideOppo = (isset($nzbModel->mkv_file_name))?false:true;
+	}
+}
 ?>
 
 <div class="modal-dialog">
