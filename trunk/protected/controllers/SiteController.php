@@ -1375,7 +1375,7 @@ class SiteController extends Controller
 				$TMDBData =$nzbModel->TMDBData;
 				$idResourceCurrentPlay = $idResource;
 				$folderPath = explode('.',$nzbModel->file_name);				
-				$path = '/'.$folderPath[0].'/'.$nzbModel->path;
+				$path = '/'.$folderPath[0].'/'.$nzbModel->mkv_file_name;
 				$model = MyMovieNzb::model()->findByPk($id);
 				break;
 			case 2:
