@@ -290,27 +290,30 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	{
 	color: #ffffff;
 	background-color: #027871;
-	border-color: #16665f;
+	border-color: #027871;
 }
 
 .btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active
 	{
 	color: #eee;
 	background-color: #26ada1;
-	border-color: #21988e;
+	border-color: #26ada1;
 }
 
 .btn-default {
 	color: #027871;
+	color:#15747C;
 	background-color: #D0E6DF;
-	border-color: #C8E6DB;
+	border-color: #D0E6DF;
 }
 
 .btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open .dropdown-toggle.btn-default
 	{
 	color: #fff;
 	background-color: #038C79;
-	border-color: #007064;
+	background-color:#15747C;
+	border-color: #038C79;
+	border-color:#15747C;
 }
 
 .btn-default .badge {
@@ -1224,11 +1227,11 @@ padding: 3px 0px;
 }
 
 .btnNoRep {background-color:#D2D4D6; }
-.btnRep{background-color:#439CBD; background-color:#206977;}
+.btnRep{background-color:#439CBD; background-color:#206977; background-color:#1F99A3;}
 
 
 .btnNoRep:hover, .btnNoRep:active, .btnNoRep:focus {background-color:#BEC7CF; border-color:#eee;}
-.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#064C55; border-color:#064C55;  }
+.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#317B85; border-color:#317B85;  }
 
 #player-status-quantity{color:#666;}
 
@@ -1318,7 +1321,7 @@ box-shadow: 0 1px 4px #333;}
 
 .controlProgress {
 	height: 20px;
-	padding-top: 40px;
+	padding-top: 45px;
 }
 .progress{ height:6px;}
 
@@ -1435,13 +1438,24 @@ border-color:#225464;
 #screenControl .dropdown {
 	text-align: left;
 }
-.chooseFile{color:white; font-size:2em; padding:15px; margin-top:5px;  text-shadow:0 1px 3px #333; text-align:left;}
-.chooseFile .dropdown{display:inline-block;}
+.chooseFile{color:white; font-size:1.5em; padding:0px; margin-top:5px;  text-shadow:0 1px 3px #333; text-align:left; margin-bottom:-10px;}
+.chooseFile .dropdown{display:inline-block; font-size:1.1em;}
 .chooseFile .dropdown .fa{display:inline;}
-.chooseFile .dropdown > a{text-shadow:none;color:white; padding: 5px; text-decoration:none; margin:5px;background-color:rgba(0,0,0,0.7);border-radius:5px;}
+.chooseFile .dropdown > a{text-shadow:none;color:white; padding: 5px; text-decoration:none; margin-right:5px;background-color:rgba(0,0,0,0.7);border-radius:5px;}
 .chooseFile .dropdown a:hover{color:#999; text-decoration:none;}
-
+.dropdown-menu>li>a{ padding:0px 7px;}
+#drop{display:inline-block;}
 .chooseFile ul li{color:#333; text-shadow:none;}
+
+.scrollable-dropdown{   height: 275px;
+    max-height: 275px;
+    overflow-x: hidden;
+    min-width:100%;}
+    
+    .controlTitleLoading{text-shadow: none;
+color: #666;
+font-size: 1em;
+padding-left: 4px;}
 
 /*-------- END CONTROL REMOTO --------------*/
 

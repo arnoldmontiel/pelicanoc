@@ -34,7 +34,6 @@
      $nzbs=$nzb->nzbs;
      if(!empty($nzbs)):?>
      <div class="chooseFile">
-     Ver: 
      <div class="dropdown">
 		<a id="drop" role="button" data-toggle="dropdown" href="#">
 		<span id="selectedDescription">
@@ -44,7 +43,7 @@
 			</span>
 		<i class="fa fa-caret-down"></i>
 		</a>
-        <ul id="menu1" class="dropdown-menu controlDropdown" role="menu" aria-labelledby="drop">     
+        <ul id="menu1" class="dropdown-menu controlDropdown scrollable-dropdown" role="menu" aria-labelledby="drop">     
 		<li><a onclick="play(this,<?php echo $nzb->Id?>,<?php echo $player->Id ?>)">		
 			<?php 
 			if($isMovieTester)
@@ -67,7 +66,7 @@
      <?php }?>
 		</ul>
 	</div>
-	<span id="waiting-switch" class="hidden"><i class="fa fa-spinner fa-spin"></i></span>
+	<span id="waiting-switch" class="controlTitleLoading hidden"><i class="fa fa-spinner fa-spin"></i></span>
 	</div>
 	<?php endif?>
     <?php endif?>
