@@ -23,7 +23,7 @@
      $nzb = Nzb::model()->findByPk($idResource);
      
      if($isMovieTester)
-     	$selectedDescription = $nzb->mkv_file_name;
+     	$selectedDescription = str_replace(".mkv","",$nzb->mkv_file_name);
      else
      	$selectedDescription = $nzb->nzbType->description;
       
@@ -58,7 +58,7 @@
 		<li><a onclick="play(this,<?php echo $nzbItem->Id?>,<?php echo $player->Id ?>)">
 			<?php
 				if($isMovieTester)
-					echo $nzbItem->mkv_file_name;
+					echo str_replace(".mkv","",$nzbItem->mkv_file_name);
 				else
 					echo $nzbItem->nzbType->description;
 			?>
