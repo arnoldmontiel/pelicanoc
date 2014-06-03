@@ -48,7 +48,7 @@
 		<li><a onclick="play(this,<?php echo $nzb->Id?>,<?php echo $player->Id ?>)">		
 			<?php 
 			if($isMovieTester)
-				echo $nzb->mkv_file_name;
+				echo str_replace(".mkv","",$nzb->mkv_file_name);
 			else
 				echo $nzb->nzbType->description;
 			?>
