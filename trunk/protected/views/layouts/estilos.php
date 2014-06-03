@@ -1447,9 +1447,9 @@ border-color:#225464;
 #drop{display:inline-block;}
 .chooseFile ul li{color:#333; text-shadow:none;}
 
-.chooseFile .dropdown a{ line-height:2em;}
+.chooseFile .dropdown-menu a{ line-height:2em;}
 
-.chooseFile .dropdown a:hover, .chooseFile .dropdown a:active{ background-color:#ccc; color:white;}
+.chooseFile .dropdown-menu a:hover, .chooseFile .dropdown a:focus{ background-color:#ccc; color:white;}
 
 .scrollable-dropdown{   height: 250px;
     max-height: 250px;
