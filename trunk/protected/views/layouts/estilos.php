@@ -1223,8 +1223,8 @@ padding: 3px 0px;
 	border-color:#eee; color:white; 
 }
 
-.btnNoRep {background-color:#D2D4D6;}
-.btnRep{background-color:#439CBD; background-color:#0F7380;}
+.btnNoRep {background-color:#D2D4D6; }
+.btnRep{background-color:#439CBD; background-color:#206977;}
 
 
 .btnNoRep:hover, .btnNoRep:active, .btnNoRep:focus {background-color:#BEC7CF; border-color:#eee;}
@@ -1339,12 +1339,12 @@ box-shadow: 0 1px 4px #333;}
 	width: 60px;
 	height: 60px;
 	font-size:10px;
-	background-color:#044F58;
-	border-color:#044F58;
+	background-color:#206977;
+	border-color:#206977;
 }
 #screenControl .controlContainer .btn-warning:hover{
-background-color:#083C42;
-border-color:#083C42;
+background-color:#225464;
+border-color:#225464;
 }
 #enterButton{ font-size:18px;}
 
