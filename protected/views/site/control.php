@@ -67,6 +67,7 @@
      <?php }?>
 		</ul>
 	</div>
+	<span id="waiting-switch" class="hidden"><i class="fa fa-spinner fa-spin"></i></span>
 	</div>
 	<?php endif?>
     <?php endif?>
@@ -739,13 +740,15 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie',$firstPart . $s
 //-->
 function play(object,idNzb,idPlayer)
 {
+	$('#waiting-switch').removeClass('hidden');
 	$.ajax({
 		type: 'POST',
 	   	url: '<?php echo SiteController::createUrl('AjaxPlayNzbByPlayer')?> ',
 		data: {idNzb:idNzb,idPlayer:idPlayer}
 	}).success(
 		function(data){
-			$("#selectedDescription").html($(object).html());	 	
+			$("#selectedDescription").html($(object).html());
+			$('#waiting-switch').addClass('hidden');	 	
 		}
 	);
 }
