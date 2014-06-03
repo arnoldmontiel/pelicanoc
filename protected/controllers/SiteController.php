@@ -1352,7 +1352,7 @@ class SiteController extends Controller
 			$idMyMovie = $nzbModel->myMovieDiscNzb->myMovieNzb->Id;			
 		}			
 		if(isset($player->type) && $player->type == 1)
-			OppoHelper::playOppo($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+			OppoHelper::playOppo($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->mkv_file_name,$player);
 		else
 			DuneHelper::playDune($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);				
 
