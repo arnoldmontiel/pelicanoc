@@ -200,7 +200,9 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
 	<div class="tab-pane removeOverflowTab" id="tab2">
     
-    <?php if(isset($modelLocalFolder)):?>
+    <?php 
+    //el false va solo por la demo del 5 de junio
+    if(isset($modelLocalFolder) && false):?>
     <div class="row detailSecondGroup">
     <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     RUTA
