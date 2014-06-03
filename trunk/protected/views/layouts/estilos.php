@@ -1068,7 +1068,7 @@ a.peliAfiche {cursor:pointer;
 	/*line-height: 45px;*/
 }
 .modalDetail .alert{margin:15px;}
-.modalDetail .table.tablaIndividual{margin-bottom:20px; border-bottom:1px solid #eee;}
+.modalDetail .table.tablaIndividual{margin-bottom:20px; border-bottom:1px solid #F3F3F3;}
 .alert h4{font-size:18px; font-family:'GudeaBold';}
 .alert .fa-ul i{line-height:20px;}
 
@@ -1083,19 +1083,19 @@ a.peliAfiche {cursor:pointer;
 .aficheDetail { /*height:100% !important;*/
 	height: auto !important;
 	width: 100% !important;
-	-moz-box-shadow: 0px 0px 5px #000;
-	-webkit-box-shadow: 0px 0px 5px #000;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 0 1px 4px #333;
+-webkit-box-shadow: 0 1px 4px #333;
+box-shadow: 0 1px 4px #333;
 }
 
 .detailMainGroup {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #F3F3F3;
 	color: #666;
 }
 
 .detailMain {
 	font-size: 120%;
-	border-left: 1px solid #ccc; 
+	border-left: 1px solid #F3F3F3; 
 	padding-top: 3px;
 	height: 35px;
 	line-height: 30px;
@@ -1106,13 +1106,13 @@ a.peliAfiche {cursor:pointer;
 }
 
 .detailSecondGroup {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #F3F3F3;
 	color: #666;
 }
 
 .detailSecond {
 	font-size: 100%;
-	border-left: 1px solid #ccc;
+	border-left: 1px solid #F3F3F3;
 	padding-top: 4px;
 	padding-left: 5px;
 }
@@ -1224,11 +1224,11 @@ padding: 3px 0px;
 }
 
 .btnNoRep {background-color:#D2D4D6;}
-.btnRep{background-color:rgb(236, 0, 57); background-color:#E73391; background-color:#439CBD;}
+.btnRep{background-color:#439CBD; background-color:#0F7380;}
 
 
 .btnNoRep:hover, .btnNoRep:active, .btnNoRep:focus {background-color:#BEC7CF; border-color:#eee;}
-.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#237897; border-color:#eee;  }
+.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#064C55; border-color:#064C55;  }
 
 #player-status-quantity{color:#666;}
 
@@ -1252,13 +1252,20 @@ padding: 3px 0px;
 .controlContainer .controlAfiche {
 	padding-top: 10px;
 	text-align: center;
+	padding-bottom:40px;
 }
+.controlContainer .controlAfiche img{
+	-moz-box-shadow: 0 1px 4px #333;
+-webkit-box-shadow: 0 1px 4px #333;
+box-shadow: 0 1px 4px #333;}
 
 .controlTitle {
 	font-size: 2.3em;
+	font-size:1.8em;
+	margin-top:35px;
 	font-weight: normal;
 	color: #fff;
-	text-shadow: 0 1px 3px #333;
+	text-shadow: 0 1px 4px #929292;
 	text-align: left;
 	padding-bottom:5px;
 }
@@ -1269,8 +1276,8 @@ padding: 3px 0px;
 
 .controlAudioSub button {
 	width: 200px;
-	height: 60px;
-	margin-top: 35px;
+	height: 50px;
+	margin-top: 40px;
 	margin-bottom: 30px;
 	display: block;
 }
@@ -1278,7 +1285,7 @@ padding: 3px 0px;
 .controlFlechas {
 	width: 235px;
 	margin-bottom: 20px;
-	margin-top: 20px;
+	margin-top: 0px;
 }
 
 .flechasArriba {
@@ -1294,12 +1301,15 @@ padding: 3px 0px;
 }
 
 .controlBackground {
-	background-color: rgba(89, 117, 139, 0.2);
+	/*background-color: rgba(89, 117, 139, 0.2);
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	*/
+	box-shadow:0px 0px 60px -10px rgba(0,0,0,0.15);
+	border-radius: 5px;
 }
 
 .controlNavegacion {
@@ -1307,16 +1317,17 @@ padding: 3px 0px;
 }
 
 .controlProgress {
-	height: 60px;
+	height: 20px;
 	padding-top: 40px;
 }
+.progress{ height:6px;}
 
 .progress-bar {
-	background-color: #1f8c82;
+	background-color: #044F58;
 }
 
 .controlLenght {
-	height: 60px;
+	height: 50px;
 	padding-top: 37px;
 	padding-right: 15px;
 	font-size: 1.3em;
@@ -1325,13 +1336,22 @@ padding: 3px 0px;
 }
 
 #screenControl .controlContainer .btn-warning {
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
+	font-size:10px;
+	background-color:#044F58;
+	border-color:#044F58;
 }
+#screenControl .controlContainer .btn-warning:hover{
+background-color:#083C42;
+border-color:#083C42;
+}
+#enterButton{ font-size:18px;}
 
 #screenControl .controlContainer .controlNavegacion .btn {
-	width: 70px;
-	height: 70px;
+	width: 65px;
+	height: 65px;
+	font-size:10px;
 }
 
 .controlNumeros {
@@ -1345,7 +1365,7 @@ padding: 3px 0px;
 .controlNumeros .btn {
 	width: 60px;
 	height: 60px;
-	font-size: 2em;
+	font-size: 24px;
 	margin-right: 5px;
 }
 .rowControlVariable{width:90%; margin:auto;}
@@ -1359,7 +1379,7 @@ padding: 3px 0px;
 .controlConfig .btn {
 	width: 60px;
 	height: 60px;
-	font-size: 2em;
+	font-size:18px;
 	margin-left: 5px;
 }
 
@@ -1380,6 +1400,7 @@ padding: 3px 0px;
 #screenControl .controlTitle {
 	color: white;
 	border-bottom: 1px solid #ccc;
+	border-bottom:0px none;
 }
 
 #screenControl .dropdown a.controlTitle:hover {
@@ -1801,6 +1822,9 @@ color:white; line-height:40px; padding-right:45px;
 	width: 100%;
 	height: auto;
 	margin-bottom: 10px;
+	-moz-box-shadow: 0 1px 4px #333;
+-webkit-box-shadow: 0 1px 4px #333;
+box-shadow: 0 1px 4px #333;
 }
 
 .editImagesButtons {
@@ -1855,6 +1879,27 @@ color:white; line-height:40px; padding-right:45px;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	background-image:none !important;
+	background: radial-gradient(ellipse at center, rgba(75, 187, 178, 1) 0%, rgba(0, 155, 130, 1) 100%) !important;
+	background:#E7E7E9 !important;
+	
+	
+	background: rgb(198, 198, 198); /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
+		0%, rgba(89, 89, 89, 1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%,
+		color-stop(0%, rgba(198, 198, 198, 1)),
+		color-stop(100%, rgba(89, 89, 89, 1))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
+		0%, rgba(89, 89, 89, 1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
+		0%, rgba(89, 89, 89, 1) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
+		0%, rgba(89, 89, 89, 1) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center, #D2D4D6,
+		rgba(89, 89, 89, 1) 100%)  !important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
+	/* IE6-9 fallback on horizontal gradient */
 }
 
 ul.thumbnails.image_picker_selector {
