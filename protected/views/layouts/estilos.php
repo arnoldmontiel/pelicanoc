@@ -1451,8 +1451,8 @@ border-color:#225464;
 
 .chooseFile .dropdown a:hover, .chooseFile .dropdown a:active{ background-color:#ccc; color:white;}
 
-.scrollable-dropdown{   height: 275px;
-    max-height: 275px;
+.scrollable-dropdown{   height: 250px;
+    max-height: 250px;
     overflow-x: hidden;
     min-width:100%;}
     
