@@ -221,7 +221,7 @@ $('#stopButton').click(function(){
  	{
 		window.location = '".SiteController::createUrl('index')."'
 	}
- 	);
+ 	); 
 });
 	
 $('#prevButton').click(function(){
