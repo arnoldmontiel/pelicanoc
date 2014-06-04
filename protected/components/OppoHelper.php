@@ -466,7 +466,7 @@ class OppoHelper
 	
 		}
 		
-		$completePath ='\/Video\/Movies\/Bluray\/PelicanoBGBlack.jpg';
+		$completePath ='/Video/Movies/Bluray/PelicanoBGGradient.jpg';
 		$params= array();
 
 		$params['path'] = "/mnt/cifs1/".$completePath;
