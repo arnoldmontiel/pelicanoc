@@ -1823,7 +1823,10 @@ class SiteController extends Controller
 		{
 			$player = Player::model()->findByPk($_GET['Id_player']);
 			if(isset($player->type) && $player->type == 1)
+			{
 				OppoHelper::useRemote('STP',$_GET['Id_player']);
+				OppoHelper::setBackgroundImage($player);
+			}
 			else
 				DuneHelper::setBlackScreenByPlayer($player);							
 		}
