@@ -253,12 +253,14 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	<?php if(isset($modelLocalFolder)):?>
     <div class="row">
         <div class="col-sm-12">
+        <!-- Lo saco para la demo!!!!!
           <div class="form-group">
     <label for="fieldTitulo" class="col-sm-1 control-label noLeftPad">Ruta</label>
     <div class="col-sm-11 fileName">
-     <?php echo $modelLocalFolder->path;?>
+     <?php //echo $modelLocalFolder->path;?>
       </div>
     </div>
+     -->
     </div><!-- /col-sm-12 -->
     </div><!-- /row -->
     <?php endif;?>
