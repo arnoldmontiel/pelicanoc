@@ -1610,7 +1610,7 @@ class SiteController extends Controller
 	{
 		if($id > 0)
 		{
-			CurrentPlay::model()->updateAll(array('is_playing'=>0),'Id_player=>:id',array(':id'=>$player->Id));
+			CurrentPlay::model()->updateAll(array('is_playing'=>0),'Id_player=:id',array(':id'=>$player->Id));
 	
 			$modelCurrentPlay = new CurrentPlay();
 	
