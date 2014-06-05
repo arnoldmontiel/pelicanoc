@@ -468,12 +468,12 @@ class OppoHelper
 	
 			}
 	
-			$completePath ='/Video/Movies/Bluray/PelicanoBGGradient.jpg';
+			$completePath ='/Video/Movies/Bluray/PelicanoBGBlack.jpg';
 		$params= array();
 	
 			$params['path'] = "/mnt/cifs1/".$completePath;
 			$params['extraNetPath'] = rtrim($setting->host_file_server, '/');
-			$params['index'] = 66;
+			$params['index'] = 95;
 			$params['type'] = 2;
 			$params['appDeviceType'] = 7;
 	
