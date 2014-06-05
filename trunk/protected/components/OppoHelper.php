@@ -353,6 +353,8 @@ class OppoHelper
 		$response = json_decode(@file_get_contents($url));
 		if(isset($response)&&$response->is_video_playing==true)
 		{
+			if($response->cur_media_type == 2 && $response->is_pic_playing == true)
+				return false;
 			return true;
 		}
 		return false;
