@@ -449,5 +449,41 @@ class OppoHelper
 		return $modelDune;
 	}
 	
+	static public function setBackgroundImage($player)
+	{
+	
+		$setting = Setting::getInstance();
+		$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
+	
+		//pruebo poner la imagen de una
+		$completePath="";
+		if(count($sharedPath)>1)
+		{
+			for($i=1;$i<count($sharedPath);$i++)
+			{
+			$completePath.="/".$sharedPath[$i];
+			}
+	
+			}
+	
+			$completePath ='/Video/Movies/Bluray/PelicanoBGGradient.jpg';
+		$params= array();
+	
+			$params['path'] = "/mnt/cifs1/".$completePath;
+			$params['extraNetPath'] = rtrim($setting->host_file_server, '/');
+			$params['index'] = 66;
+			$params['type'] = 2;
+			$params['appDeviceType'] = 7;
+	
+			$url = $player->url .":436/playnormalfile?".json_encode($params);
+			$url = str_replace('&', '%26', $url);
+					$url = str_replace(' ', '%20', $url);
+	
+					$response = file_get_contents($url);
+					$response = json_decode($response);
+					if(isset($response)&&$response->success==true)
+						return true;
+					return false;
+		}
 	
 }
