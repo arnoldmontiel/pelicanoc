@@ -217,6 +217,34 @@ margin-left:0px !important;
 margin-right:0px !important;
 }
 
+body #screenConfig .wrapper{
+background-color:#26ada1;
+padding-bottom:100px;
+padding-top:80px;
+}
+
+
+/* -------- CONFIG --------- */
+
+.configForm{ margin:auto;}
+
+.configForm .inlineForm{ padding:5px; padding-bottom:20px; margin:5px 0px; margin-bottom:10px; border-bottom: 1px solid rgba(255,255,255,0.1);}
+.configForm .inlineForm .form-group{margin-bottom:5px;}
+.configForm .inlineForm .table{margin-bottom:0px; }
+.configForm .inlineForm .table td{border: 0px none; }
+
+.configForm .inlineFormLabel{ text-transform:uppercase; color:#056B67;
+font-family: "GudeaRegular"; font-size:12px; padding:6px; display:block; padding-left:15px; position:relative;}
+
+.configForm .inlineFormLabel:before{ content: '\2022'; position:absolute; left:5px;}
+
+.configForm .form-group label{color:white; font-size:14px;}
+
+.noShadow{
+ -webkit-box-shadow: none; 
+box-shadow: none; 
+}
+
 /* ----- LOGIN ------*/
 .loginBody{background:transparent; background-color:#26ada1;}
 .loginPanel{
@@ -1446,6 +1474,10 @@ border-color:#225464;
 .dropdown-menu>li>a{ padding:0px 7px;}
 #drop{display:inline-block;}
 .chooseFile ul li{color:#333; text-shadow:none;}
+
+
+.chooseFile .dropdown.open > a{background-color:#666; color:white}
+
 
 .chooseFile .dropdown-menu a{ line-height:2em;}
 

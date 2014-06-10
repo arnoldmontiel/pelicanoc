@@ -44,7 +44,7 @@
 		<i class="fa fa-caret-down"></i>
 		</a>
         <ul id="menu1" class="dropdown-menu controlDropdown scrollable-dropdown" role="menu" aria-labelledby="drop">     
-		<li><a onclick="play(this,<?php echo $nzb->Id?>,<?php echo $player->Id ?>)">		
+		<li><a href="javascript:play(this,<?php echo $nzb->Id?>,<?php echo $player->Id ?>)">		
 			<?php 
 			if($isMovieTester)
 				echo str_replace(".mkv","",$nzb->mkv_file_name);
