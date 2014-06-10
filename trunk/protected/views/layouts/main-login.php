@@ -13,7 +13,10 @@
 </head>
 
 <body class="loginBody">
+<div id="content">
+
 <div class="container" id="screenLogin" >
+    	 <div class="wrapper clearfix">
    <div class="row">
     <div class="col-md-12">
     <div class="loginWrapper">
@@ -28,6 +31,8 @@
 		Copyright &copy; <?php echo date('Y'); ?> by SmartLiving.<br/>
 		All Rights Reserved
 	</div>
+    </div>
+    </div>
     </div>
     </div>
     </div>
