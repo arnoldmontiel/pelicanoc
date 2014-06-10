@@ -38,6 +38,14 @@ class SiteController extends Controller
 
 	}
 
+	public function actionConfig()
+	{
+	
+	
+		$this->render('config');
+	
+	}
+	
 	public function actionIndexSerie()
 	{
 
