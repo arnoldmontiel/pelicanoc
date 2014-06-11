@@ -223,8 +223,14 @@ padding-bottom:100px;
 padding-top:80px;
 }
 
+body #screenInit .wrapper{
+background-color:#26ada1;
+padding-bottom:100px;
+padding-top:80px;
+text-align:center;
+}
 
-/* -------- CONFIG --------- */
+/* -------- CONFIG / INIT --------- */
 
 .configForm{ margin:auto;}
 
@@ -244,6 +250,11 @@ font-family: "GudeaRegular"; font-size:12px; padding:6px; display:block; padding
  -webkit-box-shadow: none; 
 box-shadow: none; 
 }
+
+.initText{color:white; font-size:24px; margin-top:30px;}
+.initId{ font-size:35px;}
+
+#screenInit .btn{ width:400px; text-align:center;}
 
 /* ----- LOGIN ------*/
 .loginBody{background:transparent; background-color:#26ada1;}

@@ -41,14 +41,16 @@ class SiteController extends Controller
 	public function actionConfig()
 	{
 	
-	
+
+		$this->showFilter = false;
 		$this->render('config');
 	
 	}
 	public function actionInit()
 	{
 	
-	
+
+		$this->showFilter = false;
 		$this->render('init');
 	
 	}
@@ -1168,8 +1170,8 @@ class SiteController extends Controller
 				{
 					
 					$filename = explode('.', $modelResource->file_name);
-					$path =$filename[0];	
-										
+					$path =$filename[0];				
+							
 					PelicanoHelper::eraseResource($path);
 
 					$modelResource->downloaded = 0;
