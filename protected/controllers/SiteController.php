@@ -42,10 +42,25 @@ class SiteController extends Controller
 	{
 		$this->showFilter = false;
 		$setting = Setting::getInstance();
-		$this->render('config', array(
+		$page = "config";
+		
+		if(!isset($setting->Id_device))
+		{
+			$this->showMenu = false;
+			$page = "init";
+		}
+		
+		$this->render($page, array(
 					'model'=>$setting
 		));
 	
+	}
+	
+	public function actionAjaxResetDeviceId()
+	{
+		$setting = Setting::getInstance();
+		$setting->Id_device = null;
+		$setting->save();
 	}
 	
 	public function actionAjaxSaveGeneralConfig()
@@ -58,17 +73,6 @@ class SiteController extends Controller
 		}
 	}
 	
-	public function actionInit()
-	{
-	
-		$this->showMenu = false;
-		$this->showFilter = false;
-		$setting = Setting::getInstance();
-		$this->render('init', array(
-				'model'=>$setting
-		));
-	
-	}
 	
 	public function actionAjaxSaveDeviceId()
 	{

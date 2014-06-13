@@ -68,6 +68,8 @@
 					</div>
   					<div class="form-group">
     					<div class="col-sm-12">    	
+    						<button onclick="resetDevice();" type="button" class="btn btn-default pull-right"><span id="save-description">Resetear Device ID</span>    						
+    						</button>
     						<button id="btn-save-config" onclick="submitGeneralConfig();" type="button" class="btn btn-default pull-right"><i class="fa fa-save"></i> <span id="save-description">Guardar</span>    						
     						</button>
     					</div>
@@ -82,6 +84,18 @@
     	 </div><!-- /wrapper -->
     	 
 <script type="text/javascript">
+function resetDevice()
+{
+	if (confirm("\u00bfSeguro desea resetear el Device ID?"))
+	{
+		$.post("<?php echo SiteController::createUrl('AjaxResetDeviceId'); ?>"
+			).success(
+				function(data){
+					window.location = <?php echo '"'. SiteController::createUrl('Config') . '"'; ?>;
+					return false;
+				});
+	}
+}
 function changeSaveLabel()
 {
 	$("#save-description").html("Guardar");
