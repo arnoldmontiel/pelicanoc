@@ -3311,6 +3311,10 @@ class SiteController extends Controller
 			$bigPoster = str_replace ( "w342" , "w500" , $bigPoster );
 // 			$backdrop = isset($_POST['backdrop'])?$_POST['backdrop']:"";
 // 			$backdrop = str_replace ( "w300" , "original" , $backdrop );
+
+
+			$TMDBId .= $idResource ; //Hago esto por si hay repetidos
+			
 			$modelResource = TMDBHelper::downloadAndLinkImages($TMDBId,$idResource,$sourceType,$poster,$bigPoster,"");
 			echo json_encode($modelResource->TMDBData->attributes);
 		}
