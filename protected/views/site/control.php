@@ -101,15 +101,15 @@
     <div class="col-sm-7">
     <div class="controlFlechas pull-right">
     <div class="flechasArriba">
-<button type="button" class="btn btn-lg  btn-warning" id="upButton"><i class="fa fa-chevron-up fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-alternate" id="upButton"><i class="fa fa-chevron-up fa-2x"></i></button>
 </div>
     <div class="flechasCentro">
-<button type="button" class="btn btn-lg  btn-warning" id="leftButton"><i class="fa fa-chevron-left fa-2x"></i></button>
-<button type="button" class="btn btn-lg  btn-warning" id="enterButton"><i class="fa fa-check fa-2x"></i></button>
-<button type="button" class="btn btn-lg  btn-warning" id="rightButton"><i class="fa fa-chevron-right fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-alternate" id="leftButton"><i class="fa fa-chevron-left fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-alternate" id="enterButton"><i class="fa fa-check fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-alternate" id="rightButton"><i class="fa fa-chevron-right fa-2x"></i></button>
 </div>
     <div class="flechasAbajo">
-<button type="button" class="btn btn-lg  btn-warning" id="downButton"><i class="fa fa-chevron-down fa-2x"></i></button>
+<button type="button" class="btn btn-lg btn-alternate" id="downButton"><i class="fa fa-chevron-down fa-2x"></i></button>
 </div>
 </div>
     </div>
