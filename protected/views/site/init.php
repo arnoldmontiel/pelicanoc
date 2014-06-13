@@ -6,7 +6,7 @@
     	 <div class="initText">
     	 Ingrese el Device ID y seleccione como proceder<br/>
     	 <br/>
-    	 <?php echo CHtml::activeTextField($model, 'Id_device', array('class'=>'form-control'));?>
+    	 <?php echo CHtml::activeTextField($model, 'Id_device', array('class'=>'form-control formDeviceId'));?>
     	 </div>
     	     	 <br/><br/>
     	 

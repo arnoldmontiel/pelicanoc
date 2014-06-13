@@ -68,9 +68,9 @@
 					</div>
   					<div class="form-group">
     					<div class="col-sm-12">    	
-    						<button onclick="resetDevice();" type="button" class="btn btn-default pull-right"><span id="save-description">Resetear Device ID</span>    						
+    						<button id="btn-save-config" onclick="submitGeneralConfig();" type="button" class="btn btn-alternate btn-lg pull-right" style="margin-left:10px;"><i class="fa fa-save"></i> <span id="save-description">Guardar</span>    						
     						</button>
-    						<button id="btn-save-config" onclick="submitGeneralConfig();" type="button" class="btn btn-default pull-right"><i class="fa fa-save"></i> <span id="save-description">Guardar</span>    						
+    						<button onclick="resetDevice();" type="button" class="btn btn-default btn-lg pull-right"><i class="fa fa-bomb"></i> Resetear Device ID    						
     						</button>
     					</div>
     				</div>

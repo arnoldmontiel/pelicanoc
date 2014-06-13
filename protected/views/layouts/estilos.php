@@ -251,10 +251,12 @@ font-family: "GudeaRegular"; font-size:12px; padding:6px; display:block; padding
 box-shadow: none; 
 }
 
-.initText{color:white; font-size:24px; margin-top:30px;}
+.initText{color:white; font-size:24px; margin-top:30px; text-align:center;}
 .initId{ font-size:35px;}
 
 #screenInit .btn{ width:400px; text-align:center;}
+
+.formDeviceId{height:45px; font-size:25px; width:500px; text-align:center; margin:auto;}
 
 /* ----- LOGIN ------*/
 .loginBody{background:transparent; background-color:#26ada1;}
@@ -346,8 +348,7 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	border-color: #D0E6DF;
 }
 
-.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open .dropdown-toggle.btn-default
-	{
+.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open .dropdown-toggle.btn-default{
 	color: #fff;
 	background-color: #038C79;
 	background-color:#15747C;
@@ -360,6 +361,16 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	background-color:white;
 }
 
+.btn-alternate{
+color:white;
+background-color:#505050;
+border-color:#505050;
+}
+.btn-alternate:hover,.btn-alternate:focus,.btn-alternate:active,.btn-alternate.active,.open .dropdown-toggle.btn-alternate{
+	color: #fff;
+	background-color: #333;
+	border-color:#333;
+}
 .btn-danger {
 	color: #d9534f;
 	background-color: #FFE4E3;
