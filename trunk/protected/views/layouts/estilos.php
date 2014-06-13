@@ -442,6 +442,7 @@ ul.nav {
 #pushMain .mobileMenuItem.active{background-color:#e7e7e7;}
 
 #Menu .container-fluid{padding:0px;}
+
 #MenuLogo {
 	margin-left: 0px;
 	font-family: 'LatoRegular', sans-serif;
@@ -450,6 +451,15 @@ ul.nav {
 	letter-spacing: 1px;
 	padding: 0px 15px;
 	line-height: 48px;
+}
+
+#MenuLogoMobile {
+	margin-left: 0px;
+	width: 50px;
+	line-height: 48px;
+	background-image:url('img/logoMobile.png');
+	background-repeat:no-repeat;
+	background-position:7px center;
 }
 
 #Menu .navbar-collapse {
@@ -592,6 +602,18 @@ display: inline-block;}
 
 .reproTableContainer i{color:#666;}
 .reproTableContainer button i{color:white;}
+
+
+.dropdownUsuario .dropdown-menu{ padding:5px 0px;}
+
+.insideUsername{margin-bottom: 5px; margin-top:5px;
+border-bottom: 1px #eee solid;
+padding: 12px 7px;
+padding-top: 3px;
+color: #999;}
+
+.dropdownUsuario .dropdown-menu>li>a{ padding:10px;}
+
 
 /* ------ SECOND MENU / NAV BAR ------- */
 
@@ -1049,7 +1071,6 @@ a.peliAfiche {cursor:pointer;
   opacity: 0.5;
 }
 
- 
 /* -------- END ISOTOPE ------------ */
 
 /* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
@@ -2213,6 +2234,7 @@ right:5px; bottom:37px;
 
 .navbar .nav>li>a {
 	padding: 10px 10px 10px;
+	font-size:100%;
 }
 	
 /*asi se muestran de a 4 por fila */

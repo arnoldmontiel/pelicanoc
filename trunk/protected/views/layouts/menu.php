@@ -77,11 +77,12 @@
 		<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-		<a class="navbar-brand hidden-md" href="#" id="MenuLogo">pelicano</a>
+		<!-- <a class="navbar-brand visible-md visible-sm" href="#" id="MenuLogoMobile"></a>-->
+		<a class="navbar-brand hidden-md hidden-sm" href="#" id="MenuLogo">pelicano</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-				<ul class="nav navbar-nav hidden-sm" id="nav">
+		<div class="nav navbar-nav navbar-left  hidden-xs">
+				<ul class="nav navbar-nav " id="nav">
 						<li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
 						<!-- Comentado para Pelicano Lite #####
 						<li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a></li>
@@ -105,33 +106,36 @@
           <div id="loginInfo" class="pull-right"><?php // echo $username; ?><br/><span class="points"><?php // echo isset($customer)?$customer->current_points:'0' ?>  points</span></div>
           <div id="newDisc" class="pull-right">Examinar Disco</div>          
         </div> -->
-			<div class="nav navbar-nav navbar-right hidden-sm hidden-xs">
-				<ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
-					<li class="dropdown" ><a href="#" class="dropdown-toggle"
+			<div class="nav navbar-nav navbar-right  hidden-xs">
+				<ul class="nav navbar-nav navbar-right hidden-xs ">
+					<li class="dropdown dropdownUsuario" ><a href="#" class="dropdown-toggle "
 						data-toggle="dropdown">
 							<i class="fa fa-user fa-fw"></i> 
+							<span class="hidden-sm">
 							<?php 
 								$customer = Setting::getInstance ()->getCustomer ();
 								$username = (User::getCurrentUser ()) ? User::getCurrentUser ()->username : '';
 								echo $username;
 							?> 
+							</span>
 							<i class="fa fa-caret-down fa-fw"></i></a>
 						<ul class="dropdown-menu">
 							<!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
 							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
 									Consumos</a></li> -->
+									<li class="visible-sm"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul></li>
 				</ul>
 			</div>
 			<!-- /.navbar admin -->
-			<div class="nav navbar-nav navbar-left visible-sm visible-xs">
+			<div class="nav navbar-nav navbar-left  visible-xs">
 				<button class="toggle-menu menu-left btn btn-default navbar-btn"
 					id="toggleMain">
 					<i class="fa fa-reorder fa-fw"></i>
 				</button>
 			</div>
-			<p class="navbar-text visible-sm visible-xs" id="mobilePageName">
+			<p class="navbar-text  visible-xs" id="mobilePageName">
 			<?php 
 				$toggleId = 'toggleMisPeliculas';
 				if($this->action->Id=="index")
