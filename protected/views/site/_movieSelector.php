@@ -56,7 +56,7 @@
       </div>
       <div class="modal-footer">
       <button id="btn-cancel" type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
-      <button id ="btn-save" type="button" class="btn btn-primary btn-lg"><i class="fa fa-save "></i> Guardar</button>
+      <button id ="btn-save" disabled type="button" class="btn btn-primary btn-lg"><i class="fa fa-save "></i> Guardar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -94,11 +94,13 @@
 			if($(this).hasClass('active'))
 			{
 				$('.list-group-item').removeClass('active');
+				$('#btn-save').attr("disabled","disabled");
 			}
 			else
 			{
 				$('.list-group-item').removeClass('active');
 				$(this).addClass('active');
+				$('#btn-save').removeAttr("disabled");
 			}		
 			return false;
 		});		  
