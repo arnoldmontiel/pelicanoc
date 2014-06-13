@@ -2708,7 +2708,11 @@ class SiteController extends Controller
 			$db = TMDBApi::getInstance();
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
-			$results = $db->search('movie', array('query'=>$myMovie->original_title));
+			
+			$results = array();
+			if($myMovie->original_title != "Desconocido")
+				$results = $db->search('movie', array('query'=>$myMovie->original_title));
+			
 			$this->renderPartial('_movieSelector',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));				
 		}
 		
