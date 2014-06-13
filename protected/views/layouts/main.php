@@ -31,20 +31,12 @@
 <link href="css/jPushMenu.css" rel="stylesheet" />
 <!-- FastClick -->
 <script src="js/fastclick.js"></script>
+
 <!-- Isotope -->
 <script src="js/isotope/dist/imagesloaded.pkgd.min.js"></script>
 <script src="js/isotope/dist/isotope.pkgd.min.js"></script>
 
-<script>
-$(function() {
-    FastClick.attach(document.body);
-});
-// funcion super importante para que no scrollee el fondo en ipad:
-//$(document)
-//.on('show.bs.modal',  '.modal', function () { $("#content").addClass('modal-open') })
-//.on('hidden.bs.modal', '.modal', function () { $("div").removeClass('modal-open') })
 
-</script>
 
 	<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 	<?php include('estilos.php');?>
@@ -365,7 +357,11 @@ $(document).ready(function(){
 <input id="current-filter" type="hidden" name="current-filter" value="*">
 <input id="search-filter" type="hidden" name="search-filter" value="">
 <body class="cbp-spmenu-push">
-
+<script type="application/javascript">
+window.addEventListener('load', function() {
+    FastClick.attach(document.body);
+}, false);
+    </script>
 <?php include 'menu.php';?>
 
 
@@ -494,7 +490,6 @@ Por favor, contacte al administrador.
 
 // $this->endWidget();
 ?>
-
 
 
 </body>
