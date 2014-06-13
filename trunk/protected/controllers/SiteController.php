@@ -40,19 +40,41 @@ class SiteController extends Controller
 
 	public function actionConfig()
 	{
-	
-
 		$this->showFilter = false;
-		$this->render('config');
+		$setting = Setting::getInstance();
+		$this->render('config', array(
+					'model'=>$setting
+		));
 	
 	}
+	
+	public function actionAjaxSaveGeneralConfig()
+	{
+		if(isset($_POST['Setting']))
+		{
+			$setting = Setting::getInstance();
+			$setting->attributes = $_POST['Setting'];
+			$setting->save();
+		}
+	}
+	
 	public function actionInit()
 	{
 	
-
+		$this->showMenu = false;
 		$this->showFilter = false;
-		$this->render('init');
+		$setting = Setting::getInstance();
+		$this->render('init', array(
+				'model'=>$setting
+		));
 	
+	}
+	
+	public function actionAjaxSaveDeviceId()
+	{
+		$setting = Setting::getInstance();
+		$setting->Id_device = $_POST['idDevice'];
+		$setting->save();
 	}
 	
 	public function actionIndexSerie()

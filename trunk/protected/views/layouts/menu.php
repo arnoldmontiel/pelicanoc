@@ -70,7 +70,7 @@
 		<!-- /////////////////////////////////////// -->
 	<?php  endif;?>
 <?php  endif;?>
-			
+<?php if (isset($this->showMenu) && $this->showMenu): ?>
 			<!-- /////////MENU PRINCIPAL///////// -->
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="Menu">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -182,7 +182,7 @@
 		<!-- /.container-fluid -->
 	</nav>
 	<!-- /.navbar-collapse -->
-		
+<?php  endif;?>
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
  
  
