@@ -97,6 +97,11 @@ button {
 
 .fa-lg{width:1.3em;}
 
+.modal-footer .btn.pull-right+.btn.pull-right{
+margin-right: 5px;
+margin-bottom: 0;
+}
+
 html {
 padding:0px; margin:0px; height:100% !important;
 }
@@ -646,6 +651,11 @@ color: #999;}
 
 .dropdownUsuario .dropdown-menu>li>a{ padding:10px;}
 
+.repUser{ position:absolute; right:0px;}
+
+#Menu .navbar-nav>li.dropdownUsuario>a{padding:2px 10px;}
+
+.btnAlarm{margin-right:5px;}
 
 /* ------ SECOND MENU / NAV BAR ------- */
 
@@ -1980,6 +1990,13 @@ box-shadow: 0 1px 4px #333;
 #myModalCambiarBackdrop .modal-dialog {
 	width: 80%;
 }
+#myModalEditarAsoc .helpText{
+overflow: hidden;
+width: auto;
+display: block;
+text-align:left;
+color:#777;
+}
 
 .modal-scroll {
 	max-height: 430px;
@@ -2237,6 +2254,9 @@ font-size:  110% !important;
 }
 /*IPAD PORTRAIT*/
 @media only screen and (min-width : 765px) and (max-width : 768px)  and (orientation:portrait){
+
+#Menu .btn { padding:6px;}
+
 .flexslider {
 	width: 88%;		
 }
@@ -2349,6 +2369,7 @@ box-shadow: none;
 
 /* Nexus 7 (603x963) y 800x600 (landscape) ----------- */
 @media screen and (min-width : 604px)  and (max-width : 963px) and (orientation: landscape) {
+
 .item{ width:140px;}
 	.grid-sizer{ width: 140px; height: 237px;}
 	.peliAfiche { width: 140px; height: 202px; }
