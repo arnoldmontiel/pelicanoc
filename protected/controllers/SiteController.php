@@ -2713,9 +2713,12 @@ class SiteController extends Controller
 			$db->adult = true;  // return adult content
 			$db->paged = false; // merges all paged results into a single result automatically
 			
+			$remove = array("_", "-", ".");
+			$title = str_replace($remove, " ", $myMovie->original_title);
+			
 			$results = array();
 			if($myMovie->original_title != "Desconocido")
-				$results = $db->search('movie', array('query'=>$myMovie->original_title));
+				$results = $db->search('movie', array('query'=>$title));
 			
 			$this->renderPartial('_movieSelector',array('idResource'=>$idResource,'sourceType'=>$sourceType,'myMovie'=>$myMovie,'movies'=>$results));				
 		}
@@ -3051,7 +3054,8 @@ class SiteController extends Controller
 				$disc = $localFolder->myMovieDisc;
 				$myMovie = $localFolder->myMovieDisc->myMovie;
 				$path = explode("/",$localFolder->path);
-				$path = $path[count($path)-1];				
+				$path = $path[count($path)-1];		
+				$path = preg_replace("/\\.[^.\\s]{3,4}$/", "", $path);
 			}
 			if(!$myMovie->is_custom)
 			{
