@@ -3185,7 +3185,11 @@ class SiteController extends Controller
 						$myMovie->genre = $myMovie->genre.", ".$genre;
 					}
 				}
-
+				if($myMovie->Id_parental_control != 0)
+					$myMovie->certification = $myMovie->parentalControl->description;
+				else 
+					$myMovie->Id_parental_control = 1;
+					
 				$myMovie->save();
 
 				$disc->$Id_relation = $myMovie->Id;

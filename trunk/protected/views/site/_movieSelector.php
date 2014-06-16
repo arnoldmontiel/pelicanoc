@@ -58,8 +58,7 @@
       <div class="modal-footer">
       <button id ="btn-save" disabled type="button" class="btn btn-primary btn-lg pull-right"><i class="fa fa-save "></i> Guardar</button> 
       <button id="btn-cancel" type="button" class="btn btn-default btn-lg pull-right"" data-dismiss="modal">Cancelar</button> 
-      <!--<div class="helpText"><i class="fa fa-info-circle"></i> Para poder guardar primero seleccione una pel&iacute;cula de la lista.</div>
-      --></div>
+      <div id="btn-help-txt" class="helpText"><i class="fa fa-info-circle"></i> Para poder guardar primero seleccione una pel&iacute;cula de la lista.</div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 
@@ -97,12 +96,14 @@
 			{
 				$('.list-group-item').removeClass('active');
 				$('#btn-save').attr("disabled","disabled");
+				$('#btn-help-txt').show();				
 			}
 			else
 			{
 				$('.list-group-item').removeClass('active');
 				$(this).addClass('active');
 				$('#btn-save').removeAttr("disabled");
+				$('#btn-help-txt').hide();
 			}		
 			return false;
 		});		  
