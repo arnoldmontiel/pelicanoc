@@ -296,7 +296,22 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		$parentalControl=ParentalControl::model()->findAll();
 		$list= CHtml::listData(
 		$parentalControl, 'Id', 'description');
-		echo CHtml::dropDownList(get_class($model).'[Id_parental_control]', $model->Id_parental_control, $list);
+		
+		$select = $model->Id_parental_control;
+		if(isset($model->certification))
+		{
+			$modelParental = ParentalControl::model()->findByAttributes(array('description'=>$model->certification));
+			if(isset($modelParental))
+				$select = $modelParental->Id;
+			else
+			{
+				$list[0] = $model->certification;
+				$select = 0;
+			}
+		}
+		
+
+		echo CHtml::dropDownList(get_class($model).'[Id_parental_control]', $select, $list);
 		?>
       
       </div>
