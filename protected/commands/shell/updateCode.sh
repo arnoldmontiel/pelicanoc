@@ -1,2 +1,2 @@
 #!/bin/bash
-/var/www/pelicano/protected/yiic folder updateCode
+/var/www/pelicano/protected/yiic settings updateCode
