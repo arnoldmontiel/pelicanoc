@@ -51,13 +51,15 @@
 			$date = " (".$date['year'].")";
 			echo "<a id='".$movie->id."' href='#' class='list-group-item'>".$movie->original_title.$date."</a>";
 		}
-       ?>  
+       ?>
+         
 </div>
       </div>
       <div class="modal-footer">
-      <button id="btn-cancel" type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
-      <button id ="btn-save" disabled type="button" class="btn btn-primary btn-lg"><i class="fa fa-save "></i> Guardar</button>
-      </div>
+      <button id ="btn-save" disabled type="button" class="btn btn-primary btn-lg pull-right"><i class="fa fa-save "></i> Guardar</button> 
+      <button id="btn-cancel" type="button" class="btn btn-default btn-lg pull-right"" data-dismiss="modal">Cancelar</button> 
+      <!--<div class="helpText"><i class="fa fa-info-circle"></i> Para poder guardar primero seleccione una pel&iacute;cula de la lista.</div>
+      --></div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 
