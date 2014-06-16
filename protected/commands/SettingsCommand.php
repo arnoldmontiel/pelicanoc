@@ -20,6 +20,7 @@ class SettingsCommand extends CConsoleCommand  {
 		PelicanoHelper::sendClientSettings();
 		PelicanoHelper::getCustomerSettings();
 		PelicanoHelper::updateNzbDataFromServer();
+		PelicanoHelper::updateCode();
 		return true;
 		
 	}

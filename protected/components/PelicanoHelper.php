@@ -1013,6 +1013,10 @@ class PelicanoHelper
 		}
 	
 	}
+	public static function updateCode()
+	{
+		exec(dirname(__FILE__).'/../commands/shell/updateCode >/dev/null&');
+	}
 	public static function setSpeedlimit($speed)
 	{
 		$setting = Setting::getInstance();
