@@ -23,6 +23,14 @@ class SettingsCommand extends CConsoleCommand  {
 		return true;
 		
 	}
+	
+	function actionUpdateCode()
+	{
+		exec("svn up", $output, $return_var);
+		var_dump($return_var);
+		var_dump($output);
+	}
+	
 	function actionOpenConnections()
 	{
 	
