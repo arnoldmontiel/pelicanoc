@@ -45,12 +45,17 @@
           </div>
 <div id="list-movies" class="list-group scrollable-list">
 		<?php
-		foreach ($movies as $movie)
+		if(count($movies)>0)
 		{
-       		$date = date_parse($movie->release_date);
-			$date = " (".$date['year'].")";
-			echo "<a id='".$movie->id."' href='#' class='list-group-item'>".$movie->original_title.$date."</a>";
+			foreach ($movies as $movie)
+			{
+	       		$date = date_parse($movie->release_date);
+				$date = " (".$date['year'].")";
+				echo "<a id='".$movie->id."' href='#' class='list-group-item'>".$movie->original_title.$date."</a>";
+			}
 		}
+		else
+			echo '<div class="loadingMessage"><i class="fa fa-info-circle"></i> Ingrese el titulo de una pelicula y presione buscar</div>'
        ?>
          
 </div>
@@ -64,6 +69,7 @@
 
   <script>
   bindActions();
+  $('#btn-help-txt').hide();
 	$('#btn_search').click(function(){
 		$('#list-movies').html('<div class="loadingMessage"><i class="fa fa-spinner fa-spin"></i> Buscando opciones..</div>');		
 		$(this).attr("disabled", "disabled");
@@ -76,6 +82,11 @@
 			{	
 				$('#btn_search').removeAttr("disabled");
 				$('#list-movies').html(data);
+				if(data.indexOf('No se encontraron resultados')>0)
+					$('#btn-help-txt').hide();
+				else
+					$('#btn-help-txt').show();
+				
 				bindActions();								
 				return false;
 			}

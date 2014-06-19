@@ -2,7 +2,7 @@
 
  if(empty($movies))
 {	
-	echo '<div class="loadingMessage"><i class="fa fa-frown-o"></i> No se encontraton resultados</div>';	
+	echo '<div class="loadingMessage"><i class="fa fa-frown-o"></i> No se encontraron resultados</div>';	
 }
 else
 {
