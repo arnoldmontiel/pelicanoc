@@ -788,7 +788,7 @@ class PelicanoHelper
 		PelicanoHelper::updateNzbDataFromServer();
 		PelicanoHelper::updateCode();
 		
-		$settings = Setting::getInstance();
+		$settings = Setting::model()->findByPk(1);
 		
 		if(
 		$old_nas_ip != $settings->host_file_server ||
