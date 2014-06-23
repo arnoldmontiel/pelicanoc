@@ -1097,9 +1097,9 @@ class PelicanoHelper
 			$password =  $setting->host_file_server_passwd;
 			$params = $spect.' '.$file.' '.$username.' '.$password;
 			$mjPasswd = $setting->michael_jackson;			
-			exec('echo '.$mjPasswd.'| sudo -u pelicano -S umount '.$file,$output,$return);
-			exec('echo '.$mjPasswd.'| sudo -u pelicano -S '.dirname(__FILE__).'/../commands/shell/fstabEditor.sh '.$params,$output,$return);
-			exec('echo '.$mjPasswd.'| sudo -u pelicano -S mount -a',$output,$return);
+			exec('echo '.$mjPasswd.'| sudo -u root -S umount '.$file,$output,$return);
+			exec('echo '.$mjPasswd.'| sudo -u root -S '.dirname(__FILE__).'/../commands/shell/fstabEditor.sh '.$params,$output,$return);
+			exec('echo '.$mjPasswd.'| sudo -u root -S mount -a',$output,$return);
 		}
 		catch (Exception $e)
 		{
