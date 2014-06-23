@@ -1091,8 +1091,8 @@ class PelicanoHelper
 			//$3 username
 			//$4 password
 					
-			$spect =  $setting->host_file_server;
-			$file =  $setting->host_file_server_path;
+			$spect =  $setting->host_file_server.$setting->host_file_server_path;
+			$file =  $setting->path_shared;
 			$username =  $setting->host_file_server_user;
 			$password =  $setting->host_file_server_passwd;
 			$params = $spect.' '.$file.' '.$username.' '.$password;
