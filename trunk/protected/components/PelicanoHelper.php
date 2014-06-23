@@ -1068,6 +1068,7 @@ class PelicanoHelper
 			$password =  $setting->host_file_server_passwd;
 			$params = $spect.' '.$file.' '.$username.' '.$password;
 			$mjPasswd = $setting->michael_jackson;			
+			exec('echo '.$mjPasswd.'| sudo -S umount '.$file,$output,$return);
 			exec('echo '.$mjPasswd.'| sudo -S '.dirname(__FILE__).'/../commands/shell/fstabEditor.sh '.$params,$output,$return);
 			exec('echo '.$mjPasswd.'| sudo -S mount -a',$output,$return);
 		}
