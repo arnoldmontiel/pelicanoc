@@ -1057,23 +1057,18 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		try
 		{
-			$fileName = explode('.',$nzb->file_name);
-			$fileName = $fileName[0];
-			//antes de iniciar la descarga elemino (si es que existen) las carpetas que pudieron haber quedado de antiguas descargas.
-			self::eraseResource($fileName);
-
-			$from = dirname(__FILE__)."/../../".$setting->path_pending."/";
-			$to =  dirname(__FILE__)."/../../".$setting->path_ready."/";
-			$params = $from.' '.$to.' '.$fileName.' '.$setting->sabnzb_pwd_file_path;
-			exec(dirname(__FILE__).'/../commands/shell/startDownload.sh '.$params,$output,$return);
-			$nzb->has_error = 0;
-			$nzb->downloaded = 0;
-			$nzb->downloading = 1;
-			$nzb->sabnzbd_id = new CDbExpression('NULL');
-			$nzb->Id_nzb_state = 2;
-			$nzb->change_state_date = new CDbExpression('NOW()');
-			$nzb->sent = 0;
-			$nzb->save();
+			//$1 spect
+			//$2 file
+			//$3 username
+			//$4 password
+					
+			$spect =  $setting->host_file_server;
+			$file =  $setting->host_file_server_path;
+			$username =  $setting->host_file_server_user;
+			$password =  $setting->host_file_server_passwd;
+			$params = $spect.' '.$file.' '.$username.' '.$password;
+			$mjPasswd = $setting->michael_jackson;			
+			exec('echo '.$mjPasswd.'| sudo -S '.dirname(__FILE__).'/../commands/shell/fstabEditor.sh '.$params,$output,$return);
 		}
 		catch (Exception $e)
 		{
