@@ -77,8 +77,12 @@ class SiteController extends Controller
 	public function actionAjaxSaveDeviceId()
 	{
 		$setting = Setting::getInstance();
+		
 		$setting->Id_device = $_POST['idDevice'];
 		$setting->save();
+		
+		PelicanoHelper::heartBeat();
+		
 	}
 	
 	public function actionIndexSerie()
