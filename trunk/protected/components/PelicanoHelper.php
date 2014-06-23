@@ -771,6 +771,35 @@ class PelicanoHelper
 		return false;
 	}
 	
+	static public function heartBeat()
+	{
+		$settings = Setting::getInstance();
+		
+		$old_nas_ip = $setting->host_file_server;
+		$old_nas_path = $setting->host_file_server_path;
+		$old_nas_user = $setting->host_file_server_user;
+		$old_nas_pwd = $setting->host_file_server_passwd;
+		
+		RipperHelper::updateRipperSettings();
+		RipperHelper::checkForAnyDvdUpdate();
+		PelicanoHelper::sincronizeWithServer();
+		PelicanoHelper::sendClientSettings();
+		PelicanoHelper::getCustomerSettings();
+		PelicanoHelper::updateNzbDataFromServer();
+		PelicanoHelper::updateCode();
+		
+		$settings = Setting::getInstance();
+		
+		if(
+		$old_nas_ip != $setting->host_file_server ||
+		$old_nas_path != $setting->host_file_server_path ||
+		$old_nas_user != $setting->host_file_server_user ||
+		$old_nas_pwd != $setting->host_file_server_passwd
+		)
+			PelicanoHelper::changeFstab();
+		
+		return true;
+	}
 	
 	static public function setHeartBeat($Id_device_state, $description = "")
 	{
