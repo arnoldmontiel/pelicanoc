@@ -775,10 +775,10 @@ class PelicanoHelper
 	{
 		$settings = Setting::getInstance();
 		
-		$old_nas_ip = $setting->host_file_server;
-		$old_nas_path = $setting->host_file_server_path;
-		$old_nas_user = $setting->host_file_server_user;
-		$old_nas_pwd = $setting->host_file_server_passwd;
+		$old_nas_ip = $settings->host_file_server;
+		$old_nas_path = $settings->host_file_server_path;
+		$old_nas_user = $settings->host_file_server_user;
+		$old_nas_pwd = $settings->host_file_server_passwd;
 		
 		RipperHelper::updateRipperSettings();
 		RipperHelper::checkForAnyDvdUpdate();
@@ -791,10 +791,10 @@ class PelicanoHelper
 		$settings = Setting::getInstance();
 		
 		if(
-		$old_nas_ip != $setting->host_file_server ||
-		$old_nas_path != $setting->host_file_server_path ||
-		$old_nas_user != $setting->host_file_server_user ||
-		$old_nas_pwd != $setting->host_file_server_passwd
+		$old_nas_ip != $settings->host_file_server ||
+		$old_nas_path != $settings->host_file_server_path ||
+		$old_nas_user != $settings->host_file_server_user ||
+		$old_nas_pwd != $settings->host_file_server_passwd
 		)
 			PelicanoHelper::changeFstab();
 		
