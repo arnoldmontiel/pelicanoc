@@ -118,7 +118,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";'),('Authority','installer','','s:0:\"\";'),('Customer','arnold',NULL,'s:0:\"\";'),('Customer','hijo','','s:0:\"\";'),('Customer','madre',NULL,'s:0:\"\";'),('Customer','padre',NULL,'s:0:\"\";'),('Customer','root',NULL,'s:0:\"\";'),('Customer','roots',NULL,'s:0:\"\";'),('Installer','installer','','s:0:\"\";');
+INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,16 +353,6 @@ CREATE TABLE `customer` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customer`
---
-
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Arnol','Montiel',NULL,'Lobos 1747',NULL,NULL),(19,'pepe','loco',2,'ssss','hola','hola');
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `customer_transaction`
@@ -1776,16 +1766,6 @@ CREATE TABLE `user` (
   CONSTRAINT `fk_user_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('arnold','Arnold','arnol@gmail.com',1,1,'1983-08-24');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Final view structure for view `marketplace`
