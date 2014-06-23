@@ -2259,8 +2259,13 @@ class SiteController extends Controller
 			if($model->validate() && $model->login())
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
-		// display the login form
-		$this->render('login',array('model'=>$model));
+
+		$setting = Setting::getInstance();
+		
+		if(!isset($setting->Id_device))
+			$this->redirect( SiteController::createUrl('config'));
+		else 			// 	display the login form
+			$this->render('login',array('model'=>$model));
 	}
 
 	/**
