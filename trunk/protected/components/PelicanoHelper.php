@@ -786,7 +786,6 @@ class PelicanoHelper
 		PelicanoHelper::sendClientSettings();
 		PelicanoHelper::getCustomerSettings();
 		PelicanoHelper::updateNzbDataFromServer();
-		PelicanoHelper::updateCode();
 		
 		$settings = Setting::model()->findByPk(1);
 		
@@ -1042,10 +1041,7 @@ class PelicanoHelper
 		}
 	
 	}
-	public static function updateCode()
-	{
-		exec(dirname(__FILE__).'/../commands/shell/updateCode >/dev/null&');
-	}
+	
 	public static function setSpeedlimit($speed)
 	{
 		$setting = Setting::getInstance();
