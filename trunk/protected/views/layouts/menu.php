@@ -363,8 +363,8 @@ function goToConfig()
 	$.post("<?php echo SiteController::createUrl('AjaxOpenGotoConfigDialog'); ?>"
 		).success(
 			function(data){
-				$('#myModal').html(data);
-		   		$('#myModal').modal('show');	  
+				$('#myModalConfigPassword').html(data);
+		   		$('#myModalConfigPassword').modal('show');	  
 			});
 		return false;
 	
