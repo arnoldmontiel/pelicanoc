@@ -140,10 +140,10 @@ function openMovieShowDetail(id, sourceType, idResource)
 	return false;	
 }
 </script>
-<div class="container" id="screenMarketplace" >
-    	 <div class="wrapper clearfix">
-			<div id="itemsContainer" role="main" class="clearfix centrado">
-				<div class="grid-sizer"></div>
+<div class="container needsclick" id="screenMarketplace" >
+    	 <div class="wrapper clearfix needsclick">
+			<div id="itemsContainer" role="main" class="clearfix centrado needsclick">
+				<div class="grid-sizer needsclick"></div>
 					<?php 
 						foreach($dataProvider->getData() as $data) 
 						{					
