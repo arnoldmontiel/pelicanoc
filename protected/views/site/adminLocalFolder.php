@@ -47,6 +47,8 @@ function backConfig()
 </script>
 
 <div class="container" id="screenEscaneo">
+    	 <div class="wrapper">
+
 	<div class="row pageTitleContainer">
     	<div class="col-md-6">
    	 		<h1 class="pageTitle">Escaneo Inicial</h1>
@@ -119,4 +121,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
     	</div>
     </div>
+</div>
 </div>
