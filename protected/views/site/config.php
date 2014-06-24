@@ -72,6 +72,8 @@
     						</button>
     						<button onclick="resetDevice();" type="button" class="btn btn-default btn-lg pull-right"><i class="fa fa-bomb"></i> Resetear Device ID    						
     						</button>
+    						<button onclick="goToLocalFolderAdmin();" type="button" class="btn btn-default btn-lg pull-right"><i class="fa fa-database"></i> Escaneo Local    						
+    						</button>
     					</div>
     				</div>
 			</form>
@@ -84,6 +86,11 @@
     	 </div><!-- /wrapper -->
     	 
 <script type="text/javascript">
+function goToLocalFolderAdmin()
+{
+	window.location = <?php echo '"'. SiteController::createUrl('localFolderAdmin') . '"'; ?>;
+	return false;
+}
 function resetDevice()
 {
 	if (confirm("\u00bfSeguro desea resetear el Device ID?"))

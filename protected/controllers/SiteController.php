@@ -73,6 +73,10 @@ class SiteController extends Controller
 		}
 	}
 	
+	public function actionAjaxOpenGotoConfigDialog()
+	{
+		$this->renderPartial('_goToConfig');
+	}
 	
 	public function actionAjaxSaveDeviceId()
 	{
