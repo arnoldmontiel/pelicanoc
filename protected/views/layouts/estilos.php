@@ -205,8 +205,10 @@ padding-bottom:20px;
 
 
 body #screenEscaneo {
-padding-top:80px;
 padding-bottom:20px;
+}
+#screenEscaneo .wrapper{
+padding-top:80px;
 }
 
 body #screenControl {
