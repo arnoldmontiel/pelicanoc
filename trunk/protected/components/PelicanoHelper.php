@@ -791,7 +791,7 @@ class PelicanoHelper
 		$settings = Setting::model()->findByPk(1);
 				
 		if(
-		$old_path_shared != $setting->path_shared ||
+		$old_path_shared != $settings->path_shared ||
 		$old_nas_ip != $settings->host_file_server ||
 		$old_nas_path != $settings->host_file_server_path ||
 		$old_nas_user != $settings->host_file_server_user ||
