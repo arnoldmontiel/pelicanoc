@@ -97,6 +97,7 @@ button {
 
 .fa-lg{width:1.3em;}
 
+.red{color:#d9534f;}
 .modal-footer .btn.pull-right+.btn.pull-right{
 margin-right: 5px;
 margin-bottom: 0;
@@ -1970,7 +1971,7 @@ box-shadow: 0 1px 4px #333;
 	margin-right: 10px;
 }
 
-#myModal {/*overflow:hidden;*/}
+
 #myModalCambiarAfiche .modal-dialog {
 	width: 80%;
 }
@@ -1997,6 +1998,9 @@ display: block;
 text-align:left;
 color:#777;
 }
+
+#myModalConfigPassword .modal-body {
+padding-top:40px;}
 
 .modal-scroll {
 	max-height: 430px;
