@@ -14,7 +14,7 @@
 		<div class="form-group">
     <label for="nada" class="col-sm-2 control-label"></label>
     <div class="col-sm-10">
-        		<div id="wrongPass" class="red invisible"><i class="fa fa-times-circle"></i> Clave incorrecta. Vuelva a Intentarlo</div>
+        		<div id="wrong-pass" class="red invisible"><i class="fa fa-times-circle"></i> Clave incorrecta. Vuelva a Intentarlo</div>
             </div>
             </div>
         </form>		
@@ -31,11 +31,11 @@ function validatePasswd()
 	var pwd = $('#fieldPassword').val();
 	if(pwd == 'instalador')
 	{
-		$('#wrongPass').addClass('invisible');
+		$('#wrong-pass').addClass('invisible');
 		window.location = "<?php echo SiteController::createUrl("config")?>"; 
 	}
 	else
-		$('#wrongPass').removeClass('invisible');
+		$('#wrong-pass').removeClass('invisible');
 	
 }
 </script>
