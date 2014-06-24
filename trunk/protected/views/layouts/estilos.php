@@ -357,15 +357,39 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	background-color: #027871;
 	border-color: #027871;
 }
+.no-touch .btn-primary:focus{
+	background-color: #26ada1;
+	border-color: #26ada1;
+}
+.no-touch .btn-primary:active{
+	background-color: #26ada1;
+	border-color: #26ada1;
+}
 .no-touch .btn-default:hover{
 	color: #fff;
 	background-color:#15747C;
 	border-color:#15747C;
 }
+.no-touch .btn-default:focus {
+	background-color: #D0E6DF;
+	border-color: #D0E6DF;
+}
+.no-touch .btn-default:active {
+	background-color: #D0E6DF;
+	border-color: #D0E6DF;
+}
 .no-touch .btn-alternate:hover{
 	color: #fff;
 	background-color:#225464;
 	border-color:#225464;
+}
+.no-touch .btn-alternate:focus{
+	background-color:#206977;
+	border-color:#206977;
+}
+.no-touch .btn-alternate:active{
+	background-color:#206977;
+	border-color:#206977;
 }
 
 /*only affect touch devices. active replaces hover. hover replaces bootstrap default styles..//needs fastclick!*/
