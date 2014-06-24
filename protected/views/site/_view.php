@@ -30,7 +30,7 @@ $shortTitle = $model->original_title;
 
 <div class="item <?php echo PelicanoHelper::getFilters($data); ?> needsclick">
 	<a onclick="openMovieShowDetail('<?php echo $model->Id;?>',<?php echo $data->source_type;?>,<?php echo $data->Id;?>)" class="needsclick">    
-        <?php echo CHtml::image($moviePoster,'',array('class'=>'peliAfiche'));?>    
+        <?php echo CHtml::image($moviePoster,'',array('class'=>'peliAfiche needsclick'));?>    
     </a>			
     <div id="<?php echo $data->Id;?>" class="peliTitulo needsclick"><?php echo $shortTitle;?></div>
     <?php if($data->is_new):?>
