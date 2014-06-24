@@ -17,7 +17,6 @@
 			-->
 </nav>
 <!-- /////////////////////////////////////// -->
-
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
 	<?php  if($this->action->Id=="index"):?>
 		<!-- /////////MENU LATERAL MIS PELICULAS///////// -->
@@ -124,6 +123,7 @@
 							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
 									Consumos</a></li> -->
 									<li class="visible-sm"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
+							<li><a onclick="goToConfig();"><i class="fa fa-cogs fa-fw"></i> Config</a></li>
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul></li>
 				</ul>
@@ -357,4 +357,16 @@ $(document).keypress(function(e) {
     	return false; 
     }
 });
+
+function goToConfig()
+{
+	$.post("<?php echo SiteController::createUrl('AjaxOpenGotoConfigDialog'); ?>"
+		).success(
+			function(data){
+				$('#myModal').html(data);
+		   		$('#myModal').modal('show');	  
+			});
+		return false;
+	
+}
 </script>
