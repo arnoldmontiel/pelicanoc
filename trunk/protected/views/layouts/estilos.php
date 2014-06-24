@@ -264,6 +264,8 @@ box-shadow: none;
 
 .formDeviceId{height:45px; font-size:25px; width:500px; text-align:center; margin:auto;}
 
+#screenConfig .buttonGroup .btn:first-child{margin-right:0px !important;}
+
 /* ----- LOGIN ------*/
 .loginBody{background:transparent; background-color:#26ada1;}
 .loginPanel{
