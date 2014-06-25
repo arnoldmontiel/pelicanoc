@@ -549,7 +549,7 @@ class PelicanoHelper
 		$isAlive = false;
 		$modelSetting = Setting::getInstance();
 		
-		$hostFileServer = rtrim($modelSetting->host_file_server, '/\\'); //saco ultimo slash
+		$hostFileServer = trim($modelSetting->host_file_server, '/\\'); //saco todos los slash
 		$output = exec('fping ' . escapeshellarg($hostFileServer));
 		$output = trim($output);
 		
