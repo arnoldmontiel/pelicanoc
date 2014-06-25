@@ -1522,6 +1522,42 @@ LOCK TABLES `ripper_status_log` WRITE;
 /*!40000 ALTER TABLE `ripper_status_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `sabnzbd_config`
+--
+
+DROP TABLE IF EXISTS `sabnzbd_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sabnzbd_config` (
+  `Id` int(11) NOT NULL,
+  `server_name` varchar(128) DEFAULT NULL,
+  `username` varchar(128) DEFAULT NULL,
+  `enable` tinyint(4) DEFAULT '0',
+  `name` varchar(128) DEFAULT NULL,
+  `fill_server` varchar(128) DEFAULT NULL,
+  `connections` int(11) DEFAULT NULL,
+  `ssl` tinyint(4) DEFAULT '0',
+  `host` varchar(128) DEFAULT NULL,
+  `timeout` int(11) DEFAULT NULL,
+  `password` varchar(128) DEFAULT NULL,
+  `optional` tinyint(4) DEFAULT NULL,
+  `port` int(11) DEFAULT NULL,
+  `retention` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sabnzbd_config`
+--
+
+LOCK TABLES `sabnzbd_config` WRITE;
+/*!40000 ALTER TABLE `sabnzbd_config` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sabnzbd_config` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Temporary table structure for view `series`
 --
