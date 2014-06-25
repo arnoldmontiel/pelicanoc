@@ -73,11 +73,11 @@
     </div>
     <div class="modal-body"> 
     <div class="row">
-    <div class="col-md-3 col-sm-3 align-center">
+    <div class="col-md-3 align-center hidden-nexus-p">
     <img class="aficheDetail" src="<?php echo $moviePoster;?>" width="100%" height="100%" border="0">
     </div><!--/.col-md-3PRINCIPAL -->
         
-    <div class="col-md-9 col-sm-9">
+    <div class="col-md-9 col-sm-12">
     <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <?php if(isset($modelNzb)):?>

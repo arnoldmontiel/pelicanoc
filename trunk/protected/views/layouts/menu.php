@@ -77,10 +77,10 @@
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 		<!-- <a class="navbar-brand visible-md visible-sm" href="#" id="MenuLogoMobile"></a>-->
-		<a class="navbar-brand hidden-md hidden-sm" href="#" id="MenuLogo">pelicano</a>
+		<a class="navbar-brand hidden-md hidden-sm hidden-nexus" href="#" id="MenuLogo">pelicano</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="nav navbar-nav navbar-left  hidden-xs">
+		<div class="nav navbar-nav navbar-left  hidden-xs hidden-nexus-p">
 				<ul class="nav navbar-nav " id="nav">
 						<li id="li-movie"><a href="index.php">Mis Peliculas</a></li>
 						<!-- Comentado para Pelicano Lite #####
@@ -110,7 +110,7 @@
 					<li class="dropdown dropdownUsuario" ><a href="#" class="dropdown-toggle "
 						data-toggle="dropdown">
 							<i class="fa fa-user fa-fw"></i> 
-							<span class="hidden-sm">
+							<span class="hidden-sm hidden-nexus-p visible-inline">
 							<?php 
 								$customer = Setting::getInstance ()->getCustomer ();
 								$username = (User::getCurrentUser ()) ? User::getCurrentUser ()->username : '';
@@ -122,7 +122,7 @@
 							<!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
 							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
 									Consumos</a></li> -->
-									<li class="visible-sm"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
+									<li class="visible-sm visible-nexus-p hidden-nexus-l"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
 							<li><a onclick="goToConfig();"><i class="fa fa-cogs fa-fw"></i> Config</a></li>
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul></li>
@@ -145,13 +145,13 @@
 			</div>
 			</div>
 			<!-- /.navbar admin -->
-			<div class="nav navbar-nav navbar-left  visible-xs">
+			<div class="nav navbar-nav navbar-left  visible-xs visible-inline">
 				<button class="toggle-menu menu-left btn btn-default navbar-btn"
 					id="toggleMain">
 					<i class="fa fa-reorder fa-fw"></i>
 				</button>
 			</div>
-			<p class="navbar-text  visible-xs" id="mobilePageName">
+			<p class="navbar-text  visible-xs visible-inline" id="mobilePageName">
 			<?php 
 				$toggleId = 'toggleMisPeliculas';
 				if($this->action->Id=="index")

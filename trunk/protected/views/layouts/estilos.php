@@ -2395,55 +2395,170 @@ box-shadow: none;
 }
 
 /*NEXUS*/
+/* Nexus 7 (603x963) y 800x600 (portrait) ----------- */
+@media only screen and (min-device-width : 600px) and (max-device-width : 601px) {
 
-/* Nexus 7 (603x963) y 800x600 (portrait and landscape) ----------- */
-@media screen and (min-device-width : 603px) and (max-device-width : 966px) {
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11 {
+  float: left;
+}.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11 {
+  float: left;
+}
+
+.col-md-1 {width: 8.333333333333332%;}
+.col-md-2 {width: 16.666666666666664%;}
+.col-md-3 {width: 25%;}
+.col-md-4 {width: 33.33333333333333%;}
+.col-md-5 {width: 41.66666666666667%;}
+.col-md-6 {width: 50%;}
+.col-md-7 {width: 58.333333333333336%;}
+.col-md-8 {width: 66.66666666666666%;}
+.col-md-9 {width: 75%;}
+.col-md-10 {width: 83.33333333333334%;}
+.col-md-11 {width: 91.66666666666666%;}
+.col-md-12 {width: 100%;}
+
+.col-sm-12 { width: 100%;}
+.col-sm-11 {width: 91.66666667%;}
+.col-sm-10 {width: 83.33333333%;}
+.col-sm-9 {width: 75%;}
+.col-sm-8 {width: 66.66666667%;}
+.col-sm-7 {width: 58.33333333%;}
+.col-sm-6 {width: 50%;}
+.col-sm-5 {width: 41.66666667%;}
+.col-sm-4 {width: 33.33333333%;}
+.col-sm-3 {width: 25%;}
+.col-sm-2 { width: 16.66666667%;}
+.col-sm-1 {width: 8.33333333%;}
+    
+.modal-dialog{ margin:auto; margin-top:60px;}
+
+.modal-dialog .nav>li>a{padding:10px 7px;}
+
+
+#Menu{margin-left:0px; margin-right:0px; }
+#menuSecond{margin-left:0px; margin-right:0px; border-radius:0px;}
+
+.hidden-xs{display:block !important;}
+
+.hidden-nexus{display:none !important;}
+.hidden-nexus-p{display:none !important;}
+
+.visible-nexus{display:block !important;}
+.visible-nexus-p{display:block !important;}
+
+.visible-nexus-p.visible-inline{display:inline-block !important;}
+
+.hidden-sm.hidden-xs.visible-nexus{display: inline-block!important;}
+
+.visible-xs.visible-inline{display:inline-block!important;}
+
+.navbar-nav{ margin:0px;}
+
+#toggleMain{margin-left:10px; margin-right:5px;}
+
+.container-fluid{ padding-left:10px; padding-right:10px;}
+
+.navbar-left {
+float: left!important;
+}
+.navbar-right {
+float: right!important;
+margin-right:0px;
+margin-left:0px;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{border-color:transparent; border-top:0px; border-bottom:0px; padding:0px;}
+
+.searchMain input {
+width: 100%;
+}
+
+.item{ width:135px;}
+.grid-sizer{ width: 135px !important; height: 231px !important;}
+.peliAfiche { width: 135px !important; height: 196px !important; }
+
+.navbar-nav .open .dropdown-menu{
+position:absolute;
+background-color: #fff;
+border: none;
+-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+box-shadow: 0 6px 12px rgba(0,0,0,.175);
+left: auto;
+right: 0;
+}
 
 }
 
 /* Nexus 7 (603x963) y 800x600 (landscape) ----------- */
-@media screen and (min-width : 604px)  and (max-width : 963px) and (orientation: landscape) {
+@media screen and (min-width : 603px)  and (max-width : 963px) and (orientation: landscape) {
+
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11 {
+  float: left;
+}
+
+.col-md-1 {width: 8.333333333333332%;}
+.col-md-2 {width: 16.666666666666664%;}
+.col-md-3 {width: 25%;}
+.col-md-4 {width: 33.33333333333333%;}
+.col-md-5 {width: 41.66666666666667%;}
+.col-md-6 {width: 50%;}
+.col-md-7 {width: 58.333333333333336%;}
+.col-md-8 {width: 66.66666666666666%;}
+.col-md-9 {width: 75%;}
+.col-md-10 {width: 83.33333333333334%;}
+.col-md-11 {width: 91.66666666666666%;}
+.col-md-12 {width: 100%;}
+
+
+
+.hidden-xs{display:block !important;}
+.hidden-sm{display:block !important;}
+.hidden-sm.visible-inline{display:inline-block !important;}
+
+.hidden-nexus{display:none !important;}
+.hidden-nexus-l{display:none !important;}
+
+.visible-nexus{display:block !important;}
+
+.modalDetail{ margin-top:10px;}
+.modalDetail .tab-content{ height: 180px;
+overflow: auto;
+}
 
 .item{ width:140px;}
-	.grid-sizer{ width: 140px; height: 237px;}
-	.peliAfiche { width: 140px; height: 202px; }
-	
-.col-md-12 {
-    width: 100%;
-  }
-  .col-md-11 {
-    width: 91.66666667%;
-  }
-  .col-md-10 {
-    width: 83.33333333%;
-  }
-  .col-md-9 {
-    width: 75%;
-  }
-  .col-md-8 {
-    width: 66.66666667%;
-  }
-  .col-md-7 {
-    width: 58.33333333%;
-  }
-  .col-md-6 {
-    width: 50%;
-  }
-  .col-md-5 {
-    width: 41.66666667%;
-  }
-  .col-md-4 {
-    width: 33.33333333%;
-  }
-  .col-md-3 {
-    width: 25%;
-  }
-  .col-md-2 {
-    width: 16.66666667%;
-  }
-  .col-md-1 {
-    width: 8.33333333%;
-  }
+.grid-sizer{ width: 140px; height: 237px;}
+.peliAfiche { width: 140px; height: 202px; }
+
   #screenControl .controlContainer .controlNavegacion .btn {
 width: 55px;
 height: 55px;
@@ -2467,10 +2582,6 @@ height: 45px;
 width: 45px;
 font-size: 1.5em;
 }
-}
-
-/* Nexus 7 (603x963) y 800x600 (portrait) ----------- */
-@media screen and (min-width: 590px) and (max-width : 603px) and (orientation: portrait) {
 }
 
 /*CELUS*/
