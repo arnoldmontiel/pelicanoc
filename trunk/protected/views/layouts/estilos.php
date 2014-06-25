@@ -328,6 +328,8 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 
 .loginBody div.error{color:black;}
 
+.inicioPanel{font-size:20px; color:#999; padding:50px;}
+
 /* ----- END LOGIN ------*/
 
 /* ----- NEW BUTTONS ------*/
