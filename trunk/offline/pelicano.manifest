@@ -1,8 +1,9 @@
 CACHE MANIFEST
  
-# Version: 1.03
+# Version: 1.04
 
 CACHE:
+favicon.ico
 index.php
 js/bootstrap.min.js
 js/jquery.js

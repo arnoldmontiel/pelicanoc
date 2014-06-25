@@ -56,6 +56,11 @@ class SiteController extends Controller
 	
 	}
 	
+	public function actionAjaxIsAlive()
+	{
+		return true;
+	}
+	
 	public function actionAjaxResetDeviceId()
 	{
 		$setting = Setting::getInstance();
