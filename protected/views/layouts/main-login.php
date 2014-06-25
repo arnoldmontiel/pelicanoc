@@ -6,6 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport"	content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="shortcut icon" href="./favicon.ico">
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
