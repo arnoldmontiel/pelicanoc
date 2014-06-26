@@ -1172,7 +1172,7 @@ class PelicanoHelper
 				if($save)
 				{
 					$url =
-					$setting->sabnzb_api_url."mode=set_config&section=servers&keyword=".$sabnzbdConfig->serverName.
+					$setting->sabnzb_api_url."mode=set_config&section=servers&keyword=".$sabnzbdConfig->server_name.
 					"&username=".$sabnzbdConfig->username.
 					"&enable=".$sabnzbdConfig->enable.
 					"&name=".$sabnzbdConfig->name.
