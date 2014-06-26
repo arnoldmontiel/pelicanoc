@@ -1099,6 +1099,10 @@ class PelicanoHelper
 // 			$url =  $setting->sabnzb_api_url."mode=config&name=set_apikey&apikey=EXISTINGAPIKEY";
 // 			$jsonData = @file_get_contents($url);
 			//complete_dir
+			$url =  $setting->sabnzb_api_url."mode=get_config&section=misc&apikey=".$setting->sabnzb_api_key;
+			$jsonData = @file_get_contents($url);
+			$misc = json_decode($jsonData);
+				
 			if($setting->path_shared!=$oldSetting->path_shared)
 			{
 				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=complete_dir&value=".$setting->path_shared."&apikey=".$setting->sabnzb_api_key;
@@ -1109,10 +1113,16 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=dirscan_dir&value=".dirname(__FILE__).'/../../'.$setting->path_ready."&apikey=".$setting->sabnzb_api_key;
 				$jsonData = @file_get_contents($url);				
 			}
-			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=script_dir&value=".dirname(__FILE__).'/../commands/shell/&apikey='.$setting->sabnzb_api_key;
-			$jsonData = @file_get_contents($url);
-			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=permissions&value=755&apikey=".$setting->sabnzb_api_key;			
-			$jsonData = @file_get_contents($url);
+			if(!isset($misc->misc)||$misc->misc->script_dir!=dirname(__FILE__)."/../commands/shell/")
+			{
+				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=script_dir&value=".dirname(__FILE__).'/../commands/shell/&apikey='.$setting->sabnzb_api_key;
+				$jsonData = @file_get_contents($url);
+			}
+			if(!isset($misc->misc)||$misc->misc->permissions!="755")
+			{
+				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=permissions&value=755&apikey=".$setting->sabnzb_api_key;			
+				$jsonData = @file_get_contents($url);
+			}
 			if($setting->sabnzb_pwd_file_path!=$oldSetting->sabnzb_pwd_file_path)
 			{					
 				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=password_file&value=".$setting->sabnzb_pwd_file_path."&apikey=".$setting->sabnzb_api_key;						
@@ -1125,10 +1135,13 @@ class PelicanoHelper
 			{
 				$url =  $setting->sabnzb_api_url."mode=set_config&section=categories&keyword=*&script=updateStateMovies&priority=0&pp=3&apikey=".$setting->sabnzb_api_key;
 				$jsonData = @file_get_contents($url);				
+			}				
+			if(!isset($misc->misc)||$misc->misc->pause_on_pwrar!="0")
+			{
+				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=pause_on_pwrar&value=0&apikey=".$setting->sabnzb_api_key;			
+				$jsonData = @file_get_contents($url);
 			}
-				
-			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=pause_on_pwrar&value=0&apikey=".$setting->sabnzb_api_key;			
-			$jsonData = @file_get_contents($url);
+
 			foreach ($oldSabnzbdConfigs as $sabnzbdConfig)
 			{
 // 				$serverName = "news.giganews.com";
