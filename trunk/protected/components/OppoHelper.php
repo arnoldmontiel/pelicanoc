@@ -308,10 +308,9 @@ class OppoHelper
 		socket_close($socket);		
 		
 		sleep(1);
-		file_get_contents( $player->url .':436/getmainfirmwareversion');
+		@file_get_contents( $player->url .':436/getmainfirmwareversion');
 		sleep(1);		
-		file_get_contents( $player->url .':436/getdevicelist');
-		
+		@file_get_contents( $player->url .':436/getdevicelist');		
 	}
 	static public function isPlayerAlive($player)
 	{

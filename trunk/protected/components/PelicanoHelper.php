@@ -780,7 +780,9 @@ class PelicanoHelper
 		$old_nas_path = $settings->host_file_server_path;
 		$old_nas_user = $settings->host_file_server_user;
 		$old_nas_pwd = $settings->host_file_server_passwd;
-		
+		$oldSettings = $settings;
+		$oldSabnzbdConfigs = SabnzbdConfig::model()->findAll();
+				
 		RipperHelper::updateRipperSettings();
 		RipperHelper::checkForAnyDvdUpdate();
 		PelicanoHelper::sincronizeWithServer();
@@ -799,7 +801,7 @@ class PelicanoHelper
 		){
 			PelicanoHelper::changeFstab();
 		}
-		PelicanoHelper::changeSabnzbd();
+		PelicanoHelper::changeSabnzbd($oldSettings, $oldSabnzbdConfigs);
 		return true;
 	}
 	
@@ -1080,57 +1082,85 @@ class PelicanoHelper
 			}
 		}
 	}
-	public static function changeSabnzbd()
+	public static function changeSabnzbd($oldSetting, $oldSabnzbdConfigs)
 	{
-		$setting = Setting::getInstance();
+		$setting = Setting::model()->findByPk(1);
 		try
 		{
 // 			$url =  $setting->sabnzb_api_url."mode=config&name=set_apikey&apikey=EXISTINGAPIKEY";
 // 			$jsonData = @file_get_contents($url);
 			//complete_dir
-			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=complete_dir&value=".$setting->path_shared."&apikey=".$setting->sabnzb_api_key;
-			$jsonData = @file_get_contents($url);
-			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=dirscan_dir&value=".dirname(__FILE__).'/../../'.$setting->path_ready."&apikey=".$setting->sabnzb_api_key;
-			$jsonData = @file_get_contents($url);
+			if($setting->path_shared!=$oldSetting->path_shared)
+			{
+				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=complete_dir&value=".$setting->path_shared."&apikey=".$setting->sabnzb_api_key;
+				$jsonData = @file_get_contents($url);				
+			}
+			if($setting->path_ready!=$oldSetting->path_ready)
+			{
+				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=dirscan_dir&value=".dirname(__FILE__).'/../../'.$setting->path_ready."&apikey=".$setting->sabnzb_api_key;
+				$jsonData = @file_get_contents($url);				
+			}
 			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=script_dir&value=".dirname(__FILE__).'/../commands/shell/&apikey='.$setting->sabnzb_api_key;
 			$jsonData = @file_get_contents($url);
 			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=permissions&value=755&apikey=".$setting->sabnzb_api_key;			
 			$jsonData = @file_get_contents($url);
-			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=password_file&value=".$setting->sabnzb_pwd_file_path."&apikey=".$setting->sabnzb_api_key;						
-			$jsonData = @file_get_contents($url);
+			if($setting->sabnzb_pwd_file_path!=$oldSetting->sabnzb_pwd_file_path)
+			{					
+				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=password_file&value=".$setting->sabnzb_pwd_file_path."&apikey=".$setting->sabnzb_api_key;						
+				$jsonData = @file_get_contents($url);
+			}
 			$url =  $setting->sabnzb_api_url."mode=set_config&section=categories&keyword=*&script=updateStateMovies&priority=0&pp=3&apikey=".$setting->sabnzb_api_key;
 			$jsonData = @file_get_contents($url);
 			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=pause_on_pwrar&value=0&apikey=".$setting->sabnzb_api_key;			
-			$jsonData = @file_get_contents($url);			
-			$serverName = "news.giganews.com";
-			$username="mpmainieri";
-			$enable="1";
-			$name="news.giganews.com";
-			$fillserver="0";
-			$connections ="8";
-			$ssl="0";
-			$host="news.giganews.com";
-			$timeout="120";
-			$password="149246mp";
-			$optional="0";
-			$port="119";
-			$retention="0";			
-			$url =
-				$setting->sabnzb_api_url."mode=set_config&section=servers&keyword=".$serverName.
-				"&username=".$username.
-				"&enable=".$enable.
-				"&name=".$name.
-				"&fillserver=".$fillserver.
-				"&connections=".$connections.
-				"&ssl=".$ssl.
-				"&host=".$host.
-				"&timeout=".$timeout.								
-				"&password=".$password.
-				"&optional=".$optional.
-				"&port=".$port.
-				"&retention=".$retention.
-				"&apikey=".$setting->sabnzb_api_key;
 			$jsonData = @file_get_contents($url);
+			foreach ($oldSabnzbdConfigs as $sabnzbdConfig)
+			{
+// 				$serverName = "news.giganews.com";
+// 				$username="mpmainieri";
+// 				$enable="1";
+// 				$name="news.giganews.com";
+// 				$fillserver="0";
+// 				$connections ="8";
+// 				$ssl="0";
+// 				$host="news.giganews.com";
+// 				$timeout="120";
+// 				$password="149246mp";
+// 				$optional="0";
+// 				$port="119";
+// 				$retention="0";
+				$newSabnzbdConfig = SabnzbdConfig::model()->findByAttributes(array('name'=>$sabnzbdConfig->name));
+				if(!isset($newSabnzbdConfig)||
+					$sabnzbdConfig->username!=$newSabnzbdConfig->username||
+					$sabnzbdConfig->enable!=$newSabnzbdConfig->enable||
+					$sabnzbdConfig->name!=$newSabnzbdConfig->name||
+					$sabnzbdConfig->fillserver!=$newSabnzbdConfig->fillserver||
+					$sabnzbdConfig->connections!=$newSabnzbdConfig->connections||
+					$sabnzbdConfig->ssl!=$newSabnzbdConfig->ssl||
+					$sabnzbdConfig->host!=$newSabnzbdConfig->host||
+					$sabnzbdConfig->timeout!=$newSabnzbdConfig->timeout||
+					$sabnzbdConfig->password!=$newSabnzbdConfig->password||
+					$sabnzbdConfig->optional!=$newSabnzbdConfig->optional||
+					$sabnzbdConfig->port!=$newSabnzbdConfig->port||
+					$sabnzbdConfig->retention!=$newSabnzbdConfig->retention						
+				){
+					$url =
+					$setting->sabnzb_api_url."mode=set_config&section=servers&keyword=".$sabnzbdConfig->serverName.
+					"&username=".$sabnzbdConfig->username.
+					"&enable=".$sabnzbdConfig->enable.
+					"&name=".$sabnzbdConfig->name.
+					"&fillserver=".$sabnzbdConfig->fillserver.
+					"&connections=".$sabnzbdConfig->connections.
+					"&ssl=".$sabnzbdConfig->ssl.
+					"&host=".$sabnzbdConfig->host.
+					"&timeout=".$sabnzbdConfig->timeout.
+					"&password=".$sabnzbdConfig->password.
+					"&optional=".$sabnzbdConfig->optional.
+					"&port=".$sabnzbdConfig->port.
+					"&retention=".$sabnzbdConfig->retention.
+					"&apikey=".$sabnzbdConfig->setting->sabnzb_api_key;
+					$jsonData = @file_get_contents($url);
+				}				
+			}			
 			
 		}
 		catch (Exception $e)
