@@ -6,7 +6,19 @@
  */
  
 
+ /*!!!!!!!!!!!!!!!!!! SOLO PARA INICIO !!!!!!!!!!!!!!!!!!!!!!!!*/
  
+ #detalles{font-size: 15px;
+text-align: left;
+padding:10px;
+margin-top: 20px;
+padding-top: 20px;
+border-top: 1px solid #ccc;
+line-height:20px;
+}
+.inicioPanel{padding:10px; width:380px;font-size:20px; color:#999;} 
+
+ /*!!!!!!!!!!!!!!!!!! SOLO PARA INICIO !!!!!!!!!!!!!!!!!!!!!!!!*/
 @font-face {
 	font-family: 'GudeaRegular';
 	src: url('fonts/Gudea-Regular.otf');
@@ -327,8 +339,6 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 .loginFooter{color:white; text-align:center; margin-top:40px;}
 
 .loginBody div.error{color:black;}
-
-.inicioPanel{font-size:20px; color:#999; padding:50px;}
 
 /* ----- END LOGIN ------*/
 

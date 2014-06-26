@@ -26,13 +26,22 @@
     
     <div class="loginPanel inicioPanel">
 <i class="fa fa-spinner fa-spin"></i>
-    <p id="text">Iniciando Pelicano    </p>
+    <span id="text">Iniciando Pelicano    </span>
+      <div id="detalles" class="hidden">
+      Pelicano no responde, esto puede deberse a:
+      <ul>
+      <li>Pelicano puede estar apagado</li>
+      <li>Pelicano puede estar fuera de la red</li>
+      <li>Un problema de conexi&oacute;n</li>
+      </ul>
+      Si el problema persiste contacte al administrador.
       </div>
     </div>
     	<div class="loginFooter">
 		Copyright &copy; <?php echo date('Y'); ?> by SmartLiving.<br/>
 		All Rights Reserved
 	</div>
+    </div>
     </div>
     </div>
     </div>
@@ -54,6 +63,7 @@
 	  ).error(function()
 	  {
 	    $("#text").html("Error - Reintentando");
+	    $("#detalles").removeClass('hidden');
 	  }
 	  );	
   }, 3000);
