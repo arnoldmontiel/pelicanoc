@@ -1185,7 +1185,7 @@ class PelicanoHelper
 					"&optional=".$sabnzbdConfig->optional.
 					"&port=".$sabnzbdConfig->port.
 					"&retention=".$sabnzbdConfig->retention.
-					"&apikey=".$sabnzbdConfig->setting->sabnzb_api_key;
+					"&apikey=".$setting->sabnzb_api_key;
 					$jsonData = @file_get_contents($url);						
 				}
 			}			
