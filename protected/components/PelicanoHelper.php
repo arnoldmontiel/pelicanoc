@@ -713,7 +713,7 @@ class PelicanoHelper
 				$modelTmdb->api_key = $response->Configuration->tmdb_api_key; 
 				$modelTmdb->lang = $response->Configuration->tmdb_lang;
 				$modelTmdb->save();
-				
+				SabnzbdConfig::model()->deleteAll();
 				foreach($response->Configuration->SabnzbdAccounts as $account)
 				{
 					$modelSabnzbdConfig = new SabnzbdConfig();
