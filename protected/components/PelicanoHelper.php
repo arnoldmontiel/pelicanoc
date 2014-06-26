@@ -1162,7 +1162,6 @@ class PelicanoHelper
 						$sabnzbdConfig->ssl==$server->ssl&&
 						$sabnzbdConfig->host==$server->host&&
 						$sabnzbdConfig->timeout==$server->timeout&&
-						$sabnzbdConfig->password==$server->password&&
 						$sabnzbdConfig->optional==$server->optional&&
 						$sabnzbdConfig->port==$server->port&&
 						$sabnzbdConfig->retention==$server->retention)
