@@ -1150,23 +1150,25 @@ class PelicanoHelper
 			foreach ($sabnzbdConfigs as $sabnzbdConfig)
 			{
 				if(isset($serverResponse->servers) && is_array($serverResponse->servers))
-				foreach ($serverResponse->servers as $server)
 				{
-					if($server->name==$sabnzbdConfig->name&&
-					$sabnzbdConfig->username==$server->username&&
-					$sabnzbdConfig->enable==$server->enable&&
-					$sabnzbdConfig->name==$server->name&&
-					$sabnzbdConfig->fillserver==$server->fillserver&&
-					$sabnzbdConfig->connections==$server->connections&&
-					$sabnzbdConfig->ssl==$server->ssl&&
-					$sabnzbdConfig->host==$server->host&&
-					$sabnzbdConfig->timeout==$server->timeout&&
-					$sabnzbdConfig->password==$server->password&&
-					$sabnzbdConfig->optional==$server->optional&&
-					$sabnzbdConfig->port==$server->port&&
-					$sabnzbdConfig->retention==$server->retention)
+					foreach ($serverResponse->servers as $server)
 					{
-						$save= false;						
+						if($server->name==$sabnzbdConfig->name&&
+						$sabnzbdConfig->username==$server->username&&
+						$sabnzbdConfig->enable==$server->enable&&
+						$sabnzbdConfig->name==$server->name&&
+						$sabnzbdConfig->fillserver==$server->fillserver&&
+						$sabnzbdConfig->connections==$server->connections&&
+						$sabnzbdConfig->ssl==$server->ssl&&
+						$sabnzbdConfig->host==$server->host&&
+						$sabnzbdConfig->timeout==$server->timeout&&
+						$sabnzbdConfig->password==$server->password&&
+						$sabnzbdConfig->optional==$server->optional&&
+						$sabnzbdConfig->port==$server->port&&
+						$sabnzbdConfig->retention==$server->retention)
+						{
+							$save= false;
+						}						
 					}
 				}
 				if($save)
