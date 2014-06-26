@@ -1157,7 +1157,7 @@ class PelicanoHelper
 						$sabnzbdConfig->username==$server->username&&
 						$sabnzbdConfig->enable==$server->enable&&
 						$sabnzbdConfig->name==$server->name&&
-						$sabnzbdConfig->fillserver==$server->fillserver&&
+						$sabnzbdConfig->fill_server==$server->fillserver&&
 						$sabnzbdConfig->connections==$server->connections&&
 						$sabnzbdConfig->ssl==$server->ssl&&
 						$sabnzbdConfig->host==$server->host&&
