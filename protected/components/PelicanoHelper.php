@@ -626,7 +626,8 @@ class PelicanoHelper
 			$request= new NzbStateRequest;
 			$request->Id_device = $setting->Id_device;
 			$request->Id_nzb =$item->Id;
-			$request->Id_state =$item->Id_nzb_state;
+			$request->Id_state =$item->Id_nzb_state;			
+			//date_default_timezone_set('America/Argentina/Buenos_Aires');
 			$request->change_state_date = strtotime($item->change_state_date);
 			$requests[]=$request;
 		}
@@ -998,6 +999,7 @@ class PelicanoHelper
 							$transaction = $modelNzb->dbConnection->beginTransaction();
 							try {
 								$modelNzb->Id_my_movie_disc_nzb = (!isset($item->Id_nzb))?$idDisc:null;
+								//date_default_timezone_set('America/Argentina/Buenos_Aires');
 								$modelNzb->date = date("Y-m-d H:i:s",time());
 								$modelNzb->ready = 0;
 	
@@ -1109,8 +1111,15 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=password_file&value=".$setting->sabnzb_pwd_file_path."&apikey=".$setting->sabnzb_api_key;						
 				$jsonData = @file_get_contents($url);
 			}
-			$url =  $setting->sabnzb_api_url."mode=set_config&section=categories&keyword=*&script=updateStateMovies&priority=0&pp=3&apikey=".$setting->sabnzb_api_key;
+			$url =  $setting->sabnzb_api_url."mode=get_config&section=categories&keyword=*&apikey=".$setting->sabnzb_api_key;
 			$jsonData = @file_get_contents($url);
+			$categorie = json_decode($jsonData);
+			if(!isset($categorie->categories)||!is_array($categorie->categories)||empty($categorie->categories)||$categorie->categories[0]->pp!=3||$categorie->categories[0]->script!="updateStateMovies")
+			{
+				$url =  $setting->sabnzb_api_url."mode=set_config&section=categories&keyword=*&script=updateStateMovies&priority=0&pp=3&apikey=".$setting->sabnzb_api_key;
+				$jsonData = @file_get_contents($url);				
+			}
+				
 			$url =  $setting->sabnzb_api_url."mode=set_config&section=misc&keyword=pause_on_pwrar&value=0&apikey=".$setting->sabnzb_api_key;			
 			$jsonData = @file_get_contents($url);
 			foreach ($oldSabnzbdConfigs as $sabnzbdConfig)
