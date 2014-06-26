@@ -1149,9 +1149,9 @@ class PelicanoHelper
 			$save = true;
 			foreach ($sabnzbdConfigs as $sabnzbdConfig)
 			{
-				if(isset($serverResponse->servers) && is_array($serverResponse->servers))
+				if(isset($serverResponse->config->servers) && is_array($serverResponse->config->servers))
 				{
-					foreach ($serverResponse->servers as $server)
+					foreach ($serverResponse->config->servers as $server)
 					{
 						if($server->name==$sabnzbdConfig->name&&
 						$sabnzbdConfig->username==$server->username&&
