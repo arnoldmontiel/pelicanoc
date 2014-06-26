@@ -1090,7 +1090,7 @@ class PelicanoHelper
 			}
 		}
 	}
-	public static function changeSabnzbd($oldSetting, $oldSabnzbdConfigs)
+	public static function changeSabnzbd($oldSetting)
 	{
 		$setting = Setting::model()->findByPk(1);
 		try
