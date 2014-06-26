@@ -1150,6 +1150,7 @@ class PelicanoHelper
 			$save = true;
 			foreach ($sabnzbdConfigs as $sabnzbdConfig)
 			{
+				if(isset($serverResponse->servers) && is_array($serverResponse->servers))
 				foreach ($serverResponse->servers as $server)
 				{
 					if($server->name==$sabnzbdConfig->name&&
