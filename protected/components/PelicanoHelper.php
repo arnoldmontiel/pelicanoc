@@ -713,6 +713,13 @@ class PelicanoHelper
 				$modelTmdb->api_key = $response->Configuration->tmdb_api_key; 
 				$modelTmdb->lang = $response->Configuration->tmdb_lang;
 				$modelTmdb->save();
+				
+				foreach($response->Configuration->SabnzbdAccounts as $account)
+				{
+					$modelSabnzbdConfig = new SabnzbdConfig();
+					$modelSabnzbdConfig->setAttributesByArray($account);
+					$modelSabnzbdConfig->save();
+				}
 			}
 			
 			$settings->save();

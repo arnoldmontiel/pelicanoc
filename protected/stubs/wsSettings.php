@@ -15,6 +15,25 @@ class UserSOAP
 	public $birth_date; //date;
 }
 
+class SabnzbdAccountSOAP
+{
+	public $Id; //integer;
+	public $server_name; //string;
+	public $username; //string;
+	public $password; //string;
+	public $name; //string;
+	public $host; //string;
+	public $enable; //integer;
+	public $fill_server; //string;
+	public $connections; //integer;
+	public $ssl; //integer;
+	public $timeout; //integer;
+	public $optional; //integer;
+	public $port; //integer;
+	public $retention; //integer;
+	public $Id_device; //string;
+}
+
 class ConfigurationSOAP
 {	
 	public $sabnzb_api_key; //string;
@@ -32,6 +51,7 @@ class ConfigurationSOAP
 	public $michael_jackson; //string;
 	public $tmdb_api_key; //string;
 	public $tmdb_lang; //string;
+	public $SabnzbdAccounts; //SabnzbdAccountSOAP[];
 }
 
 class CustomerSettingsResponse
