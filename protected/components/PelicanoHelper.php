@@ -789,7 +789,6 @@ class PelicanoHelper
 		$old_nas_user = $settings->host_file_server_user;
 		$old_nas_pwd = $settings->host_file_server_passwd;
 		$oldSettings = $settings;
-		$oldSabnzbdConfigs = SabnzbdConfig::model()->findAll();
 				
 		RipperHelper::updateRipperSettings();
 		RipperHelper::checkForAnyDvdUpdate();
@@ -809,7 +808,7 @@ class PelicanoHelper
 		){
 			PelicanoHelper::changeFstab();
 		}
-		PelicanoHelper::changeSabnzbd($oldSettings, $oldSabnzbdConfigs);
+		PelicanoHelper::changeSabnzbd($oldSettings);
 		return true;
 	}
 	
@@ -1142,36 +1141,35 @@ class PelicanoHelper
 				$jsonData = @file_get_contents($url);
 			}
 
-			foreach ($oldSabnzbdConfigs as $sabnzbdConfig)
+			$sabnzbdConfigs = SabnzbdConfig::model()->findAll();
+			
+			$url =  $setting->sabnzb_api_url."mode=get_config&section=servers&apikey=".$setting->sabnzb_api_key;
+			$jsonData = @file_get_contents($url);
+			$serverResponse = json_decode($jsonData);
+			$save = true;
+			foreach ($sabnzbdConfigs as $sabnzbdConfig)
 			{
-// 				$serverName = "news.giganews.com";
-// 				$username="mpmainieri";
-// 				$enable="1";
-// 				$name="news.giganews.com";
-// 				$fillserver="0";
-// 				$connections ="8";
-// 				$ssl="0";
-// 				$host="news.giganews.com";
-// 				$timeout="120";
-// 				$password="149246mp";
-// 				$optional="0";
-// 				$port="119";
-// 				$retention="0";
-				$newSabnzbdConfig = SabnzbdConfig::model()->findByAttributes(array('name'=>$sabnzbdConfig->name));
-				if(!isset($newSabnzbdConfig)||
-					$sabnzbdConfig->username!=$newSabnzbdConfig->username||
-					$sabnzbdConfig->enable!=$newSabnzbdConfig->enable||
-					$sabnzbdConfig->name!=$newSabnzbdConfig->name||
-					$sabnzbdConfig->fillserver!=$newSabnzbdConfig->fillserver||
-					$sabnzbdConfig->connections!=$newSabnzbdConfig->connections||
-					$sabnzbdConfig->ssl!=$newSabnzbdConfig->ssl||
-					$sabnzbdConfig->host!=$newSabnzbdConfig->host||
-					$sabnzbdConfig->timeout!=$newSabnzbdConfig->timeout||
-					$sabnzbdConfig->password!=$newSabnzbdConfig->password||
-					$sabnzbdConfig->optional!=$newSabnzbdConfig->optional||
-					$sabnzbdConfig->port!=$newSabnzbdConfig->port||
-					$sabnzbdConfig->retention!=$newSabnzbdConfig->retention						
-				){
+				foreach ($serverResponse->servers as $server)
+				{
+					if($server->name==$sabnzbdConfig->name&&
+					$sabnzbdConfig->username==$server->username&&
+					$sabnzbdConfig->enable==$server->enable&&
+					$sabnzbdConfig->name==$server->name&&
+					$sabnzbdConfig->fillserver==$server->fillserver&&
+					$sabnzbdConfig->connections==$server->connections&&
+					$sabnzbdConfig->ssl==$server->ssl&&
+					$sabnzbdConfig->host==$server->host&&
+					$sabnzbdConfig->timeout==$server->timeout&&
+					$sabnzbdConfig->password==$server->password&&
+					$sabnzbdConfig->optional==$server->optional&&
+					$sabnzbdConfig->port==$server->port&&
+					$sabnzbdConfig->retention==$server->retention)
+					{
+						$save= false;						
+					}
+				}
+				if($save)
+				{
 					$url =
 					$setting->sabnzb_api_url."mode=set_config&section=servers&keyword=".$sabnzbdConfig->serverName.
 					"&username=".$sabnzbdConfig->username.
@@ -1187,8 +1185,8 @@ class PelicanoHelper
 					"&port=".$sabnzbdConfig->port.
 					"&retention=".$sabnzbdConfig->retention.
 					"&apikey=".$sabnzbdConfig->setting->sabnzb_api_key;
-					$jsonData = @file_get_contents($url);
-				}				
+					$jsonData = @file_get_contents($url);						
+				}
 			}			
 			
 		}
