@@ -1146,6 +1146,7 @@ class PelicanoHelper
 			$url =  $setting->sabnzb_api_url."mode=get_config&section=servers&apikey=".$setting->sabnzb_api_key;
 			$jsonData = @file_get_contents($url);
 			$serverResponse = json_decode($jsonData);
+			var_dump($serverResponse);
 			$save = true;
 			foreach ($sabnzbdConfigs as $sabnzbdConfig)
 			{
