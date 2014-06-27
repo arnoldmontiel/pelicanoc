@@ -10,13 +10,13 @@
     	 </div>
     	     	 <br/><br/>
     	 
-    	 <button onclick="setupAutomatic()" class="btn btn-lg btn-default">
-    	 <i class="fa fa-spinner fa-spin" style="display:none"></i>
+    	 <button onclick="setupAutomatic(this)" class="btn btn-lg btn-default">
+    	 <i class="fa fa-spinner fa-spin"></i>
     	 Configurar Autom&aacute;ticamente
     	 </button>
     	 <br/><br/>
-    	 <button onclick="setupManual()" class="btn btn-lg btn-default">
-    	 <i class="fa fa-spinner fa-spin" style="display:none"></i>
+    	 <button onclick="setupManual(this)" class="btn btn-lg btn-default">
+    	 <i class="fa fa-spinner fa-spin" ></i>
     	 Configurar Manualmente
     	 </button>    	 
     	 </div>
@@ -25,13 +25,12 @@
     	 
     	 </div><!-- /wrapper -->
 <script type="text/javascript">
-function setupManual()
+function setupManual(object)
 {
 	var value = $("#Setting_Id_device").val();
 	if(value.length > 0)
 	{
 		$("button").attr("disabled","disabled");
-		$("i").show();
 		$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
 			{
 				idDevice:$("#Setting_Id_device").val()
@@ -50,13 +49,13 @@ function setupManual()
 	return false;;
 }
 
-function setupAutomatic()
+function setupAutomatic(object)
 {
 	var value = $("#Setting_Id_device").val();
 	if(value.length > 0)
 	{
 		$("button").attr("disabled","disabled");
-		$("i").show();
+		$(object).html('<i class="fa fa-spinner fa-spin"></i> Configurando');
 		$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
 			{
 				idDevice:$("#Setting_Id_device").val()
