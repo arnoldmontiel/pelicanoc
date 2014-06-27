@@ -10,10 +10,15 @@
     	 </div>
     	     	 <br/><br/>
     	 
-    	 <button onclick="setupAutomatic()" class="btn btn-lg btn-default">Configurar Autom&aacute;ticamente</button>
+    	 <button onclick="setupAutomatic()" class="btn btn-lg btn-default">
+    	 <i class="fa fa-spinner" style="display:none"></i>
+    	 Configurar Autom&aacute;ticamente
+    	 </button>
     	 <br/><br/>
-    	 <button onclick="setupManual()" class="btn btn-lg btn-default">Configurar Manualmente</button>
-    	 
+    	 <button onclick="setupManual()" class="btn btn-lg btn-default">
+    	 <i class="fa fa-spinner" style="display:none"></i>
+    	 Configurar Manualmente
+    	 </button>    	 
     	 </div>
     	 <div class="col-md-2"></div>
     	 </div>
@@ -25,6 +30,8 @@ function setupManual()
 	var value = $("#Setting_Id_device").val();
 	if(value.length > 0)
 	{
+		$("button").attr("disabled","disabled");
+		$("i").show();
 		$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
 			{
 				idDevice:$("#Setting_Id_device").val()
@@ -32,6 +39,7 @@ function setupManual()
 		).success(
 			function(data){
 				window.location = <?php echo '"'. SiteController::createUrl('Config') . '"'; ?>;
+				$("button").removeAttr("disabled");
 				return false;
 			});
 		}
@@ -47,6 +55,8 @@ function setupAutomatic()
 	var value = $("#Setting_Id_device").val();
 	if(value.length > 0)
 	{
+		$("button").attr("disabled","disabled");
+		$("i").show();
 		$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
 			{
 				idDevice:$("#Setting_Id_device").val()
@@ -54,6 +64,7 @@ function setupAutomatic()
 		).success(
 			function(data){
 				window.location = <?php echo '"'. SiteController::createUrl('index') . '"'; ?>;
+				$("button").removeAttr("disabled");						
 				return false;
 			});
 	}
