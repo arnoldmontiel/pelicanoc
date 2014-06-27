@@ -180,11 +180,17 @@ class PelicanoHelper
 	
 	static public function getImageName($name, $posFix = "")
 	{
+		$pos = strpos($name, "?");
+		$fileName=$name;
+		if(($pos !== false))
+		{
+			$fileName=explode('?', $name);
+			$fileName = $fileName[0];
+		}
 		$imagePath = "images/";
 		$defaultImage = 'no_image'.$posFix.'.jpg';
 		$imageName = $imagePath.$defaultImage;
-		
-		if(file_exists($imagePath.$name) && !empty($name))
+		if(file_exists($imagePath.$fileName) && !empty($name))
 			$imageName = $imagePath.$name;
 		
 		return $imageName;

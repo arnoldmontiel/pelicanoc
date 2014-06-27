@@ -305,16 +305,16 @@ class TMDBHelper
 				if(!isset($model))
 					$model = new TMDBData();
 					
-				$model->poster = 'no_image.jpg';
-				$model->big_poster = 'no_image_big.jpg';
-				$model->backdrop = 'no_image_bd.jpg';
-				
+// 				$model->poster = 'no_image.jpg';
+// 				$model->big_poster = 'no_image_big.jpg';
+// 				$model->backdrop = 'no_image_bd.jpg';
+				$date = new DateTime();
 				if($poster!="")
-					$model->poster = self::getImage("", $poster, $movie->id, true);
+					$model->poster = self::getImage("", $poster, $movie->id, true)."?".$date->getTimestamp();
 				if($bigPoster!="")
-					$model->big_poster = self::getImage("_big", $bigPoster, $movie->id."_big");
+					$model->big_poster = self::getImage("_big", $bigPoster, $movie->id."_big")."?".$date->getTimestamp();
 				if($backdrop!="")
-					$model->backdrop = self::getImage("_bd", $backdrop, $movie->id."_bd");
+					$model->backdrop = self::getImage("_bd", $backdrop, $movie->id."_bd")."?".$date->getTimestamp();
 					
 				$model->TMDB_id = $movie->id;
 					
@@ -377,16 +377,16 @@ class TMDBHelper
 				$model = new TMDBData();
 			}
 			
-			$model->poster = 'no_image.jpg';
-			$model->big_poster = 'no_image_big.jpg';
-			$model->backdrop = 'no_image_bd.jpg';
-			
+// 			$model->poster = 'no_image.jpg';
+// 			$model->big_poster = 'no_image_big.jpg';
+// 			$model->backdrop = 'no_image_bd.jpg';
+			$date = new DateTime();
 			if($poster!="")
-				$model->poster = self::getImage("", $poster, $TMDBId,true);
+				$model->poster = self::getImage("", $poster, $TMDBId,true)."?".$date->getTimestamp();
 			if($bigPoster!="")
-				$model->big_poster = self::getImage("_big", $bigPoster, $TMDBId."_big");
+				$model->big_poster = self::getImage("_big", $bigPoster, $TMDBId."_big")."?".$date->getTimestamp();
 			if($backdrop!="")
-				$model->backdrop = self::getImage("_bd", $backdrop, $TMDBId."_bd");
+				$model->backdrop = self::getImage("_bd", $backdrop, $TMDBId."_bd")."?".$date->getTimestamp();
 			
 			$model->TMDB_id = $TMDBId;
 			
