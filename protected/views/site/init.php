@@ -31,6 +31,7 @@ function setupManual(object)
 	if(value.length > 0)
 	{
 		$("button").attr("disabled","disabled");
+		$("#Setting_Id_device").attr("disabled","disabled");
 		$(object).html('<i class="fa fa-spinner fa-spin"></i> Configurando...');		
 		$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
 			{
@@ -55,6 +56,7 @@ function setupAutomatic(object)
 	if(value.length > 0)
 	{
 		$("button").attr("disabled","disabled");
+		$("#Setting_Id_device").attr("disabled","disabled");
 		$(object).html('<i class="fa fa-spinner fa-spin"></i> Configurando...');
 		$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
 			{
