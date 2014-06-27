@@ -55,9 +55,7 @@
 	 	}).success(function(data)
 	 	{
 		 	var date = new Date;	 	
-	 		//$("#poster").attr("src", "images/"+data.big_poster+"?" + date.valueOf());
-	 		$(".editAfiche").html('<img id="poster" class="peliAfiche" src="images/'+data.big_poster+'" border="0">');
-	 		
+	 		$("#poster").attr("src", "images/"+data.big_poster+"?" + date.valueOf());	 		
 			$('#myModalCambiarAfiche').modal('hide');
 		}
 	 	).error(function()
