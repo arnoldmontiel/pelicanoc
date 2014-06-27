@@ -11,12 +11,12 @@
     	     	 <br/><br/>
     	 
     	 <button onclick="setupAutomatic(this)" class="btn btn-lg btn-default">
-    	 <i class="fa fa-spinner fa-spin"></i>
+    	 
     	 Configurar Autom&aacute;ticamente
     	 </button>
     	 <br/><br/>
     	 <button onclick="setupManual(this)" class="btn btn-lg btn-default">
-    	 <i class="fa fa-spinner fa-spin" ></i>
+    	 
     	 Configurar Manualmente
     	 </button>    	 
     	 </div>
