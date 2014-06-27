@@ -38,7 +38,6 @@ function setupManual(object)
 		).success(
 			function(data){
 				window.location = <?php echo '"'. SiteController::createUrl('Config') . '"'; ?>;
-				$("button").removeAttr("disabled");
 				return false;
 			});
 		}
@@ -63,7 +62,6 @@ function setupAutomatic(object)
 		).success(
 			function(data){
 				window.location = <?php echo '"'. SiteController::createUrl('index') . '"'; ?>;
-				$("button").removeAttr("disabled");						
 				return false;
 			});
 	}
