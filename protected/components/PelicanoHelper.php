@@ -3,6 +3,14 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function pauseSabnzbd()
+	{
+		$this->urlJson = $this->setting->sabnzb_api_url."mode=pause&apikey=".$this->setting->sabnzb_api_key;				
+	}
+	static public function resumeSabnzbd()
+	{
+		$this->urlJson = $this->setting->sabnzb_api_url."mode=resume&apikey=".$this->setting->sabnzb_api_key;
+	}	
 	/**
 	 * Graba el estado nuevo del sistema, si no cambia nada, no se hace el update
 	 * @param integer $status 1-error_players, 2-error_NAS, 3-error_NAS_space
@@ -52,7 +60,15 @@ class PelicanoHelper
 					$errorLog = new ErrorLog();
 					$errorLog->error_type = $status;
 					$errorLog->has_error = $value;
-					$errorLog->save();						
+					$errorLog->save();
+					if($value==false)//no hay error
+					{
+						self::resumeSabnzbd();
+					}
+					else
+					{
+						self::pauseSabnzbd();						
+					}
 				}					
 				break;
 			case 3:
@@ -63,7 +79,15 @@ class PelicanoHelper
 					$errorLog = new ErrorLog();
 					$errorLog->error_type = $status;
 					$errorLog->has_error = $value;
-					$errorLog->save();						
+					$errorLog->save();
+					if($value==false)//no hay error
+					{
+						self::resumeSabnzbd();
+					}
+					else
+					{
+						self::pauseSabnzbd();
+					}						
 				}					
 				break;				
 			default:
