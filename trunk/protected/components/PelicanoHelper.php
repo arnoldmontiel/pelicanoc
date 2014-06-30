@@ -751,10 +751,11 @@ class PelicanoHelper
 					$modelSabnzbdConfig->save();
 				}
 				
-				Player::model()->deleteAll();
 				foreach($response->Configuration->Players as $player)
 				{
-					$modelPlayer = new Player();
+					$modelPlayer = Player::model()->findByPk($player['Id']);
+					if(!isset($modelPlayer))
+						$modelPlayer = new Player();
 					$modelPlayer->setAttributesByArray($player);
 					$modelPlayer->Id_setting = 1;
 					$modelPlayer->save();
