@@ -34,6 +34,16 @@ class SabnzbdAccountSOAP
 	public $Id_device; //string;
 }
 
+class PlayerSOAP
+{
+	public $Id; //integer;
+	public $description; //string;
+	public $url; //string;
+	public $type; //integer;
+	public $file_protocol; //string;
+	public $Id_device; //string;
+}
+
 class ConfigurationSOAP
 {	
 	public $sabnzb_api_key; //string;
@@ -52,6 +62,7 @@ class ConfigurationSOAP
 	public $tmdb_api_key; //string;
 	public $tmdb_lang; //string;
 	public $SabnzbdAccounts; //SabnzbdAccountSOAP[];
+	public $Players; //PlayerSOAP[];	
 }
 
 class CustomerSettingsResponse
