@@ -6,13 +6,13 @@ class PelicanoHelper
 	static public function pauseSabnzbd()
 	{
 		$settings = Setting::getInstance();
-		$url = $settings->sabnzb_api_url."mode=pause&apikey=".$this->setting->sabnzb_api_key;
+		$url = $settings->sabnzb_api_url."mode=pause&apikey=".$settings->sabnzb_api_key;
 		$response = @file_get_contents($url);
 	}
 	static public function resumeSabnzbd()
 	{
 		$settings = Setting::getInstance();
-		$url = $settings->sabnzb_api_url."mode=resume&apikey=".$this->setting->sabnzb_api_key;
+		$url = $settings->sabnzb_api_url."mode=resume&apikey=".$settings->sabnzb_api_key;
 		$response = @file_get_contents($url);
 	}	
 	/**
