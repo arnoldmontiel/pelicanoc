@@ -1157,7 +1157,7 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=complete_dir&value=".$setting->path_shared."&apikey=".$setting->sabnzb_api_key;
 				$jsonData = @file_get_contents($url);				
 			}
-			if($setting->path_ready!=$oldSetting->path_ready)
+			if(!isset($misc->misc)||$misc->misc->dirscan_dir!=dirname(__FILE__).'/../../'.$setting->path_ready)
 			{
 				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=dirscan_dir&value=".dirname(__FILE__).'/../../'.$setting->path_ready."&apikey=".$setting->sabnzb_api_key;
 				$jsonData = @file_get_contents($url);				
