@@ -1257,10 +1257,10 @@ class PelicanoHelper
 			//$4 password
 					
 			$spect =  $setting->host_file_server.$setting->host_file_server_path;
-			if(strpos($spect,'//')===false&&strpos($spect,'//')!==0)
+			if(strpos($spect,'//')===false&&strpos($spect,'//')!=0)
 			{
 				$spect ="/".$spect;
-				if(strpos($spect,'//')===false&&strpos($spect,'//')!==0)
+				if(strpos($spect,'//')===false&&strpos($spect,'//')!=0)
 				{
 					$spect ="/".$spect;
 				}
