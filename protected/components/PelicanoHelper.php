@@ -753,7 +753,7 @@ class PelicanoHelper
 				
 				foreach($response->Configuration->Players as $player)
 				{
-					$modelPlayer = Player::model()->findByPk($player['Id']);
+					$modelPlayer = Player::model()->findByPk($player->Id);
 					if(!isset($modelPlayer))
 						$modelPlayer = new Player();
 					$modelPlayer->setAttributesByArray($player);
