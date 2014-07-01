@@ -25,4 +25,5 @@ class Controller extends  SBaseController
 	public $showBrowsingBox = true;
 	public $fromPageNumber = 0;
 	public $showFilter = true;
+	public $currentStatus = true;
 }

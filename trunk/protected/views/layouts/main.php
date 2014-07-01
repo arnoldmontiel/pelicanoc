@@ -240,8 +240,11 @@ $(document).ready(function(){
         html:true,
         template:'<div id="popover-dispositivos" class="popover fade bottom in"><div class="arrow"></div><div class="popover-content"><div class="popoverDisTitle"></div></div>'
     });
+	<?php 
+		if(isset($this->currentStatus)&&$this->currentStatus==true)
+			echo "getCurrentState();"
+	?>
 	
-	getCurrentState();
 	$.ajaxSetup({
 	    cache: false,
 	    headers: {
