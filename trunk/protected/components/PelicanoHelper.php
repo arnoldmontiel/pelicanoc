@@ -5,11 +5,15 @@ class PelicanoHelper
 {
 	static public function pauseSabnzbd()
 	{
-		$this->urlJson = $this->setting->sabnzb_api_url."mode=pause&apikey=".$this->setting->sabnzb_api_key;				
+		$settings = Setting::getInstance();
+		$url = $settings->sabnzb_api_url."mode=pause&apikey=".$this->setting->sabnzb_api_key;
+		$response = @file_get_contents($url);
 	}
 	static public function resumeSabnzbd()
 	{
-		$this->urlJson = $this->setting->sabnzb_api_url."mode=resume&apikey=".$this->setting->sabnzb_api_key;
+		$settings = Setting::getInstance();
+		$url = $settings->sabnzb_api_url."mode=resume&apikey=".$this->setting->sabnzb_api_key;
+		$response = @file_get_contents($url);
 	}	
 	/**
 	 * Graba el estado nuevo del sistema, si no cambia nada, no se hace el update
