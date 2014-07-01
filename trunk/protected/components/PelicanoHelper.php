@@ -1152,7 +1152,7 @@ class PelicanoHelper
 			$jsonData = @file_get_contents($url);
 			$misc = json_decode($jsonData);
 				
-			if($setting->path_shared!=$oldSetting->path_shared)
+			if(!isset($misc->misc)||$misc->misc->complete_dir!=$setting->path_shared)
 			{
 				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=complete_dir&value=".$setting->path_shared."&apikey=".$setting->sabnzb_api_key;
 				$jsonData = @file_get_contents($url);				
@@ -1172,7 +1172,7 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=permissions&value=755&apikey=".$setting->sabnzb_api_key;			
 				$jsonData = @file_get_contents($url);
 			}
-			if($setting->sabnzb_pwd_file_path!=$oldSetting->sabnzb_pwd_file_path)
+			if(!isset($misc->misc)||$misc->misc->password_file!=$setting->sabnzb_pwd_file_path)
 			{					
 				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=password_file&value=".$setting->sabnzb_pwd_file_path."&apikey=".$setting->sabnzb_api_key;						
 				$jsonData = @file_get_contents($url);
