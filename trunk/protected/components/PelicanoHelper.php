@@ -756,6 +756,7 @@ class PelicanoHelper
 					$modelPlayer = Player::model()->findByPk($player->Id);
 					if(!isset($modelPlayer))
 						$modelPlayer = new Player();
+					var_dump($player);
 					$modelPlayer->setAttributesByArray($player);
 					$modelPlayer->Id_setting = 1;
 					$modelPlayer->save();
