@@ -5,26 +5,7 @@
     	 <div class="col-md-8 col-sm-12">
     	 <div  class="configForm">
 		    <form id="general-config-form"  role="form">
-  					<div class="inlineForm">
-  					<label class="inlineFormLabel">Sabnzbd</label>
-  					<div class="row">
-						<div class="form-group col-sm-6">
-	    					<label>Sabnzbd password path</label>
-	    					<?php echo CHtml::activeTextField($model, 'sabnzb_pwd_file_path', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
-						</div>
-	  					<div class="form-group col-sm-6 ">
-	    					<label>Sabnzbd path descarga</label>
-	    					<?php echo CHtml::activeTextField($model, 'path_sabnzbd_download', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
-	    				</div>
-  					</div>
-  					<div class="row">   
-  						<div class="form-group col-sm-6 ">
-	    					<label>Sabnzbd API URL</label>
-	    					<?php echo CHtml::activeTextField($model, 'sabnzb_api_url', array('class'=>'form-control', 'placeholder'=>'Url', 'onkeyup'=>'changeSaveLabel();'));?>
-	      				</div> 
-  					</div>			
-  					</div>
-  					<div class="inlineForm">
+  				<div class="inlineForm">
   					<label class="inlineFormLabel">Servidor Multimedia</label>
   					<div class="row">
 	  					<div class="form-group col-sm-6 ">
@@ -52,8 +33,8 @@
 	    					<?php echo CHtml::activeTextField($model, 'host_file_server_name', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 	      				</div>
   					</div>
-  					</div>
-					<div class="inlineForm">
+  				</div>
+				<div class="inlineForm">
 	  					<label class="inlineFormLabel">Varios</label>
 	  					<div class="row">
 		  					<div class="form-group col-sm-6 ">
@@ -61,11 +42,11 @@
 		    					<?php echo CHtml::activeTextField($model, 'path_shared', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		    				</div>
 		  					<div class="form-group col-sm-6 ">
-		  						<label>Password MJ</label>
-		  						<?php echo CHtml::activeTextField($model, 'michael_jackson', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<label>Sabnzbd API Key</label>
+		  						<?php echo CHtml::activeTextField($model, 'sabnzb_api_key', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 	  					</div>
-					</div>
+				</div>
   					<div class="form-group buttonGroup">
     					<div class="col-sm-12">    	
     						<button id="btn-save-config" onclick="submitGeneralConfig();" type="button" class="btn btn-alternate btn-lg pull-right"><i class="fa fa-save"></i> <span id="save-description">Guardar</span>    						

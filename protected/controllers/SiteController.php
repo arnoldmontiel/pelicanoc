@@ -75,6 +75,7 @@ class SiteController extends Controller
 		{
 			$setting = Setting::getInstance();
 			$setting->attributes = $_POST['Setting'];
+			$setting->path_sabnzbd_download = $setting->path_shared;
 			$setting->save();
 		}
 	}
