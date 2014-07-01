@@ -46,6 +46,7 @@ class SiteController extends Controller
 		
 		if(!isset($setting->Id_device))
 		{
+			$this->currentStatus = false;
 			$this->showMenu = false;
 			$page = "init";
 		}
