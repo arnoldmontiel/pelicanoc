@@ -1259,7 +1259,7 @@ class PelicanoHelper
 			$spect =  $setting->host_file_server.$setting->host_file_server_path;
 			$spect = preg_replace('#/+#','/',$spect); //saco slash consecutivos					
 			$spect ="/".$spect;
-			if(strpos($spect,'//')!=0)
+			if(strpos($spect,'//')!=0||strpos($spect,'//')===0)
 			{
 				$spect ="/".$spect;
 			}
