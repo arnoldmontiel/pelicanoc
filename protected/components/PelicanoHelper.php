@@ -747,22 +747,28 @@ class PelicanoHelper
 				$modelTmdb->api_key = $response->Configuration->tmdb_api_key; 
 				$modelTmdb->lang = $response->Configuration->tmdb_lang;
 				$modelTmdb->save();
-				SabnzbdConfig::model()->deleteAll();
-				foreach($response->Configuration->SabnzbdAccounts as $account)
+				if(isset($response->Configuration->SabnzbdAccounts))
 				{
-					$modelSabnzbdConfig = new SabnzbdConfig();
-					$modelSabnzbdConfig->setAttributesByArray($account);
-					$modelSabnzbdConfig->save();
+					SabnzbdConfig::model()->deleteAll();
+					foreach($response->Configuration->SabnzbdAccounts as $account)
+					{
+						$modelSabnzbdConfig = new SabnzbdConfig();
+						$modelSabnzbdConfig->setAttributesByArray($account);
+						$modelSabnzbdConfig->save();
+					}	
 				}
 				
-				foreach($response->Configuration->Players as $player)
+				if(isset($response->Configuration->Players))
 				{
-					$modelPlayer = Player::model()->findByPk($player->Id);
-					if(!isset($modelPlayer))
-						$modelPlayer = new Player();
-					$modelPlayer->setAttributesByArray($player);
-					$modelPlayer->Id_setting = 1;
-					$modelPlayer->save();
+					foreach($response->Configuration->Players as $player)
+					{
+						$modelPlayer = Player::model()->findByPk($player->Id);
+						if(!isset($modelPlayer))
+							$modelPlayer = new Player();
+						$modelPlayer->setAttributesByArray($player);
+						$modelPlayer->Id_setting = 1;
+						$modelPlayer->save();
+					}
 				}
 			}
 			
