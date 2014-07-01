@@ -231,7 +231,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 </div>
 <div class="editImagesButtons">   
 <a id="open-change-poster" data-toggle="modal"  class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Afiche</a>
-<a id="open-change-backdrop" data-toggle="modal" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Fondo</a>
+<!-- <a id="open-change-backdrop" data-toggle="modal" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Cambiar Fondo</a> -->
 </div>
 </div>
     <!-- /col-sm-3 -->
