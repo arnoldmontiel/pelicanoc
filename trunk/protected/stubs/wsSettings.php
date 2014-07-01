@@ -47,8 +47,6 @@ class PlayerSOAP
 class ConfigurationSOAP
 {	
 	public $sabnzb_api_key; //string;
-	public $sabnzb_api_url; //string;
-	public $sabnzb_pwd_file_path; //string;
 	public $path_sabnzbd_download; //string;
 	public $host_file_server; //string;
 	public $host_file_server_path; //string;
