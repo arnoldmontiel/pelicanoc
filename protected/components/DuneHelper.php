@@ -69,8 +69,12 @@ class DuneHelper
 		if(isset($setting->host_file_server_passwd) && $setting->host_file_server_passwd!="")
 			$userAndPass= $userAndPass.":".$setting->host_file_server_passwd;		
 		if(isset($setting->host_file_server_user) && $setting->host_file_server_user!="")
-			$userAndPass=$userAndPass."@";		
-		$url = $url . '//' . $userAndPass . $setting->host_file_server . $setting->host_file_server_path .$path;
+			$userAndPass=$userAndPass."@";
+		$sharedPath= $setting->host_file_server . $setting->host_file_server_path;
+		$sharedPath = preg_replace('#/+#','/',$sharedPath); //saco slash consecutivos
+		$sharedPath = ltrim($sharedPath, '/\\'); //saco primer slash
+		
+		$url = $url . '//' . $userAndPass . $sharedPath .$path;
 		//TODO: analizar el resultado e indicar si la reproducción se ha concretado.
 		@file_get_contents($url);
 		return true;

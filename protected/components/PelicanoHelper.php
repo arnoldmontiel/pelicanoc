@@ -1247,7 +1247,9 @@ class PelicanoHelper
 			//$4 password
 					
 			$spect =  $setting->host_file_server.$setting->host_file_server_path;
+			$spect = preg_replace('#/+#','/',$spect); //saco slash consecutivos					
 			$file =  $setting->path_shared;
+			$file = preg_replace('#/+#','/',$file); //saco slash consecutivos					
 			$username =  $setting->host_file_server_user;
 			$password =  $setting->host_file_server_passwd;
 			$params = $spect.' '.$file.' '.$username.' '.$password;
