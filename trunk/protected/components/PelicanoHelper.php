@@ -857,6 +857,15 @@ class PelicanoHelper
 		$old_nas_pwd != $settings->host_file_server_passwd
 		){
 			PelicanoHelper::changeFstab();
+			if(self::isAccessibleNasFolder())
+			{
+				$storageUsed = self::getNixStorageUsed($settings->path_shared);
+				if(($storageUsed['used']/$storageUsed['size']*100)>75)
+					self::saveSystemStatus(3,1);
+				else
+					self::saveSystemStatus(3,0);
+			}
+				
 		}
 		PelicanoHelper::changeSabnzbd($oldSettings);
 		return true;
