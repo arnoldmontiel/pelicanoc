@@ -1078,12 +1078,8 @@ class PelicanoHelper
 									
 							} catch (Exception $e) {
 								$transaction->rollback();
-								$modelCommandStatus->setBusy(false);
-								var_dump($e);
 							}
 						} catch (Exception $e) {
-							$modelCommandStatus->setBusy(false);
-							var_dump($e);
 						}
 					}
 						
@@ -1109,7 +1105,6 @@ class PelicanoHelper
 				}
 				catch (Exception $e) {
 					$modelCommandStatus->setBusy(false);
-					var_dump($e);						
 				}
 	
 			}			
