@@ -3563,8 +3563,69 @@ class SiteController extends Controller
 	public function actionAjaxInitializeOppo()
 	{
 		$players = Player::model()->findAllByAttributes(array('type'=>1));
-		foreach($players as $player)
+		foreach($players as $player){
+			echo "<div>";
+			echo "inicializando:".$player->description;
+			echo "</div>";
 			OppoHelper::isPlayerAlive($player);
+			$setting = Setting::getInstance();
+			$sharedPath=explode('/', trim($setting->host_file_server_path, '/'));
+			
+			$completePath="";
+			//si no pude darle play de una hago los tres pasos (login - montar - play)
+			//login to samba server
+			$params= array();
+			$params['serverName'] = $setting->host_file_server_name;
+			$params['userName'] = $setting->host_file_server_user;
+			$params['psssword'] = $setting->host_file_server_passwd;
+			$params['bRememberID'] = 1;
+			$retry = 0;
+			do
+			{
+				$url = $player->url .":436/loginSambaWithID?".json_encode($params);
+				$url = str_replace('&', '%26', $url);
+				$url = str_replace(' ', '%20', $url);
+				$response = @file_get_contents($url);
+				$retry++;
+				$response = json_decode($response);
+				if(isset($response)&&$response->success==false)
+					sleep ( 1 );			
+			}while(isset($response)&&$response->success==false&&$retry<10);
+			if(!isset($response)||!is_object($response)||$response->success!=true)
+			{
+				return false;
+			}
+			//sleep ( 2 );
+			
+			//mounting samba path
+			$params= array();
+			
+			$params['folder'] = $sharedPath[0];
+			
+			$params['userName'] = $setting->host_file_server_user;
+			$params['server'] = $setting->host_file_server_name;
+	
+			$params['bRememberID'] = 1;
+			$params['bWithID'] = 1;
+			$params['password'] = $setting->host_file_server_passwd;
+			$url = $player->url .":436/mountSharedFolder?".json_encode($params);
+			$retry = 0;
+			do
+			{
+				$url = str_replace('&', '%26', $url);
+				$url = str_replace(' ', '%20', $url);
+				$response = @file_get_contents($url);
+				$response = json_decode($response);
+				$retry++;
+				if(isset($response)&&$response->success==false)
+				sleep ( 1 );			
+			}while(isset($response)&&$response->success==false&&$retry<10);
+			
+			if(!isset($response)||!is_object($response)||$response->success!=true)
+			{
+				return false;
+			}				
+		}
 	}
 	
 }
