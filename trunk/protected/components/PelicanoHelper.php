@@ -492,7 +492,7 @@ class PelicanoHelper
 			$clientsettings->disc_used_space = $storageUsed['used'];
 			$clientsettings->disc_total_space = $storageUsed['size'];
 			$clientsettings->is_nas_alive = 1;
-			if(($clientsettings->disc_used_space/$clientsettings->disc_total_space*100)>75)
+			if(($clientsettings->disc_used_space/$clientsettings->disc_total_space*100)>80)
 				self::saveSystemStatus(3,1);
 			else
 				self::saveSystemStatus(3,0);
@@ -860,7 +860,7 @@ class PelicanoHelper
 			if(self::isAccessibleNasFolder())
 			{
 				$storageUsed = self::getNixStorageUsed($settings->path_shared);
-				if(($storageUsed['used']/$storageUsed['size']*100)>75)
+				if(($storageUsed['used']/$storageUsed['size']*100)>80)
 					self::saveSystemStatus(3,1);
 				else
 					self::saveSystemStatus(3,0);
