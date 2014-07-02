@@ -47,7 +47,6 @@ class PlayerSOAP
 class ConfigurationSOAP
 {	
 	public $sabnzb_api_key; //string;
-	public $path_sabnzbd_download; //string;
 	public $host_file_server; //string;
 	public $host_file_server_path; //string;
 	public $host_file_server_user; //string;
@@ -55,7 +54,6 @@ class ConfigurationSOAP
 	public $host_file_server_name; //string;
 	public $is_movie_tester; //integer;
 	public $host_name; //string;
-	public $path_shared; //string;
 	public $michael_jackson; //string;
 	public $tmdb_api_key; //string;
 	public $tmdb_lang; //string;
