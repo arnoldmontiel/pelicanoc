@@ -3560,4 +3560,11 @@ class SiteController extends Controller
 		);
 	}
 	
+	public function actionAjaxInitializeOppo()
+	{
+		$players = Player::model()->findAllByAttributes(array('type'=>1));
+		foreach($players as $player)
+			OppoHelper::isPlayerAlive($player);
+	}
+	
 }
