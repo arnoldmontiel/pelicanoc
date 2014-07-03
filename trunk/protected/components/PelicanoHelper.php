@@ -329,9 +329,9 @@ class PelicanoHelper
 		foreach($output as $item)
 		{
 			if(strpos($item, 'yiic') >= 0 && strpos($item, $processName) >= 0)
-				return true;
+				echo $item;
 		}
-		return false;
+		echo " NOOO ";
 	}
 	
 	static public function getNixDirSize($path) {
