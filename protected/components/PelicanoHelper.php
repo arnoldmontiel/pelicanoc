@@ -328,7 +328,7 @@ class PelicanoHelper
 		exec('ps aux | grep ' . $processName, $output);
 		foreach($output as $item)
 		{
-			if(strpos($item, 'yiic') >= 0 && strpos($item, $processName) >= 0)
+			if(strpos($item, 'yiic') !== false && strpos($item, $processName) !== false)
 				echo $item;
 		}
 		echo " NOOO ";
