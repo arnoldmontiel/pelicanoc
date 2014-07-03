@@ -91,6 +91,7 @@ class ClientSettingsRequest extends SOAP2Array
 	public $is_nas_alive; //integer;
 	public $disc_used_space; //string;
 	public $disc_total_space; //string;
+	public $version; //string;
 	public $ClientError; //ClientError[];
 }
 
