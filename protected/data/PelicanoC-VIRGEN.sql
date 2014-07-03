@@ -1617,6 +1617,7 @@ CREATE TABLE `setting` (
   `host_file_server_passwd` varchar(45) DEFAULT NULL COMMENT 'Password para acceder al NAS desde el Player',     
   `michael_jackson` varchar(256) DEFAULT NULL,
   `host_file_server_name` varchar(255) DEFAULT NULL COMMENT 'Es el nombre con el que se identifica el servidor SMB/NFS',
+  `version` varchar(45) DEFAULT NULL COMMENT 'version de instalacion',     
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1627,7 +1628,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',NULL,NULL,'http://localhost:8080/sabnzbd/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images','/media/NAS/','/pelicanos',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'/home/pelicano/passwords',NULL,'/pelicano','/copied','/ripped',"/media/NAS/",0,"","","","","");
+INSERT INTO `setting` VALUES (1,'./nzb',NULL,NULL,'http://localhost:8080/sabnzbd/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images','/media/NAS/','/pelicanos',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'/home/pelicano/passwords',NULL,'/pelicano','/copied','/ripped',"/media/NAS/",0,"","","","","","1.0");
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
