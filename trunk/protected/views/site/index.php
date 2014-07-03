@@ -130,7 +130,10 @@ function openMovieShowDetail(id, sourceType, idResource)
 	return false;	
 }
 </script>
-<?php PelicanoHelper::isProcessAlive("downloadnzbfiles");?>
+<?php if(PelicanoHelper::isProcessAlive("downloadnzbfiles"))
+		echo "vivoi";
+	else 
+		echo "caca";?>
 <div class="container needsclick" id="screenHome" >
     	 <div class="wrapper clearfix needsclick">
 			<div id="itemsContainer" role="main" class="clearfix centrado needsclick">

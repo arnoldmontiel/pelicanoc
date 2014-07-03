@@ -326,7 +326,12 @@ class PelicanoHelper
 	static public function isProcessAlive($processName)
 	{
 		exec('ps aux | grep ' . $processName, $output);
-		var_dump($output); 
+		foreach($output as $item)
+		{
+			if(strpos($item, 'yiic') >= 0 && strpos($item, $processName) >= 0)
+				return true;
+		}
+		return false;
 	}
 	
 	static public function getNixDirSize($path) {
