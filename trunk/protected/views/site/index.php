@@ -130,7 +130,7 @@ function openMovieShowDetail(id, sourceType, idResource)
 	return false;	
 }
 </script>
-<?php if(PelicanoHelper::isProcessAlive("downloadnzbfiles"))
+<?php if(PelicanoHelper::isProcessAlive("downloadnzbfiless"))
 		echo "vivoi";
 	else 
 		echo "caca";?>
