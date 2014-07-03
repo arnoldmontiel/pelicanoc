@@ -176,7 +176,10 @@ class NzbCommand extends CConsoleCommand  {
 						}						
 						$modelNzb->ready = 1;
 						$modelNzb->save();
-				
+
+						//envio el estado de los nzb al servidor
+						PelicanoHelper::sendPendingNzbStates();
+						
 						$transaction->commit();
 				
 					} catch (Exception $e) {
@@ -188,10 +191,7 @@ class NzbCommand extends CConsoleCommand  {
 			} 
 			catch (Exception $e) {
 				$modelCommandStatus->setBusy(false);
-			}
-
-			//envio el estado de los nzb al servidor
-			PelicanoHelper::sendPendingNzbStates();
+			}			
 		}
 	}
 	
