@@ -495,7 +495,8 @@ class PelicanoHelper
 		$clientsettings->port_v4 = $settings->port_v4;
 		$clientsettings->ip_v6 = $settings->ip_v6;
 		$clientsettings->port_v6 = $settings->port_v6;
-	
+		$clientsettings->version = $settings->version;
+		
 		$clientsettings->is_nas_alive = 0;
 		if(self::isAccessibleNasFolder())
 		{
