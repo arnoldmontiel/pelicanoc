@@ -6,29 +6,27 @@ docReady( function() {
   var container = document.querySelector('#itemsContainer');
 
   //variables para calcular columnas por fila de acuerdo al tama�o del viewport
-  var count = $("#itemsContainer").children().length;
+  var count = $("#itemsContainer").children().length-1;
   var viewport = $( window ).width();
   var sizer = $( '.grid-sizer' ).width()+10;
   var idealCols = parseInt(viewport/sizer);
   
-  var hasFitWidth = false;
-  //si el total es mayor al ideal, centramos, si no, no hay suficientes items a lo ancho y queda feo, entonces a la izquierda
-  //esto se deberia recalcular con los filtros y cambio en el tama�o de la pantalla (capaz es muy complejo)
-  if(count>idealCols){
-	//en este caso deberiamos armar isotope con el isFitWidth=true
-	  hasFitWidth = true;
-  }
-
-
+  var hasFitWidth = true;
+  
+  //si el total es menos al ideal vamos a tocar a mano el width para que no quede centrado.
+  //decidimos no hacerlo por que los filtros taparian las pelis. pero queda por las dudas comentado.
+  //if(count<idealCols){
+	//hasFitWidth = false;
+	//$("#itemsContainer").css("width", "300px");
+  //}
   
   var iso = window.iso = new Isotope( container, {
     transitionDuration: '0.8s',
   itemSelector: '.item',
-  layoutmode: 'sloppyMasonry',
   masonry: {
-    columnWidth: '.grid-sizer',
-    isFitWidth: hasFitWidth,
-    gutter: 10
+		isFitWidth: hasFitWidth ,
+	    columnWidth: '.grid-sizer',
+	    gutter: 10
   },  
   filter: function() {
       var isMatched = true;
@@ -40,7 +38,6 @@ docReady( function() {
     	      	  
     	  for ( var index = 0; index < filters[prop].length; index++ ) {
     	        var filter = filters[prop][ index ].key;
-
     	        if(prop == 'header' && filter == "*") //cuando filtra por todos
     	        	isMatched = true;
     	        else
