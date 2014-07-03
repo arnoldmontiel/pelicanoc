@@ -325,8 +325,8 @@ class PelicanoHelper
 	
 	static public function isProcessAlive($processName)
 	{
-		$output = exec('ps aux | grep ' . $processName);
-		echo $output; 
+		exec('ps aux | grep ' . $processName, $output);
+		var_dump($output); 
 	}
 	
 	static public function getNixDirSize($path) {
