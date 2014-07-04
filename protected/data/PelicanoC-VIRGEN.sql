@@ -1784,6 +1784,58 @@ INSERT INTO `transaction_type` VALUES (1,'Debito'),(2,'Credito');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `market_category`
+--
+
+DROP TABLE IF EXISTS `market_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `market_category` (
+  `Id` int(11) NOT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `hide` tinyint(4) DEFAULT '0',
+  `order` int(11) DEFAULT NULL COMMENT ' ',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `market_category`
+--
+
+LOCK TABLES `market_category` WRITE;
+/*!40000 ALTER TABLE `market_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `market_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `market_category_nzb`
+--
+
+DROP TABLE IF EXISTS `market_category_nzb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `market_category_nzb` (
+  `Id_market_category` int(11) NOT NULL,
+  `Id_nzb` int(11) NOT NULL,
+  PRIMARY KEY (`Id_market_category`,`Id_nzb`),
+  KEY `fk_market_category_has_nzb_nzb1_idx` (`Id_nzb`),
+  KEY `fk_market_category_has_nzb_market_category1_idx` (`Id_market_category`),
+  CONSTRAINT `fk_market_category_has_nzb_market_category1` FOREIGN KEY (`Id_market_category`) REFERENCES `market_category` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_market_category_has_nzb_nzb1` FOREIGN KEY (`Id_nzb`) REFERENCES `nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `market_category_nzb`
+--
+
+LOCK TABLES `market_category_nzb` WRITE;
+/*!40000 ALTER TABLE `market_category_nzb` DISABLE KEYS */;
+/*!40000 ALTER TABLE `market_category_nzb` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
