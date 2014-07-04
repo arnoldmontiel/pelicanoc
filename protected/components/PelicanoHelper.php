@@ -782,6 +782,28 @@ class PelicanoHelper
 						$modelPlayer->save();
 					}
 				}
+				if(isset($response->Configuration->MarketCategories))
+				{
+					MarketCategoryNzb::model()->deleteAll();
+					MarketCategory::model()->deleteAll();
+					foreach($response->Configuration->MarketCategories as $category)
+					{
+						$modelMarketCategory = new MarketCategory();
+						$modelMarketCategory->setAttributesByArray($category);
+						$modelMarketCategory->save();
+						if(isset($category->Nzbs))
+						{
+							foreach($category->Nzbs as $nzb)
+							{
+								$modelMarketCategoryNzb = new MarketCategoryNzb();
+								$modelMarketCategoryNzb->Id_market_category =$modelMarketCategory->Id;
+								$modelMarketCategoryNzb->Id_nzb =$nzb;
+								$modelMarketCategoryNzb->save();
+							}								
+						}
+					}
+				}
+				
 			}
 			
 			$settings->save();
