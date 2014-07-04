@@ -109,16 +109,27 @@ class SiteController extends Controller
 
 	}
 
-	public function actionMarketplace()
+	public function actionMarketplaceConColumnas()
 	{ 		
- 		$modelMarketplace = new Marketplace();
+ 		$modelMarketCategories = new MarketCategory();
  		
- 		$dataProvider= $modelMarketplace->search();
- 		$dataProvider->pagination->pageSize= 250;
+ 		$dataProvider= $modelMarketCategories->search();
+ 		$dataProvider->pagination->pageSize= 20;
  		
  		$this->render('marketplace',array(
  				'dataProvider'=>$dataProvider,
  		)); 		
+	}
+	public function actionMarketplace()
+	{
+		$modelMarketplace = new Marketplace();
+			
+		$dataProvider= $modelMarketplace->search();
+		$dataProvider->pagination->pageSize= 250;
+			
+		$this->render('marketplaceAll',array(
+				'dataProvider'=>$dataProvider,
+		));
 	}
 	
 	public function actionGoToDevices($idSelected)
