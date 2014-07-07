@@ -725,6 +725,12 @@ class PelicanoHelper
 		}
 	}
 	
+	static public function validateDeviceId($idDevice)
+	{	
+		$wsSettings = new wsSettings();
+		return $wsSettings->validateDeviceId($idDevice);
+	}
+	
 	static public function getCustomerSettings()
 	{
 		$settings = Setting::getInstance();

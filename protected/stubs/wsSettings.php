@@ -197,6 +197,15 @@ function __construct($url='http://localhost/workspace/PelicanoS')
 		}
 		return $result;
 	}
+	function validateDeviceId($idDevice)
+	{
+		$result = false;
+		if(isset($this->soapClient))
+		{
+			$result = $this->soapClient->validateDeviceId($idDevice);
+		}
+		return $result;
+	}
 }
 
 

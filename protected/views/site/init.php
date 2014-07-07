@@ -58,14 +58,31 @@ function setupAutomatic(object)
 		$("button").attr("disabled","disabled");
 		$("#Setting_Id_device").attr("disabled","disabled");
 		$(object).html('<i class="fa fa-spinner fa-spin"></i> Configurando...');
-		$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
+		$.post("<?php echo SiteController::createUrl('AjaxValidateDeviceId'); ?>",
 			{
 				idDevice:$("#Setting_Id_device").val()
 			}
 		).success(
 			function(data){
-				window.location = <?php echo '"'. SiteController::createUrl('index') . '"'; ?>;
-				return false;
+				if(data != '')
+				{
+					$(object).html('<i class="fa fa-spinner fa-spin"></i> Iniciando ' + data +' Configuracion...');
+					$.post("<?php echo SiteController::createUrl('AjaxSaveDeviceId'); ?>",
+							{
+								idDevice:value
+							}
+						).success(
+							function(data){
+								window.location = <?php echo '"'. SiteController::createUrl('Config') . '"'; ?>;
+								return false;
+							});
+						}
+				}
+				else
+				{
+					$(object).html('<i class="fa fa-spinner fa-spin"></i> El Id device no existe. Intente con otro');
+					$("button").removeAttr("disabled");
+				}				
 			});
 	}
 	else

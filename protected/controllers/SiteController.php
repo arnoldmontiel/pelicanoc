@@ -96,6 +96,11 @@ class SiteController extends Controller
 		
 	}
 	
+	public function actionAjaxValidateDeviceId()
+	{
+		echo PelicanoHelper::validateDeviceId($_POST['idDevice']);
+	}
+	
 	public function actionIndexSerie()
 	{
 
