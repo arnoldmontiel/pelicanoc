@@ -80,8 +80,9 @@ function setupAutomatic(object)
 					}
 					else
 					{
-						$(object).html('<i class="fa fa-spinner fa-spin"></i> El Id device no existe. Intente con otro');
+						$(object).html('El Id device no existe. Intente con otro');
 						$("button").removeAttr("disabled");
+						$("#Setting_Id_device").removeAttr("disabled");
 					}	
 				});
 	}
