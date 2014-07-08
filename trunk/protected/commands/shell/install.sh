@@ -45,7 +45,7 @@ echo " ---------------------- "
 
 wget http://download.virtualbox.org/virtualbox/4.3.12/virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
 dpkg -i virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
-apt-get -f install
+apt-get  --yes --force-yes -f install
 wget http://download.virtualbox.org/virtualbox/4.3.12/Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
 VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
 echo VBOXWEB_USER=pelicano> /etc/default/virtualbox
