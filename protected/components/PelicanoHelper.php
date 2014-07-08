@@ -1119,7 +1119,7 @@ class PelicanoHelper
 				$countReady = Nzb::model()->countByAttributes(array('ready'=>0));
 				$sys = strtoupper(PHP_OS);
 			
-				if($countReady>0)
+				if($countReady>0&&!self::isProcessAlive($_COMMAND_NAME))
 				{
 					if(substr($sys,0,3) == "WIN")
 					{
@@ -1327,7 +1327,7 @@ class PelicanoHelper
 				$from = dirname(__FILE__)."/../../".$setting->path_pending."/";
 				$to =  dirname(__FILE__)."/../../".$setting->path_ready."/";
 				$params = $from.' '.$to.' '.$fileName.' '.$setting->sabnzb_pwd_file_path;
-				exec(dirname(__FILE__).'/../commands/shell/startDownload.sh '.$params,$output,$return);
+				exec('sudo '.dirname(__FILE__).'/../commands/shell/startDownload.sh '.$params,$output,$return);
 				$nzb->has_error = 0;
 				$nzb->downloaded = 0;
 				$nzb->downloading = 1;
