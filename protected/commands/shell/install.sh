@@ -58,6 +58,12 @@ cp /var/www/pelicano/protected/config/visudo.tmp /etc/sudoers
 cp /var/www/pelicano/protected/config/sabnzbdplus /etc/default/sabnzbdplus
 service sabnzbdplus start 
 echo " ---------------------- "
+echo " Creando ssh key "
+echo " ---------------------- "
+
+sudo -u pelicano ssh-keygen -f /home/pelicano/.ssh/id_rsa -N ""
+
+echo " ---------------------- "
 echo " Instalacion finalizada "
 echo " ---------------------- "
 cat /home/pelicano/.sabnzbd/sabnzbd.ini|grep "api_key" |grep -v "disable"
