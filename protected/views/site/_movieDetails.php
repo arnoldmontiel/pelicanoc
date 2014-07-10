@@ -338,6 +338,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 		);
 	function verifyPlayer()
 	{
+		$("#verifying-player").html('<i class="fa fa-spinner fa-spin"></i> Verificando palyer...');
 		$("#verifying-player").show();
 		$("#btn-play").attr('disabled','disabled');
 		$.post("<?php echo SiteController::createUrl('AjaxGetPlayerStatus'); ?>",
@@ -349,7 +350,11 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 						obj = jQuery.parseJSON(data);
 						if(obj.powerOff == "1")
 						{
-							$("#verifying-player").html("Player fuera de servicio."); 
+							$("#verifying-player").html("Player fuera de servicio.");
+							setTimeout(		
+						 			'verifyPlayer()'
+						 		, 10000);	
+												 
 						}
 						else
 						{
@@ -358,7 +363,10 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 						}
 						 
 				}).error(function(data){
-						$("#verifying-player").html("Player fuera de servicio."); 
+						$("#verifying-player").html("Player fuera de servicio.");
+						setTimeout(		
+					 			'verifyPlayer()'
+					 		, 10000);						 
 				});
 		
 	}
@@ -467,6 +475,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	});
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");
+		$("#btn-play").html('<i class="fa fa-spinner fa-spin"></i> Ver Pel&iacute;cula');									
 		<?php
 		if(count($players)==1)
 		{
@@ -488,11 +497,13 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 							    	idResource:'<?php echo $idResource; ?>'
 								};
 								window.location = "<?php echo SiteController::createUrl('site/startByPlayer'); ?>&"+$.param( params );
-						}else
+						}
+						else
 						{
 							$("#myModal").modal("hide");
 							$("#myModalAlerta").modal("show");
-													
+							$("#btn-play").html("disabled");	
+							$("#btn-play").html('<i class="fa fa-play-circle"></i> Ver Pel&iacute;cula');
 						}
 					
 				});
