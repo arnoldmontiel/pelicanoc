@@ -287,12 +287,12 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     	<div class="labelDescargando pull-left"><i class="fa fa-spinner fa-spin"></i> Descargando...</div>
     	<?php else:?>
 		    <div id="verifying-player" class="labelDescargando pull-left" style="display: none">
-		    	<i class="fa fa-spinner fa-spin"></i> Verificando palyer...
+		    	<i class="fa fa-spinner fa-spin"></i> Verificando player...
 		    </div>    	
     	<?php endif?>
     <?php else:?>
 	    <div id="verifying-player" class="labelDescargando pull-left"  style="display: none">
-	    	<i class="fa fa-spinner fa-spin"></i> Verificando palyer...
+	    	<i class="fa fa-spinner fa-spin"></i> Verificando player...
 	    </div>    	
     <?php endif?>
     
@@ -338,7 +338,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 		);
 	function verifyPlayer()
 	{
-		$("#verifying-player").html('<i class="fa fa-spinner fa-spin"></i> Verificando palyer...');
+		$("#verifying-player").html('<i class="fa fa-spinner fa-spin"></i> Verificando player...');
 		$("#verifying-player").show();
 		$("#btn-play").attr('disabled','disabled');
 		$.post("<?php echo SiteController::createUrl('AjaxGetPlayerStatus'); ?>",
