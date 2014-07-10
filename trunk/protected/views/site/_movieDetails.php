@@ -371,7 +371,14 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 		
 	}
   	<?php if(count($players)==1):?>
-		verifyPlayer();
+
+		<?php if(isset($modelNzb)):?>    
+			<?php if($modelNzb->ready_to_play):?>
+				verifyPlayer();
+			<?php endif?>
+		<?php else:?>
+			verifyPlayer();
+		<?php endif?>
 	<?php endif;?>
 	
   function borrar()
