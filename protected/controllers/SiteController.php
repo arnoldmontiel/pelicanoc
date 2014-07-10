@@ -114,7 +114,7 @@ class SiteController extends Controller
 
 	}
 
-	public function actionMarketplaceConColumnas()
+	public function actionMarketplaceCategory()
 	{ 		
  		$modelMarketCategories = new MarketCategory();
  		
