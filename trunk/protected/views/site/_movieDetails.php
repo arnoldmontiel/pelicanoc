@@ -1,6 +1,9 @@
  <div class="modal-dialog modalDetail">
         <div class="modal-content">
-   <?php 
+   <?php
+		$setting = Setting::getInstance();
+   		$players =$setting->players;
+    
    		$idResource = "";		
 		$size = 0;
 		$path = "";
@@ -279,11 +282,20 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     </div><!--/.modal-body -->
     <div class="modal-footer">
-    <?php if(isset($modelNzb)):?>
+    <?php if(isset($modelNzb)):?>    
     	<?php if(!$modelNzb->ready_to_play&&($modelNzb->downloaded||$modelNzb->downloading)):?>
     	<div class="labelDescargando pull-left"><i class="fa fa-spinner fa-spin"></i> Descargando...</div>
+    	<?php else:?>
+		    <div id="verifying-player" class="labelDescargando pull-left" style="display: none">
+		    	<i class="fa fa-spinner fa-spin"></i> Verificando palyer...
+		    </div>    	
     	<?php endif?>
+    <?php else:?>
+	    <div id="verifying-player" class="labelDescargando pull-left"  style="display: none">
+	    	<i class="fa fa-spinner fa-spin"></i> Verificando palyer...
+	    </div>    	
     <?php endif?>
+    
   <!-- Single button -->
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
     <?php if(isset($modelNzb)):?>
@@ -291,7 +303,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     		<button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
     	<?php else:?>
     		<?php if($modelNzb->downloaded||$modelNzb->downloading):?>
-	  			<button NOVAonclick="cancelDownloading(<?php echo $modelNzb->Id?>)" id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg">
+	  			<button onclick="cancelDownloading(<?php echo $modelNzb->Id?>)" id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg">
 	    		<i class="fa fa-times-circle"></i> Cancelar</button>
     		<?php else:?>
     			<button id="btn-download" type="button" class="btn btn-primary btn-lg">
@@ -307,7 +319,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     </div><!--/.modal-dialog -->
 
 		  	
-  <script>
+  <script>							
+  
 	$("#myModalElegirPlayer").on('hidden.bs.modal',
 			function(e)
 			{
@@ -322,7 +335,36 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 				$("#btn-play").removeAttr("disabled");
 				$("#myModal").modal('show');
 			}
-		);						
+		);
+	function verifyPlayer()
+	{
+		$("#verifying-player").show();
+		$("#btn-play").attr('disabled','disabled');
+		$.post("<?php echo SiteController::createUrl('AjaxGetPlayerStatus'); ?>",
+				{
+					idPlayer:<?php echo $players[0]->Id; ?>
+				}
+				).success(
+					function(data){
+						obj = jQuery.parseJSON(data);
+						if(obj.powerOff == "1")
+						{
+							$("#verifying-player").html("Player fuera de servicio."); 
+						}
+						else
+						{
+							$("#verifying-player").hide();
+							$("#btn-play").removeAttr('disabled');
+						}
+						 
+				}).error(function(data){
+						$("#verifying-player").html("Player fuera de servicio."); 
+				});
+		
+	}
+  	<?php if(count($players)==1):?>
+		verifyPlayer();
+	<?php endif;?>
 	
   function borrar()
   {
@@ -426,8 +468,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");
 		<?php
-		$setting = Setting::getInstance();
-		if(count($setting->players)==1)
+		if(count($players)==1)
 		{
 		?>
 
