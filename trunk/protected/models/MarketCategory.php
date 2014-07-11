@@ -84,7 +84,7 @@ class MarketCategory extends CActiveRecord
 
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('hide',$this->hide);
+		$criteria->compare('hide',0);
 		$criteria->compare('order',$this->order);
 		$criteria->order="t.order";
 
