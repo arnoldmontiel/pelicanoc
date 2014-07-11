@@ -790,10 +790,13 @@ class PelicanoHelper
 				}
 				if(isset($response->Configuration->MarketCategories))
 				{
-					MarketCategory::model()->deleteAll();
 					foreach($response->Configuration->MarketCategories as $category)
 					{
-						$modelMarketCategory = new MarketCategory();
+						$modelMarketCategory = MarketCategory::model()->findByPk($category->Id);
+						if(!isset($modelMarketCategory))
+						{
+							$modelMarketCategory = new MarketCategory();
+						}
 						$modelMarketCategory->setAttributesByArray($category);
 						$modelMarketCategory->save();
 					}
