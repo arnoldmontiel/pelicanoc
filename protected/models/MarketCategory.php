@@ -21,7 +21,15 @@ class MarketCategory extends CActiveRecord
 	{
 		return 'market_category';
 	}
-
+	public function setAttributesByArray($array)
+	{
+		$attributesArray = get_object_vars($array);
+		while (($value = current($attributesArray)) !== false) {
+			$this->setAttribute(key($attributesArray), $value);
+			next($attributesArray);
+		}
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
