@@ -10,6 +10,7 @@
 		    <?php
     			foreach($data->nzbs as $nzb)
     			{
+    				if($nzb->ready==0)	continue;
 					$modelSource = $nzb;
 					if(!isset($modelSource->myMovieDiscNzb)) continue;
 					$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
