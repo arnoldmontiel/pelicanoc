@@ -801,6 +801,8 @@ class PelicanoHelper
 						{
 							foreach($category->Nzbs as $nzb)
 							{
+								$nzbModel = Nzb::model()->findByPk($nzb);
+								if(!isset($nzbModel))	continue;
 								$modelMarketCategoryNzb = new MarketCategoryNzb();
 								$modelMarketCategoryNzb->Id_market_category =$modelMarketCategory->Id;
 								$modelMarketCategoryNzb->Id_nzb =$nzb;
