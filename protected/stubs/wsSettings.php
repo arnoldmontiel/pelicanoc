@@ -67,7 +67,6 @@ class ConfigurationSOAP
 	public $tmdb_lang; //string;
 	public $SabnzbdAccounts; //SabnzbdAccountSOAP[];
 	public $Players; //PlayerSOAP[];	
-	public $MarketCategories; //MarketCategorySOAP[]
 }
 
 class CustomerSettingsResponse
