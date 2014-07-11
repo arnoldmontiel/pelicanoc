@@ -29,7 +29,17 @@ function openMovieShowDetail(id, sourceType, idResource)
 				$nzbs= $data->nzbs;
 				if(count($nzbs)>0)
 				{
-					echo $this->renderPartial('_viewMarketCategory',array('data'=>$data));
+					foreach ($nzbs as $nzb)
+					{
+						//si al menos un nzb esta ready, muestro la categoria
+						//y salgo del loop para pasar a la siguente
+						if($nzb->ready)
+						{
+							echo $this->renderPartial('_viewMarketCategory',array('data'=>$data));
+							break;						
+						}
+					}
+					
 				} 
 			}
 		?>	
