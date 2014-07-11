@@ -1151,74 +1151,31 @@ a.peliAfiche {cursor:pointer;
 /* -------- END ISOTOPE ------------ */
 
 /* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
-.modal {
-	z-index: 1070;
-}
-.modal-title {
-	font-size: 1.6em;
-	color: #666;
-}
+.modal {	z-index: 1070;}
+.modal-title {	font-size: 1.6em;	color: #666;}
+.modal-header {	padding: 9px 15px;}
+.modal-header .close {	padding: 0px;	margin-top: 0px;	line-height: 34px;}
+.modal-footer {	padding: 9px 15px;}
+.modal-body { /*overflow:hidden;*/}
+.modal-backdrop {	z-index: 1065;}
 
-.modal-header {
-	padding: 9px 15px;
-}
+.ratingStars {	color: orange;	display: inline-block;}
+.ratingStars i {	margin-left: 1px;	font-size: 16px;}
 
-.modal-header .close {
-	padding: 0px;
-	margin-top: 0px;
-	line-height: 34px;
-}
+.nav-tabs {	margin-bottom: 0px !important;	margin-left: 0px !important;}
 
-.modal-footer {
-	padding: 9px 15px;
-}
+.modalDetail {	width: 85%;}
+.modalDetail table button {	margin-top: -3px;}
 
-.modal-body { /*overflow:hidden;*/
-	
-}
-
-.modal-backdrop {
-	z-index: 1065;
-}
-
-.ratingStars {
-	color: orange;
-	display: inline-block;
-}
-
-.ratingStars i {
-	margin-left: 1px;
-	font-size: 16px;
-}
-
-.nav-tabs {
-	margin-bottom: 0px !important;
-	margin-left: 0px !important;
-}
-
-.modalDetail {
-	width: 85%;
-}
-.modalDetail table button {
-	margin-top: -3px;
-}
-
-.modalDetail .table tbody>tr>td {
-	padding: 0px 8px;
-	/*line-height: 45px;*/
-}
+.modalDetail .table tbody>tr>td {	padding: 0px 8px;	/*line-height: 45px;*/}
 .modalDetail .alert{margin:15px;}
 .modalDetail .table.tablaIndividual{margin-bottom:20px; border-bottom:1px solid #F3F3F3;}
 .alert h4{font-size:18px; font-family:'GudeaBold';}
 .alert .fa-ul i{line-height:20px;}
 
-.modalDetail .modal-body .row {
-	line-height: 26px;
-}
+.modalDetail .modal-body .row {	line-height: 26px;}
 
-.modalDetail .modal-body .row.detailSummary {
-	line-height: 20px;
-}
+.modalDetail .modal-body .row.detailSummary {	line-height: 20px;}
 
 .aficheDetail { /*height:100% !important;*/
 	height: auto !important;
@@ -1972,9 +1929,7 @@ color:white; line-height:40px; padding-right:45px;
 /*---------- END BOOKMARKS -------------*/
 
 /*---------- EDIT PELICULA -------------*/
-.editAfiche {
-	text-align: center;
-}
+.editAfiche {	text-align: center;}
 
 .editAfiche .peliAfiche {
 	width: 100%;
