@@ -87,7 +87,7 @@
 						<li id="li-serie"><a href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a></li>
 						-->
 						<li id="li-marketplace"><a
-						href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a></li>
+						href="<?php echo SiteController::createUrl('site/marketplaceCategory') ?>">Marketplace</a></li>
 						<li id="li-download"><a
 						href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando
 						<span id="downloadingQty"
@@ -162,7 +162,7 @@
 				{
 					echo "Mis Series";					
 				}
-				elseif($this->action->Id=="marketplace")
+				elseif($this->action->Id=="marketplace"||$this->action->Id=="marketplaceCategory")
 				{
 					$toggleId = 'toggleMarketplace';
 					echo "Marketplace";
@@ -205,7 +205,24 @@
     		</ul>
   		</div>
 	</div>
-	<div class="nav navbar-nav navbar-left hidden">
+  <?php elseif($this->action->Id=="marketplaceCategory"):?>
+	<div class="nav navbar-nav navbar-left">
+		<div class="btn-group">
+		    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
+      			Por categorias
+      			<span class="caret"></span>
+    		</button>
+    		<ul class="dropdown-menu" role="menu">
+      			<li id="market">
+      				<a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Todas las Peliculas</a>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+  <?php endif?>
+  
+  <?php if($this->action->Id!="marketplaceCategory"):?>	
+  <div class="nav navbar-nav navbar-left hidden">
 		    <!-- Comentado para Pelicano Lite #####
 		    	<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
 					<li class="generoItem active"><a href="#" data-filter="*">Pel&iacute;culas</a></li>
@@ -228,20 +245,7 @@
 			</form>
 			
 			<div id="filter-summary" class="filterDesc">Sin filtro</div>
-  <?php elseif($this->action->Id=="marketplaceCategory"):?>
-	<div class="nav navbar-nav navbar-left">
-		<div class="btn-group">
-		    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
-      			Por categorias
-      			<span class="caret"></span>
-    		</button>
-    		<ul class="dropdown-menu" role="menu">
-      			<li id="market">
-      				<a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Todas las Peliculas</a>
-      			</li>
-    		</ul>
-  		</div>
-	</div>
+  
   <?php endif?>
 		</div><!-- /container-fluid -->
 	</nav>
