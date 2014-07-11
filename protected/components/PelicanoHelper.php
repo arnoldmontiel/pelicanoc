@@ -1097,9 +1097,9 @@ class PelicanoHelper
 							$modelNzb->save();
 							
 							MarketCategoryNzb::model()->deleteAllByAttributes(array('Id_nzb'=>$modelNzb->Id));
-							if(isset($item->marketCategories))
+							if(isset($item->MarketCategories))
 							{
-								foreach($item->marketCategories as $categoryId)
+								foreach($item->MarketCategories as $categoryId)
 								{
 									$modelMarketCategoryNzb = new MarketCategoryNzb();
 									$modelMarketCategoryNzb->Id_market_category =$categoryId;
