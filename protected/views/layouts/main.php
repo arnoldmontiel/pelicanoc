@@ -294,6 +294,16 @@ $(document).ready(function(){
 		});
 	
 
+	$('#dropdown-more li a').click(function(){
+		if($(this).attr('onclick')!=null)	return true;
+		window.location = $(this).attr('href');
+		return false;
+	});
+
+	$('#market a').click(function(){
+		window.location = $(this).attr('href');
+		return false;
+	});
 	$('#nav a').click(function(){
 		window.location = $(this).attr('href');
 		return false;

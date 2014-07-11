@@ -6,7 +6,7 @@
 <!-- Comentado para Pelicano Lite #####
 <a id="mobile-serie" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a>
 -->
-<a id="mobile-marketplace" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/marketplace') ?>">Marketplace</a>
+<a id="mobile-marketplace" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/marketplaceCategory') ?>">Marketplace</a>
 <a id="mobile-download" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/downloads') ?>">Descargando
 <span id="downloadingQty"
 			class="badge downloadingQty"></span></a>
@@ -118,7 +118,7 @@
 							?> 
 							</span>
 							<i class="fa fa-caret-down fa-fw"></i></a>
-						<ul class="dropdown-menu">
+						<ul id="dropdown-more" class="dropdown-menu">
 							<!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
 							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
 									Consumos</a></li> -->
@@ -190,18 +190,22 @@
 <!-- /////////MENU SECUNDARIO///////// -->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="menuSecond">
 		<div class="container-fluid">
-		<div class="nav navbar-nav navbar-left">
+	
+	<?php  if($this->action->Id=="marketplace"):?>
+	<div class="nav navbar-nav navbar-left">
 		<div class="btn-group">
-    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
-      Todas las Peliculas
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="#">Por categorias</a></li>
-    </ul>
-  </div>
-  </div> 
-		<div class="nav navbar-nav navbar-left hidden">
+		    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
+      			Todas las Peliculas
+      			<span class="caret"></span>
+    		</button>
+    		<ul class="dropdown-menu" role="menu">
+      			<li id="market">
+      				<a href="<?php echo SiteController::createUrl('site/marketplaceCategory') ?>">Por categorias</a>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+	<div class="nav navbar-nav navbar-left hidden">
 		    <!-- Comentado para Pelicano Lite #####
 		    	<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
 					<li class="generoItem active"><a href="#" data-filter="*">Pel&iacute;culas</a></li>
@@ -224,8 +228,21 @@
 			</form>
 			
 			<div id="filter-summary" class="filterDesc">Sin filtro</div>
-			
-			
+  <?php elseif($this->action->Id=="marketplaceCategory"):?>
+	<div class="nav navbar-nav navbar-left">
+		<div class="btn-group">
+		    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
+      			Por categorias
+      			<span class="caret"></span>
+    		</button>
+    		<ul class="dropdown-menu" role="menu">
+      			<li id="market">
+      				<a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Todas las Peliculas</a>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+  <?php endif?>
 		</div><!-- /container-fluid -->
 	</nav>
 <?php endif; ?>
