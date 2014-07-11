@@ -886,8 +886,8 @@ class PelicanoHelper
 		RipperHelper::checkForAnyDvdUpdate();
 		PelicanoHelper::sincronizeWithServer();
 		PelicanoHelper::sendClientSettings();
-		PelicanoHelper::getCustomerSettings();
 		PelicanoHelper::updateNzbDataFromServer();
+		PelicanoHelper::getCustomerSettings();
 		
 		$settings = Setting::model()->findByPk(1);
 				
