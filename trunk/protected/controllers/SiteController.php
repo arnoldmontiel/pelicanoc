@@ -2449,14 +2449,15 @@ class SiteController extends Controller
 				$first = true;
 				foreach($genres as $genre)
 				{
+					$genreVal = trim($genre->name);
 					if($first)
 					{
 						$first = false;
-						$myMovie->genre = $genre->name;
+						$myMovie->genre = $genreVal;
 					}
 					else
 					{
-						$myMovie->genre = $myMovie->genre.", ".$genre->name;
+						$myMovie->genre = $myMovie->genre.", ".$genreVal;
 					}
 				}
 		
@@ -2606,14 +2607,15 @@ class SiteController extends Controller
 				$first = true;
 				foreach($genres as $genre)
 				{
+					$genreVal = trim($genre->name);
 					if($first)
 					{
 						$first = false;
-						$myMovie->genre = $genre->name;
+						$myMovie->genre = $genreVal;
 					}
 					else
 					{
-						$myMovie->genre = $myMovie->genre.", ".$genre->name;
+						$myMovie->genre = $myMovie->genre.", ".$genreVal;
 					}
 				}
 
@@ -2869,14 +2871,15 @@ class SiteController extends Controller
 				$first = true;
 				foreach($genres as $genre)
 				{
+					$genreVal = trim($genre);
 					if($first)
 					{
 						$first = false;
-						$myMovie->genre = $genre;
+						$myMovie->genre = $genreVal;
 					}
 					else
 					{
-						$myMovie->genre = $myMovie->genre.", ".$genre;
+						$myMovie->genre = $myMovie->genre.", ".$genreVal;
 					}
 				}
 
@@ -3211,14 +3214,15 @@ class SiteController extends Controller
 				$first = true;
 				foreach($genres as $genre)
 				{
+					$genreVal = trim($genre);
 					if($first)
 					{
 						$first = false;
-						$myMovie->genre = $genre;
+						$myMovie->genre = $genreVal;
 					}
 					else
 					{
-						$myMovie->genre = $myMovie->genre.", ".$genre;
+						$myMovie->genre = $myMovie->genre.", ".$genreVal;
 					}
 				}
 				if($myMovie->Id_parental_control != 0)
