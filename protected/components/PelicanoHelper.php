@@ -790,25 +790,12 @@ class PelicanoHelper
 				}
 				if(isset($response->Configuration->MarketCategories))
 				{
-					MarketCategoryNzb::model()->deleteAll();
 					MarketCategory::model()->deleteAll();
 					foreach($response->Configuration->MarketCategories as $category)
 					{
 						$modelMarketCategory = new MarketCategory();
 						$modelMarketCategory->setAttributesByArray($category);
 						$modelMarketCategory->save();
-						if(isset($category->Nzbs))
-						{
-							foreach($category->Nzbs as $nzb)
-							{
-								$nzbModel = Nzb::model()->findByPk($nzb);
-								if(!isset($nzbModel))	continue;
-								$modelMarketCategoryNzb = new MarketCategoryNzb();
-								$modelMarketCategoryNzb->Id_market_category =$modelMarketCategory->Id;
-								$modelMarketCategoryNzb->Id_nzb =$nzb;
-								$modelMarketCategoryNzb->save();
-							}								
-						}
 					}
 				}
 				
@@ -886,8 +873,8 @@ class PelicanoHelper
 		RipperHelper::checkForAnyDvdUpdate();
 		PelicanoHelper::sincronizeWithServer();
 		PelicanoHelper::sendClientSettings();
-		PelicanoHelper::updateNzbDataFromServer();
 		PelicanoHelper::getCustomerSettings();
+		PelicanoHelper::updateNzbDataFromServer();
 		
 		$settings = Setting::model()->findByPk(1);
 				
@@ -958,7 +945,7 @@ class PelicanoHelper
 						}
 						$modelNzb->setAttributesByArray($item->nzb);
 							
-						if(!isset($item->Id_nzb)) //solo si es Padre
+						if(!isset($item->nzb->Id_nzb)) //solo si es Padre
 						{
 							if($item->nzb->deleted)
 							{
@@ -1108,6 +1095,19 @@ class PelicanoHelper
 							$modelNzb->sent = 0;
 								
 							$modelNzb->save();
+							
+							MarketCategoryNzb::model()->deleteAllByAttributes(array('Id_nzb'=>$modelNzb->Id));
+							if(isset($item->marketCategories))
+							{
+								foreach($item->marketCategories as $categoryId)
+								{
+									$modelMarketCategoryNzb = new MarketCategoryNzb();
+									$modelMarketCategoryNzb->Id_market_category =$categoryId;
+									$modelMarketCategoryNzb->Id_nzb =$modelNzb->Id;
+									$modelMarketCategoryNzb->save();
+								}
+							}
+								
 			
 							$transaction->commit();
 								
