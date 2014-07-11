@@ -190,6 +190,17 @@
 <!-- /////////MENU SECUNDARIO///////// -->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="menuSecond">
 		<div class="container-fluid">
+		<div class="nav navbar-nav navbar-left">
+		<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
+      Todas las Peliculas
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">Por categorias</a></li>
+    </ul>
+  </div>
+  </div> 
 		<div class="nav navbar-nav navbar-left hidden">
 		    <!-- Comentado para Pelicano Lite #####
 		    	<ul id="filtroGenero" class="nav nav-pills hidden-xs hidden-sm">
@@ -212,7 +223,7 @@
 				</div>
 			</form>
 			
-			<div id="filter-summary" class="filterDesc">Todas las Peliculas</div>
+			<div id="filter-summary" class="filterDesc">Sin filtro</div>
 			
 			
 		</div><!-- /container-fluid -->

@@ -779,6 +779,10 @@ color: #999;}
 .dropdownAlert ul{ margin:15px 0px;}
 .dropdownAlert ul li{ border-color:white !important;}
 
+#menuSecond .navbar-form.navbar-right{padding-right:0px;}
+
+.marketAlternateBtn{margin-right:5px;}
+
 /* ------ END MENU ------- */
 
 /* ------ MOBILE MENU ------- */
