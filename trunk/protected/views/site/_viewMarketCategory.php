@@ -38,8 +38,8 @@
 						echo $shortTitle;
 						echo CHtml::closeTag("p");
 						?>
-							<div class="ribMisPeliculas needsclick" id="downloaded_<?php echo $nzb->Id; ?>" <?php echo ($nzb->downloaded)?"":"style='display:none'";?>><i class="fa fa-check-circle"></i></div>
-							<div class="ribDescargando needsclick" id="downloading_<?php echo $nzb->Id; ?>" <?php echo ($nzb->downloading)?"":"style='display:none'";?>><i class="fa fa-spinner fa-spin fa-sm" ></i> <i class="fa fa-download" ></i></div>						
+							<div class="ribMisPeliculas needsclick downloaded_<?php echo $nzb->Id; ?>" id="downloaded_<?php echo $nzb->Id; ?>" <?php echo ($nzb->downloaded)?"":"style='display:none'";?>><i class="fa fa-check-circle"></i></div>
+							<div class="ribDescargando needsclick downloading_<?php echo $nzb->Id; ?>" id="downloading_<?php echo $nzb->Id; ?>" <?php echo ($nzb->downloading)?"":"style='display:none'";?>><i class="fa fa-spinner fa-spin fa-sm" ></i> <i class="fa fa-download" ></i></div>						
 						<?php 
 					echo CHtml::closeTag("div");    				
     				echo CHtml::closeTag("li");		    				
