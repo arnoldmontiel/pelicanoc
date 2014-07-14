@@ -26,7 +26,7 @@ docReady( function() {
   masonry: {
 	isFitWidth: hasFitWidth ,
     columnWidth: '.grid-sizer',
-    gutter: 10
+    gutter: 20
   },  
   filter: function() {
       var isMatched = true;
