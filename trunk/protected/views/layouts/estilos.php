@@ -1829,7 +1829,9 @@ text-align:center;
  top:45%; margin-top:-60px;
 text-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
-.frente .btn{ margin-top:120px;}
+.frente .btn{ position: absolute;
+bottom: -144px;
+right: 8px;}
 
 .fallo{width:180px; height:40px;
 text-transform:uppercase; letter-spacing:1px; color:white; font-size:18px; 
