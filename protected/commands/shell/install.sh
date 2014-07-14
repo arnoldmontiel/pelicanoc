@@ -36,6 +36,7 @@ rm pelicanoCrontab
 
 crontab -u root -l > rootCrontab
 echo "*/10 * * * * /var/www/pelicano/protected/commands/shell/heartBeat.sh">>rootCrontab
+echo "*/30 * * * * /var/www/pelicano/protected/commands/shell/update.sh">>rootCrontab
 crontab -u root rootCrontab
 rm rootCrontab
 
