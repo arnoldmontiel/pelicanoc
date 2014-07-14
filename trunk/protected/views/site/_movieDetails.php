@@ -303,8 +303,13 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     		<button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
     	<?php else:?>
     		<?php if($modelNzb->downloaded||$modelNzb->downloading):?>
-	  			<button id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg">
-	    		<i class="fa fa-times-circle"></i> Cancelar</button>
+    			<?php if(isset($modelNzb->sabnzbd_id)):?>
+	  				<button id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg">
+	    			<i class="fa fa-times-circle"></i> Cancelar</button>
+    			<?php else:?>
+	  				<button id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg" disabled="disabled">
+	    			<i class="fa fa-spinner fa-spin"></i> Iniciando</button>
+    			<?php endif?>
     		<?php else:?>
     			<button id="btn-download" type="button" class="btn btn-primary btn-lg">
 	    		<i class="fa fa-download"></i> Descargar</button>
