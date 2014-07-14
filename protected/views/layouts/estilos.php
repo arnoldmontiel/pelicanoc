@@ -131,6 +131,8 @@ body {
 	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
  height:100%;
+ 
+ 
 		}
 
 
@@ -505,7 +507,9 @@ ul.nav {
 	border-top: 5px solid #26ada1;
 	height: 55px;
 	z-index: 1060;
+	
 }
+.navbar-default .container-fluid{background-color:#f8f8f8;}
 
 #pushMain .mobileMenuItem.active{background-color:#e7e7e7;}
 
@@ -1086,6 +1090,10 @@ z-index:200;
 
 .flexslider .liSlider {
 	width: 180px !important;
+}
+
+.flexslider .liSlider .knob, .flexslider .liSlider input{
+cursor:pointer;
 }
 
 .ribbon .ribbonTxt {
@@ -2337,7 +2345,6 @@ float: left;
 #menuSecond .navbar-form{padding: 10px 15px;
 padding-top:8px;
 margin-top: 0px;
-margin-right: -15px;
 margin-bottom: 0px;
 margin-left: -15px;
 border-top: 1px solid transparent;
