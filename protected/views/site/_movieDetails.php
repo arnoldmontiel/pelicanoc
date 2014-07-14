@@ -437,6 +437,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 					{
 						$("#downloaded_"+idNzb).hide();
 						$("#downloading_"+idNzb).hide();
+						$(".downloaded_"+idNzb).hide();
+						$(".downloading_"+idNzb).hide();
 						$("#myModal").html("");
 						$("#myModal").modal("hide");
 						return false;
@@ -454,6 +456,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 			{					
 				$("#downloaded_<?php echo $modelNzb->Id; ?>").hide();
 				$("#downloading_<?php echo $modelNzb->Id; ?>").show();		
+				$(".downloaded_<?php echo $modelNzb->Id; ?>").hide();
+				$(".downloading_<?php echo $modelNzb->Id; ?>").show();		
 				$("#myModal").html("");
 				$("#myModal").modal("hide");
 				return false;
