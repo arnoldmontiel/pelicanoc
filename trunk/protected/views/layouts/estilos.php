@@ -1092,7 +1092,7 @@ z-index:200;
 	width: 180px !important;
 }
 
-.flexslider .liSlider .knob,.flexslider .liSlider .knob canvas, .flexslider .liSlider input, .flexslider .liSlider .frente div, .flexslider .liSlider .preparando div, .flexslider .liSlider .fallo div{
+.flexslider .liSlider .knob,.flexslider .liSlider .knob canvas, .flexslider .liSlider input, .flexslider .liSlider .frente div, .flexslider .liSlider .frente button, .flexslider .liSlider .preparando div, .flexslider .liSlider .fallo div{
 cursor:pointer;
 }
 
@@ -1123,6 +1123,7 @@ cursor:pointer;
 }
 
 a.peliAfiche {cursor:pointer;
+display:block;
 }
 .peliDesc img {
 	opacity: 0.5;
