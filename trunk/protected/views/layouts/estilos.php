@@ -509,6 +509,8 @@ ul.nav {
 	z-index: 1060;
 	
 }
+
+.smallMenuIcon{margin-bottom:2px;}
 .navbar-default .container-fluid{background-color:#f8f8f8;}
 
 #pushMain .mobileMenuItem.active{background-color:#e7e7e7;}
@@ -521,8 +523,10 @@ ul.nav {
 	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	padding: 0px 15px;
+	padding: 0px 10px;
 	line-height: 48px;
+	border-right: 1px dotted #eee;
+	
 }
 
 #MenuLogoMobile {
