@@ -2,15 +2,28 @@
 echo " ---------------------- "
 echo " Verificnado Version    "
 echo " ---------------------- "
-sudo -u www-data wget gruposmartliving.com/downloads/version
-NLINE_VERSION=`cat version`
-CURRENT_VERSION=`mysql -upelicano -ppelicano --skip-column-names -e "select version from pelicanoc.setting"`
 
-if [ ONLINE_VERSION -gt  CURRENT_VERSION ]
+ONLINE_VERSION=`curl gruposmartliving.com/downloads/version`
+
+CURRENT_VERSION=`mysql -uroot -padmin --skip-column-names -e "select version from pelicanoc.setting"`
+
+var=$(awk 'BEGIN{ print "'$CURRENT_VERSION'"<"'$ONLINE_VERSION'" }') 
+
+echo Online Version  : $ONLINE_VERSION
+echo Current version : $CURRENT_VERSION
+
+if [ "$var" -eq 1 ]
 then
         echo "Actualizando"
+        wget gruposmartliving.com/downloads/pelicano-${ONLINE_VERSION}beta.tar.gz
+        tar xvfz pelicano-${ONLINE_VERSION}beta.tar.gz -C /var/www/                
+        mysql -uroot -padmin --skip-column-names -e "source /var/www/pelicano/protected/update-${ONLINE_VERSION}.sql"
+        chmod +x /var/www/pelicano/protected/commands/shell/updateFinish.sh
+        /var/www/pelicano/protected/commands/shell/updateFinish.sh
 else
         echo "Ultima version instalada"
 fi
+
+echo "Ultima version ha sido instalada"
 
 exit $?
