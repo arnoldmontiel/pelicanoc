@@ -214,6 +214,15 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	<div class="modalPath"><?php echo $modelLocalFolder->path;?></div>
 	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
+    <?php elseif(isset($modelNzb) && $setting->is_movie_tester):?>
+    <div class="row detailSecondGroup">
+    <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
+    FILE NAME
+	</div><!--/.col-md-4 -->
+    <div class="col-md-9 col-sm-9 align-left detailSecond">	
+	<div class="modalPath"><?php echo $modelNzb->mkv_file_name;?></div>
+	</div><!--/.col-md-8 -->
+	</div><!--/.row -->
     <?php endif;?>
     <div class="row detailSecondGroup">
     <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
