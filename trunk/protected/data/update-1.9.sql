@@ -18,7 +18,7 @@ START TRANSACTION;
 
 ALTER TABLE `pelicanoc`.`nzb` 
 ADD COLUMN `size` BIGINT(20) NULL DEFAULT NULL AFTER `has_error`;
-UPDATE setting set version="1.9" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="1.9" where Id=1;
 
 COMMIT;
 
