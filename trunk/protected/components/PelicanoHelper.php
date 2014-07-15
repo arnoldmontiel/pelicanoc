@@ -1145,7 +1145,7 @@ class PelicanoHelper
 	public static function prepareNZBtoMovieTester()
 	{
 		$criteria = new CDbCriteria();		
-		$criteria->addCondition('t.Id_nzb is null');		
+		$criteria->addCondition('t.Id_nzb is not null');		
 		$arrayNbz = Nzb::model()->findAll($criteria);
 		foreach ($arrayNbz as $child)
 		{
