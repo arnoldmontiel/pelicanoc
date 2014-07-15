@@ -15,6 +15,7 @@ echo Current version : $CURRENT_VERSION
 if [ "$var" -eq 1 ]
 then
         echo "Actualizando"
+        rm pelicano-${ONLINE_VERSION}beta.tar.gz
         wget gruposmartliving.com/downloads/pelicano-${ONLINE_VERSION}beta.tar.gz
         tar xvfz pelicano-${ONLINE_VERSION}beta.tar.gz -C /var/www/                
         mysql -upelicano -ppelicano -e "source /var/www/pelicano/protected/data/update-${ONLINE_VERSION}.sql"
