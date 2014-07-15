@@ -37,7 +37,7 @@ return array(
 			'userid'=>'username', //default: userid
 			'username'=>'username', //default:username
 			'delimeter'=>'@', //default:-
-			'debug'=>false, //default :false
+			'debug'=>true, //default :false
 			'pageSize'=>10, // default : 15
 			'superUser' =>'Authority', //default: Authorizer
 			'css'=>'srbac.css', //default: srbac.css
@@ -82,8 +82,8 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=pelicanoc',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'admin',
+			'username' => 'pelicano',
+			'password' => 'pelicano',
 			'charset' => 'utf8',
 		),
 
