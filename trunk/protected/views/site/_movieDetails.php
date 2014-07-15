@@ -236,7 +236,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	<?php echo $size;?>
 	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
-		    
+	<?php if(!isset($modelNzb)||$modelNzb->ready_to_play):?>	    
     <div class="row detailSecondGroup">
     <div class="col-md-3 col-sm-3 align-left detailSecond detailSecondFirst">
     BORRAR
@@ -247,7 +247,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	<a href="#" id="btn-eraser-popover" class="" ><i id="btn-eraser" class="fa fa-eraser fa-lg"></i></a>
 	</div><!--/.col-md-8 -->
 	</div><!--/.row -->
-		
+	<?php endif;?>		
 	</div><!--/.tab-pane#2 -->
     
     <div class="tab-pane" id="tab3"><!--/.bookmarks -->
