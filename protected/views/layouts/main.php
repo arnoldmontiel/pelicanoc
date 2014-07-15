@@ -400,6 +400,7 @@ window.addEventListener('load', function() {
 
 	<?php echo $content; ?>        
 
+	
 	<div id="myModalVelocidad" class="modal fade in" aria-hidden="false">
 	<div class="modal-dialog">
 				<div class="modal-content">

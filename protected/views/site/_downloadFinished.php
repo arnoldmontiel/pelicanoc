@@ -12,7 +12,8 @@
 		</div>
     </div>
 <?php if(!empty($movies)):?>
-    
+    <div class="row rowBackground">
+    <div class="col-md-12">
 	<div id="flexsliderFinished" class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
@@ -48,21 +49,21 @@
     				echo CHtml::link(
     				
     				CHtml::image(PelicanoHelper::getImageName($moviePoster),'',array(
-    								"width"=>"180", "height"=>"260", "border"=>"0",
+    								"width"=>"180", "height"=>"260", "class"=>"peliAfiche", "border"=>"0",
     								)),
     				
-    				'',array("class"=>"peliAfiche aficheClickFinished","idMovie"=>$myMovie->Id,
+    				'',array("class"=>"aficheClickFinished","idMovie"=>$myMovie->Id,
     								"idResource"=>$movie->Id,
     								"sourceType"=>$movie->source_type,"onclick"=>"showFinished(this)"));
     					
-     					echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
-     						echo CHtml::openTag("p",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
+     						echo CHtml::openTag("div",array("id"=>$movie->Id, "class"=>"peliTitulo"));
+     						echo CHtml::openTag("span",array("class"=>PelicanoHelper::setAnimationClass($myMovie->original_title)));
 
      						$shortTitle = $myMovie->original_title;
      						$shortTitle = (strlen($shortTitle) > 26) ? substr($shortTitle,0,23).'...' : $shortTitle;
      						
      						echo $shortTitle;
-     						echo CHtml::closeTag("p");
+     						echo CHtml::closeTag("span");
      					echo CHtml::closeTag("div");
     					
     echo '<div class="ribbon ribFinalizado"><div class="ribbonTxt">FINALIZADA</div></div>';		
@@ -74,9 +75,11 @@
     		?>        	
 		</ul>
 	</div>
+	</div>
+	</div>
 	<?php else:?>
-	<div class="row">
-    	<div class="col-md-12">
+    <div class="row rowBackground">
+	    	<div class="col-md-12">
 			<div class="noSliderResults">NO HAY DESCARGAS EN CURSO</div> 
     	    			</div>
     </div>	
