@@ -19,10 +19,11 @@ then
         wget gruposmartliving.com/downloads/pelicano-${ONLINE_VERSION}beta.tar.gz
         tar xvfz pelicano-${ONLINE_VERSION}beta.tar.gz -C /var/www/                
         mysql -upelicano -ppelicano -e "source /var/www/pelicano/protected/data/update-${ONLINE_VERSION}.sql"        
-        chmod +x pelicano/protected/commands/shell/*
-		chmod 777 pelicano/protected/commands/shell
-		chmod 777 pelicano/nzbReady
-		chmod +x pelicano/protected/yiic        
+        chown -R www-data.www-data /var/www/*
+        chmod +x /var/www/pelicano/protected/commands/shell/*
+		chmod 777 /var/www/pelicano/protected/commands/shell
+		chmod 777 /var/www/pelicano/nzbReady
+		chmod +x /var/www/pelicano/protected/yiic
         /var/www/pelicano/protected/commands/shell/updateFinish.sh
 else
         echo "Ultima version instalada"
