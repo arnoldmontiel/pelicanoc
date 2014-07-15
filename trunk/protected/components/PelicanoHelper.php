@@ -1088,7 +1088,7 @@ class PelicanoHelper
 							
 						$transaction = $modelNzb->dbConnection->beginTransaction();
 						try {
-							$modelNzb->Id_my_movie_disc_nzb = (!isset($item->Id_nzb))?$idDisc:null;
+							$modelNzb->Id_my_movie_disc_nzb = (!isset($item->nzb->Id_nzb))?$idDisc:null;
 							//date_default_timezone_set('America/Argentina/Buenos_Aires');
 							$modelNzb->date = date("Y-m-d H:i:s",time());
 							$modelNzb->ready = 0;
