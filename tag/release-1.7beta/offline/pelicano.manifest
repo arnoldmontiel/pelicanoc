@@ -1,0 +1,15 @@
+CACHE MANIFEST
+ 
+# Version: 1.08
+
+CACHE:
+favicon.ico
+index.php
+js/bootstrap.min.js
+js/jquery.js
+fonts/fontawesome-webfont.ttf
+css/bootstrap.min.css 
+css/font-awesome.min.css
+fonts/Gudea-Regular.otf
+fonts/Lato-Reg.otf
+fonts/fontawesome-webfont.woff?v=4.0.1
