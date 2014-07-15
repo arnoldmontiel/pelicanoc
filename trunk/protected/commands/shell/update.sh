@@ -5,7 +5,7 @@ echo " ---------------------- "
 
 ONLINE_VERSION=`curl gruposmartliving.com/downloads/version`
 
-CURRENT_VERSION=`mysql -uroot -padmin --skip-column-names -e "select version from pelicanoc.setting"`
+CURRENT_VERSION=`mysql -upelicano -ppelicano --skip-column-names -e "select version from pelicanoc.setting"`
 
 var=$(awk 'BEGIN{ print "'$CURRENT_VERSION'"<"'$ONLINE_VERSION'" }') 
 
