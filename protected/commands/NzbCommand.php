@@ -179,6 +179,14 @@ class NzbCommand extends CConsoleCommand  {
 					$transaction->rollback();						
 				}
 			}
+			$setting = Setting::getInstance();
+			
+			if($setting->is_movie_tester)
+			{
+				//si es movie tester separo todos los nzb padres e hijos, todos los hijos
+				//seran padres y heredaran la meta data.
+				self::prepareNZBtoMovieTester();
+			}				
 		} 
 		catch (Exception $e) {
 		}			
