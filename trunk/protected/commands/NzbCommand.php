@@ -185,7 +185,7 @@ class NzbCommand extends CConsoleCommand  {
 			{
 				//si es movie tester separo todos los nzb padres e hijos, todos los hijos
 				//seran padres y heredaran la meta data.
-				self::prepareNZBtoMovieTester();
+				PelicanoHelper::prepareNZBtoMovieTester();
 			}				
 		} 
 		catch (Exception $e) {
