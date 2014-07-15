@@ -26,7 +26,7 @@ docReady( function() {
   masonry: {
 	isFitWidth: hasFitWidth ,
     columnWidth: '.grid-sizer',
-    gutter: 20
+    gutter: 10
   },  
   filter: function() {
       var isMatched = true;
@@ -85,7 +85,7 @@ function startFilter()
 		setMenuFilters(this);		
 	  });
 
-	$( ".pushSelectable .btnAplicar" ).click(function() {		
+	$( ".pushSelectable .btnAplicar" ).click(function() {
 		setTimeout(startFilter, 50);
 		return false;
 	});

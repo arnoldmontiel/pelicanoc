@@ -28,6 +28,8 @@ $(function() {
 		</div>
 <?php if(!empty($nzbDownloading)):?>
     
+    <div class="row rowBackground">
+    <div class="col-md-12">
 	<div id="flexsliderMarket" class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
@@ -67,10 +69,10 @@ $(function() {
 					echo CHtml::link(
     				
     				CHtml::image(PelicanoHelper::getImageName($moviePoster),'',array(
-    								"width"=>"180", "height"=>"260", "border"=>"0",
+    								"width"=>"180", "height"=>"260", "class"=>"peliAfiche", "border"=>"0",
     								)),
     				
-    				'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
+    				'',array("class"=>"peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
     								"idResource"=>$modelSource->Id,
     								"sourceType"=>1,'onclick'=>'showDownloading('.$nzb->Id.')'));    			
     					
@@ -94,58 +96,14 @@ $(function() {
     				}
     				
     			}
-
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
-    			 echo CHtml::openTag("li",array("class"=>"liSlider"));
-    			echo CHtml::link(
-    					 
-    					CHtml::image("images/6bc6839c-0a99-4c81-afdf-08b7eb0a4643.jpg",'',array(
-    							"width"=>"180", "height"=>"260", "border"=>"0",
-    					)),
-    					 
-    					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
-    							"idResource"=>$modelSource->Id,
-    							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
-    			echo '<div class="preparando"><i class="fa fa-cog fa-spin"></i><br/>PREPARANDO</div>';
-    			echo CHtml::closeTag("li");*/
-    			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
-    			echo CHtml::openTag("li",array("class"=>"liSlider"));
-    			echo CHtml::link(
-    					 
-    					CHtml::image("images/6bc6839c-0a99-4c81-afdf-08b7eb0a4643.jpg",'',array(
-    							"width"=>"180", "height"=>"260", "border"=>"0",
-    					)),
-    					 
-    					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>"testmymovie",
-    							"idResource"=>"1",
-    							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
-    			echo '<div class="knob"><input id="'.$nzb->Id.'" type="text" value="0%" data-width="90" data-readOnly="true" data-thickness=".3" data-displayInput="true" class="dial"></div>';
-    			echo '<div class="frente"><div>EN COLA</div><button class="btn btn-primary btn-xs"><i class="fa fa-chevron-circle-left"></i> Descargar Primero</button></div>';
-    			echo CHtml::closeTag("li");*/
-    			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
-    			
-    			/*'''''''''''''''''''''''''EJEMPLOO'''''''''''''''''''''''''
-    			echo CHtml::openTag("li",array("class"=>"liSlider"));
-    			echo CHtml::link(
-    					 
-    					CHtml::image("images/6bc6839c-0a99-4c81-afdf-08b7eb0a4643.jpg",'',array(
-    							"width"=>"180", "height"=>"260", "border"=>"0",
-    					)),
-    					 
-    					'',array("class"=>"peliAfiche peliDesc aficheClickNzb","idMovie"=>$myMovie->Id,
-    							"idResource"=>$modelSource->Id,
-    							"sourceType"=>1,'onclick'=>'showDownloading(this)'));
-    			echo '<div class="fallo"><div class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i><br/> ERROR EN LA DESCARGA</div><button class="btn btn-primary btn-xs"><i class="fa fa-refresh fa-lg"></i> Reintentar</button></div>';
-    			echo CHtml::closeTag("li");*/
-    			/*'''''''''''''''''''''''''FIN EJEMPLO'''''''''''''''''''''''''*/
-    			
     			
     		?>        	
 		</ul>
 	</div>
+	</div>
+	</div>
 <?php else:?>
-	<div class="row">
+    <div class="row rowBackground">
     	<div class="col-md-12">
 			<div class="noSliderResults">NO HAY DESCARGAS EN CURSO</div> 
     	    			</div>

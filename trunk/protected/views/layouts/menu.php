@@ -24,7 +24,7 @@
 			<div class="cbp-title">Filtrar Mis Peliculas</div>
 			<div class="sideMenuBotones">
 				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
-				<button class="btn btn-primary btnAplicar close-menu toggle-menuMisPeliculas"><i class="fa fa-check"></i> Aplicar</button>
+				<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
 			</div>
 			<a class="toggle-menuMisPeliculas close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
@@ -49,7 +49,7 @@
 			<div class="cbp-title">Filtrar Marketplace</div>
 			<div class="sideMenuBotones">
 				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
-				<button class="btn btn-primary btnAplicar close-menu toggle-menuMarketplace"><i class="fa fa-check"></i> Aplicar</button>
+				<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
 			</div>
 			<a class="toggle-menuMarketplace close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">

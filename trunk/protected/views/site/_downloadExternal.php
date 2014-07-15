@@ -10,6 +10,8 @@
   		</div>
     </div>
 <?php if(!empty($externalStorageDataCopying)):?>
+<div class="row rowBackground">
+    <div class="col-md-12">
 	<div class="flexslider carousel" id="flexsliderExternal">
 		<ul class="slides superScroll">
 		    <?php
@@ -52,9 +54,11 @@
     		?>        	
 		</ul>
 	</div>
+	</div>
+	</div>
 <?php else:?>
-	<div class="row">
-    	<div class="col-md-12">
+	<div class="row rowBackground last">
+    <div class="col-md-12">
 			<div class="noSliderResults">NO HAY DESCARGAS EN CURSO</div> 
 		</div>
     </div>
