@@ -17,7 +17,7 @@ then
         echo "Actualizando"
         wget gruposmartliving.com/downloads/pelicano-${ONLINE_VERSION}beta.tar.gz
         tar xvfz pelicano-${ONLINE_VERSION}beta.tar.gz -C /var/www/                
-        mysql -uroot -padmin -e "source /var/www/pelicano/protected/data/update-${ONLINE_VERSION}.sql"
+        mysql -upelicano -ppelicano -e "source /var/www/pelicano/protected/data/update-${ONLINE_VERSION}.sql"
         chmod +x /var/www/pelicano/protected/commands/shell/updateFinish.sh
         /var/www/pelicano/protected/commands/shell/updateFinish.sh
 else
