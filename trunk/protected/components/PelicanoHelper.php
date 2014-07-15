@@ -1120,14 +1120,6 @@ class PelicanoHelper
 					} catch (Exception $e) {
 					}
 				}
-				$setting = Setting::getInstance();
-				
-				if($setting->is_movie_tester)
-				{
-					//si es movie tester separo todos los nzb padres e hijos, todos los hijos 
-					//seran padres y heredaran la meta data.
-					self::prepareNZBtoMovieTester();
-				}
 			
 				$countReady = Nzb::model()->countByAttributes(array('ready'=>0));
 				$sys = strtoupper(PHP_OS);
@@ -1162,7 +1154,7 @@ class PelicanoHelper
 			//seteo los valores de meta data al hijo y lo desrelaciono con el padre.
 			$child->Id_my_movie_disc_nzb =$nzbModel->Id_my_movie_disc_nzb; 
 			$child->Id_TMDB_data =$nzbModel->Id_TMDB_data; 
-			$child->Id_nzb =null;
+			$child->Id_nzb =new CDbExpression('NULL');
 			$child->save();				
 		}		
 	}	
