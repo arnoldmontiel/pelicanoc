@@ -54,6 +54,10 @@
  					}
  					$size = PelicanoHelper::format_bytes($size);
  				}
+ 				else if($setting->is_movie_tester&&isset($modelNzb->size))
+ 				{
+ 					$size = PelicanoHelper::format_bytes($modelNzb->size); 					
+ 				}
  			}
  			else
  			{
