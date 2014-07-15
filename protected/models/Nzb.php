@@ -64,7 +64,7 @@ class Nzb extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id, Id_nzb_state, Id_nzb_type', 'required'),
-			array('Id, Id_resource, Id_nzb_state, downloading, downloaded, requested, points, ready, Id_nzb_type, Id_nzb, sent,ready_to_play,is_personal,has_error', 'numerical', 'integerOnly'=>true),
+			array('Id, Id_resource, Id_nzb_state, downloading, downloaded, requested, points, ready, Id_nzb_type, sent,ready_to_play,is_personal,has_error', 'numerical', 'integerOnly'=>true),
 			array('sabnzbd_size', 'length', 'max'=>30),
 			array('sabnzbd_id', 'length', 'max'=>45),
 			array('Id_my_movie_disc_nzb', 'length', 'max'=>200),
