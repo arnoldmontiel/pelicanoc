@@ -84,7 +84,7 @@
     <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
                 <?php if(isset($modelNzb)):?>
-	                <?php if($modelNzb->ready_to_play):?>
+	                <?php if($modelNzb->ready_to_play||$setting->is_movie_tester):?>
                 		<li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
 	                <?php endif?>
                 <?php else:?>
