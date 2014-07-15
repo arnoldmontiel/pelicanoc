@@ -70,7 +70,10 @@
        $(document).click(function() {
           jPushMenu.close();
         });
-       
+       $('.btnAplicar').click(function() {
+	          jPushMenu.close();
+	        });
+     
        $('.close-menu').click(function() {
 	          jPushMenu.close();
 	        });
