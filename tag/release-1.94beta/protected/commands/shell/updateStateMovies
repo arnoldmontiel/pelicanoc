@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+import os,sys,re
+nzbName = re.escape(sys.argv[2])
+cmd="/var/www/pelicano/protected/yiic nzb updatestatemovies --file_name=%s" %nzbName
+os.system(cmd)
+print "NZB ok : %s " %nzbName
+exit()
