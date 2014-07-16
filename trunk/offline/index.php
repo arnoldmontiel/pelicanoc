@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Pelicano">
 
 <!-- *************** ALL ICONS *******************  -->
-<link rel="shortcut icon" href="./pelicano/icons/favicon.ico">
+<link rel="shortcut icon" href="./icons/favicon.ico">
 <!-- For iPad with high-resolution Retina display running iOS � 7: -->
 <link rel="apple-touch-icon" sizes="152x152" href="./icons/apple-touch-icon-152x152.png">
 <!-- For iPad with high-resolution Retina display running iOS � 6: -->
@@ -46,7 +46,11 @@
     <div class="loginPanel inicioPanel" onclick="delayRedirect()">
 	<i class="fa fa-spinner fa-spin"></i>
     <span id="text">Iniciando Pelicano    </span>
-      <div id="detalles" class="hidden">
+      <div id="esperando" class="hidden">
+      Dando mas tiempo para agregar acceso directo.
+      </div>
+    
+    <div id="detalles" class="hidden">
       Pelicano no responde, esto puede deberse a:
       <ul>
       <li>Pelicano puede estar apagado</li>
@@ -94,6 +98,7 @@ function startRedirect()
 
 function delayRedirect()
 {
+	$("#esperando").removeClass('hidden');
 	clearTimeout(timer);
 	timer =	setTimeout(function(){
 	  $.ajax({
