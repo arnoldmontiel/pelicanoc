@@ -5,25 +5,25 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport"	content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="shortcut icon" href="./pelicano/icons/favicon.ico">
+<link rel="shortcut icon" href="./icons/favicon.ico">
 <meta name="apple-mobile-web-app-title" content="Pelicano">
 
 <!-- *************** ALL ICONS *******************  -->
 <link rel="shortcut icon" href="./pelicano/icons/favicon.ico">
 <!-- For iPad with high-resolution Retina display running iOS � 7: -->
-<link rel="apple-touch-icon" sizes="152x152" href="./pelicano/icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="152x152" href="./icons/apple-touch-icon-152x152.png">
 <!-- For iPad with high-resolution Retina display running iOS � 6: -->
-<link rel="apple-touch-icon" sizes="144x144" href="./pelicano/icons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="144x144" href="./icons/apple-touch-icon-144x144.png">
 <!-- For iPhone with high-resolution Retina display running iOS � 7: -->
-<link rel="apple-touch-icon" sizes="120x120" href="./pelicano/icons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="120x120" href="./icons/apple-touch-icon-120x120.png">
 <!-- For iPhone with high-resolution Retina display running iOS � 6: -->
-<link rel="apple-touch-icon" sizes="114x114" href="./pelicano/icons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="114x114" href="./icons/apple-touch-icon-114x114.png">
 <!-- For the iPad mini and the first- and second-generation iPad on iOS � 7: -->
-<link rel="apple-touch-icon" sizes="76x76" href="./pelicano/icons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="76x76" href="./icons/apple-touch-icon-76x76.png">
 <!-- For the iPad mini and the first- and second-generation iPad on iOS � 6: -->
-<link rel="apple-touch-icon" sizes="72x72" href="./pelicano/icons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="72x72" href="./icons/apple-touch-icon-72x72.png">
 <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-<link rel="apple-touch-icon" href="./pelicano/icons/all-touch-icon.png">
+<link rel="apple-touch-icon" href="./icons/all-touch-icon.png">
 <!-- *************** ALL ICONS *******************  -->
 <!-- Bootstrap -->
 <link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -43,8 +43,8 @@
     <div class="loginWrapper">
     <div class="loginBrand">PELICANO</div>
     
-    <div class="loginPanel inicioPanel">
-<i class="fa fa-spinner fa-spin"></i>
+    <div class="loginPanel inicioPanel" onclick="delayRedirect()">
+	<i class="fa fa-spinner fa-spin"></i>
     <span id="text">Iniciando Pelicano    </span>
       <div id="detalles" class="hidden">
       Pelicano no responde, esto puede deberse a:
@@ -71,7 +71,11 @@
 
 
 <script type="text/javascript">
-  setInterval(function(){
+var timer;
+startRedirect();
+function startRedirect()
+{
+	timer =	setTimeout(function(){
 	  $.ajax({
 		  type: 'JSON',
 		  url: 'http://<?php echo $_SERVER['HTTP_HOST']?>/pelicano/index.php?r=site/ajaxIsAlive'
@@ -86,5 +90,25 @@
 	  }
 	  );	
   }, 3000);
+}
 
+function delayRedirect()
+{
+	clearTimeout(timer);
+	timer =	setTimeout(function(){
+	  $.ajax({
+		  type: 'JSON',
+		  url: 'http://<?php echo $_SERVER['HTTP_HOST']?>/pelicano/index.php?r=site/ajaxIsAlive'
+	  }).success(function()
+	  {
+		  window.location = 'http://<?php echo $_SERVER['HTTP_HOST']?>/pelicano'
+	  }
+	  ).error(function()
+	  {
+	    $("#text").html("Error - Reintentando");
+	    $("#detalles").removeClass('hidden');
+	  }
+	  );	
+  }, 10000);
+}
 </script>
