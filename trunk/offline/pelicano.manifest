@@ -1,6 +1,6 @@
 CACHE MANIFEST
  
-# Version: 1.08
+# Version: 1.16
 
 CACHE:
 favicon.ico
@@ -13,3 +13,13 @@ css/font-awesome.min.css
 fonts/Gudea-Regular.otf
 fonts/Lato-Reg.otf
 fonts/fontawesome-webfont.woff?v=4.0.1
+
+icons/all-touch-icon.png
+icons/apple-touch-icon-114x114.png
+icons/apple-touch-icon-120x120.png
+icons/apple-touch-icon-144x144.png
+icons/apple-touch-icon-152x152.png
+icons/apple-touch-icon-72x72.png
+icons/apple-touch-icon-76x76.png
+icons/favicon.ico
+icons/smallIcon.png
