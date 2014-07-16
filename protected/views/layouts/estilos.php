@@ -359,8 +359,8 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .btn-danger {
 	color: #d9534f;
-	background-color: #FFE4E3;
-	border-color: #FFE4E3;
+	background-color: #FFD5D3;
+	border-color: #FFD5D3;
 }
 .btn-reproduciendo{	margin-right: 5px;}
 .btn-reproduciendo .badge{background-color:white;}
@@ -371,8 +371,8 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .btn-reproduciendo.reproduciendoOn{
 	color:#fff;
-	background-color:#3D96B3;
-	border-color:#3D96B3;
+	background-color:#3DB3B3;
+	border-color:#3DB3B3;
 }
 /*define hover for non touch devices.//needs fastclick!*/
 .no-touch .btn-primary:hover{
@@ -441,18 +441,18 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .no-touch .btn-reproduciendo.reproduciendoOn:hover{
 	color:#fff;
-	background-color: #1B6D88;
-	border-color: #1B6D88;
+	background-color: #1B8A8A;
+	border-color: #1B8A8A;
 }
 .no-touch .btn-reproduciendo.reproduciendoOn:focus{
 	color:#fff;
-	background-color:#3D96B3;
-	border-color:#3D96B3;
+	background-color:#3DB3B3;
+	border-color:#3DB3B3;
 }
 .no-touch .btn-reproduciendo.reproduciendoOn:active{
 	color:#fff;
-	background-color:#3D96B3;
-	border-color:#3D96B3;
+	background-color:#3DB3B3;
+	border-color:#3DB3B3;
 }
 
 /*only affect touch devices. active replaces hover. hover replaces bootstrap default styles..//needs fastclick!*/
@@ -498,13 +498,13 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .btn-reproduciendo.reproduciendoOn:hover{
 	color:#fff;
-	background-color:#3D96B3;
-	border-color:#3D96B3;
+	background-color:#3DB3B3;
+	border-color:#3DB3B3;
 }
 .btn-reproduciendo.reproduciendoOn:active{
 	color:#fff;
-	background-color: #1B6D88;
-	border-color: #1B6D88;
+	background-color: #1B8A8A;
+	border-color: #1B8A8A;
 }
 
 .btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active{
