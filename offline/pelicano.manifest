@@ -1,25 +1,25 @@
 CACHE MANIFEST
  
-# Version: 1.18
+# Version: 1.19
 
 CACHE:
 favicon.ico
 index.php
-js/bootstrap.min.js
-js/jquery.js
-fonts/fontawesome-webfont.ttf
-css/bootstrap.min.css 
-css/font-awesome.min.css
-fonts/Gudea-Regular.otf
-fonts/Lato-Reg.otf
-fonts/fontawesome-webfont.woff?v=4.0.1
+pelicano/js/bootstrap.min.js
+pelicano/js/jquery.js
+pelicano/fonts/fontawesome-webfont.ttf
+pelicano/css/bootstrap.min.css 
+pelicano/css/font-awesome.min.css
+pelicano/fonts/Gudea-Regular.otf
+pelicano/fonts/Lato-Reg.otf
+pelicano/fonts/fontawesome-webfont.woff?v=4.0.1
 
-icons/all-touch-icon.png
-icons/apple-touch-icon-114x114.png
-icons/apple-touch-icon-120x120.png
-icons/apple-touch-icon-144x144.png
-icons/apple-touch-icon-152x152.png
-icons/apple-touch-icon-72x72.png
-icons/apple-touch-icon-76x76.png
-icons/favicon.ico
-icons/smallIcon.png
+pelicano/icons/all-touch-icon.png
+pelicano/icons/apple-touch-icon-114x114.png
+pelicano/icons/apple-touch-icon-120x120.png
+pelicano/icons/apple-touch-icon-144x144.png
+pelicano/icons/apple-touch-icon-152x152.png
+pelicano/icons/apple-touch-icon-72x72.png
+pelicano/icons/apple-touch-icon-76x76.png
+pelicano/icons/favicon.ico
+pelicano/icons/smallIcon.png
