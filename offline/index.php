@@ -31,7 +31,7 @@
 <script type="text/javascript" src="./pelicano/js/bootstrap.min.js"></script>
 <!-- Font Awesome -->
 <link rel="stylesheet" href="./pelicano/css/font-awesome.min.css">
-<?php include('./pelicano/estilos.php');?>
+<?php include('./pelicano/protected/views/layouts/estilos.php');?>
 
 
 <body class="loginBody">
