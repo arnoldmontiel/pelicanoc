@@ -134,16 +134,16 @@ function getCurrentState()
 
 					if(obj.playBack.count == 0)
 					{
-						$("#player-status").removeClass('btnRep');
-						$("#player-status").addClass('btnNoRep');
+						$("#player-status").removeClass('reproduciendoOn');
+						$("#player-status").addClass('reproduciendoOff');
 						$("#player-status-text").text(' No hay reproducciones ');
 						$('#player-status-quantity').hide();
 						$('#player-status-arrow').hide();
 					}
 					else
 					{
-						$("#player-status").removeClass('btnNoRep');
-						$("#player-status").addClass('btnRep');
+						$("#player-status").removeClass('reproduciendoOff');
+						$("#player-status").addClass('reproduciendoOn');
 						$("#player-status-text").text(' Reproduciendo ');
 						$('#player-status-quantity').show();
 						$('#player-status-arrow').show();

@@ -127,7 +127,7 @@
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul></li>
 				</ul>
-				<button id="player-status" type="button" class="btn btn-default navbar-btn btnReproduciendo btnNoRep pull-right"
+				<button id="player-status" type="button" class="btn btn-reproduciendo reproduciendoOff navbar-btn pull-right"
 					data-toggle="modal"><i class="fa fa-desktop fa-fw"></i>
 					<span id="player-status-text"> No hay reproducciones </span><span id="player-status-quantity" class="badge"></span><i id="player-status-arrow" style="display: none;" class="fa fa-caret-down fa-fw"></i> 
 				 <!-- 	No hay reproducciones -->

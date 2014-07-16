@@ -1,6 +1,6 @@
 
-<div class="container" id="screenDescargas" >
-<div class="wrapper">
+<div class="container needsclick" id="screenDescargas" >
+<div class="wrapper needsclick">
 
     
     <?php
@@ -157,32 +157,45 @@ function getNzbStatus()
 }
 ");
 ?>
+<div class="row rowBackground">
+<div class="col-md-12">
 <div id="finished-area">
 <?php
 //Finalizada recientemente
 $this->renderPartial("_downloadFinished",array("movies"=>$movies,"filter"=>$filter));
 ?>
 </div>
-
+</div>
+</div>    <div class="row rowBackground">
+    <div class="col-md-12">
 <div id="market-area">
 <?php
 //desde marketplace 
 $this->renderPartial("_downloadMarket",array("nzbDownloading"=>$nzbDownloading,"sABnzbdStatus"=>$sABnzbdStatus));
 ?>
 </div>
-
+</div>
+</div>
 <!-- Comentado para Pelicano Lite #####
+<div class="row rowBackground">
+<div class="col-md-12">
 <div id="external-area">
 <?php
 //desde USB 
 //$this->renderPartial("_downloadExternal",array("externalStorageDataCopying"=>$externalStorageDataCopying));
 ?>
 </div>
+</div>
+</div>
+<div class="row rowBackground">
+<div class="col-md-12">
 <div id="ripping-area">
 <?php
 //desde Discos Opticos 
 //$this->renderPartial("_downloadRipping",array("modelMyMovie"=>$modelMyMovie));
 ?>
+</div>
+</div>
 </div>
 -->
 </div><!-- /wrapper -->

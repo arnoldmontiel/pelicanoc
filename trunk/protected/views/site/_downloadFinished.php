@@ -12,8 +12,6 @@
 		</div>
     </div>
 <?php if(!empty($movies)):?>
-    <div class="row rowBackground">
-    <div class="col-md-12">
 	<div id="flexsliderFinished" class="flexslider carousel">
 		<ul class="slides superScroll">
 		    <?php
@@ -75,10 +73,8 @@
     		?>        	
 		</ul>
 	</div>
-	</div>
-	</div>
 	<?php else:?>
-    <div class="row rowBackground">
+    <div class="row">
 	    	<div class="col-md-12">
 			<div class="noSliderResults">NO HAY DESCARGAS EN CURSO</div> 
     	    			</div>

@@ -19,9 +19,9 @@ function openMovieShowDetail(id, sourceType, idResource)
 }
 
 </script>
-<div class="container" id="screenHome" >
-	<div class="wrapper">
-		<div id="market-area">
+<div class="container needsclick" id="screenMarketplace" >
+	<div class="wrapper needsclick">
+		<div id="market-area" class="needsclick">
 
 		<?php 
 			foreach($dataProvider->getData() as $data) 
