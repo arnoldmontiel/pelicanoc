@@ -189,7 +189,6 @@ padding-bottom:20px;
 }
 
 body #screenMarketplace {
-padding-bottom:20px;
 }
 #screenMarketplace .wrapper{
 padding-top:130px;
@@ -362,9 +361,31 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	background-color: #FFE4E3;
 	border-color: #FFE4E3;
 }
+.btn-reproduciendo{	margin-right: 5px;}
+.btn-reproduciendo .badge{background-color:white;}
+.btn-reproduciendo.reproduciendoOff {
+	color:#fff;
+	background-color: #D2D4D6;
+	border-color: #eee;
+}
+.btn-reproduciendo.reproduciendoOn{
+	color:#fff;
+	background-color:#3D96B3;
+	border-color:#3D96B3;
+}
 /*define hover for non touch devices.//needs fastclick!*/
 .no-touch .btn-primary:hover{
 	color: #ffffff;
+	background-color: #027871;
+	border-color: #027871;
+}
+.open .dropdown-toggle.btn-primary{
+	color: #fff;
+	background-color: #027871;
+	border-color: #027871;
+	}
+.open .dropdown-toggle.btn-primary:focus{
+	color: #fff;
 	background-color: #027871;
 	border-color: #027871;
 }
@@ -378,8 +399,6 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .no-touch .btn-default:hover{
 	color: #fff;
-	background-color:#15747C;
-	border-color:#15747C;
 	background-color:#3D88CE;
 	border-color:#3D88CE;
 }
@@ -403,6 +422,36 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 .no-touch .btn-alternate:active{
 	background-color:#206977;
 	border-color:#206977;
+}
+.no-touch .btn-reproduciendo.reproduciendoOff:hover{
+	color: #fff;
+	background-color:#3D88CE;
+	border-color:#3D88CE;
+}
+.no-touch .btn-reproduciendo.reproduciendoOff:focus {
+	color:#fff;
+	background-color: #D2D4D6;
+	border-color: #eee;
+}
+.no-touch .btn-reproduciendo.reproduciendoOff:active {
+	color:#fff;
+	background-color: #D2D4D6;
+	border-color: #eee;
+}
+.no-touch .btn-reproduciendo.reproduciendoOn:hover{
+	color:#fff;
+	background-color: #1B6D88;
+	border-color: #1B6D88;
+}
+.no-touch .btn-reproduciendo.reproduciendoOn:focus{
+	color:#fff;
+	background-color:#3D96B3;
+	border-color:#3D96B3;
+}
+.no-touch .btn-reproduciendo.reproduciendoOn:active{
+	color:#fff;
+	background-color:#3D96B3;
+	border-color:#3D96B3;
 }
 
 /*only affect touch devices. active replaces hover. hover replaces bootstrap default styles..//needs fastclick!*/
@@ -435,6 +484,26 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	color: #fff;
 	background-color:#225464;
 	border-color:#225464;
+}
+.btn-reproduciendo.reproduciendoOff:hover {
+	color:#fff;
+	background-color: #D2D4D6;
+	border-color: #eee;
+}
+.btn-reproduciendo.reproduciendoOff:active{
+	color: #fff;
+	background-color:#3D88CE;
+	border-color:#3D88CE;
+}
+.btn-reproduciendo.reproduciendoOn:hover{
+	color:#fff;
+	background-color:#3D96B3;
+	border-color:#3D96B3;
+}
+.btn-reproduciendo.reproduciendoOn:active{
+	color:#fff;
+	background-color: #1B6D88;
+	border-color: #1B6D88;
 }
 
 .btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active{
@@ -518,7 +587,7 @@ ul.nav {
 }
 
 .smallMenuIcon{margin-bottom:2px;}
-.navbar-default .container-fluid{background-color:#f8f8f8;border-bottom:1px dotted #eee;}
+.navbar-default .container-fluid{background-color:#f8f8f8;border-bottom:1px solid #eee;}
 
 #pushMain .mobileMenuItem.active{background-color:#e7e7e7;}
 
@@ -671,10 +740,6 @@ background-color: #e7e7e7;
 	margin-bottom: 0px;
 }
 
-.reproTableContainer .table th {
-	font-family: "GudeaBold";
-}
-
 .reproTableContainer .table td {
 	vertical-align: middle;
 }
@@ -702,6 +767,9 @@ color: #999;}
 #Menu .navbar-nav>li.dropdownUsuario>a{padding:2px 10px;}
 
 .btnAlarm{margin-right:5px;}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th{color:#999; font-family:"GudeaRegular"; font-weight:600;}
+.table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{color:#999; font-family:"GudeaRegular";}
 
 /* ------ SECOND MENU / NAV BAR ------- */
 
@@ -1133,10 +1201,10 @@ cursor:pointer;
 .peliAfiche {
 	width: 180px;
 	height: 260px;
-	/*-moz-box-shadow: 0 1px 4px #333;
-	-webkit-box-shadow: 0 1px 4px #333;
-	box-shadow: 0 1px 4px #333;*/
 	border:4px solid white;
+	  -moz-box-shadow: 0px 1px 3px rgba(0,0,0,.1);
+        -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.1);
+        box-shadow: 0px 1px 3px rgba(0,0,0,.1);
 }
 
 .peliDesc img {
@@ -1176,9 +1244,9 @@ cursor:pointer;
 /* ------ MODAL POPUPS SERIES / PELI DETAIL ------- */
 .modal {	z-index: 1070;}
 .modal-content{border-radius:0px;}
-.modal-title {	font-size: 1.7em;	color: #666; color:#999;}
-.modal-header {	padding: 9px 15px; background-color:#fbfbfb;  border:0px none;}
-.modal-header .close {	padding: 0px;	margin-top: 0px;	line-height: 34px;}
+.modal-title {	font-size: 1.7em;	color: #666; color:#999; color:white;}
+.modal-header {	padding: 9px 15px; background-color:#fbfbfb;  border:0px none; background-color:#26ada1;}
+.modal-header .close {	padding: 0px;	margin-top: 0px;	line-height: 34px; color:white; opacity:.6;}
 .modal-footer {	padding: 9px 15px; border-top:0px; background-color:#f8f8f8; margin-top:0px;}
 .modal-body { /*overflow:hidden;*/}
 .modal-backdrop {	z-index: 1065;}
@@ -1344,18 +1412,6 @@ padding: 3px 0px;
 	border-bottom: 1px dotted #393939;
 	padding-bottom: 10px;
 }
-
-.btnReproduciendo {
-	margin-right: 5px;
-	border-color:#eee; color:white; 
-}
-
-.btnNoRep {background-color:#D2D4D6; }
-.btnRep{background-color:#439CBD; background-color:#206977; background-color:#1F99A3;}
-
-
-.btnNoRep:hover, .btnNoRep:active, .btnNoRep:focus {background-color:#BEC7CF; border-color:#eee;}
-.btnRep:hover, .btnRep:active, .btnRep:focus{background-color:#317B85; border-color:#317B85;  }
 
 #player-status-quantity{color:#666;}
 
@@ -1610,6 +1666,7 @@ padding-left: 4px;}
 	background-color: transparent;
 }
 
+#market-area{overflow-x:hidden !important;}
 
 .scrollItems{
           display: table-cell; }
@@ -1835,8 +1892,7 @@ background-color:none;
 	padding: 4px;
 }
 
-.rowBackground{
-	/*background-color:rgba(214, 214, 214, 0.1);*/ border-bottom:3px solid #eee; margin-bottom:15px;}
+.rowBackground{border-bottom:3px solid #eee; margin-bottom:15px;}
 	
 .rowBackground:last-of-type{margin-bottom:0px; border-bottom:0px none;}
 	
@@ -1929,6 +1985,7 @@ line-height: 21px;}
 	left: -34px !important;
 }
 
+.flex-direction-nav .flex-disabled{display:none;}
 
 .flexslider .flex-next {
 }
@@ -1944,6 +2001,9 @@ border-top: 2px dotted #EBEBEB;
 padding-top: 12px;
 }
 .flex-control-nav:empty{border:0px none; padding:0px;}
+
+.flex-control-paging li a{background-color:rgba(0,0,0,0.1);}
+.flex-control-paging li a.flex-active{background-color:#999;}
 
 @media ( max-width : 1024px) {
 	.flex-control-paging li a {
@@ -2301,11 +2361,11 @@ top: 209px;
 }
 
 .ribMisPeliculas{
-right:7px; bottom:34px;
+right:9px; bottom:35px;
 }
 
 .ribDescargando{
-right:5px; bottom:37px;
+right:8px; bottom:39px;
 }
 
 .navbar .nav>li>a {
