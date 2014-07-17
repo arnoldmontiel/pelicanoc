@@ -20,7 +20,7 @@
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
 	<?php  if(true||$this->action->Id=="index"):?>
 		<!-- /////////MENU LATERAL MIS PELICULAS///////// -->
-		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMisPeliculas">
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="<?php echo($this->action->Id=="index")?'pushMisPeliculas':'pushMarketplace'?>">
 			<div class="cbp-title">Filtrar</div>
 			<div class="sideMenuBotones">
 				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
