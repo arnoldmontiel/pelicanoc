@@ -28,6 +28,7 @@ echo " ---------------------- "
 cd pelicano
 cp protected/config/usbmount.conf /etc/usbmount/
 cp protected/config/zpelicano.rules /etc/udev/rules.d/.
+cp protected/config/default /etc/apache2/sites-available/.
 
 crontab -u pelicano -l > pelicanoCrontab
 echo "*/1 * * * * /var/www/pelicano/protected/commands/shell/openConnections.sh">>pelicanoCrontab
