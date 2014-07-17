@@ -90,6 +90,8 @@ class MarketCategory extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->join = 'INNER JOIN nzb n on (n.Id_nzb = t.Id_nzb and n.deleted = 0)';
+		
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('hide',0);
