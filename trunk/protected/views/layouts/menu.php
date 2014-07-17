@@ -18,13 +18,15 @@
 </nav>
 <!-- /////////////////////////////////////// -->
 <?php if (isset($this->showFilter) && $this->showFilter): ?>
-	<?php  if($this->action->Id=="index"):?>
+	<?php  if(true||$this->action->Id=="index"):?>
 		<!-- /////////MENU LATERAL MIS PELICULAS///////// -->
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left pushSelectable" id="pushMisPeliculas">
-			<div class="cbp-title">Filtrar Mis Peliculas</div>
+			<div class="cbp-title">Filtrar</div>
 			<div class="sideMenuBotones">
 				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
-				<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
+				<?php  if($this->action->Id=="index"):?>
+					<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
+				<?php endif;?>
 			</div>
 			<a class="toggle-menuMisPeliculas close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
@@ -34,11 +36,21 @@
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="genre">
 					<div class="pushMenuGroupTitle">G&Eacute;NERO <button class="btn btn-xs btn-default"><i class="fa fa-undo"></i> Limpiar</button></div>
-					<?php echo PelicanoHelper::getLeftFilter('genre');?>
+					<?php 
+						if($this->action->Id=="index")
+							echo PelicanoHelper::getLeftFilter('genre');
+						else
+							echo PelicanoHelper::getLeftFilter('genre','marketplace');
+					?>
 				</div>
 				<div class="pushMenuGroup"  data-filter-group="year">
 					<div class="pushMenuGroupTitle">A&Ntilde;O <button class="btn btn-xs btn-default"><i class="fa fa-undo"></i> Limpiar</button></div>
-					<?php echo PelicanoHelper::getLeftFilter('year');?>
+					<?php
+						if($this->action->Id=="index") 
+							echo PelicanoHelper::getLeftFilter('year');
+						else
+							echo PelicanoHelper::getLeftFilter('year','marketplace');
+						?>
 				</div>
 			</div>
 		</nav>
