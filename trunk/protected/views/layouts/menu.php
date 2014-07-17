@@ -24,9 +24,7 @@
 			<div class="cbp-title">Filtrar</div>
 			<div class="sideMenuBotones">
 				<button class="btn btn-default btnLimpiar"><i class="fa fa-undo"></i> Limpiar Todo</button>
-				<?php  if($this->action->Id=="index"):?>
-					<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
-				<?php endif;?>
+				<button class="btn btn-primary btnAplicar"><i class="fa fa-check"></i> Aplicar</button>
 			</div>
 			<a class="toggle-menuMisPeliculas close-menu"><i class="fa fa-times-circle"></i></a>
 			<div class="pushMenuSuperGroup">
