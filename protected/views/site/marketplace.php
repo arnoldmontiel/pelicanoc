@@ -33,7 +33,7 @@ function openMovieShowDetail(id, sourceType, idResource)
 					{
 						//si al menos un nzb esta ready, muestro la categoria
 						//y salgo del loop para pasar a la siguente
-						if($nzb->ready)
+						if($nzb->ready && $nzb->deleted==0)
 						{
 							echo $this->renderPartial('_viewMarketCategory',array('data'=>$data));
 							break;						
