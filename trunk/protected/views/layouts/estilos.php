@@ -1167,24 +1167,12 @@ cursor:pointer;
 .peliAfiche {
 	width: 180px;
 	height: 260px;
-	border:4px solid white;
-	  -moz-box-shadow: 0px 1px 3px rgba(0,0,0,.1);
-        -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.1);
-        box-shadow: 0px 1px 3px rgba(0,0,0,.1);
 }
 
 .peliDesc img {
 	opacity: 0.5;
 }
 
-/*afiche small usado en descargas*/
-.peliAficheSmall {
-	width: 130px;
-	height: 174px;
-	-moz-box-shadow: 0px 0px 15px #000;
-	-webkit-box-shadow: 0px 0px 15px #000;
-	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
-}
 
 /* ------ END BODY / MAIN LAYOUT ------- */
 
