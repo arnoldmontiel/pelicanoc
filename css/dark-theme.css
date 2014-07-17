@@ -50,6 +50,6 @@ h2.sliderTitl{color:#D8D8D8;}
 
 .peliAfiche{border:0px none;}
 .item a{
-	-moz-box-shadow: 0px 0px 15px #000;
-	-webkit-box-shadow: 0px 0px 15px #000;
+	-moz-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
+	-webkit-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
 	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);}
