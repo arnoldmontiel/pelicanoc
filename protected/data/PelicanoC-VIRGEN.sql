@@ -1871,7 +1871,7 @@ CREATE TABLE `user` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`pelicano`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `marketplace` AS select `nzb`.`Id` AS `Id`,`nzb`.`Id_my_movie_disc_nzb` AS `Id_my_movie_disc_nzb`,1 AS `source_type`,`nzb`.`date` AS `date`,`mn`.`original_title` AS `title`,`nzb`.`Id_TMDB_data` AS `Id_TMDB_data`,`mn`.`production_year` AS `year`,`mn`.`genre` AS `genre`,if((`nzb`.`ready_to_play` = 1),1,0) AS `downloaded`,if((((`nzb`.`ready_to_play` = 0) and (`nzb`.`downloaded` = 1)) or (`nzb`.`downloading` = 1)),1,0) AS `downloading` from ((`nzb` join `my_movie_disc_nzb` `mdn` on((`mdn`.`Id` = `nzb`.`Id_my_movie_disc_nzb`))) join `my_movie_nzb` `mn` on((`mn`.`Id` = `mdn`.`Id_my_movie_nzb`))) where ((`nzb`.`ready` = 1) and isnull(`nzb`.`Id_nzb`)) */;
+/*!50001 VIEW `marketplace` AS select `nzb`.`Id` AS `Id`,`nzb`.`Id_my_movie_disc_nzb` AS `Id_my_movie_disc_nzb`,1 AS `source_type`,`nzb`.`date` AS `date`,`mn`.`original_title` AS `title`,`nzb`.`Id_TMDB_data` AS `Id_TMDB_data`,`mn`.`production_year` AS `year`,`mn`.`genre` AS `genre`,if((`nzb`.`ready_to_play` = 1),1,0) AS `downloaded`,if((((`nzb`.`ready_to_play` = 0) and (`nzb`.`downloaded` = 1)) or (`nzb`.`downloading` = 1)),1,0) AS `downloading` from ((`nzb` join `my_movie_disc_nzb` `mdn` on((`mdn`.`Id` = `nzb`.`Id_my_movie_disc_nzb`))) join `my_movie_nzb` `mn` on((`mn`.`Id` = `mdn`.`Id_my_movie_nzb`))) where ((`nzb`.`ready` = 1) and isnull(`nzb`.`Id_nzb`)and (`nzb`.`deleted` = 0)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1923,6 +1923,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="1.99" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
