@@ -670,7 +670,7 @@ $('#button9').click(function(){
 }				
 
 $firstPart =
-"ChangeBG('','".$backdrop."');
+"//ChangeBG('','".$backdrop."');
 	
 setInterval(function() {
 	//checkEndScene();
