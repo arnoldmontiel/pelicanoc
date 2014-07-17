@@ -91,7 +91,8 @@ imagesLoaded( container, function() {
 			$( this ).toggleClass( "pushMenuClicked" );
 		}
 		$(this).toggleClass( "pushMenuActive");
-		setMenuFilters(this);		
+		setMenuFilters(this);
+		return false;		
 	  });
 
 	$( ".pushSelectable .btnAplicar" ).click(function() {		
