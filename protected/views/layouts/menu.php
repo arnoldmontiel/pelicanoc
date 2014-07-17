@@ -135,6 +135,8 @@
 									<li class="visible-sm visible-nexus-p hidden-nexus-l"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
 							<li><a onclick="goToConfig();"><i class="fa fa-cogs fa-fw"></i> Config</a></li>
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+							<li class="menuTheme"><a class="menuThemeOption menuThemeOptionActive" href="#">Light Theme</a></li>
+							<li><a class="menuThemeOption" href="#">Dark Theme</a></li>
 						</ul></li>
 				</ul>
 				<button id="player-status" type="button" class="btn btn-reproduciendo reproduciendoOff navbar-btn pull-right"
