@@ -9,8 +9,8 @@ cd /var/www
 echo " ---------------------- "
 echo " Descargando Pelicano   "
 echo " ---------------------- "
-sudo -u www-data wget gruposmartliving.com/downloads/pelicano-1.5beta.tar.gz
-sudo -u www-data tar xvfz pelicano-1.5beta.tar.gz
+sudo -u www-data wget gruposmartliving.com/downloads/pelicano-beta.tar.gz
+sudo -u www-data tar xvfz pelicano-beta.tar.gz
 chmod +x pelicano/protected/commands/shell/*
 chmod 777 pelicano/protected/commands/shell
 chmod 777 pelicano/nzbReady
