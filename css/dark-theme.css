@@ -53,3 +53,8 @@ h2.sliderTitl{color:#D8D8D8;}
 	-moz-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
 	-webkit-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
 	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);}
+	
+.ribbon.ribNuevo{bottom: 28px;right: -37px;}
+
+.ribbon.ribFinalizado{right: -38px;top: 209px;}
+

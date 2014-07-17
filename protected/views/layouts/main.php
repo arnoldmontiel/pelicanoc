@@ -55,7 +55,7 @@
 <!-- Isotope -->
 <script src="js/isotope/dist/imagesloaded.pkgd.min.js"></script>
 <script src="js/isotope/dist/isotope.pkgd.min.js"></script>
-<?php $theme="dark-theme.css";?>
+<?php $theme="light-theme.css";?>
 <!-- Theme -->
 <link href="css/<?php echo $theme;?>" rel="stylesheet" />
 
