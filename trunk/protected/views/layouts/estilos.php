@@ -974,21 +974,15 @@ right: 10px;
 h2 {
 	font-size: 28px;
 	font-weight: normal;
-	color: #ccc;
-	text-shadow: 0 1px 3px #333;
 	font-family: 'GudeaRegular';
 	margin: 0px;
 	line-height: auto;
 	padding-bottom: 10px;
-	
-	text-shadow:none;
 }
 
 h2.sliderTitle {
 	font-size: 28px;
 	font-weight: normal;
-	color: #fff;
-	text-shadow: 0 1px 3px #333;
 	line-height: 34px;
 	margin: auto;
 	margin-bottom: 10px;
@@ -999,8 +993,6 @@ h2.sliderTitle {
 	margin-right: 10px;
 	margin-bottom: 0px;
 	margin-top: 2px;
-	
-	text-shadow:none;
 }
 
 h2.pageSubtitle {
@@ -1108,8 +1100,6 @@ h3.popover-title {
 
 .ribbon.ribNuevo{
 border-top-color:#26ada1;
-bottom: 32px;
-right: -32px;
 width: 120px;
 padding-left: 12px;
 }
@@ -1117,8 +1107,6 @@ padding-left: 12px;
 
 .ribbon.ribFinalizado{
 border-top-color:#26ada1;
-right: -40px;
-top: 209px;
 width: 129px;
 }
 
@@ -2299,16 +2287,6 @@ font-size:  110% !important;
 	width: 88%;		
 }
 	
-.ribbon.ribNuevo{
-		right: -32px;
-		bottom: 32px;
-}
-
-
-.ribbon.ribFinalizado{
-right: -38px;
-top: 209px;
-}
 
 .ribMisPeliculas{
 right:9px; bottom:35px;
