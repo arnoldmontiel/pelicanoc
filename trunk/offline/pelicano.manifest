@@ -1,6 +1,6 @@
 CACHE MANIFEST
  
-# Version: 1.25
+# Version: 1.26
 
 CACHE:
 favicon.ico
@@ -13,7 +13,7 @@ pelicano/css/bootstrap.min.css
 pelicano/css/font-awesome.min.css
 pelicano/fonts/Gudea-Regular.otf
 pelicano/fonts/Lato-Reg.otf
-pelicano/fonts/fontawesome-webfont.woff?v=4.0.1
+pelicano/fonts/fontawesome-webfont.woff?v=4.1.0
 
 pelicano/icons/all-touch-icon.png
 pelicano/icons/apple-touch-icon-114x114.png
