@@ -112,29 +112,8 @@ body {
 	font-size: 15px;
 	cursor: default;
 	line-height: inherit;
-	color: #333;
-	background: rgb(198, 198, 198); /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
-		0%, rgba(89, 89, 89, 1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%,
-		color-stop(0%, rgba(198, 198, 198, 1)),
-		color-stop(100%, rgba(89, 89, 89, 1))); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
-		0%, rgba(89, 89, 89, 1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
-		0%, rgba(89, 89, 89, 1) 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, rgba(198, 198, 198, 1)
-		0%, rgba(89, 89, 89, 1) 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center, rgba(198, 198, 198, 1) 0%,
-		rgba(89, 89, 89, 1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#595959', GradientType=1);
-	/* IE6-9 fallback on horizontal gradient */
 	padding:0px;
- height:100%;
- background:#f8f8f8;
- 
- background:#ECF0F1;
- 
+	 height:100%;
 		}
 
 
@@ -167,9 +146,6 @@ top:0px; left:0px; right:0px; bottom:0px;
 
 body.modal-open  {
 overflow:hidden;}
-
-
-
 
  .modal-backdrop{
  overflow: scroll; 
@@ -364,10 +340,8 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .btn-reproduciendo{	margin-right: 5px;}
 .btn-reproduciendo .badge{background-color:white;}
-.btn-reproduciendo.reproduciendoOff {
-	color:#fff;
-	background-color: #D2D4D6;
-	border-color: #eee;
+.btn-reproduciendo.reproduciendoOff{
+/*en themes*/
 }
 .btn-reproduciendo.reproduciendoOn{
 	color:#fff;
@@ -587,15 +561,8 @@ ul.nav {
 	
 }
 
-#Menu .navbar-nav>li.active>a{background-color: rgba(255,255,255,0.6);}
-
-#Menu .navbar-nav>li>a:hover, #Menu .navbar-nav>li>a:focus{background-color: rgba(255,255,255,0.4); color:#444;}
-
 .smallMenuIcon{margin-bottom:2px;}
-.navbar-default .container-fluid{background-color:#f8f8f8;border-bottom:1px solid #eee;
-background-color:#ECF0F1;
-border-color:#e8e8e8;
-border-color:rgba(255,255,255,0.6);}
+
 
 #pushMain .mobileMenuItem.active{background-color:#e7e7e7;}
 
@@ -609,7 +576,6 @@ border-color:rgba(255,255,255,0.6);}
 	letter-spacing: 1px;
 	padding: 0px 10px;
 	line-height: 48px;
-	border-right: 1px dotted #eee;
 	
 }
 
@@ -686,6 +652,22 @@ border-color:rgba(255,255,255,0.6);}
 	border-right: 1px solid #ccc;
 	cursor: pointer;
 }
+
+.menuTheme{ border-top:3px solid #ccc !important;}
+.menuThemeOption { position:relative; padding-left:35px !important;color:#999 !important; background-color:#eee;}
+.menuThemeOption:before {
+position: absolute;
+font-family: FontAwesome;
+top: 0;
+left: 10px;
+top: 50%;
+margin-top: -8px;
+margin-right: 3px;
+content: '\f10c';
+color:#999;
+}
+.menuThemeOptionActive {color:#333 !important;}
+.menuThemeOptionActive:before {content: '\f192'; color:#333 !important;}
 
 #Menu #playlist {
 	width: 61px;
@@ -875,7 +857,7 @@ color: #999;}
 /* ------ MOBILE MENU ------- */
 
 .cbp-spmenu .pushMenuSuperGroup{height:100%; padding-bottom:108px;overflow:auto; -webkit-overflow-scrolling:touch;}
-.cbp-spmenu .pushMenuGroup{border-bottom:1px solid #ddd;padding-top:10px;}
+.cbp-spmenu .pushMenuGroup{padding-top:10px;}
 .cbp-spmenu .pushMenuGroup .pushMenuGroupTitle{
 padding-left:15px;
 padding-bottom:0px;
@@ -887,19 +869,9 @@ letter-spacing: 2px;}
 
 .cbp-spmenu {
 	border-top: 6px solid #26ada1;
-	background-color: #f8f8f8;
-	color: #777;
-}
-
-
-
-.cbp-spmenu a {
-	color: #777;
-	border-bottom: 1px solid #fff;
 }
 
 .cbp-spmenu a:hover {
-	color: #5e5e5e;
 	background-color:inherit;
 	text-decoration: none;
 }
@@ -907,10 +879,8 @@ letter-spacing: 2px;}
 
 
 .cbp-spmenu .cbp-title {
-	background-color: #f8f8f8;
 	font-size: 25px;
 	padding: 10px;
-	background-color: #fbfbfb;
 	white-space:nowrap;
 	padding-right:40px;
 }
@@ -955,7 +925,6 @@ font-family: FontAwesome;
 top: 0;
 right: 10px;
 top: 50%;
-color: #ddd;
 margin-top: -8px;
 margin-right: 3px;
 content: '\f096';
@@ -972,7 +941,6 @@ content: '\f096';
         top:50%;
         margin-top:-8px;
 content: '\f046';
-color: #666;
     }
    
 
@@ -986,13 +954,8 @@ right: 10px;
  
  .pushMenuGroupTitle button{margin-bottom:10px;}
    
-.sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; background-color:#fbfbfb; padding: 10px 0px; width:100%; text-align:center; border-top:2px solid #eee;}
+.sideMenuBotones{ position:absolute; bottom:0px; z-index:1090; padding: 10px 0px; width:100%; text-align:center;}
 .btnLimpiar{margin-right:10px;}
-
-
-.cbp-spmenu  a.pushMenuClicked{ background-color:#eee; } 
-
-.cbp-spmenu .mobileMenuItem:active,.cbp-spmenu  .mobileMenuItem:focus,.cbp-spmenu  .mobileMenuItem:hover{ background-color:#eee; }
 
 /* ------ END MOBILE MENU ------- */
 
@@ -1019,7 +982,6 @@ h2 {
 	padding-bottom: 10px;
 	
 	text-shadow:none;
-	color:#7F8C8D;
 }
 
 h2.sliderTitle {
@@ -1039,9 +1001,6 @@ h2.sliderTitle {
 	margin-top: 2px;
 	
 	text-shadow:none;
-	color:#C0BFBF;
-	
-	color:#7F8C8D;
 }
 
 h2.pageSubtitle {
@@ -1688,7 +1647,7 @@ padding-left: 4px;}
 }
 
 .filterDesc{font-size:14px; 
-line-height:51px; color:#666; letter-spacing:1px;
+line-height:51px; letter-spacing:1px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; 
@@ -1899,7 +1858,7 @@ background-color:none;
 	padding: 4px;
 }
 
-.rowBackground{border-bottom:3px solid rgba(255,255,255,0.6); margin-bottom:15px;}
+.rowBackground{margin-bottom:15px;}
 	
 .rowBackground:last-of-type{margin-bottom:0px; border-bottom:0px none;}
 	
@@ -1939,9 +1898,7 @@ background-color:rgba(217, 83, 79, 0.73);}
 
 .fallo .btn{ margin-top:10px;}
 
-.velocidadDescarga{
-color:#7F8C8D; line-height:40px; padding-right:45px;
-}
+.velocidadDescarga{line-height:40px; padding-right:45px;}
 
 /*-------- END DESCARGAS --------------*/
 
@@ -2004,13 +1961,9 @@ line-height: 21px;}
 bottom: 5px;
 position: absolute;
 width: 100%;
-border-top: 2px dotted rgba(255,255,255,0.6);
 padding-top: 12px;
 }
 .flex-control-nav:empty{border:0px none; padding:0px;}
-
-.flex-control-paging li a{background-color:rgba(255,255,255,.1);}
-.flex-control-paging li a.flex-active{background-color:#C4C4C4;}
 
 @media ( max-width : 1024px) {
 	.flex-control-paging li a {
