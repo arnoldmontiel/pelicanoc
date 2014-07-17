@@ -21,11 +21,11 @@ else
 
 $backdrop = PelicanoHelper::getImageName($backdrop,"_bd");
 
-Yii::app()->clientScript->registerScript('update-my-movie-post-head', "
-		var date = new Date;	 	
-		if('".$backdrop."'!='')			
-	   		ChangeBG('','".$backdrop."'+ '?' +date.valueOf());			
-",CClientScript::POS_BEGIN);
+// Yii::app()->clientScript->registerScript('update-my-movie-post-head', "
+// 		var date = new Date;	 	
+// 		if('".$backdrop."'!='')			
+// 	   		ChangeBG('','".$backdrop."'+ '?' +date.valueOf());			
+// ",CClientScript::POS_BEGIN);
 
 Yii::app()->clientScript->registerScript('update-my-movie', "
 		$('#myModalCambiarAfiche').on('hidden.bs.modal', function () {

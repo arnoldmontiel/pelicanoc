@@ -63,7 +63,7 @@
 <?php
 Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie', "
 	
-	ChangeBG('','".$backdrop."');
+//	ChangeBG('','".$backdrop."');
 
 $('#playButton').click(function(){
 	$.ajax({
