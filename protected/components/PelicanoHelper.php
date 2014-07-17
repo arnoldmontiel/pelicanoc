@@ -950,30 +950,9 @@ class PelicanoHelper
 							
 						if(!isset($item->nzb->Id_nzb)) //solo si es Padre
 						{
-							if($item->nzb->deleted)
+							if($item->nzb->deleted == 1 && $modelNzb->isNewRecord) 
 							{
-								if(!$modelNzb->isNewRecord)
-								{
-									if(!$modelNzb->downloading||!$modelNzb->downloaded)
-									{
-										$modelNzb->Id_nzb_state = 6;
-										$modelNzb->sent = 0;
-										$modelNzb->change_state_date = new CDbExpression('NOW()');
-										$modelNzb->save();
-			
-										continue;
-									}
-								}
-								else
-								{
-									$modelNzb->Id_nzb_state = 6;
-									$modelNzb->sent = 0;
-									$modelNzb->change_state_date = new CDbExpression('NOW()');
-									$modelNzb->save();
-										
-									continue;
-								}
-			
+								continue;
 							}
 								
 							$idSeason = null;
