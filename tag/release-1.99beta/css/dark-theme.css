@@ -1,0 +1,52 @@
+/*
+ * Dark Theme
+ */
+
+body{ background:#575757; 	color: #fff;}
+
+.navbar-default .navbar-nav>li>a{ color:#eee;}
+
+#Menu .navbar-nav>li.active>a{background-color: rgba(65, 65, 65, 0.6); color:white;}
+
+#Menu .navbar-nav>li>a:hover, #Menu .navbar-nav>li>a:focus{background-color: rgba(65, 65, 65, 0.4); color:#eee;}
+
+.navbar-default .container-fluid{background-color:#575757; border-bottom:1px solid rgba(65, 65, 65, 0.6);}
+
+#MenuLogo{	border-right: 1px dotted rgba(65, 65, 65, 0.6);}
+
+.navbar-default .navbar-brand{color:white;}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{color:#ccc;}
+
+
+.btn-reproduciendo.reproduciendoOff {
+	color:#fff;
+	background-color: #686868;
+	border-color: #666666;
+}
+
+.filterDesc{ color:white;}
+
+h2{color:#D8D8D8;}
+h2.sliderTitl{color:#D8D8D8;}
+
+.rowBackground{border-bottom:3px solid rgba(65, 65, 65, 0.6);}
+
+.flex-control-nav{border-top: 2px dotted rgba(65, 65, 65, 0.6);}
+.flex-control-paging li a{background-color:rgba(255, 255, 255, 0.3);}
+.flex-control-paging li a.flex-active{background-color:#fff;}
+
+.velocidadDescarga{color:#eee;}
+
+.cbp-spmenu{background-color:#535353;}
+.cbp-spmenu .cbp-title{background-color:#4D4D4D; color:#white;}
+.cbp-spmenu .pushMenuGroup{border-bottom:1px solid rgba(65, 65, 65, 0.6);}
+.cbp-spmenu a {	border-bottom: 1px solid #474747; color:#D3D3D3;}
+.cbp-spmenu a:hover { color:white;}
+.sideMenuBotones{background-color:#4D4D4D; border-top:2px solid #474747;}
+.pushSelectable .pushMenuGroup a:before {color:#777;}
+.pushSelectable .pushMenuGroup .pushMenuActive:before {color: #fff;}
+.cbp-spmenu  a.pushMenuClicked{ background-color:#3C3C3C; } 
+.pushSelectable .pushMenuGroup .pushMenuActive{ background-color:#3C3C3C; } 
+
+
+#4D4D4D
