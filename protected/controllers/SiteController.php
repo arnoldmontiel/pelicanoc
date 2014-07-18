@@ -78,6 +78,8 @@ class SiteController extends Controller
 			$setting->path_sabnzbd_download = $setting->path_shared;
 			$setting->save();
 		}
+		if(isset($_POST['Network']))
+			PelicanoHelper::saveNetworkConfiguration($_POST['Network']);
 	}
 	
 	public function actionAjaxOpenGotoConfigDialog()
