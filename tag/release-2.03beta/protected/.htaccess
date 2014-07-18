@@ -1,0 +1,4 @@
+deny from all
+<Files "views/layouts/estilos.php">
+    Allow from all
+</Files>
