@@ -46,6 +46,7 @@
 				<div class="inlineForm">
 	  					<label class="inlineFormLabel">Network</label>
 	  					<div class="row">
+	  					<?php if(isset($network)&&is_array($network)&&!empty($network)):?>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>DIRECCION IP</label>
 		  						<?php echo CHtml::textField('address',$network['address'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
@@ -70,7 +71,12 @@
 		  						<label>GATEWAT</label>
 		  						<?php echo CHtml::textField( 'gateway',$network['gateway'], array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
-		      				</div>
+		      				<?php else:?>
+								<div class="form-group col-sm-6 ">
+		  						<label>No se encontraron datos</label>
+			      				</div>		      				
+		      				<?php endif;?>
+		      			</div>
 				</div>
 				<div class="form-group buttonGroup">
     					<div class="col-sm-12">    	
