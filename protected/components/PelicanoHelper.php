@@ -28,10 +28,6 @@ class PelicanoHelper
 					{
 						$result['netmask']=trim($line[1]);
 					}
-					elseif(isset($line[0])&&strpos($line[0], "network")!==false)
-					{
-						$result['network']=trim($line[1]);
-					}
 					elseif(isset($line[0])&&strpos($line[0], "broadcast")!==false)
 					{
 						$result['broadcast']=trim($line[1]);
@@ -39,7 +35,12 @@ class PelicanoHelper
 					elseif(isset($line[0])&&strpos($line[0], "gateway")!==false)
 					{
 						$result['gateway']=trim($line[1]);
-					}						
+					}
+					//siempre al final y con el espacio "network "	
+					elseif(isset($line[0])&&strpos($line[0], "network ")!==false)
+					{
+						$result['network']=trim($line[1]);
+					}
 				}								
 			}			
 		}		
