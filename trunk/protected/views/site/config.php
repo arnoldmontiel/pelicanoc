@@ -49,27 +49,27 @@
 	  					<?php if(isset($network)&&is_array($network)&&!empty($network)):?>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>DIRECCION IP</label>
-		  						<?php echo CHtml::textField('address',$network['address'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField('Network[address]',$network['address'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>METODO</label>
-		  						<?php echo CHtml::textField( 'method',$network['method'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField( 'Network[method]',$network['method'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>MASCARA DE SUBRED</label>
-		  						<?php echo CHtml::textField( 'netmask',$network['netmask'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField( 'Network[netmask]',$network['netmask'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>RED</label>
-		  						<?php echo CHtml::textField( 'network', $network['network'],array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField( 'Network[network]', $network['network'],array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>BROADCAST</label>
-		  						<?php echo CHtml::textField( 'broadcast',(isset($network['broadcast'])?$network['broadcast']:''),array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField( 'Network[broadcast]',(isset($network['broadcast'])?$network['broadcast']:''),array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>GATEWAT</label>
-		  						<?php echo CHtml::textField( 'gateway',isset($network['gateway'])?$network['gateway']:"", array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField( 'Network[gateway]',isset($network['gateway'])?$network['gateway']:"", array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		      				<?php else:?>
 								<div class="form-group col-sm-6 ">

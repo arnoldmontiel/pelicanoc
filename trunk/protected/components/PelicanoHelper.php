@@ -3,6 +3,23 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function saveNetworkConfiguration($commandParams)
+	{
+// 		ADDRESS  =$1
+// 		METHOD   =$2
+// 		NETMASK  =$3
+// 		NETWORK  =$4
+// 		BROADCAST=$5
+// 		GATEWAY  =$6		
+		$params = $commandParams['address'].' '.
+			$commandParams['method'].' '
+			.$commandParams['netmask'].' '
+			.$commandParams['broadcast'].' '
+			.$commandParams['gateway'].' '
+			.$commandParams['network'];
+
+		exec(dirname(__FILE__).'/../commands/shell/networkEditor.sh '.$params,$output,$return);
+	}
 	static public function getNetworkConfiguration()
 	{
 		exec(dirname(__FILE__).'/../commands/shell/networkGetConfiguration.sh',$output,$return);
