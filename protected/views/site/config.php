@@ -38,16 +38,41 @@
 	  					<label class="inlineFormLabel">Varios</label>
 	  					<div class="row">
 		  					<div class="form-group col-sm-6 ">
-		    					<label>Path Compartidos</label>
-		    					<?php echo CHtml::activeTextField($model, 'path_shared', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
-		    				</div>
-		  					<div class="form-group col-sm-6 ">
 		  						<label>Sabnzbd API Key</label>
 		  						<?php echo CHtml::activeTextField($model, 'sabnzb_api_key', array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 	  					</div>
 				</div>
-  					<div class="form-group buttonGroup">
+				<div class="inlineForm">
+	  					<label class="inlineFormLabel">Network</label>
+	  					<div class="row">
+		  					<div class="form-group col-sm-6 ">
+		  						<label>DIRECCION IP</label>
+		  						<?php echo CHtml::textField('address',$network['address'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		      				</div>
+		  					<div class="form-group col-sm-6 ">
+		  						<label>METODO</label>
+		  						<?php echo CHtml::textField( 'method',$network['method'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		      				</div>
+		  					<div class="form-group col-sm-6 ">
+		  						<label>MASCARA DE SUBRED</label>
+		  						<?php echo CHtml::textField( 'netmask',$network['netmask'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		      				</div>
+		  					<div class="form-group col-sm-6 ">
+		  						<label>RED</label>
+		  						<?php echo CHtml::textField( 'network', $network['network'],array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		      				</div>
+		  					<div class="form-group col-sm-6 ">
+		  						<label>BROADCAST</label>
+		  						<?php echo CHtml::textField( 'broadcast',$network['broadcast'],array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		      				</div>
+		  					<div class="form-group col-sm-6 ">
+		  						<label>GATEWAT</label>
+		  						<?php echo CHtml::textField( 'gateway',$network['gateway'], array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		      				</div>
+		      				</div>
+				</div>
+				<div class="form-group buttonGroup">
     					<div class="col-sm-12">    	
     						<button id="btn-save-config" onclick="submitGeneralConfig();" type="button" class="btn btn-alternate btn-lg pull-right"><i class="fa fa-save"></i> <span id="save-description">Guardar</span>    						
     						</button>

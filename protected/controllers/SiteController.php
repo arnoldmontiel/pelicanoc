@@ -50,9 +50,9 @@ class SiteController extends Controller
 			$this->showMenu = false;
 			$page = "init";
 		}
-		
+		$network=PelicanoHelper::getNetworkConfiguration();
 		$this->render($page, array(
-					'model'=>$setting
+					'model'=>$setting,'network'=>$network
 		));
 	
 	}
