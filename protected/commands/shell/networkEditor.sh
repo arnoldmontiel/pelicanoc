@@ -29,12 +29,12 @@ then
     echo "Updating existing item"
     
 augtool <<-EOF
-set $ETH0_IFACE/address "$ADDRESS"
-set $ETH0_IFACE/method "$METHOD"
-set $ETH0_IFACE/netmask "$NETMASK"
-set $ETH0_IFACE/network "$NETWORK"
-set $ETH0_IFACE/broadcast "$BROADCAST"
-set $ETH0_IFACE/gateway "$GATEWAY"
+set $ETH0_IFACE/address "${ADDRESS}"
+set $ETH0_IFACE/method "${METHOD}"
+set $ETH0_IFACE/netmask "${NETMASK}"
+set $ETH0_IFACE/network "${NETWORK}"
+set $ETH0_IFACE/broadcast "${BROADCAST}"
+set $ETH0_IFACE/gateway "${GATEWAY}"
 
 save
 quit
