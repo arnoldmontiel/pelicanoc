@@ -61,6 +61,14 @@ class PelicanoHelper
 				}								
 			}			
 		}		
+		if($result['method']=="dhcp")
+		{
+			if(!isset($result['network']))	$result['network']="";
+			if(!isset($result['gateway']))	$result['gateway']="";
+			if(!isset($result['broadcast']))	$result['broadcast']="";
+			if(!isset($result['netmask']))	$result['netmask']="";
+			if(!isset($result['address']))	$result['address']="";
+		}			
 		return $result;
 	}
 	static public function pauseSabnzbd()
