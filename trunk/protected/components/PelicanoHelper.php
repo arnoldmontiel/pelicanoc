@@ -11,12 +11,12 @@ class PelicanoHelper
 // 		NETWORK  =$4
 // 		BROADCAST=$5
 // 		GATEWAY  =$6		
-		$params = $commandParams['address'].' '.
-			$commandParams['method'].' '
-			.$commandParams['netmask'].' '
-			.$commandParams['network'].' '
-			.$commandParams['broadcast'].' '
-			.$commandParams['gateway'];
+		$params = '"'.$commandParams['address'].'" "'.
+			$commandParams['method'].'" "'
+			.$commandParams['netmask'].'" "'
+			.$commandParams['network'].'" "'
+			.$commandParams['broadcast'].'" "'
+			.$commandParams['gateway'].'"';
 
 		exec('sudo '.dirname(__FILE__).'/../commands/shell/networkEditor.sh '.$params,$output,$return);
 	}
