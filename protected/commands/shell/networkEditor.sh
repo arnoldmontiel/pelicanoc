@@ -15,12 +15,12 @@ echo network  =$4
 echo broadcast=$5
 echo gateway  =$6
 
-ADDRESS  =$1
-METHOD   =$2
-NETMASK  =$3
-NETWORK  =$4 
+ADDRESS=$1
+METHOD=$2
+NETMASK=$3
+NETWORK=$4 
 BROADCAST=$5
-GATEWAY  =$6
+GATEWAY=$6
 
 ETH0_IFACE=`augtool match /files/etc/network/*/iface/ eth0`
 
