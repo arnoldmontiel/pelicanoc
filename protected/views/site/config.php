@@ -65,7 +65,7 @@
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>BROADCAST</label>
-		  						<?php echo CHtml::textField( 'broadcast',$network['broadcast'],array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField( 'broadcast',(isset($network['broadcast'])?$network['broadcast']:''),array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>GATEWAT</label>
