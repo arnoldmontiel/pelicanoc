@@ -28,9 +28,8 @@ if [ -n "$ETH0_IFACE" ];
 then
     echo "Updating existing item"
     
-if [ -n $ADDRESS ];
+if [ -n "$ADDRESS" ];
 then
-
 augtool <<-EOF
 set $ETH0_IFACE/address ${ADDRESS}
 save
@@ -47,7 +46,7 @@ EOF
 
 fi
 
-if [ -n $METHOD ];
+if [ -n "$METHOD" ];
 then
 
 augtool <<-EOF
@@ -66,7 +65,7 @@ EOF
 
 fi
 
-if [ -n $NETMASK ];
+if [ -n "$NETMASK" ];
 then
 
 augtool <<-EOF
@@ -85,7 +84,7 @@ EOF
 
 fi
 
-if [ -n $NETWORK ];
+if [ -n "$NETWORK" ];
 then
 augtool <<-EOF
 set $ETH0_IFACE/network ${NETWORK}
@@ -103,7 +102,7 @@ EOF
 
 fi
 
-if [ -n $BROADCAST ];
+if [ -n "$BROADCAST" ];
 then
 augtool <<-EOF
 set $ETH0_IFACE/broadcast ${BROADCAST}
@@ -121,7 +120,7 @@ EOF
 
 fi
 
-if [ -n $GATEWAY ];
+if [ -n "$GATEWAY" ];
 then
 augtool <<-EOF
 set $ETH0_IFACE/gateway ${GATEWAY}
