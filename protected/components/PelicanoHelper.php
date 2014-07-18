@@ -18,7 +18,7 @@ class PelicanoHelper
 			.$commandParams['gateway'].' '
 			.$commandParams['network'];
 
-		exec(dirname(__FILE__).'/../commands/shell/networkEditor.sh '.$params,$output,$return);
+		exec('sudo '.dirname(__FILE__).'/../commands/shell/networkEditor.sh '.$params,$output,$return);
 	}
 	static public function getNetworkConfiguration()
 	{
