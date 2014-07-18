@@ -5,7 +5,7 @@ class PelicanoHelper
 {
 	static public function getNetworkConfiguration()
 	{
-		exec(dirname(__FILE__).'/../commands/shell/networkGetConfig.sh',$output,$return);
+		exec(dirname(__FILE__).'/../commands/shell/networkGetConfiguration.sh',$output,$return);
 		$result = array();
 		if($return==0)
 		{
