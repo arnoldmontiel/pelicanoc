@@ -28,17 +28,116 @@ if [ -n "$ETH0_IFACE" ];
 then
     echo "Updating existing item"
     
+if [ -n "$ADDRESS" ];
+then
+
 augtool <<-EOF
 set $ETH0_IFACE/address "${ADDRESS}"
-set $ETH0_IFACE/method "${METHOD}"
-set $ETH0_IFACE/netmask "${NETMASK}"
-set $ETH0_IFACE/network "${NETWORK}"
-set $ETH0_IFACE/broadcast "${BROADCAST}"
-set $ETH0_IFACE/gateway "${GATEWAY}"
-
 save
 quit
 EOF
+
+else
+
+augtool <<-EOF
+rm $ETH0_IFACE/address
+save
+quit
+EOF
+
+fi
+
+if [ -n "$METHOD" ];
+then
+
+augtool <<-EOF
+set $ETH0_IFACE/method "${METHOD}"
+save
+quit
+EOF
+
+else
+
+augtool <<-EOF
+rm $ETH0_IFACE/method
+save
+quit
+EOF
+
+fi
+
+if [ -n "$NETMASK" ];
+then
+
+augtool <<-EOF
+set $ETH0_IFACE/netmask "${NETMASK}"
+save
+quit
+EOF
+
+else
+
+augtool <<-EOF
+rm $ETH0_IFACE/netmask
+save
+quit
+EOF
+
+fi
+
+if [ -n "$NETWORK" ];
+then
+augtool <<-EOF
+set $ETH0_IFACE/network "${NETWORK}"
+save
+quit
+EOF
+
+else
+
+augtool <<-EOF
+rm $ETH0_IFACE/network
+save
+quit
+EOF
+
+fi
+
+if [ -n "$BROADCAST" ];
+then
+augtool <<-EOF
+set $ETH0_IFACE/broadcast "${BROADCAST}"
+save
+quit
+EOF
+
+else
+
+augtool <<-EOF
+rm $ETH0_IFACE/broadcast
+save
+quit
+EOF
+
+fi
+
+if [ -n "$GATEWAY" ];
+then
+augtool <<-EOF
+set $ETH0_IFACE/gateway "${GATEWAY}"
+save
+quit
+EOF
+
+else
+
+augtool <<-EOF
+rm $ETH0_IFACE/gateway
+save
+quit
+EOF
+
+fi
 
 else
     echo "ERROR ETH0 not found"
