@@ -18,27 +18,27 @@ class PelicanoHelper
 					$line = explode('=', $item);
 					if(isset($line[0])&&strpos($line[0], "address")!==false)
 					{
-						$result['address']=$line[1];						
+						$result['address']=trim($line[1]);						
 					}
 					elseif(isset($line[0])&&strpos($line[0], "method")!==false)
 					{
-						$result['method']=$line[1];						
+						$result['method']=trim($line[1]);						
 					}
 					elseif(isset($line[0])&&strpos($line[0], "netmask")!==false)
 					{
-						$result['netmask']=$line[1];
+						$result['netmask']=trim($line[1]);
 					}
 					elseif(isset($line[0])&&strpos($line[0], "network")!==false)
 					{
-						$result['network']=$line[1];
+						$result['network']=trim($line[1]);
 					}
 					elseif(isset($line[0])&&strpos($line[0], "broadcast")!==false)
 					{
-						$result['broadcast']=$line[1];
+						$result['broadcast']=trim($line[1]);
 					}
 					elseif(isset($line[0])&&strpos($line[0], "gateway")!==false)
 					{
-						$result['gateway']=$line[1];
+						$result['gateway']=trim($line[1]);
 					}						
 				}								
 			}			
