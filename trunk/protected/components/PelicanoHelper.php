@@ -3,6 +3,48 @@ require_once(dirname(__FILE__) . "/../stubs/Pelicano.php");
 require_once(dirname(__FILE__) . "/../stubs/wsSettings.php");
 class PelicanoHelper
 {
+	static public function getNetworkConfiguration()
+	{
+		exec(dirname(__FILE__).'/../commands/shell/networkGetConfig.sh',$output,$return);
+		$result = array();
+		if($return==0)
+		{
+			if(isset($output)&&is_array($output))
+			{
+				foreach ($output as $item)
+				{
+					//example of a line
+					///files/etc/network/interfaces/iface[2]/address = 192.168.0.105
+					$line = explode('=', $item);
+					if(isset($line[0])&&strpos($line[0], "address")!==false)
+					{
+						$result['address']=$line[1];						
+					}
+					elseif(isset($line[0])&&strpos($line[0], "method")!==false)
+					{
+						$result['method']=$line[1];						
+					}
+					elseif(isset($line[0])&&strpos($line[0], "netmask")!==false)
+					{
+						$result['netmask']=$line[1];
+					}
+					elseif(isset($line[0])&&strpos($line[0], "network")!==false)
+					{
+						$result['network']=$line[1];
+					}
+					elseif(isset($line[0])&&strpos($line[0], "broadcast")!==false)
+					{
+						$result['broadcast']=$line[1];
+					}
+					elseif(isset($line[0])&&strpos($line[0], "gateway")!==false)
+					{
+						$result['gateway']=$line[1];
+					}						
+				}								
+			}			
+		}		
+		return $result;
+	}
 	static public function pauseSabnzbd()
 	{
 		$settings = Setting::getInstance();
