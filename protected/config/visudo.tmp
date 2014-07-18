@@ -17,7 +17,7 @@ Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/
 
 # User privilege specification
 root    ALL=(ALL:ALL) ALL
-www-data  ALL=(ALL) NOPASSWD:/bin/mount, /bin/umount, /var/www/pelicano/protected/commands/shell/fstabEditor.sh, /var/www/pelicano/protected/commands/shell/startDownload.sh
+www-data  ALL=(ALL) NOPASSWD:/bin/mount, /bin/umount, /var/www/pelicano/protected/commands/shell/fstabEditor.sh, /var/www/pelicano/protected/commands/shell/networkEditor.sh, /var/www/pelicano/protected/commands/shell/startDownload.sh
 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) ALL
