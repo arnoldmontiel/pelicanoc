@@ -98,31 +98,6 @@
     	 </div><!-- /wrapper -->
     	 
 <script type="text/javascript">
-//'ipv4': IPv4 Address Validator
-$.validator.addMethod('ipv4', function(value) {
-    var ipv4 = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;    
-    return value.match(ipv4);
-}, 'Invalid IPv4 address');
-
-// 'netmask': IPv4 Netmask Validator
-$.validator.addMethod('netmask', function(value) {
-    var mask = /^[1-2]{1}[2,4,5,9]{1}[0,2,4,5,8]{1}\.
-[0-2]{1}[0,2,4,5,9]{1}[0,2,4,5,8]{1}\.
-[0-2]{1}[0,2,4,5,9]{1}[0,2,4,5,8]{1}\.
-[0-9]{1,3}$/;    
-    return value.match(mask);
-}, 'Invalid IPv4 netmask');
-
-$("#general-config-form").validate({
-    rules:{
-	ipaddress:{
-	    required:true,
-	    ipv4:true
-	},
-	netmask:{
-	    required:true,
-	    netmask:true
-	}
 function goToLocalFolderAdmin()
 {
 	window.location = <?php echo '"'. SiteController::createUrl('localFolderAdmin') . '"'; ?>;
