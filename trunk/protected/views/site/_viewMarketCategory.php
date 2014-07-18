@@ -12,7 +12,7 @@
 		    <?php
     			foreach($data->nzbs as $nzb)
     			{
-    				if($nzb->ready==0  && $nzb->deleted==1)	continue;
+    				if($nzb->ready==0  || $nzb->deleted==1)	continue;
 					$modelSource = $nzb;
 					if(!isset($modelSource->myMovieDiscNzb)) continue;
 					$myMovie = $modelSource->myMovieDiscNzb->myMovieNzb;
