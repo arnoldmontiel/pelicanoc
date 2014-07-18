@@ -28,11 +28,11 @@ if [ -n "$ETH0_IFACE" ];
 then
     echo "Updating existing item"
     
-if [ -n "$ADDRESS" ];
+if [ -n $ADDRESS ];
 then
 
 augtool <<-EOF
-set $ETH0_IFACE/address "${ADDRESS}"
+set $ETH0_IFACE/address ${ADDRESS}
 save
 quit
 EOF
@@ -47,11 +47,11 @@ EOF
 
 fi
 
-if [ -n "$METHOD" ];
+if [ -n $METHOD ];
 then
 
 augtool <<-EOF
-set $ETH0_IFACE/method "${METHOD}"
+set $ETH0_IFACE/method ${METHOD}
 save
 quit
 EOF
@@ -66,11 +66,11 @@ EOF
 
 fi
 
-if [ -n "$NETMASK" ];
+if [ -n $NETMASK ];
 then
 
 augtool <<-EOF
-set $ETH0_IFACE/netmask "${NETMASK}"
+set $ETH0_IFACE/netmask ${NETMASK}
 save
 quit
 EOF
@@ -85,10 +85,10 @@ EOF
 
 fi
 
-if [ -n "$NETWORK" ];
+if [ -n $NETWORK ];
 then
 augtool <<-EOF
-set $ETH0_IFACE/network "${NETWORK}"
+set $ETH0_IFACE/network ${NETWORK}
 save
 quit
 EOF
@@ -103,10 +103,10 @@ EOF
 
 fi
 
-if [ -n "$BROADCAST" ];
+if [ -n $BROADCAST ];
 then
 augtool <<-EOF
-set $ETH0_IFACE/broadcast "${BROADCAST}"
+set $ETH0_IFACE/broadcast ${BROADCAST}
 save
 quit
 EOF
@@ -121,10 +121,10 @@ EOF
 
 fi
 
-if [ -n "$GATEWAY" ];
+if [ -n $GATEWAY ];
 then
 augtool <<-EOF
-set $ETH0_IFACE/gateway "${GATEWAY}"
+set $ETH0_IFACE/gateway ${GATEWAY}
 save
 quit
 EOF
