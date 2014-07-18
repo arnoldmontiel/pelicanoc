@@ -10,7 +10,6 @@ then
 	echo `augtool match ${ETH0_IFACE}/network`
 	echo `augtool match ${ETH0_IFACE}/broadcast`
 	echo `augtool match ${ETH0_IFACE}/gateway`
-else
 fi
 
 exit 0
