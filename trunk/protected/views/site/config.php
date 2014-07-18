@@ -69,7 +69,7 @@
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>GATEWAT</label>
-		  						<?php echo CHtml::textField( 'gateway',$network['gateway'], array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						<?php echo CHtml::textField( 'gateway',isset($network['gateway'])?$network['gateway']:"", array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		      				<?php else:?>
 								<div class="form-group col-sm-6 ">
