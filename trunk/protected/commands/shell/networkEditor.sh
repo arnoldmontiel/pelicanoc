@@ -141,5 +141,5 @@ fi
 else
     echo "ERROR ETH0 not found"
 fi
-
+#service networking restart
 exit 0
