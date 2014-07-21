@@ -10,6 +10,7 @@ then
 	echo `augtool match ${ETH0_IFACE}/network`
 	echo `augtool match ${ETH0_IFACE}/broadcast`
 	echo `augtool match ${ETH0_IFACE}/gateway`
+	echo `augtool match ${ETH0_IFACE}/dns-nameservers`	
 fi
 
 exit 0
