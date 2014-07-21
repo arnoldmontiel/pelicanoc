@@ -107,7 +107,7 @@
     	 </div><!-- /wrapper -->
     	 
 <script type="text/javascript">
-
+<?php if(isset($network['method'])):?>
 if("<?php echo $network['method']?>"=="dhcp")
 {
 	$("#network-group .row div input").attr("disabled","disabled");
@@ -116,7 +116,7 @@ else
 {
 	$("#network-group .row div input").removeAttr("disabled");				
 }
-
+<?php endif?>
 $("#ul-method a").click(
 		function()
 		{
