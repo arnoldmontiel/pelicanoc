@@ -39,6 +39,7 @@
  * @property string $host_file_server_user
  * @property string $host_file_server_passwd
  * @property string $michael_jackson
+ * @property integer $disc_min_size_warning
  * 
  * The followings are the available model relations:
  * @property Player[] $players 
@@ -122,7 +123,7 @@ class Setting extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer, Id_reseller, port_v4, port_v6', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, Id_reseller, port_v4, port_v6, disc_min_size_warning', 'numerical', 'integerOnly'=>true),
 			array('path_pending, sabnzb_api_key, sabnzb_api_url, host_name, path_ready, path_subtitle, 
 			path_images, path_shared, host_path, host_file_server, host_file_server_path, 
 			sabnzb_pwd_file_path,shared_online_path,path_shared_pelicano_root, path_shared_copied, path_shared_ripped, host_file_server_user, host_file_server_passwd, host_file_server_name,michael_jackson, path_sabnzbd_download ', 'length', 'max'=>255),
@@ -131,7 +132,7 @@ class Setting extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('Id, path_pending, Id_customer, sabnzb_api_key, sabnzb_api_url, host_name,host_name, 
-			path_ready, path_subtitle, path_images, path_shared, host_path, Id_reseller, Id_device, ip_v4, ip_v6, port_v4, port_v6, path_anydvd_download, anydvd_version_installed, mymovies_username, mymovies_password, host_file_server, host_file_server_path, sabnzb_pwd_file_path,shared_online_path, path_shared_pelicano_root, path_shared_copied, path_shared_ripped, michael_jackson, host_file_server_user, path_sabnzbd_download, host_file_server_name, host_file_server_passwd,version', 'safe', 'on'=>'search'),
+			path_ready, path_subtitle, path_images, path_shared, host_path, Id_reseller, Id_device, ip_v4, ip_v6, port_v4, port_v6, path_anydvd_download, anydvd_version_installed, mymovies_username, mymovies_password, host_file_server, host_file_server_path, sabnzb_pwd_file_path,shared_online_path, path_shared_pelicano_root, path_shared_copied, path_shared_ripped, michael_jackson, host_file_server_user, path_sabnzbd_download, host_file_server_name, host_file_server_passwd,version, disc_min_size_warning', 'safe', 'on'=>'search'),
 		);
 	}
 

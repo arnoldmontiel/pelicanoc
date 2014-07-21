@@ -63,6 +63,7 @@ class ConfigurationSOAP
 	public $is_movie_tester; //integer;
 	public $host_name; //string;
 	public $michael_jackson; //string;
+	public $disc_min_size_warning; //integer;
 	public $tmdb_api_key; //string;
 	public $tmdb_lang; //string;
 	public $SabnzbdAccounts; //SabnzbdAccountSOAP[];
