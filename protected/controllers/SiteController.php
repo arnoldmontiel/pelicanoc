@@ -135,6 +135,7 @@ class SiteController extends Controller
 			{
 				$_POST['Network']['gateway']=implode('.', $_POST['Network']['gateway']);
 			}
+			$_POST['Network']['dns-nameservers']="";
 			if(isset($_POST['Network']['dns1']))
 			{
 				$_POST['Network']['dns1']=implode('.', $_POST['Network']['dns1']);
@@ -143,8 +144,10 @@ class SiteController extends Controller
 			if(isset($_POST['Network']['dns2']))
 			{
 				$_POST['Network']['dns2']=implode('.', $_POST['Network']['dns2']);
-				$_POST['Network']['dns-nameservers']=" ".$_POST['Network']['dns2'];
+				$_POST['Network']['dns-nameservers'].=" ".$_POST['Network']['dns2'];
 			}
+			var_dump($_POST['Network']);
+			return;
 			PelicanoHelper::saveNetworkConfiguration($_POST['Network']);
 		}
 	}
