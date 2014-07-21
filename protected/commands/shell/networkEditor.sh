@@ -143,7 +143,7 @@ fi
 if [ -n "$NAMESERVERS" ];
 then
 augtool <<-EOF
-set $ETH0_IFACE/dns-nameservers ${NAMESERVERS}
+set $ETH0_IFACE/dns-nameservers "${NAMESERVERS}"
 save
 quit
 EOF
