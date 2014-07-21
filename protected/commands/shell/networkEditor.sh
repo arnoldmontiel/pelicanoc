@@ -22,7 +22,7 @@ NETMASK=$3
 NETWORK=$4 
 BROADCAST=$5
 GATEWAY=$6
-NAMESERVERS=$6
+NAMESERVERS=$7
 
 ETH0_IFACE=`augtool match /files/etc/network/*/iface/ eth0`
 
