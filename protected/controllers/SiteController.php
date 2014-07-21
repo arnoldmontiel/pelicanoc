@@ -51,6 +51,32 @@ class SiteController extends Controller
 			$page = "init";
 		}
 		$network=PelicanoHelper::getNetworkConfiguration();
+		if(isset($network['address']))
+		{
+			if($network['address']=="")	$network['address']="0.0.0.0";
+			$network['address']= explode('.', $network['address']);
+		}
+		if(isset($network['netmask']))
+		{
+			if($network['netmask']=="")	$network['netmask']="0.0.0.0";
+			$network['netmask']= explode('.', $network['netmask']);
+		}
+		if(isset($network['network']))
+		{
+			if($network['network']=="")	$network['network']="0.0.0.0";
+			$network['network']= explode('.', $network['network']);
+		}
+		if(isset($network['broadcast']))
+		{
+			if($network['broadcast']=="")	$network['broadcast']="0.0.0.0";
+			$network['broadcast']= explode('.', $network['broadcast']);
+		}
+		if(isset($network['gateway']))
+		{
+			if($network['gateway']=="")	$network['gateway']="0.0.0.0";
+			$network['gateway']= explode('.', $network['gateway']);
+		}		
+		
 		$this->render($page, array(
 					'model'=>$setting,'network'=>$network
 		));
@@ -78,8 +104,29 @@ class SiteController extends Controller
 			$setting->path_sabnzbd_download = $setting->path_shared;
 			$setting->save();
 		}
-		if(isset($_POST['Network']))
+		if(isset($_POST['Network'])){
+			if(isset($_POST['Network']['address']))
+			{
+				$_POST['Network']['address']=implode('.', $_POST['Network']['address']);
+			}
+			if(isset($_POST['Network']['netmask']))
+			{
+				$_POST['Network']['netmask']=implode('.', $_POST['Network']['netmask']);
+			}
+			if(isset($_POST['Network']['network']))
+			{
+				$_POST['Network']['network']=implode('.', $_POST['Network']['network']);
+			}
+			if(isset($_POST['Network']['broadcast']))
+			{
+				$_POST['Network']['broadcast']=implode('.', $_POST['Network']['broadcast']);
+			}
+			if(isset($_POST['Network']['gateway']))
+			{
+				$_POST['Network']['gateway']=implode('.', $_POST['Network']['gateway']);
+			}
 			PelicanoHelper::saveNetworkConfiguration($_POST['Network']);
+		}
 	}
 	
 	public function actionAjaxOpenGotoConfigDialog()
