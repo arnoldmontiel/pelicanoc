@@ -79,15 +79,6 @@
 		  						</div>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
-		  						<label>RED</label>
-		  						<div>
-		  						<?php echo CHtml::textField('Network[network][0]',$network['network'][0] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
-		  						<?php echo CHtml::textField('Network[network][1]',$network['network'][1] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
-		  						<?php echo CHtml::textField('Network[network][2]',$network['network'][2] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
-		  						<?php echo CHtml::textField('Network[network][3]',$network['network'][3] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>
-		  						</div>
-		      				</div>
-		  					<div class="form-group col-sm-6 ">
 		  						<label>BROADCAST</label>
 		  						<div>
 		  						<?php echo CHtml::textField('Network[broadcast][0]',$network['broadcast'][0] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
@@ -103,6 +94,24 @@
 		  						<?php echo CHtml::textField('Network[gateway][1]',$network['gateway'][1] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
 		  						<?php echo CHtml::textField('Network[gateway][2]',$network['gateway'][2] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
 		  						<?php echo CHtml::textField('Network[gateway][3]',$network['gateway'][3] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						</div>
+		      				</div>
+		  					<div class="form-group col-sm-6 ">
+		  						<label>DNS 1</label>
+		  						<div>
+		  						<?php echo CHtml::textField('Network[dns1][0]',$network['dns1'][0] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
+		  						<?php echo CHtml::textField('Network[dns1][1]',$network['dns1'][1] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
+		  						<?php echo CHtml::textField('Network[dns1][2]',$network['dns1'][2] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
+		  						<?php echo CHtml::textField('Network[dns1][3]',$network['dns1'][3] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>
+		  						</div>
+		      				</div>
+		  					<div class="form-group col-sm-6 ">
+		  						<label>DNS 2</label>
+		  						<div>
+		  						<?php echo CHtml::textField('Network[dns2][0]',$network['dns2'][0] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
+		  						<?php echo CHtml::textField('Network[dns2][1]',$network['dns2'][1] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
+		  						<?php echo CHtml::textField('Network[dns2][2]',$network['dns2'][2] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>  .
+		  						<?php echo CHtml::textField('Network[dns2][3]',$network['dns2'][3] ,array('class'=>'form-control inputSmall align-center ip-form', 'onkeyup'=>'changeSaveLabel();'));?>
 		  						</div>
 		      				</div>
 		      				<?php else:?>

@@ -76,6 +76,16 @@ class SiteController extends Controller
 			if($network['gateway']=="")	$network['gateway']="0.0.0.0";
 			$network['gateway']= explode('.', $network['gateway']);
 		}		
+		if(isset($network['dns1']))
+		{
+			if($network['dns1']=="")	$network['dns1']="0.0.0.0";
+			$network['dns1']= explode('.', $network['dns1']);
+		}
+		if(isset($network['dns2']))
+		{
+			if($network['dns1']=="")	$network['dns2']="0.0.0.0";
+			$network['dns2']= explode('.', $network['dns2']);
+		}
 		
 		$this->render($page, array(
 					'model'=>$setting,'network'=>$network
@@ -124,6 +134,16 @@ class SiteController extends Controller
 			if(isset($_POST['Network']['gateway']))
 			{
 				$_POST['Network']['gateway']=implode('.', $_POST['Network']['gateway']);
+			}
+			if(isset($_POST['Network']['dns1']))
+			{
+				$_POST['Network']['dns1']=implode('.', $_POST['Network']['dns1']);
+				$_POST['Network']['dns-nameservers']=$_POST['Network']['dns1'];
+			}
+			if(isset($_POST['Network']['dns2']))
+			{
+				$_POST['Network']['dns2']=implode('.', $_POST['Network']['dns2']);
+				$_POST['Network']['dns-nameservers']=" ".$_POST['Network']['dns2'];
 			}
 			PelicanoHelper::saveNetworkConfiguration($_POST['Network']);
 		}

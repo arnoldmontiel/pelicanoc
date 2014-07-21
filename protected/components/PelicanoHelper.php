@@ -17,21 +17,23 @@ class PelicanoHelper
 		if(!isset($commandParams['network']))	$commandParams['network']="";
 		if(!isset($commandParams['broadcast']))	$commandParams['broadcast']="";
 		if(!isset($commandParams['gateway']))	$commandParams['gateway']="";
+		if(!isset($commandParams['dns-nameservers']))	$commandParams['dns-nameservers']="";		
 				
 		if($commandParams['method']=="dhcp")//dhcp
 		{
 			$params = '"" "'.
-					$commandParams['method'].'" "" "" "" ""';
+					$commandParams['method'].'" "" "" "" "" ""';
 			
 		}
 		else
 		{
 			$params = '"'.$commandParams['address'].'" "'.
-					$commandParams['method'].'" "'
-							.$commandParams['netmask'].'" "'
-									.$commandParams['network'].'" "'
-											.$commandParams['broadcast'].'" "'
-													.$commandParams['gateway'].'"';		
+				$commandParams['method'].'" "'
+				.$commandParams['netmask'].'" "'
+				.$commandParams['network'].'" "'
+				.$commandParams['broadcast'].'" "'
+				.$commandParams['gateway'].'" "'
+				.$commandParams['dns-nameservers'].'"';		
 		}
 		exec('sudo '.dirname(__FILE__).'/../commands/shell/networkEditor.sh '.$params,$output,$return);
 		
@@ -69,13 +71,33 @@ class PelicanoHelper
 					{
 						$result['gateway']=trim($line[1]);
 					}
+					elseif(isset($line[0])&&strpos($line[0], "dns-nameservers")!==false)
+					{
+						$result['dns-nameservers']=trim($line[1]);
+						$DNSs = explode(" ", $result['dns-nameservers']);
+						if(is_array($DNSs))
+						{
+							foreach($DNSs as $dns)
+							{								
+								if(!isset($result['dns1']))
+								{
+									$result['dns1']=$dns;									
+								}
+								if(!isset($result['dns2']))
+								{
+									$result['dns2']=$dns;
+									break;									
+								}
+							}							
+						}
+					}					
 					//siempre al final y con el espacio "network "	
 					elseif(isset($line[0])&&strpos($line[0], "network ")!==false)
 					{
 						$result['network']=trim($line[1]);
 					}
 				}								
-			}			
+			}						
 		}		
 		if(isset($result['method'])&&$result['method']=="dhcp")
 		{
@@ -84,6 +106,8 @@ class PelicanoHelper
 			if(!isset($result['broadcast']))	$result['broadcast']="";
 			if(!isset($result['netmask']))	$result['netmask']="";
 			if(!isset($result['address']))	$result['address']="";
+			if(!isset($result['dns1']))	$result['dns1']="";
+			if(!isset($result['dns2']))	$result['dns2']="";			
 		}			
 		return $result;
 	}
