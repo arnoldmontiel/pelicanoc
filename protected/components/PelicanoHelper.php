@@ -77,7 +77,6 @@ class PelicanoHelper
 				}								
 			}			
 		}		
-		$result['method']="dhcp";
 		if(isset($result['method'])&&$result['method']=="dhcp")
 		{
 			if(!isset($result['network']))	$result['network']="";
