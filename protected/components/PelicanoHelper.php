@@ -83,7 +83,7 @@ class PelicanoHelper
 								{
 									$result['dns1']=$dns;									
 								}
-								if(!isset($result['dns2']))
+								elseif(!isset($result['dns2']))
 								{
 									$result['dns2']=$dns;
 									break;									
