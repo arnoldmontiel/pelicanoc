@@ -146,8 +146,6 @@ class SiteController extends Controller
 				$_POST['Network']['dns2']=implode('.', $_POST['Network']['dns2']);
 				$_POST['Network']['dns-nameservers'].=" ".$_POST['Network']['dns2'];
 			}
-			var_dump($_POST['Network']);
-			return;
 			PelicanoHelper::saveNetworkConfiguration($_POST['Network']);
 		}
 	}
