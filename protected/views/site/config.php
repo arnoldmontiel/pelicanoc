@@ -62,7 +62,14 @@
 		      				</div>
 	  						<div class="form-group col-sm-6 ">
 		  						<label>DIRECCION IP</label>
+		  						<div>
+		  						<input class="form-control inputSmall align-center" value="168"> .
+		  						<input class="form-control inputSmall align-center" value="192"> .
+		  						<input class="form-control inputSmall align-center" value="1"> .
+		  						<input class="form-control inputSmall align-center" value="0">
+		  						</div>
 		  						<?php echo CHtml::textField('Network[address]',$network['address'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
+		      				
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>MASCARA DE SUBRED</label>
