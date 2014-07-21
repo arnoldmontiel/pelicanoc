@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-if [ $# -ne 6 ]
+if [ $# -ne 7 ]
   then
     echo "Invalid argumets"
     echo "Count: "$#
@@ -14,6 +14,7 @@ echo netmask  =$3
 echo network  =$4 
 echo broadcast=$5
 echo gateway  =$6
+echo nameservers  =$7
 
 ADDRESS=$1
 METHOD=$2
@@ -21,6 +22,7 @@ NETMASK=$3
 NETWORK=$4 
 BROADCAST=$5
 GATEWAY=$6
+NAMESERVERS=$6
 
 ETH0_IFACE=`augtool match /files/etc/network/*/iface/ eth0`
 
@@ -132,6 +134,24 @@ else
 
 augtool <<-EOF
 rm $ETH0_IFACE/gateway
+save
+quit
+EOF
+
+fi
+
+if [ -n "$NAMESERVERS" ];
+then
+augtool <<-EOF
+set $ETH0_IFACE/dns-nameservers ${NAMESERVERS}
+save
+quit
+EOF
+
+else
+
+augtool <<-EOF
+rm $ETH0_IFACE/dns-nameservers
 save
 quit
 EOF
