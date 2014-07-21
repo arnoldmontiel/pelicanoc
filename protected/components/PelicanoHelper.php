@@ -99,7 +99,7 @@ class PelicanoHelper
 				}								
 			}						
 		}		
-		if(isset($result['method'])&&$result['method']=="dhcp")
+		if(isset($result['method']))
 		{
 			if(!isset($result['network']))	$result['network']="";
 			if(!isset($result['gateway']))	$result['gateway']="";
