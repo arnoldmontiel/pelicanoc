@@ -10,15 +10,31 @@ class PelicanoHelper
 // 		NETMASK  =$3
 // 		NETWORK  =$4
 // 		BROADCAST=$5
-// 		GATEWAY  =$6		
-		$params = '"'.$commandParams['address'].'" "'.
-			$commandParams['method'].'" "'
-			.$commandParams['netmask'].'" "'
-			.$commandParams['network'].'" "'
-			.$commandParams['broadcast'].'" "'
-			.$commandParams['gateway'].'"';
-
+// 		GATEWAY  =$6
+		if(!isset($commandParams['address']))	$commandParams['address']="";
+		if(!isset($commandParams['method'])) 	$commandParams['method']="dhcp";
+		if(!isset($commandParams['netmask']))	$commandParams['netmask']="";
+		if(!isset($commandParams['network']))	$commandParams['network']="";
+		if(!isset($commandParams['broadcast']))	$commandParams['broadcast']="";
+		if(!isset($commandParams['gateway']))	$commandParams['gateway']="";
+				
+		if($commandParams['method']=="dhcp")//dhcp
+		{
+			$params = '"" "'.
+					$commandParams['method'].'" "" "" "" ""';
+			
+		}
+		else
+		{
+			$params = '"'.$commandParams['address'].'" "'.
+					$commandParams['method'].'" "'
+							.$commandParams['netmask'].'" "'
+									.$commandParams['network'].'" "'
+											.$commandParams['broadcast'].'" "'
+													.$commandParams['gateway'].'"';		
+		}
 		exec('sudo '.dirname(__FILE__).'/../commands/shell/networkEditor.sh '.$params,$output,$return);
+		
 	}
 	static public function getNetworkConfiguration()
 	{

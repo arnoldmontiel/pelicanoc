@@ -43,17 +43,26 @@
 		      				</div>
 	  					</div>
 				</div>
-				<div class="inlineForm">
+				<div class="inlineForm" id="network-group">
 	  					<label class="inlineFormLabel">Network</label>
 	  					<div class="row">
 	  					<?php if(isset($network)&&is_array($network)&&!empty($network)):?>
 		  					<div class="form-group col-sm-6 ">
+		  					<div class="dropdown">
+							  <button class="btn btn-default dropdown-toggle" type="button" id="dd-method" data-toggle="dropdown">
+							    METODO							    
+							    <span id="sp-method" class="caret"></span>
+							  </button>
+							  <ul id="ul-method" class="dropdown-menu" role="menu" aria-labelledby="dd-method">
+							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">dhcp</a></li>
+							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">static</a></li>
+							  </ul>
+							</div>		  					
+		  						<?php echo CHtml::hiddenField( 'Network[method]',$network['method'] ,array("id"=>'method'));?>
+		      				</div>
+	  						<div class="form-group col-sm-6 ">
 		  						<label>DIRECCION IP</label>
 		  						<?php echo CHtml::textField('Network[address]',$network['address'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
-		      				</div>
-		  					<div class="form-group col-sm-6 ">
-		  						<label>METODO</label>
-		  						<?php echo CHtml::textField( 'Network[method]',$network['method'] ,array('class'=>'form-control', 'onkeyup'=>'changeSaveLabel();'));?>
 		      				</div>
 		  					<div class="form-group col-sm-6 ">
 		  						<label>MASCARA DE SUBRED</label>
@@ -98,6 +107,33 @@
     	 </div><!-- /wrapper -->
     	 
 <script type="text/javascript">
+
+if("<?php echo $network['method']?>"=="dhcp")
+{
+	$("#network-group .row div input").attr("disabled","disabled");
+}
+else
+{
+	$("#network-group .row div input").removeAttr("disabled");				
+}
+
+$("#ul-method a").click(
+		function()
+		{
+			$("#method").val($(this).html());
+			if($(this).html()=="dhcp")
+			{
+				$("#network-group .row div input").attr("disabled","disabled");
+			}
+			else
+			{
+				$("#network-group .row div input").removeAttr("disabled");				
+			}
+			$("#dd-method").dropdown('toggle')
+			
+			return false;
+		}
+		);
 function goToLocalFolderAdmin()
 {
 	window.location = <?php echo '"'. SiteController::createUrl('localFolderAdmin') . '"'; ?>;
