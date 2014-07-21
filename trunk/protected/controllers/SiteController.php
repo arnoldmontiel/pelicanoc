@@ -83,7 +83,7 @@ class SiteController extends Controller
 		}
 		if(isset($network['dns2']))
 		{
-			if($network['dns1']=="")	$network['dns2']="0.0.0.0";
+			if($network['dns2']=="")	$network['dns2']="0.0.0.0";
 			$network['dns2']= explode('.', $network['dns2']);
 		}
 		
