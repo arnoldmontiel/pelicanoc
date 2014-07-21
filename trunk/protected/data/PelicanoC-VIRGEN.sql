@@ -1619,7 +1619,8 @@ CREATE TABLE `setting` (
   `host_file_server_passwd` varchar(45) DEFAULT NULL COMMENT 'Password para acceder al NAS desde el Player',     
   `michael_jackson` varchar(256) DEFAULT NULL,
   `host_file_server_name` varchar(255) DEFAULT NULL COMMENT 'Es el nombre con el que se identifica el servidor SMB/NFS',
-  `version` varchar(45) DEFAULT NULL COMMENT 'version de instalacion',     
+  `version` varchar(45) DEFAULT NULL COMMENT 'version de instalacion',
+  `disc_min_size_warning` INT(11) NULL DEFAULT NULL COMMENT 'prcentaje aviso disco lleno',     
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1923,6 +1924,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="2.06" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.07" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
