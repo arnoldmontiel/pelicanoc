@@ -248,6 +248,11 @@ box-shadow: none;
 
 #screenConfig .buttonGroup .btn:first-child{margin-right:0px !important;}
 
+.inputSmall {
+width: 23%;
+display: inline-block;
+}
+
 /* ----- LOGIN ------*/
 .loginBody{background:transparent; background-color:#26ada1;}
 .loginPanel{
