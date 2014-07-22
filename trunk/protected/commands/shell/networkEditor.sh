@@ -157,9 +157,10 @@ quit
 EOF
 
 fi
-
+sudo ifdown eth0 && sudo ifup eth0
 else
     echo "ERROR ETH0 not found"
 fi
-#service networking restart
+
+
 exit 0
