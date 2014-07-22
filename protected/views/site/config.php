@@ -48,17 +48,14 @@
 	  					<div class="row">
 	  					<?php if(isset($network)&&is_array($network)&&!empty($network)):?>
 		  					<div class="form-group col-sm-6 ">
-		  					<div class="dropdown">
-							  <button class="btn btn-default dropdown-toggle" type="button" id="dd-method" data-toggle="dropdown">
-							    METODO							    
-							    <span id="sp-method" class="caret"></span>
-							  </button>
-							  <ul id="ul-method" class="dropdown-menu" role="menu" aria-labelledby="dd-method">
-							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">dhcp</a></li>
-							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">static</a></li>
-							  </ul>
-							</div>		  					
-		  						<?php echo CHtml::hiddenField( 'Network[method]',$network['method'] ,array("id"=>'method'));?>
+		  					  <label>METODO</label>
+						      <div>
+								<?php 
+									$methos['dhcp'] = 'dhcp'; 
+									$methos['static'] = 'static'; 
+									echo CHtml::dropDownList('Network[method]', $network['method'], $methos,array('id'=>'method'));
+								?>      
+							</div>
 		      				</div>
 	  						<div class="form-group col-sm-6 ">
 		  						<label>DIRECCION IP</label>
@@ -172,20 +169,17 @@ else
 	$("#network-group .row div input").removeAttr("disabled");				
 }
 <?php endif?>
-$("#ul-method a").click(
+$("#method").change(
 		function()
 		{
-			$("#method").val($(this).html());
-			if($(this).html()=="dhcp")
+			if($(this).val()=="dhcp")
 			{
 				$("#network-group .row div input").attr("disabled","disabled");
 			}
 			else
 			{
 				$("#network-group .row div input").removeAttr("disabled");				
-			}
-			$("#dd-method").dropdown('toggle')
-			
+			}			
 			return false;
 		}
 		);
