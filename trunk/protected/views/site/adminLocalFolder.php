@@ -54,8 +54,8 @@ function backConfig()
    	 		<h1 class="pageTitle">Escaneo Inicial</h1>
    	 	</div>
     	<div class="col-md-6 align-right">
-    		<button id="btn-scan" onclick="backConfig();" class="btn btn-primary"><i class="fa fa-reply"></i> Volver</button>
-   	 		<button id="btn-scan" onclick="scanDirectory();" class="btn btn-primary"><i class="fa fa-refresh"></i> Escanear</button>
+    		<button onclick="backConfig();" class="btn btn-primary"><i class="fa fa-reply"></i> Volver</button>
+   	 		<button id="btn-scan" disabled onclick="scanDirectory();" class="btn btn-primary"><i class="fa fa-refresh"></i> Escanear</button>
    	 	</div>
    	 </div>
 	<div class="row">
