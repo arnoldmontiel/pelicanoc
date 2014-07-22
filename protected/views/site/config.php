@@ -142,6 +142,26 @@
     	 
 <script type="text/javascript">
 
+$("#network-group .row div input").change(
+		function()
+		{
+			if($.isNumeric($(this).val()))
+			{
+				if($(this).val()>255)
+				{
+					$(this).val(255);					
+				}
+				else if($(this).val()<0)
+				{
+					$(this).val(0);
+				}
+				
+			}else
+			{
+				$(this).val(0);
+			}
+		}
+		);
 <?php if(isset($network['method'])):?>
 if("<?php echo $network['method']?>"=="dhcp")
 {
@@ -192,6 +212,7 @@ function changeSaveLabel()
 }
 function submitGeneralConfig()
 {
+	
 	$('#general-config-form').submit();
 }
 
