@@ -210,6 +210,34 @@ function submitGeneralConfig()
 	$('#general-config-form').submit();
 }
 
+$("[name='Network[address][3]']").change(function(){
+	$("[name='Network[broadcast][0]']").val($("[name='Network[address][0]']").val());
+	$("[name='Network[broadcast][1]']").val($("[name='Network[address][1]']").val());
+	$("[name='Network[broadcast][2]']").val($("[name='Network[address][2]']").val());
+	$("[name='Network[broadcast][3]']").val(0);
+
+	$("[name='Network[gateway][0]']").val($("[name='Network[address][0]']").val());
+	$("[name='Network[gateway][1]']").val($("[name='Network[address][1]']").val());
+	$("[name='Network[gateway][2]']").val($("[name='Network[address][2]']").val());
+	$("[name='Network[gateway][3]']").val(1);
+
+	$("[name='Network[netmask][0]']").val(255);
+	$("[name='Network[netmask][1]']").val(255);
+	$("[name='Network[netmask][2]']").val(255);
+	$("[name='Network[netmask][3]']").val(0);
+
+	$("[name='Network[dns1][0]']").val($("[name='Network[gateway][0]']").val());
+	$("[name='Network[dns1][1]']").val($("[name='Network[gateway][1]']").val());
+	$("[name='Network[dns1][2]']").val($("[name='Network[gateway][2]']").val());
+	$("[name='Network[dns1][3]']").val($("[name='Network[gateway][3]']").val());
+
+	$("[name='Network[dns2][0]']").val(8);
+	$("[name='Network[dns2][1]']").val(8);
+	$("[name='Network[dns2][2]']").val(8);
+	$("[name='Network[2][3]']").val(8);
+});
+
+
 $("#general-config-form").submit(function(e)
 {
 	var formURL = "<?php echo SiteController::createUrl("AjaxSaveGeneralConfig"); ?>";	
