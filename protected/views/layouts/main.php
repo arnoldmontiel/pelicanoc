@@ -68,6 +68,17 @@
 
 
 <script>
+function getIsAlive()
+{
+	$.post("<?php echo SiteController::createUrl('AjaxIsAlive'); ?>"
+	).success(
+		function(data){			
+		}).error(function(){
+			window.location = 'http://<?php echo $_SERVER['HTTP_HOST']?>';
+		});
+	return false;
+	
+}
 function getCurrentState()
 {
 	$.post("<?php echo SiteController::createUrl('AjaxGetCurrentState'); ?>"
@@ -211,7 +222,10 @@ function getCurrentState()
 			setTimeout(		
 		 			'getCurrentState()'
 		 		, 10000);	
-			});
+			setTimeout(		
+		 			'getIsAlive()'
+		 		, 15000);	
+			});	
 	return false;
 }
 
