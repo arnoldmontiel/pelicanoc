@@ -1631,7 +1631,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'./nzb',NULL,NULL,'http://localhost:8080/sabnzbd/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images','/media/NAS/','/pelicanos',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'/home/pelicano/passwords',NULL,'/pelicano','/copied','/ripped',"/media/NAS/",0,"","","","","","1.0");
+INSERT INTO `setting` VALUES (1,'./nzb',NULL,NULL,'http://localhost:8080/sabnzbd/api?','http://gruposmartliving.com','./nzbReady','./subtitles','./images','/media/NAS/','/pelicanos',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'/home/pelicano/passwords',NULL,'/pelicano','/copied','/ripped',"/media/NAS/",0,"","","","","","1.0",80);
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
