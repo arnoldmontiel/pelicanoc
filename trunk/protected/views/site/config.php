@@ -234,7 +234,7 @@ $("[name='Network[address][3]']").change(function(){
 	$("[name='Network[dns2][0]']").val(8);
 	$("[name='Network[dns2][1]']").val(8);
 	$("[name='Network[dns2][2]']").val(8);
-	$("[name='Network[2][3]']").val(8);
+	$("[name='Network[dns2][3]']").val(8);
 });
 
 
