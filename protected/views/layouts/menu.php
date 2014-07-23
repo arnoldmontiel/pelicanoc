@@ -137,12 +137,16 @@
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 							<?php 
  								$modelThemes = Theme::model()->findAllByAttributes(array('hide'=>0));
- 								foreach($modelThemes as $theme)
+ 								if(isset($currentUser))
  								{
- 									if($currentUser->Id_theme == $theme->Id)
- 										echo '<li class="menuTheme"><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption menuThemeOptionActive" href="#">'.$theme->description.'</a></li>';
- 									else 
- 										echo '<li><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption" href="#">'.$theme->description.'</a></li>';
+	 								foreach($modelThemes as $theme)
+	 								{
+	 									if($currentUser->Id_theme == $theme->Id)
+	 										echo '<li class="menuTheme"><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption menuThemeOptionActive" href="#">'.$theme->description.'</a></li>';
+	 									else 
+	 										echo '<li><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption" href="#">'.$theme->description.'</a></li>';
+	 								
+	 								}
  								}
 							?> 
 						</ul></li>
