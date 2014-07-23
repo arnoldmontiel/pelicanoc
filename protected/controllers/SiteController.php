@@ -42,59 +42,59 @@ class SiteController extends Controller
 	{
 		$this->showFilter = false;
 		$setting = Setting::getInstance();
-		$page = "config";
 		
 		if(!isset($setting->Id_device))
 		{
 			$this->currentStatus = false;
 			$this->showMenu = false;
-			$page = "init";
-			$this->render($page, array(
+			$this->render("init", array(
 					'model'=>$setting
 			));
 				
 		}
-		$network=PelicanoHelper::getNetworkConfiguration();
-		if(isset($network['address']))
+		else
 		{
-			if($network['address']=="")	$network['address']="0.0.0.0";
-			$network['address']= explode('.', $network['address']);
-		}
-		if(isset($network['netmask']))
-		{
-			if($network['netmask']=="")	$network['netmask']="0.0.0.0";
-			$network['netmask']= explode('.', $network['netmask']);
-		}
-		if(isset($network['network']))
-		{
-			if($network['network']=="")	$network['network']="0.0.0.0";
-			$network['network']= explode('.', $network['network']);
-		}
-		if(isset($network['broadcast']))
-		{
-			if($network['broadcast']=="")	$network['broadcast']="0.0.0.0";
-			$network['broadcast']= explode('.', $network['broadcast']);
-		}
-		if(isset($network['gateway']))
-		{
-			if($network['gateway']=="")	$network['gateway']="0.0.0.0";
-			$network['gateway']= explode('.', $network['gateway']);
-		}		
-		if(isset($network['dns1']))
-		{
-			if($network['dns1']=="")	$network['dns1']="0.0.0.0";
-			$network['dns1']= explode('.', $network['dns1']);
-		}
-		if(isset($network['dns2']))
-		{
-			if($network['dns2']=="")	$network['dns2']="0.0.0.0";
-			$network['dns2']= explode('.', $network['dns2']);
-		}
-		
-		$this->render($page, array(
+			$network=PelicanoHelper::getNetworkConfiguration();
+			if(isset($network['address']))
+			{
+				if($network['address']=="")	$network['address']="0.0.0.0";
+				$network['address']= explode('.', $network['address']);
+			}
+			if(isset($network['netmask']))
+			{
+				if($network['netmask']=="")	$network['netmask']="0.0.0.0";
+				$network['netmask']= explode('.', $network['netmask']);
+			}
+			if(isset($network['network']))
+			{
+				if($network['network']=="")	$network['network']="0.0.0.0";
+				$network['network']= explode('.', $network['network']);
+			}
+			if(isset($network['broadcast']))
+			{
+				if($network['broadcast']=="")	$network['broadcast']="0.0.0.0";
+				$network['broadcast']= explode('.', $network['broadcast']);
+			}
+			if(isset($network['gateway']))
+			{
+				if($network['gateway']=="")	$network['gateway']="0.0.0.0";
+				$network['gateway']= explode('.', $network['gateway']);
+			}
+			if(isset($network['dns1']))
+			{
+				if($network['dns1']=="")	$network['dns1']="0.0.0.0";
+				$network['dns1']= explode('.', $network['dns1']);
+			}
+			if(isset($network['dns2']))
+			{
+				if($network['dns2']=="")	$network['dns2']="0.0.0.0";
+				$network['dns2']= explode('.', $network['dns2']);
+			}
+			
+			$this->render("config", array(
 					'model'=>$setting,'network'=>$network
-		));
-	
+			));				
+		}	
 	}
 	
 	public function actionAjaxIsAlive()
