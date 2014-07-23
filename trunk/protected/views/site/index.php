@@ -144,3 +144,4 @@ function openMovieShowDetail(id, sourceType, idResource)
 			</div>
 		</div><!-- /wrapper -->
 </div><!-- /container -->
+<div class="searchDetails">17 resultados para <b> "Flubber"</b> <button class="btn btn-xs btn-default pull-right"><i class="fa fa-undo"></i> Limpiar B&uacute;squeda</button></div>
