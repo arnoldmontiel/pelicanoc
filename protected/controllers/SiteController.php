@@ -3656,6 +3656,17 @@ class SiteController extends Controller
 		);
 	}
 	
+	public function actionAjaxChangeTheme()
+	{
+		$idTheme = (isset($_POST['idTheme']))?$_POST['idTheme']:null;
+		if(isset($idTheme))
+		{
+			$currentUser = User::getCurrentUser();
+			$currentUser->Id_theme = $idTheme;
+			$currentUser->save();
+		}
+	}
+	
 	public function actionAjaxInitializeOppo()
 	{
 		$players = Player::model()->findAllByAttributes(array('type'=>1));
