@@ -80,7 +80,7 @@ var timer;
 startRedirect();
 function startRedirect()
 {
-	timer =	setTimeout(function(){
+	timer =	setInterval(function(){
 	  $.ajax({
 		  type: 'JSON',
 		  url: 'http://<?php echo $_SERVER['HTTP_HOST']?>/pelicano/index.php?r=site/ajaxIsAlive'
@@ -101,7 +101,7 @@ function delayRedirect()
 {
 	$("#esperando").removeClass('hidden');
 	clearTimeout(timer);
-	timer =	setTimeout(function(){
+	timer =	setInterval(function(){
 	  $.ajax({
 		  type: 'JSON',
 		  url: 'http://<?php echo $_SERVER['HTTP_HOST']?>/pelicano/index.php?r=site/ajaxIsAlive'
