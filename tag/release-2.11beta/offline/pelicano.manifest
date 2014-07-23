@@ -1,0 +1,26 @@
+CACHE MANIFEST
+ 
+# Version: 1.26
+
+CACHE:
+favicon.ico
+index.php
+pelicano/protected/views/layouts/estilos.php
+pelicano/js/bootstrap.min.js
+pelicano/js/jquery.js
+pelicano/fonts/fontawesome-webfont.ttf
+pelicano/css/bootstrap.min.css 
+pelicano/css/font-awesome.min.css
+pelicano/fonts/Gudea-Regular.otf
+pelicano/fonts/Lato-Reg.otf
+pelicano/fonts/fontawesome-webfont.woff?v=4.1.0
+
+pelicano/icons/all-touch-icon.png
+pelicano/icons/apple-touch-icon-114x114.png
+pelicano/icons/apple-touch-icon-120x120.png
+pelicano/icons/apple-touch-icon-144x144.png
+pelicano/icons/apple-touch-icon-152x152.png
+pelicano/icons/apple-touch-icon-72x72.png
+pelicano/icons/apple-touch-icon-76x76.png
+pelicano/icons/favicon.ico
+pelicano/icons/smallIcon.png
