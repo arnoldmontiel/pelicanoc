@@ -55,7 +55,11 @@
 <!-- Isotope -->
 <script src="js/isotope/dist/imagesloaded.pkgd.min.js"></script>
 <script src="js/isotope/dist/isotope.pkgd.min.js"></script>
-<?php $theme="light-theme.css";?>
+<?php 
+$theme="light-theme.css";
+if(isset(User::getCurrentUser()->theme))
+	$theme=User::getCurrentUser()->theme->file_name;
+?>
 <!-- Theme -->
 <link href="css/<?php echo $theme;?>" rel="stylesheet" />
 

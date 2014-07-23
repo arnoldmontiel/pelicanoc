@@ -122,8 +122,8 @@
 							<i class="fa fa-user fa-fw"></i> 
 							<span class="hidden-sm hidden-nexus-p visible-inline">
 							<?php 
-								$customer = Setting::getInstance ()->getCustomer ();
-								$username = (User::getCurrentUser ()) ? User::getCurrentUser ()->username : '';
+								$currentUser = User::getCurrentUser();
+								$username = ($currentUser) ? $currentUser->username : '';
 								echo $username;
 							?> 
 							</span>
@@ -135,8 +135,16 @@
 									<li class="visible-sm visible-nexus-p hidden-nexus-l"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
 							<li><a onclick="goToConfig();"><i class="fa fa-cogs fa-fw"></i> Config</a></li>
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
-							<!-- <li class="menuTheme"><a class="menuThemeOption menuThemeOptionActive" href="#">Light Theme</a></li>
-							<li><a class="menuThemeOption" href="#">Dark Theme</a></li> -->
+							<?php 
+ 								$modelThemes = Theme::model()->findAllByAttributes(array('hide'=>0));
+ 								foreach($modelThemes as $theme)
+ 								{
+ 									if($currentUser->Id_theme == $theme->Id)
+ 										echo '<li class="menuTheme"><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption menuThemeOptionActive" href="#">'.$theme->description.'</a></li>';
+ 									else 
+ 										echo '<li><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption" href="#">'.$theme->description.'</a></li>';
+ 								}
+							?> 
 						</ul></li>
 				</ul>
 				<button id="player-status" type="button" class="btn btn-reproduciendo reproduciendoOff navbar-btn pull-right"
@@ -412,5 +420,18 @@ function goToConfig()
 			});
 		return false;
 	
+}
+
+function changeTheme(idTheme)
+{
+	$.post("<?php echo SiteController::createUrl('AjaxChangeTheme'); ?>",
+			{
+				idTheme:idTheme
+			}
+	).success(
+		function(data){
+			window.location.reload();  
+		});
+	return false;
 }
 </script>

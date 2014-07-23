@@ -1839,6 +1839,32 @@ LOCK TABLES `market_category_nzb` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `theme`
+--
+
+DROP TABLE IF EXISTS `theme`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `theme` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(45) NULL DEFAULT NULL,
+  `file_name` VARCHAR(45) NULL DEFAULT NULL,
+  `hide` TINYINT(4) NULL DEFAULT 0,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `theme`
+--
+
+LOCK TABLES `theme` WRITE;
+/*!40000 ALTER TABLE `theme` DISABLE KEYS */;
+INSERT INTO `theme` VALUES (1,'Light','light-theme.css',0),(2,'Dark','dark-theme.css',0);
+/*!40000 ALTER TABLE `settings_ripper` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -1852,8 +1878,11 @@ CREATE TABLE `user` (
   `Id_customer` int(11) DEFAULT NULL,
   `adult_section` tinyint(4) DEFAULT '0',
   `birth_date` date DEFAULT NULL,
+  `Id_theme` int(11) DEFAULT NULL,
   PRIMARY KEY (`username`),
   KEY `fk_user_customer1` (`Id_customer`),
+  KEY `fk_user_theme1_idx` (`Id_theme`),
+  CONSTRAINT `fk_user_theme1` FOREIGN KEY (`Id_theme`) REFERENCES `theme` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1924,6 +1953,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="2.12" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.13" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
