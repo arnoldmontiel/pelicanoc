@@ -154,7 +154,7 @@ overflow:hidden;}
  
 
 body #screenHome {
-padding-bottom:20px;
+padding-bottom:60px;
 }
 #screenHome .wrapper{
 padding-top:130px;
@@ -313,7 +313,8 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 
 .loginBody div.error{color:black;}
 
-.inicioPanel{font-size:20px; color:#999; padding:50px;}
+.inicioPanel{font-size:20px; color:#999; padding:50px; }
+.inicioPanel .detalles{text-align:left;}
 
 /* ----- END LOGIN ------*/
 
@@ -856,6 +857,8 @@ color: #999;}
 #menuSecond .navbar-form.navbar-right{padding-right:0px;}
 
 .marketAlternateBtn{margin-right:5px;}
+
+.searchDetails{position:absolute; line-height:30px; bottom:0px; background-color:#26ada1; color:white; width:100%; padding:10px 15px;}
 
 /* ------ END MENU ------- */
 
