@@ -142,9 +142,9 @@
 	 								foreach($modelThemes as $theme)
 	 								{
 	 									if($currentUser->Id_theme == $theme->Id)
-	 										echo '<li class="menuTheme"><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption menuThemeOptionActive" href="#">'.$theme->description.'</a></li>';
+	 										echo '<li class="menuTheme"><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption menuThemeOptionActive">'.$theme->description.'</a></li>';
 	 									else 
-	 										echo '<li><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption" href="#">'.$theme->description.'</a></li>';
+	 										echo '<li><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption">'.$theme->description.'</a></li>';
 	 								
 	 								}
  								}
