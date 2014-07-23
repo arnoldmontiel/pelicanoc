@@ -117,7 +117,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	   				
 		$('#actors').select2({tags:[],tokenSeparators: [',']});
 		$('#directors').select2({tags:[],tokenSeparators: [',']});
-		$('#genres').select2({tags:[],tokenSeparators: [',']});
+		//$('#genres').select2({tags:[],tokenSeparators: [',']});
 		
 		$.ajax({
 	   		type: 'POST',
@@ -126,26 +126,31 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	   		dataType: 'json'
 	 	}).success(function(data)
 	 	{	
-	   		vals = '';
-	   		first = true;
+			$('#selectize-genres').selectize({
+		    	delimiter: ',',
+		    	persist: true,
+		    	create: function(input) {
+		        	return {
+		            	value: input,
+		            	text: input
+		        	}
+		    	},
+	   			onChange: function() {
+		        	$('#input_genres').val(this.getValue());
+		    	} 
+			});
+	   				
 			for (var i in data) {
-				item = data[i];
-				if(first)
-   				{
-	   				first = false;
-	   				vals = item;
-				}
-	   			else
-	   			{
-	   				vals = vals+','+item;
-	   			}
-			} 				
-			$('#genres').select2({tags:data,tokenSeparators: [',']});
-	   		$('#genres').val(vals).trigger('change');
-			$('#input_genres').val(vals);	   						   				
+	   			var selectize_tags = $('#selectize-genres')[0].selectize
+		    	selectize_tags.addOption({
+		        	text:data[i],
+		        	value: data[i]
+		    	});
+		    	selectize_tags.addItem(data[i]);
+	   			selectize_tags.refreshOptions();	   					   				
+			}
 		}
 	 	);
-		$('#genres').on('change',function(e){ $('#input_genres').val(e.val);});
 	   				
 		$.ajax({
 	   		type: 'POST',
@@ -153,57 +158,67 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource.",type:'Actor'},
 	   		dataType: 'json'
 	 	}).success(function(data)
-	 	{	
-	   		vals = '';
-	   		first = true;
+	 	{
+			$('#selectize-actors').selectize({
+		    	delimiter: ',',
+		    	persist: true,
+		    	create: function(input) {
+		        	return {
+		            	value: input,
+		            	text: input
+		        	}
+		    	},
+	   			onChange: function() {
+		        	$('#input_actors').val(this.getValue());
+		    	} 
+			});
+	   				
 			for (var i in data) {
-				item = data[i];
-				if(first)
-   				{
-	   				first = false;
-					vals = item.id;
-				}
-	   			else
-	   			{
-	   				vals = vals+','+item.id;
-	   			}
-			} 				
-	   		//alert(data[0].id);
-			$('#actors').select2({tags:data,tokenSeparators: [',']});
-	   		$('#actors').val(vals).trigger('change');
-			$('#input_actors').val(vals);	   						   				
+	   			var selectize_tags = $('#selectize-actors')[0].selectize
+		    	selectize_tags.addOption({
+		        	text:data[i].text,
+		        	value: data[i].id
+		    	});
+		    	selectize_tags.addItem(data[i].id);
+	   			selectize_tags.refreshOptions();	   				
+			}
+	   				 					   					   						   				
 		}
 	 	);
-		$('#actors').on('change',function(e){ $('#input_actors').val(e.val);});
 		$.ajax({
 	   		type: 'POST',
 	   		url: '". SiteController::createUrl('AjaxGetPersons') . "',
 	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource.",type:'Director'},
 	   		dataType: 'json'
 	 	}).success(function(data)
-	 	{	 				
-	   		vals = '';
-	   		first = true;
+	 	{
+			$('#selectize-directors').selectize({
+		    	delimiter: ',',
+		    	persist: true,
+		    	create: function(input) {
+		        	return {
+		            	value: input,
+		            	text: input
+		        	}
+		    	},
+	   			onChange: function() {
+		        	$('#input_directors').val(this.getValue());
+		    	} 
+			});
+	   				
 			for (var i in data) {
-				item = data[i];
-				if(first)
-   				{
-	   				first = false;
-					vals = item.id;
-				}
-	   			else
-	   			{
-	   				vals = vals+','+item.id;
-	   			}
+	   			var selectize_tags = $('#selectize-directors')[0].selectize
+		    	selectize_tags.addOption({
+		        	text:data[i].text,
+		        	value: data[i].id
+		    	});
+		    	selectize_tags.addItem(data[i].id);
+				selectize_tags.refreshOptions();	   					   				
 			} 				
-	   		//alert(data[0].id);
-			$('#directors').select2({tags:data,tokenSeparators: [',']});
-	   		$('#directors').val(vals).trigger('change');
-	   		$('#input_directors').val(vals);	
 	   					   				
 		}
 	 	);
-		$('#directors').on('change',function(e){ $('#input_directors').val(e.val);});
+		//$('#directors').on('change',function(e){ $('#input_directors').val(e.val);});
 		");
 ?>
 <div class="container" id="screenEditMovie">
@@ -279,9 +294,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
           <div class="form-group">
     <label for="fieldGenero" class="col-sm-1 control-label noLeftPad">Genero</label>
     <div class="col-sm-11">
-      <div id="genres" style="width:100%">
-    </div>
-    </div>
+      <input type="text" id="selectize-genres">
+     </div>
     </div>
     </div><!-- /col-sm-12 -->
     </div><!-- /row -->
@@ -371,9 +385,10 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
         <div class="col-sm-12">
           <div class="form-group">
     <label for="fieldDirector" class="col-sm-1 control-label noLeftPad">Director</label>
-              <div class="col-sm-11">
-	<div id="directors" style="width:100%">
-    </div>
+    <div class="col-sm-11">
+    <input type="text" id="selectize-directors">    
+		<!-- <div id="directors" style="width:100%">
+    </div>-->
 	</div>
     </div>
     </div><!-- /col-sm-12 -->
@@ -382,10 +397,8 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
         <div class="col-sm-12">
           <div class="form-group">
     <label for="fieldActores" class="col-sm-1 control-label noLeftPad">Actores</label>
-              <div class="col-sm-11">
-	<div id="actors" style="width:100%">
-    </div>
-      
+	<div class="col-sm-11">
+    <input type="text" id="selectize-actors">                
 	</div>
     </div>
     </div><!-- /col-sm-12 -->
