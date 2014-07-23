@@ -947,6 +947,7 @@ class PelicanoHelper
 							$model->Id_customer = $response->Id_customer;
 							$model->adult_section = $user->adult_section;
 							$model->birth_date = $user->birth_date;
+							$model->Id_theme = 1; //por defecto theme light
 							$model->save();
 	
 							$assDB = Assignments::model()->findByAttributes(array('userid'=>$user->username));
