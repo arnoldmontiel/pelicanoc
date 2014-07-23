@@ -40,6 +40,10 @@
 <!-- Image Picker -->
 <link href="css/image-picker.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="js/image-picker.min.js"></script>
+<!-- JS selectize -->
+<link href="css/selectize/selectize.css" rel="stylesheet" />
+<script src="js/selectize/selectize.js"></script>
+
 <!-- JS Select -->
 <link href="js/select2-3.4.4/select2.css" rel="stylesheet" />
 <script src="js/select2-3.4.4/select2.js"></script>
