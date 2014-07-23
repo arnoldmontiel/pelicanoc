@@ -49,6 +49,10 @@ class SiteController extends Controller
 			$this->currentStatus = false;
 			$this->showMenu = false;
 			$page = "init";
+			$this->render($page, array(
+					'model'=>$setting
+			));
+				
 		}
 		$network=PelicanoHelper::getNetworkConfiguration();
 		if(isset($network['address']))
