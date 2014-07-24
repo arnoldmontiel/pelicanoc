@@ -55,7 +55,7 @@ docReady( function() {
             break;
           }
 
-      }     
+      }           
       return isMatched;
     }
   
@@ -105,12 +105,30 @@ function startFilter()
 	{
 		setTextFilter(this);
 		iso.arrange();
-    	updateFilterSummary();		
+    	updateFilterSummary();
+
+		if($(this).val() != "")
+		{
+			$('#search-text-summary').show();
+    		$('#search-text').text($(this).val());
+    		$('#search-qty').text(iso.filteredItems.length);
+		}	
+		else
+			$('#search-text-summary').hide();
+				
 	});
 	
   
 });
 
+function clearSearchTextFilter()
+{
+	$('#main-search').val("");
+	setTextFilter($('#main-search'));
+	iso.arrange();
+	updateFilterSummary();
+	$('#search-text-summary').hide();
+}
 
 function openMovieShowDetail(id, sourceType, idResource)
 {
@@ -144,4 +162,4 @@ function openMovieShowDetail(id, sourceType, idResource)
 			</div>
 		</div><!-- /wrapper -->
 </div><!-- /container -->
-<div class="searchDetails" style="display: none;">17 resultados para <b> "Flubber"</b> <button class="btn btn-xs btn-default pull-right"><i class="fa fa-undo"></i> Limpiar B&uacute;squeda</button></div>
+<div id="search-text-summary" class="searchDetails" style="display: none;"><span id="search-qty"></span> resultados para <b> "<span id="search-text"></span>"</b> <button onclick="clearSearchTextFilter()" class="btn btn-xs btn-default pull-right"><i class="fa fa-undo"></i> Limpiar B&uacute;squeda</button></div>
