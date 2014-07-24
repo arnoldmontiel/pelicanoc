@@ -115,7 +115,10 @@ function startFilter()
     		$('#search-qty').text(iso.filteredItems.length);
 		}	
 		else
+		{
 			$('#search-text-summary').hide();
+			$('body .container').removeClass('search-on');
+		}
 				
 	});
 	
