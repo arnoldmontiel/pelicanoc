@@ -112,6 +112,7 @@ imagesLoaded( container, function() {
 	
 	$('#main-search').change(function()
 	{
+		$('body .container').addClass('search-on');
 		setTextFilter(this);
 		iso.arrange();
     	updateFilterSummary();		
@@ -136,6 +137,7 @@ function clearSearchTextFilter()
 	iso.arrange();
 	updateFilterSummary();
 	$('#search-text-summary').hide();
+	$('body .container').addClass('search-on');
 }
 
 function openMovieShowDetail(id, sourceType, idResource)
