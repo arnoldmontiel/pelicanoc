@@ -234,7 +234,22 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
           <div class="form-group">
     <label for="fieldGenero" class="col-sm-1 control-label noLeftPad">Genero</label>
     <div class="col-sm-11">
-      <input type="text" id="selectize-genres" value="<?php echo $model->genre;?>">
+      
+      <select id="selectize-genres" name="genres[]" multiple class="demo-default" placeholder="Seleccione un genero">	
+		<?php
+		$genresExplodes =explode(',', $model->genre); 		
+		foreach ($genresExplodes as $genre)
+		{
+			$genre = trim($genre);
+			echo '<option value="'.$genre.'" selected>'.$genre.'</option>';
+		}
+		foreach ($genres as $genre)
+		{
+			echo '<option value="'.$genre.'">'.$genre.'</option>';
+		}
+		?>
+	</select>	
+      
      </div>
     </div>
     </div><!-- /col-sm-12 -->

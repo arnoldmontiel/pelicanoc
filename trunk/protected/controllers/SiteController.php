@@ -3445,8 +3445,21 @@ class SiteController extends Controller
 				$names[] =$director; 
 			}
 			$directors = $names;
-				
-			$this->render('_formEditMovie',array('model'=>$myMovie,'modelResource'=>$modelResource,'idResource'=>$idResource,'sourceType'=>$sourceType,'actors'=>$actors,'directors'=>$directors));				
+			
+			$genres = array();
+			$movies = Movies::model()->findAll();
+			foreach($movies as $item)
+			{
+				$movieGenres = explode(', ',$item->genre);
+				foreach($movieGenres as $value)
+				{
+					if(!empty($value) && ! in_array($value,$genres))
+						$genres[] = trim($value);
+				}
+			}
+			asort($genres);
+							
+			$this->render('_formEditMovie',array('model'=>$myMovie,'modelResource'=>$modelResource,'idResource'=>$idResource,'sourceType'=>$sourceType,'actors'=>$actors,'directors'=>$directors,'genres'=>$genres));				
 		}
 	}
 	public function actionAjaxSaveSelectedPoster()
