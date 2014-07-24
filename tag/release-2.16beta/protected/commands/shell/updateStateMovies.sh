@@ -1,0 +1,1 @@
+/var/www/pelicanoc/protected/yiic nzb updatestatemovies --file_name=$1
