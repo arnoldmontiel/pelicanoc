@@ -123,8 +123,11 @@ imagesLoaded( container, function() {
     		$('#search-text').text($(this).val());
     		$('#search-qty').text(iso.filteredItems.length);
 		}	
-		else
+    	else
+		{
 			$('#search-text-summary').hide();
+			$('body .container').removeClass('search-on');
+		}
 	});
 	
   
