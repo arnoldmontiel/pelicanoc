@@ -127,6 +127,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	 	}).success(function(data)
 	 	{	
 			$('#selectize-genres').selectize({
+	   			plugins: ['remove_button'],
 		    	delimiter: ',',
 		    	persist: true,
 		    	create: function(input) {
@@ -160,6 +161,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	 	}).success(function(data)
 	 	{
 			$('#selectize-actors').selectize({
+	   			plugins: ['remove_button'],
 		    	delimiter: ',',
 		    	persist: true,
 		    	create: function(input) {
@@ -193,6 +195,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	 	}).success(function(data)
 	 	{
 			$('#selectize-directors').selectize({
+	   			plugins: ['remove_button'],
 		    	delimiter: ',',
 		    	persist: true,
 		    	create: function(input) {
