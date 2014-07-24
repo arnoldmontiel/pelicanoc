@@ -103,6 +103,7 @@ function startFilter()
 	
 	$('#main-search').change(function()
 	{
+		$('body .container').addClass('search-on');
 		setTextFilter(this);
 		iso.arrange();
     	updateFilterSummary();
@@ -128,6 +129,7 @@ function clearSearchTextFilter()
 	iso.arrange();
 	updateFilterSummary();
 	$('#search-text-summary').hide();
+	$('body .container').removeClass('search-on');
 }
 
 function openMovieShowDetail(id, sourceType, idResource)

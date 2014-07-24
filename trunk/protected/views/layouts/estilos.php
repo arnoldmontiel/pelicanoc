@@ -147,6 +147,10 @@ top:0px; left:0px; right:0px; bottom:0px;
 body.modal-open  {
 overflow:hidden;}
 
+body .container.search-on {
+padding-bottom:60px !important;
+}
+
  .modal-backdrop{
  overflow: scroll; 
   -webkit-overflow-scrolling:touch;
@@ -154,8 +158,9 @@ overflow:hidden;}
  
 
 body #screenHome {
-padding-bottom:60px;
+padding-bottom:20px;
 }
+
 #screenHome .wrapper{
 padding-top:130px;
 }
@@ -660,7 +665,7 @@ ul.nav {
 }
 
 .menuTheme{ border-top:3px solid #ccc !important;}
-.menuThemeOption { position:relative; padding-left:35px !important;color:#999 !important; background-color:#eee;}
+.menuThemeOption { position:relative; padding-left:35px !important;color:#999 !important;border-bottom: 1px solid #fff;}
 .menuThemeOption:before {
 position: absolute;
 font-family: FontAwesome;
@@ -672,7 +677,7 @@ margin-right: 3px;
 content: '\f10c';
 color:#999;
 }
-.menuThemeOptionActive {color:#333 !important;}
+.menuThemeOptionActive {color:#333 !important; background-color:#F7F7F7;}
 .menuThemeOptionActive:before {content: '\f192'; color:#333 !important;}
 
 #Menu #playlist {
