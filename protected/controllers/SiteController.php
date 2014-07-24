@@ -3131,6 +3131,23 @@ class SiteController extends Controller
 		}
 		echo json_encode (explode(',',$myMovie->genre));
 	}
+	public function actionAjaxAllGenres()
+	{
+		$genres = array();
+		$movies = Movies::model()->findAll();		
+		foreach($movies as $item)
+		{
+			$movieGenres = explode(', ',$item->genre);
+			foreach($movieGenres as $value)
+			{
+				if(!empty($value) && ! in_array($value,$genres))
+					$genres[] = trim($value);
+			}
+		}
+		asort($genres);
+		
+		echo json_encode ($genres);
+	}
 	public function actionAjaxUnlinkMovie()
 	{
 		if(isset($_POST['idResource'])&&isset($_POST['sourceType']))
@@ -3405,7 +3422,31 @@ class SiteController extends Controller
 				$modelResource = $localFolder;
 			}
 			
-			$this->render('_formEditMovie',array('model'=>$myMovie,'modelResource'=>$modelResource,'idResource'=>$idResource,'sourceType'=>$sourceType));				
+			$type= "Actor";
+			$persons = $this->getPersons($_GET['idResource'],$_GET['sourceType'],$type);
+			$actor = array();
+			$names = array();
+			foreach ($persons as $person){
+				if($person->type!=$type) continue;
+				$actor['id']=$person->Id;
+				$actor['text']=$person->name;
+				$names[]=$actor;
+			}
+			$actors = $names;
+
+			$type= "Director";
+			$persons = $this->getPersons($_GET['idResource'],$_GET['sourceType'],$type);
+			$directors = array();
+			$names = array();
+			foreach ($persons as $person){
+				if($person->type!=$type) continue;
+				$director['id']=$person->Id;
+				$director['text']=$person->name;
+				$names[] =$director; 
+			}
+			$directors = $names;
+				
+			$this->render('_formEditMovie',array('model'=>$myMovie,'modelResource'=>$modelResource,'idResource'=>$idResource,'sourceType'=>$sourceType,'actors'=>$actors,'directors'=>$directors));				
 		}
 	}
 	public function actionAjaxSaveSelectedPoster()
