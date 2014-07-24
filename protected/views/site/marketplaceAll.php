@@ -137,7 +137,7 @@ function clearSearchTextFilter()
 	iso.arrange();
 	updateFilterSummary();
 	$('#search-text-summary').hide();
-	$('body .container').addClass('search-on');
+	$('body .container').removeClass('search-on');
 }
 
 function openMovieShowDetail(id, sourceType, idResource)
