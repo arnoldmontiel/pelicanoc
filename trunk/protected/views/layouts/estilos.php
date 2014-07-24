@@ -148,7 +148,7 @@ body.modal-open  {
 overflow:hidden;}
 
 body .container.search-on {
-padding-bottom:60px !important;
+padding-bottom:55px !important;
 }
 
  .modal-backdrop{
@@ -158,7 +158,7 @@ padding-bottom:60px !important;
  
 
 body #screenHome {
-padding-bottom:20px;
+padding-bottom:0px;
 }
 
 #screenHome .wrapper{
@@ -2150,6 +2150,10 @@ ul.thumbnails.image_picker_selector {
 .fileName{padding-top: 7px;font-size:17px;}
 
 #screenEditMovie .noLeftPad{padding-left:0px;text-align:left;}
+
+.selectize-input .item{width:auto;}
+.selectize-dropdown, .selectize-input, .selectize-input input{font-size:16px;}
+.selectize-control.multi .selectize-input > div{padding:4px 5px; margin:0 6px 6px 0;}
 
 /*---------- END EDIT PELICULA -------------*/
 
