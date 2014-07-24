@@ -2155,6 +2155,14 @@ ul.thumbnails.image_picker_selector {
 .selectize-dropdown, .selectize-input, .selectize-input input{font-size:16px;}
 .selectize-control.multi .selectize-input > div{padding:4px 5px; margin:0 6px 6px 0;}
 
+.selectize-control.plugin-remove_button [data-value] .remove{
+padding:0px; font-size:20px; line-height:24px; width:27px;
+}
+.selectize-control.plugin-remove_button [data-value]{padding-right: 33px !important;}
+.selectize-control.multi .selectize-input > div{margin-right:9px;}
+
+.selectize-dropdown-content .option,.selectize-dropdown-content .create{line-height:30px; font-size:18px;}
+
 /*---------- END EDIT PELICULA -------------*/
 
 /* ------ PAGINADOR------- */
