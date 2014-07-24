@@ -28,6 +28,51 @@ $backdrop = PelicanoHelper::getImageName($backdrop,"_bd");
 // ",CClientScript::POS_BEGIN);
 
 Yii::app()->clientScript->registerScript('update-my-movie', "
+		$('#selectize-genres').selectize({
+	   			plugins: ['remove_button'],
+		    	delimiter: ',',
+		    	persist: true,
+		    	create: function(input) {
+		        	return {
+		            	value: input,
+		            	text: input
+		        	}
+		    	},
+	   			onChange: function() {
+		        	$('#input_genres').val(this.getValue());
+		    	} 
+			});
+		
+		$('#selectize-actors').selectize({
+	   			plugins: ['remove_button'],
+		    	delimiter: ',',
+		    	persist: true,
+		    	create: function(input) {
+		        	return {
+		            	value: input,
+		            	text: input
+		        	}
+		    	},
+	   			onChange: function() {
+		        	$('#input_actors').val(this.getValue());
+		    	} 
+			});
+		
+			$('#selectize-directors').selectize({
+	   			plugins: ['remove_button'],
+		    	delimiter: ',',
+		    	persist: true,
+		    	create: function(input) {
+		        	return {
+		            	value: input,
+		            	text: input
+		        	}
+		    	},
+	   			onChange: function() {
+		        	$('#input_directors').val(this.getValue());
+		    	} 
+			});
+		
 		$('#myModalCambiarAfiche').on('hidden.bs.modal', function () {
   			$(this).html('');
 		})
@@ -114,114 +159,6 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	   		return false;
 		}
 		);
-	   				
-		$('#actors').select2({tags:[],tokenSeparators: [',']});
-		$('#directors').select2({tags:[],tokenSeparators: [',']});
-		//$('#genres').select2({tags:[],tokenSeparators: [',']});
-		
-		$.ajax({
-	   		type: 'POST',
-	   		url: '". SiteController::createUrl('AjaxGenres') . "',
-	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource.",type:'Actor'},
-	   		dataType: 'json'
-	 	}).success(function(data)
-	 	{	
-			$('#selectize-genres').selectize({
-	   			plugins: ['remove_button'],
-		    	delimiter: ',',
-		    	persist: true,
-		    	create: function(input) {
-		        	return {
-		            	value: input,
-		            	text: input
-		        	}
-		    	},
-	   			onChange: function() {
-		        	$('#input_genres').val(this.getValue());
-		    	} 
-			});
-	   				
-			for (var i in data) {
-	   			var selectize_tags = $('#selectize-genres')[0].selectize
-		    	selectize_tags.addOption({
-		        	text:data[i],
-		        	value: data[i]
-		    	});
-		    	selectize_tags.addItem(data[i]);
-	   			selectize_tags.refreshOptions();	   					   				
-			}
-		}
-	 	);
-	   				
-		$.ajax({
-	   		type: 'POST',
-	   		url: '". SiteController::createUrl('AjaxGetPersons') . "',
-	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource.",type:'Actor'},
-	   		dataType: 'json'
-	 	}).success(function(data)
-	 	{
-			$('#selectize-actors').selectize({
-	   			plugins: ['remove_button'],
-		    	delimiter: ',',
-		    	persist: true,
-		    	create: function(input) {
-		        	return {
-		            	value: input,
-		            	text: input
-		        	}
-		    	},
-	   			onChange: function() {
-		        	$('#input_actors').val(this.getValue());
-		    	} 
-			});
-	   				
-			for (var i in data) {
-	   			var selectize_tags = $('#selectize-actors')[0].selectize
-		    	selectize_tags.addOption({
-		        	text:data[i].text,
-		        	value: data[i].id
-		    	});
-		    	selectize_tags.addItem(data[i].id);
-	   			selectize_tags.refreshOptions();	   				
-			}
-	   				 					   					   						   				
-		}
-	 	);
-		$.ajax({
-	   		type: 'POST',
-	   		url: '". SiteController::createUrl('AjaxGetPersons') . "',
-	   		data: {id:'".$model->Id."',sourceType:".$sourceType.",idResource:".$idResource.",type:'Director'},
-	   		dataType: 'json'
-	 	}).success(function(data)
-	 	{
-			$('#selectize-directors').selectize({
-	   			plugins: ['remove_button'],
-		    	delimiter: ',',
-		    	persist: true,
-		    	create: function(input) {
-		        	return {
-		            	value: input,
-		            	text: input
-		        	}
-		    	},
-	   			onChange: function() {
-		        	$('#input_directors').val(this.getValue());
-		    	} 
-			});
-	   				
-			for (var i in data) {
-	   			var selectize_tags = $('#selectize-directors')[0].selectize
-		    	selectize_tags.addOption({
-		        	text:data[i].text,
-		        	value: data[i].id
-		    	});
-		    	selectize_tags.addItem(data[i].id);
-				selectize_tags.refreshOptions();	   					   				
-			} 				
-	   					   				
-		}
-	 	);
-		//$('#directors').on('change',function(e){ $('#input_directors').val(e.val);});
 		");
 ?>
 <div class="container" id="screenEditMovie">
@@ -260,7 +197,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 	echo CHtml::hiddenField('sourceType',$sourceType);
 	echo CHtml::hiddenField('id_my_movie',$model->Id);	
 	echo CHtml::hiddenField('input_actors');
-	echo CHtml::hiddenField('input_genres');	
+	echo CHtml::hiddenField('input_genres',$model->genre);	
 	echo CHtml::hiddenField('input_directors');	
 	?>
 	<?php 
@@ -297,7 +234,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
           <div class="form-group">
     <label for="fieldGenero" class="col-sm-1 control-label noLeftPad">Genero</label>
     <div class="col-sm-11">
-      <input type="text" id="selectize-genres">
+      <input type="text" id="selectize-genres" value="<?php echo $model->genre;?>">
      </div>
     </div>
     </div><!-- /col-sm-12 -->
@@ -389,7 +326,15 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
           <div class="form-group">
     <label for="fieldDirector" class="col-sm-1 control-label noLeftPad">Director</label>
     <div class="col-sm-11">
-    <input type="text" id="selectize-directors">    
+    	<select id="selectize-directors" name="directors[]" multiple class="demo-default" placeholder="Seleccione un director">	
+		<?php		
+		foreach ($directors as $director)
+		{
+			echo '<option value="'.$director['id'].'" selected>'.$director['text'].'</option>';
+		}
+		?>
+	</select>	
+    
 		<!-- <div id="directors" style="width:100%">
     </div>-->
 	</div>
@@ -401,7 +346,14 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
           <div class="form-group">
     <label for="fieldActores" class="col-sm-1 control-label noLeftPad">Actores</label>
 	<div class="col-sm-11">
-    <input type="text" id="selectize-actors">                
+	<select id="selectize-actors" name="actors[]" multiple class="demo-default" placeholder="Seleccione un actor">	
+		<?php		
+		foreach ($actors as $actor)
+		{
+			echo '<option value="'.$actor['id'].'" selected>'.$actor['text'].'</option>';
+		}
+		?>
+	</select>	
 	</div>
     </div>
     </div><!-- /col-sm-12 -->
