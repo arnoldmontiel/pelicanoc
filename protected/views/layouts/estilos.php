@@ -2163,6 +2163,15 @@ padding:0px; font-size:20px; line-height:24px; width:27px;
 
 .selectize-dropdown-content .option,.selectize-dropdown-content .create{line-height:30px; font-size:18px;}
 
+.selectize-control.multi .selectize-input [data-value]{background:#8BC5EC !important; border-color:#94B4EE; color:#333;}
+.selectize-control.multi .selectize-input [data-value] a{border-color:#94B4EE; color:#333;}
+
+.selectize-control.multi .selectize-input [data-value].active{background:#276792 !important; border-color:#4163A0; color:white;}
+.selectize-control.multi .selectize-input [data-value].active a{border-color:#4163A0; color:white;}
+
+.selectize-control.plugin-remove_button [data-value].active{background:#8BC5EC !important;}
+
+
 /*---------- END EDIT PELICULA -------------*/
 
 /* ------ PAGINADOR------- */
