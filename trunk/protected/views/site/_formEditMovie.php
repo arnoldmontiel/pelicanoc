@@ -195,10 +195,25 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <?php
     echo CHtml::hiddenField('idResource',$idResource);
 	echo CHtml::hiddenField('sourceType',$sourceType);
-	echo CHtml::hiddenField('id_my_movie',$model->Id);	
-	echo CHtml::hiddenField('input_actors');
+	echo CHtml::hiddenField('id_my_movie',$model->Id);
+		
 	echo CHtml::hiddenField('input_genres',$model->genre);	
-	echo CHtml::hiddenField('input_directors');	
+
+	$actorsIds= array();
+	foreach ($actors as $actor)
+	{
+		$actorsIds[]=$actor['id'];
+	}
+	
+	echo CHtml::hiddenField('input_actors',implode(',', $actorsIds));
+
+	$directorsIds= array();
+	foreach ($directors as $director)
+	{
+		$directorsIds[]=$director['id'];
+	}	
+	echo CHtml::hiddenField('input_directors',implode(',', $directorsIds));
+	
 	?>
 	<?php 
 	$modelLocalFolder = null;
