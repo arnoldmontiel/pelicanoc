@@ -348,10 +348,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 			echo '<option value="'.$director['id'].'" selected>'.$director['text'].'</option>';
 		}
 		?>
-	</select>	
-    
-		<!-- <div id="directors" style="width:100%">
-    </div>-->
+	</select>	    
 	</div>
     </div>
     </div><!-- /col-sm-12 -->
