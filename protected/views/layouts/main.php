@@ -41,7 +41,7 @@
 <link href="css/image-picker.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="js/image-picker.min.js"></script>
 <!-- JS selectize -->
-<link href="css/selectize/selectize.default.css" rel="stylesheet" />
+<link href="css/selectize/selectize.legacy.css" rel="stylesheet" />
 <script src="js/selectize/selectizeDelfi.js"></script>
 
 <!-- JS Select -->
