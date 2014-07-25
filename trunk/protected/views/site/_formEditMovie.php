@@ -72,8 +72,7 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
 		        	$('#input_directors').val(this.getValue());
 		    	} 
 			});
-  			$('.selectize-dropdown-content').addClass('needsclick');
-			$('.selectize-dropdown-content div').addClass('needsclick');		
+				
 		$('#myModalCambiarAfiche').on('hidden.bs.modal', function () {
   			$(this).html('');
 		})
@@ -236,17 +235,17 @@ Yii::app()->clientScript->registerScript('update-my-movie', "
     <label for="fieldGenero" class="col-sm-1 control-label noLeftPad">Genero</label>
     <div class="col-sm-11">
       
-      <select id="selectize-genres" name="genres[]" multiple class="needsclick" placeholder="Seleccione un genero">	
+      <select id="selectize-genres" name="genres[]" multiple placeholder="Seleccione un genero">	
 		<?php
 		$genresExplodes =explode(',', $model->genre); 		
 		foreach ($genresExplodes as $genre)
 		{
 			$genre = trim($genre);
-			echo '<option value="'.$genre.'" class="needsclick" selected>'.$genre.'</option>';
+			echo '<option value="'.$genre.'" selected>'.$genre.'</option>';
 		}
 		foreach ($genres as $genre)
 		{
-			echo '<option value="'.$genre.'"class="needsclick" >'.$genre.'</option>';
+			echo '<option value="'.$genre.'" >'.$genre.'</option>';
 		}
 		?>
 	</select>	
