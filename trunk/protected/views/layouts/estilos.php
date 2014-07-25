@@ -2166,8 +2166,18 @@ padding:0px; font-size:20px; line-height:24px; width:27px;
 .selectize-control.multi .selectize-input [data-value]{background:#8BC5EC !important; border-color:#94B4EE; color:#333;}
 .selectize-control.multi .selectize-input [data-value] a{border-color:#94B4EE; color:#333;}
 
+
 .selectize-control.multi .selectize-input [data-value].active{background:#276792 !important; border-color:#4163A0; color:white;}
 .selectize-control.multi .selectize-input [data-value].active a{border-color:#4163A0; color:white;}
+
+/*tags in grey
+.selectize-control.multi .selectize-input [data-value]{background:#E0E0E0 !important; border-color:#D5D5D5; color:#333;}
+.selectize-control.multi .selectize-input [data-value] a{border-color:#D5D5D5; color:#333;}
+
+.selectize-control.multi .selectize-input [data-value].active{background:#747474 !important; border-color:#818181; color:white;}
+.selectize-control.multi .selectize-input [data-value].active a{border-color:#818181; color:white;}
+*/
+
 
 .selectize-control.plugin-remove_button [data-value].active{background:#8BC5EC !important;}
 
