@@ -22,12 +22,7 @@ echo CHtml::hiddenField("hiddenTitleId",'',array('id'=>'hiddenTitleId'));
 	
 	<div id="div-searchResult" style=" width:100%">
 		<?php
-		
-		$this->widget('ext.processingDialog.processingDialog', array(
-					'buttons'=>array('none'),
-					'idDialog'=>'wating',
-		));
-		
+				
 		$this->widget('zii.widgets.grid.CGridView', array(
 		    'dataProvider' => $arrayDataProvider,
 		    'id'=>'search-result-grid',
