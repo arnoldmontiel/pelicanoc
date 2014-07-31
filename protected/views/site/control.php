@@ -341,14 +341,6 @@ $('#audioButton').click(function(){
 		return false;
 });
 	
-$('#aButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-		data: {ir_code:'EC13BF00',Id_player:".$player->Id."},
-});
-		return false;
-});
 $('#button0').click(function(){
 	$.ajax({
    		type: 'GET',
@@ -431,7 +423,7 @@ $('#button9').click(function(){
 });
 ";
 }
-else
+elseif(isset($player->type) && $player->type == 0)
 {
 	$script="
 $('#playButton').click(function(){
@@ -578,14 +570,6 @@ $('#audioButton').click(function(){
 			return false;
 });
 	
-$('#aButton').click(function(){
-	$.ajax({
-   		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-		data: {ir_code:'BF40BF00',Id_player:".$player->Id."},
-});
-			return false;
-});
 $('#button0').click(function(){
 	$.ajax({
    		type: 'GET',
@@ -667,7 +651,240 @@ $('#button9').click(function(){
    				return false;
 });
 ";	
-}				
+}	
+else 
+{
+	$script="
+$('#playButton').click(function(){
+	$.get('http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi',{ id:1, cmd:'CMD_MELE_PLAYPAUSE'});
+	return false;
+});
+$('#pauseButton').click(function(){
+		var params = 'id=1&cmd=CMD_MELE_PLAYPAUSE';
+		var xmlHttp = null;
+    	xmlHttp = new XMLHttpRequest();
+ 		xmlHttp.open( 'GET', 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi?id=1&cmd=CMD_MELE_PLAYPAUSE', false );
+ 		xmlHttp.send(null);
+    	//xmlHttp.open( 'GET', 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi', false );
+    	//xmlHttp.send(params );
+    	//alert( xmlHttp.responseText);
+});
+	
+$('#stopButton').click(function(){
+	var xmlHttp = null;
+    xmlHttp = new XMLHttpRequest();
+ 	xmlHttp.open( 'GET', 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi?id=1&cmd=CMD_STOP', false );
+ 	xmlHttp.send(null);
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxStop') . "',
+		data: {Id_player:".$player->Id."}
+ 	}).success(function()
+ 	{
+		window.location = '".SiteController::createUrl('index')."'
+	}
+ 	);
+});
+	
+$('#prevButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi',
+		data: {id:1,cmd:'CMD_MELE_PLAYPAUSE'},
+});
+    		return false;
+});
+	
+$('#nextButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_NEXT',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#rewButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_FFWD',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#fwButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_FRWD',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#enterButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_SELECT',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#returnButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_RETURN',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#popUpMenuButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_MENU',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#upButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_UP',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#downButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_DOWN',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#leftButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_LEFT',Id_player:".$player->Id."},
+});
+    		return false;
+});
+	
+$('#rightButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_RIGHT',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#subtButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_STITLE',Id_player:".$player->Id."},
+});
+		return false;
+});
+	
+$('#audioButton').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_AUDIO',Id_player:".$player->Id."},
+});
+			return false;
+});
+	
+$('#button0').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_ZERO',Id_player:".$player->Id."},
+});
+			return false;
+});
+$('#button1').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_ONE',Id_player:".$player->Id."},
+});
+				return false;
+});
+$('#button2').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_TWO',Id_player:".$player->Id."},
+});
+   				return false;
+});
+$('#button3').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_THREE',Id_player:".$player->Id."},
+});
+   				return false;
+});
+$('#button4').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_FOUR',Id_player:".$player->Id."},
+});
+   				return false;
+});
+$('#button5').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_FIVE',Id_player:".$player->Id."},
+});
+	return false;
+});
+$('#button6').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_SIX',Id_player:".$player->Id."},
+});
+	return false;
+});
+$('#button7').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_SEVEN',Id_player:".$player->Id."},
+});
+	return false;
+});
+$('#button8').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: {ir_code:'CMD_EIGHT',Id_player:".$player->Id."},
+ 	});
+	return false;
+});
+$('#button9').click(function(){
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+		data: {ir_code:'CMD_NINE',Id_player:".$player->Id."},
+ 	});
+   				return false;
+});
+";
+}			
 
 $firstPart =
 "//ChangeBG('','".$backdrop."');
