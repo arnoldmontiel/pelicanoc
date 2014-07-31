@@ -324,8 +324,12 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	    			<i class="fa fa-spinner fa-spin"></i> Iniciando</button>
     			<?php endif?>
     		<?php else:?>
-    			<button id="btn-download" type="button" class="btn btn-primary btn-lg">
-	    		<i class="fa fa-download"></i> Descargar</button>
+    			<button id="btn-download" type="button" class="btn btn-primary btn-lg btnDescargar">
+	    		<i class="fa fa-download"></i> Descargar 
+	    		<div class="labelPointsGroup">
+	    		<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-database"></i> 25</div>
+	    		</div>
+	    		</button>
     		<?php endif?>
     	<?php endif?>    	    
     <?php else:?>
