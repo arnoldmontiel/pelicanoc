@@ -1506,6 +1506,21 @@ class SiteController extends Controller
 		else
 			DuneHelper::playDune($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);				
 
+		if(isset($player->type))
+		{
+			switch ($player->type) {
+				case 0:
+					DuneHelper::playDune($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+					break;
+				case 1:
+					OppoHelper::playOppo($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->mkv_file_name,$player);
+					break;
+				case 2:
+					Mede8erHelper::play($idMyMovie,'/'.$folderPath[0].'/'.$nzbModel->path,$player);
+					break;
+			}
+		}
+		
 		self::saveCurrentPlayByPlayer($idNzb, 1,$player);
 	}
 	
@@ -1555,11 +1570,22 @@ class SiteController extends Controller
 		}
 		if($sourceType!=4)
 		{
-			if(isset($player->type) && $player->type == 1)
-				$resultPlay = OppoHelper::playOppo($id,$path,$player);
+			if(isset($player->type))
+			{	
+				switch ($player->type) {
+					case 0:
+						$resultPlay = DuneHelper::playDune($id,$path,$player);
+						break;
+					case 1:
+						$resultPlay = OppoHelper::playOppo($id,$path,$player);
+						break;
+					case 2:
+						$resultPlay = Mede8erHelper::play($id,$path,$player);
+						break;
+				}
+			}
 			else
-				$resultPlay = DuneHelper::playDune($id,$path,$player);
-				
+				$resultPlay = false;
 		}
 		
 		if($resultPlay == false) 	return "";
@@ -1961,10 +1987,20 @@ class SiteController extends Controller
 	public function actionAjaxUseRemote()
 	{
 		$player = Player::model()->findByPk($_GET['Id_player']);
-		if(isset($player->type) && $player->type == 1)
-			OppoHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);
-		else
-			DuneHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);				
+		if(isset($player->type))
+		{
+			switch ($player->type) {
+				case 0:
+					DuneHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);
+					break;
+				case 1:
+					OppoHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);
+					break;
+				case 2:
+					Mede8erHelper::useRemote($_GET['ir_code'],$_GET['Id_player']);
+					break;
+			}
+		}
 	}
 
 	public function actionAjaxStop()
@@ -1972,18 +2008,21 @@ class SiteController extends Controller
 		if(isset($_GET['Id_player']))
 		{
 			$player = Player::model()->findByPk($_GET['Id_player']);
-			if(isset($player->type) && $player->type == 1)
-			{				
-				//OppoHelper::useRemote('STP',$_GET['Id_player']);
-				OppoHelper::setBackgroundImage($player);
-			}
-			else
-				DuneHelper::setBlackScreenByPlayer($player);							
+			if(isset($player->type))
+			{
+				switch ($player->type) {
+					case 0:
+						DuneHelper::setBlackScreenByPlayer($player);
+						break;
+					case 1:
+						OppoHelper::setBackgroundImage($player);
+						break;
+					case 2:
+						Mede8erHelper::setBlackScreen($player);
+						break;
+				}
+			}							
 		}
-		else
-		{
-			DuneHelper::setBlackScreen();
-		}				
 	}
 
 	public function actionAjaxGetPlayback()
