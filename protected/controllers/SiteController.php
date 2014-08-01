@@ -420,6 +420,7 @@ class SiteController extends Controller
 	}
 	public function actionAjaxCancelDownload()
 	{
+		$alreadyDownloaded = 0;
 		if(isset($_POST['Id_nzb']))
 		{		
 			PelicanoHelper::cancelDownload($_POST['Id_nzb']);
@@ -428,7 +429,11 @@ class SiteController extends Controller
 			{
 				PelicanoHelper::cancelDownload($nzb->Id);				
 			}
+			$modelNzb = Nzb::model()->findByPk($_POST['Id_nzb']);
+			if(isset($modelNzb))
+				$alreadyDownloaded = $modelNzb->already_downloaded;
 		}
+		echo $alreadyDownloaded;
 	}
 	
 	public function actionAjaxPlaylistsShow()
