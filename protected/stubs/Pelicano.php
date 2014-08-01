@@ -342,6 +342,7 @@ class NzbStateRequest extends SOAP2Array
 	public $Id_nzb; //integer;
 	public $Id_state; //integer;
 	public $change_state_date; //integer;
+	public $points; //integer;
 }
 
 class TransactionResponse extends SOAP2Array
