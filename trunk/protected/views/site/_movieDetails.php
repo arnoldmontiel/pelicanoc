@@ -461,6 +461,18 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 						$("#downloading_"+idNzb).hide();
 						$(".downloaded_"+idNzb).hide();
 						$(".downloading_"+idNzb).hide();
+
+						if(data == 1)
+						{
+							$("#already_downloaded_"+idNzb).show();
+							$(".already_downloaded_"+idNzb).show();
+						}
+						else
+						{
+							$("#already_downloaded_"+idNzb).hide();
+							$(".already_downloaded_"+idNzb).hide();
+						}
+						
 						$("#myModal").html("");
 						$("#myModal").modal("hide");
 						return false;
@@ -477,9 +489,13 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 			function(data) 
 			{					
 				$("#downloaded_<?php echo $modelNzb->Id; ?>").hide();
-				$("#downloading_<?php echo $modelNzb->Id; ?>").show();		
+				$("#downloading_<?php echo $modelNzb->Id; ?>").show();
+				$("#already_downloaded_<?php echo $modelNzb->Id; ?>").hide();
+						
 				$(".downloaded_<?php echo $modelNzb->Id; ?>").hide();
-				$(".downloading_<?php echo $modelNzb->Id; ?>").show();		
+				$(".downloading_<?php echo $modelNzb->Id; ?>").show();				
+				$(".already_downloaded_<?php echo $modelNzb->Id; ?>").hide();
+				
 				$("#myModal").html("");
 				$("#myModal").modal("hide");
 				return false;

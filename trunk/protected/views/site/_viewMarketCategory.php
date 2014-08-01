@@ -29,7 +29,8 @@
 						<a class=" aficheClickNzb needsclick" idmovie="<?php echo $myMovie->Id;?>" idresource="<?php echo $modelSource->Id?>" sourcetype="1" onclick="openMovieShowDetail('<?php echo $myMovie->Id?>',1,<?php echo $nzb->Id?>)">
 						<img width="180" height="260" class="peliAfiche" border="0" src="<?php echo PelicanoHelper::getImageName($moviePoster)?>" alt="" draggable="false"></a>
 						<div id="<?php echo $modelSource->Id?>" class="peliTitulo needsclick">
-						<span class="<?php echo PelicanoHelper::setAnimationClass($myMovie->original_title)?>"><?php echo $shortTitle;?></span>							
+						<span class="<?php echo PelicanoHelper::setAnimationClass($myMovie->original_title)?>"><?php echo $shortTitle;?></span>
+						<div class="ribMisPeliculas needsclick already_downloaded_<?php echo $nzb->Id; ?>" id="already_downloaded_<?php echo $nzb->Id; ?>" <?php echo ($nzb->already_downloaded == 1 && $nzb->downloaded == 0 && $nzb->downloading == 0)?"":"style='display:none'";?>><i class="fa fa-cloud-download"></i></div>							
 						<div class="ribMisPeliculas needsclick downloaded_<?php echo $nzb->Id; ?>" id="downloaded_<?php echo $nzb->Id; ?>" <?php echo ($nzb->downloaded)?'':'style="display:none;"';?>><i class="fa fa-check-circle"></i></div>
 						<div class="ribDescargando needsclick downloading_<?php echo $nzb->Id; ?>" id="downloading_<?php echo $nzb->Id; ?>" <?php echo ($nzb->downloading)?'':'style="display:none;"';?>><i class="fa fa-spinner fa-spin fa-sm" ></i> <i class="fa fa-download" ></i></div>						
 						
