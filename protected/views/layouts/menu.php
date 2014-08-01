@@ -134,6 +134,7 @@
 									Consumos</a></li> -->
 									<li class="visible-sm visible-nexus-p hidden-nexus-l"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
 							<li><a onclick="goToConfig();"><i class="fa fa-cogs fa-fw"></i> Config</a></li>
+							<li><a onclick="goToConsumption();"><i class="fa fa-database fa-fw"></i> Consumos</a></li>
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 							<?php 
  								$modelThemes = Theme::model()->findAllByAttributes(array('hide'=>0));
@@ -413,6 +414,12 @@ $(document).keypress(function(e) {
     	return false; 
     }
 });
+
+function goToConsumption()
+{
+	window.location = <?php echo '"'. SiteController::createUrl('consumption') . '"'; ?>; 
+	return false;
+}
 
 function goToConfig()
 {
