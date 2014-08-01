@@ -10,8 +10,9 @@ cd /opt/
 echo " ---------------------- "
 echo " Descargando Pelicano   "
 echo " ---------------------- "
-sudo -u www-data wget gruposmartliving.com/downloads/pelicano-beta.tar.gz
-sudo -u www-data tar xvfz pelicano-beta.tar.gz
+wget gruposmartliving.com/downloads/pelicano-beta.tar.gz
+tar xvfz pelicano-beta.tar.gz
+chown -R www-data.www-data *
 rm pelicano-beta.tar.gz
 chmod +x pelicano/protected/commands/shell/*
 chmod 777 pelicano/protected/commands/shell
@@ -20,6 +21,7 @@ chmod +x pelicano/protected/yiic
 rm /var/www/index.html
 ln -l /opt/pelicano /var/www/pelicano
 ln -l /opt/yii /var/www/yii
+chown -R www-data.www-data /var/www/*
 echo " ---------------------------- "
 echo " Configurando Base De Datos   "
 echo " ---------------------------- "
