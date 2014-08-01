@@ -1205,6 +1205,7 @@ CREATE TABLE `nzb` (
   `has_error` tinyint(4) DEFAULT '0' COMMENT 'si hubo un error durante la descarga.',
   `size` BIGINT(20) DEFAULT NULL,
   `deleted` tinyint(4) DEFAULT '0',
+  `already_downloaded` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `fk_nzb_my_movie_disc_nzb1` (`Id_my_movie_disc_nzb`),
   KEY `fk_nzb_nzb_state1` (`Id_nzb_state`),
@@ -1953,6 +1954,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="2.18" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.19" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
