@@ -20,7 +20,8 @@ $shortTitle = (strlen($shortTitle) > 24) ? substr($shortTitle,0,21).'...' : $sho
 	<a onclick="openMovieShowDetail('<?php echo $model->Id;?>',<?php echo $data->source_type;?>,<?php echo $data->Id;?>)" class="needsclick">    
         <?php echo CHtml::image($moviePoster,'',array('class'=>'peliAfiche needsclick'));?>    
     </a>			
-    <div id="<?php echo $data->Id;?>" class="peliTitulo needsclick"><?php echo $shortTitle;?></div>
+    <div id="<?php echo $data->Id;?>" class="peliTitulo needsclick"><?php echo $shortTitle;?></div>    
+    <div class="ribMisPeliculas needsclick" id="already_downloaded_<?php echo $data->Id; ?>" <?php echo ($data->already_downloaded == 1 && $data->downloaded == 0 && $data->downloading == 0)?"":"style='display:none'";?>><i class="fa fa-cloud-download"></i></div>
 	<div class="ribMisPeliculas needsclick" id="downloaded_<?php echo $data->Id; ?>" <?php echo ($data->downloaded)?"":"style='display:none'";?>><i class="fa fa-check-circle"></i></div>
 	<div class="ribDescargando needsclick" id="downloading_<?php echo $data->Id; ?>" <?php echo ($data->downloading)?"":"style='display:none'";?>><i class="fa fa-spinner fa-spin fa-sm" ></i> <i class="fa fa-download" ></i></div>
 </div>
