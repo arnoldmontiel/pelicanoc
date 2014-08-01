@@ -19,8 +19,8 @@ chmod 777 pelicano/protected/commands/shell
 chmod 777 pelicano/nzbReady
 chmod +x pelicano/protected/yiic
 rm /var/www/index.html
-ln -l /opt/pelicano /var/www/pelicano
-ln -l /opt/yii /var/www/yii
+ln -s /opt/pelicano /var/www/pelicano
+ln -s /opt/yii /var/www/yii
 chown -R www-data.www-data /var/www/*
 echo " ---------------------------- "
 echo " Configurando Base De Datos   "
