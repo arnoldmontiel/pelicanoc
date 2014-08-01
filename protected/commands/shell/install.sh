@@ -4,18 +4,22 @@ echo " Instalando Pelicano    "
 echo " ---------------------- "
 apt-get update
 apt-get --yes --force-yes install php5-curl usbmount sabnzbdplus make gcc openssh-client p7zip-full fping libaugeas-ruby augeas-tools
-chown -R www-data.www-data /var/www
-cd /var/www
+#chown -R www-data.www-data /var/www
+#cd /var/www
+cd /opt/
 echo " ---------------------- "
 echo " Descargando Pelicano   "
 echo " ---------------------- "
 sudo -u www-data wget gruposmartliving.com/downloads/pelicano-beta.tar.gz
 sudo -u www-data tar xvfz pelicano-beta.tar.gz
+rm pelicano-beta.tar.gz
 chmod +x pelicano/protected/commands/shell/*
 chmod 777 pelicano/protected/commands/shell
 chmod 777 pelicano/nzbReady
 chmod +x pelicano/protected/yiic
 rm /var/www/index.html
+ln -l /opt/pelicano /var/www/pelicano
+ln -l /opt/yii /var/www/yii
 echo " ---------------------------- "
 echo " Configurando Base De Datos   "
 echo " ---------------------------- "
@@ -41,16 +45,16 @@ echo "*/30 * * * * /var/www/pelicano/protected/commands/shell/update.sh">>rootCr
 crontab -u root rootCrontab
 rm rootCrontab
 
-echo " ---------------------- "
-echo " Instalando Virtual Box   "
-echo " ---------------------- "
+#echo " ---------------------- "
+#echo " Instalando Virtual Box   "
+#echo " ---------------------- "
 
-wget http://download.virtualbox.org/virtualbox/4.3.12/virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
-dpkg -i virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
-apt-get  --yes --force-yes -f install
-wget http://download.virtualbox.org/virtualbox/4.3.12/Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
-VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
-echo VBOXWEB_USER=pelicano> /etc/default/virtualbox
+#wget http://download.virtualbox.org/virtualbox/4.3.12/virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
+#dpkg -i virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
+#apt-get  --yes --force-yes -f install
+#wget http://download.virtualbox.org/virtualbox/4.3.12/Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
+#VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
+#echo VBOXWEB_USER=pelicano> /etc/default/virtualbox
 echo "GRUB_RECORDFAIL_TIMEOUT=2" >> /etc/default/grub
 update-grub
 mkdir /media/NAS
