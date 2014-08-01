@@ -129,13 +129,11 @@
 							</span>
 							<i class="fa fa-caret-down fa-fw"></i></a>
 						<ul id="dropdown-more" class="dropdown-menu">
-							<!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> Ver Perfil</a></li>
-							<li><a href="#"><i class="fa fa-tachometer fa-fw"></i> Ver
-									Consumos</a></li> -->
-									<li class="visible-sm visible-nexus-p hidden-nexus-l"><div class="insideUsername"><i class="fa fa-user fa-fw"></i><?php echo $username; ?></div></li>
+							<li class="userMenuTitle"><i class="fa fa-user fa-fw"></i> <?php echo $username; ?></li>
 							<li><a onclick="goToConfig();"><i class="fa fa-cogs fa-fw"></i> Config</a></li>
 							<li><a onclick="goToConsumption();"><i class="fa fa-database fa-fw"></i> Consumos</a></li>
 							<li><a href="<?php echo SiteController::createUrl('site/logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+							<li class="userMenuTitle">THEME SELECTOR</li>
 							<?php 
  								$modelThemes = Theme::model()->findAllByAttributes(array('hide'=>0));
  								if(isset($currentUser))
@@ -143,7 +141,7 @@
 	 								foreach($modelThemes as $theme)
 	 								{
 	 									if($currentUser->Id_theme == $theme->Id)
-	 										echo '<li class="menuTheme"><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption menuThemeOptionActive">'.$theme->description.'</a></li>';
+	 										echo '<li><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption menuThemeOptionActive">'.$theme->description.'</a></li>';
 	 									else 
 	 										echo '<li><a onclick="changeTheme('.$theme->Id.');" class="menuThemeOption">'.$theme->description.'</a></li>';
 	 								

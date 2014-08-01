@@ -1,8 +1,5 @@
     	<div class="row">
     	<div class="col-sm-7"><h2 class="sliderTitle modified"><?php echo $data->description?></h2>
-			<ul class="nav nav-pills">
-  				 <!-- <li class="active"><a data-toggle="tab" href="#">Todas</a></li> -->
-  			</ul>
     	</div>    	
 		</div>
 		<div class="row rowBackground">

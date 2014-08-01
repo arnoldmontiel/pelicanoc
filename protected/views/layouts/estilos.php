@@ -170,6 +170,11 @@ padding-top:130px;
 padding-bottom:20px;
 }
 
+
+#screenConsumos .wrapper{
+padding-top:80px;
+}
+
 body #screenMarketplace {
 }
 #screenMarketplace .wrapper{
@@ -206,6 +211,11 @@ padding-top:80px;
 }
 
 body #screenEditMovie .wrapper .row{
+margin-left:0px !important;
+margin-right:0px !important;
+}
+
+body #screenConsumos .wrapper .row{
 margin-left:0px !important;
 margin-right:0px !important;
 }
@@ -664,7 +674,7 @@ ul.nav {
 	cursor: pointer;
 }
 
-.menuTheme{ border-top:3px solid #ccc !important;}
+.userMenuTitle{border-top:2px dotted rgba(0,0,0,0.05) !important; border-bottom:2px dotted rgba(0,0,0,0.05) !important; font-size:13px; text-align:center; padding:5px 0px; color:#bbb; background-color:rgba(0,0,0,0.01);}
 .menuThemeOption { position:relative; padding-left:35px !important;color:#999 !important;border-bottom: 1px solid #fff;}
 .menuThemeOption:before {
 position: absolute;
@@ -749,13 +759,8 @@ display: inline-block;}
 .reproTableContainer button i{color:white;}
 
 
-.dropdownUsuario .dropdown-menu{ padding:5px 0px;}
+.dropdownUsuario .dropdown-menu{ padding:0px;}
 
-.insideUsername{margin-bottom: 5px; margin-top:5px;
-border-bottom: 1px #eee solid;
-padding: 12px 7px;
-padding-top: 3px;
-color: #999;}
 
 .dropdownUsuario .dropdown-menu>li>a{ padding:10px;}
 
@@ -998,14 +1003,14 @@ h2.sliderTitle {
 	font-weight: normal;
 	line-height: 34px;
 	margin: auto;
-	margin-bottom: 10px;
 	font-family: 'GudeaRegular';
-	margin-left: 30px;
+	margin-left: 45px;
 	min-width: 120px;
 	display: inline-block;
 	margin-right: 10px;
 	margin-bottom: 0px;
 	margin-top: 2px;
+	padding-bottom:0px;
 }
 
 h2.pageSubtitle {
@@ -1154,14 +1159,11 @@ cursor:pointer;
 }
 
 .peliTitulo {
-	color: #fff !important;
 	padding: 5px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; 
   width:auto;
-
-  color:#999 !important;
 }
 
 .item{width:180px;}
