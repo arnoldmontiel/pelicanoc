@@ -38,6 +38,15 @@ class SiteController extends Controller
 
 	}
 
+	public function actionConsumption()
+	{
+		$this->showFilter = false;
+		
+	
+		$this->render('consumption');
+	
+	}
+	
 	public function actionConfig()
 	{
 		$this->showFilter = false;
