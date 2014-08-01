@@ -327,7 +327,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     			<button id="btn-download" type="button" class="btn btn-primary btn-lg btnDescargar">
 	    		<i class="fa fa-download"></i> Descargar 
 	    		<div class="labelPointsGroup">
-	    		<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-database"></i> 25</div>
+	    		<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-database"></i> <?php echo $modelNzb->points;?></div>
 	    		</div>
 	    		</button>
     		<?php endif?>
