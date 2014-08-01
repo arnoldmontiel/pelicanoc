@@ -49,6 +49,8 @@ h2.sliderTitl{color:#D8D8D8;}
 .pushSelectable .pushMenuGroup .pushMenuActive{ background-color:#3C3C3C; } 
 
 .peliAfiche{border:0px none;}
+.peliTitulo{color:#eee;}
+
 .item a{
 	-moz-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
 	-webkit-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
