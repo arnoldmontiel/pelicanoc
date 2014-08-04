@@ -2032,6 +2032,12 @@ background-color:rgba(217, 83, 79, 0.73);}
 
 /*-------- END DESCARGAS --------------*/
 
+/*-------- CONSUMOS --------------*/
+.totalConsumos{ position:absolute; top:-40px; right:20px;}
+.totalConsumos .label{font-size:16px; background-color: #3D88CE;}
+/*-------- END CONSUMOS --------------*/
+
+
 /*---------- FLEXSLIDER STYLE OVERRIDE -------*/
 
 .flexslider {

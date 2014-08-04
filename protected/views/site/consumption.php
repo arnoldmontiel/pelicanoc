@@ -15,12 +15,12 @@
 					<li><a id="a-tab-draft" href="#tabHistorial" data-toggle="tab">Historial</a></li>
 				</ul>
 			</div>
-			<div class="col-sm-6 align-right">Total Consumos: 40</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="tab-content">
 					<div class="tab-pane active" id="tabMesActual">
+					<div class="totalConsumos">Total Consumos: <span class="label label-info">60</span></div>
 						<table class="table table-striped table-bordered tablaIndividual">
 							<thead>
 								<tr>
