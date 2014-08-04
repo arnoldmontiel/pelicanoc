@@ -326,8 +326,12 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     		<?php else:?>
     			<button id="btn-download" type="button" class="btn btn-primary btn-lg btnDescargar">
 	    		<i class="fa fa-download"></i> Descargar 
-	    		<div class="labelPointsGroup">
-	    		<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-database"></i> <?php echo $modelNzb->points;?></div>
+	    		<div class="labelPointsGroup">	    		
+	    		<?php if($modelNzb->already_downloaded == 0):?>
+	    			<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-database"></i> <?php echo $modelNzb->points;?></div>
+	    		<?php else:?>
+	    			<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-cloud-download"></i></div>
+	    		<?php endif?>
 	    		</div>
 	    		</button>
     		<?php endif?>
