@@ -1202,7 +1202,17 @@ class PelicanoHelper
 								}
 							}
 								
+							if(isset($item->Consumption))
+							{
+								$modelConsumption = Consumption::model()->findByPk($item->consumption->Id);
+								if(!isset($modelConsumption))
+									$modelConsumption = new Consumption();
+								
+								$modelConsumption->setAttributesByArray($item->consumption);
+								$modelConsumption->save();
+							}
 			
+							
 							$transaction->commit();
 								
 						} catch (Exception $e) {
