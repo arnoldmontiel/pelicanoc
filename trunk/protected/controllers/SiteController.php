@@ -42,8 +42,12 @@ class SiteController extends Controller
 	{
 		$this->showFilter = false;
 		
-	
-		$this->render('consumption');
+		$modelNzb = new Nzb('search');
+		$modelNzb->unsetAttributes();
+		if(isset($_GET['Nzb']))
+			$modelNzb->attributes=$_GET['Nzb'];
+		
+		$this->render('consumption', array('modelNzb'=>$modelNzb));
 	
 	}
 	
