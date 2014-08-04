@@ -334,6 +334,7 @@ class NzbResponse
 	public $myMovie; //MyMovieSOAP;
 	public $myMovieDisc; //MyMovieDiscSOAP;
 	public $MarketCategories;//integer[];
+	public $consumption;//ConsumptionSOAP;
 }
 
 class NzbStateRequest extends SOAP2Array
