@@ -1,7 +1,7 @@
 <?php			
 	$this->widget('zii.widgets.grid.CGridView', array(
 		'id'=>'history-grid',
-		'dataProvider'=>$modelNzb->search(),
+		'dataProvider'=>$modelConsumption->searchHistory(),
 		'selectableRows' => 0,
 		'summaryText'=>'',	
 		'itemsCssClass' => 'table table-striped table-bordered tablaIndividual',
@@ -9,26 +9,24 @@
 				array(
 						'header'=>'Mes',
 						'value'=>function($data){
-							$title = 'No Identificado';
-							
-							if(isset($data->myMovieDiscNzb->myMovieNzb))
-								$title = $data->myMovieDiscNzb->myMovieNzb->original_title;
-							
-							return $title;
+							return strftime('%B', mktime(0, 0, 0, $data->month)).' '. $data->year;;
 						},
 						'type'=>'raw',
 				),
 				array(
 						'header'=>'',
 						'value'=>function($data){
-							return '<i class="fa fa-check-circle"></i>';
+							$value = '';
+							if($data->has_paid > 0)
+								$value = '<i class="fa fa-check-circle"></i>';
+							return $value;
 						},
 						'type'=>'raw',
 				),
 				array(
 						'header'=>'Consumo',
 						'value'=>function($data){
-							return $data->change_state_date;
+							return $data->total_points;
 						},
 						'type'=>'raw',
 						'htmlOptions'=>array("class"=>"align-right"),

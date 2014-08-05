@@ -19,12 +19,12 @@
 			<div class="col-sm-12">
 				<div class="tab-content">
 					<div class="tab-pane active" id="tabMesActual">
-						<?php echo $this->renderPartial('_tabCurrentMonth',array('modelNzb'=>$modelNzb)); ?>
+						<?php echo $this->renderPartial('_tabCurrentMonth',array('modelConsumption'=>$modelConsumption)); ?>
 					</div>
 					<!-- /.tabMesActual -->
 
 					<div class="tab-pane" id="tabHistorial">
-						<?php echo $this->renderPartial('_tabHistory',array('modelNzb'=>$modelNzb)); ?>
+						<?php echo $this->renderPartial('_tabHistory',array('modelConsumption'=>$modelConsumption)); ?>
 					</div>
 				</div>
 				<!-- /.tab-content -->
