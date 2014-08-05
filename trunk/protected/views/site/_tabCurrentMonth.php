@@ -1,8 +1,18 @@
-<div class="totalConsumos">Total Consumos: <span class="label label-info">60</span></div>
+<?php 
+$criteria=new CDbCriteria;
+
+$criteria->select = 'SUM(t.points) as total_points';
+$criteria->addCondition('MONTH(t.date) = MONTH(NOW())');
+$model = Consumption::model()->find($criteria);
+$total = 0;
+if(isset($model))
+	$total = $model->total_points;
+?>
+<div class="totalConsumos">Total Consumos: <span class="label label-info"><?php echo $total;?></span></div>
 <?php			
 	$this->widget('zii.widgets.grid.CGridView', array(
 		'id'=>'current-month-grid',
-		'dataProvider'=>$modelNzb->search(),
+		'dataProvider'=>$modelConsumption->searchCurrentMonth(),
 		'selectableRows' => 0,
 		'summaryText'=>'',	
 		'itemsCssClass' => 'table table-striped table-bordered tablaIndividual',
@@ -12,8 +22,8 @@
 						'value'=>function($data){
 							$title = 'No Identificado';
 							
-							if(isset($data->myMovieDiscNzb->myMovieNzb))
-								$title = $data->myMovieDiscNzb->myMovieNzb->original_title;
+							if(isset($data->nzb->myMovieDiscNzb->myMovieNzb))
+								$title = $data->nzb->myMovieDiscNzb->myMovieNzb->original_title;
 							
 							return $title;
 						},
@@ -22,7 +32,7 @@
 				array(
 						'header'=>'Fecha',
 						'value'=>function($data){
-							return $data->change_state_date;
+							return $data->date;
 						},
 						'type'=>'raw',
 				),

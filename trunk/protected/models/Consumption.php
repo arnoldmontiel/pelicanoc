@@ -13,6 +13,11 @@
  */
 class Consumption extends CActiveRecord
 {
+	public $year;
+	public $month;
+	public $total_points;
+	public $has_paid;
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -44,7 +49,7 @@ class Consumption extends CActiveRecord
 			array('date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Id_nzb, date, points, description, already_paid', 'safe', 'on'=>'search'),
+			array('Id, Id_nzb, date, points, description, already_paid, total_points, year, month, has_paid', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,6 +110,61 @@ class Consumption extends CActiveRecord
 		));
 	}
 
+	public function searchCurrentMonth()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('Id_nzb',$this->Id_nzb);
+		$criteria->compare('points',$this->points);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('already_paid',$this->already_paid);
+
+		$criteria->addCondition('MONTH(t.date) = MONTH(NOW())');
+		
+		// Create a custom sort
+		$sort=new CSort;
+		$sort->attributes=array(
+				'*',
+		);
+		
+		$sort->defaultOrder = 't.date DESC';
+		
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'sort'=>$sort,
+		));
+	}
+	
+	public function searchHistory()
+	{
+		$criteria=new CDbCriteria;
+		
+		$criteria->select = 'YEAR(t.date) as year, MONTH(t.date) as month, SUM(t.points) as total_points, SUM(t.already_paid) as has_paid';
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('Id_nzb',$this->Id_nzb);
+		$criteria->compare('points',$this->points);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('already_paid',$this->already_paid);
+		$criteria->group = 'YEAR(t.date), MONTH(t.date)';
+		
+		
+		// Create a custom sort
+		$sort=new CSort;
+		$sort->attributes=array(
+				'*',
+		);
+		
+		$sort->defaultOrder = 'YEAR(t.date) DESC, MONTH(t.date) DESC';
+		
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'sort'=>$sort,
+		));
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
