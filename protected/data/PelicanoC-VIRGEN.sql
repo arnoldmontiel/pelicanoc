@@ -355,27 +355,22 @@ CREATE TABLE `customer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `customer_transaction`
+-- Table structure for table `consumption`
 --
 
-DROP TABLE IF EXISTS `customer_transaction`;
+DROP TABLE IF EXISTS `consumption`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_transaction` (
   `Id` int(11) NOT NULL,
-  `Id_nzb` int(11) DEFAULT NULL,
-  `Id_transaction_type` int(11) NOT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `Id_nzb` int(11) NOT NULL,
+  `date` timestamp NULL DEFAULT NULL,
   `points` int(11) DEFAULT NULL,
-  `Id_customer` int(11) NOT NULL,
-  `description` text,
+  `description` VARCHAR(255) DEFAULT NULL,
+  `already_paid` TINYINT(4) NULL DEFAULT 0,
   PRIMARY KEY (`Id`),
   KEY `fk_customer_transaction_nzb1` (`Id_nzb`),
-  KEY `fk_customer_transaction_transaction_type1` (`Id_transaction_type`),
-  KEY `fk_customer_transaction_customer1` (`Id_customer`),
-  CONSTRAINT `fk_customer_transaction_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_customer_transaction_nzb1` FOREIGN KEY (`Id_nzb`) REFERENCES `nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_customer_transaction_transaction_type1` FOREIGN KEY (`Id_transaction_type`) REFERENCES `transaction_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1765,30 +1760,6 @@ LOCK TABLES `tmdb` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `transaction_type`
---
-
-DROP TABLE IF EXISTS `transaction_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `transaction_type` (
-  `Id` int(11) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `transaction_type`
---
-
-LOCK TABLES `transaction_type` WRITE;
-/*!40000 ALTER TABLE `transaction_type` DISABLE KEYS */;
-INSERT INTO `transaction_type` VALUES (1,'Debito'),(2,'Credito');
-/*!40000 ALTER TABLE `transaction_type` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `market_category`
 --
 
@@ -1955,6 +1926,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="2.21" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.22" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
