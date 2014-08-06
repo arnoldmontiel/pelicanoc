@@ -1180,15 +1180,16 @@ class PelicanoHelper
 						try {
 							$modelNzb->Id_my_movie_disc_nzb = (!isset($item->nzb->Id_nzb))?$idDisc:null;
 							//date_default_timezone_set('America/Argentina/Buenos_Aires');
-							$modelNzb->date = date("Y-m-d H:i:s",time());
-							$modelNzb->ready = 0;
+							$modelNzb->date = date("Y-m-d H:i:s",time());							
 										
 							if($modelNzb->isNewRecord)
 							{
 								$modelNzb->change_state_date = new CDbExpression('NOW()');
 								$modelNzb->Id_nzb_state = 1;
-								$modelNzb->sent = 0;
 							}	
+							
+							if($modelNzb->Id_nzb_state != 2 && $modelNzb->Id_nzb_state != 3) //si no esta descargando o descargada
+								$modelNzb->ready = 0;
 							
 							$modelNzb->sent = 0;
 							$modelNzb->save();
@@ -1205,13 +1206,14 @@ class PelicanoHelper
 								}
 							}
 								
-							if(isset($item->Consumption))
+							if(isset($item->consumption))
 							{
 								$modelConsumption = Consumption::model()->findByPk($item->consumption->Id);
 								if(!isset($modelConsumption))
 									$modelConsumption = new Consumption();
 								
 								$modelConsumption->setAttributesByArray($item->consumption);
+								$modelConsumption->Id_nzb = $modelNzb->Id;
 								$modelConsumption->save();
 							}
 			
