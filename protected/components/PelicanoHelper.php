@@ -781,8 +781,7 @@ class PelicanoHelper
 			$request->Id_device = $setting->Id_device;
 			$request->Id_nzb =$item->Id;
 			$request->Id_state =$item->Id_nzb_state;
-			if($request->Id_state == 2) //downloading
-				$request->points = $item->points;
+			$request->points = $item->points;
 			//date_default_timezone_set('America/Argentina/Buenos_Aires');
 			$request->change_state_date = strtotime($item->change_state_date);
 			$requests[]=$request;
