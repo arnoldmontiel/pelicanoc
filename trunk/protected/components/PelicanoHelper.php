@@ -1182,13 +1182,13 @@ class PelicanoHelper
 							//date_default_timezone_set('America/Argentina/Buenos_Aires');
 							$modelNzb->date = date("Y-m-d H:i:s",time());
 							$modelNzb->ready = 0;
-			
-							$modelNzb->change_state_date = new CDbExpression('NOW()');
+										
 							if($modelNzb->isNewRecord)
+							{
+								$modelNzb->change_state_date = new CDbExpression('NOW()');
 								$modelNzb->Id_nzb_state = 1;
-							
-							$modelNzb->sent = 0;
-								
+								$modelNzb->sent = 0;
+							}	
 							$modelNzb->save();
 							
 							MarketCategoryNzb::model()->deleteAllByAttributes(array('Id_nzb'=>$modelNzb->Id));
