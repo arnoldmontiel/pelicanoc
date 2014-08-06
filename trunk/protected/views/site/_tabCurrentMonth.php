@@ -5,7 +5,7 @@ $criteria->select = 'SUM(t.points) as total_points';
 $criteria->addCondition('MONTH(t.date) = MONTH(NOW())');
 $model = Consumption::model()->find($criteria);
 $total = 0;
-if(isset($model))
+if(isset($model) && $model->total_points > 0)
 	$total = $model->total_points;
 ?>
 <div class="totalConsumos">Total Consumos: <span class="label label-info"><?php echo $total;?></span></div>
