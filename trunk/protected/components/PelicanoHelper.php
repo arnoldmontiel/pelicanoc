@@ -1184,7 +1184,9 @@ class PelicanoHelper
 							$modelNzb->ready = 0;
 			
 							$modelNzb->change_state_date = new CDbExpression('NOW()');
-							$modelNzb->Id_nzb_state = 1;
+							if($modelNzb->isNewRecord)
+								$modelNzb->Id_nzb_state = 1;
+							
 							$modelNzb->sent = 0;
 								
 							$modelNzb->save();

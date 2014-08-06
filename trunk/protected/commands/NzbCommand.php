@@ -231,6 +231,7 @@ class NzbCommand extends CConsoleCommand  {
 					$request->Id_nzb = $modelNzb->Id;
 					$request->change_state_date = time();
 					$request->Id_state = 3;//downloaded
+					$request->points = $modelNzb->points;
 					
 					$requests[]=$request;
 					$status = $pelicanoCliente->setNzbState($requests);
