@@ -1189,6 +1189,8 @@ class PelicanoHelper
 								$modelNzb->Id_nzb_state = 1;
 								$modelNzb->sent = 0;
 							}	
+							
+							$modelNzb->sent = 0;
 							$modelNzb->save();
 							
 							MarketCategoryNzb::model()->deleteAllByAttributes(array('Id_nzb'=>$modelNzb->Id));
