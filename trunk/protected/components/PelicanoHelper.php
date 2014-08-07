@@ -989,6 +989,7 @@ class PelicanoHelper
 		PelicanoHelper::sendClientSettings();
 		PelicanoHelper::getCustomerSettings();
 		PelicanoHelper::updateNzbDataFromServer();
+		PelicanoHelper::getConsumption();
 		
 		$settings = Setting::model()->findByPk(1);
 				
