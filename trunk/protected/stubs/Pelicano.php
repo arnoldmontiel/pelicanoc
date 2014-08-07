@@ -333,8 +333,7 @@ class NzbResponse
 	public $nzb; //NzbSOAP;
 	public $myMovie; //MyMovieSOAP;
 	public $myMovieDisc; //MyMovieDiscSOAP;
-	public $MarketCategories;//integer[];
-	public $consumption;//ConsumptionSOAP;
+	public $MarketCategories;//integer[];	
 }
 
 class NzbStateRequest extends SOAP2Array
@@ -474,6 +473,26 @@ function getPoints($Id_customer, $Id_transaction)
 	{
 		
 		$result = $this->soapClient->getPoints($Id_customer, $Id_transaction);
+	}
+	return $result;
+}
+
+function getConsumptions($Id_device)
+{
+	$ConsumptionResponseArray = array();
+	if(isset($this->soapClient))
+	{
+		$ConsumptionResponseArray = $this->soapClient->getConsumptions($Id_device);
+	}
+	return $ConsumptionResponseArray;
+}
+
+function ackGetConsumptions($Id_device)
+{
+	$result = false;
+	if(isset($this->soapClient))
+	{
+		$result = $this->soapClient->ackGetConsumptions($Id_device);
 	}
 	return $result;
 }

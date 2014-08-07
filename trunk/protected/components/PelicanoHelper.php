@@ -1205,18 +1205,6 @@ class PelicanoHelper
 									$modelMarketCategoryNzb->save();
 								}
 							}
-								
-							if(isset($item->consumption))
-							{
-								$modelConsumption = Consumption::model()->findByPk($item->consumption->Id);
-								if(!isset($modelConsumption))
-									$modelConsumption = new Consumption();
-								
-								$modelConsumption->setAttributesByArray($item->consumption);
-								$modelConsumption->Id_nzb = $modelNzb->Id;
-								$modelConsumption->save();
-							}
-			
 							
 							$transaction->commit();
 								
@@ -1248,6 +1236,32 @@ class PelicanoHelper
 			}
 		}
 	}
+	
+	public static function getConsumption()
+	{
+		$setting = Setting::getInstance();
+		$pelicanoCliente = new Pelicano;
+		
+		$ConsumptionResponseArray = $pelicanoCliente->getConsumptions($setting->getId_Device());
+		
+		try 
+		{
+			foreach ($ConsumptionResponseArray as $item)
+			{
+				$modelConsumption = Consumption::model()->findByPk($item->Id);
+				if(!isset($modelConsumption))
+					$modelConsumption = new Consumption();
+				
+				$modelConsumption->setAttributesByArray($item);
+				$modelConsumption->save();
+			}
+			$pelicanoCliente->ackGetConsumptions($setting->getId_Device());
+			
+		} catch (Exception $e) {
+			
+		}
+	}
+	
 	public static function prepareNZBtoMovieTester()
 	{
 		$criteria = new CDbCriteria();		
