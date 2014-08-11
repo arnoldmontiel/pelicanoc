@@ -165,6 +165,35 @@ class Consumption extends CActiveRecord
 		));
 	}
 	
+	public function searchByMonth()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('Id_nzb',$this->Id_nzb);
+		$criteria->compare('points',$this->points);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('already_paid',$this->already_paid);
+	
+		$criteria->addCondition('MONTH(t.date) = '. $this->month);
+		$criteria->addCondition('YEAR(t.date) = '. $this->year);
+		
+		// Create a custom sort
+		$sort=new CSort;
+		$sort->attributes=array(
+				'*',
+		);
+	
+		$sort->defaultOrder = 't.date DESC';
+	
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'sort'=>$sort,
+		));
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

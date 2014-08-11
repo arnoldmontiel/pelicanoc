@@ -506,6 +506,22 @@ class SiteController extends Controller
 				'modelBookmarks'=>$bookmarks,
 		));
 	}
+	
+	public function actionAjaxConsumptionDetail()
+	{
+		$month = $_POST['month'];
+		$year = $_POST['year'];
+		
+		$modelConsumptions=new Consumption('search');
+		$modelConsumptions->unsetAttributes();  // clear any default values
+		if(isset($_GET['Consumption']))
+			$modelConsumptions->attributes=$_GET['Consumption'];
+		
+		$modelConsumptions->month = $month;
+		$modelConsumptions->year = $year;
+		$this->renderPartial('_consumptionDetail',array('modelConsumptions'=>$modelConsumptions, 'month'=>$month, 'year'=>$year));
+	}
+	
 	public function actionAjaxGetLocalFolderCurrentSize()
 	{
 		if(isset($_POST['id']))

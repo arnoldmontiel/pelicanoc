@@ -35,7 +35,7 @@
 				array(
 						'name'=>'Acciones',
 						'value'=>function($data){
-							return '<a data-toggle="modal" class="btn btn-primary"><i class="fa fa-list"></i> Ver Detalle</a>';
+							return '<a onclick="openConsumptionDetail('.$data->month.', '.$data->year.');" data-toggle="modal" class="btn btn-primary"><i class="fa fa-list"></i> Ver Detalle</a>';
 						},
 						'type'=>'raw',
 						'htmlOptions'=>array("class"=>"align-right"),
