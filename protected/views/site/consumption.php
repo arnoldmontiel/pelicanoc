@@ -1,3 +1,22 @@
+<<script type="text/javascript">
+function openConsumptionDetail(month, year)
+{
+	var param = 'month='+month + '&year='+year; 
+	$.ajax({
+		type: 'POST',
+		url: "<?php echo SiteController::createUrl('AjaxConsumptionDetail')?>",
+		data: param,
+	}).success(function(data)
+	{		
+		$('#myModalConsumptionDetail').html(data);	
+		$('#myModalConsumptionDetail').modal({
+			show: true
+		})		
+	});
+	return false;	
+}
+</script>
+
 <div class="container" id="screenConsumos">
 	<div class="wrapper clearfix">
 		<div class="row pageTitleContainer">
