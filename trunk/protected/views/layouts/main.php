@@ -466,6 +466,9 @@ window.addEventListener('load', function() {
 	<div id="myModalESExplorer" class="modal fade in" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
 		style="display: hidden;"></div>
+	<div id="myModalConsumptionDetail" class="modal fade in" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
+		style="display: hidden;"></div>
 	<div id="myModalConfigPassword" class="modal fade in" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"
 		style="display: hidden;"></div>
