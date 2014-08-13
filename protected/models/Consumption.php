@@ -26,6 +26,21 @@ class Consumption extends CActiveRecord
 		return 'consumption';
 	}
 
+	static public function pointsAccumulated($month, $year)
+	{
+		$points = 0;
+		$criteria=new CDbCriteria;
+	
+		$criteria->select = 'SUM(t.points) as total_points';
+		$criteria->addCondition('MONTH(t.date) = '.$month);
+		$criteria->addCondition('YEAR(t.date) = '.$year);
+		$model = Consumption::model()->find($criteria);
+		if(isset($model))
+			$points = $model->total_points;
+	
+		return $points;
+	}
+	
 	public function setAttributesByArray($array)
 	{
 		$attributesArray = get_object_vars($array);
