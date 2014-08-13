@@ -39,7 +39,7 @@
 									array(
 											'name'=>'points',
 											'value'=>function($data){
-												return '<span class="label label-info">'.$data->points.'</span>';
+												return $data->points;
 											},
 											'type'=>'raw',
 											'htmlOptions'=>array("class"=>"align-right"),
