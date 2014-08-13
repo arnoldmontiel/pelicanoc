@@ -1,4 +1,4 @@
-<<script type="text/javascript">
+<script type="text/javascript">
 function openConsumptionDetail(month, year)
 {
 	var param = 'month='+month + '&year='+year; 
