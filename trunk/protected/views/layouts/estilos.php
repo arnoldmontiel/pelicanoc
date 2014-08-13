@@ -2035,6 +2035,17 @@ background-color:rgba(217, 83, 79, 0.73);}
 /*-------- CONSUMOS --------------*/
 .totalConsumos{ position:absolute; top:-40px; right:20px;}
 .totalConsumos .label{font-size:16px; background-color: #3D88CE;}
+
+#current-month-grid.grid-view{ padding-top:0px;}
+#current-month-grid .summary{ display:none;}
+#history-grid.grid-view{ padding-top:0px;}
+#history-grid .summary{ display:none;}
+
+.totalConsumosMes .label {
+font-size: 16px;
+background-color: #3D88CE;
+}
+
 /*-------- END CONSUMOS --------------*/
 
 
