@@ -24,7 +24,7 @@ wget gruposmartliving.com/downloads/pelicano-beta.tar.gz
 tar xvfz pelicano-beta.tar.gz
 chown -R www-data.www-data *
 rm pelicano-beta.tar.gz
-echo ${MYSQLPASS}>protected/config/pwd
+echo ${MYSQLPASS}>pelicano/protected/config/pwd
 
 chmod +x pelicano/protected/commands/shell/*
 chmod 777 pelicano/protected/commands/shell
