@@ -8,8 +8,10 @@ if [ $# -ne 2 ]
     echo "Count: "$#
     exit 1
 fi
-URL=$1
+
+ID=$1
 MYSQLPASS=$2
+
 apt-get update
 #antes para virtual box
 #apt-get --yes --force-yes install php5-curl usbmount sabnzbdplus make gcc openssh-client p7zip-full fping libaugeas-ruby augeas-tools
@@ -73,7 +75,7 @@ cp protected/config/default /etc/apache2/sites-available/.
 #startup section
 mkdir /etc/startDecrypt
 echo "url=gruposmartliving.com">/etc/startDecrypt/startDecrypt.conf
-echo "id=${URL}">>/etc/startDecrypt/startDecrypt.conf
+echo "id=${ID}">>/etc/startDecrypt/startDecrypt.conf
 cp protected/command/shell/startDecrypt /etc/init.d/
 update-rc.d startDecrypt defaults 99 20
 
