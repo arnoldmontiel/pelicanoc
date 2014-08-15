@@ -16,8 +16,6 @@ apt-get update
 #antes para virtual box
 #apt-get --yes --force-yes install php5-curl usbmount sabnzbdplus make gcc openssh-client p7zip-full fping libaugeas-ruby augeas-tools
 apt-get --yes --force-yes install php5-curl usbmount sabnzbdplus openssh-client p7zip-full fping libaugeas-ruby augeas-tools
-#chown -R www-data.www-data /var/www
-#cd /var/www
 cd /opt/
 echo " ---------------------- "
 echo " Descargando Pelicano   "
@@ -26,7 +24,7 @@ wget gruposmartliving.com/downloads/pelicano-beta.tar.gz
 tar xvfz pelicano-beta.tar.gz
 chown -R www-data.www-data *
 rm pelicano-beta.tar.gz
-echo ${MYSQLPASS}>/var/www/pelicano/protected/config/pwd
+echo ${MYSQLPASS}>protected/config/pwd
 
 chmod +x pelicano/protected/commands/shell/*
 chmod 777 pelicano/protected/commands/shell
@@ -45,8 +43,9 @@ chmod 700 pelicano/protected/commands/shell/heartBeat.sh
 chmod 700 pelicano/protected/commands/shell/update.sh
 chmod 700 pelicano/protected/commands/shell/install.sh
 chmod 700 pelicano/protected/commands/shell/startDecrypt
-chown root.root /var/www/pelicano/protected/config/pwd
-chmod 600 /var/www/pelicano/protected/config/pwd
+chown root.root pelicano/protected/config/pwd
+chmod 600 pelicano/protected/config/pwd
+cp *.* /var/www/.
 
 ln -s /opt/pelicano /var/www/pelicano
 ln -s /opt/yii /var/www/yii
@@ -76,7 +75,7 @@ cp protected/config/default /etc/apache2/sites-available/.
 mkdir /etc/startDecrypt
 echo "url=gruposmartliving.com">/etc/startDecrypt/startDecrypt.conf
 echo "id=${ID}">>/etc/startDecrypt/startDecrypt.conf
-cp protected/command/shell/startDecrypt /etc/init.d/
+cp protected/commands/shell/startDecrypt /etc/init.d/
 update-rc.d startDecrypt defaults 99 20
 
 FSTAB_MOUNTED=`augtool match /files/etc/fstab/*/file /opt`
