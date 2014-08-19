@@ -370,7 +370,7 @@ CREATE TABLE `consumption` (
   `already_paid` TINYINT(4) NULL DEFAULT 0,
   PRIMARY KEY (`Id`),
   KEY `fk_consumption_nzb1` (`Id_nzb`),
-  CONSTRAINT `fk_consumption_nzb1` FOREIGN KEY (`Id_nzb`) REFERENCES `nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_consumption_nzb1` FOREIGN KEY (`Id_nzb`) REFERENCES `nzb` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
