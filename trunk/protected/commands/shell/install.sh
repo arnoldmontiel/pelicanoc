@@ -56,7 +56,7 @@ echo " ---------------------------- "
 echo " Configurando Base De Datos   "
 echo " ---------------------------- "
 
-mysql -uroot -p${MYSQLPASS} -e "GRANT ALL ON *.* to pelicano@localhost IDENTIFIED BY 'pelicano';"; 
+mysql -uroot -p${MYSQLPASS} -e "GRANT ALL ON *.* to pelicano@localhost IDENTIFIED BY '${MYSQLPASS}';"; 
 mysql -uroot -p${MYSQLPASS} -e "source /var/www/pelicano/protected/data/PelicanoC-VIRGEN.sql;";
 
 sed -i 's/placeholderpass/${MYSQLPASS}/g' /var/www/pelicano/protected/config/main.php
