@@ -361,7 +361,7 @@ CREATE TABLE `customer` (
 DROP TABLE IF EXISTS `consumption`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer_transaction` (
+CREATE TABLE `consumption` (
   `Id` int(11) NOT NULL,
   `Id_nzb` int(11) NOT NULL,
   `date` timestamp NULL DEFAULT NULL,
@@ -374,14 +374,6 @@ CREATE TABLE `customer_transaction` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `customer_transaction`
---
-
-LOCK TABLES `customer_transaction` WRITE;
-/*!40000 ALTER TABLE `customer_transaction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customer_transaction` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `disc_episode`
