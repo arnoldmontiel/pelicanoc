@@ -59,8 +59,8 @@ echo " ---------------------------- "
 mysql -uroot -p${MYSQLPASS} -e "GRANT ALL ON *.* to pelicano@localhost IDENTIFIED BY '${MYSQLPASS}';"; 
 mysql -uroot -p${MYSQLPASS} -e "source /var/www/pelicano/protected/data/PelicanoC-VIRGEN.sql;";
 
-sed -i 's/placeholderpass/${MYSQLPASS}/g' /var/www/pelicano/protected/config/main.php
-sed -i 's/placeholderpass/${MYSQLPASS}/g' /var/www/pelicano/protected/config/console.php
+sed -i "s/placeholderpass/${MYSQLPASS}/g" /var/www/pelicano/protected/config/main.php
+sed -i "s/placeholderpass/${MYSQLPASS}/g" /var/www/pelicano/protected/config/console.php
 
 echo " ---------------------- "
 echo " Configurando ambiente  "
