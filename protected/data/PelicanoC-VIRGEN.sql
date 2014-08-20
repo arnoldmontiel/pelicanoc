@@ -1826,7 +1826,7 @@ CREATE TABLE `theme` (
 LOCK TABLES `theme` WRITE;
 /*!40000 ALTER TABLE `theme` DISABLE KEYS */;
 INSERT INTO `theme` VALUES (1,'Light','light-theme.css',0),(2,'Dark','dark-theme.css',0);
-/*!40000 ALTER TABLE `settings_ripper` ENABLE KEYS */;
+/*!40000 ALTER TABLE `theme` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
