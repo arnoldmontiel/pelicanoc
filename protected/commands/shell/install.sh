@@ -2,15 +2,24 @@
 echo " ---------------------- "
 echo " Instalando Pelicano    "
 echo " ---------------------- "
-if [ $# -ne 2 ]
+if [ $# -ne 1 ]
   then
     echo "Invalid argumets"
     echo "Count: "$#
+    echo "Usage: "
+    echo "sudo install.sh [ID]"
     exit 1
 fi
 
 ID=$1
-MYSQLPASS=$2
+MYSQLPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/mysqlpass&Id=${ID}"`
+if [ -n "$MYSQLPASS" ];
+then
+    echo "ID correcto"
+else
+	echo "Error al obtener datos o Id incorrecto"
+	exit 1    
+fi
 
 apt-get update
 #antes para virtual box
