@@ -1341,9 +1341,9 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=script_dir&value=".dirname(__FILE__).'/../commands/shell/&apikey='.$setting->sabnzb_api_key;
 				$jsonData = @file_get_contents($url);
 			}
-			if(!isset($misc->misc)||$misc->misc->permissions!="755")
+			if(!isset($misc->misc)||$misc->misc->permissions!="766")
 			{
-				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=permissions&value=755&apikey=".$setting->sabnzb_api_key;			
+				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=permissions&value=766&apikey=".$setting->sabnzb_api_key;			
 				$jsonData = @file_get_contents($url);
 			}
 			if(!isset($misc->misc)||$misc->misc->password_file!=$setting->sabnzb_pwd_file_path)
@@ -1441,7 +1441,7 @@ class PelicanoHelper
 			$file = preg_replace('#/+#','/',$file); //saco slash consecutivos					
 			$username =  $setting->host_file_server_user;
 			$password =  $setting->host_file_server_passwd;
-			$params = $spect.' '.$file.' '.$username.' '.$password;
+			$params = escapeshellcmd($spect.' '.$file.' '.$username.' '.$password);
 			exec('sudo umount '.$file,$output,$return);
 			exec('sudo '.dirname(__FILE__).'/../commands/shell/fstabEditor.sh '.$params,$output,$return);
 			exec('sudo mount -a',$output,$return);
