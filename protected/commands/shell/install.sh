@@ -20,6 +20,7 @@ else
 	echo "Error al obtener datos o Id incorrecto"
 	exit 1    
 fi
+SAFE_PETTERN=$(printf '%s\n' "${MYSQLPASS}" | sed 's/[[\.*^$(){}?+|/&!]/\\&/g')
 
 apt-get update
 #antes para virtual box
@@ -68,8 +69,8 @@ echo " ---------------------------- "
 mysql -uroot -p${MYSQLPASS} -e "GRANT ALL ON *.* to pelicano@localhost IDENTIFIED BY '${MYSQLPASS}';"; 
 mysql -uroot -p${MYSQLPASS} -e "source /var/www/pelicano/protected/data/PelicanoC-VIRGEN.sql;";
 
-sed -i "s/placeholderpass/${MYSQLPASS}/g" /var/www/pelicano/protected/config/main.php
-sed -i "s/placeholderpass/${MYSQLPASS}/g" /var/www/pelicano/protected/config/console.php
+sed -i "s/placeholderpass/${SAFE_PETTERN}/g" /var/www/pelicano/protected/config/main.php
+sed -i "s/placeholderpass/${SAFE_PETTERN}/g" /var/www/pelicano/protected/config/console.php
 
 echo " ---------------------- "
 echo " Configurando ambiente  "
