@@ -68,6 +68,9 @@ echo " ---------------------------- "
 
 mysql -uroot -p${MYSQLPASS} -e "GRANT ALL ON *.* to pelicano@localhost IDENTIFIED BY '${MYSQLPASS}';"; 
 mysql -uroot -p${MYSQLPASS} -e "source /var/www/pelicano/protected/data/PelicanoC-VIRGEN.sql;";
+mysql -uroot -p${MYSQLPASS} -e "drop database test;";
+mysql -uroot -p${MYSQLPASS} -e "use mysql; DELETE FROM user WHERE user=''; flush privileges;";
+mysql -uroot -p${MYSQLPASS} -e "UPDATE mysql.user set user = 'peliroot' where user = 'root'; flush privileges;"; 
 
 sed -i "s/placeholderpass/${SAFE_PETTERN}/g" /var/www/pelicano/protected/config/main.php
 sed -i "s/placeholderpass/${SAFE_PETTERN}/g" /var/www/pelicano/protected/config/console.php
