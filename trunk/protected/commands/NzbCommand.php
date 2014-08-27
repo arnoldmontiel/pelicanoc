@@ -205,7 +205,7 @@ class NzbCommand extends CConsoleCommand  {
 		{
 			$modelNzb->downloading = 0;
 			$modelNzb->downloaded = 1;
-			$modelNzb->Id_nzb_state = 3;
+			$modelNzb->Id_nzb_state = 7;
 			$fileName = explode('.',$modelNzb->file_name);
 			$fileName = $fileName[0];
 			if(strpos($file_name,$fileName)===false)
@@ -234,7 +234,13 @@ class NzbCommand extends CConsoleCommand  {
 					$request->points = $modelNzb->points;
 					
 					$requests[]=$request;
+					$modelNzb->save();
+					$modelNzb->refresh();
 					$status = $pelicanoCliente->setNzbState($requests);
+					if($status!=-1)
+					{
+						$modelNzb->Id_nzb_state = 3;
+					}
 				}
 				else
 				{
