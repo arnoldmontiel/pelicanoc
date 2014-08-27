@@ -213,7 +213,7 @@ COMMIT;
 SET AUTOCOMMIT=0;
 START TRANSACTION;
 
-UPDATE `pelicanoc`.`setting` set version="2.27" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.28" where Id=1;
 
 COMMIT;
 

@@ -1266,7 +1266,7 @@ CREATE TABLE `nzb_state` (
 
 LOCK TABLES `nzb_state` WRITE;
 /*!40000 ALTER TABLE `nzb_state` DISABLE KEYS */;
-INSERT INTO `nzb_state` VALUES (1,'Sent'),(2,'Downloading'),(3,'Downloaded'),(4,'Requested'),(5,'Canceled'),(6,'Deleted');
+INSERT INTO `nzb_state` VALUES (1,'Sent'),(2,'Downloading'),(3,'Downloaded'),(4,'Requested'),(5,'Canceled'),(6,'Deleted'),(7,'Downloaded not informed');
 /*!40000 ALTER TABLE `nzb_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1918,6 +1918,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="2.27" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.28" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
