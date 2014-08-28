@@ -4,7 +4,7 @@ echo " Verificnado Version    "
 echo " ---------------------- "
 MYSQLPASS=`cat /var/www/pelicano/protected/config/pwd`
 SAFE_PETTERN=$(printf '%s\n' "${MYSQLPASS}" | sed 's/[[\.*^$(){}?+|/&!]/\\&/g')
-ONLINE_VERSION=`curl gruposmartliving.com/downloads/version`
+ONLINE_VERSION=`curl -s gruposmartliving.com/downloads/version`
 
 CURRENT_VERSION=`mysql -upelicano -p${MYSQLPASS} --skip-column-names -e "select version from pelicanoc.setting"`
 
@@ -21,7 +21,7 @@ then
         tar xvfz pelicano-${ONLINE_VERSION}beta.tar.gz -C /opt/.
         cp /opt/*.* /var/www/.
         mysql   --force -upelicano -p${MYSQLPASS}  < /var/www/pelicano/protected/data/update-${ONLINE_VERSION}.sql         
-        chown -R www-data.www-data /var/www/*
+        chown -R www-data.www-data /opt/*
         chmod +x /var/www/pelicano/protected/commands/shell/*
 		chmod 777 /var/www/pelicano/protected/commands/shell
 		chmod 777 /var/www/pelicano/nzbReady
