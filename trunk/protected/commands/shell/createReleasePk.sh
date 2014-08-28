@@ -14,6 +14,7 @@ then
   mkdir pelicano-${1}/pelicano
   rsync -r --progress --cvs-exclude  release-${1}/ pelicano-${1}/pelicano/.
   cp -rp pelicano-${1}/pelicano/offline/* pelicano-${1}/.
+  rm pelicano-${1}/pelicano/protected/data/PelicanoC*
   cd pelicano-${1}
   tar cvfz pelicano-${1}.tar.gz * 
   ssh ${2}@gruposmartliving.com "rm pelicano-${1}.tar.gz"
