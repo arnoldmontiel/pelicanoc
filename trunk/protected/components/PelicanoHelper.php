@@ -1494,9 +1494,9 @@ class PelicanoHelper
 				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=script_dir&value=".dirname(__FILE__).'/../commands/shell/&apikey='.$setting->sabnzb_api_key;
 				$jsonData = @file_get_contents($url);
 			}
-			if(!isset($misc->misc)||$misc->misc->permissions!="766")
+			if(!isset($misc->misc)||$misc->misc->permissions!="777")
 			{
-				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=permissions&value=766&apikey=".$setting->sabnzb_api_key;			
+				$url =  $setting->sabnzb_api_url."mode=set_config&output=json&section=misc&keyword=permissions&value=777&apikey=".$setting->sabnzb_api_key;			
 				$jsonData = @file_get_contents($url);
 			}
 			if(!isset($misc->misc)||$misc->misc->password_file!=$setting->sabnzb_pwd_file_path)
