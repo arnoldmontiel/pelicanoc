@@ -60,4 +60,7 @@ h2.sliderTitl{color:#7F8C8D;}
 
 .ribbon.ribFinalizado{right: -33px;top: 204px;}
 
-
+.controlLength{color:#646464;}
+.controlNumeros .btn{
+margin-right: 8px;
+margin-bottom: 10px;}
