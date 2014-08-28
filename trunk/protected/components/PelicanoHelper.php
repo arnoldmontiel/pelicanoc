@@ -1320,7 +1320,7 @@ class PelicanoHelper
 		$setting = Setting::getInstance();
 		
 		$criteria=new CDbCriteria;
-		$criteria->addCondition('t.Id_state = 7');
+		$criteria->addCondition('t.Id_nzb_state = 7');
 		$arrayNbz = Nzb::model()->findAll($criteria);
 		foreach ($arrayNbz as $modelNzb)
 		{
@@ -1372,14 +1372,15 @@ class PelicanoHelper
 			}
 			if($modelNzb->downloaded)
 			{
-				//to save  Id_state on 7.
+				//solo grabo para cambiar el estado a 7
+				//por eso seteo estos flags con su valor original y luego los vuelvo a dejar
+				// en modo de trabajo.
+				$modelNzb->downloading = 1;
+				$modelNzb->downloaded = 0;
 				$modelNzb->save();
 				$modelNzb->refresh();
-		
-				// 				$nzbMovieState= new NzbMovieState;
-				// 				$nzbMovieState->Id_nzb = $modelNzb->Id;
-				// 				$nzbMovieState->Id_movie_state = 3;
-				// 				$nzbMovieState->save();
+				$modelNzb->downloading = 0;
+				$modelNzb->downloaded = 1;
 				$params = $fileName." ".$setting->path_sabnzbd_download."/".$fileName.' '. $setting->sabnzb_pwd_file_path;
 				exec(dirname(__FILE__).'/../commands/shell/finishDownload.sh '.$params,$output,$return);
 				//TODO: Si falla, enviar error al server
