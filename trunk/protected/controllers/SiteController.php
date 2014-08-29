@@ -112,6 +112,8 @@ class SiteController extends Controller
 	
 	public function actionAjaxIsAlive()
 	{
+		//para ver si la base de datos esta up
+		$setting = Setting::getInstance();
 		return true;
 	}
 	
