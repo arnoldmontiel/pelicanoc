@@ -15,9 +15,9 @@ $(function() {
     	<div class="row">
     	<div class="col-sm-7"><h2 class="sliderTitle modified">Descargando desde Marketplace</h2>
     	<?php if(!empty($nzbDownloading)):?>
-			<ul class="nav nav-pills">
-  				 <!-- <li class="active"><a data-toggle="tab" href="#">Todas</a></li> -->
-  			</ul>
+			<!-- <ul class="nav nav-pills">
+  				 <li class="active"><a data-toggle="tab" href="#">Todas</a></li>
+  			</ul> -->
 			<?php endif?>
     	</div>
     	<div class="col-sm-5 align-right velocidadDescarga">Velocidad de Descarga: <span id="downloadSpeed">0 KB</span> 
