@@ -85,7 +85,7 @@
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header hidden-sm hidden-xs hidden-nexus">
+		<div class="navbar-header hidden-xs hidden-nexus-p">
 		<a class="navbar-brand" href="#" id="MenuLogo"><img class="smallMenuIcon" src="./icons/smallIcon.png"> <span class="menuText  hidden-md hidden-sm hidden-nexus">pelicano</span></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
