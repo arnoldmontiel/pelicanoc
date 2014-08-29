@@ -1,0 +1,4 @@
+deny from all
+<Files "estilos.php">
+    Allow from all
+</Files>
