@@ -37,7 +37,7 @@
 											'type'=>'raw',
 									),
 									array(
-											'name'=>'points',
+											'header'=>'Valor',
 											'value'=>function($data){
 												return $data->points;
 											},

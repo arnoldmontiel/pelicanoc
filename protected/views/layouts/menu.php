@@ -1,7 +1,7 @@
 <!-- /////////MENU LATERAL MAIN///////// -->
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="pushMain">
 <div class="cbp-title">Menu</div>
-<a class="toggle-menu close-menu"> <i class="fa fa-times-circle"></i></a>
+<a class="toggle-menu close-menu"><i class="fa fa-times-circle"></i></a>
 <a id="mobile-movie" class="mobileMenuItem" href="index.php">Mis Peliculas</a>
 <!-- Comentado para Pelicano Lite #####
 <a id="mobile-serie" class="mobileMenuItem" href="<?php echo SiteController::createUrl('site/indexserie') ?>">Mis Series</a>
@@ -80,13 +80,12 @@
 	<?php  endif;?>
 <?php  endif;?>
 <?php if (isset($this->showMenu) && $this->showMenu): ?>
-			<!-- /////////MENU PRINCIPAL///////// -->
+			<!-- ///////// MENU PRINCIPAL///////// -->
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="Menu">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-		<!-- <a class="navbar-brand visible-md visible-sm" href="#" id="MenuLogoMobile"></a>-->
+		<div class="navbar-header hidden-sm hidden-xs hidden-nexus">
 		<a class="navbar-brand" href="#" id="MenuLogo"><img class="smallMenuIcon" src="./icons/smallIcon.png"> <span class="menuText  hidden-md hidden-sm hidden-nexus">pelicano</span></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -171,7 +170,7 @@
 			<div class="nav navbar-nav navbar-left  visible-xs visible-inline">
 				<button class="toggle-menu menu-left btn btn-default navbar-btn"
 					id="toggleMain">
-					<i class="fa fa-reorder fa-fw"></i>
+					<i class="fa fa-reorder fa-fw"></i><img class="smallMenuIcon" src="./icons/smallIcon.png"> 
 				</button>
 			</div>
 			<p class="navbar-text  visible-xs visible-inline" id="mobilePageName">

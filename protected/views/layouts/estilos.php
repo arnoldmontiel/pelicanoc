@@ -1622,7 +1622,6 @@ box-shadow: 0 1px 4px #333;*/
 	padding-right: 15px;
 	font-size: 1.3em;
 	font-weight: bold;
-	color:white;
 }
 
 
@@ -2578,7 +2577,11 @@ box-shadow: none;
 
 /*NEXUS*/
 /* Nexus 7 (603x963) y 800x600 (portrait) ----------- */
-@media only screen and (min-device-width : 600px) and (max-device-width : 601px) {
+/*regla posta*/
+/*@media only screen and (min-device-width : 600px) and (max-device-width : 601px) {*/
+/*regla para testear en compu*/
+@media screen and (min-width : 600px)  and (max-width : 693px) and (orientation: portrait) {
+
 
 .col-md-1,
 .col-md-2,
@@ -2664,7 +2667,7 @@ box-shadow: none;
 .modal-dialog .nav>li>a{padding:10px 7px;}
 
 
-#Menu{margin-left:0px; margin-right:0px; }
+#Menu{margin-left:5px; margin-right:5px; }
 #menuSecond{margin-left:0px; margin-right:0px; border-radius:0px;}
 
 .hidden-xs{display:block !important;}
@@ -2684,6 +2687,8 @@ box-shadow: none;
 .navbar-nav{ margin:0px;}
 
 #toggleMain{margin-left:10px; margin-right:5px;}
+#toggleMain i{margin-left:-15px;}
+#toggleMain img:before{background-color:white;}
 
 .container-fluid{ padding-left:10px; padding-right:10px;}
 
@@ -2715,6 +2720,29 @@ box-shadow: 0 6px 12px rgba(0,0,0,.175);
 left: auto;
 right: 0;
 }
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12{padding-right:10px; padding-left:10px;}
+
+.controlContainer .aficheImg{width:100%; height:auto;}
+
+.controlFlechas{width:auto;}
+.controlFlechas .btn{width:55px; height:55px;}
+
+.rowControlVariable{width:99%; margin:auto;}
+
+.controlAudioSub button{width:160px;font-size:18px; margin-top:25px; margin-bottom:15px;}
+
+.navbar-header{float:left;}
+.controlTitle{ margin-top:15px;}
+.controlNavegacion{ text-align:center;}
+
+.controlProgress {
+height: 20px;
+padding-top: 18px;
+text-align:center;
+}
+.progress{margin:auto;}
+
+.controlLenght{ padding-top:9px;}
 
 }
 

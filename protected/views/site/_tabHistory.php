@@ -24,7 +24,7 @@
 						'type'=>'raw',
 				),
 				array(
-						'header'=>'Consumo',
+						'header'=>'Total',
 						'value'=>function($data){
 							return $data->total_points;
 						},

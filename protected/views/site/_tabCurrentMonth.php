@@ -37,7 +37,7 @@ if(isset($model) && $model->total_points > 0)
 						'type'=>'raw',
 				),
 				array(
-						'name'=>'points',
+						'header'=>'Valor',
 						'value'=>function($data){
 							return $data->points;
 						},

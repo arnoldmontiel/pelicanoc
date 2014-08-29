@@ -2,13 +2,13 @@
 <div class="container" id="screenControl">
 <div class="controlContainer">
   <div class="row rowControlVariable">
-    <div class="col-sm-4">
+    <div class="col-sm-4 col-nexus-4">
     <div class="controlAfiche">
 <img class="aficheImg" src="<?php echo $big_poster?>" border="0"> 
 </div>   
 </div>
     <!-- /col-sm-4 -->
-    <div class="col-sm-8">
+    <div class="col-sm-8 col-nexus-8">
       <div class="row">
     <div class="col-sm-12">
     <div class="controlTitle"><?php echo $model->original_title?> </div>
@@ -158,7 +158,7 @@
     </div>
   <!-- /row -->
     <div class="row rowControlVariable">
-    <div class="col-md-9 col-sm-12">
+    <div class="col-md-9 col-sm-8">
         <div class="controlNumeros">
 <button type="button" class="btn btn-default" id="button0">0</button>
 <button type="button" class="btn btn-default" id="button1">1</button>
@@ -173,7 +173,7 @@
 </div>
     </div>
     <!-- /col-sm-9 -->
-    <div class="col-md-3 col-sm-12">   
+    <div class="col-md-3 col-sm-4">   
     <div class="controlConfig">
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="popUpMenuButton"><i class="fa fa-cog fa-lg"></i></button>
 <button type="button" class="btn btn-lg btn-primary btn-inverse" id="returnButton"><i class="fa fa-reply fa-lg"></i></button>
