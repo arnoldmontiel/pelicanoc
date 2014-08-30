@@ -263,50 +263,26 @@ class Mede8erHelper
 		$modelPlayer = Player::model()->findByPk($Id_player);
 		if(isset($modelPlayer))
 		{
-			//echo file_get_contents( $modelPlayer->url .':1024/cgi-bin/cubermctrl.cgi?id=1&cmd='.$code);
-			//echo readfile( $modelPlayer->url .':1024/cgi-bin/cubermctrl.cgi?id=1&cmd='.$code);
-			//echo file_get_contents('http://www.google.com/');
+			$url = $modelPlayer->url.'/cgi-bin/cubermctrl.cgi?id=1&cmd='.$code;
 			
-			//$request = new HttpRequest($modelPlayer->url .':1024/cgi-bin/cubermctrl.cgi?id=1&cmd='.$code, HTTP_METH_GET);
-			//$response = $request->send();			
-			// Initializing curl
-// 			$ch = curl_init($modelPlayer->url .':1024/cgi-bin/cubermctrl.cgi?id=1&cmd='.$code);   
-// 			$a = curl_exec($ch);
-// 			echo $a;
-			file_get_contents($modelPlayer->url .':1024/cgi-bin/cubermctrl.cgi?id=1&cmd='.$code);
+			/* cURL Resource */
+			$ch = curl_init();
 			
+			/* Set URL */
+			curl_setopt($ch, CURLOPT_VERBOSE, true);
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch,CURLOPT_PORT, 1024);
+			curl_setopt ($ch, CURLOPT_USERAGENT, "User-Agent  Mozilla/5.0 ()");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HEADER, true);
+			$data = curl_exec($ch);
+			curl_close($ch);
+			if ($status == 200) {
+				return true;
+			} else {
 			
-// 			# Our new data
-// 			$data = array(
-// 			    'id' => 1,
-// 			    'cmd' => $code
-// 			);
-			
-// 			# Create a connection
-// 			$url = $modelPlayer->url .':1024/cgi-bin/cubermctrl.cgi';
-// 			$ch = curl_init($url);
-			
-// 			# Form data string
-// 			$postString = http_build_query($data, '', '&');
-			
-// 			# Setting our options
-// 			curl_setopt($ch, CURLOPT_POST, 0);
-// 			curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
-// 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-			
-// 			# Get the response
-// 			$response = curl_exec($ch);
-// 			var_dump($response);
-// 			echo curl_error($ch);
-// 			curl_close($ch);
-
-// 			$ch = curl_init();
-// 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// 			curl_setopt($ch, CURLOPT_URL,
-// 			$modelPlayer->url .':1024/cgi-bin/cubermctrl.cgi?id=1&cmd='.$code
-// 			);
-// 			$content = curl_exec($ch);
-// 			echo $content;
+				return false;
+			}
 		}
 	}
 	
@@ -315,9 +291,10 @@ class Mede8erHelper
 		
 		$setting = Setting::getInstance();		
 		
-		$path = str_replace(' ', '%20', $path);
-		$path = str_replace('&', '%26', $path);
-		$playerIp = str_replace('http:// ', '', $player->url);
+//  		$path = str_replace(' ', '%20', $path);
+//  		$path = str_replace('&', '%26', $path);
+//  		$path = str_replace('[', '%5B', $path);
+//  		$path = str_replace(']', '%5D', $path);
 		
 		$userAndPass="";
 		if(isset($setting->host_file_server_user) && $setting->host_file_server_user!="")
@@ -330,19 +307,29 @@ class Mede8erHelper
 		$sharedPath = preg_replace('#/+#','/',$sharedPath); //saco slash consecutivos
 		$sharedPath = ltrim($sharedPath, '/\\'); //saco primer slash
 
-		$cmd = $player->file_protocol.'://' . $userAndPass . $playerIp. $sharedPath .$path;
-				
+		$cleanPath = preg_replace('#/+#','/',$sharedPath .$path); //saco slash consecutivos
 		
-		$fp = fsockopen($playerUrl, 1187, $errno, $errstr, 30);
-		if (!$fp) {
-			echo "$errstr ($errno)<br />\n";
+		$cmd = $player->file_protocol.'://' . $userAndPass . $cleanPath;
+				
+		$cmd = "jukebox play ".$cmd;
+		$service_port = 1187;		
+		//probar esto para limpiar el http
+		$address = $player->url;
+		$address = preg_replace('#^https?://#', '', rtrim($address,'/'));
+		
+		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+		if ($socket === false) {
+			//echo socket_strerror(socket_last_error());
 		} else {
-		fwrite($fp, "jukebox play ".$cmd);
-				while (!feof($fp)) {
-				echo fgets($fp, 128);
+			$result =socket_connect($socket, $address, $service_port);
+			if ($result === false) {
+				//echo "socket_connect() falló.\nRazón: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
+			} else {
+				socket_write($socket, $cmd, strlen($cmd));
 			}
-			fclose($fp);
-			}
+		}
+		socket_close($socket);
+		return true;		
 	}
 	
 	static public function initialize()
@@ -379,22 +366,7 @@ class Mede8erHelper
 	
 	static public function isPlayerAlive($player)
 	{
-				
-		$url = $player->url .":436/getglobalinfo";
-		try {
-			$response = json_decode(@file_get_contents($url));
-			if(isset($response)&&$response->success==true)
-			{
-				return true;
-			}
-				
-		} catch (Exception $e) {
-			self::initializeOppo($player);
-			return false;
-		}
-		self::initializeOppo($player);
-		return false;
-		
+		return true;		
 	}
 	static public function isPlaying()
 	{
@@ -413,60 +385,12 @@ class Mede8erHelper
 			$player->save();
 			PelicanoHelper::saveSystemStatus(1,1);				
 		}
-		$url = $player->url .":436/getglobalinfo";
-		$response = json_decode(@file_get_contents($url));
-		if(isset($response)&&$response->is_video_playing==true)
-		{
-			if($response->cur_media_type == 2 && $response->is_pic_playing == true)
-				return false;
-			return true;
-		}
-		return false;
+		return true;
 	}
 	
 	static public function getState()
 	{
-		$modelDune = null;
-		
-		$setting = Setting::getInstance();
-		$response = file_get_contents( $setting->players[0]->url .'/cgi-bin/do?cmd=status');
-		$xml = simplexml_load_string($response);
-		
-		if(isset($xml))
-		{
-			$modelDune = new Dune();
-			
-			$param = $xml->xpath("//param[@name = 'playback_state']");
-			if(!empty($param))
-				$modelDune->playback_state = (string)$param[0]->attributes()->value;
-			
-			$param = $xml->xpath("//param[@name = 'playback_position']");
-			
-			if(!empty($param))
-				$modelDune->playback_position = (string)$param[0]->attributes()->value;
-				
-			$param = $xml->xpath("//param[@name = 'playback_duration']");
-			if(!empty($param))
-				$modelDune->playback_duration = (string)$param[0]->attributes()->value;
-			
-			$param = $xml->xpath("//param[@name = 'playback_url']");
-			if(!empty($param))
-				$modelDune->playback_url = (string)$param[0]->attributes()->value;
-			
-			$param = $xml->xpath("//param[@name = 'playback_speed']");
-			if(!empty($param))
-				$modelDune->playback_speed = (string)$param[0]->attributes()->value;
-			
-			$param = $xml->xpath("//param[@name = 'playback_volume']");
-			if(!empty($param))
-				$modelDune->playback_volume = (string)$param[0]->attributes()->value;
-			
-			$param = $xml->xpath("//param[@name = 'player_state']");
-			if(!empty($param))
-				$modelDune->player_state = (string)$param[0]->attributes()->value;
-		}	
-		
-		return $modelDune;
+		return false;
 	}
 	static public function getStateByPlayer($player)
 	{
