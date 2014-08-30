@@ -251,9 +251,10 @@ class Mede8erHelper
 	
 	static public function setBlackScreen($player)
 	{
+		
 		if(isset($player))
 		{
-			echo file_get_contents( $player->url .':1024/cgi-bin/cubermctrl.cgi?id=1&cmd=CMD_STOP');
+			return self::useRemote("CMD_STOP", $player->Id);
 		}
 	}
 	

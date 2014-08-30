@@ -672,14 +672,16 @@ $('#pauseButton').click(function(){
 	return false;
 });
 	
-$('#stopButton').click(function(){
 	$.ajax({
    		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
-   		data: {ir_code:'CMD_STOP',Id_player:".$player->Id."},
- 	});
-	return false;
-});
+   		url: '". SiteController::createUrl('AjaxStop') . "',
+		data: {Id_player:".$player->Id."}
+ 	}).success(function()
+ 	{
+		window.location = '".SiteController::createUrl('index')."'
+	}
+ 	);
+		
 	
 $('#prevButton').click(function(){
 	$.ajax({
