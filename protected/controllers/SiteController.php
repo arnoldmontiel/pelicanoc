@@ -1666,7 +1666,9 @@ class SiteController extends Controller
 			{
 				$isAlive = true;
 				$isPlaying =  false;
-				if(isset($player->type) && $player->type == 1)
+				if(isset($player->type) && $player->type == 2)
+					$isPlaying = Mede8erHelper::isPlayingByPlayer($player);
+				else if(isset($player->type) && $player->type == 1)
 					$isPlaying = OppoHelper::isPlayingByPlayer($player);
 				else
 					$isPlaying= DuneHelper::isPlayingByPlayer($player);										 				

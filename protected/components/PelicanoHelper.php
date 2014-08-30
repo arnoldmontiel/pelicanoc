@@ -653,7 +653,11 @@ class PelicanoHelper
 		$modelPlayer = Player::model()->findByPk($idPlayer);
 		if(isset($modelPlayer))
 		{	
-			if(isset($modelPlayer->type)&&$modelPlayer->type==1)
+			if(isset($modelPlayer->type)&&$modelPlayer->type==2)
+			{
+				$isAlive = Mede8erHelper::isPlayerAlive($modelPlayer);
+			}
+			else if(isset($modelPlayer->type)&&$modelPlayer->type==1)
 			{
 				$isAlive = OppoHelper::isPlayerAlive($modelPlayer);
 			}

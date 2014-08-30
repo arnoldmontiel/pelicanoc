@@ -656,43 +656,38 @@ else
 {
 	$script="
 $('#playButton').click(function(){
-	$.get('http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi',{ id:1, cmd:'CMD_MELE_PLAYPAUSE'});
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: {ir_code:'CMD_MELE_PLAYPAUSE',Id_player:".$player->Id."},
+ 	});
 	return false;
 });
 $('#pauseButton').click(function(){
-		var params = 'id=1&cmd=CMD_MELE_PLAYPAUSE';
-		var xmlHttp = null;
-    	xmlHttp = new XMLHttpRequest();
- 		xmlHttp.open( 'GET', 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi?id=1&cmd=CMD_MELE_PLAYPAUSE', false );
- 		xmlHttp.send(null);
-    	//xmlHttp.open( 'GET', 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi', false );
-    	//xmlHttp.send(params );
-    	//alert( xmlHttp.responseText);
+	$.ajax({
+   		type: 'GET',
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: {ir_code:'CMD_MELE_PLAYPAUSE',Id_player:".$player->Id."},
+ 	});
+	return false;
 });
 	
 $('#stopButton').click(function(){
-	var xmlHttp = null;
-    xmlHttp = new XMLHttpRequest();
- 	xmlHttp.open( 'GET', 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi?id=1&cmd=CMD_STOP', false );
- 	xmlHttp.send(null);
 	$.ajax({
    		type: 'GET',
-   		url: '". SiteController::createUrl('AjaxStop') . "',
-		data: {Id_player:".$player->Id."}
- 	}).success(function()
- 	{
-		window.location = '".SiteController::createUrl('index')."'
-	}
- 	);
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: {ir_code:'CMD_STOP',Id_player:".$player->Id."},
+ 	});
+	return false;
 });
 	
 $('#prevButton').click(function(){
 	$.ajax({
    		type: 'GET',
-   		url: 'http://192.168.100.120:1024/cgi-bin/cubermctrl.cgi',
-		data: {id:1,cmd:'CMD_MELE_PLAYPAUSE'},
-});
-    		return false;
+   		url: '". SiteController::createUrl('AjaxUseRemote') . "',
+   		data: {ir_code:'CMD_PREV',Id_player:".$player->Id."},
+ 	});
+	return false;
 });
 	
 $('#nextButton').click(function(){
