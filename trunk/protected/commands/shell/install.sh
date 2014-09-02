@@ -23,6 +23,9 @@ fi
 SAFE_PETTERN=$(printf '%s\n' "${MYSQLPASS}" | sed 's/[[\.*^$(){}?+|/&!]/\\&/g')
 
 apt-get update
+
+sed -i "s/\/var\/www\/html/\/var\/www/g" /etc/apache2/sites-available/000-default.conf
+
 #antes para virtual box
 #apt-get --yes --force-yes install php5-curl usbmount sabnzbdplus make gcc openssh-client p7zip-full fping libaugeas-ruby augeas-tools
 apt-get --yes --force-yes install php5-curl usbmount sabnzbdplus openssh-client p7zip-full fping libaugeas-ruby augeas-tools
