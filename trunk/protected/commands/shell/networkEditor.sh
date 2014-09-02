@@ -23,6 +23,7 @@ NETWORK=$4
 BROADCAST=$5
 GATEWAY=$6
 NAMESERVERS=$7
+INTERFACE=eth0
 
 ETH0_IFACE=`augtool match /files/etc/network/*/iface/ eth0`
 
@@ -32,6 +33,7 @@ then
 else
 	echo "looking for em1"
 	ETH0_IFACE=`augtool match /files/etc/network/*/iface/ em1`
+	INTERFACE=em1
 fi
 
 if [ -n "$ETH0_IFACE" ];
@@ -164,7 +166,7 @@ quit
 EOF
 
 fi
-sudo ifdown eth0 && sudo ifup eth0
+sudo ifdown ${INTERFACE} && sudo ifup ${INTERFACE}
 else
     echo "ERROR ETH0 or EM1 not found"
 fi
