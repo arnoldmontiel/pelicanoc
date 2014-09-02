@@ -66,6 +66,7 @@ chown -R www-data.www-data /var/www/*
 
 rm /var/www/index.html
 rm -rf /var/www/html
+rm /media/usb
 echo " ---------------------------- "
 echo " Configurando Base De Datos   "
 echo " ---------------------------- "
@@ -106,6 +107,17 @@ EOF
 
 fi
 
+CRYPTTAB=`augtool match /files/etc/crypttab/*/file pelis-opt_crypt`
+if [ -n "$CRYPTTAB" ];
+then
+augtool <<-EOF
+rm /files/etc/crypttab/*[target = "pelis-opt_crypt"]/
+save
+quit
+EOF
+
+fi
+
 #end startup section
 
 crontab -u pelicano -l > pelicanoCrontab
@@ -130,6 +142,7 @@ rm rootCrontab
 #VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
 #echo VBOXWEB_USER=pelicano> /etc/default/virtualbox
 echo "GRUB_RECORDFAIL_TIMEOUT=2" >> /etc/default/grub
+sed -i "s/quick_boot=\"1\"/quick_boot=\"0\"/g" /etc/grub.d/10_linux
 update-grub
 mkdir /media/NAS
 
