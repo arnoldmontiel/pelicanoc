@@ -671,7 +671,7 @@ $('#pauseButton').click(function(){
  	});
 	return false;
 });
-	
+$('#stopButton').click(function(){		
 	$.ajax({
    		type: 'GET',
    		url: '". SiteController::createUrl('AjaxStop') . "',
@@ -681,7 +681,7 @@ $('#pauseButton').click(function(){
 		window.location = '".SiteController::createUrl('index')."'
 	}
  	);
-		
+});		
 	
 $('#prevButton').click(function(){
 	$.ajax({
