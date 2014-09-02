@@ -65,6 +65,7 @@ ln -s /opt/yii /var/www/yii
 chown -R www-data.www-data /var/www/*
 
 rm /var/www/index.html
+rm -rf /var/www/html
 echo " ---------------------------- "
 echo " Configurando Base De Datos   "
 echo " ---------------------------- "
