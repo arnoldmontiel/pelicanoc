@@ -29,6 +29,13 @@ ETH0_IFACE=`augtool match /files/etc/network/*/iface/ eth0`
 if [ -n "$ETH0_IFACE" ];
 then
     echo "Updating existing item"
+else
+	echo "looking for em1"
+	ETH0_IFACE=`augtool match /files/etc/network/*/iface/ em1`
+fi
+
+if [ -n "$ETH0_IFACE" ];
+then
     
 if [ -n "$ADDRESS" ];
 then
@@ -159,7 +166,7 @@ EOF
 fi
 sudo ifdown eth0 && sudo ifup eth0
 else
-    echo "ERROR ETH0 not found"
+    echo "ERROR ETH0 or EM1 not found"
 fi
 
 
