@@ -277,11 +277,11 @@ class Mede8erHelper
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_HEADER, true);
 			$data = curl_exec($ch);
+			$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			curl_close($ch);
 			if ($status == 200) {
 				return true;
-			} else {
-			
+			} else {			
 				return false;
 			}
 		}
