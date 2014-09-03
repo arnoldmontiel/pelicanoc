@@ -12,19 +12,35 @@ if [ $# -ne 1 ]
 fi
 
 ID=$1
-MYSQLPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/mysqlpass&Id=${ID}"`
-if [ -n "$MYSQLPASS" ];
+PASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/installpass&Id=${ID}"`
+#MYSQLPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/mysqlpass&Id=${ID}"`
+if [ -n "$PASS" ];
 then
     echo "ID correcto"
+    INDEX=0;
+    for i in $(echo $PASS | tr ";" "\n")
+	do
+		case $INDEX in
+			0) MYSQLPASS  $i;;
+			1) OSPASS  $i;;
+			2) LUKSPASS  $i;;
+			*) echo "INVALID NUMBER!" ;;
+		esac  		
+  		((INDEX++))
+	done
 else
 	echo "Error al obtener datos o Id incorrecto"
 	exit 1    
 fi
+HDDPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/hddpass&Id=${ID}"`
+SOPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/sopass&Id=${ID}"`
+
 SAFE_PETTERN=$(printf '%s\n' "${MYSQLPASS}" | sed 's/[[\.*^$(){}?+|/&!]/\\&/g')
 
+rm -rf /var/lib/apt/lists/*
 apt-get update
-
-sed -i "s/\/var\/www\/html/\/var\/www/g" /etc/apache2/sites-available/000-default.conf
+#ubuntu 14.04
+#sed -i "s/\/var\/www\/html/\/var\/www/g" /etc/apache2/sites-available/000-default.conf
 
 #antes para virtual box
 #apt-get --yes --force-yes install php5-curl usbmount sabnzbdplus make gcc openssh-client p7zip-full fping libaugeas-ruby augeas-tools
@@ -65,17 +81,19 @@ ln -s /opt/yii /var/www/yii
 chown -R www-data.www-data /var/www/*
 
 rm /var/www/index.html
-rm -rf /var/www/html
+#ubuntu 14.04
+#rm -rf /var/www/html
 rm /media/usb
 echo " ---------------------------- "
 echo " Configurando Base De Datos   "
 echo " ---------------------------- "
 
-mysql -uroot -p${MYSQLPASS} -e "GRANT ALL ON *.* to pelicano@localhost IDENTIFIED BY '${MYSQLPASS}';"; 
-mysql -uroot -p${MYSQLPASS} -e "source /var/www/pelicano/protected/data/PelicanoC-VIRGEN.sql;";
-mysql -uroot -p${MYSQLPASS} -e "drop database test;";
-mysql -uroot -p${MYSQLPASS} -e "use mysql; DELETE FROM user WHERE user=''; flush privileges;";
-mysql -uroot -p${MYSQLPASS} -e "UPDATE mysql.user set user = 'peliroot' where user = 'root'; flush privileges;"; 
+mysql -uroot -ppelicano -e "GRANT ALL ON *.* to pelicano@localhost IDENTIFIED BY '${MYSQLPASS}';"; 
+mysql -uroot -ppelicano -e "source /var/www/pelicano/protected/data/PelicanoC-VIRGEN.sql;";
+mysql -uroot -ppelicano -e "drop database test;";
+mysql -uroot -ppelicano -e "use mysql; DELETE FROM user WHERE user=''; flush privileges;";
+mysqladmin -u root -ppelicano password ${MYSQLPASS}
+mysql -uroot -p${MYSQLPASS} -e "UPDATE mysql.user set user = 'peliroot' where user = 'root'; flush privileges;";
 
 sed -i "s/placeholderpass/${SAFE_PETTERN}/g" /var/www/pelicano/protected/config/main.php
 sed -i "s/placeholderpass/${SAFE_PETTERN}/g" /var/www/pelicano/protected/config/console.php
@@ -142,7 +160,8 @@ rm rootCrontab
 #VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
 #echo VBOXWEB_USER=pelicano> /etc/default/virtualbox
 echo "GRUB_RECORDFAIL_TIMEOUT=2" >> /etc/default/grub
-sed -i "s/quick_boot=\"1\"/quick_boot=\"0\"/g" /etc/grub.d/10_linux
+#ubuntu 14.04
+#sed -i "s/quick_boot=\"1\"/quick_boot=\"0\"/g" /etc/grub.d/10_linux
 update-grub
 mkdir /media/NAS
 
@@ -155,6 +174,12 @@ echo " Creando ssh key "
 echo " ---------------------- "
 
 sudo -u pelicano ssh-keygen -f /home/pelicano/.ssh/id_rsa -N ""
+
+echo "pelicano:${SOPASS}" | chpasswd
+
+echo -e pelicano\\n${OSPASS}\\n${OSPASS}|cryptsetup luksAddKey /dev/mapper/pelis-opt
+
+echo -e pelicano|cryptsetup luksDump /dev/mapper/pelis-opt
 
 echo " ---------------------- "
 echo " Instalacion finalizada "
