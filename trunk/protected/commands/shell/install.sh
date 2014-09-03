@@ -32,8 +32,6 @@ else
 	echo "Error al obtener datos o Id incorrecto"
 	exit 1    
 fi
-HDDPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/hddpass&Id=${ID}"`
-SOPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/sopass&Id=${ID}"`
 
 SAFE_PETTERN=$(printf '%s\n' "${MYSQLPASS}" | sed 's/[[\.*^$(){}?+|/&!]/\\&/g')
 
@@ -175,7 +173,7 @@ echo " ---------------------- "
 
 sudo -u pelicano ssh-keygen -f /home/pelicano/.ssh/id_rsa -N ""
 
-echo "pelicano:${SOPASS}" | chpasswd
+echo "pelicano:${OSPASS}" | chpasswd
 
 echo -e pelicano\\n${LUKSPASS}\\n${LUKSPASS}|cryptsetup luksAddKey /dev/mapper/pelis-opt
 
