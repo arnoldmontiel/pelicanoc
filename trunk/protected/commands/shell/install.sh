@@ -21,9 +21,9 @@ then
     for i in $(echo $PASS | tr ";" "\n")
 	do
 		case $INDEX in
-			0) MYSQLPASS  $i;;
-			1) OSPASS  $i;;
-			2) LUKSPASS  $i;;
+			0) MYSQLPASS=$i;;
+			1) OSPASS=$i;;
+			2) LUKSPASS=$i;;
 			*) echo "INVALID NUMBER!" ;;
 		esac  		
   		((INDEX++))
@@ -177,9 +177,9 @@ sudo -u pelicano ssh-keygen -f /home/pelicano/.ssh/id_rsa -N ""
 
 echo "pelicano:${SOPASS}" | chpasswd
 
-echo -e pelicano\\n${OSPASS}\\n${OSPASS}|cryptsetup luksAddKey /dev/mapper/pelis-opt
+echo -e pelicano\\n${LUKSPASS}\\n${LUKSPASS}|cryptsetup luksAddKey /dev/mapper/pelis-opt
 
-echo -e pelicano|cryptsetup luksDump /dev/mapper/pelis-opt
+echo -e pelicano|cryptsetup luksRemoveKey /dev/mapper/pelis-opt
 
 echo " ---------------------- "
 echo " Instalacion finalizada "
