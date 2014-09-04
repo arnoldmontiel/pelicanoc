@@ -152,10 +152,13 @@ rm rootCrontab
 #echo " ---------------------- "
 
 #wget http://download.virtualbox.org/virtualbox/4.3.12/virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
+#wget http://download.virtualbox.org/virtualbox/4.3.14/virtualbox-4.3_4.3.14-95030~Ubuntu~precise_amd64.deb
 #dpkg -i virtualbox-4.3_4.3.12-93733~Ubuntu~precise_amd64.deb
 #apt-get  --yes --force-yes -f install
 #wget http://download.virtualbox.org/virtualbox/4.3.12/Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
+#wget http://download.virtualbox.org/virtualbox/4.3.14/Oracle_VM_VirtualBox_Extension_Pack-4.3.14-95030.vbox-extpack
 #VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.12-93733.vbox-extpack
+#wget http://sourceforge.net/projects/phpvirtualbox/files/phpvirtualbox-4.3-1.zip
 #echo VBOXWEB_USER=pelicano> /etc/default/virtualbox
 echo "GRUB_RECORDFAIL_TIMEOUT=2" >> /etc/default/grub
 #ubuntu 14.04
