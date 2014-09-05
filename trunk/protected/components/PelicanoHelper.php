@@ -1527,17 +1527,35 @@ class PelicanoHelper
 			$url =  $setting->sabnzb_api_url."mode=get_config&output=json&section=servers&apikey=".$setting->sabnzb_api_key;
 			$jsonData = @file_get_contents($url);
 			$serverResponse = json_decode($jsonData);
+			//limpio del sabnzb los servers que ya no se usan.
+			if(isset($serverResponse->config->servers) && is_array($serverResponse->config->servers))
+			{
+				$remove = true;
+				foreach ($serverResponse->config->servers as $server)
+				{
+					$sabnzbdConfigModelToRemove = SabnzbdConfig::model()->findByAttribute(array("server_name"=>$server->name));
+					//si el server no esta en la base, lo borro de sabnzbd
+					if(!isset($sabnzbdConfigModelToRemove))
+					{
+						$url =
+						$setting->sabnzb_api_url."mode=del_config&section=servers&keyword=".$server->name.
+						"&apikey=".$setting->sabnzb_api_key;
+						$jsonData = @file_get_contents($url);
+					}
+						
+				}
+			}
 			$save = true;
 			foreach ($sabnzbdConfigs as $sabnzbdConfig)
 			{
 				if(isset($serverResponse->config->servers) && is_array($serverResponse->config->servers))
 				{
+					$remove = true;
 					foreach ($serverResponse->config->servers as $server)
 					{
 						if($server->name==$sabnzbdConfig->name&&
 						$sabnzbdConfig->username==$server->username&&
 						$sabnzbdConfig->enable==$server->enable&&
-						$sabnzbdConfig->name==$server->name&&
 						$sabnzbdConfig->fill_server==$server->fillserver&&
 						$sabnzbdConfig->connections==$server->connections&&
 						$sabnzbdConfig->ssl==$server->ssl&&
