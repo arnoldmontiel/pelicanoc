@@ -1532,7 +1532,7 @@ class PelicanoHelper
 			{
 				foreach ($serverResponse->config->servers as $server)
 				{
-					$sabnzbdConfigModelToRemove = SabnzbdConfig::model()->findByAttribute(array("server_name"=>$server->name));
+					$sabnzbdConfigModelToRemove = SabnzbdConfig::model()->findByAttributes(array("server_name"=>$server->name));
 					//si el server no esta en la base, lo borro de sabnzbd
 					if(!isset($sabnzbdConfigModelToRemove))
 					{
@@ -1543,12 +1543,11 @@ class PelicanoHelper
 					}
 				}
 			}
-			$save = true;
 			foreach ($sabnzbdConfigs as $sabnzbdConfig)
 			{
+				$save = true;
 				if(isset($serverResponse->config->servers) && is_array($serverResponse->config->servers))
 				{
-					$remove = true;
 					foreach ($serverResponse->config->servers as $server)
 					{
 						if($server->name==$sabnzbdConfig->name&&
