@@ -1530,7 +1530,6 @@ class PelicanoHelper
 			//limpio del sabnzb los servers que ya no se usan.
 			if(isset($serverResponse->config->servers) && is_array($serverResponse->config->servers))
 			{
-				$remove = true;
 				foreach ($serverResponse->config->servers as $server)
 				{
 					$sabnzbdConfigModelToRemove = SabnzbdConfig::model()->findByAttribute(array("server_name"=>$server->name));
@@ -1542,7 +1541,6 @@ class PelicanoHelper
 						"&apikey=".$setting->sabnzb_api_key;
 						$jsonData = @file_get_contents($url);
 					}
-						
 				}
 			}
 			$save = true;
