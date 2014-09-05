@@ -1334,7 +1334,7 @@ class PelicanoHelper
 				$request = new NzbStateRequest;
 				$request->Id_device = $setting->Id_device;
 				$request->Id_nzb = $modelNzb->Id;
-				$request->change_state_date = time();
+				$request->change_state_date = strtotime($modelNzb->change_state_date);
 				$request->Id_state = 3;//downloaded
 				$request->points = $modelNzb->points;
 	
@@ -1394,7 +1394,7 @@ class PelicanoHelper
 					$request = new NzbStateRequest;
 					$request->Id_device = $setting->Id_device;
 					$request->Id_nzb = $modelNzb->Id;
-					$request->change_state_date = time();
+					$request->change_state_date = strtotime($modelNzb->change_state_date);
 					$request->Id_state = 3;//downloaded
 					$request->points = $modelNzb->points;
 						
