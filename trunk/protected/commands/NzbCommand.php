@@ -11,7 +11,7 @@ class NzbCommand extends CConsoleCommand  {
 		include dirname(__FILE__).'../../components/PelicanoHelper.php';
 		try 
 		{
-			$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0,'delete'=>1));			
+			$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0,'deleted'=>1));			
 			foreach ($arrayNbz as $modelNzb)
 			{
 				$modelNzb->ready = 1;
@@ -22,7 +22,7 @@ class NzbCommand extends CConsoleCommand  {
 			$validator = new CUrlValidator();
 			$setting = Setting::getInstance();
 			
-			$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0,'delete'=>0));
+			$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0,'deleted'=>0));
 			
 			$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
 			foreach ($arrayNbz as $modelNzb)
