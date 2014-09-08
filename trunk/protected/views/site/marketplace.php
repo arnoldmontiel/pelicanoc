@@ -26,21 +26,13 @@ function openMovieShowDetail(id, sourceType, idResource)
 		<?php 
 			foreach($dataProvider->getData() as $data) 
 			{
-				$nzbsRaw= $data->nzbs;
-				foreach ($nzbsRaw as $nzb)
-				{
-					if($nzb->deleted!=0)
-					{
-						$nzbs[]=$nzb;
-					}					
-				}
 				if(count($nzbs)>0)
 				{
 					foreach ($nzbs as $nzb)
 					{
 						//si al menos un nzb esta ready, muestro la categoria
 						//y salgo del loop para pasar a la siguente
-						if($nzb->ready)
+						if($nzb->ready&&$nzb->deleted!=1)
 						{
 							echo $this->renderPartial('_viewMarketCategory',array('data'=>$data));
 							break;						
