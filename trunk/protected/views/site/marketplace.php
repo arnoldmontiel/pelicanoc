@@ -25,8 +25,15 @@ function openMovieShowDetail(id, sourceType, idResource)
 
 		<?php 
 			foreach($dataProvider->getData() as $data) 
-			{		
-				$nzbs= $data->nzbs;
+			{
+				$nzbsRaw= $data->nzbs;
+				foreach ($nzbsRaw as $nzb)
+				{
+					if($nzb->deleted!=0)
+					{
+						$nzbs[]=$nzb;
+					}					
+				}
 				if(count($nzbs)>0)
 				{
 					foreach ($nzbs as $nzb)
