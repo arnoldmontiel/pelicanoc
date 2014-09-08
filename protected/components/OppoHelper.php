@@ -69,7 +69,7 @@ class OppoHelper
 		$params['type'] = 1;
 		$params['appDeviceType'] = 7;
 		
-		$url = $player->url .":436/playnormalfile?".json_encode($params);
+		$url = trim($player->url, '/') .":436/playnormalfile?".json_encode($params);
 		$url = str_replace('&', '%26', $url);
 		$url = str_replace(' ', '%20', $url);
 		
@@ -88,7 +88,7 @@ class OppoHelper
 		$retry = 0;
 		do
 		{
-			$url = $player->url .":436/loginSambaWithID?".json_encode($params);
+			$url = trim($player->url, '/') .":436/loginSambaWithID?".json_encode($params);
 			$url = str_replace('&', '%26', $url);
 			$url = str_replace(' ', '%20', $url);				
 			$response = @file_get_contents($url);
@@ -115,7 +115,7 @@ class OppoHelper
 		$params['bRememberID'] = 1;
 		$params['bWithID'] = 1;				
 		$params['password'] = $setting->host_file_server_passwd;
-		$url = $player->url .":436/mountSharedFolder?".json_encode($params);
+		$url = trim($player->url, '/') .":436/mountSharedFolder?".json_encode($params);
 		$retry = 0;
 		do
 		{
@@ -153,7 +153,7 @@ class OppoHelper
 		$params['index'] = 0;
 		$params['type'] = 1;
 		$params['appDeviceType'] = 7;
-		$url = $player->url .":436/playnormalfile?".json_encode($params);
+		$url = trim($player->url, '/') .":436/playnormalfile?".json_encode($params);
 		$url = str_replace('&', '%26', $url);
 		$url = str_replace(' ', '%20', $url);
 		$retry = 0;
@@ -212,7 +212,7 @@ class OppoHelper
 	}
 	static public function getProgressBarByPlayer($player)
 	{
-		$url = $player->url .":436/getplayingtime";
+		$url = trim($player->url, '/') .":436/getplayingtime";
 		
 		$response = @file_get_contents($url);
 		$response = json_decode($response);
@@ -262,7 +262,7 @@ class OppoHelper
 		$modelPlayer = Player::model()->findByPk($Id_player);
 		if(isset($modelPlayer))
 		{
-			echo file_get_contents( $modelPlayer->url .':436/sendremotekey?{"key":"'.$code.'"}');
+			echo file_get_contents( trim($modelPlayer->url, '/') .':436/sendremotekey?{"key":"'.$code.'"}');
 		}
 	}
 	
@@ -289,7 +289,7 @@ class OppoHelper
 		
 		//probar esto para limpiar el http
 		$address = $player->url;
-		$address = preg_replace('#^https?://#', '', rtrim($address,'/'));
+		$address = preg_replace('#^http?://#', '', rtrim($address,'/'));
 		
 		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 		if ($socket === false) {
@@ -308,14 +308,14 @@ class OppoHelper
 		socket_close($socket);		
 		
 		sleep(1);
-		@file_get_contents( $player->url .':436/getmainfirmwareversion');
+		@file_get_contents( trim($player->url, '/') .':436/getmainfirmwareversion');
 		sleep(1);		
-		@file_get_contents( $player->url .':436/getdevicelist');		
+		@file_get_contents( trim($player->url, '/') .':436/getdevicelist');		
 	}
 	static public function isPlayerAlive($player)
 	{
 				
-		$url = $player->url .":436/getglobalinfo";
+		$url = trim($player->url, '/') .":436/getglobalinfo";
 		try {
 			$response = json_decode(@file_get_contents($url));
 			if(isset($response)&&$response->success==true)
@@ -348,7 +348,7 @@ class OppoHelper
 			$player->save();
 			PelicanoHelper::saveSystemStatus(1,1);				
 		}
-		$url = $player->url .":436/getglobalinfo";
+		$url = trim($player->url, '/') .":436/getglobalinfo";
 		$response = json_decode(@file_get_contents($url));
 		if(isset($response)&&$response->is_video_playing==true)
 		{
@@ -406,7 +406,7 @@ class OppoHelper
 	static public function getStateByPlayer($player)
 	{
 		$modelDune = null;
-		$response = @file_get_contents( $player->url .'/cgi-bin/do?cmd=status');
+		$response = @file_get_contents( trim($player->url, '/') .'/cgi-bin/do?cmd=status');
 	
 		if($response===false)	return null;
 		if($response=="")	return null;
@@ -475,8 +475,8 @@ class OppoHelper
 			$params['index'] = 95;
 			$params['type'] = 2;
 			$params['appDeviceType'] = 7;
-	
-			$url = $player->url .":436/playnormalfile?".json_encode($params);
+						
+			$url = trim($player->url, '/') .":436/playnormalfile?".json_encode($params);
 			$url = str_replace('&', '%26', $url);
 					$url = str_replace(' ', '%20', $url);
 	
