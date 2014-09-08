@@ -1,0 +1,66 @@
+/*
+ * Light Theme
+ */
+
+body{	background:#ECF0F1;	color: #333;}
+
+.navbar-default .navbar-nav>li>a{ color:#777;}
+
+#Menu .navbar-nav>li.active>a{background-color: rgba(255,255,255,0.6); color:#555;}
+
+#Menu .navbar-nav>li>a:hover, #Menu .navbar-nav>li>a:focus{background-color: rgba(255,255,255,0.4); color:#444;}
+
+.navbar-default .container-fluid{background-color:#ECF0F1; border-bottom:1px solid rgba(255,255,255,0.6);}
+
+#MenuLogo{	border-right: 1px dotted #eee;}
+
+.navbar-default .navbar-brand{color:#777;}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{color:#999;}
+
+
+.btn-reproduciendo.reproduciendoOff {
+	color:#fff;
+	background-color: #D2D4D6;
+	border-color: #eee;
+}
+
+.filterDesc{ color:#666;}
+
+h2{color:#7F8C8D;}
+h2.sliderTitl{color:#7F8C8D;}
+
+.rowBackground{border-bottom:3px solid rgba(255,255,255,0.6);}
+
+.flex-control-nav{border-top: 2px dotted rgba(255,255,255,0.6);}
+.flex-control-paging li a{background-color:rgba(255,255,255,.1);}
+.flex-control-paging li a.flex-active{background-color:#C4C4C4;}
+
+.velocidadDescarga{color:#7F8C8D;}
+
+.cbp-spmenu{background-color: #f8f8f8;}
+.cbp-spmenu .cbp-title{background-color:#FBFBFB; color:#777;}
+.cbp-spmenu .pushMenuGroup{border-bottom:1px solid #ddd;}
+.cbp-spmenu a {	border-bottom: 1px solid #fff; color:#777;}
+.cbp-spmenu a:hover{color: #5e5e5e;}
+.sideMenuBotones{background-color:#fbfbfb; border-top:2px solid #eee;}
+.pushSelectable .pushMenuGroup a:before {color:#ddd;}
+.pushSelectable .pushMenuGroup .pushMenuActive:before {color: #666;}
+.cbp-spmenu  a.pushMenuClicked{ background-color:#eee; } 
+.pushSelectable .pushMenuGroup .pushMenuActive{ background-color:#eee; } 
+
+.peliAfiche{border:4px solid white;}
+.peliTitulo{color:#888;}
+
+.item a{
+	  -moz-box-shadow: 0px 1px 3px rgba(0,0,0,.1);
+        -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,.1);
+        box-shadow: 0px 1px 3px rgba(0,0,0,.1);}
+        
+.ribbon.ribNuevo{bottom: 32px;right: -32px;}
+
+.ribbon.ribFinalizado{right: -33px;top: 204px;}
+
+.controlLength{color:#646464;}
+.controlNumeros .btn{
+margin-right: 8px;
+margin-bottom: 10px;}
