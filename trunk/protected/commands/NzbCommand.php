@@ -11,11 +11,18 @@ class NzbCommand extends CConsoleCommand  {
 		include dirname(__FILE__).'../../components/PelicanoHelper.php';
 		try 
 		{
+			$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0,'delete'=>1));			
+			foreach ($arrayNbz as $modelNzb)
+			{
+				$modelNzb->ready = 1;
+				$modelNzb->save();
+			}
+			PelicanoHelper::sendPendingNzbStates();
 			
 			$validator = new CUrlValidator();
 			$setting = Setting::getInstance();
 			
-			$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0));
+			$arrayNbz = Nzb::model()->findAllByAttributes(array('ready'=>0,'delete'=>0));
 			
 			$img_path = dirname(__FILE__).'/../.'.$setting->path_images.'/';
 			foreach ($arrayNbz as $modelNzb)
