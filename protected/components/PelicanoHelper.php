@@ -1068,6 +1068,7 @@ class PelicanoHelper
 						{
 							if($item->nzb->deleted == 1 && $modelNzb->isNewRecord) 
 							{
+								$modelNzb->save();
 								continue;
 							}
 								
@@ -1381,6 +1382,7 @@ class PelicanoHelper
 				// en modo de trabajo.
 				$modelNzb->downloading = 1;
 				$modelNzb->downloaded = 0;
+				$modelNzb->change_state_date= new CDbExpression('NOW()');
 				$modelNzb->save();
 				$modelNzb->refresh();
 				$modelNzb->downloading = 0;
