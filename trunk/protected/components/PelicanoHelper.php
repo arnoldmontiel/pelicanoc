@@ -992,6 +992,7 @@ class PelicanoHelper
 		PelicanoHelper::sincronizeWithServer();
 		PelicanoHelper::sendClientSettings();
 		PelicanoHelper::getCustomerSettings();
+		PelicanoHelper::updatePendingStateMovies();
 		PelicanoHelper::updateNzbDataFromServer();
 		PelicanoHelper::getConsumption();
 		
