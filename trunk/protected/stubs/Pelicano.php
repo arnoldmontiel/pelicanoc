@@ -465,7 +465,7 @@ function setNzbState($NzbStateRequestArray)
 			$result = $this->soapClient->setNzbState($r);
 				
 		} catch (Exception $e) {
-			return -1;//error
+			return false;//error
 		}
 	}
 	return $result;

@@ -1345,7 +1345,7 @@ class PelicanoHelper
 	
 				$requests[]=$request;
 				$return = $pelicanoCliente->setNzbState($requests);
-				if($return!=-1)
+				if($return)
 				{
 					$modelNzb->Id_nzb_state = 3;
 					$modelNzb->sent = 1;
@@ -1408,7 +1408,7 @@ class PelicanoHelper
 						
 					$requests[]=$request;
 					$status = $pelicanoCliente->setNzbState($requests);
-					if($status!=-1)
+					if($status)
 					{
 						$modelNzb->sent = 1;
 						$modelNzb->Id_nzb_state = 3;
