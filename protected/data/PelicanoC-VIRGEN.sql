@@ -1918,6 +1918,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="2.41" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.42" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
