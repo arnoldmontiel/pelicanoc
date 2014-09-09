@@ -115,6 +115,6 @@ function delayRedirect()
 	    $("#detalles").removeClass('hidden');
 	  }
 	  );	
-  }, 20000);
+  }, 30000);
 }
 </script>
