@@ -1386,6 +1386,7 @@ class PelicanoHelper
 				// en modo de trabajo.
 				$modelNzb->downloading = 1;
 				$modelNzb->downloaded = 0;
+				$modelNzb->sent = 0;
 				$modelNzb->change_state_date= new CDbExpression('NOW()');
 				$modelNzb->save();
 				$modelNzb->refresh();
@@ -1408,6 +1409,7 @@ class PelicanoHelper
 					$status = $pelicanoCliente->setNzbState($requests);
 					if($status!=-1)
 					{
+						$modelNzb->sent = 1;
 						$modelNzb->Id_nzb_state = 3;
 					}
 				}
