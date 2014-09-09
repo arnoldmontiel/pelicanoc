@@ -4,7 +4,18 @@
   <div class="row rowControlVariable">
     <div class="col-sm-4 col-nexus-4">
     <div class="controlAfiche">
-<img class="aficheImg" src="<?php echo $big_poster?>" border="0"> 
+    <?php 
+    echo CHtml::link(
+    				
+    				CHtml::image($big_poster,'',array(
+    								"class"=>"aficheImg",
+    								)),
+    				
+    				'',array("class"=>"aficheClickControl","idMovie"=>$model->Id,
+    								"idResource"=>$idResource,
+    								"sourceType"=>$sourceType,"onclick"=>"showDetails(this)"));
+	?>
+<!--  <img class="aficheImg" src="<?php echo $big_poster?>" border="0">-->    	
 </div>   
 </div>
     <!-- /col-sm-4 -->
@@ -948,9 +959,28 @@ $('#bookmarkButton').click(function(){
 Yii::app()->clientScript->registerScript(__CLASS__.'#startMovie',$firstPart . $script);
 ?>
 <script type="text/javascript">
-<!--
+function showDetails(object)
+{
+	var sourceType = $(object).attr("sourceType");
+	var id = $(object).attr("idMovie");
+	var idResource = $(object).attr("idResource");		
+	var param = 'id='+id+'&sourcetype='+sourceType+'&idresource='+idResource; 
+	$.ajax({
+   		type: 'POST',
+   		url: '<?php echo SiteController::createUrl('AjaxMovieShowControlDetail') ?>',
+   		data: param,
+ 	}).success(function(data)
+ 	{
+ 	
+		$('#myModal').html(data);	
+   		$('#myModal').modal({
+				show: true
+		});		
+	}
+ 	);
+   	return false;	
+}
 
-//-->
 function play(object,idNzb,idPlayer)
 {
 	$('#waiting-switch').removeClass('hidden');
