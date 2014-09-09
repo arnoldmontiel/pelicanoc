@@ -1068,6 +1068,9 @@ class PelicanoHelper
 						{
 							if($item->nzb->deleted == 1 && $modelNzb->isNewRecord) 
 							{
+								$modelNzb->Id_my_movie_disc_nzb=null;
+								$modelNzb->Id_nzb_state = 1;
+								$modelNzb->change_state_date = new CDbExpression('NOW()');
 								$modelNzb->save();
 								continue;
 							}

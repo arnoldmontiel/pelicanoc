@@ -436,7 +436,7 @@ window.addEventListener('load', function() {
 	      <div class="modal-body">
 	
 	  <div class="form-group">
-	  <label class="required">Velocidad (en KB/s) <span class="required">*</span></label>    <input id ="setSpeedLimit" class="form-control"  type="text" value="">  </div>
+	  <label class="required">Velocidad (en KB/s) </label>    <input id ="setSpeedLimit" class="form-control"  type="text" value="">  </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>

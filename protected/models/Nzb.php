@@ -223,8 +223,8 @@ class Nzb extends CActiveRecord
 	
 		$criteria->compare('sent',0);
 		$criteria->compare('ready',1);
-	
-	
+		$criteria->addCondition('t.Id_nzb_state != 7');
+			
 		return new CActiveDataProvider($this, array(
 								'criteria'=>$criteria,
 		));
