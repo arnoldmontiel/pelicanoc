@@ -215,32 +215,49 @@
 	
 	<?php  if($this->action->Id=="marketplace"):?>
 	<div class="nav navbar-nav navbar-left">
-		<div class="btn-group">
+<!--		<div class="btn-group">
 		    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
       			Todas las Peliculas
       			<span class="caret"></span>
     		</button>
     		<ul class="dropdown-menu" role="menu">
-      			<li id="market">
-      				<a href="<?php echo SiteController::createUrl('site/marketplaceCategory') ?>">Por categorias</a>
+      			<li id="market"> 
+      				<a href="<?php // echo SiteController::createUrl('site/marketplaceCategory') ?>">Por categorias</a>
       			</li>
     		</ul>
-  		</div>
+  		</div> -->
+  		
+  		 <div class="btn-group">
+  		 <a href="<?php echo SiteController::createUrl('site/marketplaceCategory');?>" class="btn btn-primary navbar-btn"><i class="fa fa-star"></i> <span class="hidden-sm hidden-nexus hidden-xs">Destacadas</span></a>
+  		 <a href="<?php echo SiteController::createUrl('site/marketplace');?>" class="btn btn-primary navbar-btn active"><i class="fa fa-th"></i> <span class="hidden-sm hidden-nexus hidden-xs">Todas</span></a>
+</div>
 	</div>
+	
+	
+	
   <?php elseif($this->action->Id=="marketplaceCategory"):?>
 	<div class="nav navbar-nav navbar-left">
-		<div class="btn-group">
+	<!--	<div class="btn-group">
 		    <button type="button" class="btn btn-primary dropdown-toggle navbar-btn marketAlternateBtn" data-toggle="dropdown">
       			Por categorias
       			<span class="caret"></span>
     		</button>
     		<ul class="dropdown-menu" role="menu">
       			<li id="market">
-      				<a href="<?php echo SiteController::createUrl('site/marketplace') ?>">Todas las Peliculas</a>
+      				<a href="<?php // echo SiteController::createUrl('site/marketplace') ?>">Todas las Peliculas</a>
       			</li>
     		</ul>
-  		</div>
+  		</div>-->
+  		
+  <div class="btn-group">
+  <a href="<?php echo SiteController::createUrl('site/marketplaceCategory');?>" class="btn btn-primary navbar-btn active"><i class="fa fa-star"></i> <span class="hidden-sm hidden-nexus hidden-xs"> Destacadas</span></a>
+  <a href="<?php echo SiteController::createUrl('site/marketplace');?>" class="btn btn-primary navbar-btn"><i class="fa fa-th"></i> <span class="hidden-sm hidden-nexus hidden-xs">Todas</span></a>
+</div>
 	</div>
+	
+	
+
+	
   <?php endif?>
   
   <?php if($this->action->Id!="marketplaceCategory"):?>	
@@ -253,8 +270,8 @@
 				 -->
 			</div>
 			<div class="nav navbar-nav navbar-left">
-				<button class="toggle-menu menu-left btn btn-primary navbar-btn jPushMenuBtn" id="<?php echo $toggleId;?>">
-					<i class="fa fa-filter fa-fw"></i> Filtro
+				<button class="toggle-menu menu-left btn btn-primary navbar-btn jPushMenuBtn filtroBtn" id="<?php echo $toggleId;?>">
+					<i class="fa fa-filter fa-fw"></i> <span class="hidden-sm hidden-nexus hidden-xs">Filtro</span>
 				</button>
 				</div>
 				
