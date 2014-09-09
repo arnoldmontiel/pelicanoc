@@ -508,6 +508,59 @@ class SiteController extends Controller
 				'modelBookmarks'=>$bookmarks,
 		));
 	}
+
+	public function actionAjaxMovieShowControlDetail()
+	{
+		$id_resource = $_POST['idresource'];
+		$id = $_POST['id'];
+		$sourceType = $_POST['sourcetype'];
+	
+		$criteria=new CDbCriteria;
+	
+		$modelNzb = null;
+		$modelRippedMovie = null;
+		$localFolder = null;
+		$bookmarks = null;
+		$modelCurrentDisc = null;
+		if($sourceType == 1)
+		{
+			$modelNzb = Nzb::model()->findByPk($id_resource);
+			$model = MyMovieNzb::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_nzb_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie_nzb = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			$bookmarks = (isset($modelNzb->bookmarks))?$modelNzb->bookmarks:null;
+		}
+		else if($sourceType == 2)
+		{
+			$modelRippedMovie = RippedMovie::model()->findByPk($id_resource);
+			$model = MyMovie::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			$bookmarks = (isset($modelRippedMovie->bookmarks))?$modelRippedMovie->bookmarks:null;
+		}
+		else
+		{
+			$localFolder = LocalFolder::model()->findByPk($id_resource);
+			$model = MyMovie::model()->findByPk($id);
+			$criteria->join = 'INNER JOIN my_movie_person p on (p.Id_person = t.Id)';
+			$criteria->addCondition('p.Id_my_movie = "'.$id.'"');
+			$criteria->order = 't.Id ASC';
+			$bookmarks = (isset($localFolder->bookmarks))?$localFolder->bookmarks:null;
+		}
+		$casting = $this->getCasting($criteria);
+		$this->renderPartial('_movieDetails',array('model'=>$model,
+				'casting'=>$casting,
+				'sourceType'=>$sourceType,
+				'modelNzb'=>$modelNzb,
+				'modelRippedMovie'=>$modelRippedMovie,
+				'modelLocalFolder'=>$localFolder,
+				'modelCurrentDisc'=>$modelCurrentDisc,
+				'modelBookmarks'=>$bookmarks,
+				'fromControl'=>true
+		));
+	}
 	
 	public function actionAjaxConsumptionDetail()
 	{
