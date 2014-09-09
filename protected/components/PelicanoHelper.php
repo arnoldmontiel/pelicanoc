@@ -1348,6 +1348,7 @@ class PelicanoHelper
 				if($return!=-1)
 				{
 					$modelNzb->Id_nzb_state = 3;
+					$modelNzb->sent = 1;
 					$modelNzb->save();
 				}
 			}
