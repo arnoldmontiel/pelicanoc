@@ -87,17 +87,21 @@
     <div class="col-md-9 col-sm-9 col-nexus-12">
     <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Informaci&oacute;n</a></li>
-                <?php if(isset($modelNzb)):?>
-	                <?php if($modelNzb->ready_to_play||$setting->is_movie_tester):?>
-                		<li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
-	                <?php endif?>
-                <?php else:?>
-                	<li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
-              	<?php endif?>                  
-                
+                <?php if(!isset($fromControl)):?>
+	                <?php if(isset($modelNzb)):?>
+		                <?php if($modelNzb->ready_to_play||$setting->is_movie_tester):?>
+	                		<li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
+		                <?php endif?>
+	                <?php else:?>
+	                	<li class=""><a href="#tab2" data-toggle="tab">Avanzado</a></li>
+	              	<?php endif?>                  
+	             <?php endif?>                  
+	              	
               <!-- <li class=""><a href="#tab3" data-toggle="tab">Bookmarks</a></li>-->
-              <?php if(!isset($modelNzb)):?> 
-              <li class="pull-right"><button  id="btn-edit" type="button" class="btn btn-default"><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button></li>
+              <?php if(!isset($fromControl)):?>
+              	<?php if(!isset($modelNzb)):?> 
+              		<li class="pull-right"><button  id="btn-edit" type="button" class="btn btn-default"><i class='fa fa-pencil'></i> Editar Informaci&oacute;n</button></li>
+              	<?php endif?>
               <?php endif?>
     </ul>
 	<div class="tab-content tableInfo">
@@ -311,33 +315,37 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
   <!-- Single button -->
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
-    <?php if(isset($modelNzb)):?>
-    	<?php if($modelNzb->ready_to_play):?>
-    		<button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
-    	<?php else:?>
-    		<?php if($modelNzb->downloaded||$modelNzb->downloading):?>
-    			<?php if(isset($modelNzb->sabnzbd_id)):?>
-	  				<button id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg">
-	    			<i class="fa fa-times-circle"></i> Cancelar</button>
-    			<?php else:?>
-	  				<button id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg" disabled="disabled">
-	    			<i class="fa fa-spinner fa-spin"></i> Iniciando</button>
-    			<?php endif?>
-    		<?php else:?>
-    			<button id="btn-download" type="button" class="btn btn-primary btn-lg btnDescargar">
-	    		<i class="fa fa-download"></i> Descargar 
-	    		<div class="labelPointsGroup">	    		
-	    		<?php if($modelNzb->already_downloaded == 0):?>
-	    			<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-database"></i> <?php echo $modelNzb->points;?></div>
+    <?php if(!isset($fromControl)):?>
+	    <?php if(isset($modelNzb)):?>
+	    	<?php if($modelNzb->ready_to_play):?>
+	    		<button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
+	    	<?php else:?>
+	    		<?php if($modelNzb->downloaded||$modelNzb->downloading):?>
+	    			<?php if(isset($modelNzb->sabnzbd_id)):?>
+		  				<button id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg">
+		    			<i class="fa fa-times-circle"></i> Cancelar</button>
+	    			<?php else:?>
+		  				<button id="btn-cancel-popover" type="button" class="btn btn-primary btn-lg" disabled="disabled">
+		    			<i class="fa fa-spinner fa-spin"></i> Iniciando</button>
+	    			<?php endif?>
 	    		<?php else:?>
-	    			<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-cloud-download"></i></div>
+	    			<button id="btn-download" type="button" class="btn btn-primary btn-lg btnDescargar">
+		    		<i class="fa fa-download"></i> Descargar 
+		    		<div class="labelPointsGroup">	    		
+		    		<?php if($modelNzb->already_downloaded == 0):?>
+		    			<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-database"></i> <?php echo $modelNzb->points;?></div>
+		    		<?php else:?>
+		    			<div class="labelPointsArrowLeft"></div><div class="labelPoints"><i class="fa fa-cloud-download"></i></div>
+		    		<?php endif?>
+		    		</div>
+		    		</button>
 	    		<?php endif?>
-	    		</div>
-	    		</button>
-    		<?php endif?>
-    	<?php endif?>    	    
+	    	<?php endif?>    	    
+	    <?php else:?>
+	    <button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
+	    <?php endif?>    
     <?php else:?>
-    <button id="btn-play" type="button" class="btn btn-primary btn-lg" data-dismiss="modal"	data-toggle="modal" ><i class="fa fa-play-circle"></i> Ver Pel&iacute;cula</button>
+    	<button type="button" class="btn btn-primary btn-lg" disabled="disabled"><i class="fa fa-play-circle"></i> Reproduciendo</button>
     <?php endif?>
     
     </div><!--/.modal-footer -->
