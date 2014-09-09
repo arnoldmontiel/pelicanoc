@@ -461,6 +461,7 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	background-color: #027871;
 	border-color: #027871;
 }
+
 .btn-default:hover {
 	color:#15747C;
 	background-color: #D0E6DF;
@@ -512,6 +513,23 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
 	border-color: #ccc;
 	color: #888;
 }
+
+
+/*BUTTON GROUP NAVBAR*/
+.navbar .btn-group{margin-right:10px;}
+.navbar .btn-group .btn{
+color:#0F8881;
+background-color:rgba(255,255,255,1);
+border-color:transparent;
+font-size:16px;
+padding:10px 15px;
+}
+.navbar .btn-group .btn.btn-primary.active{
+	color: #ffffff;
+	background-color: #0F8881;
+	border-color: #0F8881;
+}
+/*----------------*/
 
 .alert-info{
 background-color:#D0E6DF;
@@ -832,6 +850,9 @@ display: inline-block;}
 
 .navbar a {
 	font-size: 1.15em;
+}
+.navbar a.btn {
+	font-size: 15px;
 }
 
 #menuSecond .nav-pills {
@@ -1775,8 +1796,12 @@ padding-left: 4px;}
 	font-size: 15px;
 }
 
+.filtroBtn{
+font-size:16px; 
+padding: 10px 15px;
+}
 .filterDesc{font-size:14px; 
-line-height:51px; letter-spacing:1px;
+line-height:61px; letter-spacing:1px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; 
