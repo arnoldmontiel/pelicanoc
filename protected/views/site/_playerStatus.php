@@ -12,7 +12,7 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Player</th>
+									<th width="20%">Player</th>
 									<th>Estado</th>
 									<th>&nbsp;</th>
 								</tr>
