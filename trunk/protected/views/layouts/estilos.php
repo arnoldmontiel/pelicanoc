@@ -523,12 +523,17 @@ background-color:rgba(255,255,255,1);
 border-color:transparent;
 font-size:16px;
 padding:10px 15px;
+-webkit-box-shadow: none; 
+box-shadow: none; 
 }
 .navbar .btn-group .btn.btn-primary.active{
 	color: #ffffff;
 	background-color: #0F8881;
 	border-color: #0F8881;
 }
+.btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group{margin-left:0px;}
+
+
 /*----------------*/
 
 .alert-info{
@@ -806,7 +811,7 @@ display: inline-block;}
 }
 
 .searchMain input{
-	width: 250px;
+	height:44px;
 }
 
 .searchMain input::-webkit-input-placeholder::before {
