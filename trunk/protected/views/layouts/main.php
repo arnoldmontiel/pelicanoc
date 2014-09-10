@@ -486,7 +486,9 @@ window.addEventListener('load', function() {
 	<div id="myModalElegirPlayer" class="modal fade in"	style="display: hidden;" aria-hidden="false">
 		<!-- /.modal-dialog -->
 	</div>
-	
+	<div id="myModalParentConfirmation" class="modal fade in"	style="display: hidden;" aria-hidden="false">
+		<!-- /.modal-dialog -->
+	</div>
 	
 	<div id="myModalAlerta" class="modal fade in"  aria-hidden="false"><div class="modal-dialog">
 			<div class="modal-content">

@@ -1573,6 +1573,27 @@ class SiteController extends Controller
 		$this->renderPartial('_playerStatus');
 		
 	}
+	
+	public function actionAjaxShowParentConfirmation()
+	{
+	
+		$this->renderPartial('_parentConfirmation');
+	
+	}
+	
+	public function actionAjaxCheckParentConfirmation()
+	{
+		$pwd = $_POST['pwd'];
+		$value = 0;
+		
+		$currentUser = User::getCurrentUser();
+		if(isset($currentUser))
+			if($currentUser->password == $pwd)
+				$value = 1;
+		
+		echo $value;
+	}
+	
 	public function actionAjaxPlayNzbByPlayer()
 	{
 		$idNzb=$_POST['idNzb'];
