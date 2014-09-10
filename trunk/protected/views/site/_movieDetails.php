@@ -358,7 +358,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 	$("#myModalElegirPlayer").on('hidden.bs.modal',
 			function(e)
 			{
-				$("#btn-play").removeAttr("disabled");
+				$("#btn-play").removeAttr("disabled");				
+				$("#btn-play").html('<i class="fa fa-play-circle"></i> Ver Pel&iacute;cula');
 				$("#myModal").modal('show');
 				$("#myModalElegirPlayer").html('');
 			}
