@@ -227,10 +227,10 @@
     		</ul>
   		</div> -->
   		
-  		 <div class="btn-group">
-  		 <a href="<?php echo SiteController::createUrl('site/marketplaceCategory');?>" class="btn btn-primary navbar-btn"><i class="fa fa-star"></i> <span class="hidden-sm hidden-nexus hidden-xs">Destacadas</span></a>
-  		 <a href="<?php echo SiteController::createUrl('site/marketplace');?>" class="btn btn-primary navbar-btn active"><i class="fa fa-th"></i> <span class="hidden-sm hidden-nexus hidden-xs">Todas</span></a>
-</div>
+  		 <div class="btn-group market">
+  			 <a href="<?php echo SiteController::createUrl('site/marketplaceCategory');?>" class="btn btn-primary navbar-btn"><i class="fa fa-star"></i> <span class="hidden-sm hidden-nexus hidden-xs">Destacadas</span></a>
+  		 	<a href="<?php echo SiteController::createUrl('site/marketplace');?>" class="btn btn-primary navbar-btn active"><i class="fa fa-th"></i> <span class="hidden-sm hidden-nexus hidden-xs">Todas</span></a>
+		</div>
 	</div>
 	
 	
@@ -249,8 +249,8 @@
     		</ul>
   		</div>-->
   		
-  <div class="btn-group">
-  <a href="<?php echo SiteController::createUrl('site/marketplaceCategory');?>" class="btn btn-primary navbar-btn active"><i class="fa fa-star"></i> <span class="hidden-sm hidden-nexus hidden-xs"> Destacadas</span></a>
+  <div class="btn-group market">
+  <a href="<?php echo SiteController::createUrl('site/marketplaceCategory');?>" class="btn btn-primary navbar-btn active"><i class="fa fa-star"></i> <span class="hidden-sm hidden-nexus hidden-xs">Destacadas</span></a>
   <a href="<?php echo SiteController::createUrl('site/marketplace');?>" class="btn btn-primary navbar-btn"><i class="fa fa-th"></i> <span class="hidden-sm hidden-nexus hidden-xs">Todas</span></a>
 </div>
 	</div>
