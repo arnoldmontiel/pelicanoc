@@ -363,7 +363,7 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 				$("#myModal").modal('show');
 				$("#myModalElegirPlayer").html('');
 			}
-		);						
+		);										
 	$("#myModalAlerta").on('hidden.bs.modal',
 			function(e)
 			{
@@ -535,59 +535,82 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
 					});			
 		return false;
 	});
+	
 	$('#btn-play').click(function(){
 		$('#btn-play').attr("disabled", "disabled");
-		$("#btn-play").html('<i class="fa fa-spinner fa-spin"></i> Ver Pel&iacute;cula');									
-		<?php
-		if(count($players)==1)
-		{
-		?>
+		$("#btn-play").html('<i class="fa fa-spinner fa-spin"></i> Ver Pel&iacute;cula');		
 
-		$.post("<?php echo SiteController::createUrl('AjaxCanStart'); ?>",
-				{
-					idResource:'<?php echo $idResource; ?>',
-				    sourceType:'<?php echo $sourceType; ?>'
-				}
-				).success(
-					function(data){
-						if(data == "1")
-						{
-							var params = {
-							    	id:'<?php echo $model->Id; ?>',
-							    	idPlayer:<?php echo $setting->players[0]->Id?>,
-							    	sourceType:'<?php echo $sourceType; ?>',
-							    	idResource:'<?php echo $idResource; ?>'
-								};
-								window.location = "<?php echo SiteController::createUrl('site/startByPlayer'); ?>&"+$.param( params );
-						}
-						else
-						{
-							$("#myModal").modal("hide");
-							$("#myModalAlerta").modal("show");
-							$("#btn-play").html("disabled");	
-							$("#btn-play").html('<i class="fa fa-play-circle"></i> Ver Pel&iacute;cula');
-						}
-					
-				});
-		<?php 
-		}else{
-		?>   
-		
-		$.post("<?php echo SiteController::createUrl('AjaxShowPalyerSelector'); ?>",
-				{
-					id:'<?php echo $model->Id; ?>',
-					idResource:'<?php echo $idResource; ?>',
-					sourceType:'<?php echo $sourceType; ?>'
-					}
-				).success(
-					function(data){
-						$("#myModalElegirPlayer").html( data);						
-						$("#myModal").modal('hide');
-						$("#myModalElegirPlayer").modal('show');						
-					});
+		<?php
+				if($model->certification == 'R')
+				{			
+				?>
+					$.post("<?php echo SiteController::createUrl('AjaxShowParentConfirmation'); ?>"
+						).success(
+							function(data){
+								$("#myModalParentConfirmation").html( data);						
+								$("#myModal").modal('hide');
+								$("#myModalParentConfirmation").modal('show');						
+							});
+				
+				return false;
 		<?php }?>
+		doPlay();									
+		
 		return false;
 	});
+
+	function doPlay()
+	{
+		$("#myModalParentConfirmation").modal('hide');
+		<?php
+				if(count($players)==1)
+				{
+				?>
+
+				$.post("<?php echo SiteController::createUrl('AjaxCanStart'); ?>",
+						{
+							idResource:'<?php echo $idResource; ?>',
+						    sourceType:'<?php echo $sourceType; ?>'
+						}
+						).success(
+							function(data){
+								if(data == "1")
+								{
+									var params = {
+									    	id:'<?php echo $model->Id; ?>',
+									    	idPlayer:<?php echo $setting->players[0]->Id?>,
+									    	sourceType:'<?php echo $sourceType; ?>',
+									    	idResource:'<?php echo $idResource; ?>'
+										};
+										window.location = "<?php echo SiteController::createUrl('site/startByPlayer'); ?>&"+$.param( params );
+								}
+								else
+								{
+									$("#myModal").modal("hide");
+									$("#myModalAlerta").modal("show");
+									$("#btn-play").html("disabled");	
+									$("#btn-play").html('<i class="fa fa-play-circle"></i> Ver Pel&iacute;cula');
+								}
+							
+						});
+				<?php 
+				}else{
+				?>   
+				
+				$.post("<?php echo SiteController::createUrl('AjaxShowPalyerSelector'); ?>",
+						{
+							id:'<?php echo $model->Id; ?>',
+							idResource:'<?php echo $idResource; ?>',
+							sourceType:'<?php echo $sourceType; ?>'
+							}
+						).success(
+							function(data){
+								$("#myModalElegirPlayer").html( data);						
+								$("#myModal").modal('hide');
+								$("#myModalElegirPlayer").modal('show');						
+							});
+				<?php }?>
+	}
 	
 	$('#btn-erasera').click(function(){
 		return false;		
