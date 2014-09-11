@@ -437,6 +437,8 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
   {
 	  $('#btn-eraser-popover').popover('hide');
   }
+  $("#btn-eraser-popover").click(function(){return false;});
+  
   $(function () {
 	  var elem ='¿Seguro desea eliminar esta pelicula?<div class="popoverButtons"><button id="btn-remove-ok" class="btn btn-default" type="button" onclick="borrar()">Si</button>'+
 	  '<button id="btn-remove-cancel" class="btn btn-primary noMargin" type="button" onclick="cancelar()">No</button></div>';
