@@ -299,20 +299,22 @@ echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star">
     
     </div><!--/.modal-body -->
     <div class="modal-footer">
-    <?php if(isset($modelNzb)):?>    
-    	<?php if(!$modelNzb->ready_to_play&&($modelNzb->downloaded||$modelNzb->downloading)):?>
-    	<div class="labelDescargando pull-left"><i class="fa fa-spinner fa-spin"></i> Descargando...</div>
-    	<?php else:?>
-		    <div id="verifying-player" class="labelDescargando pull-left" style="display: none">
+    <?php if(!isset($fromControl)):?>    
+	    <?php if(isset($modelNzb)):?>    
+	    	<?php if(!$modelNzb->ready_to_play&&($modelNzb->downloaded||$modelNzb->downloading)):?>
+	    	<div class="labelDescargando pull-left"><i class="fa fa-spinner fa-spin"></i> Descargando...</div>
+	    	<?php else:?>
+			    <div id="verifying-player" class="labelDescargando pull-left" style="display: none">
+			    	<i class="fa fa-spinner fa-spin"></i> Verificando player...
+			    </div>    	
+	    	<?php endif?>
+	    <?php else:?>
+		    <div id="verifying-player" class="labelDescargando pull-left"  style="display: none">
 		    	<i class="fa fa-spinner fa-spin"></i> Verificando player...
 		    </div>    	
-    	<?php endif?>
-    <?php else:?>
-	    <div id="verifying-player" class="labelDescargando pull-left"  style="display: none">
-	    	<i class="fa fa-spinner fa-spin"></i> Verificando player...
-	    </div>    	
-    <?php endif?>
-    
+	    <?php endif?>
+	<?php endif?>
+	    
   <!-- Single button -->
     <button type="button" data-dismiss="modal" class="btn btn-default btn-lg">Cerrar</button>
     <?php if(!isset($fromControl)):?>
