@@ -1293,7 +1293,7 @@ CREATE TABLE `parental_control` (
 
 LOCK TABLES `parental_control` WRITE;
 /*!40000 ALTER TABLE `parental_control` DISABLE KEYS */;
-INSERT INTO `parental_control` VALUES (1,0,'Unrated','mpaa_logo.gif',1000),(2,1,'G','g-rating.gif',1000),(3,2,'G','g-rating.gif',1000),(4,3,'PG','pg-rating.gif',1000),(5,4,'PG-13','pg13-rating.gif',13),(6,5,'PG-13','pg13-rating.gif',13),(7,6,'R','r-rating.gif',18),(8,7,'NC-17','nc17-rating.gif',18),(9,8,'XXX','xxx-rating.gif',18);
+INSERT INTO `parental_control` VALUES (1,0,'Unrated','mpaa_logo.gif',1000),(2,1,'G','g-rating.gif',1000),(4,3,'PG','pg-rating.gif',1000),(5,4,'PG-13','pg13-rating.gif',13),(7,6,'R','r-rating.gif',18),(8,7,'NC-17','nc17-rating.gif',18),(9,8,'XXX','xxx-rating.gif',18);
 /*!40000 ALTER TABLE `parental_control` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1918,6 +1918,6 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-UPDATE `pelicanoc`.`setting` set version="2.47" where Id=1;
+UPDATE `pelicanoc`.`setting` set version="2.48" where Id=1;
 
 -- Dump completed on 2014-01-23 11:16:11
