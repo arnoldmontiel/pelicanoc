@@ -22,7 +22,7 @@ class RipperHelper
 			try {
 				exec(dirname(__FILE__).'/../commands/shell/tunnelKiller.sh '.$item->external_port.' >/dev/null');
 				if($item->open)
-					exec(dirname(__FILE__).'/../commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' gruposmartliving.com pelicano >/dev/null');
+					exec(dirname(__FILE__).'/../commands/shell/tunnelCreator.sh '.$item->external_port.' '.$item->internal_port.' domasolutions.com pelicano >/dev/null');
 				$result[]=$item;
 			} catch (Exception $e) {
 			}

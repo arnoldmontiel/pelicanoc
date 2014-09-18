@@ -9,5 +9,5 @@ PORT_TO=$2
 SERVER=$3
 USER=$4
 echo "openning port: "$PORT_FROM" TO: "$PORT_TO;
-ssh -fN -R $SERVER:$PORT_FROM:127.0.0.1:$PORT_TO $USER@$SERVER
+ssh -oStrictHostKeyChecking=no -fN -R $SERVER:$PORT_FROM:127.0.0.1:$PORT_TO $USER@$SERVER
 exit 0;
