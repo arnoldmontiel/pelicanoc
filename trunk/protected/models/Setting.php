@@ -52,7 +52,7 @@ class Setting extends CActiveRecord
 	public function beforeSave()
 	{
 		//Solo por ahora!!!
-		$this->host_name = 'http://gruposmartliving.com';
+		$this->host_name = 'http://domasolutions.com';
 		return parent::beforeSave();
 	}
 	

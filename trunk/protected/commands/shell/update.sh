@@ -4,7 +4,7 @@ echo " Verificnado Version    "
 echo " ---------------------- "
 MYSQLPASS=`cat /var/www/pelicano/protected/config/pwd`
 SAFE_PETTERN=$(printf '%s\n' "${MYSQLPASS}" | sed 's/[[\.*^$(){}?+|/&!]/\\&/g')
-ONLINE_VERSION=`curl -s gruposmartliving.com/downloads/version`
+ONLINE_VERSION=`curl -s domasolutions.com/downloads/version`
 
 CURRENT_VERSION=`mysql -upelicano -p${MYSQLPASS} --skip-column-names -e "select version from pelicanoc.setting"`
 
@@ -17,7 +17,7 @@ if [ "$var" -eq 1 ]
 then
         echo "Actualizando"
         rm pelicano-${ONLINE_VERSION}beta.tar.gz
-        wget gruposmartliving.com/downloads/pelicano-${ONLINE_VERSION}beta.tar.gz
+        wget domasolutions.com/downloads/pelicano-${ONLINE_VERSION}beta.tar.gz
         tar xvfz pelicano-${ONLINE_VERSION}beta.tar.gz -C /opt/.
         cp /opt/*.* /var/www/.
         mysql   --force -upelicano -p${MYSQLPASS}  < /var/www/pelicano/protected/data/update-${ONLINE_VERSION}.sql         

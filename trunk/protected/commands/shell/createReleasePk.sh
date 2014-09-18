@@ -17,8 +17,8 @@ then
   rm pelicano-${1}/pelicano/protected/data/PelicanoC*
   cd pelicano-${1}
   tar cvfz pelicano-${1}.tar.gz * 
-  ssh ${2}@gruposmartliving.com "rm pelicano-${1}.tar.gz"
-  scp pelicano-${1}.tar.gz ${2}@gruposmartliving.com:
+  ssh ${2}@domasolutions.com "rm pelicano-${1}.tar.gz"
+  scp pelicano-${1}.tar.gz ${2}@domasolutions.com:
 
 else
   echo "error descargando version ${1}"

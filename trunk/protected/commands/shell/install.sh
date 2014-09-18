@@ -12,8 +12,8 @@ if [ $# -ne 1 ]
 fi
 
 ID=$1
-PASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/installpass&Id=${ID}"`
-#MYSQLPASS=`curl -s "gruposmartliving.com/pelicanos/index.php?r=site/mysqlpass&Id=${ID}"`
+PASS=`curl -s "domasolutions.com/pelicanos/index.php?r=site/installpass&Id=${ID}"`
+#MYSQLPASS=`curl -s "domasolutions.com/pelicanos/index.php?r=site/mysqlpass&Id=${ID}"`
 if [ -n "$PASS" ];
 then
     echo "ID correcto"
@@ -47,7 +47,7 @@ cd /opt/
 echo " ---------------------- "
 echo " Descargando Pelicano   "
 echo " ---------------------- "
-wget gruposmartliving.com/downloads/pelicano-beta.tar.gz
+wget domasolutions.com/downloads/pelicano-beta.tar.gz
 tar xvfz pelicano-beta.tar.gz
 chown -R www-data.www-data *
 rm pelicano-beta.tar.gz
@@ -107,7 +107,7 @@ cp protected/config/default /etc/apache2/sites-available/.
 
 #startup section
 mkdir /etc/startDecrypt
-echo "url=gruposmartliving.com">/etc/startDecrypt/startDecrypt.conf
+echo "url=domasolutions.com">/etc/startDecrypt/startDecrypt.conf
 echo "id=${ID}">>/etc/startDecrypt/startDecrypt.conf
 cp protected/commands/shell/startDecrypt /etc/init.d/
 update-rc.d startDecrypt defaults 99 20
